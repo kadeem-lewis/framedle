@@ -1,0 +1,5 @@
+- fuze.js for fuzzy search
+- tailwindcss for styling
+- react-aria for combobox?
+- drizzle for db??
+- warframe has an api with a lot of data about the frames but it is missing a few details I might find interesting such as progenitor element, since

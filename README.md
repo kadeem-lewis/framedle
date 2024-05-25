@@ -1,5 +1,7 @@
 - fuze.js for fuzzy search
 - tailwindcss for styling
 - react-aria for combobox?
-- drizzle for db??
+- drizzle for db. Expo now supports drizzle so if I do have need for a db this will be my choice
 - warframe has an api with a lot of data about the frames but it is missing a few details I might find interesting such as progenitor element, since
+- expo.dev seems cool but using it means that I can't reuse a lot of the code that I did for pokedexle. it also means a lot of my favorite libraries won't work
+- using expo does give me the chance to challenge myself, as well as learn react native

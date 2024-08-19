@@ -22,4 +22,5 @@
       <NuxtPage />
     </main>
   </UContainer>
+  <UNotifications />
 </template>

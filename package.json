@@ -19,6 +19,7 @@
     "@nuxt/fonts": "^0.7.2",
     "@nuxt/image": "^1.7.0",
     "@nuxt/ui": "^2.17.0",
+    "@pinia-plugin-persistedstate/nuxt": "^1.2.1",
     "better-sqlite3": "^11.1.2",
     "drizzle-kit": "^0.24.0",
     "eslint": "^9.9.0",
@@ -30,11 +31,11 @@
   "dependencies": {
     "@pinia/nuxt": "^0.5.3",
     "@vueuse/core": "^11.0.0",
-    "@vueuse/integrations": "^11.0.0",
     "@vueuse/nuxt": "^11.0.0",
     "drizzle-orm": "^0.33.0",
     "fuse.js": "^7.0.0",
     "pinia": "^2.2.2",
-    "warframe-items": "^1.1262.109"
+    "warframe-items": "^1.1262.109",
+    "zod": "^3.23.8"
   }
 }

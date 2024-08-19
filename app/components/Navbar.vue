@@ -1,7 +1,9 @@
 <template>
   <header class="flex w-full items-center justify-between">
     <div>
-      <h1 class="text-2xl font-semibold">Framedle</h1>
+      <h1 class="text-2xl font-semibold">
+        <NuxtLink to="/">Framedle</NuxtLink>
+      </h1>
     </div>
     <div class="flex gap-1">
       <UButton

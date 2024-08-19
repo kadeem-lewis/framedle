@@ -1,5 +1,6 @@
 <template>
   <div>
+    <UTabs v-model="selectedTab" :items="tabs"></UTabs>
     <p>You have {{ guesses }} revives left.</p>
     <div>
       <div class="grid grid-cols-5 capitalize">
@@ -15,31 +16,24 @@
         :key="warframe.name"
         class="grid grid-cols-5"
       >
+        <!-- Feels like the functionality is too closely tied to styling here. Just do I just put an item in a Tile -->
         <p>{{ warframe.name }}</p>
-        <p>
-          {{ warframe.sex
-          }}{{ warframe.sex === warframeToGuess.sex ? "Correct" : "Incorrect" }}
-        </p>
-        <p>
-          {{ warframe.health
-          }}{{
-            warframe.health === warframeToGuess.health
-              ? "Correct"
-              : warframe.health > warframeToGuess.health
-                ? "Lower"
-                : "Higher"
-          }}
-        </p>
-        <p>
-          {{ warframe.shield
-          }}{{
-            warframe.shield === warframeToGuess.shield
-              ? "Correct"
-              : warframe.shield > warframeToGuess.shield
-                ? "Lower"
-                : "Higher"
-          }}
-        </p>
+        <Tile
+          :guessed-value="warframe.sex"
+          :correct-value="warframeToGuess.sex"
+        />
+
+        <Tile
+          :guessed-value="warframe.health"
+          :correct-value="warframeToGuess.health"
+          numeric
+        />
+        <Tile
+          :guessed-value="warframe.shield"
+          :correct-value="warframeToGuess!.shield"
+          numeric
+        />
+
         <p>
           {{ warframe.releaseDate.split("-")[0]
           }}{{
@@ -111,7 +105,7 @@ watch(guesses, (value) => {
   }
 });
 
-const guessedWarframes = ref([]);
+const guessedWarframes = ref<Warframe[]>([]);
 
 const warframeToGuess = ref(
   warframes.value[Math.floor(Math.random() * warframes.value.length)],
@@ -145,4 +139,25 @@ function createNewGame() {
   warframeToGuess.value =
     warframes.value[Math.floor(Math.random() * warframes.value.length)];
 }
+
+const router = useRouter();
+const route = useRoute();
+
+const tabs = [{ label: "Daily" }, { label: "Unlimited" }];
+
+const selectedTab = ref(route.query.mode ? 1 : 0);
+
+watch(
+  selectedTab,
+  (value) => {
+    if (tabs[value]?.label === "Unlimited") {
+      router.replace({ query: { mode: "unlimited" } });
+    } else if (tabs[value]?.label === "Daily") {
+      router.replace(route.path);
+    }
+  },
+  {
+    immediate: true,
+  },
+);
 </script>

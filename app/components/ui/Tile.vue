@@ -1,15 +1,17 @@
 <template>
   <div
     :class="[
-      'rounded-md border-2 shadow-inner',
+      'min-h-12 rounded-md border-2 shadow-inner',
       {
-        'bg-green-500': feedback.isCorrect && !props.numeric,
-        'bg-red-500': !feedback.isCorrect && !props.numeric,
+        'border-green-500': isCorrect,
+        'border-red-500': !isCorrect,
+        'arrow-up': difference && difference > 0,
+        'arrow-down': difference && difference < 0,
       },
     ]"
   >
-    <div class="grid grid-cols-5 capitalize">
-      {{ props.guessedValue }} {{ feedback.direction }}
+    <div class="flex items-center justify-center text-center">
+      <slot />
     </div>
   </div>
 </template>
@@ -19,36 +21,76 @@
 
 //TODO: The only approach of just passing in the status is probably better than calculating it within the component
 
-const props = defineProps<{
-  numeric?: boolean;
-  guessedValue: string | number;
-  correctValue: string | number;
+defineProps<{
+  isCorrect?: boolean;
+  difference?: number;
 }>();
-
-const feedback = computed(() => {
-  if (props.numeric) {
-    const guessed = Number(props.guessedValue);
-    const correct = Number(props.correctValue);
-    if (guessed === correct)
-      return {
-        isCorrect: true,
-      };
-    if (guessed > correct)
-      return {
-        isCorrect: false,
-        direction: "lower",
-      };
-    return {
-      isCorrect: false,
-      direction: "higher",
-    };
-  }
-  return {
-    isCorrect: props.guessedValue === props.correctValue,
-  };
-});
 
 // if its numeric then I will have an arrow as the background or use a clip path to make an arrow in the background
 </script>
 
-<style scoped></style>
+<style scoped>
+.arrow-down {
+  position: relative;
+  &::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: -10;
+    height: 100%;
+    background: red;
+    clip-path: polygon(
+      0 50%,
+      20% 50%,
+      20% 0,
+      80% 0,
+      80% 50%,
+      100% 50%,
+      50% 100%
+    );
+  }
+
+  &::after:hover {
+    background: purple;
+  }
+
+  &::before {
+    content: "";
+    display: block;
+  }
+}
+
+.arrow-up {
+  position: relative;
+  &::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: red;
+    z-index: -10;
+    clip-path: polygon(
+      50% 0,
+      100% 50%,
+      80% 50%,
+      80% 100%,
+      20% 100%,
+      20% 50%,
+      0 50%
+    );
+  }
+
+  &::after:hover {
+    background: purple;
+  }
+
+  &::before {
+    content: "";
+    display: block;
+  }
+}
+</style>

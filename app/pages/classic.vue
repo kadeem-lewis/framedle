@@ -1,56 +1,41 @@
 <template>
-  <div>
-    <UTabs v-model="selectedTab" :items="tabs"></UTabs>
-    <p>You have {{ guesses }} revives left.</p>
-    <div>
-      <div class="grid grid-cols-5 capitalize">
-        <p
-          v-for="label of ['name', 'sex', 'health', 'shield', 'release year']"
-          :key="label"
-        >
-          {{ label }}
-        </p>
-      </div>
-      <div
-        v-for="warframe of guessedWarframes"
-        :key="warframe.name"
-        class="grid grid-cols-5"
-      >
-        <!-- Feels like the functionality is too closely tied to styling here. Just do I just put an item in a Tile -->
-        <p>{{ warframe.name }}</p>
-        <Tile
-          :guessed-value="warframe.sex"
-          :correct-value="warframeToGuess.sex"
-        />
+  <div class="flex flex-col gap-4">
+    <UTabs v-model="selectedTab" :items="tabs">
+      <template #item="{ item }">
+        <div v-if="item.label === 'Unlimited'">
+          <p>You have {{ guesses }} revives left.</p>
+          <div class="grid grid-cols-6 capitalize md:-ml-[15%] md:w-[130%]">
+            <p
+              v-for="label of [
+                'name',
+                'sex',
+                'health',
+                'shield',
+                'progenitor',
+                'release year',
+              ]"
+              :key="label"
+              class="justify-self-center"
+            >
+              {{ label }}
+            </p>
+          </div>
+          <div class="space-y-2">
+            <ClassicFeedbackRow
+              v-for="warframe of guessedWarframes"
+              :key="warframe.name"
+              :guessed-warframe="warframe"
+              :correct-warframe="warframeToGuess"
+            />
+          </div>
+        </div>
+        <div v-if="item.label === 'Daily'">Coming Soon</div>
+      </template>
+    </UTabs>
 
-        <Tile
-          :guessed-value="warframe.health"
-          :correct-value="warframeToGuess.health"
-          numeric
-        />
-        <Tile
-          :guessed-value="warframe.shield"
-          :correct-value="warframeToGuess!.shield"
-          numeric
-        />
-
-        <p>
-          {{ warframe.releaseDate.split("-")[0]
-          }}{{
-            warframe.releaseDate.split("-")[0] ===
-            warframeToGuess?.releaseDate.split("-")[0]
-              ? "Correct"
-              : warframe.releaseDate.split("-")[0] >
-                  warframeToGuess.releaseDate.split("-")[0]
-                ? "Older"
-                : "Newer"
-          }}
-        </p>
-      </div>
-    </div>
     <div v-if="!isGameOver" class="flex gap-4">
       <UInputMenu
-        v-model="selectedWarframe"
+        v-model="selectedWarframe!"
         :search="search"
         :options="warframes"
         :loading="String(status) === 'loading'"
@@ -74,12 +59,24 @@
 <script setup lang="ts">
 import type { Warframe } from "warframe-items";
 import Fuse from "fuse.js";
+import { progenitors } from "~/constants/progenitors";
 const { data, status } = await useFetch(
   "https://api.warframestat.us/warframes",
 );
 
+type WarframeWithProgenitor = Warframe & {
+  progenitor: string;
+};
+
+// probably use zod to make sure that the data and all available
+
 const warframes = ref<Warframe[]>(
-  data.value.filter((item) => item.category === "Warframes"),
+  data.value
+    .map((item: Warframe) => ({
+      ...item,
+      progenitor: progenitors[item.name],
+    }))
+    .filter((item: WarframeWithProgenitor) => item.category === "Warframes"),
 );
 
 const toast = useToast();
@@ -105,31 +102,27 @@ watch(guesses, (value) => {
   }
 });
 
-const guessedWarframes = ref<Warframe[]>([]);
+const guessedWarframes = ref<WarframeWithProgenitor[]>([]);
+// If I get the correct guess it should still be added to guessed items but then I need to update the game over condition
 
 const warframeToGuess = ref(
   warframes.value[Math.floor(Math.random() * warframes.value.length)],
 );
 
-const selectedWarframe = ref<Warframe>(warframes.value[0]);
+const selectedWarframe = ref<WarframeWithProgenitor | null>(null);
 
 const checkGuess = () => {
+  if (!selectedWarframe.value) return;
+
   if (selectedWarframe.value.name === warframeToGuess.value.name) {
-    toast.add({
-      title: "Correct!",
-      description: "You guessed the correct Warframe!",
-    });
     isGameOver.value = true;
     warframeToGuess.value =
       warframes.value[Math.floor(Math.random() * warframes.value.length)];
   } else {
-    toast.add({
-      title: "Incorrect!",
-      description: "You guessed the wrong Warframe!",
-    });
     guesses.value -= 1;
     guessedWarframes.value.push(selectedWarframe.value);
   }
+  selectedWarframe.value = null;
 };
 
 function createNewGame() {

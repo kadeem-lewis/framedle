@@ -4,7 +4,13 @@ export default defineNuxtConfig({
     compatibilityVersion: 4,
   },
   devtools: { enabled: true },
-  modules: ["@nuxt/ui", "@nuxt/image", "@nuxt/eslint", "@vueuse/nuxt"],
+  modules: [
+    "@nuxt/ui",
+    "@nuxt/image",
+    "@nuxt/eslint",
+    "@vueuse/nuxt",
+    "@pinia/nuxt",
+  ],
   postcss: {
     plugins: {
       tailwindcss: {},

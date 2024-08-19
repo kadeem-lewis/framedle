@@ -1,7 +1,7 @@
 <template>
   <div>
-    <UButton to="/classic">Classic</UButton>
-    <UButton to="/ability">Ability</UButton>
+    <UButton to="/classic" block square>Classic</UButton>
+    <UButton to="/ability" block square>Ability</UButton>
   </div>
 </template>
 

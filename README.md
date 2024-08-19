@@ -5,3 +5,7 @@
 - warframe has an api with a lot of data about the frames but it is missing a few details I might find interesting such as progenitor element, since
 - expo.dev seems cool but using it means that I can't reuse a lot of the code that I did for pokedexle. it also means a lot of my favorite libraries won't work
 - using expo does give me the chance to challenge myself, as well as learn react native
+
+- Maybe a game mode where I show a mod card and then slowly fill it in every guess. Like at first it's just the mod color and polarity or size and then I slowly fill in type, description, image etc
+- excal head could make a good revive icon
+- the warframe items api, nor github nor node package contains progenitor

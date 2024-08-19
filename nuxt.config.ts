@@ -10,7 +10,14 @@ export default defineNuxtConfig({
     "@nuxt/eslint",
     "@vueuse/nuxt",
     "@pinia/nuxt",
+    "@pinia-plugin-persistedstate/nuxt",
   ],
+  runtimeConfig: {
+    public: {
+      posthogPublicKey: "phc_6yOpFUMQqw2woP2QvGscMvAyyADVP0rHSLYvCFc32TW",
+      posthogHost: "https://us.i.posthog.com",
+    },
+  },
   postcss: {
     plugins: {
       tailwindcss: {},

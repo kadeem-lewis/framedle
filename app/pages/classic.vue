@@ -32,21 +32,7 @@
         <div v-if="item.label === 'Daily'">Coming Soon</div>
       </template>
     </UTabs>
-
-    <div v-if="!isGameOver" class="flex gap-4">
-      <UInputMenu
-        v-model="selectedWarframe!"
-        :search="search"
-        :options="warframes"
-        :loading="String(status) === 'loading'"
-        placeholder="Select a Warframe"
-        by="name"
-        option-attribute="name"
-        :search-attributes="['name']"
-        class="grow"
-      />
-      <UButton @click="checkGuess">Submit</UButton>
-    </div>
+    <ClassicCombobox v-if="!isGameOver" />
     <div v-else>
       <p>Game Over!</p>
       <p>The answer was {{ warframeToGuess?.name }}</p>
@@ -58,40 +44,16 @@
 
 <script setup lang="ts">
 import type { Warframe } from "warframe-items";
-import Fuse from "fuse.js";
-import { progenitors } from "~/constants/progenitors";
-const { data, status } = await useFetch(
-  "https://api.warframestat.us/warframes",
-);
+
+const { warframes, abilities } = storeToRefs(useGameStore());
+
+console.log(abilities.value);
 
 type WarframeWithProgenitor = Warframe & {
   progenitor: string;
 };
 
 // probably use zod to make sure that the data and all available
-
-const warframes = ref<Warframe[]>(
-  data.value
-    .map((item: Warframe) => ({
-      ...item,
-      progenitor: progenitors[item.name],
-    }))
-    .filter((item: WarframeWithProgenitor) => item.category === "Warframes"),
-);
-
-const toast = useToast();
-const fuse = new Fuse(warframes.value, {
-  keys: ["name"],
-  threshold: 0.4,
-});
-
-const search = (query: string) => {
-  if (query === "") {
-    return warframes.value;
-  } else {
-    return fuse.search(query).map((result) => ({ ...result.item }));
-  }
-};
 
 const guesses = ref(6);
 const isGameOver = ref(false);

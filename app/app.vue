@@ -1,4 +1,8 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+const { fetchWarframes } = useGameStore();
+
+const { error } = await useAsyncData("warframes", () => fetchWarframes());
+</script>
 
 <template>
   <UContainer

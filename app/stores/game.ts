@@ -104,6 +104,10 @@ export const useGameStore = defineStore(
         .flat(),
     );
 
+    const vanillaWarframes = computed(() =>
+      warframes.value.filter((warframe) => !warframe.isPrime),
+    );
+
     return {
       mode,
       warframes,
@@ -112,6 +116,7 @@ export const useGameStore = defineStore(
       guessedItems,
       stats,
       abilities,
+      vanillaWarframes,
       isGameOver,
       fetchWarframes,
       classicInit,

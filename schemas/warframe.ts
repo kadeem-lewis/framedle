@@ -31,6 +31,7 @@ export const warframeSchema = z.object({
   abilities: z.array(abilitySchema),
   sex: z.enum(["Male", "Female", "Non-binary (Pluriform)"]),
   progenitor: z.enum(progenitorElements),
+  isPrime: z.boolean(),
 });
 
 export type Warframe = z.infer<typeof warframeSchema>;

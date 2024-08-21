@@ -3,14 +3,16 @@ export default defineNuxtConfig({
   future: {
     compatibilityVersion: 4,
   },
+  compatibilityDate: "2024-08-20",
   devtools: { enabled: true },
   modules: [
-    "@nuxt/ui",
-    "@nuxt/image",
     "@nuxt/eslint",
-    "@vueuse/nuxt",
+    "@nuxt/fonts",
+    "@nuxt/image",
+    "@nuxt/ui",
     "@pinia/nuxt",
     "@pinia-plugin-persistedstate/nuxt",
+    "@vueuse/nuxt",
   ],
   runtimeConfig: {
     public: {

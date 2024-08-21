@@ -16,7 +16,6 @@ export default defineEventHandler(() => {
     }
   });
   const filteredWarframes = warframes.filter((warframe) => warframe !== null);
-  console.log(filteredWarframes);
 
   return {
     warframes: filteredWarframes,

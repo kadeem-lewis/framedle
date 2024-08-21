@@ -1,5 +1,5 @@
 <template>
-  <form class="flex gap-4" @submit="checkGuess">
+  <form class="flex gap-4" @submit.prevent="checkGuess">
     <UInputMenu
       v-model="selectedWarframe!"
       :search="search"
@@ -9,14 +9,25 @@
       option-attribute="name"
       :search-attributes="['name']"
       class="grow"
-    />
-    <UButton>Submit</UButton>
+    >
+      <template #option="{ option }">
+        <div class="flex w-full items-center justify-between gap-2">
+          <p class="font-semibold uppercase">{{ option.name }}</p>
+          <NuxtImg
+            :src="`https://cdn.warframestat.us/img/${option.imageName}`"
+            :alt="option.name"
+            class="h-16"
+          />
+        </div>
+      </template>
+    </UInputMenu>
+    <UButton type="type">Submit</UButton>
   </form>
 </template>
 
 <script setup lang="ts">
 import Fuse from "fuse.js";
-import type { Warframe } from "~~/types/warframe";
+import type { Warframe } from "~~/schemas/warframe";
 const { warframes, warframeToGuess, mode, isGameOver, guesses, guessedItems } =
   storeToRefs(useGameStore());
 
@@ -39,13 +50,13 @@ const checkGuess = () => {
   if (!selectedWarframe.value) return;
   if (!mode.value) return;
 
-  if (selectedWarframe.value.name === warframeToGuess.value[mode.value]) {
+  if (selectedWarframe.value.name === warframeToGuess.value[mode.value].name) {
+    guessedItems.value[mode.value].push(selectedWarframe.value);
     isGameOver.value[mode.value] = true;
-    warframeToGuess.value =
-      warframes.value[Math.floor(Math.random() * warframes.value.length)];
   } else {
     guesses.value[mode.value] -= 1;
-    guessedItems.value[mode.value].push(selectedWarframe.value);
+    if (!guessedItems.value[mode.value].includes(selectedWarframe.value))
+      guessedItems.value[mode.value].push(selectedWarframe.value);
   }
   selectedWarframe.value = null;
 };

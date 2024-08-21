@@ -1,18 +1,18 @@
-import type { Warframe } from "~~/types/warframe";
+import type { Ability, Warframe } from "~~/schemas/warframe";
 
 type gameMode = "classic" | "classicUnlimited" | "ability" | "abilityUnlimited";
 
 type WarframeToGuess = {
   classic: Warframe | null;
   classicUnlimited: Warframe | null;
-  ability: null;
-  abilityUnlimited: null;
+  ability: Ability | null;
+  abilityUnlimited: Ability | null;
 };
 
 export const useGameStore = defineStore(
   "game",
   () => {
-    const mode = ref<gameMode | null>("classicUnlimited");
+    const mode = ref<gameMode | null>(null);
     const warframes = ref<Warframe[]>([]);
     const warframeToGuess = ref<WarframeToGuess>({
       classic: null,
@@ -44,13 +44,26 @@ export const useGameStore = defineStore(
     const guessedItems = ref({
       classic: [] as Warframe[],
       classicUnlimited: [] as Warframe[],
-      ability: [],
-      abilityUnlimited: [],
+      ability: [] as Warframe[],
+      abilityUnlimited: [] as Warframe[],
     });
 
     function classicInit() {
-      warframeToGuess.value.classic =
-        warframes.value[Math.floor(Math.random() * warframes.value.length)];
+      if (warframes.value.length === 0) return;
+      if (!warframeToGuess.value.classicUnlimited) {
+        warframeToGuess.value.classicUnlimited = warframes.value[
+          Math.floor(Math.random() * warframes.value.length)
+        ] as Warframe;
+      }
+    }
+
+    function abilityInit() {
+      if (abilities.value.length === 0) return;
+      if (!warframeToGuess.value.abilityUnlimited) {
+        warframeToGuess.value.abilityUnlimited = abilities.value[
+          Math.floor(Math.random() * abilities.value.length)
+        ] as Ability;
+      }
     }
 
     async function fetchWarframes() {
@@ -66,15 +79,29 @@ export const useGameStore = defineStore(
       if (!mode.value) return;
       guesses.value[mode.value] = 6;
       guessedItems.value[mode.value] = [];
+      isGameOver.value[mode.value] = false;
 
       if (mode.value === "classicUnlimited") {
-        warframeToGuess.value.classicUnlimited =
-          warframes.value[Math.floor(Math.random() * warframes.value.length)];
+        warframeToGuess.value.classicUnlimited = warframes.value[
+          Math.floor(Math.random() * warframes.value.length)
+        ] as Warframe;
+      }
+      if (mode.value === "abilityUnlimited") {
+        warframeToGuess.value.abilityUnlimited = abilities.value[
+          Math.floor(Math.random() * abilities.value.length)
+        ] as Ability;
       }
     }
 
     const abilities = computed(() =>
-      warframes.value.map((wf) => wf.abilities).flat(),
+      warframes.value
+        .map((warframe) =>
+          warframe.abilities.map((ability) => ({
+            ...ability,
+            belongsTo: warframe.name,
+          })),
+        )
+        .flat(),
     );
 
     return {
@@ -88,6 +115,7 @@ export const useGameStore = defineStore(
       isGameOver,
       fetchWarframes,
       classicInit,
+      abilityInit,
       resetGame,
     };
   },
@@ -96,7 +124,11 @@ export const useGameStore = defineStore(
       paths: [
         "stats",
         "guessedItems.classicUnlimited",
+        "guessedItems.abilityUnlimited",
         "guesses.classicUnlimited",
+        "guesses.abilityUnlimited",
+        "warframeToGuess.classicUnlimited",
+        "warframeToGuess.abilityUnlimited",
       ],
     },
   },

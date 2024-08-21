@@ -1,87 +1,83 @@
 <template>
-  <div>
-    <!-- I can probably just have one grid for the entire feedback area -->
-    <div class="grid grid-cols-6 gap-1 md:-ml-[15%] md:w-[130%]">
-      <UiTile>
-        {{ guessedWarframe.name }}
-      </UiTile>
+  <!-- I can probably just have one grid for the entire feedback area -->
+  <div class="contents">
+    <UiTile>
+      <NuxtImg
+        :src="`https://cdn.warframestat.us/img/${guessedWarframe.imageName}`"
+        :alt="guessedWarframe.name"
+        class="h-16"
+      />
+    </UiTile>
 
-      <UiTile :is-correct="guessedWarframe.sex === correctWarframe.sex">
-        {{ guessedWarframe.sex }}
-      </UiTile>
-      <UiTile
-        :is-correct="
-          compareNumeric(guessedWarframe.health, correctWarframe.health)
-            .isCorrect
-        "
-        v-bind="{
-          ...(compareNumeric(
+    <UiTile :is-correct="guessedWarframe.sex === correctWarframe.sex">
+      {{ guessedWarframe.sex }}
+    </UiTile>
+    <UiTile
+      :is-correct="
+        compareNumeric(guessedWarframe.health, correctWarframe.health).isCorrect
+      "
+      v-bind="{
+        ...(compareNumeric(guessedWarframe.health, correctWarframe.health) && {
+          difference: compareNumeric(
             guessedWarframe.health,
             correctWarframe.health,
-          ) && {
-            difference: compareNumeric(
-              guessedWarframe.health,
-              correctWarframe.health,
-            ).difference,
-          }),
-        }"
-      >
-        {{ guessedWarframe.health }}
-      </UiTile>
-      <UiTile
-        :is-correct="
-          compareNumeric(guessedWarframe.shield, correctWarframe.shield)
-            .isCorrect
-        "
-        v-bind="{
-          ...(compareNumeric(
+          ).difference,
+        }),
+      }"
+    >
+      {{ guessedWarframe.health }}
+    </UiTile>
+    <UiTile
+      :is-correct="
+        compareNumeric(guessedWarframe.shield, correctWarframe.shield).isCorrect
+      "
+      v-bind="{
+        ...(compareNumeric(guessedWarframe.shield, correctWarframe.shield) && {
+          difference: compareNumeric(
             guessedWarframe.shield,
             correctWarframe.shield,
-          ) && {
-            difference: compareNumeric(
-              guessedWarframe.shield,
-              correctWarframe.shield,
-            ).difference,
-          }),
-        }"
-      >
-        {{ guessedWarframe.shield }}
-      </UiTile>
-      <UiTile
-        :is-correct="guessedWarframe.progenitor === correctWarframe.progenitor"
-      >
-        {{ guessedWarframe.progenitor }}
-      </UiTile>
-      <UiTile
-        :is-correct="
-          compareNumeric(
+          ).difference,
+        }),
+      }"
+    >
+      {{ guessedWarframe.shield }}
+    </UiTile>
+    <UiTile
+      :is-correct="guessedWarframe.progenitor === correctWarframe.progenitor"
+    >
+      {{ guessedWarframe.progenitor }}
+    </UiTile>
+    <UiTile
+      :is-correct="
+        compareNumeric(
+          parseReleaseDate(guessedWarframe.releaseDate),
+          parseReleaseDate(correctWarframe.releaseDate),
+        ).isCorrect
+      "
+      v-bind="{
+        ...(compareNumeric(
+          parseReleaseDate(guessedWarframe.releaseDate),
+          parseReleaseDate(correctWarframe.releaseDate),
+        ) && {
+          difference: compareNumeric(
             parseReleaseDate(guessedWarframe.releaseDate),
             parseReleaseDate(correctWarframe.releaseDate),
-          ).isCorrect
-        "
-        v-bind="{
-          ...(compareNumeric(
-            parseReleaseDate(guessedWarframe.releaseDate),
-            parseReleaseDate(correctWarframe.releaseDate),
-          ) && {
-            difference: compareNumeric(
-              parseReleaseDate(guessedWarframe.releaseDate),
-              parseReleaseDate(correctWarframe.releaseDate),
-            ).difference,
-          }),
-        }"
-      >
-        {{ guessedWarframe.releaseDate.split("-")[0] }}
-      </UiTile>
-    </div>
+          ).difference,
+        }),
+      }"
+    >
+      {{ guessedWarframe.releaseDate.split("-")[0] }}
+    </UiTile>
   </div>
 </template>
 
 <script setup lang="ts">
+import type { Warframe } from "~~/schemas/warframe";
+
 // this can receive a guessed item as a prop and then handle the majority of the logic
 defineProps<{
-  guessedWarframe: { [key: string]: string | number };
-  correctWarframe: { [key: string]: string | number };
+  guessedWarframe: Warframe;
+  correctWarframe: Warframe;
 }>();
 
 const parseReleaseDate = (releaseDate: string) => {

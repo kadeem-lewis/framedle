@@ -32,4 +32,7 @@ export default defineNuxtConfig({
   colorMode: {
     preference: "system",
   },
+  image: {
+    domains: ["cdn.warframestat.us"],
+  },
 });

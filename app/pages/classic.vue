@@ -3,7 +3,7 @@
     <UTabs v-model="selectedTab" :items="tabs">
       <template #item="{ item }">
         <div v-if="item.label === 'Unlimited'">
-          <p>You have {{ guesses }} revives left.</p>
+          <p>You have {{ guesses[mode] }} revives left.</p>
           <div class="grid grid-cols-6 capitalize md:-ml-[15%] md:w-[130%]">
             <p
               v-for="label of [
@@ -19,81 +19,50 @@
             >
               {{ label }}
             </p>
-          </div>
-          <div class="space-y-2">
             <ClassicFeedbackRow
-              v-for="warframe of guessedWarframes"
+              v-for="warframe of guessedItems[mode]"
               :key="warframe.name"
               :guessed-warframe="warframe"
-              :correct-warframe="warframeToGuess"
+              :correct-warframe="warframeToGuess[mode]"
             />
           </div>
         </div>
         <div v-if="item.label === 'Daily'">Coming Soon</div>
       </template>
     </UTabs>
-    <ClassicCombobox v-if="!isGameOver" />
+    <ClassicCombobox v-if="!isGameOver[mode]" />
     <div v-else>
       <p>Game Over!</p>
-      <p>The answer was {{ warframeToGuess?.name }}</p>
-      <p>{{ guesses > 0 ? "You Won" : "You Lost Sucka" }}</p>
-      <UButton @click="createNewGame">New Game</UButton>
+      <p>The answer was {{ warframeToGuess[mode].name }}</p>
+      <p>{{ guesses[mode] > 0 ? "You Won" : "You Lost Sucka" }}</p>
+      <UButton @click="resetGame">New Game</UButton>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import type { Warframe } from "warframe-items";
+definePageMeta({
+  layout: "game",
+});
 
-const { warframes, abilities } = storeToRefs(useGameStore());
+const { warframeToGuess, mode, guessedItems, guesses, isGameOver } =
+  storeToRefs(useGameStore());
+const { classicInit, resetGame } = useGameStore();
 
-console.log(abilities.value);
-
-type WarframeWithProgenitor = Warframe & {
-  progenitor: string;
-};
+classicInit();
 
 // probably use zod to make sure that the data and all available
 
-const guesses = ref(6);
-const isGameOver = ref(false);
-
-watch(guesses, (value) => {
-  if (value === 0) {
-    isGameOver.value = true;
-  }
-});
-
-const guessedWarframes = ref<WarframeWithProgenitor[]>([]);
-// If I get the correct guess it should still be added to guessed items but then I need to update the game over condition
-
-const warframeToGuess = ref(
-  warframes.value[Math.floor(Math.random() * warframes.value.length)],
+watch(
+  () => guesses.value[mode.value],
+  () => {
+    if (guesses.value[mode.value] === 0) {
+      isGameOver.value[mode.value] = true;
+    }
+  },
 );
 
-const selectedWarframe = ref<WarframeWithProgenitor | null>(null);
-
-const checkGuess = () => {
-  if (!selectedWarframe.value) return;
-
-  if (selectedWarframe.value.name === warframeToGuess.value.name) {
-    isGameOver.value = true;
-    warframeToGuess.value =
-      warframes.value[Math.floor(Math.random() * warframes.value.length)];
-  } else {
-    guesses.value -= 1;
-    guessedWarframes.value.push(selectedWarframe.value);
-  }
-  selectedWarframe.value = null;
-};
-
-function createNewGame() {
-  guesses.value = 6;
-  guessedWarframes.value = [];
-  isGameOver.value = false;
-  warframeToGuess.value =
-    warframes.value[Math.floor(Math.random() * warframes.value.length)];
-}
+// If I get the correct guess it should still be added to guessed items but then I need to update the game over condition
 
 const router = useRouter();
 const route = useRoute();
@@ -106,8 +75,10 @@ watch(
   selectedTab,
   (value) => {
     if (tabs[value]?.label === "Unlimited") {
+      mode.value = "classicUnlimited";
       router.replace({ query: { mode: "unlimited" } });
     } else if (tabs[value]?.label === "Daily") {
+      mode.value = "classic";
       router.replace(route.path);
     }
   },

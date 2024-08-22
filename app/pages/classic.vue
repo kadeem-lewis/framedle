@@ -23,7 +23,7 @@
               v-for="warframe of guessedItems[mode]"
               :key="warframe.name"
               :guessed-warframe="warframe"
-              :correct-warframe="warframeToGuess[mode]"
+              :correct-warframe="itemToGuess[mode]"
             />
           </div>
         </div>
@@ -33,7 +33,7 @@
     <ClassicCombobox v-if="!isGameOver[mode]" />
     <div v-else>
       <p>Game Over!</p>
-      <p>The answer was {{ warframeToGuess[mode].name }}</p>
+      <p>The answer was {{ itemToGuess[mode].name }}</p>
       <p>{{ attempts[mode] > 0 ? "You Won" : "You Lost Sucka" }}</p>
       <UButton @click="resetGame">New Game</UButton>
     </div>
@@ -45,7 +45,7 @@ definePageMeta({
   layout: "game",
 });
 
-const { warframeToGuess, mode, guessedItems, attempts, isGameOver } =
+const { itemToGuess, mode, guessedItems, attempts, isGameOver } =
   storeToRefs(useGameStore());
 const { classicInit, resetGame } = useGameStore();
 

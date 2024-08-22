@@ -14,6 +14,9 @@ dependencies:
   '@vueuse/nuxt':
     specifier: ^11.0.0
     version: 11.0.0(nuxt@3.12.4)(vue@3.4.38)
+  date-fns:
+    specifier: ^3.6.0
+    version: 3.6.0
   drizzle-orm:
     specifier: ^0.33.0
     version: 0.33.0
@@ -4534,7 +4537,6 @@ packages:
 
   /date-fns@3.6.0:
     resolution: {integrity: sha512-fRHTG8g/Gif+kSh50gaGEdToemgfj74aRX3swtiouboip5JDLAyDE9F11nHMIcvOaXeOC6D7SpNhi7uFyB7Uww==}
-    dev: true
 
   /db0@0.1.4(drizzle-orm@0.33.0):
     resolution: {integrity: sha512-Ft6eCwONYxlwLjBXSJxw0t0RYtA5gW9mq8JfBXn9TtC0nDPlqePAhpv9v4g9aONBi6JI1OXHTKKkUYGd+BOrCA==}

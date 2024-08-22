@@ -3,7 +3,7 @@
     <UInputMenu
       v-model="selectedWarframe!"
       :search="search"
-      :options="warframes"
+      :options="props.items"
       placeholder="Select a Warframe"
       by="name"
       option-attribute="name"
@@ -28,19 +28,25 @@
 <script setup lang="ts">
 import Fuse from "fuse.js";
 import type { Warframe } from "~~/schemas/warframe";
-const { warframes, itemToGuess, mode, isGameOver, attempts, guessedItems } =
+
+const props = defineProps<{
+  items: Warframe[];
+  comparisonField: string;
+}>();
+
+const { itemToGuess, mode, isGameOver, attempts, guessedItems } =
   storeToRefs(useGameStore());
 
 const selectedWarframe = ref<Warframe | null>(null);
 
-const fuse = new Fuse(warframes.value, {
+const fuse = new Fuse(props.items, {
   keys: ["name"],
   threshold: 0.4,
 });
 
 function search(query: string) {
   if (query === "") {
-    return warframes.value;
+    return props.items;
   } else {
     return fuse.search(query).map((result) => ({ ...result.item }));
   }
@@ -50,7 +56,12 @@ const checkGuess = () => {
   if (!selectedWarframe.value) return;
   if (!mode.value) return;
 
-  if (selectedWarframe.value.name === itemToGuess.value[mode.value].name) {
+  // This isn't working. Game breaks on correct guess
+  if (
+    selectedWarframe.value.name ===
+    (itemToGuess.value[mode.value]?.name ||
+      itemToGuess.value[mode.value]?.belongsTo)
+  ) {
     guessedItems.value[mode.value].push(selectedWarframe.value);
     isGameOver.value[mode.value] = true;
   } else {

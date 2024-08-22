@@ -3,8 +3,10 @@
     <UTabs v-model="selectedTab" :items="tabs">
       <template #item="{ item }">
         <div v-if="item.label === 'Unlimited'">
-          <p>You have {{ attempts[mode] }} revives left.</p>
-          <div class="grid grid-cols-6 capitalize md:-ml-[15%] md:w-[130%]">
+          <RemainingGuesses />
+          <div
+            class="grid grid-cols-6 gap-2 capitalize md:-ml-[15%] md:w-[130%]"
+          >
             <p
               v-for="label of [
                 'name',
@@ -30,13 +32,12 @@
         <div v-if="item.label === 'Daily'">Coming Soon</div>
       </template>
     </UTabs>
-    <ClassicCombobox v-if="!isGameOver[mode]" />
-    <div v-else>
-      <p>Game Over!</p>
-      <p>The answer was {{ itemToGuess[mode].name }}</p>
-      <p>{{ attempts[mode] > 0 ? "You Won" : "You Lost Sucka" }}</p>
-      <UButton @click="resetGame">New Game</UButton>
-    </div>
+    <WarframeSearch
+      v-if="!isGameOver[mode]"
+      :items="warframes"
+      comparison-field="name"
+    />
+    <GameOver />
   </div>
 </template>
 
@@ -45,22 +46,13 @@ definePageMeta({
   layout: "game",
 });
 
-const { itemToGuess, mode, guessedItems, attempts, isGameOver } =
+const { itemToGuess, mode, guessedItems, isGameOver, warframes } =
   storeToRefs(useGameStore());
-const { classicInit, resetGame } = useGameStore();
+const { classicInit } = useGameStore();
 
 await callOnce(classicInit);
 
 // probably use zod to make sure that the data and all available
-
-watch(
-  () => attempts.value[mode.value],
-  () => {
-    if (attempts.value[mode.value] === 0) {
-      isGameOver.value[mode.value] = true;
-    }
-  },
-);
 
 // If I get the correct guess it should still be added to guessed items but then I need to update the game over condition
 

@@ -1,7 +1,9 @@
 import { format, startOfTomorrow } from "date-fns";
-import type { Ability, Warframe } from "~~/schemas/warframe";
+import type { Ability as OriginalAbility, Warframe } from "~~/schemas/warframe";
 
 type gameMode = "classic" | "classicUnlimited" | "ability" | "abilityUnlimited";
+
+type Ability = OriginalAbility & { belongsTo: string };
 
 type itemToGuess = {
   classic: Warframe | null;

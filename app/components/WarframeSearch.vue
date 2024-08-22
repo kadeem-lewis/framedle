@@ -1,7 +1,7 @@
 <template>
   <form class="flex gap-4" @submit.prevent="checkGuess">
     <UInputMenu
-      v-model="selectedWarframe!"
+      v-model="selectedWarframe"
       :search="search"
       :options="props.items"
       placeholder="Select a Warframe"
@@ -37,7 +37,7 @@ const props = defineProps<{
 const { itemToGuess, mode, isGameOver, attempts, guessedItems } =
   storeToRefs(useGameStore());
 
-const selectedWarframe = ref<Warframe | null>(null);
+const selectedWarframe = ref<Warframe>();
 
 const fuse = new Fuse(props.items, {
   keys: ["name"],
@@ -69,6 +69,6 @@ const checkGuess = () => {
     if (!guessedItems.value[mode.value].includes(selectedWarframe.value))
       guessedItems.value[mode.value].push(selectedWarframe.value);
   }
-  selectedWarframe.value = null;
+  selectedWarframe.value = undefined;
 };
 </script>

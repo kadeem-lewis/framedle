@@ -1,0 +1,76 @@
+{
+  "version": "6",
+  "dialect": "sqlite",
+  "id": "dfaad25f-dc9b-4c22-ba62-c14cb17db222",
+  "prevId": "970ada0e-e9cd-497e-b963-1dce75e05614",
+  "tables": {
+    "daily": {
+      "name": "daily",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "integer",
+          "primaryKey": true,
+          "notNull": true,
+          "autoincrement": true
+        },
+        "date": {
+          "name": "date",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "day": {
+          "name": "day",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "classicId": {
+          "name": "classicId",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "abilityId": {
+          "name": "abilityId",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        }
+      },
+      "indexes": {
+        "daily_date_unique": {
+          "name": "daily_date_unique",
+          "columns": [
+            "date"
+          ],
+          "isUnique": true
+        },
+        "daily_day_unique": {
+          "name": "daily_day_unique",
+          "columns": [
+            "day"
+          ],
+          "isUnique": true
+        }
+      },
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    }
+  },
+  "enums": {},
+  "_meta": {
+    "schemas": {},
+    "tables": {},
+    "columns": {}
+  },
+  "internal": {
+    "indexes": {}
+  }
+}

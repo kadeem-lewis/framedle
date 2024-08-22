@@ -1,3 +1,4 @@
+import { format, startOfTomorrow } from "date-fns";
 import type { Ability, Warframe } from "~~/schemas/warframe";
 
 type gameMode = "classic" | "classicUnlimited" | "ability" | "abilityUnlimited";
@@ -75,6 +76,21 @@ export const useGameStore = defineStore(
       }
     }
 
+    async function getDaily() {
+      const date = format(startOfTomorrow(), "yyyy-MM-dd");
+      try {
+        const { daily: data } = await $fetch(`/api/dailies?date=${date}`);
+        warframeToGuess.value.classic = warframes.value.find(
+          (warframe) => warframe.name === data.classicId,
+        ) as Warframe;
+        warframeToGuess.value.ability = abilities.value.find(
+          (ability) => ability.name === data.abilityId,
+        ) as Ability;
+      } catch (error) {
+        console.error(error);
+      }
+    }
+
     function resetGame() {
       if (!mode.value) return;
       guesses.value[mode.value] = 6;
@@ -121,6 +137,7 @@ export const useGameStore = defineStore(
       fetchWarframes,
       classicInit,
       abilityInit,
+      getDaily,
       resetGame,
     };
   },

@@ -3,7 +3,7 @@
     <UTabs v-model="selectedTab" :items="tabs">
       <template #item="{ item }">
         <div v-if="item.label === 'Unlimited'">
-          <p>You have {{ guesses[mode] }} revives left.</p>
+          <p>You have {{ attempts[mode] }} revives left.</p>
           <div class="grid grid-cols-6 capitalize md:-ml-[15%] md:w-[130%]">
             <p
               v-for="label of [
@@ -34,7 +34,7 @@
     <div v-else>
       <p>Game Over!</p>
       <p>The answer was {{ warframeToGuess[mode].name }}</p>
-      <p>{{ guesses[mode] > 0 ? "You Won" : "You Lost Sucka" }}</p>
+      <p>{{ attempts[mode] > 0 ? "You Won" : "You Lost Sucka" }}</p>
       <UButton @click="resetGame">New Game</UButton>
     </div>
   </div>
@@ -45,7 +45,7 @@ definePageMeta({
   layout: "game",
 });
 
-const { warframeToGuess, mode, guessedItems, guesses, isGameOver } =
+const { warframeToGuess, mode, guessedItems, attempts, isGameOver } =
   storeToRefs(useGameStore());
 const { classicInit, resetGame } = useGameStore();
 
@@ -54,9 +54,9 @@ await callOnce(classicInit);
 // probably use zod to make sure that the data and all available
 
 watch(
-  () => guesses.value[mode.value],
+  () => attempts.value[mode.value],
   () => {
-    if (guesses.value[mode.value] === 0) {
+    if (attempts.value[mode.value] === 0) {
       isGameOver.value[mode.value] = true;
     }
   },

@@ -28,7 +28,7 @@
 <script setup lang="ts">
 import Fuse from "fuse.js";
 import type { Warframe } from "~~/schemas/warframe";
-const { warframes, warframeToGuess, mode, isGameOver, guesses, guessedItems } =
+const { warframes, warframeToGuess, mode, isGameOver, attempts, guessedItems } =
   storeToRefs(useGameStore());
 
 const selectedWarframe = ref<Warframe | null>(null);
@@ -54,7 +54,7 @@ const checkGuess = () => {
     guessedItems.value[mode.value].push(selectedWarframe.value);
     isGameOver.value[mode.value] = true;
   } else {
-    guesses.value[mode.value] -= 1;
+    attempts.value[mode.value] -= 1;
     if (!guessedItems.value[mode.value].includes(selectedWarframe.value))
       guessedItems.value[mode.value].push(selectedWarframe.value);
   }

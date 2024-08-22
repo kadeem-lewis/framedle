@@ -35,7 +35,7 @@ export const useGameStore = defineStore(
       abilityUnlimited: false,
     });
 
-    const guesses = ref({
+    const attempts = ref({
       classic: 6,
       classicUnlimited: 6,
       ability: 6,
@@ -93,7 +93,7 @@ export const useGameStore = defineStore(
 
     function resetGame() {
       if (!mode.value) return;
-      guesses.value[mode.value] = 6;
+      attempts.value[mode.value] = 6;
       guessedItems.value[mode.value] = [];
       isGameOver.value[mode.value] = false;
 
@@ -127,7 +127,7 @@ export const useGameStore = defineStore(
     return {
       mode,
       warframes,
-      guesses,
+      attempts,
       warframeToGuess,
       guessedItems,
       stats,
@@ -147,8 +147,8 @@ export const useGameStore = defineStore(
         "stats",
         "guessedItems.classicUnlimited",
         "guessedItems.abilityUnlimited",
-        "guesses.classicUnlimited",
-        "guesses.abilityUnlimited",
+        "attempts.classicUnlimited",
+        "attempts.abilityUnlimited",
         "warframeToGuess.classicUnlimited",
         "warframeToGuess.abilityUnlimited",
       ],

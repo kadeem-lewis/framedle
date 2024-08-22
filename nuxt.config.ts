@@ -13,6 +13,7 @@ export default defineNuxtConfig({
     "@pinia/nuxt",
     "@pinia-plugin-persistedstate/nuxt",
     "@vueuse/nuxt",
+    "@nuxthub/core",
   ],
   runtimeConfig: {
     public: {
@@ -34,5 +35,8 @@ export default defineNuxtConfig({
   },
   image: {
     domains: ["cdn.warframestat.us"],
+  },
+  hub: {
+    database: true,
   },
 });

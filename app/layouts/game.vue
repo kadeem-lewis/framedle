@@ -12,7 +12,8 @@
 </template>
 
 <script setup lang="ts">
-const { fetchWarframes } = useGameStore();
+const { fetchWarframes, getDaily } = useGameStore();
 
-const { error } = await useAsyncData("warframes", () => fetchWarframes());
+await callOnce(fetchWarframes);
+await callOnce(getDaily);
 </script>

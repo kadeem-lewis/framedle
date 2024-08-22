@@ -49,7 +49,7 @@ const { warframeToGuess, mode, guessedItems, guesses, isGameOver } =
   storeToRefs(useGameStore());
 const { classicInit, resetGame } = useGameStore();
 
-classicInit();
+await callOnce(classicInit);
 
 // probably use zod to make sure that the data and all available
 

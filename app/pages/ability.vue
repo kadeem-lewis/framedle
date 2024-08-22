@@ -47,7 +47,7 @@ const { warframeToGuess, mode, guessedItems, guesses, isGameOver } =
   storeToRefs(useGameStore());
 const { abilityInit, resetGame } = useGameStore();
 
-abilityInit();
+await callOnce(abilityInit);
 
 // probably use zod to make sure that the data and all available
 

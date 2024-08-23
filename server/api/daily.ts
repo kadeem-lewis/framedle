@@ -7,6 +7,9 @@ export default defineEventHandler(async () => {
   const classic = warframes[Math.floor(Math.random() * warframes.length)];
 
   const abilities = warframes
+    .filter(
+      (warframe) => !warframe.isPrime && warframe.name !== "Excalibur Umbra",
+    )
     .map((warframe) =>
       warframe.abilities.map((ability) => ({
         ...ability,

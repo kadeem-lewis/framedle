@@ -17,12 +17,9 @@
 const { attempts, mode, isGameOver } = storeToRefs(useGameStore());
 const { defaultAttempts } = useGameStore();
 
-watch(
-  () => attempts.value[mode.value],
-  () => {
-    if (mode.value && attempts.value[mode.value] === 0) {
-      isGameOver.value[mode.value] = true;
-    }
-  },
-);
+watch(attempts.value, () => {
+  if (mode.value && attempts.value[mode.value] === 0) {
+    isGameOver.value[mode.value] = true;
+  }
+});
 </script>

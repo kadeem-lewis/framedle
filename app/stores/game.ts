@@ -1,4 +1,4 @@
-import { format, startOfTomorrow } from "date-fns";
+import { format } from "date-fns";
 import type { Ability as OriginalAbility, Warframe } from "~~/schemas/warframe";
 
 type gameMode = "classic" | "classicUnlimited" | "ability" | "abilityUnlimited";
@@ -37,12 +37,16 @@ export const useGameStore = defineStore(
       abilityUnlimited: false,
     });
 
+    const defaultAttempts = 6;
+
     const attempts = ref({
-      classic: 6,
-      classicUnlimited: 6,
-      ability: 6,
-      abilityUnlimited: 6,
+      classic: defaultAttempts,
+      classicUnlimited: defaultAttempts,
+      ability: defaultAttempts,
+      abilityUnlimited: defaultAttempts,
     });
+
+    const dailyDate = ref<string>("");
 
     const guessedItems = ref({
       classic: [] as Warframe[],
@@ -79,7 +83,8 @@ export const useGameStore = defineStore(
     }
 
     async function getDaily() {
-      const date = format(startOfTomorrow(), "yyyy-MM-dd");
+      const date = format(new Date(), "yyyy-MM-dd");
+      if (dailyDate.value === date) return;
       try {
         const { daily: data } = await $fetch(`/api/dailies?date=${date}`);
         itemToGuess.value.classic = warframes.value.find(
@@ -88,6 +93,7 @@ export const useGameStore = defineStore(
         itemToGuess.value.ability = abilities.value.find(
           (ability) => ability.name === data.abilityId,
         ) as Ability;
+        dailyDate.value = date;
       } catch (error) {
         console.error(error);
       }
@@ -113,7 +119,10 @@ export const useGameStore = defineStore(
 
     const abilities = computed(() =>
       warframes.value
-        .filter((warframe) => !warframe.isPrime)
+        .filter(
+          (warframe) =>
+            !warframe.isPrime && warframe.name !== "Excalibur Umbra",
+        )
         .map((warframe) =>
           warframe.abilities.map((ability) => ({
             ...ability,
@@ -124,7 +133,9 @@ export const useGameStore = defineStore(
     );
 
     const vanillaWarframes = computed(() =>
-      warframes.value.filter((warframe) => !warframe.isPrime),
+      warframes.value.filter(
+        (warframe) => !warframe.isPrime && warframe.name !== "Excalibur Umbra",
+      ),
     );
 
     return {
@@ -134,6 +145,7 @@ export const useGameStore = defineStore(
       itemToGuess,
       guessedItems,
       stats,
+      defaultAttempts,
       abilities,
       vanillaWarframes,
       isGameOver,
@@ -148,11 +160,17 @@ export const useGameStore = defineStore(
     persist: {
       paths: [
         "stats",
+        "guessItems.classic",
         "guessedItems.classicUnlimited",
+        "guessedItems.ability",
         "guessedItems.abilityUnlimited",
+        "attempts.classic",
         "attempts.classicUnlimited",
+        "attempts.ability",
         "attempts.abilityUnlimited",
+        "itemToGuess.classic",
         "itemToGuess.classicUnlimited",
+        "itemToGuess.ability",
         "itemToGuess.abilityUnlimited",
       ],
     },

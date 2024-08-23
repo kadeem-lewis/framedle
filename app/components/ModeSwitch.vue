@@ -1,7 +1,24 @@
 <template>
-  <div></div>
+  <div>
+    <UButton
+      :to="{
+        path: path,
+      }"
+    >
+      Daily
+    </UButton>
+    <UButton
+      :to="{
+        query: { mode: 'unlimited' },
+      }"
+    >
+      Unlimited
+    </UButton>
+  </div>
 </template>
 
 <script setup lang="ts">
-const { mode } = storeToRefs(useGameStore());
+const route = useRoute();
+
+const path = route.path;
 </script>

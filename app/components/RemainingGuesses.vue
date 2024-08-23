@@ -1,16 +1,26 @@
 <template>
   <div v-if="mode">
-    <p>You have {{ attempts[mode] }} revives left.</p>
+    <div class="my-4 flex justify-end gap-1">
+      <NuxtImg
+        v-for="(_, index) in Array(defaultAttempts)"
+        :key="index"
+        src="/warframe.png"
+        alt="Warframe Icon"
+        class="h-6"
+        :class="index + 1 > attempts[mode] ? 'brightness-50' : ''"
+      />
+    </div>
   </div>
 </template>
 
 <script setup lang="ts">
-const { attempts, mode } = storeToRefs(useGameStore());
+const { attempts, mode, isGameOver } = storeToRefs(useGameStore());
+const { defaultAttempts } = useGameStore();
 
 watch(
   () => attempts.value[mode.value],
   () => {
-    if (attempts.value[mode.value] === 0) {
+    if (mode.value && attempts.value[mode.value] === 0) {
       isGameOver.value[mode.value] = true;
     }
   },

@@ -23,6 +23,7 @@
     </UInputMenu>
     <UButton type="type">Submit</UButton>
   </form>
+  <p v-if="isError" class="text-red-500">Warframe Already guessed</p>
 </template>
 
 <script setup lang="ts">
@@ -31,13 +32,13 @@ import type { Warframe } from "~~/schemas/warframe";
 
 const props = defineProps<{
   items: Warframe[];
-  comparisonField: string;
 }>();
 
 const { itemToGuess, mode, isGameOver, attempts, guessedItems } =
   storeToRefs(useGameStore());
 
 const selectedWarframe = ref<Warframe>();
+const isError = ref(false);
 
 const fuse = new Fuse(props.items, {
   keys: ["name"],
@@ -56,19 +57,28 @@ const checkGuess = () => {
   if (!selectedWarframe.value) return;
   if (!mode.value) return;
 
-  // This isn't working. Game breaks on correct guess
-  if (
-    selectedWarframe.value.name ===
-    (itemToGuess.value[mode.value]?.name ||
-      itemToGuess.value[mode.value]?.belongsTo)
-  ) {
-    guessedItems.value[mode.value].push(selectedWarframe.value);
-    isGameOver.value[mode.value] = true;
-  } else {
-    attempts.value[mode.value] -= 1;
-    if (!guessedItems.value[mode.value].includes(selectedWarframe.value))
+  if (mode.value === "abilityUnlimited" || mode.value === "ability") {
+    if (
+      selectedWarframe.value.name === itemToGuess.value[mode.value]?.belongsTo
+    ) {
       guessedItems.value[mode.value].push(selectedWarframe.value);
+      isGameOver.value[mode.value] = true;
+    } else {
+      attempts.value[mode.value] -= 1;
+      guessedItems.value[mode.value].push(selectedWarframe.value);
+    }
   }
+
+  if (mode.value === "classicUnlimited" || mode.value === "classic") {
+    if (selectedWarframe.value.name === itemToGuess.value[mode.value]?.name) {
+      guessedItems.value[mode.value].push(selectedWarframe.value);
+      isGameOver.value[mode.value] = true;
+    } else {
+      attempts.value[mode.value] -= 1;
+      guessedItems.value[mode.value].push(selectedWarframe.value);
+    }
+  }
+
   selectedWarframe.value = undefined;
 };
 </script>

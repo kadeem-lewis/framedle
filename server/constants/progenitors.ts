@@ -9,6 +9,7 @@ export const progenitors: { [key: string]: string } = {
   Rhino: "Impact",
   "Rhino Prime": "Impact",
   Sevagoth: "Impact",
+  "Sevagoth Prime": "Impact",
   Wukong: "Impact",
   "Wukong Prime": "Impact",
   Zephyr: "Impact",

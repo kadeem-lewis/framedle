@@ -38,7 +38,7 @@
     "fuse.js": "^7.0.0",
     "pinia": "^2.2.2",
     "posthog-js": "^1.155.5",
-    "warframe-items": "^1.1262.109",
+    "warframe-items": "^1.1262.115",
     "zod": "^3.23.8"
   }
 }

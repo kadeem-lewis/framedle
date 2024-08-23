@@ -30,8 +30,8 @@ dependencies:
     specifier: ^1.155.5
     version: 1.155.5
   warframe-items:
-    specifier: ^1.1262.109
-    version: 1.1262.109(warframe-worldstate-data@2.11.1)
+    specifier: ^1.1262.115
+    version: 1.1262.115(warframe-worldstate-data@2.11.1)
   zod:
     specifier: ^3.23.8
     version: 3.23.8
@@ -9401,8 +9401,8 @@ packages:
       '@vue/shared': 3.4.38
       typescript: 5.5.4
 
-  /warframe-items@1.1262.109(warframe-worldstate-data@2.11.1):
-    resolution: {integrity: sha512-uitIg9m9YMFsPZ8X5MSk5yKemBGSeWnNcR036X54KI942GSdOCwNWj6JY2G2zCuBzHPVEK4S0H9VKqPJGqkhKw==}
+  /warframe-items@1.1262.115(warframe-worldstate-data@2.11.1):
+    resolution: {integrity: sha512-lxrOzaK6X8UP+e9hZ2BKQOLfXyYVWURkMUJHRQc7ScJWnRihYeDF1QHJuXfRhKMU+kqZRy3OQuU9eIrWInNf0Q==}
     peerDependencies:
       warframe-worldstate-data: ^2
     dependencies:

@@ -5,15 +5,8 @@
     {
       "idx": 0,
       "version": "6",
-      "when": 1724288544839,
-      "tag": "0000_clever_major_mapleleaf",
-      "breakpoints": true
-    },
-    {
-      "idx": 1,
-      "version": "6",
-      "when": 1724301197751,
-      "tag": "0001_volatile_hex",
+      "when": 1724365044079,
+      "tag": "0000_small_puppet_master",
       "breakpoints": true
     }
   ]

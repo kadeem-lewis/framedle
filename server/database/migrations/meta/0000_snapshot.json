@@ -1,7 +1,7 @@
 {
   "version": "6",
   "dialect": "sqlite",
-  "id": "970ada0e-e9cd-497e-b963-1dce75e05614",
+  "id": "8ee79114-8130-4efc-9ef7-26f69a7df837",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "tables": {
     "daily": {
@@ -30,20 +30,27 @@
         },
         "classicId": {
           "name": "classicId",
-          "type": "integer",
+          "type": "text",
           "primaryKey": false,
           "notNull": true,
           "autoincrement": false
         },
         "abilityId": {
           "name": "abilityId",
-          "type": "integer",
+          "type": "text",
           "primaryKey": false,
           "notNull": true,
           "autoincrement": false
         }
       },
       "indexes": {
+        "daily_date_unique": {
+          "name": "daily_date_unique",
+          "columns": [
+            "date"
+          ],
+          "isUnique": true
+        },
         "daily_day_unique": {
           "name": "daily_day_unique",
           "columns": [

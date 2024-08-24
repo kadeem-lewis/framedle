@@ -1,9 +1,18 @@
 <template>
-  <div>
+  <div class="flex justify-center gap-2">
     <UButton
       :to="{
         path: path,
       }"
+      :ui="{
+        rounded: false,
+      }"
+      :class="{
+        'border-primary border-b-4': !route.query.mode,
+      }"
+      class="hover:shadow-primary font-semibold uppercase hover:shadow-inner"
+      variant="outline"
+      size="xl"
     >
       Daily
     </UButton>
@@ -11,6 +20,15 @@
       :to="{
         query: { mode: 'unlimited' },
       }"
+      :ui="{
+        rounded: false,
+      }"
+      :class="{
+        'border-primary border-b-4': route.query.mode,
+      }"
+      class="hover:shadow-primary font-semibold uppercase hover:shadow-inner"
+      variant="outline"
+      size="xl"
     >
       Unlimited
     </UButton>

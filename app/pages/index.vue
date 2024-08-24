@@ -8,17 +8,18 @@
         :ui="{
           rounded: false,
         }"
-        class="uppercase hover:scale-105"
+        class="cursor-pointer uppercase hover:scale-105"
+        @click="router.push(tab.route)"
       >
-        <NuxtLink :to="tab.route">
-          {{ tab.label }}
-        </NuxtLink>
+        {{ tab.label }}
       </UCard>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
+const router = useRouter();
+
 const tabs = [
   {
     label: "Classic",

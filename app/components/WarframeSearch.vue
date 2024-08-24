@@ -4,10 +4,13 @@
       v-model="selectedWarframe"
       :search="search"
       :options="props.items"
-      placeholder="Select a Warframe"
+      placeholder="SEARCH..."
       by="name"
       option-attribute="name"
       :search-attributes="['name']"
+      :ui="{
+        rounded: false,
+      }"
       class="grow"
     >
       <template #option="{ option }">

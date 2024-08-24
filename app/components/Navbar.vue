@@ -1,5 +1,5 @@
 <template>
-  <header class="flex w-full items-center justify-between">
+  <header class="flex w-full items-center justify-between pt-2">
     <div>
       <h1 class="text-2xl font-semibold">
         <NuxtLink to="/">Framedle</NuxtLink>

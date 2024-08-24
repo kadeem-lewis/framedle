@@ -16,12 +16,21 @@
           <NuxtImg
             :src="`https://cdn.warframestat.us/img/${option.imageName}`"
             :alt="option.name"
+            placeholder
             class="h-16"
           />
         </div>
       </template>
     </UInputMenu>
-    <UButton type="type">Submit</UButton>
+    <UButton
+      type="type"
+      :ui="{
+        rounded: false,
+      }"
+      variant="outline"
+      class="font-semibold uppercase"
+      >Submit</UButton
+    >
   </form>
   <p v-if="isError" class="text-red-500">Warframe Already guessed</p>
 </template>

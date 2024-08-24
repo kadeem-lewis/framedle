@@ -1,7 +1,7 @@
 <template>
   <div
     :class="[
-      'min-h-12 rounded-md border-2 shadow-inner',
+      'min-h-12 border-2 shadow-inner',
       {
         'border-green-500': isCorrect,
         'border-red-500': !isCorrect,

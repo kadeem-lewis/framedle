@@ -5,9 +5,9 @@
   >
     <ModeSwitch />
     <ModeUnavailable v-if="!itemToGuess[mode]" />
-    <div v-else>
+    <div v-else class="space-y-4">
       <RemainingGuesses />
-      <div class="grid grid-cols-6 gap-2 capitalize md:-ml-[15%] md:w-[130%]">
+      <div class="grid grid-cols-6 gap-2 uppercase md:-ml-[20%] md:w-[140%]">
         <p
           v-for="label of [
             'name',
@@ -18,7 +18,7 @@
             'release year',
           ]"
           :key="label"
-          class="justify-self-center text-center"
+          class="justify-self-center text-center font-semibold"
         >
           {{ label }}
         </p>

@@ -3,6 +3,7 @@
     class="flex min-h-screen flex-col items-center justify-between gap-y-2"
   >
     <Navbar />
+    <OptionsBar />
     <main class="grow">
       <NuxtPage />
     </main>

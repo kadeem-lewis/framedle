@@ -1,19 +1,21 @@
 <template>
   <!-- I can probably just have one grid for the entire feedback area -->
   <div class="contents">
-    <UiTile>
-      <NuxtImg
-        :src="`https://cdn.warframestat.us/img/${guessedWarframe.imageName}`"
-        :alt="guessedWarframe.name"
-        placeholder
-        class="h-16"
-      />
-    </UiTile>
+    <UiFeedbackTile :is-correct="guessedWarframe.name === correctWarframe.name">
+      <UTooltip :text="guessedWarframe.name">
+        <NuxtImg
+          :src="`https://cdn.warframestat.us/img/${guessedWarframe.imageName}`"
+          :alt="guessedWarframe.name"
+          placeholder
+          class="h-16"
+        />
+      </UTooltip>
+    </UiFeedbackTile>
 
-    <UiTile :is-correct="guessedWarframe.sex === correctWarframe.sex">
+    <UiFeedbackTile :is-correct="guessedWarframe.sex === correctWarframe.sex">
       {{ guessedWarframe.sex }}
-    </UiTile>
-    <UiTile
+    </UiFeedbackTile>
+    <UiFeedbackTile
       :is-correct="
         compareNumeric(guessedWarframe.health, correctWarframe.health).isCorrect
       "
@@ -27,8 +29,8 @@
       }"
     >
       {{ guessedWarframe.health }}
-    </UiTile>
-    <UiTile
+    </UiFeedbackTile>
+    <UiFeedbackTile
       :is-correct="
         compareNumeric(guessedWarframe.shield, correctWarframe.shield).isCorrect
       "
@@ -42,13 +44,18 @@
       }"
     >
       {{ guessedWarframe.shield }}
-    </UiTile>
-    <UiTile
+    </UiFeedbackTile>
+    <UiFeedbackTile
       :is-correct="guessedWarframe.progenitor === correctWarframe.progenitor"
     >
-      {{ guessedWarframe.progenitor }}
-    </UiTile>
-    <UiTile
+      <UTooltip :text="guessedWarframe.progenitor">
+        <NuxtImg
+          :src="`/elements/${guessedWarframe.progenitor}.png`"
+          class="h-10"
+        />
+      </UTooltip>
+    </UiFeedbackTile>
+    <UiFeedbackTile
       :is-correct="
         compareNumeric(
           parseReleaseDate(guessedWarframe.releaseDate),
@@ -68,7 +75,7 @@
       }"
     >
       {{ guessedWarframe.releaseDate.split("-")[0] }}
-    </UiTile>
+    </UiFeedbackTile>
   </div>
 </template>
 

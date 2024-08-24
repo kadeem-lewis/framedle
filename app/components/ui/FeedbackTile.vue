@@ -10,7 +10,7 @@
       },
     ]"
   >
-    <div class="flex items-center justify-center text-center">
+    <div class="flex h-full items-center justify-center pt-2 text-center">
       <slot />
     </div>
   </div>

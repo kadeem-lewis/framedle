@@ -3,7 +3,7 @@
     v-if="mode && (mode === 'ability' || mode === 'abilityUnlimited')"
     class="flex flex-col gap-2 capitalize"
   >
-    <UiTile
+    <UiFeedbackTile
       v-for="warframe of guessedItems[mode]"
       :key="warframe.name"
       :is-correct="warframe.name === itemToGuess[mode]?.belongsTo"
@@ -19,7 +19,7 @@
           class="h-16"
         />
       </div>
-    </UiTile>
+    </UiFeedbackTile>
   </div>
 </template>
 

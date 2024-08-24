@@ -40,6 +40,11 @@ export default defineNuxtConfig({
     database: true,
   },
   nitro: {
-    scheduledTasks: {},
+    experimental: {
+      tasks: true,
+    },
+    scheduledTasks: {
+      "0 23 * * *": ["add-daily"],
+    },
   },
 });

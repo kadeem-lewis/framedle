@@ -4,6 +4,7 @@
       <NuxtImg
         :src="`https://cdn.warframestat.us/img/${itemToGuess[mode]?.imageName}`"
         alt="Warframe to guess"
+        placeholder
         :class="[
           'h-32',
           {

@@ -15,6 +15,7 @@
         <NuxtImg
           :src="`https://cdn.warframestat.us/img/${warframe.imageName}`"
           :alt="warframe.name"
+          placeholder
           class="h-16"
         />
       </div>

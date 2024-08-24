@@ -5,6 +5,7 @@
       <NuxtImg
         :src="`https://cdn.warframestat.us/img/${guessedWarframe.imageName}`"
         :alt="guessedWarframe.name"
+        placeholder
         class="h-16"
       />
     </UiTile>

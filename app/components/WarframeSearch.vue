@@ -59,9 +59,12 @@ const fuse = new Fuse(props.items, {
 
 function search(query: string) {
   if (query === "") {
-    return props.items;
+    return props.items.slice(0, 6);
   } else {
-    return fuse.search(query).map((result) => ({ ...result.item }));
+    return fuse
+      .search(query)
+      .map((result) => ({ ...result.item }))
+      .slice(0, 6);
   }
 }
 

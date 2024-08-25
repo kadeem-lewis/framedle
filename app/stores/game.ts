@@ -24,10 +24,20 @@ export const useGameStore = defineStore(
       abilityUnlimited: null,
     });
     const stats = ref({
-      plays: 0,
-      wins: 0,
-      streak: 0,
-      maxStreak: 0,
+      classic: {
+        plays: 0,
+        wins: 0,
+        guesses: [0, 0, 0, 0, 0, 0],
+        streak: 0,
+        maxStreak: 0,
+      },
+      ability: {
+        plays: 0,
+        wins: 0,
+        guesses: [0, 0, 0, 0, 0, 0],
+        streak: 0,
+        maxStreak: 0,
+      },
     });
 
     const isGameOver = ref({

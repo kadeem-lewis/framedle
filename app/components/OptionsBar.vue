@@ -9,10 +9,6 @@
           :ui="{
             rounded: false,
           }"
-          @click="
-            isOpen = true;
-            selectedOption = options.ARCHIVE;
-          "
         />
       </UTooltip>
       <UTooltip text="Stats">
@@ -58,13 +54,34 @@
         />
       </UTooltip>
     </menu>
-    <UModal v-model="isOpen"> hi </UModal>
+    <UModal v-model="isOpen">
+      <UCard
+        :ui="{
+          ring: '',
+          divide: 'divide-y divide-gray-100 dark:divide-gray-800',
+        }"
+      >
+        <template #header>
+          <p class="text-center text-xl font-semibold uppercase">
+            {{
+              selectedOption === options.STATS
+                ? `${mode} ${selectedOption}`
+                : selectedOption
+            }}
+          </p>
+        </template>
+        <ContentAbout v-if="selectedOption === options.ABOUT" />
+        <ContentGameInstructions
+          v-if="selectedOption === options.INSTRUCTIONS"
+        />
+        <ContentGameStats v-if="selectedOption === options.STATS" />
+      </UCard>
+    </UModal>
   </div>
 </template>
 
 <script setup lang="ts">
 const options = {
-  ARCHIVE: "archive",
   STATS: "stats",
   ABOUT: "about",
   INSTRUCTIONS: "instructions",
@@ -75,4 +92,6 @@ type Option = (typeof options)[keyof typeof options];
 const selectedOption = ref<Option>();
 
 const isOpen = ref(false);
+
+const { mode } = storeToRefs(useGameStore());
 </script>

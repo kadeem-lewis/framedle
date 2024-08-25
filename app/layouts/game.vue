@@ -4,7 +4,7 @@
   >
     <Navbar />
     <OptionsBar />
-    <main class="grow">
+    <main class="w-full grow">
       <NuxtPage />
     </main>
     <Footer />

@@ -33,6 +33,8 @@
   "dependencies": {
     "@libsql/client": "^0.9.0",
     "@pinia/nuxt": "^0.5.3",
+    "@unovis/ts": "1.4.3-beta.0",
+    "@unovis/vue": "1.4.3-beta.0",
     "@vueuse/core": "^11.0.0",
     "@vueuse/nuxt": "^11.0.0",
     "date-fns": "^3.6.0",

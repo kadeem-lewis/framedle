@@ -70,7 +70,7 @@
             }}
           </p>
         </template>
-        <ContentAbout v-if="selectedOption === options.ABOUT" />
+        <ContentAboutGame v-if="selectedOption === options.ABOUT" />
         <ContentGameInstructions
           v-if="selectedOption === options.INSTRUCTIONS"
         />

@@ -15,13 +15,13 @@
     >
       <template #option="{ option }">
         <div class="flex w-full items-center justify-between gap-2">
-          <p class="font-semibold uppercase">{{ option.name }}</p>
           <NuxtImg
             :src="`https://cdn.warframestat.us/img/${option.imageName}`"
             :alt="option.name"
             placeholder
             class="h-16"
           />
+          <p class="font-semibold uppercase">{{ option.name }}</p>
         </div>
       </template>
     </UInputMenu>

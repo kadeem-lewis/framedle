@@ -16,7 +16,7 @@
       />
     </div>
     <p v-if="attempts[mode] <= 3 || isGameOver[mode]">
-      {{ itemToGuess[mode]?.description.split(".")[0] }}.
+      {{ maskedDescription }}.
     </p>
     <p v-if="attempts[mode] <= 2 || isGameOver[mode]">
       {{ itemToGuess[mode]?.name }}
@@ -26,4 +26,27 @@
 
 <script setup lang="ts">
 const { itemToGuess, mode, attempts, isGameOver } = storeToRefs(useGameStore());
+
+const maskedDescription = computed(() => {
+  if (
+    mode.value &&
+    (mode.value === "ability" || mode.value === "abilityUnlimited")
+  ) {
+    if (
+      itemToGuess.value[mode.value]?.description.includes(
+        itemToGuess.value[mode.value]!.belongsTo,
+      )
+    ) {
+      const regex = new RegExp(
+        `\\b${itemToGuess.value[mode.value]?.belongsTo}\\b`,
+        "g",
+      );
+      return itemToGuess.value[mode.value]?.description
+        .replace(regex, "*".repeat(6))
+        .split(".")[0];
+    }
+    return itemToGuess.value[mode.value]?.description.split(".")[0];
+  }
+  return "";
+});
 </script>

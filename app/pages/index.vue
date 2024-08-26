@@ -1,6 +1,6 @@
 <template>
   <div class="space-y-4">
-    <p>Daily Guess a Warframe</p>
+    <p>Test your Warframe Knowledge!</p>
     <div class="flex flex-col gap-4">
       <UCard
         v-for="tab of tabs"

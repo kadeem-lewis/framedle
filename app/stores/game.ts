@@ -96,7 +96,7 @@ export const useGameStore = defineStore(
       const date = format(new Date(), "yyyy-MM-dd");
       if (dailyDate.value === date) return;
       try {
-        const { daily: data } = await $fetch(`/api/dailies?date=${date}`);
+        const { daily: data } = await $fetch(`/api/daily?date=${date}`);
         itemToGuess.value.classic = warframes.value.find(
           (warframe) => warframe.name === data.classicId,
         ) as Warframe;

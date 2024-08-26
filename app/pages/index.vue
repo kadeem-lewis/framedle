@@ -11,7 +11,15 @@
         class="cursor-pointer uppercase hover:scale-105"
         @click="router.push(tab.route)"
       >
-        {{ tab.label }}
+        <div class="flex flex-row items-center gap-8">
+          <NuxtImg :src="tab.source" :alt="tab.label" class="h-16" />
+          <div>
+            <p class="text-xl font-semibold">
+              {{ tab.label }}
+            </p>
+            <p>{{ tab.description }}</p>
+          </div>
+        </div>
       </UCard>
     </div>
   </div>
@@ -24,10 +32,14 @@ const tabs = [
   {
     label: "Classic",
     route: "/classic",
+    source: "/warframe.png",
+    description: "Guess the Warframe",
   },
   {
     label: "Ability",
     route: "/ability",
+    source: "/PassiveAbilityIcon.png",
+    description: "Guess the Warframe Ability",
   },
 ];
 </script>

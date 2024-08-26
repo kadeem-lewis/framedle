@@ -1,5 +1,6 @@
 import { format } from "date-fns";
 import type { Ability as OriginalAbility, Warframe } from "~~/schemas/warframe";
+import type { Daily } from "~~/server/utils/drizzle";
 
 type gameMode = "classic" | "classicUnlimited" | "ability" | "abilityUnlimited";
 
@@ -57,6 +58,7 @@ export const useGameStore = defineStore(
     });
 
     const dailyDate = ref<string>("");
+    const dailies = ref<Daily[]>([]);
 
     const guessedItems = ref({
       classic: [] as Warframe[],
@@ -109,6 +111,11 @@ export const useGameStore = defineStore(
       }
     }
 
+    async function getDailies() {
+      const { dailies: data } = await $fetch("/api/dailies");
+      dailies.value = data;
+    }
+
     function resetGame() {
       if (!mode.value) return;
       attempts.value[mode.value] = 6;
@@ -155,6 +162,7 @@ export const useGameStore = defineStore(
       itemToGuess,
       guessedItems,
       stats,
+      dailies,
       defaultAttempts,
       abilities,
       vanillaWarframes,
@@ -163,6 +171,7 @@ export const useGameStore = defineStore(
       classicInit,
       abilityInit,
       getDaily,
+      getDailies,
       resetGame,
     };
   },

@@ -18,7 +18,7 @@
             'release year',
           ]"
           :key="label"
-          class="justify-self-center text-center font-semibold"
+          class="self-center justify-self-center text-center font-semibold"
         >
           {{ label }}
         </p>

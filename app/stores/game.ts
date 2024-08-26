@@ -168,9 +168,10 @@ export const useGameStore = defineStore(
   },
   {
     persist: {
+      storage: persistedState.localStorage,
       paths: [
         "stats",
-        "guessItems.classic",
+        "guessedItems.classic",
         "guessedItems.classicUnlimited",
         "guessedItems.ability",
         "guessedItems.abilityUnlimited",
@@ -182,6 +183,10 @@ export const useGameStore = defineStore(
         "itemToGuess.classicUnlimited",
         "itemToGuess.ability",
         "itemToGuess.abilityUnlimited",
+        "isGameOver.classic",
+        "isGameOver.classicUnlimited",
+        "isGameOver.ability",
+        "isGameOver.abilityUnlimited",
       ],
     },
   },

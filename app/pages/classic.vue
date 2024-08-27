@@ -7,27 +7,29 @@
     <ModeUnavailable v-if="!itemToGuess[mode]" />
     <div v-else class="space-y-4">
       <RemainingGuesses />
-      <div class="grid grid-cols-6 gap-2 uppercase md:-ml-[20%] md:w-[140%]">
-        <p
-          v-for="label of [
-            'name',
-            'sex',
-            'base health',
-            'base shield',
-            'progenitor',
-            'release year',
-          ]"
-          :key="label"
-          class="self-center justify-self-center text-center font-semibold"
-        >
-          {{ label }}
-        </p>
-        <ClassicFeedbackRow
-          v-for="warframe of guessedItems[mode]"
-          :key="warframe.name"
-          :guessed-warframe="warframe"
-          :correct-warframe="itemToGuess[mode]"
-        />
+      <div class="overflow-x-auto md:overflow-x-visible">
+        <div class="grid w-[140%] grid-cols-6 gap-2 uppercase md:-ml-[20%]">
+          <p
+            v-for="label of [
+              'name',
+              'sex',
+              'base health',
+              'base shield',
+              'progenitor',
+              'release year',
+            ]"
+            :key="label"
+            class="self-center justify-self-center text-center font-semibold"
+          >
+            {{ label }}
+          </p>
+          <ClassicFeedbackRow
+            v-for="warframe of guessedItems[mode]"
+            :key="warframe.name"
+            :guessed-warframe="warframe"
+            :correct-warframe="itemToGuess[mode]"
+          />
+        </div>
       </div>
       <WarframeSearch v-if="!isGameOver[mode]" :items="warframes" />
       <GameOver v-else />

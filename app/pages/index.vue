@@ -9,7 +9,7 @@
           rounded: false,
         }"
         class="cursor-pointer uppercase hover:scale-105"
-        @click="router.push(tab.route)"
+        @click="navigateTo(tab.route)"
       >
         <div class="flex flex-row items-center gap-8">
           <NuxtImg :src="tab.source" :alt="tab.label" class="h-16" />
@@ -26,8 +26,6 @@
 </template>
 
 <script setup lang="ts">
-const router = useRouter();
-
 const tabs = [
   {
     label: "Classic",

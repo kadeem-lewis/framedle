@@ -26,7 +26,7 @@ const { itemToGuess, mode, isGameOver, vanillaWarframes } =
   storeToRefs(useGameStore());
 const { abilityInit } = useGameStore();
 
-await callOnce(abilityInit);
+await callOnce("ability-setup", abilityInit);
 
 // If I get the correct guess it should still be added to guessed items but then I need to update the game over condition
 

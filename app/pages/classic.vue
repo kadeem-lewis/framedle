@@ -44,7 +44,7 @@ const { itemToGuess, mode, guessedItems, isGameOver, warframes } =
   storeToRefs(useGameStore());
 const { classicInit } = useGameStore();
 
-await callOnce(classicInit);
+await callOnce("classic-setup", classicInit);
 
 // If I get the correct guess it should still be added to guessed items but then I need to update the game over condition
 

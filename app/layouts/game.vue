@@ -14,7 +14,15 @@
 
 <script setup lang="ts">
 const { fetchWarframes, getDaily } = useGameStore();
+const route = useRoute();
 
-await callOnce(fetchWarframes);
-await callOnce(getDaily);
+await callOnce("warframes", fetchWarframes);
+
+watch(
+  () => route.query.date,
+  () => {
+    getDaily();
+  },
+  { immediate: true },
+);
 </script>

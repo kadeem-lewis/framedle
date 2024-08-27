@@ -57,7 +57,12 @@ export const useGameStore = defineStore(
       abilityUnlimited: defaultAttempts,
     });
 
-    const dailyDate = ref<string>("");
+    const route = useRoute();
+
+    const currentDailyDate = ref(format(new Date(), "yyyy-MM-dd"));
+    const dailyDate = ref<string>(
+      (route.query.date as string) || currentDailyDate.value,
+    );
     const dailies = ref<Daily[]>([]);
 
     const guessedItems = ref({
@@ -94,26 +99,46 @@ export const useGameStore = defineStore(
       }
     }
 
+    function resetDailyValues() {
+      guessedItems.value.classic = [];
+      guessedItems.value.ability = [];
+      attempts.value.classic = defaultAttempts;
+      attempts.value.ability = defaultAttempts;
+      isGameOver.value.classic = false;
+      isGameOver.value.ability = false;
+    }
+
+    function updateDailyDate() {
+      const queryDate = route.query.date;
+      if (queryDate) {
+        dailyDate.value = queryDate as string;
+      } else {
+        dailyDate.value = format(new Date(), "yyyy-MM-dd");
+      }
+    }
     async function getDaily() {
-      const date = format(new Date(), "yyyy-MM-dd");
-      if (dailyDate.value === date) return;
+      //if todays date is the same as the servers date, then I fetch the daily because it is possible for the date to be the same without the daily being fetched
+      // if the date isn't the same then I also fetch the
+      updateDailyDate(); // Update the date based on the query parameter
+
+      if (currentDailyDate.value !== dailyDate.value) {
+        resetDailyValues();
+        currentDailyDate.value = dailyDate.value;
+      }
       try {
-        const { daily: data } = await $fetch(`/api/daily?date=${date}`);
+        const { daily: data } = await $fetch(
+          `/api/daily?date=${dailyDate.value}`,
+        );
         itemToGuess.value.classic = warframes.value.find(
           (warframe) => warframe.name === data.classicId,
         ) as Warframe;
         itemToGuess.value.ability = abilities.value.find(
           (ability) => ability.name === data.abilityId,
         ) as Ability;
-        dailyDate.value = date;
+        currentDailyDate.value = data.date;
       } catch (error) {
         console.error(error);
       }
-    }
-
-    async function getDailies() {
-      const { dailies: data } = await $fetch("/api/dailies");
-      dailies.value = data;
     }
 
     function resetGame() {
@@ -163,6 +188,7 @@ export const useGameStore = defineStore(
       guessedItems,
       stats,
       dailies,
+      dailyDate,
       defaultAttempts,
       abilities,
       vanillaWarframes,
@@ -171,7 +197,6 @@ export const useGameStore = defineStore(
       classicInit,
       abilityInit,
       getDaily,
-      getDailies,
       resetGame,
     };
   },
@@ -180,22 +205,12 @@ export const useGameStore = defineStore(
       storage: persistedState.localStorage,
       paths: [
         "stats",
-        "guessedItems.classic",
-        "guessedItems.classicUnlimited",
-        "guessedItems.ability",
-        "guessedItems.abilityUnlimited",
-        "attempts.classic",
-        "attempts.classicUnlimited",
-        "attempts.ability",
-        "attempts.abilityUnlimited",
-        "itemToGuess.classic",
-        "itemToGuess.classicUnlimited",
-        "itemToGuess.ability",
-        "itemToGuess.abilityUnlimited",
-        "isGameOver.classic",
-        "isGameOver.classicUnlimited",
-        "isGameOver.ability",
-        "isGameOver.abilityUnlimited",
+        "guessedItems",
+        "attempts",
+        "itemToGuess",
+        "isGameOver",
+        "dailyDate",
+        "currentDailyDate",
       ],
     },
   },

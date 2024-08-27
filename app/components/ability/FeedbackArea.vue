@@ -1,7 +1,7 @@
 <template>
   <div
     v-if="mode && (mode === 'ability' || mode === 'abilityUnlimited')"
-    class="flex flex-col gap-2 capitalize"
+    class="flex flex-col gap-4 capitalize"
   >
     <UiFeedbackTile
       v-for="warframe of guessedItems[mode]"

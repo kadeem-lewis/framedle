@@ -2,10 +2,10 @@
   <div v-if="mode" class="flex flex-col gap-4">
     <ModeSwitch />
     <ModeUnavailable v-if="!itemToGuess[mode]" />
-    <div v-else>
+    <div v-else class="space-y-4">
       <RemainingGuesses />
       <AbilityImageToGuess />
-      <div v-if="!isGameOver[mode]">
+      <div v-if="!isGameOver[mode]" class="space-y-4">
         <AbilityFeedbackArea />
         <WarframeSearch :items="vanillaWarframes" />
       </div>

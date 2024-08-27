@@ -9,6 +9,9 @@
           :ui="{
             rounded: false,
           }"
+          @click="
+            navigateTo({ path: '/archive', query: { mode: $route.name } })
+          "
         />
       </UTooltip>
       <UTooltip text="Stats">
@@ -65,7 +68,7 @@
           <p class="text-center text-xl font-semibold uppercase">
             {{
               selectedOption === options.STATS
-                ? `${mode} ${selectedOption}`
+                ? `${$route.name} ${selectedOption}`
                 : selectedOption
             }}
           </p>
@@ -92,6 +95,4 @@ type Option = (typeof options)[keyof typeof options];
 const selectedOption = ref<Option>();
 
 const isOpen = ref(false);
-
-const { mode } = storeToRefs(useGameStore());
 </script>

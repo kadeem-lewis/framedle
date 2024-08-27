@@ -1,5 +1,5 @@
 <template>
-  <div v-if="route.name === 'classic'">
+  <div v-if="$route.name === 'classic'">
     <p>Guess the Warframe in {{ defaultAttempts }} tries</p>
     <p>
       Simply type in the name of a Warframe and it will reveal its properties
@@ -27,7 +27,5 @@
 </template>
 
 <script setup lang="ts">
-const route = useRoute();
-
 const { defaultAttempts } = useGameStore();
 </script>

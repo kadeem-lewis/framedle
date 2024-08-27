@@ -20,6 +20,10 @@ export default defineNuxtConfig({
       posthogHost: "https://us.i.posthog.com",
     },
   },
+  routeRules: {
+    "/classic": { ssr: false },
+    "/ability": { ssr: false },
+  },
   postcss: {
     plugins: {
       tailwindcss: {},

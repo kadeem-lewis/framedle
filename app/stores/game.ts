@@ -1,6 +1,5 @@
 import { format } from "date-fns";
 import type { Ability as OriginalAbility, Warframe } from "~~/schemas/warframe";
-import type { Daily } from "~~/server/utils/drizzle";
 
 type gameMode = "classic" | "classicUnlimited" | "ability" | "abilityUnlimited";
 
@@ -63,7 +62,6 @@ export const useGameStore = defineStore(
     const dailyDate = ref<string>(
       (route.query.date as string) || currentDailyDate.value,
     );
-    const dailies = ref<Daily[]>([]);
 
     const guessedItems = ref({
       classic: [] as Warframe[],
@@ -108,18 +106,11 @@ export const useGameStore = defineStore(
       isGameOver.value.ability = false;
     }
 
-    function updateDailyDate() {
-      const queryDate = route.query.date;
-      if (queryDate) {
-        dailyDate.value = queryDate as string;
-      } else {
-        dailyDate.value = format(new Date(), "yyyy-MM-dd");
-      }
-    }
     async function getDaily() {
       //if todays date is the same as the servers date, then I fetch the daily because it is possible for the date to be the same without the daily being fetched
       // if the date isn't the same then I also fetch the
-      updateDailyDate(); // Update the date based on the query parameter
+      dailyDate.value =
+        (route.query.date as string) ?? format(new Date(), "yyyy-MM-dd");
 
       if (currentDailyDate.value !== dailyDate.value) {
         resetDailyValues();
@@ -135,7 +126,6 @@ export const useGameStore = defineStore(
         itemToGuess.value.ability = abilities.value.find(
           (ability) => ability.name === data.abilityId,
         ) as Ability;
-        currentDailyDate.value = data.date;
       } catch (error) {
         console.error(error);
       }
@@ -187,10 +177,10 @@ export const useGameStore = defineStore(
       itemToGuess,
       guessedItems,
       stats,
-      dailies,
       dailyDate,
       defaultAttempts,
       abilities,
+      currentDailyDate,
       vanillaWarframes,
       isGameOver,
       fetchWarframes,

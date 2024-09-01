@@ -12,6 +12,8 @@ type itemToGuess = {
   abilityUnlimited: Ability | null;
 };
 
+export type FixedGuessArray = [number, number, number, number, number, number];
+
 export const useGameStore = defineStore(
   "game",
   () => {
@@ -27,14 +29,14 @@ export const useGameStore = defineStore(
       classic: {
         plays: 0,
         wins: 0,
-        guesses: [0, 0, 0, 0, 0, 0],
+        guesses: [0, 0, 0, 0, 0, 0] as FixedGuessArray,
         streak: 0,
         maxStreak: 0,
       },
       ability: {
         plays: 0,
         wins: 0,
-        guesses: [0, 0, 0, 0, 0, 0],
+        guesses: [0, 0, 0, 0, 0, 0] as FixedGuessArray,
         streak: 0,
         maxStreak: 0,
       },

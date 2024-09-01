@@ -12,7 +12,12 @@
         @click="navigateTo(tab.route)"
       >
         <div class="flex flex-row items-center gap-8">
-          <NuxtImg :src="tab.source" :alt="tab.label" class="h-16" />
+          <NuxtImg
+            format="webp"
+            :src="tab.source"
+            :alt="tab.label"
+            class="h-16"
+          />
           <div>
             <p class="text-xl font-semibold">
               {{ tab.label }}

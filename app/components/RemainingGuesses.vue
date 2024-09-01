@@ -4,6 +4,7 @@
       <NuxtImg
         v-for="(_, index) in Array(defaultAttempts)"
         :key="index"
+        format="webp"
         src="/warframe.png"
         alt="Warframe Icon"
         placeholder

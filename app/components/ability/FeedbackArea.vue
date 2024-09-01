@@ -13,6 +13,7 @@
           {{ warframe.name }}
         </p>
         <NuxtImg
+          format="webp"
           :src="`https://cdn.warframestat.us/img/${warframe.imageName}`"
           :alt="warframe.name"
           placeholder

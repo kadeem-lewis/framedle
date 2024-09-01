@@ -16,6 +16,7 @@
       <template #option="{ option }">
         <div class="flex w-full items-center justify-between gap-2">
           <NuxtImg
+            format="webp"
             :src="`https://cdn.warframestat.us/img/${option.imageName}`"
             :alt="option.name"
             placeholder

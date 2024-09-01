@@ -4,6 +4,7 @@
     <UiFeedbackTile :is-correct="guessedWarframe.name === correctWarframe.name">
       <UTooltip :text="guessedWarframe.name">
         <NuxtImg
+          format="webp"
           :src="`https://cdn.warframestat.us/img/${guessedWarframe.imageName}`"
           :alt="guessedWarframe.name"
           placeholder
@@ -50,6 +51,7 @@
     >
       <UTooltip :text="guessedWarframe.progenitor">
         <NuxtImg
+          format="webp"
           :src="`/elements/${guessedWarframe.progenitor}.png`"
           class="h-10"
         />

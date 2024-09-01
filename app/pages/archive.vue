@@ -38,6 +38,8 @@
       </USelect>
       <UInput
         v-model="searchQuery"
+        icon="mdi:magnify"
+        :trailing="true"
         :ui="{
           rounded: false,
         }"

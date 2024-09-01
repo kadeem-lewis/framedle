@@ -2,7 +2,24 @@
   <div v-if="mode && (mode === 'ability' || mode === 'abilityUnlimited')">
     <div class="flex items-center justify-center p-4">
       <NuxtImg
-        :src="`https://cdn.warframestat.us/img/${itemToGuess[mode]?.imageName}`"
+        v-if="mode === 'ability'"
+        format="webp"
+        :src="`https://cdn.warframestat.us/img/${itemToGuess.ability?.imageName}`"
+        alt="Warframe to guess"
+        placeholder
+        :class="[
+          'h-32',
+          {
+            'blur-sm': attempts[mode] === 6 && !isGameOver[mode],
+            invert: attempts[mode] >= 5 && !isGameOver[mode],
+            'rotate-45': attempts[mode] >= 4 && !isGameOver[mode],
+          },
+        ]"
+      />
+      <NuxtImg
+        v-if="mode === 'abilityUnlimited'"
+        format="webp"
+        :src="`https://cdn.warframestat.us/img/${itemToGuess.abilityUnlimited?.imageName}`"
         alt="Warframe to guess"
         placeholder
         :class="[

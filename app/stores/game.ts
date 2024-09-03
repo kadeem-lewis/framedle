@@ -59,6 +59,7 @@ export const useGameStore = defineStore(
     });
 
     const route = useRoute();
+    const router = useRouter();
 
     const currentDailyDate = ref(format(new Date(), "yyyy-MM-dd"));
     const dailyDate = ref<string>(
@@ -72,17 +73,44 @@ export const useGameStore = defineStore(
       abilityUnlimited: [] as Warframe[],
     });
 
+    const { decode } = useEncoder();
+
     function classicInit() {
       if (warframes.value.length === 0) return;
-      if (!itemToGuess.value.classicUnlimited) {
-        itemToGuess.value.classicUnlimited = warframes.value[
-          Math.floor(Math.random() * warframes.value.length)
-        ] as Warframe;
+      if (route.query.x) {
+        const decoded = decode(route.query.x as string);
+        const decodedAbility = warframes.value.find(
+          (warframe) => warframe.name === decoded,
+        ) as Warframe;
+        if (itemToGuess.value.classicUnlimited !== decodedAbility) {
+          itemToGuess.value.classicUnlimited = decodedAbility;
+          guessedItems.value.classicUnlimited = [];
+          attempts.value.classicUnlimited = defaultAttempts;
+          isGameOver.value.classicUnlimited = false;
+        }
+        if (!itemToGuess.value.classicUnlimited) {
+          itemToGuess.value.classicUnlimited = warframes.value[
+            Math.floor(Math.random() * warframes.value.length)
+          ] as Warframe;
+        }
       }
     }
 
     function abilityInit() {
       if (abilities.value.length === 0) return;
+      if (route.query.x) {
+        const decoded = decode(route.query.x as string);
+
+        const decodedAbility = abilities.value.find(
+          (ability) => ability.name === decoded,
+        ) as Ability;
+        if (itemToGuess.value.abilityUnlimited !== decodedAbility) {
+          itemToGuess.value.abilityUnlimited = decodedAbility;
+          guessedItems.value.abilityUnlimited = [];
+          attempts.value.abilityUnlimited = defaultAttempts;
+          isGameOver.value.abilityUnlimited = false;
+        }
+      }
       if (!itemToGuess.value.abilityUnlimited) {
         itemToGuess.value.abilityUnlimited = abilities.value[
           Math.floor(Math.random() * abilities.value.length)
@@ -140,11 +168,13 @@ export const useGameStore = defineStore(
       isGameOver.value[mode.value] = false;
 
       if (mode.value === "classicUnlimited") {
+        router.replace({ query: { mode: "unlimited", x: undefined } });
         itemToGuess.value.classicUnlimited = warframes.value[
           Math.floor(Math.random() * warframes.value.length)
         ] as Warframe;
       }
       if (mode.value === "abilityUnlimited") {
+        router.replace({ query: { mode: "unlimited", x: undefined } });
         itemToGuess.value.abilityUnlimited = abilities.value[
           Math.floor(Math.random() * abilities.value.length)
         ] as Ability;

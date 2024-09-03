@@ -77,6 +77,7 @@ const checkGuess = () => {
     if (
       selectedWarframe.value.name === itemToGuess.value[mode.value]?.belongsTo
     ) {
+      attempts.value[mode.value] -= 1;
       guessedItems.value[mode.value].push(selectedWarframe.value);
       isGameOver.value[mode.value] = true;
     } else {
@@ -87,6 +88,7 @@ const checkGuess = () => {
 
   if (mode.value === "classicUnlimited" || mode.value === "classic") {
     if (selectedWarframe.value.name === itemToGuess.value[mode.value]?.name) {
+      attempts.value[mode.value] -= 1;
       guessedItems.value[mode.value].push(selectedWarframe.value);
       isGameOver.value[mode.value] = true;
     } else {

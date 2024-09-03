@@ -1,6 +1,6 @@
 <template>
   <footer class="py-2 text-center">
-    <p>&copy; {{ year }} Redeemr</p>
+    <p>&copy; {{ year }} Framedle.com</p>
   </footer>
 </template>
 

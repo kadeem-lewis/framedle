@@ -1,5 +1,5 @@
 <template>
-  <div v-if="mode">
+  <div v-if="mode" class="flex flex-col items-center gap-2">
     <p>Game Over!</p>
     <p>
       The answer was
@@ -7,7 +7,8 @@
         {{ answer }}
       </span>
     </p>
-    <p>{{ attempts[mode] > 0 ? "You Won" : "You Lost Sucka" }}</p>
+    <p>{{ hasWon ? "You Won" : "You Lost Sucka" }}</p>
+    <ShareButton />
     <div v-if="mode === 'ability' || mode === 'abilityUnlimited'">
       <UButton variant="link" @click="showGuesses = !showGuesses"
         >{{ showGuesses ? "Hide" : "Show" }} guesses</UButton
@@ -18,14 +19,10 @@
           :key="guessedItem.name"
           class="flex gap-2"
         >
-          <UIcon
-            :name="
-              isCorrectGuess(guessedItem.name)
-                ? 'heroicons:check-solid'
-                : 'heroicons:x-mark-solid'
-            "
-          />
-          {{ guessedItem.name }}
+          <p>{{ isCorrectGuess(guessedItem.name) ? "✅" : "❌" }}</p>
+          <p class="font-semibold uppercase">
+            {{ guessedItem.name }}
+          </p>
         </li>
       </ul>
     </div>
@@ -64,6 +61,29 @@ const isCorrectGuess = computed(() => (guess: string) => {
     if (itemToGuess.value[mode.value]?.belongsTo === guess) {
       return true;
     }
+  }
+  return false;
+});
+
+const hasWon = computed(() => {
+  if (!mode.value) return;
+  if (mode.value === "ability" || mode.value === "abilityUnlimited") {
+    return (
+      attempts.value[mode.value] >= 0 &&
+      guessedItems.value[mode.value].some(
+        (guessedItem) =>
+          guessedItem.name === itemToGuess.value[mode.value]?.belongsTo,
+      )
+    );
+  }
+  if (mode.value === "classic" || mode.value === "classicUnlimited") {
+    return (
+      attempts.value[mode.value] >= 0 &&
+      guessedItems.value[mode.value].some(
+        (guessedItem) =>
+          guessedItem.name === itemToGuess.value[mode.value]?.name,
+      )
+    );
   }
   return false;
 });

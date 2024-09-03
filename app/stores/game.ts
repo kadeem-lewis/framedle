@@ -79,11 +79,11 @@ export const useGameStore = defineStore(
       if (warframes.value.length === 0) return;
       if (route.query.x) {
         const decoded = decode(route.query.x as string);
-        const decodedAbility = warframes.value.find(
+        const decodedWarframe = warframes.value.find(
           (warframe) => warframe.name === decoded,
         ) as Warframe;
-        if (itemToGuess.value.classicUnlimited !== decodedAbility) {
-          itemToGuess.value.classicUnlimited = decodedAbility;
+        if (itemToGuess.value.classicUnlimited?.name !== decodedWarframe.name) {
+          itemToGuess.value.classicUnlimited = decodedWarframe;
           guessedItems.value.classicUnlimited = [];
           attempts.value.classicUnlimited = defaultAttempts;
           isGameOver.value.classicUnlimited = false;
@@ -104,7 +104,7 @@ export const useGameStore = defineStore(
         const decodedAbility = abilities.value.find(
           (ability) => ability.name === decoded,
         ) as Ability;
-        if (itemToGuess.value.abilityUnlimited !== decodedAbility) {
+        if (itemToGuess.value.abilityUnlimited?.name !== decodedAbility.name) {
           itemToGuess.value.abilityUnlimited = decodedAbility;
           guessedItems.value.abilityUnlimited = [];
           attempts.value.abilityUnlimited = defaultAttempts;

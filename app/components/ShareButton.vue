@@ -40,6 +40,32 @@ const { copy, copied } = useClipboard();
 
 const emojiFeedback = ref<string[]>([]);
 
+//TODO: This is temporarily copied over but it should be in a composable or util
+const hasWon = computed(() => {
+  if (!mode.value) return;
+  if (mode.value === "ability" || mode.value === "abilityUnlimited") {
+    return (
+      attempts.value[mode.value] >= 0 &&
+      guessedItems.value[mode.value].some(
+        (guessedItem) =>
+          guessedItem.name === itemToGuess.value[mode.value]?.belongsTo,
+      )
+    );
+  }
+  if (mode.value === "classic" || mode.value === "classicUnlimited") {
+    return (
+      attempts.value[mode.value] >= 0 &&
+      guessedItems.value[mode.value].some(
+        (guessedItem) =>
+          guessedItem.name === itemToGuess.value[mode.value]?.name,
+      )
+    );
+  }
+  return false;
+});
+
+const { encode } = useEncoder();
+
 function handleShareClick() {
   const currentMode = mode.value;
   if (!currentMode) return;
@@ -73,9 +99,9 @@ function handleShareClick() {
       : emojiFeedback.value.join(" ");
 
   const grid = `
-Framedle ${currentMode} ${defaultAttempts - attempts.value[currentMode]}/${defaultAttempts}
+Framedle ${currentMode} ${hasWon.value ? defaultAttempts - attempts.value[currentMode] : "X"}/${defaultAttempts}
 ${emojiGrid}
-${window.location.href}
+${route.query.mode ? `${window.location.href}&x=${itemToGuess.value[currentMode] && encode(itemToGuess.value[currentMode].name)}` : window.location.href}
   `;
   copy(grid);
   emojiFeedback.value = [];

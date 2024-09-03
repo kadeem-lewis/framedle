@@ -81,6 +81,8 @@ export const progenitors: { [key: string]: string } = {
   Lavos: "Magnetic",
   Mag: "Magnetic",
   "Mag Prime": "Magnetic",
+  Mesa: "Magnetic",
+  "Mesa Prime": "Magnetic",
   Ash: "Radiation",
   "Ash Prime": "Radiation",
   Equinox: "Radiation",

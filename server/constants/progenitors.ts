@@ -83,6 +83,8 @@ export const progenitors: { [key: string]: string } = {
   "Mag Prime": "Magnetic",
   Mesa: "Magnetic",
   "Mesa Prime": "Magnetic",
+  Xaku: "Magnetic",
+  Yareli: "Magnetic",
   Ash: "Radiation",
   "Ash Prime": "Radiation",
   Equinox: "Radiation",
@@ -99,6 +101,4 @@ export const progenitors: { [key: string]: string } = {
   "Octavia Prime": "Radiation",
   Qorvex: "Radiation",
   Voruna: "Radiation",
-  Xaku: "Magnetic",
-  Yareli: "Magnetic",
 };

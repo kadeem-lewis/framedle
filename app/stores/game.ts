@@ -32,6 +32,7 @@ export const useGameStore = defineStore(
         guesses: [0, 0, 0, 0, 0, 0] as FixedGuessArray,
         streak: 0,
         maxStreak: 0,
+        lastCorrectDate: null as string | null,
       },
       ability: {
         plays: 0,
@@ -39,6 +40,7 @@ export const useGameStore = defineStore(
         guesses: [0, 0, 0, 0, 0, 0] as FixedGuessArray,
         streak: 0,
         maxStreak: 0,
+        lastCorrectDate: null as string | null,
       },
     });
 

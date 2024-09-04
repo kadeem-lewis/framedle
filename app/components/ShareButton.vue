@@ -98,10 +98,24 @@ function handleShareClick() {
       ? emojiFeedback.value.join("\n")
       : emojiFeedback.value.join(" ");
 
+  const attemptsUsed = defaultAttempts - attempts.value[currentMode];
+
+  const topText = route.query.mode
+    ? hasWon.value
+      ? `I solved a Framedle in ${attemptsUsed} out of ${defaultAttempts} turns.`
+      : `I couldn't solve this Framedle in ${defaultAttempts} turns.`
+    : `Framedle ${currentMode} ${hasWon.value ? attemptsUsed : "X"}/${defaultAttempts}`;
+
   const grid = `
-Framedle ${currentMode} ${hasWon.value ? defaultAttempts - attempts.value[currentMode] : "X"}/${defaultAttempts}
+${topText}
+
 ${emojiGrid}
-${route.query.mode ? `${window.location.href}&x=${itemToGuess.value[currentMode] && encode(itemToGuess.value[currentMode].name)}` : window.location.href}
+${
+  route.query.mode
+    ? `See how you do on the same challenge I played:
+${window.location.href}&x=${itemToGuess.value[currentMode] && encode(itemToGuess.value[currentMode].name)}`
+    : window.location.href
+}
   `;
   copy(grid);
   emojiFeedback.value = [];

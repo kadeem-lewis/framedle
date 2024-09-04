@@ -47,10 +47,21 @@
 </template>
 
 <script setup lang="ts">
-import { startOfTomorrow } from "date-fns";
-import type { FixedGuessArray } from "~/stores/game";
-const { itemToGuess, mode, guessedItems, attempts, isGameOver, stats } =
-  storeToRefs(useGameStore());
+import {
+  format,
+  startOfDay,
+  startOfTomorrow,
+  startOfYesterday,
+} from "date-fns";
+const {
+  itemToGuess,
+  mode,
+  guessedItems,
+  attempts,
+  isGameOver,
+  stats,
+  currentDailyDate,
+} = storeToRefs(useGameStore());
 const { resetGame, defaultAttempts } = useGameStore();
 
 const showGuesses = ref(false);
@@ -97,28 +108,43 @@ const answer = computed(() => {
   }
 });
 
-watch(isGameOver, (newValue) => {
-  if (
-    mode.value &&
-    newValue[mode.value] &&
-    (mode.value === "ability" || mode.value === "classic")
-  ) {
-    stats.value[mode.value].plays++;
-    if (attempts.value[mode.value] > 0) {
-      stats.value[mode.value].wins++;
-      stats.value[mode.value].streak++;
-
-      const attemptsLeft = defaultAttempts - attempts.value[mode.value];
-      // Currently I am not decrementing attempts on wins so it is possible to win in 0 attempts which makes no sense
-      if (attemptsLeft === defaultAttempts) {
-        stats.value[mode.value].guesses[0]++;
-      } else {
+watch(
+  isGameOver,
+  (newValue) => {
+    const today = format(startOfDay(new Date()), "yyyy-MM-dd");
+    if (
+      (mode.value === "ability" || mode.value === "classic") &&
+      newValue[mode.value] &&
+      currentDailyDate.value === today &&
+      stats.value[mode.value].lastCorrectDate !== today
+    ) {
+      stats.value[mode.value].plays++;
+      if (hasWon.value) {
+        stats.value[mode.value].wins++;
+        const attemptsUsed = defaultAttempts - attempts.value[mode.value];
         // @ts-expect-error I need to figure out how to properly type this fixed length array to prevent such as error
-        stats.value[mode.value].guesses[attemptsLeft - 1]++;
+        stats.value[mode.value].guesses[attemptsUsed - 1]++;
+        if (!stats.value[mode.value].lastCorrectDate) {
+          stats.value[mode.value].lastCorrectDate = today;
+          stats.value[mode.value].streak = 1;
+        }
+        if (
+          stats.value[mode.value].lastCorrectDate ===
+          format(startOfYesterday(), "yyyy-MM-dd")
+        ) {
+          stats.value[mode.value].streak++;
+          stats.value[mode.value].maxStreak = Math.max(
+            stats.value[mode.value].maxStreak,
+            stats.value[mode.value].streak,
+          );
+        } else {
+          stats.value[mode.value].streak = 1;
+        }
+      } else {
+        stats.value[mode.value].streak = 0;
       }
-
-      stats.value[mode.value].guesses[0]++;
     }
-  }
-});
+  },
+  { immediate: true },
+);
 </script>

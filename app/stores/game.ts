@@ -88,11 +88,11 @@ export const useGameStore = defineStore(
           attempts.value.classicUnlimited = defaultAttempts;
           isGameOver.value.classicUnlimited = false;
         }
-        if (!itemToGuess.value.classicUnlimited) {
-          itemToGuess.value.classicUnlimited = warframes.value[
-            Math.floor(Math.random() * warframes.value.length)
-          ] as Warframe;
-        }
+      }
+      if (!itemToGuess.value.classicUnlimited) {
+        itemToGuess.value.classicUnlimited = warframes.value[
+          Math.floor(Math.random() * warframes.value.length)
+        ] as Warframe;
       }
     }
 
@@ -225,6 +225,10 @@ export const useGameStore = defineStore(
   {
     persist: {
       storage: persistedState.localStorage,
+      serializer: {
+        serialize: (state) => btoa(JSON.stringify(state)),
+        deserialize: (state) => JSON.parse(atob(state)),
+      },
       paths: [
         "stats",
         "guessedItems",

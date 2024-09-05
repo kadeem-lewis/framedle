@@ -5,7 +5,7 @@
         v-if="mode === 'ability'"
         format="webp"
         :src="`https://cdn.warframestat.us/img/${itemToGuess.ability?.imageName}`"
-        alt="Warframe to guess"
+        alt="Ability Image"
         placeholder
         :class="[
           'h-32',
@@ -20,7 +20,7 @@
         v-if="mode === 'abilityUnlimited'"
         format="webp"
         :src="`https://cdn.warframestat.us/img/${itemToGuess.abilityUnlimited?.imageName}`"
-        alt="Warframe to guess"
+        alt="Ability Image"
         placeholder
         :class="[
           'h-32',

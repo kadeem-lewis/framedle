@@ -36,3 +36,4 @@
 - [ ] if I do the same archive twice then it uses todays answer the second time instead of the archive answer
 - [ ] longest stre
 - [ ] the images I am serving for the backgrounds I probably have to minimize somehow since they are kinda big
+  - [ ] Im not completely sold on the background images for the cards, maybe I just have a glow effect and the scale on hover like some warframe cards do

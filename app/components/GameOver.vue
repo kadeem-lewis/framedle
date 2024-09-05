@@ -118,30 +118,32 @@ watch(
       currentDailyDate.value === today &&
       stats.value[mode.value].lastCorrectDate !== today
     ) {
-      stats.value[mode.value].plays++;
+      const currentStats = stats.value[mode.value];
+      currentStats.plays++;
       if (hasWon.value) {
-        stats.value[mode.value].wins++;
+        currentStats.wins++;
         const attemptsUsed = defaultAttempts - attempts.value[mode.value];
         // @ts-expect-error I need to figure out how to properly type this fixed length array to prevent such as error
-        stats.value[mode.value].guesses[attemptsUsed - 1]++;
-        if (!stats.value[mode.value].lastCorrectDate) {
-          stats.value[mode.value].lastCorrectDate = today;
-          stats.value[mode.value].streak = 1;
-        }
-        if (
-          stats.value[mode.value].lastCorrectDate ===
-          format(startOfYesterday(), "yyyy-MM-dd")
+        currentStats.guesses[attemptsUsed - 1]++;
+        const lastCorrectDate = currentStats.lastCorrectDate;
+
+        if (!lastCorrectDate) {
+          currentStats.streak = 1;
+        } else if (
+          lastCorrectDate === format(startOfYesterday(), "yyyy-MM-dd")
         ) {
-          stats.value[mode.value].streak++;
-          stats.value[mode.value].maxStreak = Math.max(
-            stats.value[mode.value].maxStreak,
-            stats.value[mode.value].streak,
-          );
+          currentStats.streak++;
         } else {
-          stats.value[mode.value].streak = 1;
+          currentStats.streak = 1;
         }
+
+        currentStats.maxStreak = Math.max(
+          currentStats.maxStreak,
+          currentStats.streak,
+        );
+        currentStats.lastCorrectDate = today;
       } else {
-        stats.value[mode.value].streak = 0;
+        currentStats.streak = 0;
       }
     }
   },

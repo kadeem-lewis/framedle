@@ -1,6 +1,6 @@
 <template>
   <div class="space-y-4">
-    <p>Test your Warframe Knowledge!</p>
+    <p class="text-xl font-semibold uppercase">Test your Warframe Knowledge!</p>
     <div class="flex flex-col gap-4">
       <UCard
         v-for="tab of tabs"
@@ -8,21 +8,25 @@
         :ui="{
           rounded: false,
         }"
-        class="cursor-pointer uppercase hover:scale-105"
+        class="border-primary group relative cursor-pointer border uppercase transition-all hover:bg-opacity-100"
         @click="navigateTo(tab.route)"
       >
-        <div class="flex flex-row items-center gap-8">
+        <div
+          :style="{ backgroundImage: `url(${tab.background})` }"
+          class="absolute inset-0 z-0 bg-cover brightness-50 group-hover:brightness-75"
+        />
+        <div class="relative z-10 flex flex-row items-center gap-8">
           <NuxtImg
             format="webp"
             :src="tab.source"
             :alt="tab.label"
-            class="h-16"
+            class="h-16 group-hover:scale-110"
           />
-          <div>
-            <p class="text-xl font-semibold">
+          <div class="brightness-90 group-hover:brightness-100">
+            <p class="text-xl font-bold">
               {{ tab.label }}
             </p>
-            <p>{{ tab.description }}</p>
+            <p class="font-semibold">{{ tab.description }}</p>
           </div>
         </div>
       </UCard>
@@ -36,13 +40,16 @@ const tabs = [
     label: "Classic",
     route: "/classic",
     source: "/warframe.png",
+    background: "/backgrounds/fortuna.jpg",
     description: "Guess the Warframe",
   },
   {
     label: "Ability",
     route: "/ability",
     source: "/PassiveAbilityIcon.png",
-    description: "Guess the Warframe Ability",
+    background: "/backgrounds/helminth.jpg",
+    description: "Guess the Ability",
   },
 ];
 </script>
+<style scoped></style>

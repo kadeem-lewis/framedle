@@ -116,10 +116,12 @@ watch(
       (mode.value === "ability" || mode.value === "classic") &&
       newValue[mode.value] &&
       currentDailyDate.value === today &&
-      stats.value[mode.value].lastCorrectDate !== today
+      stats.value[mode.value].lastPlayedDate !== today
     ) {
       const currentStats = stats.value[mode.value];
       currentStats.plays++;
+      currentStats.lastPlayedDate = today;
+
       if (hasWon.value) {
         currentStats.wins++;
         const attemptsUsed = defaultAttempts - attempts.value[mode.value];

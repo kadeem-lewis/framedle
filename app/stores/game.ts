@@ -33,6 +33,7 @@ export const useGameStore = defineStore(
         streak: 0,
         maxStreak: 0,
         lastCorrectDate: null as string | null,
+        lastPlayedDate: null as string | null,
       },
       ability: {
         plays: 0,
@@ -41,6 +42,7 @@ export const useGameStore = defineStore(
         streak: 0,
         maxStreak: 0,
         lastCorrectDate: null as string | null,
+        lastPlayedDate: null as string | null,
       },
     });
 

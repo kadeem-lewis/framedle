@@ -24,6 +24,12 @@
     <UDivider />
     <p>Example</p>
   </div>
+  <div v-if="$route.name === 'ability'" class="space-y-4">
+    <p>
+      Guess the Warframe the ability belongs to in {{ defaultAttempts }} tries
+    </p>
+    <p>Which each guess, more of the ability icon will be revealed.</p>
+  </div>
 </template>
 
 <script setup lang="ts">

@@ -4,12 +4,26 @@
     <ModeUnavailable v-if="!itemToGuess[mode]" />
     <div v-else class="space-y-4">
       <RemainingGuesses />
-      <AbilityImageToGuess />
-      <div v-if="!isGameOver[mode]" class="space-y-4">
-        <AbilityFeedbackArea />
-        <WarframeSearch :items="vanillaWarframes" />
-      </div>
-      <GameOver v-else />
+
+      <UCard
+        :ui="{
+          rounded: false,
+          divide: false,
+        }"
+      >
+        <template #header>
+          <p class="text-primary text-xl font-bold uppercase">
+            Which Warframe has this ability?
+          </p>
+        </template>
+        <AbilityImageToGuess />
+        <template #footer>
+          <WarframeSearch v-if="!isGameOver[mode]" :items="vanillaWarframes" />
+        </template>
+      </UCard>
+
+      <AbilityFeedbackArea v-if="!isGameOver[mode]" />
+      <GameOver v-if="isGameOver[mode]" />
     </div>
   </div>
   <div v-else>

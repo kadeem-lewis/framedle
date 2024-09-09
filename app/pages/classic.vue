@@ -7,6 +7,25 @@
     <ModeUnavailable v-if="!itemToGuess[mode]" />
     <div v-else class="space-y-4">
       <RemainingGuesses />
+      <UCard
+        :ui="{
+          rounded: false,
+          divide: false,
+        }"
+      >
+        <template #header>
+          <p class="text-primary text-2xl font-bold uppercase">
+            Guess the Warframe
+          </p>
+          <p
+            v-if="attempts[mode] === defaultAttempts"
+            class="font-semibold uppercase"
+          >
+            Take a guess to get started!
+          </p>
+        </template>
+        <WarframeSearch v-if="!isGameOver[mode]" :items="warframes" />
+      </UCard>
       <div class="overflow-x-auto md:overflow-x-visible">
         <div class="grid w-[140%] grid-cols-6 gap-2 uppercase md:-ml-[20%]">
           <p
@@ -15,7 +34,7 @@
               'sex',
               'base health',
               'base shield',
-              'progenitor',
+              'progenitor element',
               'release year',
             ]"
             :key="label"
@@ -31,8 +50,7 @@
           />
         </div>
       </div>
-      <WarframeSearch v-if="!isGameOver[mode]" :items="warframes" />
-      <GameOver v-else />
+      <GameOver v-if="isGameOver[mode]" />
     </div>
   </div>
 </template>
@@ -42,9 +60,9 @@ definePageMeta({
   layout: "game",
 });
 
-const { itemToGuess, mode, guessedItems, isGameOver, warframes } =
+const { itemToGuess, mode, guessedItems, isGameOver, warframes, attempts } =
   storeToRefs(useGameStore());
-const { classicInit } = useGameStore();
+const { classicInit, defaultAttempts } = useGameStore();
 
 await callOnce("classic-setup", classicInit);
 

@@ -12,17 +12,21 @@ const props = defineProps<{
   targetDate: Date;
 }>();
 
-const timeLeft = ref();
+const timeLeft = ref(calculateTimeLeft(props.targetDate));
 
-const intervalId = setInterval(() => {
-  const newTimeLeft = calculateTimeLeft(props.targetDate);
+let intervalId: NodeJS.Timeout;
 
-  if (newTimeLeft <= 0) {
-    clearInterval(intervalId);
-  }
+onMounted(() => {
+  intervalId = setInterval(() => {
+    const newTimeLeft = calculateTimeLeft(props.targetDate);
 
-  timeLeft.value = newTimeLeft;
-}, 1000);
+    if (newTimeLeft <= 0) {
+      clearInterval(intervalId);
+    }
+
+    timeLeft.value = newTimeLeft;
+  }, 1000);
+});
 
 function calculateTimeLeft(endDate: Date) {
   const now = new Date();

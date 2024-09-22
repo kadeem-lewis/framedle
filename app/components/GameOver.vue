@@ -8,6 +8,17 @@
       </span>
     </p>
     <p>{{ hasWon ? "You Won" : "You Lost Sucka" }}</p>
+    <UButton
+      v-if="$route.query.mode"
+      :ui="{
+        rounded: false,
+      }"
+      variant="outline"
+      class="font-semibold uppercase"
+      size="xl"
+      @click="resetGame"
+      >New Game</UButton
+    >
     <ShareButton />
     <div v-if="mode === 'ability' || mode === 'abilityUnlimited'">
       <UButton variant="link" @click="showGuesses = !showGuesses"
@@ -26,18 +37,8 @@
         </li>
       </ul>
     </div>
-    <UButton
-      v-if="mode === 'abilityUnlimited' || mode === 'classicUnlimited'"
-      :ui="{
-        rounded: false,
-      }"
-      variant="outline"
-      class="font-semibold uppercase"
-      size="xl"
-      @click="resetGame"
-      >New Game</UButton
-    >
-    <div v-else class="flex gap-2 text-xl">
+
+    <div v-if="!$route.query.mode" class="flex gap-2 text-xl">
       <p>New Game in:</p>
       <span class="flex items-center gap-1">
         <UIcon name="i-mdi-circle-slice-2" class="size-5" />

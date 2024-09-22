@@ -16,15 +16,15 @@
   },
   "devDependencies": {
     "@iconify-json/mdi": "^1.2.0",
-    "@nuxt/devtools": "^1.4.2",
+    "@nuxt/devtools": "^1.5.0",
     "@nuxt/eslint": "^0.5.7",
     "@nuxt/eslint-config": "^0.5.7",
     "@nuxt/fonts": "^0.7.2",
     "@nuxt/image": "^1.8.0",
-    "@nuxt/ui": "^2.17.0",
+    "@nuxt/ui": "^2.18.5",
     "@pinia-plugin-persistedstate/nuxt": "^1.2.1",
     "drizzle-kit": "^0.24.2",
-    "eslint": "^9.10.0",
+    "eslint": "^9.11.0",
     "nuxt": "^3.13.2",
     "prettier": "^3.3.3",
     "prettier-plugin-tailwindcss": "^0.6.6"
@@ -41,7 +41,7 @@
     "drizzle-orm": "^0.33.0",
     "fuse.js": "^7.0.0",
     "pinia": "^2.2.2",
-    "posthog-js": "^1.161.5",
+    "posthog-js": "^1.163.0",
     "zod": "^3.23.8"
   },
   "engines": {

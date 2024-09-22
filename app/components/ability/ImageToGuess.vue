@@ -21,6 +21,7 @@
           :src="`https://cdn.warframestat.us/img/${itemToGuess.ability?.imageName}`"
           alt="Ability Image"
           placeholder
+          preload
           class="h-60"
         />
         <NuxtImg
@@ -29,6 +30,7 @@
           :src="`https://cdn.warframestat.us/img/${itemToGuess.abilityUnlimited?.imageName}`"
           alt="Ability Image"
           placeholder
+          preload
           class="h-60"
         />
       </div>

@@ -32,6 +32,13 @@
           :x="x"
           :y="y"
         />
+        <VisAxis
+          :grid-line="false"
+          :domain-line="false"
+          type="x"
+          :x="x"
+          :y="y"
+        />
       </VisXYContainer>
     </div>
   </div>

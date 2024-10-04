@@ -21,6 +21,7 @@ export const progenitors: { [key: string]: string } = {
   Inaros: "Heat",
   "Inaros Prime": "Heat",
   Jade: "Heat",
+  Koumei: "Heat",
   Kullervo: "Heat",
   Nezha: "Heat",
   "Nezha Prime": "Heat",

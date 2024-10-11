@@ -15,9 +15,7 @@
           :style="{ backgroundImage: `url(${tab.background})` }"
           class="absolute inset-0 z-0 bg-cover brightness-50 group-hover:brightness-75"
         />
-        <div
-          class="relative z-10 flex flex-row items-center gap-8 text-white dark:text-black"
-        >
+        <div class="relative z-10 flex flex-row items-center gap-8 text-white">
           <NuxtImg
             format="webp"
             :src="tab.source"

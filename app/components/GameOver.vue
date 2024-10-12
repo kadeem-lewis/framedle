@@ -1,51 +1,53 @@
 <template>
-  <div v-if="mode" class="flex flex-col items-center gap-2">
-    <p>Game Over!</p>
-    <p>
-      The answer was
-      <span class="font-bold">
-        {{ answer }}
-      </span>
-    </p>
-    <p>{{ hasWon ? "You Won" : "You Lost Sucka" }}</p>
-    <UButton
-      v-if="$route.query.mode"
-      :ui="{
-        rounded: false,
-      }"
-      variant="outline"
-      class="font-semibold uppercase"
-      size="xl"
-      @click="resetGame"
-      >New Game</UButton
-    >
-    <ShareButton />
-    <div v-if="mode === 'ability' || mode === 'abilityUnlimited'">
-      <UButton variant="link" @click="showGuesses = !showGuesses"
-        >{{ showGuesses ? "Hide" : "Show" }} guesses</UButton
+  <UCard v-if="mode">
+    <div class="flex flex-col items-center gap-2">
+      <p>Game Over!</p>
+      <div class="space-y-2 text-center">
+        <p class="uppercase">The answer was:</p>
+        <span class="text-xl font-bold capitalize">
+          {{ answer }}
+        </span>
+      </div>
+      <p class="uppercase">{{ hasWon ? "You Win!" : "You Lost!" }}</p>
+      <UButton
+        v-if="$route.query.mode"
+        :ui="{
+          rounded: false,
+        }"
+        variant="outline"
+        class="font-semibold uppercase"
+        size="xl"
+        @click="resetGame"
+        >New Game</UButton
       >
-      <ul v-if="showGuesses">
-        <li
-          v-for="guessedItem in guessedItems[mode]"
-          :key="guessedItem.name"
-          class="flex gap-2"
+      <ShareButton />
+      <div v-if="mode === 'ability' || mode === 'abilityUnlimited'">
+        <UButton variant="link" @click="showGuesses = !showGuesses"
+          >{{ showGuesses ? "Hide" : "Show" }} guesses</UButton
         >
-          <p>{{ isCorrectGuess(guessedItem.name) ? "✅" : "❌" }}</p>
-          <p class="font-semibold uppercase">
-            {{ guessedItem.name }}
-          </p>
-        </li>
-      </ul>
-    </div>
+        <ul v-if="showGuesses">
+          <li
+            v-for="guessedItem in guessedItems[mode]"
+            :key="guessedItem.name"
+            class="flex gap-2"
+          >
+            <p>{{ isCorrectGuess(guessedItem.name) ? "✅" : "❌" }}</p>
+            <p class="font-semibold uppercase">
+              {{ guessedItem.name }}
+            </p>
+          </li>
+        </ul>
+      </div>
 
-    <div v-if="!$route.query.mode" class="flex gap-2 text-xl">
-      <p>New Game in:</p>
-      <span class="flex items-center gap-1">
-        <UIcon name="i-mdi-circle-slice-2" class="size-5" />
-        <NextGameCountdown :target-date="startOfTomorrow()" />
-      </span>
+      <div v-if="!$route.query.mode" class="flex gap-2 text-xl">
+        <p>New Game in:</p>
+        <span class="flex items-center gap-1">
+          <UIcon name="i-mdi-circle-slice-2" class="size-5" />
+          <NextGameCountdown :target-date="startOfTomorrow()" />
+        </span>
+      </div>
     </div>
-  </div>
+  </UCard>
 </template>
 
 <script setup lang="ts">

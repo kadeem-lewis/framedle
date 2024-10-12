@@ -1,5 +1,5 @@
 <template>
-  <div class="space-y-4">
+  <div class="flex flex-col gap-4">
     <p class="text-xl font-bold uppercase">Archive</p>
     <div class="flex gap-2">
       <UButton
@@ -8,6 +8,9 @@
         }"
         variant="outline"
         class="uppercase"
+        :class="{
+          'border-primary border-b-2': selectedMode === 'classic',
+        }"
         @click="selectedMode = 'classic'"
       >
         Classic
@@ -18,6 +21,9 @@
         }"
         variant="outline"
         class="uppercase"
+        :class="{
+          'border-primary border-b-2': selectedMode === 'ability',
+        }"
         @click="selectedMode = 'ability'"
       >
         Ability
@@ -33,12 +39,12 @@
         class="uppercase"
       >
         <template #trailing>
-          <UIcon name="mdi:triangle-down" class="size-3" />
+          <UIcon name="i-mdi-triangle-down" class="size-3" />
         </template>
       </USelect>
       <UInput
         v-model="searchQuery"
-        icon="mdi:magnify"
+        icon="i-mdi-magnify"
         :trailing="true"
         :ui="{
           rounded: false,
@@ -46,20 +52,27 @@
         placeholder="SEARCH..."
       />
     </div>
-    <div v-if="filteredDailies" class="grid grid-cols-2 gap-4">
-      <p class="font-semibold">Name</p>
-      <p class="font-semibold">Date</p>
-      <div
-        v-for="daily of filteredDailies"
-        :key="daily.id"
-        class="contents cursor-pointer odd:bg-gray-700"
-        @click="
-          navigateTo({ path: `/${selectedMode}`, query: { date: daily.date } })
-        "
-      >
-        <p>Framedle #{{ daily.day }}</p>
-        <p>{{ daily.readableDate }}</p>
-        <UDivider class="col-span-2" />
+    <div class="flex flex-col gap-4">
+      <div v-if="filteredDailies" class="grid grid-cols-2 gap-4">
+        <p class="font-semibold">Name</p>
+        <p class="font-semibold">Date</p>
+      </div>
+      <div class="grid h-full max-h-96 grid-cols-2 gap-4 overflow-y-auto">
+        <div
+          v-for="daily of filteredDailies"
+          :key="daily.id"
+          class="contents cursor-pointer odd:bg-gray-700"
+          @click="
+            navigateTo({
+              path: `/${selectedMode}`,
+              query: { date: daily.date },
+            })
+          "
+        >
+          <p>Framedle #{{ daily.day }}</p>
+          <p>{{ daily.readableDate }}</p>
+          <UDivider class="col-span-2" />
+        </div>
       </div>
     </div>
   </div>
@@ -121,8 +134,4 @@ watch(searchQuery, (newQuery) => {
       .map((result) => ({ ...result.item }));
   }
 });
-
-// In pokedexle, archive worked by getting the first date and then limiting a calendar to only dates after that date. Then whenever someone clicked on a date, it would just refetch the data with that date. Here I am fetching every date already so that approach would be very redundant.
-
-// when a user clicks on a game, then it will redirect them back to the page for whatever game mode they were on and add the date to the url as a query param. The game page will watch(?) this query param and first check to see if dailies exists and read from that, otherwise it will just make a fetch request with that date
 </script>

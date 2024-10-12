@@ -18,6 +18,7 @@ const parallax = reactive(useParallax(backgroundRef));
     <div
       ref="background"
       class="background"
+      :class="[$colorMode.value === 'dark' ? 'dark' : 'light']"
       :style="{
         backgroundPosition: `calc(50% + ${parallax.tilt * 30}px) calc(50% + ${parallax.roll * 30}px)`,
       }"
@@ -29,7 +30,6 @@ const parallax = reactive(useParallax(backgroundRef));
 </template>
 <style scoped>
 .background {
-  background-image: url("/backgrounds/circuit-board.svg");
   background-repeat: repeat;
   background-size: 400px 400px;
   position: fixed;
@@ -38,5 +38,13 @@ const parallax = reactive(useParallax(backgroundRef));
   min-width: 100vw;
   min-height: 100vh;
   z-index: -20;
+}
+
+.dark {
+  background-image: url("/backgrounds/circuit-board.svg");
+}
+
+.light {
+  background-image: url("/backgrounds/circuit-board-light.svg");
 }
 </style>

@@ -26,8 +26,10 @@
         </template>
         <WarframeSearch v-if="!isGameOver[mode]" :items="warframes" />
       </UCard>
-      <div class="overflow-x-auto md:overflow-x-visible">
-        <div class="grid w-[140%] grid-cols-6 gap-2 uppercase md:-ml-[20%]">
+      <div class="space-y-4 overflow-x-auto md:overflow-x-visible">
+        <div
+          class="grid w-[150%] grid-cols-6 gap-2 border border-gray-200 bg-gray-100/75 py-0.5 uppercase md:-ml-[25%] dark:border-gray-900 dark:bg-gray-800/75"
+        >
           <p
             v-for="label of [
               'name',
@@ -42,11 +44,13 @@
           >
             {{ label }}
           </p>
+        </div>
+        <div class="grid w-[150%] grid-cols-6 gap-2 uppercase md:-ml-[25%]">
           <ClassicFeedbackRow
             v-for="warframe of guessedItems[mode]"
             :key="warframe.name"
             :guessed-warframe="warframe"
-            :correct-warframe="itemToGuess[mode]"
+            :correct-warframe="itemToGuess[mode]!"
           />
         </div>
       </div>

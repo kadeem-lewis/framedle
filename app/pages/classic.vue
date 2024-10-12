@@ -54,6 +54,13 @@
           />
         </div>
       </div>
+      <div
+        class="flex items-center justify-center gap-1 font-semibold text-gray-400 md:hidden"
+      >
+        <UIcon name="i-heroicons-arrow-long-left" class="size-5" />
+        Scroll horizontally to see more
+        <UIcon name="i-heroicons-arrow-long-right" class="size-5" />
+      </div>
       <GameOver v-if="isGameOver[mode]" />
     </div>
   </div>

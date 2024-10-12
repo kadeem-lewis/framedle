@@ -53,6 +53,7 @@
         <NuxtImg
           format="webp"
           :src="`/elements/${guessedWarframe.progenitor}.png`"
+          :alt="guessedWarframe.progenitor"
           class="h-10"
         />
       </UTooltip>

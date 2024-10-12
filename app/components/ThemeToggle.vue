@@ -7,7 +7,7 @@
         :ui="{
           rounded: false,
         }"
-        class="border-primary border-b-4"
+        class="border-primary dark:border-primary hover:border-primary border-b-4 border-gray-800"
       >
         <UIcon
           name="i-heroicons-sun-solid"

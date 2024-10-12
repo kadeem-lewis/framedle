@@ -8,7 +8,8 @@
         rounded: false,
       }"
       :class="{
-        'border-primary border-b-4': !$route.query.mode,
+        'dark:border-primary hover:border-primary border-b-4 border-gray-800':
+          !$route.query.mode,
       }"
       class="hover:shadow-primary font-semibold uppercase hover:shadow-inner"
       variant="outline"
@@ -24,7 +25,8 @@
         rounded: false,
       }"
       :class="{
-        'border-primary border-b-4': $route.query.mode,
+        'dark:border-primary hover:border-primary border-b-4 border-gray-800':
+          $route.query.mode,
       }"
       class="hover:shadow-primary font-semibold uppercase hover:shadow-inner"
       variant="outline"

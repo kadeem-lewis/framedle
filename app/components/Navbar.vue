@@ -13,7 +13,7 @@
         :ui="{
           rounded: false,
         }"
-        class="border-primary border-b-4"
+        class="dark:border-primary hover:border-primary border-b-4 border-gray-800"
         @click="isOpen = true"
       />
       <ThemeToggle />

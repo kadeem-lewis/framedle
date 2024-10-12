@@ -5,6 +5,7 @@
         <UButton
           icon="i-heroicons-calendar-solid"
           variant="outline"
+          size="lg"
           square
           :ui="{
             rounded: false,
@@ -18,6 +19,7 @@
         <UButton
           icon="i-heroicons-chart-bar-solid"
           variant="outline"
+          size="lg"
           square
           :ui="{
             rounded: false,
@@ -32,6 +34,7 @@
         <UButton
           icon="i-heroicons-information-circle"
           variant="outline"
+          size="lg"
           square
           :ui="{
             rounded: false,
@@ -46,6 +49,7 @@
         <UButton
           icon="i-heroicons-question-mark-circle"
           variant="outline"
+          size="lg"
           square
           :ui="{
             rounded: false,

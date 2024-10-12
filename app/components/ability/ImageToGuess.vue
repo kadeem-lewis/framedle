@@ -2,7 +2,7 @@
   <div v-if="mode && (mode === 'ability' || mode === 'abilityUnlimited')">
     <div class="flex items-center justify-center p-4">
       <div class="relative">
-        <div class="absolute inset-0 grid grid-cols-3 grid-rows-2">
+        <div class="absolute inset-0 z-10 grid grid-cols-3 grid-rows-2">
           <div
             v-for="(_, index) of new Array(defaultAttempts)"
             :key="index"
@@ -22,7 +22,7 @@
           alt="Ability Image"
           placeholder
           preload
-          class="h-60"
+          class="h-60 invert dark:invert-0"
         />
         <NuxtImg
           v-if="mode === 'abilityUnlimited'"
@@ -31,7 +31,7 @@
           alt="Ability Image"
           placeholder
           preload
-          class="h-60"
+          class="h-60 invert dark:invert-0"
         />
       </div>
     </div>

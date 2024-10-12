@@ -8,7 +8,7 @@ export default defineAppConfig({
     button: {
       variant: {
         outline:
-          "bg-white/75 dark:bg-gray-800/75 text-gray-800 dark:text-primary",
+          "bg-gray-100/75 dark:bg-gray-800/75 hover:text-primary text-black dark:text-primary",
       },
     },
   },

@@ -1,7 +1,6 @@
 <template>
   <UCard v-if="mode">
     <div class="flex flex-col items-center gap-2">
-      <p>Game Over!</p>
       <p class="uppercase">{{ hasWon ? "You Win!" : "You Lost!" }}</p>
 
       <div class="space-y-2 text-center">

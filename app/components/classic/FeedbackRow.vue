@@ -1,17 +1,17 @@
 <template>
-  <!-- I can probably just have one grid for the entire feedback area -->
   <div class="contents">
-    <UiFeedbackTile :is-correct="guessedWarframe.name === correctWarframe.name">
-      <UTooltip :text="guessedWarframe.name">
+    <UTooltip :text="guessedWarframe.name">
+      <UiFeedbackTile>
         <NuxtImg
           format="webp"
           :src="`https://cdn.warframestat.us/img/${guessedWarframe.imageName}`"
           :alt="guessedWarframe.name"
+          preload
           placeholder
           class="h-16"
         />
-      </UTooltip>
-    </UiFeedbackTile>
+      </UiFeedbackTile>
+    </UTooltip>
 
     <UiFeedbackTile :is-correct="guessedWarframe.sex === correctWarframe.sex">
       {{ guessedWarframe.sex }}
@@ -46,18 +46,19 @@
     >
       {{ guessedWarframe.shield }}
     </UiFeedbackTile>
-    <UiFeedbackTile
-      :is-correct="guessedWarframe.progenitor === correctWarframe.progenitor"
-    >
-      <UTooltip :text="guessedWarframe.progenitor">
+    <UTooltip :text="guessedWarframe.progenitor">
+      <UiFeedbackTile
+        :is-correct="guessedWarframe.progenitor === correctWarframe.progenitor"
+      >
         <NuxtImg
           format="webp"
           :src="`/elements/${guessedWarframe.progenitor}.png`"
           :alt="guessedWarframe.progenitor"
           class="h-10"
+          preload
         />
-      </UTooltip>
-    </UiFeedbackTile>
+      </UiFeedbackTile>
+    </UTooltip>
     <UiFeedbackTile
       :is-correct="
         compareNumeric(

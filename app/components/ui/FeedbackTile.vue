@@ -1,32 +1,30 @@
 <template>
   <div
     :class="[
-      'relative z-10 min-h-12 border-2 bg-gray-100/75 font-semibold shadow-inner dark:bg-gray-800/75',
+      'relative z-0 min-h-12 w-full border-2 font-semibold shadow-inner',
       {
-        'border-green-500': isCorrect,
-        'border-red-500': !isCorrect,
+        'border-gray-500 bg-gray-200/75 dark:border-gray-600 dark:bg-gray-800/75':
+          isCorrect === null,
+        'border-green-900 bg-green-500 dark:bg-green-600': isCorrect === true,
+        'border-red-900 bg-red-500 dark:bg-red-600': isCorrect === false,
         'arrow-up': difference && difference > 0,
         'arrow-down': difference && difference < 0,
       },
     ]"
   >
-    <div class="flex h-full items-center justify-center pt-2 text-center">
+    <div
+      class="relative z-auto flex h-full items-center justify-center pt-2 text-center"
+    >
       <slot />
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-// types would be numeric ( for health, shield, and releaseDate ), default is string and probably also for sex since there are three options
-
-//TODO: The only approach of just passing in the status is probably better than calculating it within the component
-
-defineProps<{
+const { isCorrect = null, difference } = defineProps<{
   isCorrect?: boolean;
   difference?: number;
 }>();
-
-// if its numeric then I will have an arrow as the background or use a clip path to make an arrow in the background
 </script>
 
 <style scoped>
@@ -40,7 +38,7 @@ defineProps<{
     width: 100%;
     z-index: -10;
     height: 100%;
-    background: red;
+    background: #7f1d1d;
     clip-path: polygon(
       0 50%,
       20% 50%,
@@ -71,7 +69,7 @@ defineProps<{
     left: 0;
     width: 100%;
     height: 100%;
-    background: red;
+    background: #7f1d1d;
     z-index: -10;
     clip-path: polygon(
       50% 0,

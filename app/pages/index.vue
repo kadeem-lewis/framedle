@@ -1,6 +1,10 @@
 <template>
   <div class="space-y-4">
-    <p class="text-xl font-semibold uppercase">Test your Warframe Knowledge!</p>
+    <p
+      class="border border-gray-200 bg-gray-100/75 p-1 text-center text-lg font-semibold uppercase md:text-xl dark:border-gray-600/75 dark:bg-gray-800"
+    >
+      Test your Warframe Knowledge!
+    </p>
     <div class="flex flex-col gap-4">
       <UCard
         v-for="tab of tabs"
@@ -13,7 +17,7 @@
       >
         <div
           :style="{ backgroundImage: `url(${tab.background})` }"
-          class="absolute inset-0 z-0 bg-cover brightness-50 group-hover:brightness-75"
+          class="absolute inset-0 z-0 bg-cover contrast-75 group-hover:contrast-100 dark:brightness-50 dark:contrast-100 group-hover:dark:brightness-75"
         />
         <div class="relative z-10 flex flex-row items-center gap-8 text-white">
           <NuxtImg

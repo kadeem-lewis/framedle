@@ -3,10 +3,12 @@
     :class="[
       'relative z-0 min-h-12 w-full border-2 font-semibold shadow-inner',
       {
-        'border-gray-500 bg-gray-200/75 dark:border-gray-600 dark:bg-gray-800/75':
+        'border-gray-500 bg-gray-100/75 dark:border-gray-600 dark:bg-gray-800/75':
           isCorrect === null,
-        'border-green-900 bg-green-500 dark:bg-green-600': isCorrect === true,
-        'border-red-900 bg-red-500 dark:bg-red-600': isCorrect === false,
+        'border-green-900 bg-green-500 hover:bg-green-400 dark:bg-green-600 dark:hover:bg-green-500':
+          isCorrect === true,
+        'border-red-900 bg-red-500 hover:bg-red-400 dark:bg-red-600 hover:dark:bg-red-500':
+          isCorrect === false,
         'arrow-up': difference && difference > 0,
         'arrow-down': difference && difference < 0,
       },

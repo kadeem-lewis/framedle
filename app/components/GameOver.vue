@@ -2,17 +2,32 @@
   <UCard v-if="mode">
     <div class="flex flex-col items-center gap-2">
       <p>Game Over!</p>
+      <p class="uppercase">{{ hasWon ? "You Win!" : "You Lost!" }}</p>
+
       <div class="space-y-2 text-center">
         <p class="uppercase">The answer was:</p>
         <span class="text-xl font-bold capitalize">
           {{ answer }}
         </span>
+        <UiFeedbackTile>
+          <NuxtImg
+            :src="`https://cdn.warframestat.us/img/${itemToGuess[mode]?.imageName}`"
+            :alt="itemToGuess[mode]?.name"
+            format="webp"
+            class="h-16"
+          />
+        </UiFeedbackTile>
       </div>
-      <p class="uppercase">{{ hasWon ? "You Win!" : "You Lost!" }}</p>
+      <p>
+        Number of tries:
+        <span class="font-semibold">{{
+          defaultAttempts - attempts[mode]
+        }}</span>
+      </p>
       <UButton
         v-if="$route.query.mode"
         :ui="{
-          rounded: false,
+          rounded: 'rounded-none',
         }"
         variant="outline"
         class="font-semibold uppercase"

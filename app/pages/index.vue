@@ -35,21 +35,22 @@
 </template>
 
 <script setup lang="ts">
+const img = useImage();
+
 const tabs = [
   {
     label: "Classic",
     route: "/classic",
     source: "/warframe.png",
-    background: "/backgrounds/fortuna.jpg",
+    background: img("/backgrounds/fortuna.jpg", { format: "webp" }),
     description: "Guess the Warframe",
   },
   {
     label: "Ability",
     route: "/ability",
     source: "/PassiveAbilityIcon.png",
-    background: "/backgrounds/helminth.jpg",
+    background: img("/backgrounds/helminth.jpg", { format: "webp" }),
     description: "Guess the Ability",
   },
 ];
 </script>
-<style scoped></style>

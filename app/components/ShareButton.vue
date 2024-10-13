@@ -5,7 +5,7 @@
       variant="outline"
       size="xl"
       :ui="{
-        rounded: false,
+        rounded: 'rounded-none',
       }"
       @click="handleShareClick"
     >

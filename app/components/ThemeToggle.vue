@@ -5,7 +5,7 @@
         variant="outline"
         square
         :ui="{
-          rounded: false,
+          rounded: 'rounded-none',
         }"
         class="border-primary dark:border-primary hover:border-primary border-b-4 border-gray-800"
       >

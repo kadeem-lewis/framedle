@@ -7,8 +7,8 @@
 
       <UCard
         :ui="{
-          rounded: false,
-          divide: false,
+          rounded: 'rounded-none',
+          divide: 'divide-y-0',
         }"
       >
         <template #header>

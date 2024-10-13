@@ -5,7 +5,7 @@
         path: $route.path,
       }"
       :ui="{
-        rounded: false,
+        rounded: 'rounded-none',
       }"
       :class="{
         'dark:border-primary hover:border-primary border-b-4 border-gray-800':
@@ -22,7 +22,7 @@
         query: { mode: 'unlimited' },
       }"
       :ui="{
-        rounded: false,
+        rounded: 'rounded-none',
       }"
       :class="{
         'dark:border-primary hover:border-primary border-b-4 border-gray-800':

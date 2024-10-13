@@ -9,7 +9,7 @@
       option-attribute="name"
       :search-attributes="['name']"
       :ui="{
-        rounded: false,
+        rounded: 'rounded-none',
       }"
       class="grow"
     >
@@ -29,7 +29,7 @@
     <UButton
       type="type"
       :ui="{
-        rounded: false,
+        rounded: 'rounded-none',
       }"
       variant="outline"
       class="font-semibold uppercase"

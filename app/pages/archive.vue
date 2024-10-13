@@ -4,7 +4,7 @@
     <div class="flex gap-2">
       <UButton
         :ui="{
-          rounded: false,
+          rounded: 'rounded-none',
         }"
         variant="outline"
         class="uppercase"
@@ -17,7 +17,7 @@
       </UButton>
       <UButton
         :ui="{
-          rounded: false,
+          rounded: 'rounded-none',
         }"
         variant="outline"
         class="uppercase"
@@ -34,7 +34,7 @@
         v-model="order"
         :options="['OLDEST', 'NEWEST']"
         :ui="{
-          rounded: false,
+          rounded: 'rounded-none',
         }"
         class="uppercase"
       >
@@ -47,7 +47,7 @@
         icon="i-mdi-magnify"
         :trailing="true"
         :ui="{
-          rounded: false,
+          rounded: 'rounded-none',
         }"
         placeholder="SEARCH..."
       />

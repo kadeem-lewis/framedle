@@ -8,7 +8,7 @@
           size="lg"
           square
           :ui="{
-            rounded: false,
+            rounded: 'rounded-none',
           }"
           @click="
             navigateTo({ path: '/archive', query: { mode: $route.name } })
@@ -22,7 +22,7 @@
           size="lg"
           square
           :ui="{
-            rounded: false,
+            rounded: 'rounded-none',
           }"
           @click="
             isOpen = true;
@@ -37,7 +37,7 @@
           size="lg"
           square
           :ui="{
-            rounded: false,
+            rounded: 'rounded-none',
           }"
           @click="
             isOpen = true;
@@ -52,7 +52,7 @@
           size="lg"
           square
           :ui="{
-            rounded: false,
+            rounded: 'rounded-none',
           }"
           @click="
             isOpen = true;

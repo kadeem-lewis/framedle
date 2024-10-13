@@ -6,7 +6,7 @@
         v-for="tab of tabs"
         :key="tab.label"
         :ui="{
-          rounded: false,
+          rounded: 'rounded-none',
         }"
         class="border-primary group relative cursor-pointer border uppercase transition-all hover:bg-opacity-100"
         @click="navigateTo(tab.route)"

@@ -84,7 +84,7 @@ const options = {
 
 type Option = (typeof options)[keyof typeof options];
 
-const selectedOption = ref<Option>();
+const selectedOption = useState<Option>("selectedOption");
 
-const isOpen = ref(false);
+const isOpen = useState("isOpen", () => false);
 </script>

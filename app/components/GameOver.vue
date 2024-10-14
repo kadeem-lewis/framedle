@@ -1,7 +1,15 @@
 <template>
-  <UCard v-if="mode">
+  <UCard
+    v-if="mode"
+    :class="[
+      'border-2',
+      { 'border-green-500': hasWon, 'border-red-500': !hasWon },
+    ]"
+  >
     <div class="flex flex-col items-center gap-2">
-      <p class="uppercase">{{ hasWon ? "You Win!" : "You Lost!" }}</p>
+      <p class="text-2xl font-bold uppercase">
+        {{ hasWon ? "You Win!" : "You Lost!" }}
+      </p>
 
       <div class="space-y-2 text-center">
         <p class="uppercase">The answer was:</p>
@@ -10,8 +18,8 @@
         </span>
         <UiFeedbackTile>
           <NuxtImg
-            :src="`https://cdn.warframestat.us/img/${itemToGuess[mode]?.imageName}`"
-            :alt="itemToGuess[mode]?.name"
+            :src="`https://cdn.warframestat.us/img/${correctWarframe?.imageName}`"
+            :alt="correctWarframe?.name"
             format="webp"
             class="h-16"
           />
@@ -24,10 +32,15 @@
         }}</span>
       </p>
       <UButton
+        v-if="!$route.query.mode"
+        icon="i-heroicons-chart-bar-solid"
+        variant="outline"
+        class="font-semibold uppercase"
+        @click="handleStatsClick"
+        >Stats</UButton
+      >
+      <UButton
         v-if="$route.query.mode"
-        :ui="{
-          rounded: 'rounded-none',
-        }"
         variant="outline"
         class="font-semibold uppercase"
         size="xl"
@@ -52,14 +65,20 @@
           </li>
         </ul>
       </div>
-
-      <div v-if="!$route.query.mode" class="flex gap-2 text-xl">
-        <p>New Game in:</p>
-        <span class="flex items-center gap-1">
-          <UIcon name="i-mdi-circle-slice-2" class="size-5" />
-          <NextGameCountdown :target-date="startOfTomorrow()" />
-        </span>
-      </div>
+      <template v-if="!$route.query.mode">
+        <div class="flex gap-2 text-xl">
+          <p>New Game in:</p>
+          <span class="flex items-center gap-1">
+            <UIcon name="i-mdi-circle-slice-2" class="size-5" />
+            <NextGameCountdown :target-date="startOfTomorrow()" />
+          </span>
+        </div>
+        <div>
+          <UDivider />
+          <p class="text-center text-xl font-semibold uppercase">Next Mode:</p>
+          <ModeCard :tab="tabs.find((tab) => tab.route !== $route.path)!" />
+        </div>
+      </template>
     </div>
   </UCard>
 </template>
@@ -79,8 +98,38 @@ const {
   isGameOver,
   stats,
   currentDailyDate,
+  warframes,
 } = storeToRefs(useGameStore());
 const { resetGame, defaultAttempts } = useGameStore();
+
+const img = useImage();
+
+const tabs = [
+  {
+    label: "Classic",
+    route: "/classic",
+    source: "/warframe.png",
+    background: img("/backgrounds/fortuna.jpg", { format: "webp" }),
+    description: "Guess the Warframe",
+  },
+  {
+    label: "Ability",
+    route: "/ability",
+    source: "/PassiveAbilityIcon.png",
+    background: img("/backgrounds/helminth.jpg", { format: "webp" }),
+    description: "Guess the Ability",
+  },
+];
+
+const correctWarframe = computed(() => {
+  if (!mode.value) throw new Error("Mode is not set");
+  if (mode.value === "ability" || mode.value === "abilityUnlimited") {
+    return warframes.value.find(
+      (warframe) => warframe.name === itemToGuess.value[mode.value]?.belongsTo,
+    );
+  }
+  return itemToGuess.value[mode.value];
+});
 
 const showGuesses = ref(false);
 
@@ -94,28 +143,7 @@ const isCorrectGuess = computed(() => (guess: string) => {
   return false;
 });
 
-const hasWon = computed(() => {
-  if (!mode.value) return;
-  if (mode.value === "ability" || mode.value === "abilityUnlimited") {
-    return (
-      attempts.value[mode.value] >= 0 &&
-      guessedItems.value[mode.value].some(
-        (guessedItem) =>
-          guessedItem.name === itemToGuess.value[mode.value]?.belongsTo,
-      )
-    );
-  }
-  if (mode.value === "classic" || mode.value === "classicUnlimited") {
-    return (
-      attempts.value[mode.value] >= 0 &&
-      guessedItems.value[mode.value].some(
-        (guessedItem) =>
-          guessedItem.name === itemToGuess.value[mode.value]?.name,
-      )
-    );
-  }
-  return false;
-});
+const { hasWon } = useGameState();
 
 const answer = computed(() => {
   if (!mode.value) return;
@@ -125,6 +153,14 @@ const answer = computed(() => {
     return itemToGuess.value[mode.value]?.name;
   }
 });
+
+const isOpen = useState("isOpen");
+const selectedOption = useState("selectedOption");
+
+function handleStatsClick() {
+  isOpen.value = true;
+  selectedOption.value = "stats";
+}
 
 watch(
   isGameOver,

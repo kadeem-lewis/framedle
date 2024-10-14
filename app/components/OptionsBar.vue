@@ -7,9 +7,6 @@
           variant="outline"
           size="lg"
           square
-          :ui="{
-            rounded: 'rounded-none',
-          }"
           @click="
             navigateTo({ path: '/archive', query: { mode: $route.name } })
           "
@@ -21,9 +18,6 @@
           variant="outline"
           size="lg"
           square
-          :ui="{
-            rounded: 'rounded-none',
-          }"
           @click="
             isOpen = true;
             selectedOption = options.STATS;
@@ -36,9 +30,6 @@
           variant="outline"
           size="lg"
           square
-          :ui="{
-            rounded: 'rounded-none',
-          }"
           @click="
             isOpen = true;
             selectedOption = options.ABOUT;
@@ -51,9 +42,6 @@
           variant="outline"
           size="lg"
           square
-          :ui="{
-            rounded: 'rounded-none',
-          }"
           @click="
             isOpen = true;
             selectedOption = options.INSTRUCTIONS;

@@ -9,7 +9,6 @@
       <RemainingGuesses />
       <UCard
         :ui="{
-          rounded: 'rounded-none',
           divide: 'divide-y-0',
         }"
       >

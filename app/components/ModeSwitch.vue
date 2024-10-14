@@ -4,9 +4,6 @@
       :to="{
         path: $route.path,
       }"
-      :ui="{
-        rounded: 'rounded-none',
-      }"
       :class="{
         'dark:border-primary hover:border-primary border-b-4 border-gray-800':
           !$route.query.mode,
@@ -20,9 +17,6 @@
     <UButton
       :to="{
         query: { mode: 'unlimited' },
-      }"
-      :ui="{
-        rounded: 'rounded-none',
       }"
       :class="{
         'dark:border-primary hover:border-primary border-b-4 border-gray-800':

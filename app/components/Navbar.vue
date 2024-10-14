@@ -10,9 +10,6 @@
         icon="i-heroicons-cog-6-tooth-solid"
         variant="outline"
         square
-        :ui="{
-          rounded: false,
-        }"
         class="dark:border-primary hover:border-primary border-b-4 border-gray-800"
         @click="isOpen = true"
       />

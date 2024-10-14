@@ -8,8 +8,11 @@ export default defineAppConfig({
     button: {
       variant: {
         outline:
-          "bg-gray-100/75 dark:bg-gray-800/75 hover:text-primary text-black dark:text-primary",
+          "bg-gray-100/75 dark:bg-gray-800/75 hover:text-primary text-black dark:text-primary rounded-none",
       },
+    },
+    card: {
+      rounded: "rounded-none",
     },
   },
 });

@@ -26,13 +26,7 @@
         </div>
       </template>
     </UInputMenu>
-    <UButton
-      type="type"
-      :ui="{
-        rounded: 'rounded-none',
-      }"
-      variant="outline"
-      class="font-semibold uppercase"
+    <UButton type="type" variant="outline" class="font-semibold uppercase"
       >Submit</UButton
     >
   </form>

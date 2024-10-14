@@ -3,9 +3,6 @@
     <p class="text-xl font-bold uppercase">Archive</p>
     <div class="flex gap-2">
       <UButton
-        :ui="{
-          rounded: 'rounded-none',
-        }"
         variant="outline"
         class="uppercase"
         :class="{
@@ -16,9 +13,6 @@
         Classic
       </UButton>
       <UButton
-        :ui="{
-          rounded: 'rounded-none',
-        }"
         variant="outline"
         class="uppercase"
         :class="{

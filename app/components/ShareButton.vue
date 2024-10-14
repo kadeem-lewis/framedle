@@ -4,9 +4,6 @@
       class="font-semibold uppercase"
       variant="outline"
       size="xl"
-      :ui="{
-        rounded: 'rounded-none',
-      }"
       @click="handleShareClick"
     >
       {{ !copied ? "Share" : "Copied" }}

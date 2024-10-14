@@ -37,29 +37,7 @@ const { copy, copied } = useClipboard();
 
 const emojiFeedback = ref<string[]>([]);
 
-//TODO: This is temporarily copied over but it should be in a composable or util
-const hasWon = computed(() => {
-  if (!mode.value) return;
-  if (mode.value === "ability" || mode.value === "abilityUnlimited") {
-    return (
-      attempts.value[mode.value] >= 0 &&
-      guessedItems.value[mode.value].some(
-        (guessedItem) =>
-          guessedItem.name === itemToGuess.value[mode.value]?.belongsTo,
-      )
-    );
-  }
-  if (mode.value === "classic" || mode.value === "classicUnlimited") {
-    return (
-      attempts.value[mode.value] >= 0 &&
-      guessedItems.value[mode.value].some(
-        (guessedItem) =>
-          guessedItem.name === itemToGuess.value[mode.value]?.name,
-      )
-    );
-  }
-  return false;
-});
+const { hasWon } = useGameState();
 
 const { encode } = useEncoder();
 

@@ -1,86 +1,90 @@
 <template>
-  <UCard
-    v-if="mode"
-    :class="[
-      'border-2',
-      { 'border-green-500': hasWon, 'border-red-500': !hasWon },
-    ]"
-  >
-    <div class="flex flex-col items-center gap-2">
-      <p class="text-2xl font-bold uppercase">
-        {{ hasWon ? "You Win!" : "You Lost!" }}
-      </p>
+  <div ref="gameOverCard">
+    <UCard
+      v-if="mode"
+      :class="[
+        'border-2',
+        { 'border-green-500': hasWon, 'border-red-500': !hasWon },
+      ]"
+    >
+      <div class="flex flex-col items-center gap-2">
+        <p class="text-2xl font-bold uppercase">
+          {{ hasWon ? "You Win!" : "You Lost!" }}
+        </p>
 
-      <div class="space-y-2 text-center">
-        <p class="uppercase">The answer was:</p>
-        <span class="text-xl font-bold capitalize">
-          {{ answer }}
-        </span>
-        <UiFeedbackTile>
-          <NuxtImg
-            :src="`https://cdn.warframestat.us/img/${correctWarframe?.imageName}`"
-            :alt="correctWarframe?.name"
-            format="webp"
-            class="h-16"
-          />
-        </UiFeedbackTile>
-      </div>
-      <p>
-        Number of tries:
-        <span class="font-semibold">{{
-          defaultAttempts - attempts[mode]
-        }}</span>
-      </p>
-      <UButton
-        v-if="!$route.query.mode"
-        icon="i-heroicons-chart-bar-solid"
-        variant="outline"
-        class="font-semibold uppercase"
-        @click="handleStatsClick"
-        >Stats</UButton
-      >
-      <UButton
-        v-if="$route.query.mode"
-        variant="outline"
-        class="font-semibold uppercase"
-        size="xl"
-        @click="resetGame"
-        >New Game</UButton
-      >
-      <ShareButton />
-      <div v-if="mode === 'ability' || mode === 'abilityUnlimited'">
-        <UButton variant="link" @click="showGuesses = !showGuesses"
-          >{{ showGuesses ? "Hide" : "Show" }} guesses</UButton
-        >
-        <ul v-if="showGuesses">
-          <li
-            v-for="guessedItem in guessedItems[mode]"
-            :key="guessedItem.name"
-            class="flex gap-2"
-          >
-            <p>{{ isCorrectGuess(guessedItem.name) ? "✅" : "❌" }}</p>
-            <p class="font-semibold uppercase">
-              {{ guessedItem.name }}
-            </p>
-          </li>
-        </ul>
-      </div>
-      <template v-if="!$route.query.mode">
-        <div class="flex gap-2 text-xl">
-          <p>New Game in:</p>
-          <span class="flex items-center gap-1">
-            <UIcon name="i-mdi-circle-slice-2" class="size-5" />
-            <NextGameCountdown :target-date="startOfTomorrow()" />
+        <div class="space-y-2 text-center">
+          <p class="uppercase">The answer was:</p>
+          <span class="text-xl font-bold capitalize">
+            {{ answer }}
           </span>
+          <UiFeedbackTile>
+            <NuxtImg
+              :src="`https://cdn.warframestat.us/img/${correctWarframe?.imageName}`"
+              :alt="correctWarframe?.name"
+              format="webp"
+              class="h-16"
+            />
+          </UiFeedbackTile>
         </div>
-        <div>
-          <UDivider />
-          <p class="text-center text-xl font-semibold uppercase">Next Mode:</p>
-          <ModeCard :tab="tabs.find((tab) => tab.route !== $route.path)!" />
+        <p>
+          Number of tries:
+          <span class="font-semibold">{{
+            defaultAttempts - attempts[mode]
+          }}</span>
+        </p>
+        <UButton
+          v-if="!$route.query.mode"
+          icon="i-heroicons-chart-bar-solid"
+          variant="outline"
+          class="font-semibold uppercase"
+          @click="handleStatsClick"
+          >Stats</UButton
+        >
+        <UButton
+          v-if="$route.query.mode"
+          variant="outline"
+          class="font-semibold uppercase"
+          size="xl"
+          @click="resetGame"
+          >New Game</UButton
+        >
+        <ShareButton />
+        <div v-if="mode === 'ability' || mode === 'abilityUnlimited'">
+          <UButton variant="link" @click="showGuesses = !showGuesses"
+            >{{ showGuesses ? "Hide" : "Show" }} guesses</UButton
+          >
+          <ul v-if="showGuesses">
+            <li
+              v-for="guessedItem in guessedItems[mode]"
+              :key="guessedItem.name"
+              class="flex gap-2"
+            >
+              <p>{{ isCorrectGuess(guessedItem.name) ? "✅" : "❌" }}</p>
+              <p class="font-semibold uppercase">
+                {{ guessedItem.name }}
+              </p>
+            </li>
+          </ul>
         </div>
-      </template>
-    </div>
-  </UCard>
+        <template v-if="!$route.query.mode">
+          <div class="flex gap-2 text-xl">
+            <p>New Game in:</p>
+            <span class="flex items-center gap-1">
+              <UIcon name="i-mdi-circle-slice-2" class="size-5" />
+              <NextGameCountdown :target-date="startOfTomorrow()" />
+            </span>
+          </div>
+          <div>
+            <UDivider />
+            <p class="text-center text-xl font-semibold uppercase">
+              Next Mode:
+            </p>
+            <ModeCard :tab="tabs.find((tab) => tab.route !== $route.path)!" />
+          </div>
+        </template>
+      </div>
+    </UCard>
+  </div>
 </template>
 
 <script setup lang="ts">
@@ -161,6 +165,14 @@ function handleStatsClick() {
   isOpen.value = true;
   selectedOption.value = "stats";
 }
+
+const gameOverCard = useTemplateRef("gameOverCard");
+
+watchEffect(() => {
+  if (isGameOver.value[mode.value]) {
+    gameOverCard.value?.scrollIntoView({ behavior: "smooth" });
+  }
+});
 
 watch(
   isGameOver,

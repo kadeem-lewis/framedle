@@ -1,14 +1,32 @@
 <template>
   <div class="space-y-2">
-    <p>If you would like to support me and the game's development.</p>
     <p>
-      You can
-      <ULink to="https://ko-fi.com/redeemr" target="blank"
-        >buy me a coffee</ULink
-      >
+      If you would like to support me and the game's development, You can do so
+      in any of the following ways
     </p>
+    <ul class="list-disc pl-6">
+      <li>
+        You can
+        <ULink to="https://ko-fi.com/redeemr" target="blank"
+          >buy me a coffee</ULink
+        >
+      </li>
+      <li>Check out my youtube channel</li>
+      <li>Join my discord server</li>
+      <li>Send me a random gift in-game</li>
+    </ul>
     <p class="text-xl font-semibold uppercase">Feedback/Questions</p>
     <UDivider />
+    <p>
+      You can provide Feedback or ask Questions in any of the following ways:
+    </p>
+    <ul class="list-disc pl-6">
+      <li>Open an Issue on Github</li>
+      <li>
+        Join my discord and leave a message in the framedle feedback channel
+      </li>
+      <li>send me an email at support@framedle.com</li>
+    </ul>
   </div>
 </template>
 

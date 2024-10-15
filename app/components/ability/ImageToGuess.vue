@@ -6,7 +6,7 @@
           <div
             v-for="(_, index) of new Array(defaultAttempts)"
             :key="index"
-            class="col-span-1 flex h-full items-center justify-center border bg-red-500"
+            class="col-span-1 flex h-full items-center justify-center border bg-red-500 dark:bg-red-600"
             :class="{
               hidden:
                 index <= defaultAttempts - attempts[mode] || isGameOver[mode],

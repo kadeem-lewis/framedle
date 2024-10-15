@@ -46,7 +46,9 @@
         placeholder="SEARCH..."
       />
     </div>
-    <div class="flex flex-col gap-4">
+    <div
+      class="flex flex-col gap-4 border border-gray-200 bg-gray-100/75 p-2 dark:border-gray-900 dark:bg-gray-800/75"
+    >
       <div v-if="filteredDailies" class="grid grid-cols-2 gap-4">
         <p class="font-semibold">Name</p>
         <p class="font-semibold">Date</p>

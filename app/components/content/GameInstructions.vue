@@ -17,16 +17,16 @@
       Warframe to find.
     </p>
     <p>
-      <span className="text-green-500">Green</span> indicates the property is an
-      exact match.
+      <span class="font-semibold text-green-500">Green</span> indicates the
+      property is an exact match.
     </p>
     <p>
-      <span className="text-red-700">Red</span> indicates there is no overlap
-      between your guess and the property
+      <span class="font-semibold text-red-700">Red</span> indicates there is no
+      overlap between your guess and the property
     </p>
     <p>
-      <span className="text-red-700">⬆️⬇️</span> With arrows, it also indicates
-      if the answer property is above or below your guess.
+      <span>⬆️⬇️</span> With arrows, it also indicates if the answer property is
+      above or below your guess.
     </p>
     <p class="text-lg font-bold uppercase">Example</p>
     <UDivider />
@@ -66,11 +66,13 @@
         <p>Nezha has more shields than Inaros</p>
       </div>
       <div>
-        <p>Progenitor: <span class="text-green-500">Green</span></p>
+        <p class="text-lg font-semibold">
+          Progenitor: <span class="text-green-500">Green</span>
+        </p>
         <p>It is a match because both have the same progenitor element</p>
       </div>
       <div>
-        <p>
+        <p class="text-lg font-semibold">
           Release Year: <span class="text-red-500">Red and a down arrow</span>
         </p>
         <p>Nezha was released before Inaros</p>

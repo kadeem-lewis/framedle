@@ -36,6 +36,18 @@
           "
         />
       </UTooltip>
+      <UTooltip text="About">
+        <UButton
+          icon="i-heroicons-heart"
+          variant="outline"
+          size="lg"
+          square
+          @click="
+            isOpen = true;
+            selectedOption = options.SUPPORT;
+          "
+        />
+      </UTooltip>
       <UTooltip text="Instructions">
         <UButton
           icon="i-heroicons-question-mark-circle"
@@ -70,6 +82,7 @@
           v-if="selectedOption === options.INSTRUCTIONS"
         />
         <ContentGameStats v-if="selectedOption === options.STATS" />
+        <ContentSupport v-if="selectedOption === options.SUPPORT" />
       </UCard>
     </UModal>
   </div>
@@ -80,6 +93,7 @@ const options = {
   STATS: "stats",
   ABOUT: "about",
   INSTRUCTIONS: "instructions",
+  SUPPORT: "support",
 } as const;
 
 type Option = (typeof options)[keyof typeof options];

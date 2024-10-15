@@ -94,6 +94,8 @@ import {
   startOfTomorrow,
   startOfYesterday,
 } from "date-fns";
+import party from "party-js";
+
 const {
   itemToGuess,
   mode,
@@ -169,8 +171,14 @@ function handleStatsClick() {
 const gameOverCard = useTemplateRef("gameOverCard");
 
 watchEffect(() => {
-  if (isGameOver.value[mode.value]) {
+  if (mode.value && isGameOver.value[mode.value]) {
     gameOverCard.value?.scrollIntoView({ behavior: "smooth" });
+  }
+});
+
+watchEffect(() => {
+  if (mode.value && isGameOver.value[mode.value] && gameOverCard.value) {
+    party.confetti(gameOverCard.value);
   }
 });
 

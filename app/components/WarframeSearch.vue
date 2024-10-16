@@ -28,7 +28,7 @@
       </template>
     </UInputMenu>
     <UButton
-      name="submit-answer"
+      aria-label="submit-answer"
       type="type"
       variant="outline"
       class="font-semibold uppercase"

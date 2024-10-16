@@ -7,7 +7,7 @@
     </div>
     <div class="flex items-center gap-1">
       <UButton
-        name="settings"
+        aria-label="settings"
         icon="i-heroicons-cog-6-tooth-solid"
         variant="outline"
         square

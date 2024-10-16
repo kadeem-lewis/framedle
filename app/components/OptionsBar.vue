@@ -3,7 +3,7 @@
     <menu class="flex gap-2 p-2">
       <UTooltip text="Archive">
         <UButton
-          name="archive"
+          aria-label="archive"
           icon="i-heroicons-calendar-solid"
           variant="outline"
           size="lg"
@@ -15,7 +15,7 @@
       </UTooltip>
       <UTooltip text="Stats">
         <UButton
-          name="stats"
+          aria-label="stats"
           icon="i-heroicons-chart-bar-solid"
           variant="outline"
           size="lg"
@@ -28,7 +28,7 @@
       </UTooltip>
       <UTooltip text="About">
         <UButton
-          name="about"
+          aria-label="about"
           icon="i-heroicons-information-circle"
           variant="outline"
           size="lg"
@@ -41,7 +41,7 @@
       </UTooltip>
       <UTooltip text="Support">
         <UButton
-          name="support"
+          aria-label="support"
           icon="i-heroicons-heart"
           variant="outline"
           size="lg"
@@ -54,7 +54,7 @@
       </UTooltip>
       <UTooltip text="Instructions">
         <UButton
-          name="instructions"
+          aria-label="instructions"
           icon="i-heroicons-question-mark-circle"
           variant="outline"
           size="lg"

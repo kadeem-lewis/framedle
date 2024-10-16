@@ -3,7 +3,7 @@
     <UDropdown v-model="$colorMode.preference" :items="items">
       <UButton
         variant="outline"
-        name="theme-toggle"
+        aria-label="theme-toggle"
         square
         class="border-primary dark:border-primary hover:border-primary border-b-4 border-gray-800"
       >

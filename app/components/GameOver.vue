@@ -22,7 +22,7 @@
               :src="`https://cdn.warframestat.us/img/${correctWarframe?.imageName}`"
               :alt="correctWarframe?.name"
               format="webp"
-              class="h-16"
+              height="64"
             />
           </UiFeedbackTile>
         </div>

@@ -138,34 +138,4 @@ function generateClassicEmojiFeedback(
   }
   return gridRow.join("");
 }
-
-function useCheckGuess(
-  correctProperty: string | number,
-  guessedProperty: string | number,
-) {
-  if (
-    typeof correctProperty === "string" &&
-    typeof guessedProperty === "string"
-  ) {
-    const isCorrect = correctProperty === guessedProperty;
-    return {
-      isCorrect,
-      difference: 0,
-    };
-  }
-  if (
-    typeof correctProperty === "number" &&
-    typeof guessedProperty === "number"
-  ) {
-    const isCorrect = correctProperty === guessedProperty;
-    return {
-      isCorrect,
-      difference: correctProperty - guessedProperty,
-    };
-  }
-  return {
-    isCorrect: false,
-    difference: 0,
-  };
-}
 </script>

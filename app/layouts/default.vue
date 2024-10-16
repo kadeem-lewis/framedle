@@ -2,13 +2,13 @@
   <UContainer
     class="flex min-h-screen flex-col items-center justify-between gap-y-2"
   >
-    <Navbar />
+    <SiteNavbar />
     <main class="w-full grow">
       <NuxtPage />
     </main>
-    <Footer />
+    <SiteFooter />
+    <UNotifications />
   </UContainer>
-  <UNotifications />
 </template>
 
 <script setup lang="ts"></script>

@@ -22,6 +22,7 @@
     "@nuxt/fonts": "^0.10.0",
     "@nuxt/image": "^1.8.1",
     "@nuxt/ui": "^2.18.7",
+    "@nuxtjs/seo": "2.0.0-rc.23",
     "@pinia-plugin-persistedstate/nuxt": "^1.2.1",
     "drizzle-kit": "^0.25.0",
     "eslint": "^9.12.0",

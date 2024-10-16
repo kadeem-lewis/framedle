@@ -13,6 +13,7 @@ export default defineNuxtConfig({
     "@pinia/nuxt",
     "@pinia-plugin-persistedstate/nuxt",
     "@vueuse/nuxt",
+    "@nuxtjs/seo",
   ],
   runtimeConfig: {
     public: {
@@ -29,6 +30,11 @@ export default defineNuxtConfig({
       tailwindcss: {},
       autoprefixer: {},
     },
+  },
+  site: {
+    url: "https://framedle.com",
+    name: "Framedle",
+    description: "Daily guessing games for Warframe.",
   },
   experimental: {
     typedPages: true,

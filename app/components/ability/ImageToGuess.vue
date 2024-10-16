@@ -22,6 +22,7 @@
           alt="Ability Image"
           placeholder
           preload
+          height="240"
           class="h-60 invert dark:invert-0"
         />
         <NuxtImg
@@ -31,6 +32,7 @@
           alt="Ability Image"
           placeholder
           preload
+          height="240"
           class="h-60 invert dark:invert-0"
         />
       </div>
@@ -47,8 +49,6 @@
 <script setup lang="ts">
 const { itemToGuess, mode, attempts, isGameOver } = storeToRefs(useGameStore());
 const { defaultAttempts } = useGameStore();
-
-const indices = [5, 2, 0, 3, 1, 4];
 
 const cleanedDescription = computed(() => {
   if (mode.value === "ability" || mode.value === "abilityUnlimited") {

@@ -20,6 +20,7 @@
             :src="`https://cdn.warframestat.us/img/${option.imageName}`"
             :alt="option.name"
             placeholder
+            height="64"
             class="h-16"
           />
           <p class="font-semibold uppercase">{{ option.name }}</p>

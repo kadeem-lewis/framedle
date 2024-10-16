@@ -17,6 +17,7 @@
           :src="`https://cdn.warframestat.us/img/${warframe.imageName}`"
           :alt="warframe.name"
           placeholder
+          height="64"
           class="h-16"
         />
       </div>

@@ -8,7 +8,8 @@
         src="/warframe.png"
         alt="Warframe Icon"
         placeholder
-        class="h-6 invert dark:invert-0"
+        height="24"
+        class="invert dark:invert-0"
         :class="index + 1 > attempts[mode] ? 'brightness-50' : ''"
       />
     </div>

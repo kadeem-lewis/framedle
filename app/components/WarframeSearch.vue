@@ -26,7 +26,11 @@
         </div>
       </template>
     </UInputMenu>
-    <UButton type="type" variant="outline" class="font-semibold uppercase"
+    <UButton
+      name="submit-answer"
+      type="type"
+      variant="outline"
+      class="font-semibold uppercase"
       >Submit</UButton
     >
   </form>

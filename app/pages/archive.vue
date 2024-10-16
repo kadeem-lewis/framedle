@@ -26,6 +26,7 @@
     <div class="flex items-center justify-end gap-4">
       <USelect
         v-model="order"
+        aria-label="order-filter"
         :options="['OLDEST', 'NEWEST']"
         :ui="{
           rounded: 'rounded-none',

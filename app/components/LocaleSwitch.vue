@@ -17,11 +17,12 @@ const selectedLocale = ref(locale.value);
   <USelectMenu
     v-model="selectedLocale"
     :options="locales"
-    :on-change="switchLocalePath"
     :ui-menu="{
       width: 'w-fit',
     }"
     option-attribute="name"
+    option-value="code"
+    disabled
     class="border-primary dark:border-primary hover:border-primary border border-b-4 border-gray-800 bg-gray-100/75 dark:bg-gray-800/75"
   >
     <template #label>

@@ -14,6 +14,7 @@ export default defineNuxtConfig({
     "@pinia-plugin-persistedstate/nuxt",
     "@vueuse/nuxt",
     "@nuxtjs/seo",
+    "@nuxtjs/i18n",
   ],
   runtimeConfig: {
     public: {
@@ -35,6 +36,21 @@ export default defineNuxtConfig({
     url: "https://framedle.com",
     name: "Framedle",
     description: "Daily guessing games for Warframe.",
+  },
+  i18n: {
+    strategy: "no_prefix",
+    vueI18n: "./i18n.config.ts",
+    locales: [
+      { code: "en", language: "", name: "English" },
+      {
+        code: "es",
+        language: "",
+        name: "Español",
+      },
+      { code: "pt", language: "", name: "Português" },
+    ],
+    defaultLocale: "en",
+    baseUrl: "https://framedle.com",
   },
   experimental: {
     typedPages: true,

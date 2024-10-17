@@ -40,17 +40,26 @@ export default defineNuxtConfig({
   i18n: {
     strategy: "no_prefix",
     vueI18n: "./i18n.config.ts",
+    detectBrowserLanguage: {
+      useCookie: true,
+      cookieKey: "i18n_redirected",
+      fallbackLocale: "en",
+      alwaysRedirect: true,
+    },
     locales: [
-      { code: "en", language: "", name: "English" },
+      { code: "en", language: "en-US", name: "English" },
       {
         code: "es",
-        language: "",
+        language: "es-ES",
         name: "Español",
       },
       { code: "pt", language: "", name: "Português" },
     ],
     defaultLocale: "en",
     baseUrl: "https://framedle.com",
+  },
+  icon: {
+    provider: "server",
   },
   experimental: {
     typedPages: true,

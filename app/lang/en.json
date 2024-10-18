@@ -1,5 +1,6 @@
 {
   "home": {
+    "header": "Test your Warframe Knowledge!",
     "classic_card": {
       "title": "Classic",
       "description": "Guess the Warframe"
@@ -35,5 +36,18 @@
     "new_game": "New Game",
     "new_game_in": "New Game in:",
     "next_mode": "Next Mode:"
-  }
+  },
+  "stats": {
+    "guess_distribution": "Guess Distribution",
+    "played": "Played",
+    "wins": "Wins",
+    "current_streak": "Current Streak",
+    "longest_streak": "Longest Streak",
+    "win_percentage": "Win %"
+  },
+  "instructions": {
+    "classic": {},
+    "ability": {}
+  },
+  "footer": {}
 }

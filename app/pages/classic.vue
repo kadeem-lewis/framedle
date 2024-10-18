@@ -14,13 +14,13 @@
       >
         <template #header>
           <p class="text-primary text-2xl font-bold uppercase">
-            Guess the Warframe
+            {{ t("classic.title") }}
           </p>
           <p
             v-if="attempts[mode] === defaultAttempts"
             class="font-semibold uppercase"
           >
-            Take a guess to get started!
+            {{ t("classic.subtitle") }}
           </p>
         </template>
         <WarframeSearch v-if="!isGameOver[mode]" :items="warframes" />
@@ -32,12 +32,12 @@
           >
             <p
               v-for="label of [
-                'name',
-                'sex',
-                'base health',
-                'base shield',
-                'progenitor element',
-                'release year',
+                t('feedback.name'),
+                t('feedback.sex'),
+                t('feedback.base_health'),
+                t('feedback.base_shield'),
+                t('feedback.progenitor_element'),
+                t('feedback.release_year'),
               ]"
               :key="label"
               class="self-center justify-self-center text-center font-semibold"
@@ -58,7 +58,7 @@
           class="flex items-center justify-center gap-1 font-semibold text-gray-800 md:hidden dark:text-gray-400"
         >
           <UIcon name="i-heroicons-arrow-long-left" class="size-5" />
-          Scroll horizontally to see more
+          {{ t("classic.scroll_hint") }}
           <UIcon name="i-heroicons-arrow-long-right" class="size-5" />
         </div>
       </template>
@@ -74,6 +74,8 @@ definePageMeta({
   layout: "game",
 });
 
+const { t } = useI18n();
+
 const {
   itemToGuess,
   mode,
@@ -83,6 +85,7 @@ const {
   attempts,
   stats,
 } = storeToRefs(useGameStore());
+
 const { classicInit, defaultAttempts } = useGameStore();
 
 await callOnce("classic-setup", classicInit);

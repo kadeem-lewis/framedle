@@ -12,7 +12,7 @@
       >
         <template #header>
           <p class="text-primary text-xl font-bold uppercase">
-            Which Warframe has this ability?
+            {{ t("ability.title") }}
           </p>
         </template>
         <AbilityImageToGuess />
@@ -36,6 +36,8 @@ import { isYesterday, isToday } from "date-fns";
 definePageMeta({
   layout: "game",
 });
+
+const { t } = useI18n();
 
 const { itemToGuess, mode, isGameOver, vanillaWarframes, stats } =
   storeToRefs(useGameStore());

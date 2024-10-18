@@ -13,21 +13,22 @@
 
 <script setup lang="ts">
 const img = useImage();
+const { t } = useI18n();
 
 const tabs = [
   {
-    label: "Classic",
+    label: t("home.classic_card.title"),
     route: "/classic",
     source: "/warframe.png",
     background: img("/backgrounds/fortuna.jpg", { format: "webp" }),
-    description: "Guess the Warframe",
+    description: t("home.classic_card.description"),
   },
   {
-    label: "Ability",
+    label: t("home.ability_card.title"),
     route: "/ability",
     source: "/PassiveAbilityIcon.png",
     background: img("/backgrounds/helminth.jpg", { format: "webp" }),
-    description: "Guess the Ability",
+    description: t("home.ability_card.description"),
   },
 ];
 </script>

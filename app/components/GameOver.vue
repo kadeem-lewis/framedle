@@ -177,7 +177,12 @@ watchEffect(() => {
 });
 
 watchEffect(() => {
-  if (mode.value && isGameOver.value[mode.value] && gameOverCard.value) {
+  if (
+    mode.value &&
+    isGameOver.value[mode.value] &&
+    gameOverCard.value &&
+    hasWon.value
+  ) {
     party.confetti(gameOverCard.value);
   }
 });

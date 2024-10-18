@@ -31,11 +31,13 @@
 </template>
 
 <script setup lang="ts">
+import { isYesterday, isToday } from "date-fns";
+
 definePageMeta({
   layout: "game",
 });
 
-const { itemToGuess, mode, isGameOver, vanillaWarframes } =
+const { itemToGuess, mode, isGameOver, vanillaWarframes, stats } =
   storeToRefs(useGameStore());
 const { abilityInit } = useGameStore();
 
@@ -44,6 +46,17 @@ await callOnce("ability-setup", abilityInit);
 // If I get the correct guess it should still be added to guessed items but then I need to update the game over condition
 
 const route = useRoute();
+
+onBeforeMount(() => {
+  const lastPlayedDate = stats.value.ability.lastPlayedDate;
+  if (
+    lastPlayedDate &&
+    !isToday(lastPlayedDate) &&
+    !isYesterday(lastPlayedDate)
+  ) {
+    stats.value.ability.streak = 0;
+  }
+});
 
 watch(
   () => route.query.mode,

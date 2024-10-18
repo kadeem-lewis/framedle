@@ -68,17 +68,37 @@
 </template>
 
 <script setup lang="ts">
+import { isYesterday, isToday } from "date-fns";
+
 definePageMeta({
   layout: "game",
 });
 
-const { itemToGuess, mode, guessedItems, isGameOver, warframes, attempts } =
-  storeToRefs(useGameStore());
+const {
+  itemToGuess,
+  mode,
+  guessedItems,
+  isGameOver,
+  warframes,
+  attempts,
+  stats,
+} = storeToRefs(useGameStore());
 const { classicInit, defaultAttempts } = useGameStore();
 
 await callOnce("classic-setup", classicInit);
 
 const route = useRoute();
+
+onBeforeMount(() => {
+  const lastPlayedDate = stats.value.classic.lastPlayedDate;
+  if (
+    lastPlayedDate &&
+    !isToday(lastPlayedDate) &&
+    !isYesterday(lastPlayedDate)
+  ) {
+    stats.value.classic.streak = 0;
+  }
+});
 
 watch(
   () => route.query.mode,

@@ -46,17 +46,20 @@ export default defineNuxtConfig({
       cookieKey: "i18n_redirected",
       fallbackLocale: "en",
       alwaysRedirect: true,
+      redirectOn: "root",
     },
     locales: [
-      { code: "en", language: "en-US", name: "English" },
+      { code: "en", language: "en-US", name: "English", file: "en.json" },
       {
         code: "es",
         language: "es-ES",
         name: "Español",
+        file: "es.json",
       },
-      { code: "pt", language: "", name: "Português" },
+      { code: "pt", language: "pt-BR", name: "Português", file: "pt.json" },
     ],
     defaultLocale: "en",
+    langDir: "lang",
     baseUrl: "https://framedle.com",
   },
   icon: {

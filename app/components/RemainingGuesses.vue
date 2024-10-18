@@ -9,6 +9,7 @@
         alt="Warframe Icon"
         placeholder
         height="24"
+        width="24"
         class="invert dark:invert-0"
         :class="index + 1 > attempts[mode] ? 'brightness-50' : ''"
       />

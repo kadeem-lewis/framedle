@@ -1,0 +1,39 @@
+{
+  "home": {
+    "classic_card": {
+      "title": "Classic",
+      "description": "Guess the Warframe"
+    },
+    "ability_card": {
+      "title": "Ability",
+      "description": "Guess the Ability"
+    }
+  },
+  "classic": {
+    "title": "Guess the Warframe",
+    "subtitle": "Take a guess to get started",
+    "feedback": {
+      "name": "name",
+      "sex": "sex",
+      "base_health": "base health",
+      "base_shield": "base shield",
+      "progenitor_element": "progenitor element",
+      "release_year": "release year"
+    },
+    "scroll_hint": "Scroll horizontally to see more"
+  },
+  "ability": {
+    "title": "Which Warframe has this ability?"
+  },
+  "mode_toggle": {
+    "daily": "Daily",
+    "unlimited": "Unlimited"
+  },
+  "game_over": {
+    "answer": "The answer was:",
+    "tries": "Number of tries:",
+    "new_game": "New Game",
+    "new_game_in": "New Game in:",
+    "next_mode": "Next Mode:"
+  }
+}

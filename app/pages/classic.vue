@@ -55,7 +55,7 @@
           </div>
         </div>
         <div
-          class="flex items-center justify-center gap-1 font-semibold text-gray-400 md:hidden"
+          class="flex items-center justify-center gap-1 font-semibold text-gray-800 md:hidden dark:text-gray-400"
         >
           <UIcon name="i-heroicons-arrow-long-left" class="size-5" />
           Scroll horizontally to see more

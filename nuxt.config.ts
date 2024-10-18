@@ -15,6 +15,7 @@ export default defineNuxtConfig({
     "@vueuse/nuxt",
     "@nuxtjs/seo",
     "@nuxtjs/i18n",
+    "nuxt-security",
   ],
   runtimeConfig: {
     public: {

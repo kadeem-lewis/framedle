@@ -42,8 +42,8 @@ importers:
         specifier: ^2.2.4
         version: 2.2.4(typescript@5.5.4)(vue@3.5.6(typescript@5.5.4))
       posthog-js:
-        specifier: ^1.167.0
-        version: 1.167.0
+        specifier: ^1.174.0
+        version: 1.174.0
       zod:
         specifier: ^3.23.8
         version: 3.23.8
@@ -54,9 +54,6 @@ importers:
       '@iconify-json/mdi':
         specifier: ^1.2.1
         version: 1.2.1
-      '@iconify-json/openmoji':
-        specifier: ^1.2.3
-        version: 1.2.3
       '@nuxt/devtools':
         specifier: ^1.6.0
         version: 1.6.0(rollup@4.21.2)(vite@5.4.6(@types/node@22.5.0)(terser@5.31.6))(vue@3.5.6(typescript@5.5.4))(webpack-sources@3.2.3)
@@ -1350,9 +1347,6 @@ packages:
 
   '@iconify-json/mdi@1.2.1':
     resolution: {integrity: sha512-dSkQU78gsZV6Yxnq78+LuX7jzeFC/5NAmz7O3rh558GimGFcwMVY/OtqRowIzjqJBmMmWZft7wkFV4TrwRXjlg==}
-
-  '@iconify-json/openmoji@1.2.3':
-    resolution: {integrity: sha512-2wptr8WZj8vn6E8+/j5ZlFubEycHAx+e5DLnsCPO4Iu9YQRTbASafUhDpLJcQWVw0YguQ4So5w+EajRXKOvAdQ==}
 
   '@iconify/collections@1.0.469':
     resolution: {integrity: sha512-L1fCxNvUQQXR2FQgIfwN1mBVXhtgsyq2U2KyM8qZyWx+r8MxTU9b9lFfWIu/1ZlINc9KiXK1A26kVhAL1zko5g==}
@@ -3147,6 +3141,9 @@ packages:
 
   core-js-compat@3.38.1:
     resolution: {integrity: sha512-JRH6gfXxGmrzF3tZ57lFx97YARxCXPaMzPo6jELZhv88pBH5VXpQ+y0znKGlFnzuaihqhLbefxSJxWJMPtfDzw==}
+
+  core-js@3.38.1:
+    resolution: {integrity: sha512-OP35aUorbU3Zvlx7pjsFdu1rGNnD4pgw/CWoYzRY3t2EzoVT7shKHY1dlAy3f41cGIO7ZDPQimhGFTlEYkG/Hw==}
 
   core-util-is@1.0.3:
     resolution: {integrity: sha512-ZQBvi1DcpJ4GDqanjucZ2Hj3wEO5pZDS89BWbkcrvdxksJorwUDDZamX9ldFkp9aw2lmBDLgkObEA4DWNJ9FYQ==}
@@ -5467,8 +5464,8 @@ packages:
     resolution: {integrity: sha512-56rxCq7G/XfB4EkXq9Egn5GCqugWvDFjafDOThIdMBsI15iqPqR5r15TfSr1YPYeEI19YeaXMCbY6u88Y76GLQ==}
     engines: {node: ^10 || ^12 || >=14}
 
-  posthog-js@1.167.0:
-    resolution: {integrity: sha512-/zXQ6tuJgiF1d4mgg3UsAi/uoyg7UnfFNQtikuALmaE53xFExpcAKbMfHPG/f54QgTvLxSHyGL1kFl/1uspkGg==}
+  posthog-js@1.174.0:
+    resolution: {integrity: sha512-60qCn8bloCxVc3oBQ/JP77J40J7UD+cRGUfYXJdsqjUH82s2wmCx4MicuNrcn9Hd2dHM25nXmOAMLO5iwSq9gg==}
 
   potpack@1.0.2:
     resolution: {integrity: sha512-choctRBIV9EMT9WGAZHn3V7t0Z2pMQyl0EZE6pFc/6ml3ssw7Dlf/oAOvFwjm1HVsqfQN8GfeFyJ+d8tRzqueQ==}
@@ -7682,10 +7679,6 @@ snapshots:
       '@iconify/types': 2.0.0
 
   '@iconify-json/mdi@1.2.1':
-    dependencies:
-      '@iconify/types': 2.0.0
-
-  '@iconify-json/openmoji@1.2.3':
     dependencies:
       '@iconify/types': 2.0.0
 
@@ -10239,6 +10232,8 @@ snapshots:
   core-js-compat@3.38.1:
     dependencies:
       browserslist: 4.23.3
+
+  core-js@3.38.1: {}
 
   core-util-is@1.0.3: {}
 
@@ -13031,8 +13026,9 @@ snapshots:
       picocolors: 1.1.0
       source-map-js: 1.2.1
 
-  posthog-js@1.167.0:
+  posthog-js@1.174.0:
     dependencies:
+      core-js: 3.38.1
       fflate: 0.4.8
       preact: 10.23.2
       web-vitals: 4.2.3

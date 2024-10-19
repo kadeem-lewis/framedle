@@ -1,6 +1,8 @@
 <template>
   <div class="mb-4 flex flex-col items-center justify-center">
-    <p class="text-lg font-semibold">Next Challenge in:</p>
+    <p class="text-lg font-semibold">
+      {{ t("instructions.next_challenge_in") }}
+    </p>
     <span class="flex items-center gap-1">
       <UIcon name="i-mdi-circle-slice-2" class="size-5" />
       <NextGameCountdown :target-date="startOfTomorrow()" class="text-2xl" />
@@ -9,26 +11,28 @@
   <div v-if="$route.name === 'classic'" class="space-y-2">
     <p>Guess the Warframe in {{ defaultAttempts }} tries</p>
     <p>
-      Simply type in the name of a Warframe and it will reveal its properties
+      {{ t("instructions.classic.subtitle") }}
     </p>
     <UDivider />
     <p>
-      The color of the tiles will change to show how close your guess was to the
-      Warframe to find.
+      {{ t("instructions.classic.feedback_explanation") }}
     </p>
     <p>
-      <span class="font-semibold text-green-500">Green</span> indicates the
-      property is an exact match.
+      <span class="font-semibold text-green-500">{{
+        t("instructions.classic.properties.green")
+      }}</span>
+      {{ t("instructions.classic.properties.green_explanation") }}
     </p>
     <p>
-      <span class="font-semibold text-red-700">Red</span> indicates there is no
-      overlap between your guess and the property
+      <span class="font-semibold text-red-700">{{
+        t("instructions.classic.properties.red")
+      }}</span>
+      {{ t("instructions.classic.properties.red_explanation") }}
     </p>
-    <p>
-      <span>⬆️⬇️</span> With arrows, it also indicates if the answer property is
-      above or below your guess.
+    <p><span>⬆️⬇️</span> {{ t("instructions.classic.properties.arrows") }}</p>
+    <p class="text-lg font-bold uppercase">
+      {{ t("instructions.classic.example") }}
     </p>
-    <p class="text-lg font-bold uppercase">Example</p>
     <UDivider />
     <div class="space-y-2">
       <div>
@@ -49,35 +53,50 @@
       </div>
       <div>
         <p class="text-lg font-semibold">
-          Sex: <span class="text-green-500">Green</span>
+          {{ t("instructions.classic.sex.title") }}
+          <span class="text-green-500">{{
+            t("instructions.classic.sex.state")
+          }}</span>
         </p>
-        <p>It is a match because both are the same sex</p>
+        <p>{{ t("instructions.classic.sex.description") }}</p>
       </div>
       <div>
         <p class="text-lg font-semibold">
-          Health: <span class="text-red-500">Red and a down arrow</span>
+          {{ t("instructions.classic.health.title") }}
+          <span class="text-red-500">{{
+            t("instructions.classic.health.state")
+          }}</span>
         </p>
-        <p>Nezha has less health than Inaros</p>
+        <p>{{ t("instructions.classic.health.description") }}</p>
       </div>
       <div>
         <p class="text-lg font-semibold">
-          Shields: <span class="text-red-500">Red and an up arrow</span>
+          {{ t("instructions.classic.shield.title") }}
+          <span class="text-red-500">{{
+            t("instructions.classic.shield.state")
+          }}</span>
         </p>
-        <p>Nezha has more shields than Inaros</p>
+        <p>{{ t("instructions.classic.shield.description") }}</p>
       </div>
       <div>
         <p class="text-lg font-semibold">
-          Progenitor: <span class="text-green-500">Green</span>
+          {{ t("instructions.classic.progenitor.title") }}
+          <span class="text-green-500">{{
+            t("instructions.classic.progenitor.state")
+          }}</span>
         </p>
-        <p>It is a match because both have the same progenitor element</p>
+        <p>{{ t("instructions.classic.progenitor.description") }}</p>
       </div>
       <div>
         <p class="text-lg font-semibold">
-          Release Year: <span class="text-red-500">Red and a down arrow</span>
+          {{ t("instructions.classic.release_year.title") }}
+          <span class="text-red-500">{{
+            t("instructions.classic.release_year.state")
+          }}</span>
         </p>
-        <p>Nezha was released before Inaros</p>
+        <p>{{ t("instructions.classic.release_year.description") }}</p>
       </div>
-      <p>If you entered Nezha, here is what would come up:</p>
+      <p>{{ t("instructions.classic.correct_guess") }}</p>
       <div class="grid grid-cols-6 gap-1">
         <ClassicFeedbackRow
           :guessed-warframe="Nezha!"
@@ -91,12 +110,15 @@
     <p>
       Guess the Warframe the ability belongs to in {{ defaultAttempts }} tries
     </p>
-    <p>Which each guess, more of the ability icon will be revealed.</p>
+    <p>{{ t("instructions.ability.subtitle") }}</p>
   </div>
 </template>
 
 <script setup lang="ts">
 import { startOfTomorrow } from "date-fns";
+
+const { t } = useI18n();
+
 const { defaultAttempts } = useGameStore();
 
 const { warframes } = storeToRefs(useGameStore());

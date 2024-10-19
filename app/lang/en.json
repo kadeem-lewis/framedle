@@ -46,8 +46,49 @@
     "win_percentage": "Win %"
   },
   "instructions": {
-    "classic": {},
-    "ability": {}
+    "next_challenge_in": "Next Challenge in:",
+    "classic": {
+      "subtitle": "Simply type in the name of a Warframe and it will reveal its properties",
+      "feedback_explanation": "The color of the tiles will change to show how close your guess was to the Warframe to find.",
+      "properties": {
+        "red": "Red",
+        "green": "Green",
+        "red_explanation": "indicates there is no overlap between your guess and the property",
+        "green_explanation": "indicates the property is an exact match.",
+        "arrows": "With arrows, it also indicates if the answer property is above or below your guess."
+      },
+      "example": "Example",
+      "sex": {
+        "title": "Sex:",
+        "state": "Green",
+        "description": "It is a match because both are the same sex"
+      },
+      "health": {
+        "title": "Health:",
+        "state": "Red and a down arrow",
+        "description": "Nezha has less health than Inaros"
+      },
+      "shield": {
+        "title": "Shield:",
+        "state": "Red and an up arrow",
+        "description": "Nezha has more shields than Inaros"
+      },
+      "progenitor": {
+        "title": "Progenitor:",
+        "state": "Green",
+        "description": "It is a match because both have the same progenitor element"
+      },
+      "release_year": {
+        "title": "Release Year:",
+        "state": "Red and a down arrow",
+        "description": "Nezha was released before Inaros"
+      },
+      "correct_guess": "If you entered Nezha, here is what would come up:"
+    },
+    "ability": {
+      "title": "Guess the Warframe the ability belongs to in",
+      "subtitle": "Which each guess, more of the ability icon will be revealed."
+    }
   },
   "footer": {}
 }

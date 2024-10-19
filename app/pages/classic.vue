@@ -32,12 +32,12 @@
           >
             <p
               v-for="label of [
-                t('feedback.name'),
-                t('feedback.sex'),
-                t('feedback.base_health'),
-                t('feedback.base_shield'),
-                t('feedback.progenitor_element'),
-                t('feedback.release_year'),
+                t('classic.feedback.name'),
+                t('classic.feedback.sex'),
+                t('classic.feedback.base_health'),
+                t('classic.feedback.base_shield'),
+                t('classic.feedback.progenitor_element'),
+                t('classic.feedback.release_year'),
               ]"
               :key="label"
               class="self-center justify-self-center text-center font-semibold"

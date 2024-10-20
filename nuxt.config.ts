@@ -16,11 +16,15 @@ export default defineNuxtConfig({
     "@nuxtjs/seo",
     "@nuxtjs/i18n",
     "nuxt-security",
+    "@sentry/nuxt/module",
   ],
   runtimeConfig: {
     public: {
       posthogPublicKey: "phc_6yOpFUMQqw2woP2QvGscMvAyyADVP0rHSLYvCFc32TW",
       posthogHost: "https://us.i.posthog.com",
+      sentry: {
+        dsn: "",
+      },
     },
   },
   routeRules: {
@@ -74,7 +78,13 @@ export default defineNuxtConfig({
   image: {
     domains: ["cdn.warframestat.us"],
   },
-
+  sentry: {
+    sourceMapsUploadOptions: {
+      org: "framedle",
+      project: "framedle",
+      authToken: process.env.SENTRY_AUTH_TOKEN,
+    },
+  },
   nitro: {
     experimental: {
       tasks: true,

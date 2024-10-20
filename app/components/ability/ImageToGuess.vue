@@ -23,6 +23,7 @@
           placeholder
           preload
           height="240"
+          width="240"
           class="h-60 invert dark:invert-0"
         />
         <NuxtImg
@@ -33,6 +34,7 @@
           placeholder
           preload
           height="240"
+          width="240"
           class="h-60 invert dark:invert-0"
         />
       </div>

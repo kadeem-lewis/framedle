@@ -13,7 +13,9 @@
         }"
       >
         <template #header>
-          <p class="text-primary text-2xl font-bold uppercase">
+          <p
+            class="text-primary-600 dark:text-primary text-2xl font-bold uppercase"
+          >
             {{ t("classic.title") }}
           </p>
           <p

@@ -68,6 +68,7 @@ export default defineNuxtConfig({
     ],
     defaultLocale: "en",
     langDir: "lang",
+    lazy: true,
     baseUrl: "https://framedle.com",
   },
   icon: {

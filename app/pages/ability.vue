@@ -11,7 +11,9 @@
         }"
       >
         <template #header>
-          <p class="text-primary text-xl font-bold uppercase">
+          <p
+            class="text-primary-600 dark:text-primary text-xl font-bold uppercase"
+          >
             {{ t("ability.title") }}
           </p>
         </template>

@@ -13,6 +13,10 @@
       }"
       class="grow"
     >
+      <template #trailing>
+        <span class="sr-only">options dropdown</span>
+        <UIcon name="i-mdi-triangle-down" class="size-3" />
+      </template>
       <template #option="{ option }">
         <div class="flex w-full items-center justify-between gap-2">
           <NuxtImg

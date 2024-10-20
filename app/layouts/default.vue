@@ -7,8 +7,5 @@
       <NuxtPage />
     </main>
     <SiteFooter />
-    <UNotifications />
   </UContainer>
 </template>
-
-<script setup lang="ts"></script>

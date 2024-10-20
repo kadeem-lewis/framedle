@@ -8,7 +8,6 @@
       <NuxtPage />
     </main>
     <SiteFooter />
-    <UNotifications />
   </UContainer>
 </template>
 

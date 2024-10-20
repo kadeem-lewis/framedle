@@ -12,6 +12,14 @@
 </template>
 
 <script setup lang="ts">
+useSeoMeta({
+  title: null,
+});
+
+defineOgImageComponent("Frame", {
+  title: "Framedle",
+});
+
 const img = useImage();
 const { t } = useI18n();
 

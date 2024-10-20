@@ -79,6 +79,10 @@
 import { format, subDays } from "date-fns";
 import Fuse from "fuse.js";
 
+useSeoMeta({
+  title: "Archive",
+});
+
 type UpdatedDaily = Daily & {
   readableDate: string;
 };

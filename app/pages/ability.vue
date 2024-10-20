@@ -37,6 +37,14 @@ definePageMeta({
   layout: "game",
 });
 
+useSeoMeta({
+  title: "Ability",
+});
+
+defineOgImageComponent("Frame", {
+  title: "Framedle | Ability",
+});
+
 const { t } = useI18n();
 
 const { itemToGuess, mode, isGameOver, vanillaWarframes, stats } =

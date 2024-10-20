@@ -74,6 +74,14 @@ definePageMeta({
   layout: "game",
 });
 
+useSeoMeta({
+  title: "Classic",
+});
+
+defineOgImageComponent("Frame", {
+  title: "Framedle | Classic",
+});
+
 const { t } = useI18n();
 
 const {

@@ -42,6 +42,9 @@ export default defineNuxtConfig({
     name: "Framedle",
     description: "Daily guessing games for Warframe.",
   },
+  schemaOrg: {
+    identity: "Organization",
+  },
   i18n: {
     strategy: "no_prefix",
     vueI18n: "./i18n.config.ts",
@@ -51,6 +54,7 @@ export default defineNuxtConfig({
       fallbackLocale: "en",
       alwaysRedirect: true,
       redirectOn: "root",
+      cookieSecure: true,
     },
     locales: [
       { code: "en", language: "en-US", name: "English", file: "en.json" },

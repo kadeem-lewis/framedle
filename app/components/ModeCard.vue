@@ -12,6 +12,7 @@
         format="webp"
         :src="tab.source"
         :alt="tab.label"
+        preload
         class="h-16 group-hover:scale-110"
       />
       <div class="brightness-90 group-hover:brightness-100">

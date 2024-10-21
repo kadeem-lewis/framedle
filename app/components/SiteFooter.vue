@@ -14,7 +14,7 @@
       <UButton
         size="xl"
         color="black"
-        to="https://x.comm/framedle"
+        to="https://x.com/framedle"
         target="_blank"
         class="transition-transform hover:scale-110"
       >

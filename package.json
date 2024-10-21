@@ -38,8 +38,6 @@
     "@libsql/client": "^0.14.0",
     "@pinia/nuxt": "^0.5.5",
     "@sentry/nuxt": "^8.34.0",
-    "@unovis/ts": "1.4.4",
-    "@unovis/vue": "1.4.4",
     "@vueuse/core": "^11.1.0",
     "@vueuse/nuxt": "^11.1.0",
     "apexcharts": "^3.54.1",

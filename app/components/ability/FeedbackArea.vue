@@ -4,7 +4,7 @@
     class="flex flex-col gap-4 capitalize"
   >
     <UiFeedbackTile
-      v-for="warframe of guessedItems[mode]"
+      v-for="warframe of guessedItems[mode].toReversed()"
       :key="warframe.name"
       :is-correct="warframe.name === itemToGuess[mode]?.belongsTo"
     >

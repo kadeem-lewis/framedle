@@ -25,6 +25,7 @@ export default defineNuxtConfig({
       sentry: {
         dsn: "",
       },
+      discordInvite: "",
     },
   },
   routeRules: {
@@ -73,6 +74,12 @@ export default defineNuxtConfig({
   },
   icon: {
     provider: "server",
+    customCollections: [
+      {
+        prefix: "my-icon",
+        dir: "./app/assets/svgs",
+      },
+    ],
   },
   experimental: {
     typedPages: true,

@@ -91,11 +91,11 @@ const checkGuess = () => {
       selectedWarframe.value.name === itemToGuess.value[mode.value]?.belongsTo
     ) {
       attempts.value[mode.value] -= 1;
-      guessedItems.value[mode.value].unshift(selectedWarframe.value);
+      guessedItems.value[mode.value].push(selectedWarframe.value);
       isGameOver.value[mode.value] = true;
     } else {
       attempts.value[mode.value] -= 1;
-      guessedItems.value[mode.value].unshift(selectedWarframe.value);
+      guessedItems.value[mode.value].push(selectedWarframe.value);
     }
   }
 
@@ -111,11 +111,11 @@ const checkGuess = () => {
     if (selectedWarframe.value.name === itemToGuess.value[mode.value]?.name) {
       attempts.value[mode.value] -= 1;
 
-      guessedItems.value[mode.value].unshift(selectedWarframe.value);
+      guessedItems.value[mode.value].push(selectedWarframe.value);
       isGameOver.value[mode.value] = true;
     } else {
       attempts.value[mode.value] -= 1;
-      guessedItems.value[mode.value].unshift(selectedWarframe.value);
+      guessedItems.value[mode.value].push(selectedWarframe.value);
     }
   }
 

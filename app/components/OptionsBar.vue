@@ -29,7 +29,7 @@
       <UTooltip text="About">
         <UButton
           aria-label="about"
-          icon="i-heroicons-information-circle"
+          icon="i-mdi-information-variant"
           variant="outline"
           size="lg"
           square
@@ -55,7 +55,7 @@
       <UTooltip text="Instructions">
         <UButton
           aria-label="instructions"
-          icon="i-heroicons-question-mark-circle"
+          icon="i-mdi-help"
           variant="outline"
           size="lg"
           square

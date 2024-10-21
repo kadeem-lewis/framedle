@@ -38,10 +38,9 @@
     "@libsql/client": "^0.14.0",
     "@pinia/nuxt": "^0.5.5",
     "@sentry/nuxt": "^8.34.0",
-    "@unovis/ts": "1.4.4",
-    "@unovis/vue": "1.4.4",
     "@vueuse/core": "^11.1.0",
     "@vueuse/nuxt": "^11.1.0",
+    "apexcharts": "^3.54.1",
     "date-fns": "^4.1.0",
     "dotenv": "^16.4.5",
     "drizzle-orm": "^0.34.1",
@@ -49,6 +48,7 @@
     "party-js": "^2.2.0",
     "pinia": "^2.2.4",
     "posthog-js": "^1.174.2",
+    "vue3-apexcharts": "^1.7.0",
     "zod": "^3.23.8"
   },
   "engines": {

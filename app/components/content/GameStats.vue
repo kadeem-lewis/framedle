@@ -17,39 +17,15 @@
     </div>
     <div class="space-y-4">
       <p class="font-semibold uppercase">Guess Distribution</p>
-      <VisXYContainer :data="data">
-        <VisStackedBar
-          bar-min-height1-px
-          :x="x"
-          :y="y"
-          :orientation="Orientation.Horizontal"
-        />
-        <VisAxis
-          :grid-line="false"
-          :domain-line="false"
-          type="y"
-          :tick-values="[1, 2, 3, 4, 5, 6]"
-          :x="x"
-          :y="y"
-        />
-        <VisAxis
-          :grid-line="false"
-          :domain-line="false"
-          type="x"
-          :x="x"
-          :y="y"
-        />
-      </VisXYContainer>
+      <apexchart type="bar" :options="chartOptions" :series="series" />
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { VisXYContainer, VisStackedBar, VisAxis } from "@unovis/vue";
-import { Orientation } from "@unovis/ts";
-
 const route = useRoute();
 const { stats } = storeToRefs(useGameStore());
+const { defaultAttempts } = useGameStore();
 
 const modeStats = computed(() => {
   if (route.name === "ability") {
@@ -73,15 +49,53 @@ const winPercentage = computed(() => {
     : 0;
 });
 
-const data = computed(() => {
-  return modeStats.value.guesses.map((guess, index) => ({
-    x: index + 1,
-    y: guess,
-  }));
-});
+const colorMode = useColorMode();
 
-type DataRecord = { x: number; y: number };
+const chartOptions = {
+  chart: {
+    toolbar: {
+      show: false,
+    },
+  },
+  xaxis: {
+    categories: Array.from({ length: defaultAttempts }, (_, i) => i + 1),
+    labels: {
+      show: false,
+    },
+    axisTicks: {
+      show: false,
+    },
+  },
+  plotOptions: {
+    bar: {
+      horizontal: true,
+      dataLabels: {
+        position: "top",
+      },
+      borderRadius: 3,
+      borderRadiusApplication: "end",
+    },
+  },
+  dataLabels: {
+    enabled: true,
+    offsetX: -10,
+    style: {
+      colors: [colorMode.value === "dark" ? "#fff" : "#000"],
+    },
+  },
+  tooltip: {
+    enabled: false,
+  },
+  grid: {
+    show: false,
+  },
+  colors: [colorMode.value === "dark" ? "#fbbf24" : "#f59e0b"],
+};
 
-const x = (d: DataRecord) => d.x;
-const y = (d: DataRecord) => d.y;
+const series = [
+  {
+    name: "Guesses",
+    data: modeStats.value.guesses,
+  },
+];
 </script>

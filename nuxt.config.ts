@@ -82,6 +82,7 @@ export default defineNuxtConfig({
   },
   image: {
     domains: ["cdn.warframestat.us"],
+    dir: "assets/images",
   },
   sentry: {
     sourceMapsUploadOptions: {

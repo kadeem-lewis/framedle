@@ -23,6 +23,8 @@
 </template>
 
 <script setup lang="ts">
+import type { ApexOptions } from "apexcharts";
+
 const route = useRoute();
 const { stats } = storeToRefs(useGameStore());
 const { defaultAttempts } = useGameStore();
@@ -51,7 +53,7 @@ const winPercentage = computed(() => {
 
 const colorMode = useColorMode();
 
-const chartOptions = {
+const chartOptions: ApexOptions = {
   chart: {
     toolbar: {
       show: false,

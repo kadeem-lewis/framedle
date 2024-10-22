@@ -16,7 +16,7 @@ useSeoMeta({
   title: null,
 });
 
-defineOgImageComponent("Frame");
+defineOgImageComponent("Framedle");
 
 const img = useImage();
 const { t } = useI18n();

@@ -51,6 +51,11 @@
     "vue3-apexcharts": "^1.7.0",
     "zod": "^3.23.8"
   },
+  "pnpm": {
+    "overrides": {
+      "@vercel/nft": "^0.27.4"
+    }
+  },
   "engines": {
     "node": "22.x"
   }

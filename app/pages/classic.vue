@@ -80,9 +80,7 @@ useSeoMeta({
   title: "Classic",
 });
 
-defineOgImageComponent("Frame", {
-  title: "Framedle | Classic",
-});
+defineOgImageComponent("Framedle");
 
 const { t } = useI18n();
 

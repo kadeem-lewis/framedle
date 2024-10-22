@@ -81,6 +81,7 @@ export default defineNuxtConfig({
       },
     ],
   },
+  sourcemap: { client: true },
   experimental: {
     typedPages: true,
   },

@@ -43,9 +43,7 @@ useSeoMeta({
   title: "Ability",
 });
 
-defineOgImageComponent("Frame", {
-  title: "Framedle | Ability",
-});
+defineOgImageComponent("Framedle");
 
 const { t } = useI18n();
 

@@ -6,7 +6,7 @@
     "build": "NODE_OPTIONS=--max_old_space_size=8192 nuxt build",
     "dev": "nuxt dev",
     "generate": "nuxt generate",
-    "start": "node .output/server/index.mjs",
+    "start": "node --import ./.output/server/sentry.server.config.mjs .output/server/index.mjs",
     "preview": "nuxt preview",
     "postinstall": "nuxt prepare",
     "lint": "eslint .",
@@ -51,11 +51,6 @@
     "posthog-js": "^1.174.2",
     "vue3-apexcharts": "^1.7.0",
     "zod": "^3.23.8"
-  },
-  "pnpm": {
-    "overrides": {
-      "@vercel/nft": "^0.27.4"
-    }
   },
   "engines": {
     "node": "22.x"

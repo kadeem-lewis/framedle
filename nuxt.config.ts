@@ -97,6 +97,7 @@ export default defineNuxtConfig({
       project: "framedle",
       authToken: process.env.SENTRY_AUTH_TOKEN,
     },
+    dynamicImportForServerEntry: false,
   },
   nitro: {
     experimental: {

@@ -43,13 +43,6 @@ export const useGameStore = defineStore(
       },
     });
 
-    const isGameOver = ref({
-      classic: false,
-      classicUnlimited: false,
-      ability: false,
-      abilityUnlimited: false,
-    });
-
     const defaultAttempts = 6;
 
     const attempts = ref({
@@ -87,7 +80,6 @@ export const useGameStore = defineStore(
           itemToGuess.value.classicUnlimited = decodedWarframe;
           guessedItems.value.classicUnlimited = [];
           attempts.value.classicUnlimited = defaultAttempts;
-          isGameOver.value.classicUnlimited = false;
         }
       }
       if (!itemToGuess.value.classicUnlimited) {
@@ -109,7 +101,6 @@ export const useGameStore = defineStore(
           itemToGuess.value.abilityUnlimited = decodedAbility;
           guessedItems.value.abilityUnlimited = [];
           attempts.value.abilityUnlimited = defaultAttempts;
-          isGameOver.value.abilityUnlimited = false;
         }
       }
       if (!itemToGuess.value.abilityUnlimited) {
@@ -133,8 +124,6 @@ export const useGameStore = defineStore(
       guessedItems.value.ability = [];
       attempts.value.classic = defaultAttempts;
       attempts.value.ability = defaultAttempts;
-      isGameOver.value.classic = false;
-      isGameOver.value.ability = false;
     }
 
     async function getDaily() {
@@ -168,7 +157,6 @@ export const useGameStore = defineStore(
       if (!mode.value) return;
       attempts.value[mode.value] = 6;
       guessedItems.value[mode.value] = [];
-      isGameOver.value[mode.value] = false;
 
       if (mode.value === "classicUnlimited") {
         router.replace({ query: { mode: "unlimited", x: undefined } });
@@ -216,7 +204,6 @@ export const useGameStore = defineStore(
       abilities,
       currentDailyDate,
       vanillaWarframes,
-      isGameOver,
       fetchWarframes,
       classicInit,
       abilityInit,
@@ -236,7 +223,6 @@ export const useGameStore = defineStore(
         "guessedItems",
         "attempts",
         "itemToGuess",
-        "isGameOver",
         "dailyDate",
         "currentDailyDate",
       ],

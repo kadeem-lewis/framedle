@@ -100,7 +100,6 @@ const {
   itemToGuess,
   guessedItems,
   attempts,
-  isGameOver,
   stats,
   currentDailyDate,
   warframes,
@@ -170,6 +169,8 @@ function handleStatsClick() {
 }
 
 const gameOverCard = useTemplateRef("gameOverCard");
+
+const { isGameOver } = useGameState();
 
 watchEffect(() => {
   if (mode.value && isGameOver.value[mode.value]) {

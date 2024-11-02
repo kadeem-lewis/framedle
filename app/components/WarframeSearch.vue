@@ -50,8 +50,7 @@ const props = defineProps<{
   items: Warframe[];
 }>();
 
-const { itemToGuess, isGameOver, attempts, guessedItems } =
-  storeToRefs(useGameStore());
+const { itemToGuess, attempts, guessedItems } = storeToRefs(useGameStore());
 
 const mode = useGameMode();
 
@@ -94,7 +93,6 @@ const checkGuess = () => {
     ) {
       attempts.value[mode.value] -= 1;
       guessedItems.value[mode.value].push(selectedWarframe.value);
-      isGameOver.value[mode.value] = true;
     } else {
       attempts.value[mode.value] -= 1;
       guessedItems.value[mode.value].push(selectedWarframe.value);
@@ -114,7 +112,6 @@ const checkGuess = () => {
       attempts.value[mode.value] -= 1;
 
       guessedItems.value[mode.value].push(selectedWarframe.value);
-      isGameOver.value[mode.value] = true;
     } else {
       attempts.value[mode.value] -= 1;
       guessedItems.value[mode.value].push(selectedWarframe.value);

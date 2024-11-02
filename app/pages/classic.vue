@@ -84,21 +84,14 @@ defineOgImageComponent("Framedle");
 
 const { t } = useI18n();
 
-const {
-  itemToGuess,
-  mode,
-  guessedItems,
-  isGameOver,
-  warframes,
-  attempts,
-  stats,
-} = storeToRefs(useGameStore());
+const { itemToGuess, guessedItems, isGameOver, warframes, attempts, stats } =
+  storeToRefs(useGameStore());
 
 const { classicInit, defaultAttempts } = useGameStore();
 
-await callOnce("classic-setup", classicInit);
+const mode = useGameMode();
 
-const route = useRoute();
+await callOnce("classic-setup", classicInit);
 
 onBeforeMount(() => {
   const lastPlayedDate = stats.value.classic.lastPlayedDate;
@@ -110,17 +103,4 @@ onBeforeMount(() => {
     stats.value.classic.streak = 0;
   }
 });
-
-watch(
-  () => route.query.mode,
-  () => {
-    if (!route.query.mode) {
-      mode.value = "classic";
-    }
-    if (route.query.mode === "unlimited") {
-      mode.value = "classicUnlimited";
-    }
-  },
-  { immediate: true },
-);
 </script>

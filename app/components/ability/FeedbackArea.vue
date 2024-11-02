@@ -26,5 +26,6 @@
 </template>
 
 <script setup lang="ts">
-const { guessedItems, itemToGuess, mode } = storeToRefs(useGameStore());
+const { guessedItems, itemToGuess } = storeToRefs(useGameStore());
+const mode = useGameMode();
 </script>

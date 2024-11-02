@@ -48,5 +48,3 @@ tryOnBeforeUnmount(() => {
   clearInterval(intervalId);
 });
 </script>
-
-<style scoped></style>

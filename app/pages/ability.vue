@@ -47,15 +47,14 @@ defineOgImageComponent("Framedle");
 
 const { t } = useI18n();
 
-const { itemToGuess, mode, isGameOver, vanillaWarframes, stats } =
+const { itemToGuess, isGameOver, vanillaWarframes, stats } =
   storeToRefs(useGameStore());
 const { abilityInit } = useGameStore();
+const mode = useGameMode();
 
 await callOnce("ability-setup", abilityInit);
 
 // If I get the correct guess it should still be added to guessed items but then I need to update the game over condition
-
-const route = useRoute();
 
 onBeforeMount(() => {
   const lastPlayedDate = stats.value.ability.lastPlayedDate;
@@ -67,17 +66,4 @@ onBeforeMount(() => {
     stats.value.ability.streak = 0;
   }
 });
-
-watch(
-  () => route.query.mode,
-  () => {
-    if (route.query.mode === "unlimited") {
-      mode.value = "abilityUnlimited";
-    }
-    if (!route.query.mode) {
-      mode.value = "ability";
-    }
-  },
-  { immediate: true },
-);
 </script>

@@ -1,14 +1,12 @@
 <template>
-  <div>
-    <UButton
-      class="font-semibold uppercase"
-      variant="outline"
-      size="xl"
-      @click="handleShareClick"
-    >
-      {{ !copied ? "Share" : "Copied" }}
-    </UButton>
-  </div>
+  <UButton
+    class="font-semibold uppercase"
+    variant="outline"
+    size="xl"
+    @click="handleShareClick"
+  >
+    {{ !copied ? "Share" : "Copied" }}
+  </UButton>
 </template>
 
 <script setup lang="ts">
@@ -28,8 +26,7 @@ const emojis: {
   unused: "◻️",
 };
 
-const { mode, guessedItems, itemToGuess, attempts } =
-  storeToRefs(useGameStore());
+const { guessedItems, itemToGuess, attempts } = storeToRefs(useGameStore());
 const { defaultAttempts } = useGameStore();
 
 const route = useRoute();
@@ -38,6 +35,7 @@ const { copy, copied } = useClipboard();
 const emojiFeedback = ref<string[]>([]);
 
 const { hasWon } = useGameState();
+const mode = useGameMode();
 
 const { encode } = useEncoder();
 

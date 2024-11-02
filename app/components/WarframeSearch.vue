@@ -50,8 +50,10 @@ const props = defineProps<{
   items: Warframe[];
 }>();
 
-const { itemToGuess, mode, isGameOver, attempts, guessedItems } =
+const { itemToGuess, isGameOver, attempts, guessedItems } =
   storeToRefs(useGameStore());
+
+const mode = useGameMode();
 
 const selectedWarframe = ref<Warframe>();
 const isError = ref(false);

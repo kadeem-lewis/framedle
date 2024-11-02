@@ -98,7 +98,6 @@ import party from "party-js";
 
 const {
   itemToGuess,
-  mode,
   guessedItems,
   attempts,
   isGameOver,
@@ -107,6 +106,8 @@ const {
   warframes,
 } = storeToRefs(useGameStore());
 const { resetGame, defaultAttempts } = useGameStore();
+
+const mode = useGameMode();
 
 const img = useImage();
 

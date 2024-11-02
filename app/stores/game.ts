@@ -1,8 +1,6 @@
 import { format } from "date-fns";
 import type { Ability as OriginalAbility, Warframe } from "~~/schemas/warframe";
 
-type gameMode = "classic" | "classicUnlimited" | "ability" | "abilityUnlimited";
-
 type Ability = OriginalAbility & { belongsTo: string };
 
 type itemToGuess = {
@@ -17,7 +15,6 @@ export type FixedGuessArray = [number, number, number, number, number, number];
 export const useGameStore = defineStore(
   "game",
   () => {
-    const mode = ref<gameMode | null>(null);
     const warframes = ref<Warframe[]>([]);
     const itemToGuess = ref<itemToGuess>({
       classic: null,
@@ -165,6 +162,8 @@ export const useGameStore = defineStore(
       }
     }
 
+    const mode = useGameMode();
+
     function resetGame() {
       if (!mode.value) return;
       attempts.value[mode.value] = 6;
@@ -207,7 +206,6 @@ export const useGameStore = defineStore(
     );
 
     return {
-      mode,
       warframes,
       attempts,
       itemToGuess,

@@ -49,8 +49,9 @@
 </template>
 
 <script setup lang="ts">
-const { itemToGuess, mode, attempts, isGameOver } = storeToRefs(useGameStore());
+const { itemToGuess, attempts, isGameOver } = storeToRefs(useGameStore());
 const { defaultAttempts } = useGameStore();
+const mode = useGameMode();
 
 const cleanedDescription = computed(() => {
   if (mode.value === "ability" || mode.value === "abilityUnlimited") {

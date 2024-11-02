@@ -1,6 +1,7 @@
 export default function useGameState() {
-  const { mode, itemToGuess, guessedItems, attempts } =
-    storeToRefs(useGameStore());
+  const { itemToGuess, guessedItems, attempts } = storeToRefs(useGameStore());
+
+  const mode = useGameMode();
   const hasWon = computed(() => {
     if (!mode.value) return;
     if (mode.value === "ability" || mode.value === "abilityUnlimited") {

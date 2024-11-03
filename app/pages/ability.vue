@@ -33,8 +33,6 @@
 </template>
 
 <script setup lang="ts">
-import { isYesterday, isToday } from "date-fns";
-
 definePageMeta({
   layout: "game",
 });
@@ -47,23 +45,17 @@ defineOgImageComponent("Framedle");
 
 const { t } = useI18n();
 
-const { itemToGuess, isGameOver, vanillaWarframes, stats } =
-  storeToRefs(useGameStore());
+const { itemToGuess, vanillaWarframes } = storeToRefs(useGameStore());
 const { abilityInit } = useGameStore();
 const mode = useGameMode();
+const { isGameOver } = useGameState();
+const { updateStreak } = useStatsStore();
 
 await callOnce("ability-setup", abilityInit);
 
 // If I get the correct guess it should still be added to guessed items but then I need to update the game over condition
 
 onBeforeMount(() => {
-  const lastPlayedDate = stats.value.ability.lastPlayedDate;
-  if (
-    lastPlayedDate &&
-    !isToday(lastPlayedDate) &&
-    !isYesterday(lastPlayedDate)
-  ) {
-    stats.value.ability.streak = 0;
-  }
+  updateStreak("ability");
 });
 </script>

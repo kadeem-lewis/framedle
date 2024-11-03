@@ -70,8 +70,6 @@
 </template>
 
 <script setup lang="ts">
-import { isYesterday, isToday } from "date-fns";
-
 definePageMeta({
   layout: "game",
 });
@@ -84,23 +82,18 @@ defineOgImageComponent("Framedle");
 
 const { t } = useI18n();
 
-const { itemToGuess, guessedItems, isGameOver, warframes, attempts, stats } =
+const { itemToGuess, guessedItems, warframes, attempts } =
   storeToRefs(useGameStore());
-
 const { classicInit, defaultAttempts } = useGameStore();
 
 const mode = useGameMode();
+const { isGameOver } = useGameState();
 
 await callOnce("classic-setup", classicInit);
 
+const { updateStreak } = useStatsStore();
+
 onBeforeMount(() => {
-  const lastPlayedDate = stats.value.classic.lastPlayedDate;
-  if (
-    lastPlayedDate &&
-    !isToday(lastPlayedDate) &&
-    !isYesterday(lastPlayedDate)
-  ) {
-    stats.value.classic.streak = 0;
-  }
+  updateStreak("classic");
 });
 </script>

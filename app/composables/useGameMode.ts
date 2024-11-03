@@ -1,4 +1,8 @@
-type gameMode = "classic" | "classicUnlimited" | "ability" | "abilityUnlimited";
+export type gameMode =
+  | "classic"
+  | "classicUnlimited"
+  | "ability"
+  | "abilityUnlimited";
 
 export function useGameMode() {
   const mode = ref<gameMode>();

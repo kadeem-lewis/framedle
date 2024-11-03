@@ -18,14 +18,8 @@
 </template>
 
 <script setup lang="ts">
-const { attempts, isGameOver } = storeToRefs(useGameStore());
+const { attempts } = storeToRefs(useGameStore());
 const { defaultAttempts } = useGameStore();
 
 const mode = useGameMode();
-
-watch(attempts.value, () => {
-  if (mode.value && attempts.value[mode.value] === 0) {
-    isGameOver.value[mode.value] = true;
-  }
-});
 </script>

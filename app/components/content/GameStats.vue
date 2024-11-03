@@ -26,7 +26,7 @@
 import type { ApexOptions } from "apexcharts";
 
 const route = useRoute();
-const { stats } = storeToRefs(useGameStore());
+const { stats } = storeToRefs(useStatsStore());
 const { defaultAttempts } = useGameStore();
 
 const modeStats = computed(() => {

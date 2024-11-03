@@ -30,7 +30,7 @@ export default function useGameState() {
   }));
 
   const hasWon = computed(() => {
-    if (!mode.value) return;
+    if (!mode.value) throw createError("Mode not set");
     if (mode.value === "ability" || mode.value === "abilityUnlimited") {
       return (
         attempts.value[mode.value] >= 0 &&

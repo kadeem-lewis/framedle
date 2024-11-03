@@ -73,9 +73,10 @@ function search(query: string) {
   }
 }
 
+//TODO: This function also has a lot of repitition and can be refactored
 const checkGuess = () => {
-  if (!selectedWarframe.value) return;
-  if (!mode.value) return;
+  if (!selectedWarframe.value) throw createError("No warframe selected");
+  if (!mode.value) throw createError("Mode is not set");
 
   isError.value = false;
 

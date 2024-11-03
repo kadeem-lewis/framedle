@@ -10,8 +10,6 @@ type itemToGuess = {
   abilityUnlimited: Ability | null;
 };
 
-export type FixedGuessArray = [number, number, number, number, number, number];
-
 export const useGameStore = defineStore(
   "game",
   () => {
@@ -21,26 +19,6 @@ export const useGameStore = defineStore(
       classicUnlimited: null,
       ability: null,
       abilityUnlimited: null,
-    });
-    const stats = ref({
-      classic: {
-        plays: 0,
-        wins: 0,
-        guesses: [0, 0, 0, 0, 0, 0] as FixedGuessArray,
-        streak: 0,
-        maxStreak: 0,
-        lastCorrectDate: null as string | null,
-        lastPlayedDate: null as string | null,
-      },
-      ability: {
-        plays: 0,
-        wins: 0,
-        guesses: [0, 0, 0, 0, 0, 0] as FixedGuessArray,
-        streak: 0,
-        maxStreak: 0,
-        lastCorrectDate: null as string | null,
-        lastPlayedDate: null as string | null,
-      },
     });
 
     const defaultAttempts = 6;
@@ -69,8 +47,10 @@ export const useGameStore = defineStore(
 
     const { decode } = useEncoder();
 
+    //TODO: both init functions could be the same function and just pass the mode as an argument
     function classicInit() {
-      if (warframes.value.length === 0) return;
+      if (warframes.value.length === 0)
+        throw createError("Warframes not loaded");
       if (route.query.x) {
         const decoded = decode(route.query.x as string);
         const decodedWarframe = warframes.value.find(
@@ -90,7 +70,8 @@ export const useGameStore = defineStore(
     }
 
     function abilityInit() {
-      if (abilities.value.length === 0) return;
+      if (abilities.value.length === 0)
+        throw createError("Abilities not loaded");
       if (route.query.x) {
         const decoded = decode(route.query.x as string);
 
@@ -115,7 +96,11 @@ export const useGameStore = defineStore(
         const { warframes: data } = await $fetch("/api/warframes");
         warframes.value = data;
       } catch (error) {
-        console.error(error);
+        throw createError({
+          statusCode: 500,
+          statusMessage: "Failed to fetch warframes",
+          data: error,
+        });
       }
     }
 
@@ -147,14 +132,18 @@ export const useGameStore = defineStore(
           (ability) => ability.name === data.abilityId,
         ) as Ability;
       } catch (error) {
-        console.error(error);
+        throw createError({
+          statusCode: 500,
+          statusMessage: "Failed to fetch daily",
+          data: error,
+        });
       }
     }
 
     const mode = useGameMode();
 
     function resetGame() {
-      if (!mode.value) return;
+      if (!mode.value) throw createError("Mode not set");
       attempts.value[mode.value] = 6;
       guessedItems.value[mode.value] = [];
 
@@ -198,7 +187,6 @@ export const useGameStore = defineStore(
       attempts,
       itemToGuess,
       guessedItems,
-      stats,
       dailyDate,
       defaultAttempts,
       abilities,
@@ -218,8 +206,7 @@ export const useGameStore = defineStore(
         serialize: (state) => btoa(JSON.stringify(state)),
         deserialize: (state) => JSON.parse(atob(state)),
       },
-      paths: [
-        "stats",
+      pick: [
         "guessedItems",
         "attempts",
         "itemToGuess",

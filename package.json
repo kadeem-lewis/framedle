@@ -11,6 +11,7 @@
     "postinstall": "nuxt prepare",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
+    "typecheck": "nuxt typecheck",
     "db:generate": "drizzle-kit generate",
     "db:push": "drizzle-kit push"
   },
@@ -31,7 +32,9 @@
     "nuxt": "^3.13.2",
     "nuxt-security": "^2.0.0",
     "prettier": "^3.3.3",
-    "prettier-plugin-tailwindcss": "^0.6.8"
+    "prettier-plugin-tailwindcss": "^0.6.8",
+    "typescript": "^5.6.3",
+    "vue-tsc": "^2.1.10"
   },
   "packageManager": "pnpm@9.8.0",
   "dependencies": {

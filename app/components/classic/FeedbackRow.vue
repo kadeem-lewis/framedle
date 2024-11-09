@@ -84,7 +84,7 @@
 </template>
 
 <script setup lang="ts">
-import type { Warframe } from "~~/schemas/warframe";
+import type { Warframe } from "#shared/schemas/warframe";
 
 // this can receive a guessed item as a prop and then handle the majority of the logic
 defineProps<{

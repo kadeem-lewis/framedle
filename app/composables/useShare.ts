@@ -1,4 +1,4 @@
-import type { Warframe } from "~~/schemas/warframe";
+import type { Warframe } from "#shared/schemas/warframe";
 
 export function useShare() {
   const emojis: {

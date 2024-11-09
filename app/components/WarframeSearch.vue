@@ -44,7 +44,7 @@
 
 <script setup lang="ts">
 import Fuse from "fuse.js";
-import type { Warframe } from "~~/schemas/warframe";
+import type { Warframe } from "#shared/schemas/warframe";
 
 const props = defineProps<{
   items: Warframe[];

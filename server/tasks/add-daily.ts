@@ -36,7 +36,11 @@ export default defineTask({
 
       lastDaily = result[0];
     } catch (error) {
-      console.error(error);
+      throw createError({
+        statusCode: 500,
+        message: "Failed to fetch last daily entry",
+        data: error,
+      });
     }
 
     try {
@@ -55,10 +59,11 @@ export default defineTask({
         result: "Success",
       };
     } catch (error) {
-      console.error(error);
-      return {
-        result: "Failed",
-      };
+      throw createError({
+        statusCode: 500,
+        message: "Failed to add new daily entry",
+        data: error,
+      });
     }
   },
 });

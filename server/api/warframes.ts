@@ -1,6 +1,6 @@
 import { progenitors } from "../constants/progenitors";
-import { warframeSchema } from "~~/schemas/warframe";
-import type { Warframe } from "~~/schemas/warframe";
+import { warframeSchema } from "#shared/schemas/warframe";
+import type { Warframe } from "#shared/schemas/warframe";
 
 export default defineEventHandler(async () => {
   const warframes: (Warframe | null)[] = [];

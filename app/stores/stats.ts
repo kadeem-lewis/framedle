@@ -35,7 +35,7 @@ export const useStatsStore = defineStore(
     const { attempts, currentDailyDate } = storeToRefs(useGameStore());
     const { defaultAttempts } = useGameStore();
 
-    const { hasWon } = useGameState();
+    const { hasWon, isGameOver } = useGameState();
     const mode = useGameMode();
 
     function updateStreak(mode: "classic" | "ability") {
@@ -54,6 +54,7 @@ export const useStatsStore = defineStore(
       if (
         (mode.value === "ability" || mode.value === "classic") &&
         currentDailyDate.value === today &&
+        isGameOver.value[mode.value] &&
         stats.value[mode.value].lastPlayedDate !== today
       ) {
         const currentStats = stats.value[mode.value];

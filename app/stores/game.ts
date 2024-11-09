@@ -1,5 +1,8 @@
 import { format } from "date-fns";
-import type { Ability as OriginalAbility, Warframe } from "~~/schemas/warframe";
+import type {
+  Ability as OriginalAbility,
+  Warframe,
+} from "#shared/schemas/warframe";
 
 type Ability = OriginalAbility & { belongsTo: string };
 

@@ -19,6 +19,10 @@ export default defineNuxtConfig({
     "@sentry/nuxt/module",
   ],
   runtimeConfig: {
+    turso: {
+      databaseUrl: "",
+      authToken: "",
+    },
     public: {
       posthogPublicKey: "phc_6yOpFUMQqw2woP2QvGscMvAyyADVP0rHSLYvCFc32TW",
       posthogHost: "https://us.i.posthog.com",

@@ -11,7 +11,7 @@ export default defineNuxtConfig({
     "@nuxt/image",
     "@nuxt/ui",
     "@pinia/nuxt",
-    "@pinia-plugin-persistedstate/nuxt",
+    "pinia-plugin-persistedstate/nuxt",
     "@vueuse/nuxt",
     "@nuxtjs/seo",
     "@nuxtjs/i18n",

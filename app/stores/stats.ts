@@ -93,7 +93,7 @@ export const useStatsStore = defineStore(
   },
   {
     persist: {
-      storage: persistedState.localStorage,
+      storage: piniaPluginPersistedstate.localStorage(),
       serializer: {
         serialize: (state) => btoa(JSON.stringify(state)),
         deserialize: (state) => JSON.parse(atob(state)),

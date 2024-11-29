@@ -25,7 +25,7 @@
     "@nuxt/image": "^1.8.1",
     "@nuxt/ui": "^2.19.2",
     "@nuxtjs/i18n": "^8.5.6",
-    "@nuxtjs/seo": "2.0.0-rc.23",
+    "@nuxtjs/seo": "2.0.2",
     "drizzle-kit": "^0.28.0",
     "eslint": "^9.15.0",
     "nuxt": "^3.14.1592",

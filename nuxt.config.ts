@@ -11,7 +11,7 @@ export default defineNuxtConfig({
     "@nuxt/image",
     "@nuxt/ui",
     "@pinia/nuxt",
-    "@pinia-plugin-persistedstate/nuxt",
+    "pinia-plugin-persistedstate/nuxt",
     "@vueuse/nuxt",
     "@nuxtjs/seo",
     "@nuxtjs/i18n",
@@ -19,6 +19,10 @@ export default defineNuxtConfig({
     "@sentry/nuxt/module",
   ],
   runtimeConfig: {
+    turso: {
+      databaseUrl: "",
+      authToken: "",
+    },
     public: {
       posthogPublicKey: "phc_6yOpFUMQqw2woP2QvGscMvAyyADVP0rHSLYvCFc32TW",
       posthogHost: "https://us.i.posthog.com",

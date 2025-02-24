@@ -1,5 +1,5 @@
 <template>
-  <div class="flex justify-center gap-2">
+  <div class="font-roboto flex justify-center gap-2">
     <UButton
       :to="{
         path: $route.path,

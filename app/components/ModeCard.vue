@@ -16,7 +16,7 @@
         class="h-16 group-hover:scale-110"
       />
       <div class="brightness-90 group-hover:brightness-100">
-        <p class="text-xl font-bold">
+        <p class="font-roboto text-xl font-bold">
           {{ tab.label }}
         </p>
         <p class="font-semibold">{{ tab.description }}</p>

@@ -14,7 +14,7 @@
       >
         <template #header>
           <p
-            class="text-primary-600 dark:text-primary text-2xl font-bold uppercase"
+            class="text-primary-600 font-roboto dark:text-primary text-2xl font-bold uppercase"
           >
             {{ t("classic.title") }}
           </p>
@@ -42,7 +42,7 @@
                 t('classic.feedback.release_year'),
               ]"
               :key="label"
-              class="self-center justify-self-center text-center font-semibold"
+              class="font-roboto self-center justify-self-center text-center font-semibold"
             >
               {{ label }}
             </p>

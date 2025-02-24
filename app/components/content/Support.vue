@@ -15,7 +15,9 @@
       <li>Join my discord server</li>
       <li>Send me a random gift in-game</li>
     </ul>
-    <p class="text-xl font-semibold uppercase">Feedback/Questions</p>
+    <p class="font-roboto text-center text-xl font-semibold uppercase">
+      Feedback/Questions
+    </p>
     <UDivider />
     <p>
       You can provide Feedback or ask Questions in any of the following ways:

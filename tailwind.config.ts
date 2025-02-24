@@ -11,7 +11,10 @@ export default <Partial<Config>>{
   ],
   theme: {
     extend: {
-      fontFamily: {},
+      fontFamily: {
+        "noto-sans": ["Noto Sans", "sans-serif"],
+        roboto: ["Roboto", "sans-serif"],
+      },
     },
   },
   plugins: [],

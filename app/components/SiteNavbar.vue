@@ -6,7 +6,6 @@
       </h1>
     </div>
     <div class="flex items-center gap-1">
-      <LocaleSwitch />
       <ThemeToggle />
     </div>
   </header>

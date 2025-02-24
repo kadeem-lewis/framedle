@@ -3,7 +3,7 @@ export default defineNuxtConfig({
   future: {
     compatibilityVersion: 4,
   },
-  compatibilityDate: "2024-08-20",
+  compatibilityDate: "2025-02-24",
   devtools: { enabled: true },
   modules: [
     "@nuxt/eslint",
@@ -22,6 +22,7 @@ export default defineNuxtConfig({
       databaseUrl: "",
       authToken: "",
     },
+    databaseUrl: "",
     public: {
       posthogPublicKey: "phc_6yOpFUMQqw2woP2QvGscMvAyyADVP0rHSLYvCFc32TW",
       posthogHost: "https://us.i.posthog.com",

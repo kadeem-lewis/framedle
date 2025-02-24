@@ -1,8 +1,8 @@
-import { sqliteTable, text, integer } from "drizzle-orm/sqlite-core";
+import { pgTable, text, integer, date, serial } from "drizzle-orm/pg-core";
 
-export const daily = sqliteTable("daily", {
-  id: integer("id").primaryKey({ autoIncrement: true }),
-  date: text("date").notNull().unique(),
+export const daily = pgTable("daily", {
+  id: serial("id").primaryKey(),
+  date: date("date").notNull().unique(),
   day: integer("day").notNull().unique(),
   classicId: text("classicId").notNull(),
   abilityId: text("abilityId").notNull(),

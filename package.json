@@ -38,7 +38,7 @@
   "packageManager": "pnpm@9.8.0",
   "dependencies": {
     "-": "^0.0.1",
-    "@libsql/client": "^0.14.0",
+    "@neondatabase/serverless": "^0.10.4",
     "@pinia/nuxt": "^0.10.1",
     "@vueuse/core": "^12.7.0",
     "@vueuse/nuxt": "^12.7.0",

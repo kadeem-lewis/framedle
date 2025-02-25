@@ -79,11 +79,11 @@ export default defineNuxtConfig({
     families: [
       {
         name: "Noto Sans",
-        provider: "google",
+        provider: "bunny",
       },
       {
         name: "Roboto",
-        provider: "google",
+        provider: "bunny",
       },
     ],
   },

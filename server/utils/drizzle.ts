@@ -1,19 +1,16 @@
-import { drizzle } from "drizzle-orm/libsql";
 import * as schema from "../database/schema";
-import { createClient } from "@libsql/client";
+import { neon } from "@neondatabase/serverless";
+import { drizzle } from "drizzle-orm/neon-http";
 export { sql, eq, and, or } from "drizzle-orm";
 
-const { turso } = useRuntimeConfig();
+const { databaseUrl } = useRuntimeConfig();
 
-export const db = createClient({
-  url: turso.databaseUrl,
-  authToken: turso.authToken,
-});
+const sql = neon(databaseUrl);
 
 export const tables = schema;
 
 export function useDrizzle() {
-  return drizzle(db, { schema });
+  return drizzle({ client: sql, schema });
 }
 
 export type Daily = typeof schema.daily.$inferSelect;

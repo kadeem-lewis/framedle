@@ -12,7 +12,7 @@
       >
         <template #header>
           <p
-            class="text-primary-600 dark:text-primary text-xl font-bold uppercase"
+            class="text-primary-600 font-roboto dark:text-primary text-xl font-bold uppercase"
           >
             {{ t("ability.title") }}
           </p>

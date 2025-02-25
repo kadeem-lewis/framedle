@@ -3,7 +3,7 @@ export default defineNuxtConfig({
   future: {
     compatibilityVersion: 4,
   },
-  compatibilityDate: "2024-08-20",
+  compatibilityDate: "2025-02-24",
   devtools: { enabled: true },
   modules: [
     "@nuxt/eslint",
@@ -16,19 +16,16 @@ export default defineNuxtConfig({
     "@nuxtjs/seo",
     "@nuxtjs/i18n",
     "nuxt-security",
-    "@sentry/nuxt/module",
   ],
   runtimeConfig: {
     turso: {
       databaseUrl: "",
       authToken: "",
     },
+    databaseUrl: "",
     public: {
       posthogPublicKey: "phc_6yOpFUMQqw2woP2QvGscMvAyyADVP0rHSLYvCFc32TW",
       posthogHost: "https://us.i.posthog.com",
-      sentry: {
-        dsn: "",
-      },
       discordInvite: "",
     },
   },
@@ -64,16 +61,8 @@ export default defineNuxtConfig({
     },
     locales: [
       { code: "en", language: "en-US", name: "English", file: "en.json" },
-      {
-        code: "es",
-        language: "es-ES",
-        name: "Español",
-        file: "es.json",
-      },
-      { code: "pt", language: "pt-BR", name: "Português", file: "pt.json" },
     ],
     defaultLocale: "en",
-    langDir: "lang",
     lazy: true,
     baseUrl: "https://framedle.com",
   },
@@ -86,6 +75,18 @@ export default defineNuxtConfig({
       },
     ],
   },
+  fonts: {
+    families: [
+      {
+        name: "Noto Sans",
+        provider: "bunny",
+      },
+      {
+        name: "Roboto",
+        provider: "bunny",
+      },
+    ],
+  },
   sourcemap: { client: true },
   experimental: {
     typedPages: true,
@@ -95,14 +96,6 @@ export default defineNuxtConfig({
   },
   image: {
     domains: ["cdn.warframestat.us"],
-  },
-  sentry: {
-    sourceMapsUploadOptions: {
-      org: "framedle",
-      project: "framedle",
-      authToken: process.env.SENTRY_AUTH_TOKEN,
-    },
-    dynamicImportForServerEntry: false,
   },
   nitro: {
     experimental: {

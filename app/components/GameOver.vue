@@ -8,7 +8,7 @@
       ]"
     >
       <div class="flex flex-col items-center gap-2">
-        <p class="text-2xl font-bold uppercase">
+        <p class="font-roboto text-2xl font-bold uppercase">
           {{ hasWon ? "You Win!" : "You Lost!" }}
         </p>
 
@@ -76,7 +76,7 @@
           </div>
           <div>
             <UDivider />
-            <p class="text-center text-xl font-semibold uppercase">
+            <p class="font-roboto text-center text-xl font-semibold uppercase">
               Next Mode:
             </p>
             <ModeCard :tab="tabs.find((tab) => tab.route !== $route.path)!" />

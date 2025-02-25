@@ -74,7 +74,7 @@
         }"
       >
         <template #header>
-          <p class="text-center text-xl font-semibold uppercase">
+          <p class="font-roboto text-center text-xl font-semibold uppercase">
             {{
               selectedOption === options.STATS
                 ? `${$route.name} ${selectedOption}`

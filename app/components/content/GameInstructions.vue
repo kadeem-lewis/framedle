@@ -30,7 +30,7 @@
       {{ t("instructions.classic.properties.red_explanation") }}
     </p>
     <p><span>⬆️⬇️</span> {{ t("instructions.classic.properties.arrows") }}</p>
-    <p class="text-lg font-bold uppercase">
+    <p class="font-roboto text-center text-lg font-bold uppercase">
       {{ t("instructions.classic.example") }}
     </p>
     <UDivider />

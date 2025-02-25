@@ -75,6 +75,18 @@ export default defineNuxtConfig({
       },
     ],
   },
+  fonts: {
+    families: [
+      {
+        name: "Noto Sans",
+        provider: "bunny",
+      },
+      {
+        name: "Roboto",
+        provider: "bunny",
+      },
+    ],
+  },
   sourcemap: { client: true },
   experimental: {
     typedPages: true,

@@ -1,7 +1,7 @@
 <template>
   <div class="flex flex-col gap-4">
-    <p class="text-xl font-bold uppercase">Archive</p>
-    <div class="flex gap-2">
+    <p class="font-roboto text-xl font-bold uppercase">Archive</p>
+    <div class="font-roboto flex gap-2">
       <UButton
         variant="outline"
         class="uppercase"

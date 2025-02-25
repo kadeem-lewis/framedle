@@ -5,7 +5,6 @@
       :options="items"
       option-attribute="name"
       value-attribute="value"
-      class="border-primary dark:border-primary hover:border-primary border-b-4 border-gray-800 bg-gray-100/75 dark:bg-gray-800/75"
       :ui-menu="{
         width: 'w-[325%]',
         padding: 'p-1',
@@ -15,7 +14,12 @@
         },
       }"
     >
-      <UButton variant="outline" aria-label="theme-toggle" square>
+      <UButton
+        variant="outline"
+        aria-label="theme-toggle"
+        square
+        class="border-primary dark:border-primary hover:border-primary border-b-4 border-gray-800 bg-gray-100/75 dark:bg-gray-800/75"
+      >
         <UIcon
           name="i-heroicons-sun-solid"
           class="size-5 rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0"

@@ -11,6 +11,14 @@
       :ui="{
         rounded: 'rounded-none',
       }"
+      :ui-menu="{
+        rounded: 'rounded-none',
+        background: 'bg-white/75 dark:bg-gray-800/75 backdrop-blur',
+        option: {
+          rounded: 'rounded-none',
+          active: 'bg-gray-100/75 dark:bg-gray-900/75',
+        },
+      }"
       class="grow"
     >
       <template #trailing>

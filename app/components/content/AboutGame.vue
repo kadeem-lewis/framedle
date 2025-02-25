@@ -15,8 +15,7 @@
           Warframe Community Developers for providing the data that powers this
           app
         </li>
-        <li>Pitchers for developing the font used in the Logo</li>
-        <li>wfdata.io for providing the warframe icons used in the app</li>
+        <li>wfdata.io for providing the Warframe icons used in the app</li>
       </ul>
     </section>
   </div>

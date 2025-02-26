@@ -2,6 +2,11 @@
 @tailwind components;
 @tailwind utilities;
 
+html,
+body {
+  @apply bg-gray-100 dark:bg-gray-950;
+}
+
 @layer base {
   body {
     @apply font-noto-sans;

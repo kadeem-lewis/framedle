@@ -12,7 +12,12 @@
       >
       and similar games.
     </div>
-    <div>Digital Extremes does not endorse or sponsor this project.</div>
+    <p>Digital Extremes does not endorse or sponsor this project.</p>
+    <UDivider />
+    <section class="space-y-4">
+      <p>Framedle was created by Redeemr.</p>
+    </section>
+    <UDivider />
     <section class="space-y-4">
       <p class="font-semibold">Special Thanks To:</p>
       <ul class="list-[square] space-y-2">

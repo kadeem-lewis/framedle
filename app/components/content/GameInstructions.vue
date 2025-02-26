@@ -30,12 +30,12 @@
       {{ t("instructions.classic.properties.red_explanation") }}
     </p>
     <p><span>⬆️⬇️</span> {{ t("instructions.classic.properties.arrows") }}</p>
-    <p class="font-roboto text-center text-lg font-bold uppercase">
+    <p class="text-center font-roboto text-lg font-bold uppercase">
       {{ t("instructions.classic.example") }}
     </p>
     <UDivider />
-    <div class="space-y-2">
-      <div>
+    <div class="space-y-4">
+      <div class="space-y-1">
         <p>
           Consider the correct answer is
           <span class="text-primary font-medium">Nezha</span>
@@ -51,8 +51,8 @@
           :correct-warframe="Nezha!"
         />
       </div>
-      <div>
-        <p class="text-lg font-semibold">
+      <div class="space-y-1">
+        <p class="font-medium">
           {{ t("instructions.classic.sex.title") }}
           <span class="text-green-500">{{
             t("instructions.classic.sex.state")
@@ -60,8 +60,8 @@
         </p>
         <p>{{ t("instructions.classic.sex.description") }}</p>
       </div>
-      <div>
-        <p class="text-lg font-semibold">
+      <div class="space-y-1">
+        <p class="font-medium">
           {{ t("instructions.classic.health.title") }}
           <span class="text-red-500">{{
             t("instructions.classic.health.state")
@@ -69,8 +69,8 @@
         </p>
         <p>{{ t("instructions.classic.health.description") }}</p>
       </div>
-      <div>
-        <p class="text-lg font-semibold">
+      <div class="space-y-1">
+        <p class="font-medium">
           {{ t("instructions.classic.shield.title") }}
           <span class="text-red-500">{{
             t("instructions.classic.shield.state")
@@ -78,8 +78,8 @@
         </p>
         <p>{{ t("instructions.classic.shield.description") }}</p>
       </div>
-      <div>
-        <p class="text-lg font-semibold">
+      <div class="space-y-1">
+        <p class="font-medium">
           {{ t("instructions.classic.progenitor.title") }}
           <span class="text-green-500">{{
             t("instructions.classic.progenitor.state")
@@ -87,8 +87,8 @@
         </p>
         <p>{{ t("instructions.classic.progenitor.description") }}</p>
       </div>
-      <div>
-        <p class="text-lg font-semibold">
+      <div class="space-y-1">
+        <p class="font-medium">
           {{ t("instructions.classic.release_year.title") }}
           <span class="text-red-500">{{
             t("instructions.classic.release_year.state")

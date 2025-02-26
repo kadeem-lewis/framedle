@@ -1,7 +1,7 @@
 <template>
   <div class="flex flex-col gap-4">
     <p class="font-roboto text-xl font-bold uppercase">Archive</p>
-    <div class="font-roboto flex gap-2">
+    <div class="flex gap-2 font-roboto">
       <UButton
         variant="outline"
         class="uppercase"
@@ -48,7 +48,7 @@
       />
     </div>
     <div
-      class="flex flex-col gap-4 border border-gray-200 bg-gray-100/75 p-2 dark:border-gray-900 dark:bg-gray-800/75"
+      class="flex flex-col gap-4 border border-gray-200 bg-white/75 p-2 dark:border-gray-800 dark:bg-gray-900/75"
     >
       <div v-if="filteredDailies" class="grid grid-cols-2 gap-4">
         <p class="font-semibold">Name</p>

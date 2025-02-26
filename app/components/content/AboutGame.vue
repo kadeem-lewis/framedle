@@ -2,12 +2,22 @@
   <div class="space-y-4">
     <div>
       Framedle is a Warframe guessing game, inspired by
-      <ULink to="https://loldle.net/">Loldle</ULink>,<ULink
-        to="https://framed.wtf/"
+      <ULink class="text-primary underline" to="https://loldle.net/" external
+        >Loldle</ULink
+      >,<ULink to="https://framed.wtf/" class="text-primary underline" external
         >Framed</ULink
-      >, <ULink to="https://warmle.org/">Warmle</ULink> and similar games.
+      >,
+      <ULink to="https://warmle.org/" class="text-primary underline" external
+        >Warmle</ULink
+      >
+      and similar games.
     </div>
-    <div>Digital Extremes does not endorse or sponsor this project.</div>
+    <p>Digital Extremes does not endorse or sponsor this project.</p>
+    <UDivider />
+    <section class="space-y-4">
+      <p>Framedle was created by Redeemr.</p>
+    </section>
+    <UDivider />
     <section class="space-y-4">
       <p class="font-semibold">Special Thanks To:</p>
       <ul class="list-[square] space-y-2">
@@ -15,8 +25,7 @@
           Warframe Community Developers for providing the data that powers this
           app
         </li>
-        <li>Pitchers for developing the font used in the Logo</li>
-        <li>wfdata.io for providing the warframe icons used in the app</li>
+        <li>wfdata.io for providing the Warframe icons used in the app</li>
       </ul>
     </section>
   </div>

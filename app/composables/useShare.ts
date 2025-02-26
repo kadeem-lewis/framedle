@@ -112,15 +112,15 @@ export function useShare() {
       : `Framedle ${currentMode} ${hasWon.value ? attemptsUsed : "X"}/${defaultAttempts}`;
 
     const grid = `
-      ${topText}
+${topText}
       
-      ${emojiGrid}
-      ${
-        route.query.mode
-          ? `See how you do on the same challenge I played:
-      ${window.location.href}&x=${itemToGuess.value[currentMode] && encode(itemToGuess.value[currentMode].name)}`
-          : window.location.href
-      }
+${emojiGrid}
+${
+  route.query.mode
+    ? `See how you do on the same challenge I played:
+${window.location.href}&x=${itemToGuess.value[currentMode] && encode(itemToGuess.value[currentMode].name)}`
+    : window.location.href
+}
         `;
     copy(grid);
     emojiFeedback.value = [];

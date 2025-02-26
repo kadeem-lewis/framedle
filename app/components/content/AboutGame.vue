@@ -2,10 +2,15 @@
   <div class="space-y-4">
     <div>
       Framedle is a Warframe guessing game, inspired by
-      <ULink to="https://loldle.net/">Loldle</ULink>,<ULink
-        to="https://framed.wtf/"
+      <ULink class="text-primary underline" to="https://loldle.net/" external
+        >Loldle</ULink
+      >,<ULink to="https://framed.wtf/" class="text-primary underline" external
         >Framed</ULink
-      >, <ULink to="https://warmle.org/">Warmle</ULink> and similar games.
+      >,
+      <ULink to="https://warmle.org/" class="text-primary underline" external
+        >Warmle</ULink
+      >
+      and similar games.
     </div>
     <div>Digital Extremes does not endorse or sponsor this project.</div>
     <section class="space-y-4">

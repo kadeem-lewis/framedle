@@ -3,7 +3,7 @@
     :class="[
       'relative z-0 min-h-12 w-full border-2 font-semibold shadow-inner',
       {
-        'border-gray-500 bg-white/75 dark:border-gray-600 dark:bg-gray-800/75':
+        'border-gray-500 bg-white/75 dark:border-gray-700 dark:bg-gray-900/75':
           isCorrect === null,
         'border-green-900 bg-green-500 hover:bg-green-400 dark:bg-green-600 dark:hover:bg-green-500':
           isCorrect === true,

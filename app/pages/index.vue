@@ -6,7 +6,12 @@
       Test your Warframe Knowledge!
     </p>
     <div class="flex flex-col gap-4">
-      <ModeCard v-for="tab of tabs" :key="tab.label" :tab="tab" />
+      <ModeCard
+        v-for="tab of tabs"
+        :key="tab.label"
+        :tab="tab"
+        class="last:pointer-events-none"
+      />
     </div>
   </div>
 </template>
@@ -35,6 +40,13 @@ const tabs = [
     source: "/PassiveAbilityIcon.png",
     background: img("/backgrounds/helminth.jpg", { format: "webp" }),
     description: t("home.ability_card.description"),
+  },
+  {
+    label: "Coming Soon",
+    route: "",
+    source: "/BuildIcon.png",
+    background: img("/backgrounds/orbiter.jpg", { format: "webp" }),
+    description: "Stay tuned",
   },
 ];
 </script>

@@ -30,7 +30,7 @@
       <template v-if="guessedItems[mode].length">
         <div class="space-y-4 overflow-x-auto md:overflow-x-visible">
           <div
-            class="grid w-[150%] grid-cols-6 gap-1 border border-gray-300 bg-gray-200/75 py-0.5 uppercase md:-ml-[25%] dark:border-gray-900 dark:bg-gray-800/75"
+            class="grid w-[150%] grid-cols-6 gap-1 border border-gray-200 bg-white/75 py-0.5 uppercase md:-ml-[25%] dark:border-gray-800 dark:bg-gray-900/75"
           >
             <p
               v-for="label of [

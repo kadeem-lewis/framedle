@@ -18,7 +18,7 @@
         variant="outline"
         aria-label="theme-toggle"
         square
-        class="border-primary dark:border-primary hover:border-primary border-b-4 border-gray-800 bg-white/75 dark:bg-gray-800/75"
+        class="border-primary dark:border-primary hover:border-primary border-b-4 border-gray-800 bg-white/75 dark:bg-gray-900/75"
       >
         <UIcon
           name="i-heroicons-sun-solid"

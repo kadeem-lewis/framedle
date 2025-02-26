@@ -48,7 +48,7 @@
       />
     </div>
     <div
-      class="flex flex-col gap-4 border border-gray-300 bg-gray-200/75 p-2 dark:border-gray-900 dark:bg-gray-800/75"
+      class="flex flex-col gap-4 border border-gray-200 bg-white/75 p-2 dark:border-gray-800 dark:bg-gray-900/75"
     >
       <div v-if="filteredDailies" class="grid grid-cols-2 gap-4">
         <p class="font-semibold">Name</p>

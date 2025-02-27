@@ -11,7 +11,10 @@
       >
         <UIcon
           :name="item.icon"
-          :class="{ '-m-2 size-9': item.srText === items[3]?.srText }"
+          :class="{
+            '-m-2 size-9': item.srText === items[3]?.srText,
+            'dark:text-white': item.srText == items[0]?.srText,
+          }"
           class="size-6 text-white dark:text-black"
         />
         <span class="sr-only">{{ item.srText }}</span>

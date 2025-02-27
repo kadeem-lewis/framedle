@@ -1,6 +1,6 @@
 <template>
   <header
-    class="flex w-full items-center justify-between border-b border-gray-500 py-2 dark:border-gray-700"
+    class="flex w-full items-center justify-between border-b-2 border-gray-500 py-2 dark:border-gray-700"
   >
     <div>
       <h1

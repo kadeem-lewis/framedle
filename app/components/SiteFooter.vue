@@ -2,47 +2,22 @@
   <footer class="space-y-2 py-2 text-center">
     <div class="flex justify-center gap-3">
       <UButton
-        color="indigo"
-        :to="runtimeConfig.public.discordInvite"
-        size="xl"
-        target="_blank"
-        class="text-current transition-transform hover:scale-110"
-      >
-        <UIcon name="my-icon:discord" class="size-6 text-white" />
-        <span class="sr-only">discord invite link</span>
-      </UButton>
-      <UButton
-        size="xl"
-        color="black"
-        to="https://x.com/framedle"
-        target="_blank"
+        v-for="item of items"
+        :key="item.srText"
+        :color="item.color"
+        size="lg"
         class="transition-transform hover:scale-110"
+        @click="item.command"
       >
-        <span class="sr-only">x.com page</span>
-        <UIcon name="my-icon:x" class="size-6 text-white dark:text-black" />
-      </UButton>
-      <UButton
-        icon="i-mdi-information-variant"
-        size="xl"
-        color="black"
-        class="transition-transform hover:scale-110"
-        @click="isOpen = true"
-      >
-        <span class="sr-only">About Game</span>
-      </UButton>
-      <UButton
-        size="xl"
-        to="https://ko-fi.com/redeemr"
-        :ui="{
-          padding: {
-            xl: 'p-1.5',
-          },
-        }"
-        target="_blank"
-        class="transition-transform hover:scale-110"
-      >
-        <UIcon name="my-icon:kofi" class="size-9" />
-        <span class="sr-only">Donate</span>
+        <UIcon
+          :name="item.icon"
+          :class="{
+            '-m-2 size-9': item.srText === items[3]?.srText,
+            'dark:text-white': item.srText == items[0]?.srText,
+          }"
+          class="size-6 text-white dark:text-black"
+        />
+        <span class="sr-only">{{ item.srText }}</span>
       </UButton>
       <UModal v-model="isOpen">
         <UCard
@@ -69,4 +44,32 @@ const runtimeConfig = useRuntimeConfig();
 const isOpen = ref(false);
 
 const year = ref(new Date().getFullYear());
+
+const items = [
+  {
+    srText: "discord invite link",
+    icon: "my-icon:discord",
+    color: "indigo" as const,
+    command: () =>
+      navigateTo(runtimeConfig.public.discordInvite, { external: true }),
+  },
+  {
+    srText: "x.com page",
+    icon: "my-icon:x",
+    color: "black" as const,
+    command: () => navigateTo("https://x.com/framedle", { external: true }),
+  },
+  {
+    srText: "About Game",
+    icon: "i-mdi-information-variant",
+    color: "black" as const,
+    command: () => (isOpen.value = true),
+  },
+  {
+    srText: "Donate",
+    icon: "my-icon:kofi",
+    color: "primary" as const,
+    command: () => navigateTo("https://ko-fi.com/redeemr", { external: true }),
+  },
+];
 </script>

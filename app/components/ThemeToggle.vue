@@ -6,11 +6,12 @@
       option-attribute="name"
       value-attribute="value"
       :ui-menu="{
-        width: 'w-[325%]',
+        width: 'w-[350%]',
         padding: 'p-1',
         rounded: 'rounded-none',
         option: {
           rounded: 'rounded-none',
+          size: 'text-base',
         },
       }"
     >

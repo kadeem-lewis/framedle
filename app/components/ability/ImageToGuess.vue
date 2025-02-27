@@ -39,12 +39,14 @@
         />
       </div>
     </div>
-    <p v-if="isGameOver[mode]" class="text-lg font-bold uppercase">
-      {{ itemToGuess[mode]?.name }}
-    </p>
-    <p v-if="isGameOver[mode]">
-      {{ cleanedDescription }}
-    </p>
+    <template v-if="isGameOver[mode]">
+      <p class="text-lg font-bold uppercase">
+        {{ itemToGuess[mode]?.name }}
+      </p>
+      <p>
+        {{ cleanedDescription }}
+      </p>
+    </template>
   </div>
 </template>
 

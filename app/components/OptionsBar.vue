@@ -1,68 +1,14 @@
 <template>
   <div class="flex w-full items-center justify-center">
     <menu class="flex gap-2 p-2">
-      <UTooltip text="Archive">
+      <UTooltip v-for="item of items" :key="item.text" :text="item.text">
         <UButton
-          aria-label="archive"
-          icon="i-heroicons-calendar-solid"
+          :aria-label="item.text"
+          :icon="item.icon"
           variant="outline"
-          size="lg"
+          size="md"
           square
-          @click="
-            navigateTo({ path: '/archive', query: { mode: $route.name } })
-          "
-        />
-      </UTooltip>
-      <UTooltip text="Stats">
-        <UButton
-          aria-label="stats"
-          icon="i-heroicons-chart-bar-solid"
-          variant="outline"
-          size="lg"
-          square
-          @click="
-            isOpen = true;
-            selectedOption = options.STATS;
-          "
-        />
-      </UTooltip>
-      <UTooltip text="About">
-        <UButton
-          aria-label="about"
-          icon="i-mdi-information-variant"
-          variant="outline"
-          size="lg"
-          square
-          @click="
-            isOpen = true;
-            selectedOption = options.ABOUT;
-          "
-        />
-      </UTooltip>
-      <UTooltip text="Support">
-        <UButton
-          aria-label="support"
-          icon="i-heroicons-heart"
-          variant="outline"
-          size="lg"
-          square
-          @click="
-            isOpen = true;
-            selectedOption = options.SUPPORT;
-          "
-        />
-      </UTooltip>
-      <UTooltip text="Instructions">
-        <UButton
-          aria-label="instructions"
-          icon="i-mdi-help"
-          variant="outline"
-          size="lg"
-          square
-          @click="
-            isOpen = true;
-            selectedOption = options.INSTRUCTIONS;
-          "
+          @click="item.command"
         />
       </UTooltip>
     </menu>
@@ -74,26 +20,27 @@
         }"
       >
         <template #header>
-          <p class="font-roboto text-center text-xl font-semibold uppercase">
-            {{
-              selectedOption === options.STATS
-                ? `${$route.name} ${selectedOption}`
-                : selectedOption
-            }}
+          <p class="text-center font-roboto text-xl font-semibold uppercase">
+            {{ headerText }}
           </p>
         </template>
-        <ContentAboutGame v-if="selectedOption === options.ABOUT" />
-        <ContentGameInstructions
-          v-if="selectedOption === options.INSTRUCTIONS"
+        <component
+          :is="optionComponents[selectedOption]"
+          v-if="optionComponents[selectedOption]"
         />
-        <ContentGameStats v-if="selectedOption === options.STATS" />
-        <ContentSupport v-if="selectedOption === options.SUPPORT" />
       </UCard>
     </UModal>
   </div>
 </template>
 
 <script setup lang="ts">
+import {
+  ContentAboutGame,
+  ContentGameInstructions,
+  ContentGameStats,
+  ContentSupport,
+} from "#components";
+
 const options = {
   STATS: "stats",
   ABOUT: "about",
@@ -106,4 +53,61 @@ type Option = (typeof options)[keyof typeof options];
 const selectedOption = useState<Option>("selectedOption");
 
 const isOpen = useState("isOpen", () => false);
+
+const route = useRoute();
+
+const items = [
+  {
+    text: "Archive",
+    icon: "i-heroicons-calendar-solid",
+    command: () =>
+      navigateTo({ path: "/archive", query: { mode: route.name } }),
+  },
+  {
+    text: "Stats",
+    icon: "i-heroicons-chart-bar-solid",
+    command: () => {
+      isOpen.value = true;
+      selectedOption.value = options.STATS;
+    },
+  },
+  {
+    text: "About",
+    icon: "i-mdi-information-variant",
+    command: () => {
+      isOpen.value = true;
+      selectedOption.value = options.ABOUT;
+    },
+  },
+  {
+    text: "Support",
+    icon: "i-heroicons-heart",
+    command: () => {
+      isOpen.value = true;
+      selectedOption.value = options.SUPPORT;
+    },
+  },
+  {
+    text: "Instructions",
+    icon: "i-mdi-help",
+    command: () => {
+      isOpen.value = true;
+      selectedOption.value = options.INSTRUCTIONS;
+    },
+  },
+];
+
+const headerText = computed(() => {
+  if (selectedOption.value === options.STATS) {
+    return `${route.name} ${selectedOption.value}`;
+  }
+  return selectedOption.value;
+});
+
+const optionComponents = {
+  [options.STATS]: ContentGameStats,
+  [options.ABOUT]: ContentAboutGame,
+  [options.INSTRUCTIONS]: ContentGameInstructions,
+  [options.SUPPORT]: ContentSupport,
+};
 </script>

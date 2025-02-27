@@ -40,6 +40,7 @@ export const useGameStore = defineStore(
     const dailyDate = ref<string>(
       (route.query.date as string) || currentDailyDate.value,
     );
+    const currentDay = ref<number>();
 
     const guessedItems = ref({
       classic: [] as Warframe[],
@@ -134,6 +135,7 @@ export const useGameStore = defineStore(
         itemToGuess.value.ability = abilities.value.find(
           (ability) => ability.name === data.abilityId,
         ) as Ability;
+        currentDay.value = data.day;
       } catch (error) {
         throw createError({
           statusCode: 500,
@@ -194,6 +196,7 @@ export const useGameStore = defineStore(
       defaultAttempts,
       abilities,
       currentDailyDate,
+      currentDay,
       vanillaWarframes,
       fetchWarframes,
       classicInit,

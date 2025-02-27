@@ -3,7 +3,7 @@
     <p
       class="p-1 text-center font-roboto text-lg font-semibold uppercase md:text-xl"
     >
-      Test your Warframe Knowledge!
+      Test your Warframe Knowledge
     </p>
     <div class="flex flex-col gap-4">
       <ModeCard

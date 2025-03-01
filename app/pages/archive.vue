@@ -4,9 +4,9 @@
     <div class="flex gap-2 font-roboto">
       <UButton
         variant="outline"
-        class="uppercase"
+        class="border-gray-800 uppercase"
         :class="{
-          'border-primary border-b-2': selectedMode === 'classic',
+          'hover:border-primary border-b-2': selectedMode === 'classic',
         }"
         @click="selectedMode = 'classic'"
       >
@@ -14,9 +14,9 @@
       </UButton>
       <UButton
         variant="outline"
-        class="uppercase"
+        class="border-gray-800 uppercase"
         :class="{
-          'border-primary border-b-2': selectedMode === 'ability',
+          'hover:border-primary border-b-2': selectedMode === 'ability',
         }"
         @click="selectedMode = 'ability'"
       >

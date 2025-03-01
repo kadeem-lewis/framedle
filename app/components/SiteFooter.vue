@@ -1,5 +1,5 @@
 <template>
-  <footer class="space-y-2 py-2 text-center">
+  <footer class="space-y-3 py-2 text-center">
     <div class="flex justify-center gap-3">
       <UButton
         v-for="item of items"
@@ -9,14 +9,7 @@
         class="transition-transform hover:scale-110"
         @click="item.command"
       >
-        <UIcon
-          :name="item.icon"
-          :class="{
-            '-m-2 size-9': item.srText === items[3]?.srText,
-            'dark:text-white': item.srText == items[0]?.srText,
-          }"
-          class="size-6 text-white dark:text-black"
-        />
+        <UIcon :name="item.icon" class="size-6" :class="item.class" />
         <span class="sr-only">{{ item.srText }}</span>
       </UButton>
       <UModal v-model="isOpen">
@@ -33,8 +26,8 @@
         </UCard>
       </UModal>
     </div>
-    <p>&copy; {{ year }} Framedle.com</p>
-    <small>Warframe does not endorse or sponsor this product</small>
+    <p class="text-sm">&copy; {{ year }} Framedle.com</p>
+    <p class="text-sm">Warframe does not endorse or sponsor this product</p>
   </footer>
 </template>
 
@@ -50,25 +43,32 @@ const items = [
     srText: "discord invite link",
     icon: "my-icon:discord",
     color: "indigo" as const,
+    class: "dark:text-white",
     command: () =>
       navigateTo(runtimeConfig.public.discordInvite, { external: true }),
   },
   {
-    srText: "x.com page",
-    icon: "my-icon:x",
-    color: "black" as const,
-    command: () => navigateTo("https://x.com/framedle", { external: true }),
+    srText: "bsky.app page",
+    icon: "my-icon:bluesky",
+    color: "blue" as const,
+    class: "dark:text-white",
+    command: () =>
+      navigateTo("https://bsky.app/profile/framedle.bsky.social", {
+        external: true,
+      }),
   },
   {
     srText: "About Game",
     icon: "i-mdi-information-variant",
     color: "black" as const,
+    class: "",
     command: () => (isOpen.value = true),
   },
   {
     srText: "Donate",
     icon: "my-icon:kofi",
     color: "primary" as const,
+    class: "-m-2 size-9",
     command: () => navigateTo("https://ko-fi.com/redeemr", { external: true }),
   },
 ];

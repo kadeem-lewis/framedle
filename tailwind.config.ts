@@ -15,6 +15,18 @@ export default <Partial<Config>>{
         "noto-sans": ["Noto Sans", "sans-serif"],
         roboto: ["Roboto", "sans-serif"],
       },
+      colors: {
+        success: {
+          DEFAULT: "hsl(var(--success))",
+        },
+        error: {
+          DEFAULT: "hsl(var(--error))",
+        },
+        border: {
+          success: "hsl(var(--border-success))",
+          error: "hsl(var(--border-error))",
+        },
+      },
     },
   },
   plugins: [],

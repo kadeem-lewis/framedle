@@ -1,13 +1,13 @@
 <template>
   <div
     :class="[
-      'relative z-0 min-h-12 w-full border-2 font-semibold shadow-inner',
+      'relative z-0 min-h-12 w-full border-2 font-semibold text-white shadow-inner transition-colors',
       {
         'border-gray-500 bg-white/75 dark:border-gray-700 dark:bg-gray-900/75':
           isCorrect === null,
-        'border-green-900 bg-green-500 hover:bg-green-400 dark:bg-green-600 dark:hover:bg-green-500':
+        'border-border-success bg-success hover:shadow-inner hover:brightness-110':
           isCorrect === true,
-        'border-red-900 bg-red-500 hover:bg-red-400 dark:bg-red-600 hover:dark:bg-red-500':
+        'border-border-error bg-error hover:brightness-11110 hover:shadow-inner':
           isCorrect === false,
         'arrow-up': difference && difference > 0,
         'arrow-down': difference && difference < 0,
@@ -40,7 +40,7 @@ const { isCorrect = null, difference } = defineProps<{
     width: 100%;
     z-index: -10;
     height: 100%;
-    background: #7f1d1d;
+    background: rgba(0, 0, 0, 0.5);
     clip-path: polygon(
       0 50%,
       20% 50%,
@@ -52,8 +52,8 @@ const { isCorrect = null, difference } = defineProps<{
     );
   }
 
-  &::after:hover {
-    background: purple;
+  &:hover::after {
+    background: rgba(0, 0, 0, 0.7);
   }
 
   &::before {
@@ -71,7 +71,7 @@ const { isCorrect = null, difference } = defineProps<{
     left: 0;
     width: 100%;
     height: 100%;
-    background: #7f1d1d;
+    background: rgba(0, 0, 0, 0.5);
     z-index: -10;
     clip-path: polygon(
       50% 0,
@@ -83,9 +83,8 @@ const { isCorrect = null, difference } = defineProps<{
       0 50%
     );
   }
-
-  &::after:hover {
-    background: purple;
+  &:hover::after {
+    background: rgba(0, 0, 0, 0.7);
   }
 
   &::before {

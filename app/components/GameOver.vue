@@ -4,7 +4,7 @@
       v-if="mode"
       :class="[
         'border-2',
-        { 'border-green-500': hasWon, 'border-red-500': !hasWon },
+        { 'border-success': hasWon, 'border-error': !hasWon },
       ]"
     >
       <div class="flex flex-col items-center gap-2">

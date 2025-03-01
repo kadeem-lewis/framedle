@@ -1,9 +1,18 @@
 <template>
-  <div>Settings</div>
+  <div class="flex items-center justify-between py-2">
+    <p class="text-lg font-medium">Colorblind Mode</p>
+    <UToggle v-model="$colorblindMode" @click="$toggleColorblindMode" />
+  </div>
+  <UDivider />
 </template>
 
 <script setup lang="ts">
 //colorblind mode
+const { $colorblindMode } = useNuxtApp();
+
+console.log(useNuxtApp());
+console.log($colorblindMode);
+
 //eventually localizations
 //data transfer
 </script>

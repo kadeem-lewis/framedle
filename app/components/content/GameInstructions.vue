@@ -18,15 +18,11 @@
       {{ t("instructions.classic.feedback_explanation") }}
     </p>
     <p>
-      <span class="font-semibold text-green-500">{{
-        t("instructions.classic.properties.green")
-      }}</span>
+      <span class="text-success font-semibold">{{ success }}</span>
       {{ t("instructions.classic.properties.green_explanation") }}
     </p>
     <p>
-      <span class="font-semibold text-red-700">{{
-        t("instructions.classic.properties.red")
-      }}</span>
+      <span class="text-error font-semibold">{{ error }}</span>
       {{ t("instructions.classic.properties.red_explanation") }}
     </p>
     <p><span>⬆️⬇️</span> {{ t("instructions.classic.properties.arrows") }}</p>
@@ -54,45 +50,35 @@
       <div class="space-y-1">
         <p class="font-medium">
           {{ t("instructions.classic.sex.title") }}
-          <span class="text-green-500">{{
-            t("instructions.classic.sex.state")
-          }}</span>
+          <span class="text-success">{{ success }}</span>
         </p>
         <p>{{ t("instructions.classic.sex.description") }}</p>
       </div>
       <div class="space-y-1">
         <p class="font-medium">
           {{ t("instructions.classic.health.title") }}
-          <span class="text-red-500">{{
-            t("instructions.classic.health.state")
-          }}</span>
+          <span class="text-error">{{ error }} and a down arrow</span>
         </p>
         <p>{{ t("instructions.classic.health.description") }}</p>
       </div>
       <div class="space-y-1">
         <p class="font-medium">
           {{ t("instructions.classic.shield.title") }}
-          <span class="text-red-500">{{
-            t("instructions.classic.shield.state")
-          }}</span>
+          <span class="text-error">{{ error }} and an up arrow</span>
         </p>
         <p>{{ t("instructions.classic.shield.description") }}</p>
       </div>
       <div class="space-y-1">
         <p class="font-medium">
           {{ t("instructions.classic.progenitor.title") }}
-          <span class="text-green-500">{{
-            t("instructions.classic.progenitor.state")
-          }}</span>
+          <span class="text-success">{{ success }}</span>
         </p>
         <p>{{ t("instructions.classic.progenitor.description") }}</p>
       </div>
       <div class="space-y-1">
         <p class="font-medium">
           {{ t("instructions.classic.release_year.title") }}
-          <span class="text-red-500">{{
-            t("instructions.classic.release_year.state")
-          }}</span>
+          <span class="text-error">{{ error }} and a down arrow</span>
         </p>
         <p>{{ t("instructions.classic.release_year.description") }}</p>
       </div>
@@ -125,4 +111,9 @@ const { warframes } = storeToRefs(useGameStore());
 
 const Inaros = warframes.value.find((warframe) => warframe.name === "Inaros");
 const Nezha = warframes.value.find((warframe) => warframe.name === "Nezha");
+
+const { $colorblindMode } = useNuxtApp();
+
+const success = computed(() => ($colorblindMode.value ? "Blue" : "Green"));
+const error = computed(() => ($colorblindMode.value ? "Orange" : "Red"));
 </script>

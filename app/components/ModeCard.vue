@@ -13,10 +13,10 @@
         :src="tab.source"
         :alt="tab.label"
         preload
-        class="h-16 group-hover:scale-110"
+        class="h-12 group-hover:scale-110"
       />
-      <div class="brightness-90 group-hover:brightness-100">
-        <p class="font-roboto text-xl font-bold">
+      <div class="font-roboto brightness-90 group-hover:brightness-100">
+        <p class="text-xl font-bold">
           {{ tab.label }}
         </p>
         <p class="font-semibold">{{ tab.description }}</p>

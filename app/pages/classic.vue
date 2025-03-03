@@ -1,6 +1,6 @@
 <template>
   <div
-    v-if="mode && (mode === 'classic' || mode === 'classicUnlimited')"
+    v-if="mode === 'classic' || mode === 'classicUnlimited'"
     class="flex flex-col gap-4"
   >
     <ModeUnavailable v-if="!itemToGuess[mode]" />

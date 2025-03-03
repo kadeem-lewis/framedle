@@ -1,9 +1,7 @@
 <template>
   <div v-if="mode" class="flex flex-col gap-4">
-    <ModeUnavailable v-if="!itemToGuess[mode]" />
-    <div v-else class="space-y-4">
+    <div v-if="itemToGuess[mode]" class="space-y-4">
       <RemainingGuesses />
-
       <UCard
         :ui="{
           divide: 'divide-y-0',
@@ -25,9 +23,7 @@
       <AbilityFeedbackArea v-if="!isGameOver[mode]" />
       <GameOver v-if="isGameOver[mode]" />
     </div>
-  </div>
-  <div v-else>
-    <p>Loading...</p>
+    <ModeUnavailable v-else />
   </div>
 </template>
 

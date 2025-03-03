@@ -3,8 +3,7 @@
     v-if="mode === 'classic' || mode === 'classicUnlimited'"
     class="flex flex-col gap-4"
   >
-    <ModeUnavailable v-if="!itemToGuess[mode]" />
-    <div v-else class="space-y-4">
+    <div v-if="itemToGuess[mode]" class="space-y-4">
       <RemainingGuesses />
       <UCard
         :ui="{
@@ -65,6 +64,7 @@
       </template>
       <GameOver v-if="isGameOver[mode]" />
     </div>
+    <ModeUnavailable v-else />
   </div>
 </template>
 

@@ -18,13 +18,12 @@
 </template>
 <script setup lang="ts">
 const route = useRoute();
-
-const path = computed(() => route.path);
+const { currentRoute } = useRouter();
 
 const modes = [
   {
     label: "Daily",
-    to: { path: path.value },
+    to: { path: currentRoute.value.path },
     isActive: computed(() => !route.query.mode),
   },
   {

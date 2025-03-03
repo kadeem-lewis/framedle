@@ -51,7 +51,7 @@ const items = [
     srText: "bsky.app page",
     icon: "my-icon:bluesky",
     color: "blue" as const,
-    class: "dark:text-white",
+    class: "text-white",
     command: () =>
       navigateTo("https://bsky.app/profile/framedle.bsky.social", {
         external: true,

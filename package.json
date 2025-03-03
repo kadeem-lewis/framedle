@@ -13,7 +13,8 @@
     "lint:fix": "eslint . --fix",
     "typecheck": "nuxt typecheck",
     "db:generate": "drizzle-kit generate",
-    "db:push": "drizzle-kit push"
+    "db:push": "drizzle-kit push",
+    "test": "vitest"
   },
   "devDependencies": {
     "@iconify-json/heroicons": "^1.2.2",
@@ -23,19 +24,24 @@
     "@nuxt/eslint-config": "^1.1.0",
     "@nuxt/fonts": "^0.10.3",
     "@nuxt/image": "^1.9.0",
+    "@nuxt/test-utils": "^3.17.1",
     "@nuxt/ui": "^2.21.0",
     "@nuxtjs/i18n": "^9.2.1",
     "@nuxtjs/seo": "2.2.0",
+    "@vue/test-utils": "^2.4.6",
     "drizzle-kit": "^0.30.4",
     "eslint": "^9.21.0",
+    "happy-dom": "^17.1.8",
     "nuxt": "^3.15.4",
     "nuxt-security": "^2.1.5",
+    "playwright-core": "^1.50.1",
     "prettier": "^3.5.2",
     "prettier-plugin-tailwindcss": "^0.6.11",
     "typescript": "^5.7.3",
+    "vitest": "^3.0.7",
     "vue-tsc": "^2.2.4"
   },
-  "packageManager": "pnpm@9.8.0",
+  "packageManager": "pnpm@9.12.2",
   "dependencies": {
     "-": "^0.0.1",
     "@neondatabase/serverless": "^0.10.4",

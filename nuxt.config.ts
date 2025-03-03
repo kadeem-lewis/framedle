@@ -16,6 +16,7 @@ export default defineNuxtConfig({
     "@nuxtjs/seo",
     "@nuxtjs/i18n",
     "nuxt-security",
+    "@nuxt/test-utils",
   ],
   runtimeConfig: {
     turso: {

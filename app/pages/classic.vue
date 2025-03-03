@@ -3,7 +3,6 @@
     v-if="mode && (mode === 'classic' || mode === 'classicUnlimited')"
     class="flex flex-col gap-4"
   >
-    <ModeSwitch />
     <ModeUnavailable v-if="!itemToGuess[mode]" />
     <div v-else class="space-y-4">
       <RemainingGuesses />

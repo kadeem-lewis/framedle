@@ -1,6 +1,5 @@
 <template>
   <div v-if="mode" class="flex flex-col gap-4">
-    <ModeSwitch />
     <ModeUnavailable v-if="!itemToGuess[mode]" />
     <div v-else class="space-y-4">
       <RemainingGuesses />
@@ -12,7 +11,7 @@
       >
         <template #header>
           <p
-            class="text-primary-600 font-roboto dark:text-primary text-xl font-bold uppercase"
+            class="text-primary-600 dark:text-primary font-roboto text-xl font-bold uppercase"
           >
             {{ t("ability.title") }}
           </p>

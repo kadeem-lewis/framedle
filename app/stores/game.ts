@@ -208,10 +208,6 @@ export const useGameStore = defineStore(
   {
     persist: {
       storage: piniaPluginPersistedstate.localStorage(),
-      serializer: {
-        serialize: (state) => btoa(JSON.stringify(state)),
-        deserialize: (state) => JSON.parse(atob(state)),
-      },
       pick: [
         "guessedItems",
         "attempts",

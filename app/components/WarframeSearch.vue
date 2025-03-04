@@ -1,5 +1,5 @@
 <template>
-  <form class="flex gap-4" @submit.prevent="checkGuess">
+  <form class="flex gap-4" @submit.prevent="addGuess">
     <UInputMenu
       v-model="selectedWarframe"
       :search="search"
@@ -58,7 +58,7 @@ const props = defineProps<{
   items: Warframe[];
 }>();
 
-const { itemToGuess, attempts, guessedItems } = storeToRefs(useGameStore());
+const { attempts, guessedItems } = storeToRefs(useGameStore());
 
 const mode = useGameMode();
 
@@ -81,51 +81,23 @@ function search(query: string) {
   }
 }
 
-//TODO: This function also has a lot of repitition and can be refactored
-const checkGuess = () => {
+const addGuess = () => {
   if (!selectedWarframe.value) throw createError("No warframe selected");
   if (!mode.value) throw createError("Mode is not set");
 
   isError.value = false;
 
-  if (mode.value === "abilityUnlimited" || mode.value === "ability") {
-    if (
-      guessedItems.value[mode.value].some(
-        (guessedItem) => guessedItem.name === selectedWarframe.value?.name,
-      )
-    ) {
-      isError.value = true;
-      return;
-    }
-    if (
-      selectedWarframe.value.name === itemToGuess.value[mode.value]?.belongsTo
-    ) {
-      attempts.value[mode.value] -= 1;
-      guessedItems.value[mode.value].push(selectedWarframe.value);
-    } else {
-      attempts.value[mode.value] -= 1;
-      guessedItems.value[mode.value].push(selectedWarframe.value);
-    }
+  if (
+    guessedItems.value[mode.value].some(
+      (guessedItem) => guessedItem.name === selectedWarframe.value?.name,
+    )
+  ) {
+    isError.value = true;
+    return;
   }
 
-  if (mode.value === "classicUnlimited" || mode.value === "classic") {
-    if (
-      guessedItems.value[mode.value].some(
-        (guessedItem) => guessedItem.name === selectedWarframe.value?.name,
-      )
-    ) {
-      isError.value = true;
-      return;
-    }
-    if (selectedWarframe.value.name === itemToGuess.value[mode.value]?.name) {
-      attempts.value[mode.value] -= 1;
-
-      guessedItems.value[mode.value].push(selectedWarframe.value);
-    } else {
-      attempts.value[mode.value] -= 1;
-      guessedItems.value[mode.value].push(selectedWarframe.value);
-    }
-  }
+  attempts.value[mode.value] -= 1;
+  guessedItems.value[mode.value].push(selectedWarframe.value);
 
   selectedWarframe.value = undefined;
 };

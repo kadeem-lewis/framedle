@@ -1,6 +1,6 @@
 <template>
   <div
-    v-if="mode && (mode === 'ability' || mode === 'abilityUnlimited')"
+    v-if="mode === 'ability' || mode === 'abilityUnlimited'"
     class="flex flex-col gap-4 capitalize"
   >
     <UiFeedbackTile

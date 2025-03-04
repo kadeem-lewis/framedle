@@ -1,10 +1,7 @@
 <template>
   <div v-if="mode" class="flex flex-col gap-4">
-    <ModeSwitch />
-    <ModeUnavailable v-if="!itemToGuess[mode]" />
-    <div v-else class="space-y-4">
+    <div v-if="itemToGuess[mode]" class="space-y-4">
       <RemainingGuesses />
-
       <UCard
         :ui="{
           divide: 'divide-y-0',
@@ -12,7 +9,7 @@
       >
         <template #header>
           <p
-            class="text-primary-600 font-roboto dark:text-primary text-xl font-bold uppercase"
+            class="text-primary-600 dark:text-primary font-roboto text-xl font-bold uppercase"
           >
             {{ t("ability.title") }}
           </p>
@@ -26,9 +23,7 @@
       <AbilityFeedbackArea v-if="!isGameOver[mode]" />
       <GameOver v-if="isGameOver[mode]" />
     </div>
-  </div>
-  <div v-else>
-    <p>Loading...</p>
+    <ModeUnavailable v-else />
   </div>
 </template>
 

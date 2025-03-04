@@ -1,5 +1,5 @@
 <template>
-  <div v-if="mode && (mode === 'ability' || mode === 'abilityUnlimited')">
+  <div v-if="mode === 'ability' || mode === 'abilityUnlimited'">
     <div class="flex items-center justify-center p-4">
       <div class="relative">
         <div class="absolute inset-0 z-10 grid grid-cols-3 grid-rows-2">

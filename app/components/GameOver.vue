@@ -99,6 +99,9 @@ const mode = useGameMode();
 
 const img = useImage();
 
+const { updateStatsOnGameOver } = useStatsStore();
+updateStatsOnGameOver();
+
 const tabs = [
   {
     label: "Classic",
@@ -177,14 +180,4 @@ watchEffect(() => {
     party.confetti(gameOverCard.value);
   }
 });
-
-const { updateStatsOnGameOver } = useStatsStore();
-
-watch(
-  isGameOver,
-  () => {
-    updateStatsOnGameOver();
-  },
-  { immediate: true },
-);
 </script>

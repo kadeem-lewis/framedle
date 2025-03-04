@@ -3,9 +3,10 @@
     <UInputMenu
       v-model="selectedWarframe"
       :search="search"
-      :options="props.items"
+      :options="filteredItems"
       placeholder="SEARCH..."
       by="name"
+      required
       option-attribute="name"
       :search-attributes="['name']"
       :ui="{
@@ -47,7 +48,6 @@
       >Submit</UButton
     >
   </form>
-  <p v-if="isError" class="text-red-500">Warframe Already guessed</p>
 </template>
 
 <script setup lang="ts">
@@ -62,17 +62,25 @@ const { attempts, guessedItems } = storeToRefs(useGameStore());
 
 const mode = useGameMode();
 
-const selectedWarframe = ref<Warframe>();
-const isError = ref(false);
+const filteredItems = computed(() => {
+  return props.items.filter(
+    (item) =>
+      !guessedItems.value[mode.value!].some(
+        (guessedItem) => guessedItem.name === item.name,
+      ),
+  );
+});
 
-const fuse = new Fuse(props.items, {
+const selectedWarframe = ref<Warframe>();
+
+const fuse = new Fuse(filteredItems.value, {
   keys: ["name"],
   threshold: 0.4,
 });
 
 function search(query: string) {
   if (query === "") {
-    return props.items.slice(0, 6);
+    return filteredItems.value.slice(0, 6);
   } else {
     return fuse
       .search(query)
@@ -81,20 +89,13 @@ function search(query: string) {
   }
 }
 
+watch(filteredItems, (newItems) => {
+  fuse.setCollection(newItems);
+});
+
 const addGuess = () => {
   if (!selectedWarframe.value) throw createError("No warframe selected");
   if (!mode.value) throw createError("Mode is not set");
-
-  isError.value = false;
-
-  if (
-    guessedItems.value[mode.value].some(
-      (guessedItem) => guessedItem.name === selectedWarframe.value?.name,
-    )
-  ) {
-    isError.value = true;
-    return;
-  }
 
   attempts.value[mode.value] -= 1;
   guessedItems.value[mode.value].push(selectedWarframe.value);

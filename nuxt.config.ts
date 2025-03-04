@@ -16,6 +16,7 @@ export default defineNuxtConfig({
     "@nuxtjs/seo",
     "@nuxtjs/i18n",
     "nuxt-security",
+    "@nuxt/test-utils",
   ],
   runtimeConfig: {
     turso: {
@@ -102,7 +103,7 @@ export default defineNuxtConfig({
       tasks: true,
     },
     scheduledTasks: {
-      "0 23 * * *": ["add-daily"],
+      "0 0 * * *": ["add-daily"],
     },
   },
 });

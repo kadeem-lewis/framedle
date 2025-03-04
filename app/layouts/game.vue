@@ -4,7 +4,8 @@
   >
     <SiteNavbar />
     <OptionsBar />
-    <main class="w-full grow">
+    <main class="flex w-full grow flex-col gap-4">
+      <ModeSwitch />
       <NuxtPage />
     </main>
     <SiteFooter />

@@ -140,12 +140,10 @@ const answer = computed(() => {
   }
 });
 
-const isOpen = useState("isOpen");
-const selectedOption = useState("selectedOption");
+const { openDialog } = useDialog();
 
 function handleStatsClick() {
-  isOpen.value = true;
-  selectedOption.value = "stats";
+  openDialog(dialogOptions.STATS);
 }
 
 const gameOverCard = useTemplateRef("gameOverCard");

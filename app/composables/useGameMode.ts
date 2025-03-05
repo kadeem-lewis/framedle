@@ -1,24 +1,33 @@
-export type gameMode =
+export type GameMode =
   | "classic"
   | "classicUnlimited"
   | "ability"
   | "abilityUnlimited";
 
 export function useGameMode() {
-  const mode = ref<gameMode>();
   const route = useRoute();
 
-  watch(
-    () => route.query.mode,
-    () => {
-      if (!route.query.mode) {
-        mode.value = route.name as gameMode;
-      }
-      if (route.query.mode === "unlimited") {
-        mode.value = `${route.name}Unlimited` as gameMode;
-      }
+  const modeLookup: Record<string, Record<string, GameMode>> = {
+    classic: {
+      default: "classic",
+      unlimited: "classicUnlimited",
     },
-    { immediate: true },
-  );
+    ability: {
+      default: "ability",
+      unlimited: "abilityUnlimited",
+    },
+  };
+
+  const mode = computed<GameMode | undefined>(() => {
+    const routeName = route.name;
+    const queryMode = route.query.mode as string | undefined;
+
+    if (modeLookup[routeName]) {
+      return modeLookup[routeName][queryMode || "default"];
+    }
+
+    return undefined;
+  });
+
   return mode;
 }

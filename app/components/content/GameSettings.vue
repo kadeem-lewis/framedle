@@ -10,9 +10,6 @@
 //colorblind mode
 const { $colorblindMode } = useNuxtApp();
 
-console.log(useNuxtApp());
-console.log($colorblindMode);
-
 //eventually localizations
 //data transfer
 </script>

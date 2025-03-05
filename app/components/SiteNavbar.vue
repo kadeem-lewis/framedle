@@ -21,27 +21,12 @@
             base: 'flex-shrink-0 transition-transform hover:-rotate-45',
           },
         }"
-        @click="isOpen = true"
+        @click="openDialog(dialogOptions.SETTINGS)"
       />
       <ThemeToggle />
     </div>
-    <UModal v-model="isOpen">
-      <UCard
-        :ui="{
-          ring: '',
-          divide: 'divide-y divide-gray-100 dark:divide-gray-800',
-        }"
-      >
-        <template #header>
-          <p class="text-center font-roboto text-xl font-semibold uppercase">
-            Settings
-          </p>
-        </template>
-        <ContentGameSettings />
-      </UCard>
-    </UModal>
   </header>
 </template>
 <script setup lang="ts">
-const isOpen = ref(false);
+const { openDialog } = useDialog();
 </script>

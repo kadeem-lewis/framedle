@@ -12,47 +12,11 @@
         />
       </UTooltip>
     </menu>
-    <UModal v-model="isOpen">
-      <UCard
-        :ui="{
-          ring: '',
-          divide: 'divide-y divide-gray-100 dark:divide-gray-800',
-        }"
-      >
-        <template #header>
-          <p class="text-center font-roboto text-xl font-semibold uppercase">
-            {{ headerText }}
-          </p>
-        </template>
-        <component
-          :is="optionComponents[selectedOption]"
-          v-if="optionComponents[selectedOption]"
-        />
-      </UCard>
-    </UModal>
   </div>
 </template>
 
 <script setup lang="ts">
-import {
-  ContentAboutGame,
-  ContentGameInstructions,
-  ContentGameStats,
-  ContentSupport,
-} from "#components";
-
-const options = {
-  STATS: "stats",
-  ABOUT: "about",
-  INSTRUCTIONS: "instructions",
-  SUPPORT: "support",
-} as const;
-
-type Option = (typeof options)[keyof typeof options];
-
-const selectedOption = useState<Option>("selectedOption");
-
-const isOpen = useState("isOpen", () => false);
+const { openDialog } = useDialog();
 
 const route = useRoute();
 
@@ -67,47 +31,29 @@ const items = [
     text: "Stats",
     icon: "i-heroicons-chart-bar-solid",
     command: () => {
-      isOpen.value = true;
-      selectedOption.value = options.STATS;
+      openDialog(dialogOptions.STATS, `${route.name} ${dialogOptions.STATS}`);
     },
   },
   {
     text: "About",
     icon: "i-mdi-information-variant",
     command: () => {
-      isOpen.value = true;
-      selectedOption.value = options.ABOUT;
+      openDialog(dialogOptions.ABOUT);
     },
   },
   {
     text: "Support",
     icon: "i-heroicons-heart",
     command: () => {
-      isOpen.value = true;
-      selectedOption.value = options.SUPPORT;
+      openDialog(dialogOptions.SUPPORT);
     },
   },
   {
     text: "Instructions",
     icon: "i-mdi-help",
     command: () => {
-      isOpen.value = true;
-      selectedOption.value = options.INSTRUCTIONS;
+      openDialog(dialogOptions.INSTRUCTIONS);
     },
   },
 ];
-
-const headerText = computed(() => {
-  if (selectedOption.value === options.STATS) {
-    return `${route.name} ${selectedOption.value}`;
-  }
-  return selectedOption.value;
-});
-
-const optionComponents = {
-  [options.STATS]: ContentGameStats,
-  [options.ABOUT]: ContentAboutGame,
-  [options.INSTRUCTIONS]: ContentGameInstructions,
-  [options.SUPPORT]: ContentSupport,
-};
 </script>

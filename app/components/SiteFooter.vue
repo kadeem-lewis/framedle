@@ -12,19 +12,6 @@
         <UIcon :name="item.icon" class="size-6" :class="item.class" />
         <span class="sr-only">{{ item.srText }}</span>
       </UButton>
-      <UModal v-model="isOpen">
-        <UCard
-          :ui="{
-            ring: '',
-            divide: 'divide-y divide-gray-100 dark:divide-gray-800',
-          }"
-        >
-          <template #header>
-            <p class="text-center text-xl font-semibold uppercase">About</p>
-          </template>
-          <ContentAboutGame />
-        </UCard>
-      </UModal>
     </div>
     <p class="text-sm">&copy; {{ year }} Framedle.com</p>
     <p class="text-sm">Warframe does not endorse or sponsor this product</p>
@@ -34,7 +21,7 @@
 <script setup lang="ts">
 const runtimeConfig = useRuntimeConfig();
 
-const isOpen = ref(false);
+const { openDialog } = useDialog();
 
 const year = ref(new Date().getFullYear());
 
@@ -62,7 +49,7 @@ const items = [
     icon: "i-mdi-information-variant",
     color: "black" as const,
     class: "",
-    command: () => (isOpen.value = true),
+    command: () => openDialog(dialogOptions.ABOUT),
   },
   {
     srText: "Donate",

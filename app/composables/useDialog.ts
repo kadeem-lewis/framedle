@@ -42,7 +42,10 @@ export function useDialog() {
   };
 
   watchEffect(() => {
-    let dialogParam = route.query.dialog as DialogOption | undefined;
+    let dialogParam = route.query.dialog as
+      | DialogOption
+      | DialogOption[]
+      | undefined;
 
     if (Array.isArray(dialogParam)) {
       dialogParam = dialogParam[0];

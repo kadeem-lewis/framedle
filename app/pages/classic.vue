@@ -83,10 +83,10 @@ const { isGameOver } = useGameState();
 
 await callOnce("classic-setup", classicInit);
 
-const { updateStreak } = useStatsStore();
+const { resetStreak } = useStatsStore();
 
 onBeforeMount(() => {
-  updateStreak("classic");
+  resetStreak("classic");
 });
 
 const feedbackLabels = [

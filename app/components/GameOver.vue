@@ -59,7 +59,7 @@
               :key="guessedItem.name"
               class="flex gap-2"
             >
-              <p>{{ isCorrectGuess(guessedItem.name) ? "✅" : "❌" }}</p>
+              <p>{{ guessedItem.name === answer ? "✅" : "❌" }}</p>
               <p class="font-semibold uppercase">
                 {{ guessedItem.name }}
               </p>
@@ -99,9 +99,6 @@ const mode = useGameMode();
 
 const img = useImage();
 
-const { updateStatsOnGameOver } = useStatsStore();
-updateStatsOnGameOver();
-
 const tabs = [
   {
     label: "Classic",
@@ -120,26 +117,17 @@ const tabs = [
 ];
 
 const correctWarframe = computed(() => {
-  if (!mode.value) throw createError("Mode is not set");
-  if (mode.value === "ability" || mode.value === "abilityUnlimited") {
+  const gameMode = mode.value as keyof typeof itemToGuess.value;
+  if (!gameMode) throw createError("Mode is not set");
+  if (gameMode === "ability" || gameMode === "abilityUnlimited") {
     return warframes.value.find(
-      (warframe) => warframe.name === itemToGuess.value[mode.value]?.belongsTo,
+      (warframe) => warframe.name === itemToGuess.value[gameMode]?.belongsTo,
     );
   }
-  return itemToGuess.value[mode.value];
+  return itemToGuess.value[gameMode];
 });
 
 const showGuesses = ref(false);
-
-const isCorrectGuess = computed(() => (guess: string) => {
-  if (!mode.value) throw createError("Mode is not set");
-  if (mode.value === "ability" || mode.value === "abilityUnlimited") {
-    if (itemToGuess.value[mode.value]?.belongsTo === guess) {
-      return true;
-    }
-  }
-  return false;
-});
 
 const { hasWon } = useGameState();
 
@@ -152,12 +140,10 @@ const answer = computed(() => {
   }
 });
 
-const isOpen = useState("isOpen");
-const selectedOption = useState("selectedOption");
+const { openDialog } = useDialog();
 
 function handleStatsClick() {
-  isOpen.value = true;
-  selectedOption.value = "stats";
+  openDialog(dialogOptions.STATS);
 }
 
 const gameOverCard = useTemplateRef("gameOverCard");
@@ -167,6 +153,13 @@ const { isGameOver } = useGameState();
 watchEffect(() => {
   if (mode.value && isGameOver.value[mode.value]) {
     gameOverCard.value?.scrollIntoView({ behavior: "smooth" });
+  }
+});
+
+const { updateStatsOnGameOver } = useStatsStore();
+watchEffect(() => {
+  if (mode.value && isGameOver.value[mode.value]) {
+    updateStatsOnGameOver();
   }
 });
 

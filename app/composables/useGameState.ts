@@ -30,22 +30,23 @@ export default function useGameState() {
   }));
 
   const hasWon = computed(() => {
-    if (!mode.value) throw createError("Mode not set");
-    if (mode.value === "ability" || mode.value === "abilityUnlimited") {
+    const gameMode = mode.value as keyof typeof itemToGuess.value;
+    if (!gameMode) throw createError("Mode is not set");
+    if (gameMode === "ability" || gameMode === "abilityUnlimited") {
       return (
-        attempts.value[mode.value] >= 0 &&
-        guessedItems.value[mode.value].some(
+        attempts.value[gameMode] >= 0 &&
+        guessedItems.value[gameMode].some(
           (guessedItem) =>
-            guessedItem.name === itemToGuess.value[mode.value]?.belongsTo,
+            guessedItem.name === itemToGuess.value[gameMode]?.belongsTo,
         )
       );
     }
-    if (mode.value === "classic" || mode.value === "classicUnlimited") {
+    if (gameMode === "classic" || gameMode === "classicUnlimited") {
       return (
-        attempts.value[mode.value] >= 0 &&
-        guessedItems.value[mode.value].some(
+        attempts.value[gameMode] >= 0 &&
+        guessedItems.value[gameMode].some(
           (guessedItem) =>
-            guessedItem.name === itemToGuess.value[mode.value]?.name,
+            guessedItem.name === itemToGuess.value[gameMode]?.name,
         )
       );
     }

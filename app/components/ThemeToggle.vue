@@ -3,10 +3,11 @@
     <USelectMenu
       v-model="$colorMode.preference"
       :options="items"
+      selected-icon=""
       option-attribute="name"
       value-attribute="value"
       :ui-menu="{
-        width: 'w-[350%]',
+        width: 'w-[400%]',
         padding: 'p-1',
         rounded: 'rounded-none',
         option: {
@@ -30,6 +31,10 @@
           class="absolute size-5 rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100"
         />
       </UButton>
+      <template #option="{ option }">
+        <UIcon :name="option.icon" class="size-5" />
+        <span class="ml-2">{{ option.name }}</span>
+      </template>
     </USelectMenu>
   </ColorScheme>
 </template>
@@ -37,16 +42,19 @@
 <script setup lang="ts">
 const items = [
   {
-    name: "system",
-    value: "system",
-  },
-  {
     name: "light",
     value: "light",
+    icon: "i-heroicons-sun-solid",
   },
   {
     name: "dark",
     value: "dark",
+    icon: "i-heroicons-moon-solid",
+  },
+  {
+    name: "system",
+    value: "system",
+    icon: "i-heroicons-computer-desktop",
   },
 ];
 </script>

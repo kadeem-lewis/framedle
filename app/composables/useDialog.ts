@@ -1,0 +1,70 @@
+import AppModal from "~/components/ui/AppModal.vue";
+
+export const dialogOptions = {
+  STATS: "stats",
+  ABOUT: "about",
+  INSTRUCTIONS: "instructions",
+  SUPPORT: "support",
+  SETTINGS: "settings",
+} as const;
+
+export type DialogOption = (typeof dialogOptions)[keyof typeof dialogOptions];
+
+export function useDialog() {
+  const route = useRoute();
+  const router = useRouter();
+  const modal = useModal();
+
+  const openDialog = (option: DialogOption, title: string | null = null) => {
+    if (title === null) {
+      title = option;
+    }
+
+    modal.open(AppModal, {
+      dialogOption: option,
+      title,
+    });
+
+    router.replace({
+      query: {
+        ...route.query,
+        dialog: option,
+      },
+    });
+  };
+
+  const closeDialog = () => {
+    const { dialog, ...query } = route.query;
+
+    router.replace({
+      query,
+    });
+  };
+
+  watchEffect(() => {
+    let dialogParam = route.query.dialog as DialogOption | undefined;
+
+    if (Array.isArray(dialogParam)) {
+      dialogParam = dialogParam[0];
+    }
+
+    if (dialogParam) {
+      if (!Object.values(dialogOptions).includes(dialogParam)) return;
+
+      const title =
+        dialogParam === dialogOptions.STATS
+          ? `${route.name} ${dialogParam}`
+          : dialogParam;
+
+      modal.open(AppModal, {
+        dialogOption: dialogParam,
+        title,
+      });
+    }
+  });
+
+  return {
+    openDialog,
+    closeDialog,
+  };
+}

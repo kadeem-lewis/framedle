@@ -3,10 +3,10 @@
     class="flex w-full items-center justify-between border-b-2 border-gray-500 py-2 dark:border-gray-700"
   >
     <div>
-      <h1
-        class="text-3xl font-bold uppercase tracking-widest [font-stretch:condensed]"
-      >
-        <NuxtLink to="/">Framedle</NuxtLink>
+      <h1 class="font-ailerons flex flex-row gap-2 text-[42px] leading-none">
+        <NuxtLink to="/">
+          <SiteLogo />
+        </NuxtLink>
       </h1>
     </div>
     <div class="flex items-center gap-1">

@@ -47,7 +47,7 @@ const items = [
   {
     srText: "About Game",
     icon: "i-mdi-information-variant",
-    color: "black" as const,
+    color: "neutral" as const,
     class: "",
     command: () => openDialog(dialogOptions.ABOUT),
   },

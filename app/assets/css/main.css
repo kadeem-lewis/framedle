@@ -3,16 +3,49 @@
 
 @custom-variant dark (&:is(.dark *));
 
+:root {
+  --ui-container: var(--container-md);
+  --success: hsl(120, 61%, 50%); /* green ( #32cd32 ) */
+  --border-success: hsl(120, 39%, 32%); /* 50% darker green */
+  --error: hsl(0, 100%, 50%); /* red ( #FF0000 ) */
+  --border-error: hsl(0, 64%, 32%); /* 50% darker red */
+}
+
+.dark {
+  --success: hsl(120, 49%, 50%); /* 25% desaturated green */
+  --border-success: hsl(120, 31%, 32%); /* 50% darker 25% desaturated green */
+  --error: hsl(0, 80%, 50%); /* 25% desaturated red  */
+  --border-error: hsl(0, 52%, 32%); /* 50% darker 25% desaturated red */
+}
+
+.colorblind {
+  --success: hsl(210, 100%, 56%); /* dodger blue ( #1e90ff ) */
+  --border-success: hsl(210, 64%, 36%); /* 50% darker dodger blue */
+  --error: hsl(39, 100%, 50%); /* orange ( #FFA500 ) */
+  --border-error: hsl(39, 64%, 32%); /* 50% darker orange */
+}
+
+.dark.colorblind {
+  --success: hsl(210, 80%, 56%); /* 25% desaturated dodger blue */
+  --border-success: hsl(
+    210,
+    52%,
+    36%
+  ); /* 50% darker 25% desaturated dodger blue */
+  --error: hsl(39, 80%, 50%); /* 25% desaturated orange */
+  --border-error: hsl(39, 52%, 32%); /* 50% darker 25% desaturated orange */
+}
+
 @theme {
   --font-noto-sans: Noto Sans, sans-serif;
   --font-roboto: Roboto, sans-serif;
 
-  --color-success: hsl(var(--success));
+  --color-success: var(--success);
 
-  --color-error: hsl(var(--error));
+  --color-error: var(--error);
 
-  --color-border-success: hsl(var(--border-success));
-  --color-border-error: hsl(var(--border-error));
+  --color-border-success: var(--border-success);
+  --color-border-error: var(--border-error);
 }
 
 /*
@@ -31,44 +64,13 @@
   ::file-selector-button {
     border-color: var(--color-gray-200, currentColor);
   }
-}
 
-html,
-body {
-  @apply bg-neutral-100 dark:bg-neutral-950;
-}
+  html,
+  body {
+    @apply bg-neutral-100 dark:bg-neutral-950;
+  }
 
-@layer base {
   body {
     @apply font-noto-sans;
-  }
-
-  :root {
-    --success: 120, 61%, 50%; /* green ( #32cd32 ) */
-    --border-success: 120, 39%, 32%; /* 50% darker green */
-    --error: 0, 100%, 50%; /* red ( #FF0000 ) */
-    --border-error: 0, 64%, 32%; /* 50% darker red */
-  }
-
-  .dark {
-    --success: 120, 49%, 50%; /* 25% desaturated green */
-    --border-success: 120, 31%, 32%; /* 50% darker 25% desaturated green */
-    --error: 0, 80%, 50%; /* 25% desaturated red  */
-    --border-error: 0, 52%, 32%; /* 50% darker 25% desaturated red */
-  }
-
-  .colorblind {
-    --success: 210, 100%, 56%; /* dodger blue ( #1e90ff ) */
-    --border-success: 210, 64%, 36%; /* 50% darker dodger blue */
-    --error: 39, 100%, 50%; /* orange ( #FFA500 ) */
-    --border-error: 39, 64%, 32%; /* 50% darker orange */
-  }
-
-  .dark.colorblind {
-    --success: 210, 80%, 56%; /* 25% desaturated dodger blue */
-    --border-success:
-      210, 52%, 36%; /* 50% darker 25% desaturated dodger blue */
-    --error: 39, 80%, 50%; /* 25% desaturated orange */
-    --border-error: 39, 52%, 32%; /* 50% darker 25% desaturated orange */
   }
 }

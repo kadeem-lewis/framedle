@@ -12,10 +12,10 @@ useSeoMeta({
 });
 </script>
 <template>
-  <div>
+  <UApp>
     <NuxtLayout>
       <NuxtPage />
     </NuxtLayout>
     <UModals />
-  </div>
+  </UApp>
 </template>

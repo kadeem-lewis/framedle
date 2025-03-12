@@ -6,7 +6,7 @@
         variant="outline"
         class="border-neutral-800 uppercase"
         :class="{
-          'hover:border-primary border-b-2': selectedMode === 'classic',
+          'border-b-2 hover:border-(--ui-primary)': selectedMode === 'classic',
         }"
         @click="selectedMode = 'classic'"
       >
@@ -16,7 +16,7 @@
         variant="outline"
         class="border-neutral-800 uppercase"
         :class="{
-          'hover:border-primary border-b-2': selectedMode === 'ability',
+          'border-b-2 hover:border-(--ui-primary)': selectedMode === 'ability',
         }"
         @click="selectedMode = 'ability'"
       >

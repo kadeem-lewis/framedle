@@ -5,10 +5,10 @@
       :key="mode.label"
       :to="mode.to"
       :class="{
-        'dark:border-primary hover:border-primary border-b-4 border-neutral-800':
+        'border-b-4 border-neutral-800 hover:border-(--ui-primary) dark:border-(--ui-primary)':
           mode.isActive.value,
       }"
-      class="hover:shadow-primary font-semibold uppercase hover:shadow-inner"
+      class="font-semibold uppercase hover:shadow-(--ui-primary) hover:shadow-inner"
       variant="outline"
       size="xl"
     >

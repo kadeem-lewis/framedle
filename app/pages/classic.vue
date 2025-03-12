@@ -12,7 +12,7 @@
       >
         <template #header>
           <p
-            class="text-primary-600 dark:text-primary font-roboto text-2xl font-bold uppercase"
+            class="text-(--ui-primary)-600 font-roboto text-2xl font-bold uppercase dark:text-(--ui-primary)"
           >
             {{ t("classic.title") }}
           </p>

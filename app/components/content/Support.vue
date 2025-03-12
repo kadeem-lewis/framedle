@@ -9,7 +9,7 @@
         You can
         <ULink
           to="https://ko-fi.com/redeemr"
-          class="text-primary underline"
+          class="text-(--ui-primary) underline"
           external
           target="blank"
           >buy me a coffee</ULink
@@ -19,7 +19,7 @@
         Check out
         <ULink
           to="https://www.youtube.com/@redeemr"
-          class="text-primary underline"
+          class="text-(--ui-primary) underline"
           external
           target="blank"
           >my youtube channel</ULink
@@ -29,7 +29,7 @@
         Join
         <ULink
           :to="runtimeConfig.public.discordInvite"
-          class="text-primary underline"
+          class="text-(--ui-primary) underline"
           external
           target="blank"
           >my discord server</ULink

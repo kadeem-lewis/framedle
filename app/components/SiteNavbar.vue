@@ -15,7 +15,7 @@
         icon="i-heroicons-cog-6-tooth-solid"
         variant="outline"
         square
-        class="dark:border-primary hover:border-primary border-b-4 border-neutral-800"
+        class="border-b-4 border-neutral-800 hover:border-(--ui-primary) dark:border-(--ui-primary)"
         :ui="{
           icon: {
             base: 'flex-shrink-0 transition-transform hover:-rotate-45',

@@ -26,7 +26,7 @@
       {{ t("instructions.classic.properties.red_explanation") }}
     </p>
     <p><span>⬆️⬇️</span> {{ t("instructions.classic.properties.arrows") }}</p>
-    <p class="text-center font-roboto text-lg font-bold uppercase">
+    <p class="font-roboto text-center text-lg font-bold uppercase">
       {{ t("instructions.classic.example") }}
     </p>
     <UDivider />
@@ -34,11 +34,12 @@
       <div class="space-y-1">
         <p>
           Consider the correct answer is
-          <span class="text-primary font-medium">Nezha</span>
+          <span class="font-medium text-(--ui-primary)">Nezha</span>
         </p>
         <p>
-          If you enter <span class="text-primary font-medium">Inaros</span>,
-          these properties will appear:
+          If you enter
+          <span class="font-medium text-(--ui-primary)">Inaros</span>, these
+          properties will appear:
         </p>
       </div>
       <div class="grid grid-cols-6 gap-1">

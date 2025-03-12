@@ -20,7 +20,7 @@
         variant="outline"
         aria-label="theme-toggle"
         square
-        class="border-primary dark:border-primary hover:border-primary border-b-4 border-neutral-800 bg-white/75 dark:bg-neutral-900/75"
+        class="border-b-4 border-(--ui-primary) border-neutral-800 bg-white/75 hover:border-(--ui-primary) dark:border-(--ui-primary) dark:bg-neutral-900/75"
       >
         <UIcon
           name="i-heroicons-sun-solid"

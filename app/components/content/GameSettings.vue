@@ -1,7 +1,7 @@
 <template>
   <div class="flex items-center justify-between py-2">
     <p class="text-lg font-medium">Colorblind Mode</p>
-    <UToggle v-model="$colorblindMode" @click="$toggleColorblindMode" />
+    <USwitch v-model="$colorblindMode" @click="$toggleColorblindMode" />
   </div>
   <USeparator />
 </template>

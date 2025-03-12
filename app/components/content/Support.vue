@@ -45,7 +45,7 @@
     <p class="font-roboto text-center text-xl font-semibold uppercase">
       Feedback/Questions
     </p>
-    <UDivider />
+    <USeparator />
     <p>
       You can provide Feedback or ask Questions in any of the following ways:
     </p>

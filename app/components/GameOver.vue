@@ -74,9 +74,9 @@
               <NextGameCountdown :target-date="startOfTomorrow()" />
             </span>
           </div>
-          <UDivider />
+          <USeparator />
           <div class="space-y-4">
-            <p class="text-center font-roboto text-xl font-semibold uppercase">
+            <p class="font-roboto text-center text-xl font-semibold uppercase">
               Next Mode:
             </p>
             <ModeCard :tab="tabs.find((tab) => tab.route !== $route.path)!" />

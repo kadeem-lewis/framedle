@@ -68,7 +68,7 @@
         >
           <p>Framedle #{{ daily.day }}</p>
           <p>{{ daily.readableDate }}</p>
-          <UDivider class="col-span-2" />
+          <USeparator class="col-span-2" />
         </div>
       </div>
     </div>

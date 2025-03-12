@@ -3,7 +3,7 @@
     <p class="text-lg font-medium">Colorblind Mode</p>
     <UToggle v-model="$colorblindMode" @click="$toggleColorblindMode" />
   </div>
-  <UDivider />
+  <USeparator />
 </template>
 
 <script setup lang="ts">

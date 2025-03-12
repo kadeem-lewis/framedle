@@ -13,7 +13,7 @@
     <p>
       {{ t("instructions.classic.subtitle") }}
     </p>
-    <UDivider />
+    <USeparator />
     <p>
       {{ t("instructions.classic.feedback_explanation") }}
     </p>
@@ -29,7 +29,7 @@
     <p class="font-roboto text-center text-lg font-bold uppercase">
       {{ t("instructions.classic.example") }}
     </p>
-    <UDivider />
+    <USeparator />
     <div class="space-y-4">
       <div class="space-y-1">
         <p>

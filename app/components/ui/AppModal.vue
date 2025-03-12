@@ -27,11 +27,11 @@ const optionComponents = {
     <UCard
       :ui="{
         ring: '',
-        divide: 'divide-y divide-gray-100 dark:divide-gray-800',
+        divide: 'divide-y divide-neutral-100 dark:divide-neutral-800',
       }"
     >
       <template #header>
-        <p class="text-center font-roboto text-xl font-semibold uppercase">
+        <p class="font-roboto text-center text-xl font-semibold uppercase">
           {{ props.title }}
         </p>
       </template>

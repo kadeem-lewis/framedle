@@ -20,15 +20,15 @@
         variant="outline"
         aria-label="theme-toggle"
         square
-        class="border-primary dark:border-primary hover:border-primary border-b-4 border-gray-800 bg-white/75 dark:bg-gray-900/75"
+        class="border-primary dark:border-primary hover:border-primary border-b-4 border-neutral-800 bg-white/75 dark:bg-neutral-900/75"
       >
         <UIcon
           name="i-heroicons-sun-solid"
-          class="size-5 rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0"
+          class="size-5 scale-100 rotate-0 transition-all dark:scale-0 dark:-rotate-90"
         />
         <UIcon
           name="i-heroicons-moon-solid"
-          class="absolute size-5 rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100"
+          class="absolute size-5 scale-0 rotate-90 transition-all dark:scale-100 dark:rotate-0"
         />
       </UButton>
       <template #option="{ option }">

@@ -37,12 +37,12 @@
       </li>
       <li>
         Send me a random gift in-game:<span
-          class="ml-1 rounded-md border bg-gray-100 px-2 dark:border-gray-950 dark:bg-gray-800"
+          class="ml-1 rounded-md border bg-neutral-100 px-2 dark:border-neutral-950 dark:bg-neutral-800"
           >Redeemr</span
         >
       </li>
     </ul>
-    <p class="text-center font-roboto text-xl font-semibold uppercase">
+    <p class="font-roboto text-center text-xl font-semibold uppercase">
       Feedback/Questions
     </p>
     <UDivider />

@@ -14,10 +14,10 @@
       }"
       :ui-menu="{
         rounded: 'rounded-none',
-        background: 'bg-white/75 dark:bg-gray-800/75 backdrop-blur',
+        background: 'bg-white/75 dark:bg-neutral-800/75 backdrop-blur',
         option: {
           rounded: 'rounded-none',
-          active: 'bg-gray-100/75 dark:bg-gray-900/75',
+          active: 'bg-neutral-100/75 dark:bg-neutral-900/75',
         },
       }"
       class="grow"

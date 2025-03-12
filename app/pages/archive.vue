@@ -1,10 +1,10 @@
 <template>
   <div class="flex flex-col gap-4">
     <p class="font-roboto text-xl font-bold uppercase">Archive</p>
-    <div class="flex gap-2 font-roboto">
+    <div class="font-roboto flex gap-2">
       <UButton
         variant="outline"
-        class="border-gray-800 uppercase"
+        class="border-neutral-800 uppercase"
         :class="{
           'hover:border-primary border-b-2': selectedMode === 'classic',
         }"
@@ -14,7 +14,7 @@
       </UButton>
       <UButton
         variant="outline"
-        class="border-gray-800 uppercase"
+        class="border-neutral-800 uppercase"
         :class="{
           'hover:border-primary border-b-2': selectedMode === 'ability',
         }"
@@ -48,7 +48,7 @@
       />
     </div>
     <div
-      class="flex flex-col gap-4 border border-gray-200 bg-white/75 p-2 dark:border-gray-800 dark:bg-gray-900/75"
+      class="flex flex-col gap-4 border border-neutral-200 bg-white/75 p-2 dark:border-neutral-800 dark:bg-neutral-900/75"
     >
       <div v-if="filteredDailies" class="grid grid-cols-2 gap-4">
         <p class="font-semibold">Name</p>
@@ -58,7 +58,7 @@
         <div
           v-for="daily of filteredDailies"
           :key="daily.id"
-          class="contents cursor-pointer odd:bg-gray-700"
+          class="contents cursor-pointer odd:bg-neutral-700"
           @click="
             navigateTo({
               path: `/${selectedMode}`,

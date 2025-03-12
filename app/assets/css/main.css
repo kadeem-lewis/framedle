@@ -1,4 +1,36 @@
-@import "tailwindcss" theme(static);
+@import 'tailwindcss' theme(static);
+
+@custom-variant dark (&:is(.dark *));
+
+@theme {
+  --font-noto-sans: Noto Sans, sans-serif;
+  --font-roboto: Roboto, sans-serif;
+
+  --color-success: hsl(var(--success));
+
+  --color-error: hsl(var(--error));
+
+  --color-border-success: hsl(var(--border-success));
+  --color-border-error: hsl(var(--border-error));
+}
+
+/*
+  The default border color has changed to `currentColor` in Tailwind CSS v4,
+  so we've added these compatibility styles to make sure everything still
+  looks the same as it did with Tailwind CSS v3.
+
+  If we ever want to remove these styles, we need to add an explicit border
+  color utility to any element that depends on these defaults.
+*/
+@layer base {
+  *,
+  ::after,
+  ::before,
+  ::backdrop,
+  ::file-selector-button {
+    border-color: var(--color-gray-200, currentColor);
+  }
+}
 
 html,
 body {

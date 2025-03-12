@@ -13,14 +13,16 @@ export type DialogOption = (typeof dialogOptions)[keyof typeof dialogOptions];
 export function useDialog() {
   const route = useRoute();
   const router = useRouter();
-  const modal = useModal();
+
+  const overlay = useOverlay();
+  const modal = overlay.create(AppModal);
 
   const openDialog = (option: DialogOption, title: string | null = null) => {
     if (title === null) {
       title = option;
     }
 
-    modal.open(AppModal, {
+    modal.open({
       dialogOption: option,
       title,
     });
@@ -59,7 +61,7 @@ export function useDialog() {
           ? `${route.name} ${dialogParam}`
           : dialogParam;
 
-      modal.open(AppModal, {
+      modal.open({
         dialogOption: dialogParam,
         title,
       });

@@ -2,7 +2,7 @@
   <ColorScheme>
     <USelectMenu
       v-model="$colorMode.preference"
-      :options="items"
+      :items="items"
       selected-icon=""
       option-attribute="name"
       value-attribute="value"

@@ -17,7 +17,7 @@ watch(selectedLocale, (newValue) => {
 <template>
   <USelectMenu
     v-model="selectedLocale"
-    :options="locales"
+    :items="locales"
     :ui-menu="{
       width: 'w-max',
     }"

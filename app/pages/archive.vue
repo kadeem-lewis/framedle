@@ -27,7 +27,7 @@
       <USelect
         v-model="order"
         aria-label="order-filter"
-        :options="['OLDEST', 'NEWEST']"
+        :items="['OLDEST', 'NEWEST']"
         :ui="{
           rounded: 'rounded-none',
         }"

@@ -3,7 +3,7 @@
     <UInputMenu
       v-model="selectedWarframe"
       :search="search"
-      :options="filteredItems"
+      :items="filteredItems"
       placeholder="SEARCH..."
       by="name"
       required

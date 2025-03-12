@@ -16,6 +16,5 @@ useSeoMeta({
     <NuxtLayout>
       <NuxtPage />
     </NuxtLayout>
-    <UModals />
   </UApp>
 </template>

@@ -35,13 +35,7 @@ export default defineNuxtConfig({
     "/classic": { ssr: false },
     "/ability": { ssr: false },
   },
-  css: ["~/app/assets/css/main.css"],
-  postcss: {
-    plugins: {
-      tailwindcss: {},
-      autoprefixer: {},
-    },
-  },
+  css: ["~/assets/css/main.css"],
   site: {
     url: "https://framedle.com",
     name: "Framedle",

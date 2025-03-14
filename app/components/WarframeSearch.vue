@@ -2,47 +2,43 @@
   <form class="flex gap-4" @submit.prevent="addGuess">
     <UInputMenu
       v-model="selectedWarframe"
-      :search="search"
+      v-model:search-term="query"
+      :reset-search-term-on-blur="false"
       :items="filteredItems"
       placeholder="SEARCH..."
-      by="name"
       required
-      option-attribute="name"
-      :search-attributes="['name']"
+      ignore-filter
       :ui="{
-        rounded: 'rounded-none',
+        base: 'rounded-none',
+        content:
+          'rounded-none bg-white/75 dark:bg-neutral-800/75 backdrop-blur',
       }"
-      :ui-menu="{
-        rounded: 'rounded-none',
-        background: 'bg-white/75 dark:bg-neutral-800/75 backdrop-blur',
-        option: {
-          rounded: 'rounded-none',
-          active: 'bg-neutral-100/75 dark:bg-neutral-900/75',
-        },
-      }"
-      class="grow"
+      class="grow rounded-none"
     >
       <template #trailing>
         <span class="sr-only">options dropdown</span>
         <UIcon name="i-mdi-triangle-down" class="size-3" />
       </template>
-      <template #option="{ option }">
+      <template #item="{ item }">
         <div class="flex w-full items-center justify-between gap-2">
+          <p class="font-semibold uppercase">{{ item.name }}</p>
           <NuxtImg
             format="webp"
-            :src="`https://cdn.warframestat.us/img/${option.imageName}`"
-            :alt="option.name"
+            :src="`https://cdn.warframestat.us/img/${item.imageName}`"
+            :alt="item.name"
             placeholder
             height="64"
             class="h-16"
           />
-          <p class="font-semibold uppercase">{{ option.name }}</p>
         </div>
+      </template>
+      <template #empty>
+        <p class="font-semibold uppercase">No Warframes Found</p>
       </template>
     </UInputMenu>
     <UButton
       aria-label="submit-answer"
-      type="type"
+      type="submit"
       variant="outline"
       class="font-semibold uppercase"
       >Submit</UButton
@@ -62,7 +58,7 @@ const { attempts, guessedItems } = storeToRefs(useGameStore());
 
 const mode = useGameMode();
 
-const filteredItems = computed(() => {
+const items = computed(() => {
   return props.items.filter(
     (item) =>
       !guessedItems.value[mode.value!].some(
@@ -72,24 +68,24 @@ const filteredItems = computed(() => {
 });
 
 const selectedWarframe = ref<Warframe>();
+const query = ref("");
 
-const fuse = new Fuse(filteredItems.value, {
+const fuse = new Fuse(items.value, {
   keys: ["name"],
   threshold: 0.4,
 });
 
-function search(query: string) {
-  if (query === "") {
-    return filteredItems.value.slice(0, 6);
-  } else {
-    return fuse
-      .search(query)
-      .map((result) => ({ ...result.item }))
-      .slice(0, 6);
+const filteredItems = computed(() => {
+  if (!query.value) {
+    return items.value.slice(0, 6);
   }
-}
+  return fuse
+    .search(query.value)
+    .map((result) => ({ ...result.item }))
+    .slice(0, 6);
+});
 
-watch(filteredItems, (newItems) => {
+watch(items, (newItems) => {
   fuse.setCollection(newItems);
 });
 

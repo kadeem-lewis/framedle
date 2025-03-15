@@ -10,12 +10,14 @@ export const dialogOptions = {
 
 export type DialogOption = (typeof dialogOptions)[keyof typeof dialogOptions];
 
-export function useDialog() {
+export const useDialog = createGlobalState(() => {
   const route = useRoute();
   const router = useRouter();
 
   const overlay = useOverlay();
   const modal = overlay.create(AppModal);
+
+  const isUpdatingRoute = ref(false);
 
   const openDialog = (option: DialogOption, title: string | null = null) => {
     if (title === null) {
@@ -27,12 +29,17 @@ export function useDialog() {
       title,
     });
 
-    router.replace({
-      query: {
-        ...route.query,
-        dialog: option,
-      },
-    });
+    isUpdatingRoute.value = true;
+    router
+      .replace({
+        query: {
+          ...route.query,
+          dialog: option,
+        },
+      })
+      .finally(() => {
+        isUpdatingRoute.value = false;
+      });
   };
 
   const closeDialog = () => {
@@ -43,33 +50,37 @@ export function useDialog() {
     });
   };
 
-  watchEffect(() => {
-    let dialogParam = route.query.dialog as
-      | DialogOption
-      | DialogOption[]
-      | undefined;
+  watch(
+    () => route.query.dialog,
+    () => {
+      if (isUpdatingRoute.value) return;
+      let dialogParam = route.query.dialog as
+        | DialogOption
+        | DialogOption[]
+        | undefined;
 
-    if (Array.isArray(dialogParam)) {
-      dialogParam = dialogParam[0];
-    }
+      if (Array.isArray(dialogParam)) {
+        dialogParam = dialogParam[0];
+      }
 
-    if (dialogParam) {
-      if (!Object.values(dialogOptions).includes(dialogParam)) return;
+      if (dialogParam) {
+        if (!Object.values(dialogOptions).includes(dialogParam)) return;
 
-      const title =
-        dialogParam === dialogOptions.STATS
-          ? `${route.name} ${dialogParam}`
-          : dialogParam;
+        const title =
+          dialogParam === dialogOptions.STATS
+            ? `${route.name} ${dialogParam}`
+            : dialogParam;
 
-      modal.open({
-        dialogOption: dialogParam,
-        title,
-      });
-    }
-  });
+        modal.open({
+          dialogOption: dialogParam,
+          title,
+        });
+      }
+    },
+  );
 
   return {
     openDialog,
     closeDialog,
   };
-}
+});

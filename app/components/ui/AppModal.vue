@@ -12,6 +12,8 @@ const props = defineProps<{
   dialogOption: DialogOption;
 }>();
 
+const emit = defineEmits(["close"]);
+
 const { closeDialog } = useDialog();
 
 const optionComponents = {
@@ -23,19 +25,27 @@ const optionComponents = {
 };
 </script>
 <template>
-  <UModal @close="closeDialog">
-    <UCard
-      :ui="{
-        ring: '',
-        divide: 'divide-y divide-neutral-100 dark:divide-neutral-800',
-      }"
-    >
-      <template #header>
-        <p class="font-roboto text-center text-xl font-semibold uppercase">
-          {{ props.title }}
-        </p>
-      </template>
+  <UModal
+    :close="{
+      onClick: () => {
+        emit('close');
+      },
+    }"
+    :ui="{
+      content: 'rounded-none',
+    }"
+    @update:open="(isOpen) => !isOpen && closeDialog()"
+  >
+    <template #title>
+      <p class="font-roboto text-center text-xl font-semibold uppercase">
+        {{ props.title }}
+      </p>
+    </template>
+    <template #description>
+      <p class="sr-only">{{ props.title }} dialog</p>
+    </template>
+    <template #body>
       <component :is="optionComponents[props.dialogOption]" />
-    </UCard>
+    </template>
   </UModal>
 </template>

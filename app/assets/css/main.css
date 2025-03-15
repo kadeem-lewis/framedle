@@ -36,7 +36,7 @@
   --border-error: hsl(39, 52%, 32%); /* 50% darker 25% desaturated orange */
 }
 
-@theme {
+@theme static {
   --font-noto-sans: Noto Sans, sans-serif;
   --font-roboto: Roboto, sans-serif;
 

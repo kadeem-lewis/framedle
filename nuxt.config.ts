@@ -35,6 +35,11 @@ export default defineNuxtConfig({
     "/ability": { ssr: false },
   },
   css: ["~/assets/css/main.css"],
+  ui: {
+    theme: {
+      colors: ["discord", "bluesky"],
+    },
+  },
   site: {
     url: "https://framedle.com",
     name: "Framedle",

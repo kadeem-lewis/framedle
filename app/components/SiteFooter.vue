@@ -29,20 +29,22 @@ const items = [
   {
     srText: "discord invite link",
     icon: "my-icon:discord",
-    color: "indigo" as const,
+    color: "discord" as const,
     class: "dark:text-white",
-    command: () =>
-      navigateTo(runtimeConfig.public.discordInvite, { external: true }),
+    command: () => {
+      navigateTo(runtimeConfig.public.discordInvite, { external: true });
+    },
   },
   {
     srText: "bsky.app page",
     icon: "my-icon:bluesky",
-    color: "blue" as const,
+    color: "bluesky" as const,
     class: "text-white",
-    command: () =>
+    command: () => {
       navigateTo("https://bsky.app/profile/framedle.bsky.social", {
         external: true,
-      }),
+      });
+    },
   },
   {
     srText: "About Game",
@@ -56,7 +58,9 @@ const items = [
     icon: "my-icon:kofi",
     color: "primary" as const,
     class: "-m-2 size-9",
-    command: () => navigateTo("https://ko-fi.com/redeemr", { external: true }),
+    command: () => {
+      navigateTo("https://ko-fi.com/redeemr", { external: true });
+    },
   },
 ];
 </script>

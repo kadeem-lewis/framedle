@@ -3,6 +3,8 @@ export default defineAppConfig({
     colors: {
       primary: "amber",
       neutral: "slate",
+      discord: "discord",
+      bluesky: "bluesky",
     },
     button: {
       variants: {

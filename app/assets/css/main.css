@@ -9,6 +9,8 @@
   --border-success: hsl(120, 39%, 32%); /* 50% darker green */
   --error: hsl(0, 100%, 50%); /* red ( #FF0000 ) */
   --border-error: hsl(0, 64%, 32%); /* 50% darker red */
+  --ui-discord: hsl(235, 86%, 65%); /* blurple */
+  --ui-bluesky: hsl(209, 100%, 50%); /* #0085ff */
 }
 
 .dark {
@@ -16,6 +18,8 @@
   --border-success: hsl(120, 31%, 32%); /* 50% darker 25% desaturated green */
   --error: hsl(0, 80%, 50%); /* 25% desaturated red  */
   --border-error: hsl(0, 52%, 32%); /* 50% darker 25% desaturated red */
+  --ui-discord: hsl(235, 69%, 65%); /* 25% desaturated blurple */
+  --ui-bluesky: hsl(209, 80%, 50%); /* 25% desaturated #0085ff */
 }
 
 .colorblind {

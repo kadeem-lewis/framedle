@@ -7,7 +7,6 @@ export default defineNuxtConfig({
   devtools: { enabled: true },
   modules: [
     "@nuxt/eslint",
-    "@nuxt/fonts",
     "@nuxt/image",
     "@nuxt/ui",
     "@pinia/nuxt",
@@ -35,10 +34,10 @@ export default defineNuxtConfig({
     "/classic": { ssr: false },
     "/ability": { ssr: false },
   },
-  postcss: {
-    plugins: {
-      tailwindcss: {},
-      autoprefixer: {},
+  css: ["~/assets/css/main.css"],
+  ui: {
+    theme: {
+      colors: ["discord", "bluesky"],
     },
   },
   site: {

@@ -3,11 +3,11 @@
     :class="[
       'relative z-0 min-h-12 w-full border-2 font-semibold text-white shadow-inner transition-colors',
       {
-        'border-gray-500 bg-white/75 dark:border-gray-700 dark:bg-gray-900/75':
+        'border-neutral-500 bg-white/75 dark:border-neutral-700 dark:bg-neutral-900/75':
           isCorrect === null,
         'border-border-success bg-success hover:shadow-inner hover:brightness-110':
           isCorrect === true,
-        'border-border-error bg-error hover:brightness-11110 hover:shadow-inner':
+        'border-border-error bg-error hover:shadow-inner hover:brightness-110':
           isCorrect === false,
         'arrow-up': difference && difference > 0,
         'arrow-down': difference && difference < 0,

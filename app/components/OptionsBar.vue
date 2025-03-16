@@ -6,8 +6,9 @@
           :aria-label="item.text"
           :icon="item.icon"
           variant="outline"
-          size="md"
+          size="lg"
           square
+          type="button"
           @click="item.command"
         />
       </UTooltip>
@@ -24,8 +25,9 @@ const items = [
   {
     text: "Archive",
     icon: "i-heroicons-calendar-solid",
-    command: () =>
-      navigateTo({ path: "/archive", query: { mode: route.name } }),
+    command: () => {
+      navigateTo({ path: "/archive", query: { mode: route.name } });
+    },
   },
   {
     text: "Stats",

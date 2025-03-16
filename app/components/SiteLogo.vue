@@ -20,7 +20,7 @@
         />
       </svg>
     </span>
-    <span class="opacity-65">
+    <span class="opacity-50">
       <svg
         viewBox="0 0 30 40"
         xmlns="http://www.w3.org/2000/svg"

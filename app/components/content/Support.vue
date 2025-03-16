@@ -9,7 +9,7 @@
         You can
         <ULink
           to="https://ko-fi.com/redeemr"
-          class="text-primary underline"
+          class="text-(--ui-primary) underline"
           external
           target="blank"
           >buy me a coffee</ULink
@@ -19,7 +19,7 @@
         Check out
         <ULink
           to="https://www.youtube.com/@redeemr"
-          class="text-primary underline"
+          class="text-(--ui-primary) underline"
           external
           target="blank"
           >my youtube channel</ULink
@@ -29,7 +29,7 @@
         Join
         <ULink
           :to="runtimeConfig.public.discordInvite"
-          class="text-primary underline"
+          class="text-(--ui-primary) underline"
           external
           target="blank"
           >my discord server</ULink
@@ -37,15 +37,15 @@
       </li>
       <li>
         Send me a random gift in-game:<span
-          class="ml-1 rounded-md border bg-gray-100 px-2 dark:border-gray-950 dark:bg-gray-800"
+          class="ml-1 rounded-md border bg-neutral-100 px-2 dark:border-neutral-950 dark:bg-neutral-800"
           >Redeemr</span
         >
       </li>
     </ul>
-    <p class="text-center font-roboto text-xl font-semibold uppercase">
+    <p class="font-roboto text-xl font-semibold uppercase">
       Feedback/Questions
     </p>
-    <UDivider />
+    <USeparator />
     <p>
       You can provide Feedback or ask Questions in any of the following ways:
     </p>

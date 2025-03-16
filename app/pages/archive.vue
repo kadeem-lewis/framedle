@@ -1,12 +1,12 @@
 <template>
   <div class="flex flex-col gap-4">
     <p class="font-roboto text-xl font-bold uppercase">Archive</p>
-    <div class="flex gap-2 font-roboto">
+    <div class="font-roboto flex gap-2">
       <UButton
         variant="outline"
-        class="border-gray-800 uppercase"
+        class="border-neutral-800 uppercase"
         :class="{
-          'hover:border-primary border-b-2': selectedMode === 'classic',
+          'border-b-2 hover:border-(--ui-primary)': selectedMode === 'classic',
         }"
         @click="selectedMode = 'classic'"
       >
@@ -14,9 +14,9 @@
       </UButton>
       <UButton
         variant="outline"
-        class="border-gray-800 uppercase"
+        class="border-neutral-800 uppercase"
         :class="{
-          'hover:border-primary border-b-2': selectedMode === 'ability',
+          'border-b-2 hover:border-(--ui-primary)': selectedMode === 'ability',
         }"
         @click="selectedMode = 'ability'"
       >
@@ -27,11 +27,8 @@
       <USelect
         v-model="order"
         aria-label="order-filter"
-        :options="['OLDEST', 'NEWEST']"
-        :ui="{
-          rounded: 'rounded-none',
-        }"
-        class="uppercase"
+        :items="['OLDEST', 'NEWEST']"
+        class="rounded-none uppercase"
       >
         <template #trailing>
           <UIcon name="i-mdi-triangle-down" class="size-3" />
@@ -42,13 +39,13 @@
         icon="i-mdi-magnify"
         :trailing="true"
         :ui="{
-          rounded: 'rounded-none',
+          base: 'rounded-none',
         }"
         placeholder="SEARCH..."
       />
     </div>
     <div
-      class="flex flex-col gap-4 border border-gray-200 bg-white/75 p-2 dark:border-gray-800 dark:bg-gray-900/75"
+      class="flex flex-col gap-4 border border-neutral-200 bg-white/75 p-2 dark:border-neutral-800 dark:bg-neutral-900/75"
     >
       <div v-if="filteredDailies" class="grid grid-cols-2 gap-4">
         <p class="font-semibold">Name</p>
@@ -58,7 +55,7 @@
         <div
           v-for="daily of filteredDailies"
           :key="daily.id"
-          class="contents cursor-pointer odd:bg-gray-700"
+          class="contents cursor-pointer odd:bg-neutral-700"
           @click="
             navigateTo({
               path: `/${selectedMode}`,
@@ -68,7 +65,7 @@
         >
           <p>Framedle #{{ daily.day }}</p>
           <p>{{ daily.readableDate }}</p>
-          <UDivider class="col-span-2" />
+          <USeparator class="col-span-2" />
         </div>
       </div>
     </div>

@@ -5,14 +5,10 @@
   >
     <div v-if="itemToGuess[mode]" class="space-y-4">
       <RemainingGuesses />
-      <UCard
-        :ui="{
-          divide: 'divide-y-0',
-        }"
-      >
+      <UCard class="divide-y-0">
         <template #header>
           <p
-            class="text-primary-600 dark:text-primary font-roboto text-2xl font-bold uppercase"
+            class="text-primary-600 font-roboto text-2xl font-bold uppercase dark:text-(--ui-primary)"
           >
             {{ t("classic.title") }}
           </p>
@@ -28,12 +24,12 @@
       <template v-if="guessedItems[mode].length">
         <div class="space-y-4 overflow-x-auto md:overflow-x-visible">
           <div
-            class="grid w-[150%] grid-cols-6 gap-1 border border-gray-200 bg-white/75 py-0.5 uppercase dark:border-gray-800 dark:bg-gray-900/75 md:-ml-[25%]"
+            class="grid w-[150%] grid-cols-6 gap-1 border border-neutral-200 bg-white/75 py-0.5 uppercase md:-ml-[25%] dark:border-neutral-800 dark:bg-neutral-900/75"
           >
             <p
               v-for="label of feedbackLabels"
               :key="label"
-              class="self-center justify-self-center text-center font-roboto font-semibold"
+              class="font-roboto self-center justify-self-center text-center font-semibold"
             >
               {{ label }}
             </p>
@@ -48,7 +44,7 @@
           </div>
         </div>
         <div
-          class="flex items-center justify-center gap-1 font-semibold text-gray-800 dark:text-gray-400 md:hidden"
+          class="flex items-center justify-center gap-1 font-semibold text-neutral-800 md:hidden dark:text-neutral-400"
         >
           <UIcon name="i-heroicons-arrow-long-left" class="size-5" />
           {{ t("classic.scroll_hint") }}

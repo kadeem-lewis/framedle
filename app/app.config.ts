@@ -1,18 +1,31 @@
 export default defineAppConfig({
   ui: {
-    primary: "amber",
-    gray: "slate",
-    container: {
-      constrained: "max-w-md",
+    colors: {
+      primary: "amber",
+      neutral: "slate",
+      discord: "discord",
+      bluesky: "bluesky",
     },
     button: {
-      variant: {
-        outline:
-          "bg-white/75 dark:bg-gray-900/75 hover:text-primary text-black dark:text-primary rounded-none",
+      variants: {
+        variant: {
+          outline:
+            "bg-white/75 dark:bg-neutral-900/75 hover:text-(--ui-primary) dark:hover:bg-primary-800/50 text-black dark:text-(--ui-primary) rounded-none",
+        },
       },
+      compoundVariants: [
+        {
+          color: "primary",
+          variant: "outline",
+          class:
+            "ring-neutral-800 dark:ring-(--ui-primary) text-black hover:ring-(--ui-primary) hover:text-(--ui-primary)",
+        },
+      ],
     },
     card: {
-      rounded: "rounded-none",
+      slots: {
+        root: "rounded-none",
+      },
     },
   },
 });

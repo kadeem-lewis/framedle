@@ -1,10 +1,12 @@
 <template>
   <form class="flex gap-2" @submit.prevent="addGuess">
+    <!-- @vue-expect-error I'm not sure why setting a label key is restricting v-model to only a string -->
     <UInputMenu
       v-model="selectedWarframe"
       v-model:search-term="query"
       :reset-search-term-on-blur="false"
       :items="filteredItems"
+      label-key="name"
       placeholder="SEARCH..."
       size="lg"
       required
@@ -70,6 +72,10 @@ const items = computed(() => {
 
 const selectedWarframe = ref<Warframe>();
 const query = ref("");
+
+watchEffect(() => {
+  console.log("Selected Warframe", selectedWarframe.value);
+});
 
 const fuse = new Fuse(items.value, {
   keys: ["name"],

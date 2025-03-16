@@ -22,6 +22,7 @@
 const runtimeConfig = useRuntimeConfig();
 
 const { openDialog } = useDialog();
+const { proxy } = useScriptUmamiAnalytics();
 
 const year = ref(new Date().getFullYear());
 
@@ -59,6 +60,7 @@ const items = [
     color: "primary" as const,
     class: "-m-2 size-9",
     command: () => {
+      proxy.track("event", { name: "donate" });
       navigateTo("https://ko-fi.com/redeemr", { external: true });
     },
   },

@@ -42,7 +42,7 @@
         >
       </li>
     </ul>
-    <p class="font-roboto text-center text-xl font-semibold uppercase">
+    <p class="font-roboto text-xl font-semibold uppercase">
       Feedback/Questions
     </p>
     <USeparator />

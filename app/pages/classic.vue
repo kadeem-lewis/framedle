@@ -5,11 +5,7 @@
   >
     <div v-if="itemToGuess[mode]" class="space-y-4">
       <RemainingGuesses />
-      <UCard
-        :ui="{
-          divide: 'divide-y-0',
-        }"
-      >
+      <UCard class="divide-y-0">
         <template #header>
           <p
             class="text-(--ui-primary)-600 font-roboto text-2xl font-bold uppercase dark:text-(--ui-primary)"

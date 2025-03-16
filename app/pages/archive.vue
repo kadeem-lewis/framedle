@@ -28,10 +28,7 @@
         v-model="order"
         aria-label="order-filter"
         :items="['OLDEST', 'NEWEST']"
-        :ui="{
-          rounded: 'rounded-none',
-        }"
-        class="uppercase"
+        class="rounded-none uppercase"
       >
         <template #trailing>
           <UIcon name="i-mdi-triangle-down" class="size-3" />
@@ -42,7 +39,7 @@
         icon="i-mdi-magnify"
         :trailing="true"
         :ui="{
-          rounded: 'rounded-none',
+          base: 'rounded-none',
         }"
         placeholder="SEARCH..."
       />

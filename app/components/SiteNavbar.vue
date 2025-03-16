@@ -15,11 +15,9 @@
         icon="i-heroicons-cog-6-tooth-solid"
         variant="outline"
         square
-        class="border-b-4 border-neutral-800 hover:border-(--ui-primary) dark:border-(--ui-primary)"
+        class="group border-b-4 border-neutral-800 hover:border-(--ui-primary) dark:border-(--ui-primary)"
         :ui="{
-          icon: {
-            base: 'flex-shrink-0 transition-transform hover:-rotate-45',
-          },
+          leadingIcon: 'group-hover:rotate-45 transition-transform',
         }"
         @click="openDialog(dialogOptions.SETTINGS)"
       />

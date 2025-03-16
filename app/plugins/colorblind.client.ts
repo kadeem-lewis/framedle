@@ -7,9 +7,9 @@ export default defineNuxtPlugin(() => {
   };
 
   useHead({
-    htmlAttrs: computed(() => ({
-      class: colorblindMode.value ? "colorblind" : "",
-    })),
+    htmlAttrs: {
+      class: computed(() => (colorblindMode.value ? "colorblind" : "")),
+    },
   });
 
   return {

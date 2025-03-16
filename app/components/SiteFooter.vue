@@ -22,6 +22,7 @@
 const runtimeConfig = useRuntimeConfig();
 
 const { openDialog } = useDialog();
+const { proxy } = useScriptUmamiAnalytics();
 
 const year = ref(new Date().getFullYear());
 
@@ -29,25 +30,27 @@ const items = [
   {
     srText: "discord invite link",
     icon: "my-icon:discord",
-    color: "indigo" as const,
+    color: "discord" as const,
     class: "dark:text-white",
-    command: () =>
-      navigateTo(runtimeConfig.public.discordInvite, { external: true }),
+    command: () => {
+      navigateTo(runtimeConfig.public.discordInvite, { external: true });
+    },
   },
   {
     srText: "bsky.app page",
     icon: "my-icon:bluesky",
-    color: "blue" as const,
+    color: "bluesky" as const,
     class: "text-white",
-    command: () =>
+    command: () => {
       navigateTo("https://bsky.app/profile/framedle.bsky.social", {
         external: true,
-      }),
+      });
+    },
   },
   {
     srText: "About Game",
     icon: "i-mdi-information-variant",
-    color: "black" as const,
+    color: "neutral" as const,
     class: "",
     command: () => openDialog(dialogOptions.ABOUT),
   },
@@ -56,7 +59,10 @@ const items = [
     icon: "my-icon:kofi",
     color: "primary" as const,
     class: "-m-2 size-9",
-    command: () => navigateTo("https://ko-fi.com/redeemr", { external: true }),
+    command: () => {
+      proxy.track("event", { name: "donate" });
+      navigateTo("https://ko-fi.com/redeemr", { external: true });
+    },
   },
 ];
 </script>

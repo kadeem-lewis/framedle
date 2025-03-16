@@ -1,10 +1,4 @@
-import {
-  isToday,
-  isYesterday,
-  format,
-  startOfDay,
-  startOfYesterday,
-} from "date-fns";
+import { format, startOfDay, startOfYesterday } from "date-fns";
 
 export type FixedGuessArray = [number, number, number, number, number, number];
 
@@ -42,11 +36,11 @@ export const useStatsStore = defineStore(
 
     function resetStreak(mode: "classic" | "ability") {
       const lastPlayedDate = stats.value[mode].lastPlayedDate;
-      if (
-        lastPlayedDate &&
-        !isToday(lastPlayedDate) &&
-        !isYesterday(lastPlayedDate)
-      ) {
+
+      const today = format(startOfDay(new Date()), "yyyy-MM-dd");
+      const yesterday = format(startOfYesterday(), "yyyy-MM-dd");
+
+      if (lastPlayedDate !== today && lastPlayedDate !== yesterday) {
         stats.value[mode].streak = 0;
       }
     }

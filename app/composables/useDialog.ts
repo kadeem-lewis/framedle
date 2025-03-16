@@ -10,27 +10,35 @@ export const dialogOptions = {
 
 export type DialogOption = (typeof dialogOptions)[keyof typeof dialogOptions];
 
-export function useDialog() {
+function useDialogBase() {
   const route = useRoute();
   const router = useRouter();
-  const modal = useModal();
+
+  const overlay = useOverlay();
+  const modal = overlay.create(AppModal);
+  const isUpdatingRoute = ref(false);
 
   const openDialog = (option: DialogOption, title: string | null = null) => {
     if (title === null) {
       title = option;
     }
 
-    modal.open(AppModal, {
+    modal.open({
       dialogOption: option,
       title,
     });
 
-    router.replace({
-      query: {
-        ...route.query,
-        dialog: option,
-      },
-    });
+    isUpdatingRoute.value = true;
+    router
+      .replace({
+        query: {
+          ...route.query,
+          dialog: option,
+        },
+      })
+      .finally(() => {
+        isUpdatingRoute.value = false;
+      });
   };
 
   const closeDialog = () => {
@@ -42,6 +50,7 @@ export function useDialog() {
   };
 
   watchEffect(() => {
+    if (isUpdatingRoute.value) return;
     let dialogParam = route.query.dialog as
       | DialogOption
       | DialogOption[]
@@ -59,7 +68,7 @@ export function useDialog() {
           ? `${route.name} ${dialogParam}`
           : dialogParam;
 
-      modal.open(AppModal, {
+      modal.open({
         dialogOption: dialogParam,
         title,
       });
@@ -71,3 +80,5 @@ export function useDialog() {
     closeDialog,
   };
 }
+
+export const useDialog = createSharedComposable(useDialogBase);

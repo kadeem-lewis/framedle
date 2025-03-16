@@ -1,14 +1,14 @@
 <template>
-  <div class="flex justify-center gap-2 font-roboto">
+  <div class="font-roboto flex justify-center gap-2">
     <UButton
       v-for="mode of modes"
       :key="mode.label"
       :to="mode.to"
       :class="{
-        'dark:border-primary hover:border-primary border-b-4 border-gray-800':
+        'border-b-4 border-neutral-800 dark:border-(--ui-primary)':
           mode.isActive.value,
       }"
-      class="hover:shadow-primary font-semibold uppercase hover:shadow-inner"
+      class="font-semibold uppercase ring-neutral-800 hover:border-(--ui-primary)"
       variant="outline"
       size="xl"
     >

@@ -1,6 +1,6 @@
 <template>
   <UCard
-    class="border-primary group relative cursor-pointer border uppercase transition-all hover:bg-opacity-100"
+    class="group hover:bg-opacity-100 relative cursor-pointer border border-(--ui-primary) uppercase transition-all"
     @click="navigateTo(tab.route)"
   >
     <div

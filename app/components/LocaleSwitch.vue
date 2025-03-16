@@ -17,13 +17,13 @@ watch(selectedLocale, (newValue) => {
 <template>
   <USelectMenu
     v-model="selectedLocale"
-    :options="locales"
+    :items="locales"
     :ui-menu="{
       width: 'w-max',
     }"
     option-attribute="name"
     value-attribute="code"
-    class="border-primary dark:border-primary hover:border-primary border-b-4 border-gray-800 bg-white/75 dark:bg-gray-900/75"
+    class="border-b-4 border-(--ui-primary) border-neutral-800 bg-white/75 hover:border-(--ui-primary) dark:border-(--ui-primary) dark:bg-neutral-900/75"
   >
     <UButton
       :icon-only="true"

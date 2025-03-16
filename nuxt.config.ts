@@ -7,7 +7,6 @@ export default defineNuxtConfig({
   devtools: { enabled: true },
   modules: [
     "@nuxt/eslint",
-    "@nuxt/fonts",
     "@nuxt/image",
     "@nuxt/ui",
     "@pinia/nuxt",
@@ -17,6 +16,7 @@ export default defineNuxtConfig({
     "@nuxtjs/i18n",
     "nuxt-security",
     "@nuxt/test-utils",
+    "@nuxt/scripts",
   ],
   runtimeConfig: {
     turso: {
@@ -25,8 +25,11 @@ export default defineNuxtConfig({
     },
     databaseUrl: "",
     public: {
-      posthogPublicKey: "phc_6yOpFUMQqw2woP2QvGscMvAyyADVP0rHSLYvCFc32TW",
-      posthogHost: "https://us.i.posthog.com",
+      scripts: {
+        umamiAnalytics: {
+          websiteId: "",
+        },
+      },
       discordInvite: "",
     },
   },
@@ -35,10 +38,17 @@ export default defineNuxtConfig({
     "/classic": { ssr: false },
     "/ability": { ssr: false },
   },
-  postcss: {
-    plugins: {
-      tailwindcss: {},
-      autoprefixer: {},
+  css: ["~/assets/css/main.css"],
+  ui: {
+    theme: {
+      colors: ["discord", "bluesky"],
+    },
+  },
+  $production: {
+    scripts: {
+      registry: {
+        umamiAnalytics: true,
+      },
     },
   },
   site: {

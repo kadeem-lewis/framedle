@@ -16,6 +16,7 @@ export default defineNuxtConfig({
     "@nuxtjs/i18n",
     "nuxt-security",
     "@nuxt/test-utils",
+    "@nuxt/scripts",
   ],
   runtimeConfig: {
     turso: {
@@ -24,8 +25,11 @@ export default defineNuxtConfig({
     },
     databaseUrl: "",
     public: {
-      posthogPublicKey: "phc_6yOpFUMQqw2woP2QvGscMvAyyADVP0rHSLYvCFc32TW",
-      posthogHost: "https://us.i.posthog.com",
+      scripts: {
+        umamiAnalytics: {
+          websiteId: "",
+        },
+      },
       discordInvite: "",
     },
   },
@@ -38,6 +42,13 @@ export default defineNuxtConfig({
   ui: {
     theme: {
       colors: ["discord", "bluesky"],
+    },
+  },
+  $production: {
+    scripts: {
+      registry: {
+        umamiAnalytics: true,
+      },
     },
   },
   site: {

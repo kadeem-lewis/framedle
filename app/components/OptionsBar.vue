@@ -8,6 +8,7 @@
           variant="outline"
           size="lg"
           square
+          type="button"
           @click="item.command"
         />
       </UTooltip>

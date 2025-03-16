@@ -31,16 +31,13 @@ const optionComponents = {
         emit('close');
       },
     }"
+    :title="props.title"
     :ui="{
       content: 'rounded-none',
+      title: 'font-roboto text-center text-xl uppercase',
     }"
     @update:open="(isOpen) => !isOpen && closeDialog()"
   >
-    <template #title>
-      <p class="font-roboto text-center text-xl font-semibold uppercase">
-        {{ props.title }}
-      </p>
-    </template>
     <template #description>
       <p class="sr-only">{{ props.title }} dialog</p>
     </template>

@@ -1,11 +1,12 @@
 <template>
-  <form class="flex gap-4" @submit.prevent="addGuess">
+  <form class="flex gap-2" @submit.prevent="addGuess">
     <UInputMenu
       v-model="selectedWarframe"
       v-model:search-term="query"
       :reset-search-term-on-blur="false"
       :items="filteredItems"
       placeholder="SEARCH..."
+      size="lg"
       required
       ignore-filter
       :ui="{

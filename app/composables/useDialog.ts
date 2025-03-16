@@ -10,19 +10,20 @@ export const dialogOptions = {
 
 export type DialogOption = (typeof dialogOptions)[keyof typeof dialogOptions];
 
-export function useDialog() {
+function useDialogBase() {
   const route = useRoute();
   const router = useRouter();
 
-  const modal = useState("modal", () => useOverlay().create(AppModal));
-  const isUpdatingRoute = useState("dialogIsUpdatingRoute", () => false);
+  const overlay = useOverlay();
+  const modal = overlay.create(AppModal);
+  const isUpdatingRoute = ref(false);
 
   const openDialog = (option: DialogOption, title: string | null = null) => {
     if (title === null) {
       title = option;
     }
 
-    modal.value.open({
+    modal.open({
       dialogOption: option,
       title,
     });
@@ -67,7 +68,7 @@ export function useDialog() {
           ? `${route.name} ${dialogParam}`
           : dialogParam;
 
-      modal.value.open({
+      modal.open({
         dialogOption: dialogParam,
         title,
       });
@@ -79,3 +80,5 @@ export function useDialog() {
     closeDialog,
   };
 }
+
+export const useDialog = createSharedComposable(useDialogBase);

@@ -7,7 +7,7 @@
           isCorrect === null,
         'border-border-success bg-success hover:shadow-inner hover:brightness-110':
           isCorrect === true,
-        'border-border-error bg-error hover:shadow-inner hover:brightness-11110':
+        'border-border-error bg-error hover:shadow-inner hover:brightness-110':
           isCorrect === false,
         'arrow-up': difference && difference > 0,
         'arrow-down': difference && difference < 0,

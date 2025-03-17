@@ -73,10 +73,6 @@ const items = computed(() => {
 const selectedWarframe = ref<Warframe>();
 const query = ref("");
 
-watchEffect(() => {
-  console.log("Selected Warframe", selectedWarframe.value);
-});
-
 const fuse = new Fuse(items.value, {
   keys: ["name"],
   threshold: 0.4,

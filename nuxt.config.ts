@@ -44,10 +44,15 @@ export default defineNuxtConfig({
       colors: ["discord", "bluesky"],
     },
   },
-  $production: {
+  scripts: {
+    registry: {
+      umamiAnalytics: true,
+    },
+  },
+  $development: {
     scripts: {
       registry: {
-        umamiAnalytics: true,
+        umamiAnalytics: "mock",
       },
     },
   },

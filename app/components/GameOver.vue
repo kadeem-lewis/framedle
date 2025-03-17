@@ -17,7 +17,10 @@
           <span class="text-xl font-bold capitalize">
             {{ answer }}
           </span>
-          <UiFeedbackTile>
+          <UiFeedbackTile
+            field-label="Warframe"
+            :field-value="correctWarframe?.name"
+          >
             <NuxtImg
               :src="`https://cdn.warframestat.us/img/${correctWarframe?.imageName}`"
               :alt="correctWarframe?.name"

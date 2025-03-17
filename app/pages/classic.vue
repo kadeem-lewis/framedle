@@ -24,7 +24,7 @@
       <template v-if="guessedItems[mode].length">
         <div class="space-y-4 overflow-x-auto md:overflow-x-visible">
           <div
-            class="grid w-[150%] grid-cols-6 gap-1 border border-neutral-200 bg-white/75 py-0.5 uppercase md:-ml-[25%] dark:border-neutral-800 dark:bg-neutral-900/75"
+            class="grid w-[150%] grid-cols-6 gap-1 border border-neutral-200 bg-white/75 py-0.5 text-sm uppercase md:-ml-[25%] md:text-base dark:border-neutral-800 dark:bg-neutral-900/75"
           >
             <p
               v-for="label of feedbackLabels"

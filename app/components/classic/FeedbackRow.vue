@@ -1,84 +1,68 @@
 <template>
   <div class="contents">
-    <UTooltip :text="guessedWarframe.name">
-      <UiFeedbackTile>
-        <NuxtImg
-          format="webp"
-          :src="`https://cdn.warframestat.us/img/${guessedWarframe.imageName}`"
-          :alt="guessedWarframe.name"
-          preload
-          placeholder
-          class="h-16"
-        />
-      </UiFeedbackTile>
-    </UTooltip>
+    <UiFeedbackTile field-label="Warframe" :field-value="guessedWarframe.name">
+      <NuxtImg
+        format="webp"
+        :src="`https://cdn.warframestat.us/img/${guessedWarframe.imageName}`"
+        :alt="guessedWarframe.name"
+        preload
+        placeholder
+        class="h-16"
+      />
+    </UiFeedbackTile>
 
-    <UiFeedbackTile :is-correct="guessedWarframe.sex === correctWarframe.sex">
+    <UiFeedbackTile
+      :is-correct="guessedWarframe.sex === correctWarframe.sex"
+      field-label="Sex"
+      :field-value="guessedWarframe.sex"
+    >
       {{ guessedWarframe.sex }}
     </UiFeedbackTile>
     <UiFeedbackTile
-      :is-correct="
-        compareNumeric(guessedWarframe.health, correctWarframe.health).isCorrect
+      v-bind="
+        getNumericComparisonProps(
+          guessedWarframe.health,
+          correctWarframe.health,
+          'Health',
+        )
       "
-      v-bind="{
-        ...(compareNumeric(guessedWarframe.health, correctWarframe.health) && {
-          difference: compareNumeric(
-            guessedWarframe.health,
-            correctWarframe.health,
-          ).difference,
-        }),
-      }"
     >
       {{ guessedWarframe.health }}
     </UiFeedbackTile>
     <UiFeedbackTile
-      :is-correct="
-        compareNumeric(guessedWarframe.shield, correctWarframe.shield).isCorrect
+      v-bind="
+        getNumericComparisonProps(
+          guessedWarframe.shield,
+          correctWarframe.shield,
+          'Shield',
+        )
       "
-      v-bind="{
-        ...(compareNumeric(guessedWarframe.shield, correctWarframe.shield) && {
-          difference: compareNumeric(
-            guessedWarframe.shield,
-            correctWarframe.shield,
-          ).difference,
-        }),
-      }"
     >
       {{ guessedWarframe.shield }}
     </UiFeedbackTile>
-    <UTooltip :text="guessedWarframe.progenitor">
-      <UiFeedbackTile
-        :is-correct="guessedWarframe.progenitor === correctWarframe.progenitor"
-      >
-        <NuxtImg
-          format="webp"
-          :src="`/elements/${guessedWarframe.progenitor}.png`"
-          :alt="guessedWarframe.progenitor"
-          class="h-10"
-          preload
-        />
-      </UiFeedbackTile>
-    </UTooltip>
     <UiFeedbackTile
-      :is-correct="
-        compareNumeric(
-          parseReleaseDate(guessedWarframe.releaseDate),
-          parseReleaseDate(correctWarframe.releaseDate),
-        ).isCorrect
-      "
-      v-bind="{
-        ...(compareNumeric(
-          parseReleaseDate(guessedWarframe.releaseDate),
-          parseReleaseDate(correctWarframe.releaseDate),
-        ) && {
-          difference: compareNumeric(
-            parseReleaseDate(guessedWarframe.releaseDate),
-            parseReleaseDate(correctWarframe.releaseDate),
-          ).difference,
-        }),
-      }"
+      :is-correct="guessedWarframe.progenitor === correctWarframe.progenitor"
+      field-label="Element"
+      :field-value="guessedWarframe.progenitor"
     >
-      {{ guessedWarframe.releaseDate.split("-")[0] }}
+      <NuxtImg
+        format="webp"
+        :src="`/elements/${guessedWarframe.progenitor}.png`"
+        :alt="guessedWarframe.progenitor"
+        class="h-10"
+        preload
+      />
+    </UiFeedbackTile>
+    <UiFeedbackTile
+      v-bind="
+        getNumericComparisonProps(
+          parseReleaseDate(guessedWarframe.releaseDate),
+          parseReleaseDate(correctWarframe.releaseDate),
+          'Release Date',
+        )
+      "
+    >
+      {{ parseReleaseDate(guessedWarframe.releaseDate) }}
     </UiFeedbackTile>
   </div>
 </template>
@@ -98,8 +82,26 @@ const parseReleaseDate = (releaseDate: string) => {
 
 const compareNumeric = (guessed: number, correct: number) => {
   if (guessed === correct) return { isCorrect: true };
-  return guessed > correct
-    ? { isCorrect: false, difference: correct - guessed }
-    : { isCorrect: false, difference: correct - guessed };
+  return {
+    isCorrect: false,
+    difference: correct - guessed,
+  };
+};
+
+const getNumericComparisonProps = (
+  guessed: number,
+  correct: number,
+  fieldLabel: string,
+) => {
+  const comparison = compareNumeric(guessed, correct);
+
+  return {
+    isCorrect: comparison.isCorrect,
+    fieldLabel,
+    fieldValue: guessed,
+    ...(comparison.isCorrect === false && {
+      difference: comparison.difference,
+    }),
+  };
 };
 </script>

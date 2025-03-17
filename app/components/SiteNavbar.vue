@@ -4,7 +4,7 @@
   >
     <div>
       <h1 class="font-ailerons flex flex-row gap-2 text-[42px] leading-none">
-        <NuxtLink to="/">
+        <NuxtLink to="/" aria-label="Back to home">
           <SiteLogo />
         </NuxtLink>
       </h1>

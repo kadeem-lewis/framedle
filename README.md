@@ -1,11 +1,21 @@
-- fuze.js for fuzzy search
-- tailwindcss for styling
-- react-aria for combobox?
-- drizzle for db. Expo now supports drizzle so if I do have need for a db this will be my choice
-- warframe has an api with a lot of data about the frames but it is missing a few details I might find interesting such as progenitor element, since
-- expo.dev seems cool but using it means that I can't reuse a lot of the code that I did for pokedexle. it also means a lot of my favorite libraries won't work
-- using expo does give me the chance to challenge myself, as well as learn react native
+Guess different Warframes using the clues provided. Resets every day at midnight.
 
-- Maybe a game mode where I show a mod card and then slowly fill it in every guess. Like at first it's just the mod color and polarity or size and then I slowly fill in type, description, image etc
-- excal head could make a good revive icon
-- the warframe items api, nor github nor node package contains progenitor
+## Showcase
+
+## Features
+
+This project was built using [`Nuxt`](https://nuxt.com) and [`tailwindcss`](https://tailwindcss.com/).
+
+Major features include:
+
+- Shareable links for unlimited challenges
+- Archives of all previous daily challenges
+- Fully responsive design
+  - Works on mobile, tablet, and desktop
+- Light and dark mode
+
+## Sponsor
+
+If you like this project you can support me by buying me a coffee.
+
+[![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/O4O318W12)

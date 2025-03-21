@@ -16,7 +16,7 @@ type itemToGuess = {
 export const useGameStore = defineStore(
   "game",
   () => {
-    const warframes = ref<Warframe[]>([]);
+    const warframes = shallowRef<Warframe[]>([]);
     const itemToGuess = ref<itemToGuess>({
       classic: null,
       classicUnlimited: null,

@@ -41,7 +41,15 @@ export default defineNuxtConfig({
   css: ["~/assets/css/main.css"],
   ui: {
     theme: {
-      colors: ["discord", "bluesky"],
+      colors: [
+        "discord",
+        "bluesky",
+        "secondary",
+        "info",
+        "success",
+        "warning",
+        "error",
+      ],
     },
   },
   scripts: {

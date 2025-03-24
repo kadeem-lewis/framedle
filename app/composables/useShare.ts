@@ -127,5 +127,42 @@ ${window.location.href}&x=${itemToGuess.value[currentMode] && encode(itemToGuess
     emojiFeedback.value = [];
   }
 
-  return { handleShareClick, copied };
+  const { stats } = storeToRefs(useStatsStore());
+
+  function handleStatsShare() {
+    if (!mode.value) return;
+    const currentMode = mode.value;
+    let currentStats: (typeof stats.value)[keyof typeof stats.value];
+    let modeName = "";
+    if (currentMode === "classic" || currentMode === "classicUnlimited") {
+      currentStats = stats.value.classic;
+      modeName = "Classic";
+    } else if (
+      currentMode === "ability" ||
+      currentMode === "abilityUnlimited"
+    ) {
+      currentStats = stats.value.ability;
+      modeName = "Ability";
+    } else {
+      throw createError("Invalid mode");
+    }
+    const { plays, wins, guesses, streak, maxStreak } = currentStats;
+
+    const totalWeightedGuesses = guesses.reduce((acc, curr, index) => {
+      return acc + curr * (index + 1);
+    }, 0);
+
+    const averageGuesses = wins > 0 ? totalWeightedGuesses / wins : 0;
+
+    const shareMessage = `My #Framedle statistics for ${modeName}:
+    ⚔️ Games Played: ${plays}
+    👑 Games Won: ${wins}
+    🎯 Average Guesses: ${averageGuesses.toFixed(2)}
+    🔥 Current Streak: ${streak}
+    🚀 Max Streak: ${maxStreak}
+    `;
+    copy(shareMessage);
+  }
+
+  return { handleShareClick, copied, handleStatsShare };
 }

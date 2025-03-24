@@ -27,6 +27,7 @@ export const progenitors: { [key: string]: string } = {
   "Nezha Prime": "Heat",
   Protea: "Heat",
   "Protea Prime": "Heat",
+  Temple: "Heat",
   Vauban: "Heat",
   "Vauban Prime": "Heat",
   Wisp: "Heat",

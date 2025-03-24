@@ -29,7 +29,7 @@ export const warframeSchema = z.object({
   releaseDate: z.string(),
   imageName: z.string(),
   abilities: z.array(abilitySchema),
-  sex: z.enum(["Male", "Female", "Non-binary (Pluriform)"]),
+  sex: z.enum(["Male", "Female", "Non-binary (Pluriform)", "Non-binary"]),
   progenitor: z.enum(progenitorElements),
   isPrime: z.boolean(),
 });

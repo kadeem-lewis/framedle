@@ -5,7 +5,7 @@ export type FixedGuessArray = [number, number, number, number, number, number];
 export const useStatsStore = defineStore(
   "stats",
   () => {
-    const stats = ref({
+    const getDefaultStats = () => ({
       classic: {
         plays: 0,
         wins: 0,
@@ -25,6 +25,7 @@ export const useStatsStore = defineStore(
         lastPlayedDate: null as string | null,
       },
     });
+    const stats = ref(getDefaultStats());
 
     type Stats = (typeof stats.value)[keyof typeof stats.value];
 
@@ -89,7 +90,18 @@ export const useStatsStore = defineStore(
       stats.lastCorrectDate = today;
     }
 
-    return { stats, resetStreak, updateStatsOnGameOver, updateStreak };
+    function resetStats() {
+      stats.value = getDefaultStats();
+      console.log(stats.value);
+    }
+
+    return {
+      stats,
+      resetStreak,
+      updateStatsOnGameOver,
+      updateStreak,
+      resetStats,
+    };
   },
   {
     persist: {

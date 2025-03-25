@@ -160,9 +160,11 @@ watchEffect(() => {
 });
 
 const { updateStatsOnGameOver } = useStatsStore();
+const { proxy } = useScriptUmamiAnalytics();
 watchEffect(() => {
   if (mode.value && isGameOver.value[mode.value]) {
     updateStatsOnGameOver();
+    proxy.track("event", { name: "Completed Game" });
   }
 });
 

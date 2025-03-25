@@ -50,9 +50,25 @@
       You can provide Feedback or ask Questions in any of the following ways:
     </p>
     <ul class="list-[square] pl-6">
-      <li>Open an Issue on Github</li>
       <li>
-        Join my discord and leave a message in the framedle feedback channel
+        Open an Issue on
+        <ULink
+          to="https://github.com/kadeem-lewis/framedle/issues"
+          class="text-(--ui-primary) underline"
+          external
+          >Github</ULink
+        >
+      </li>
+      <li>
+        Join
+        <ULink
+          :to="runtimeConfig.public.discordInvite"
+          class="text-(--ui-primary) underline"
+          external
+          target="blank"
+          >my discord</ULink
+        >
+        and leave a message in the framedle feedback channel
       </li>
       <li>send me an email at support@framedle.com</li>
     </ul>

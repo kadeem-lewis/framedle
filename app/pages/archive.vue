@@ -5,9 +5,10 @@
       <!-- These aren't styled when highlighted -->
       <UButton
         variant="outline"
-        class="border-neutral-800 uppercase"
+        class="uppercase ring-neutral-800 hover:border-(--ui-primary)"
         :class="{
-          'border-b-2 hover:border-(--ui-primary)': selectedMode === 'classic',
+          'border-b-2 border-neutral-800 dark:border-(--ui-primary)':
+            selectedMode === 'classic',
         }"
         @click="selectedMode = 'classic'"
       >
@@ -15,9 +16,10 @@
       </UButton>
       <UButton
         variant="outline"
-        class="border-neutral-800 uppercase"
+        class="uppercase ring-neutral-800 hover:border-(--ui-primary)"
         :class="{
-          'border-b-2 hover:border-(--ui-primary)': selectedMode === 'ability',
+          'border-b-2 border-neutral-800 dark:border-(--ui-primary)':
+            selectedMode === 'ability',
         }"
         @click="selectedMode = 'ability'"
       >

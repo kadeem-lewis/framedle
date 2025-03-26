@@ -91,7 +91,7 @@
 </template>
 
 <script setup lang="ts">
-import { startOfTomorrow } from "date-fns";
+import { format, startOfTomorrow } from "date-fns";
 import party from "party-js";
 
 const { itemToGuess, guessedItems, attempts, warframes } =
@@ -164,6 +164,21 @@ const { proxy } = useScriptUmamiAnalytics();
 watchEffect(() => {
   if (mode.value && isGameOver.value[mode.value]) {
     updateStatsOnGameOver();
+  }
+});
+
+const route = useRoute();
+const { stats } = storeToRefs(useStatsStore());
+watch(isGameOver, (newValue, oldValue) => {
+  if (
+    mode.value &&
+    newValue[mode.value] !== oldValue[mode.value] &&
+    newValue[mode.value]
+  ) {
+    const currentMode = mode.value as keyof typeof stats.value;
+    const today = format(new Date(), "yyyy-MM-dd");
+    if (!route.query.mode && stats.value[currentMode].lastPlayedDate === today)
+      return;
     proxy.track("completed game", { mode: mode.value });
   }
 });

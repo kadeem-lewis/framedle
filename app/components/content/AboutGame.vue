@@ -34,7 +34,24 @@
           Warframe Community Developers for providing the data that powers this
           app
         </li>
-        <li>wfdata.io for providing the Warframe icons used in the app</li>
+        <li>
+          <ULink
+            to="https://browse.wf"
+            class="text-(--ui-primary) underline"
+            external
+            >browse.wf</ULink
+          >
+          for providing the Warframe icons used in the app
+        </li>
+        <li>
+          <ULink
+            to="https://www.behance.net/agonz#"
+            class="text-(--ui-primary) underline"
+            external
+            >Adilson Gonzales</ULink
+          >
+          for providing the font used in the title
+        </li>
       </ul>
     </section>
   </div>

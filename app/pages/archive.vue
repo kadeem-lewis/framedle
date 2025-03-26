@@ -2,11 +2,13 @@
   <div class="flex flex-col gap-4">
     <p class="font-roboto text-xl font-bold uppercase">Archive</p>
     <div class="font-roboto flex gap-2">
+      <!-- These aren't styled when highlighted -->
       <UButton
         variant="outline"
-        class="border-neutral-800 uppercase"
+        class="uppercase ring-neutral-800 hover:border-(--ui-primary)"
         :class="{
-          'border-b-2 hover:border-(--ui-primary)': selectedMode === 'classic',
+          'border-b-2 border-neutral-800 dark:border-(--ui-primary)':
+            selectedMode === 'classic',
         }"
         @click="selectedMode = 'classic'"
       >
@@ -14,9 +16,10 @@
       </UButton>
       <UButton
         variant="outline"
-        class="border-neutral-800 uppercase"
+        class="uppercase ring-neutral-800 hover:border-(--ui-primary)"
         :class="{
-          'border-b-2 hover:border-(--ui-primary)': selectedMode === 'ability',
+          'border-b-2 border-neutral-800 dark:border-(--ui-primary)':
+            selectedMode === 'ability',
         }"
         @click="selectedMode = 'ability'"
       >
@@ -57,10 +60,11 @@
           :key="daily.id"
           class="contents cursor-pointer odd:bg-neutral-700"
           @click="
+            proxy.track('started archive game', { date: daily.date });
             navigateTo({
               path: `/${selectedMode}`,
               query: { date: daily.date },
-            })
+            });
           "
         >
           <p>Framedle #{{ daily.day }}</p>
@@ -83,6 +87,8 @@ useSeoMeta({
 type UpdatedDaily = Daily & {
   readableDate: string;
 };
+
+const { proxy } = useScriptUmamiAnalytics();
 
 const route = useRoute();
 const router = useRouter();

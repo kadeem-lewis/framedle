@@ -153,7 +153,7 @@ export const useGameStore = defineStore(
       attempts.value[mode.value] = 6;
       guessedItems.value[mode.value] = [];
 
-      proxy.track("event", { name: "Started New Game" });
+      proxy.track("started new game", { mode: mode.value });
 
       if (mode.value === "classicUnlimited") {
         router.replace({ query: { mode: "unlimited", x: undefined } });

@@ -58,7 +58,7 @@
           :key="daily.id"
           class="contents cursor-pointer odd:bg-neutral-700"
           @click="
-            proxy.track('event', { name: 'Started Archive Game' });
+            proxy.track('started archive game', { date: daily.date });
             navigateTo({
               path: `/${selectedMode}`,
               query: { date: daily.date },

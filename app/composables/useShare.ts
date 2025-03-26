@@ -160,6 +160,8 @@ ${window.location.href}&x=${itemToGuess.value[currentMode] && encode(itemToGuess
     🎯 Average Guesses: ${averageGuesses.toFixed(2)}
     🔥 Current Streak: ${streak}
     🚀 Max Streak: ${maxStreak}
+
+    https://framedle.com${route.path}
     `;
     copy(shareMessage);
   }

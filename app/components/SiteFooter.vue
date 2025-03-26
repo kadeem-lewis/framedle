@@ -33,6 +33,7 @@ const items = [
     color: "discord" as const,
     class: "dark:text-white",
     command: () => {
+      proxy.track("clicked footer button", { name: "Discord" });
       navigateTo(runtimeConfig.public.discordInvite, { external: true });
     },
   },
@@ -42,6 +43,7 @@ const items = [
     color: "bluesky" as const,
     class: "text-white",
     command: () => {
+      proxy.track("clicked footer button", { name: "Bluesky" });
       navigateTo("https://bsky.app/profile/framedle.bsky.social", {
         external: true,
       });
@@ -60,7 +62,7 @@ const items = [
     color: "primary" as const,
     class: "-m-2 size-9",
     command: () => {
-      proxy.track("event", { name: "donate" });
+      proxy.track("clicked footer button", { name: "Ko-fi" });
       navigateTo("https://ko-fi.com/redeemr", { external: true });
     },
   },

@@ -1,5 +1,5 @@
 <template>
-  <footer class="space-y-3 py-2 text-center">
+  <footer class="flex flex-col gap-3 py-2 text-center">
     <div class="flex justify-center gap-3">
       <UButton
         v-for="item of items"
@@ -13,8 +13,15 @@
         <span class="sr-only">{{ item.srText }}</span>
       </UButton>
     </div>
-    <p class="text-sm">&copy; {{ year }} Framedle.com</p>
-    <p class="text-sm">Warframe does not endorse or sponsor this product</p>
+    <div class="flex flex-col gap-2 text-sm">
+      <p>&copy; {{ year }} Framedle.com</p>
+      <p>Warframe does not endorse or sponsor this product</p>
+      <ULink
+        to="/privacy"
+        class="text-sm text-(--ui-primary) underline hover:text-(--ui-primary)/70"
+        >Privacy Policy</ULink
+      >
+    </div>
   </footer>
 </template>
 

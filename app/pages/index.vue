@@ -1,7 +1,7 @@
 <template>
   <div class="space-y-4">
     <p
-      class="p-1 text-center font-roboto text-lg font-semibold uppercase md:text-xl"
+      class="font-roboto p-1 text-center text-lg font-semibold uppercase md:text-xl"
     >
       Test your Warframe Knowledge
     </p>

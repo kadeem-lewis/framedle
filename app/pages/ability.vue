@@ -32,8 +32,6 @@ useSeoMeta({
   title: "Ability",
 });
 
-defineOgImageComponent("Framedle");
-
 const { t } = useI18n();
 
 const { itemToGuess, vanillaWarframes } = storeToRefs(useGameStore());

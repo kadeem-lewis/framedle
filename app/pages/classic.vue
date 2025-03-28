@@ -66,8 +66,6 @@ useSeoMeta({
   title: "Classic",
 });
 
-defineOgImageComponent("Framedle");
-
 const { t } = useI18n();
 
 const { itemToGuess, guessedItems, warframes, attempts } =

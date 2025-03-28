@@ -47,6 +47,7 @@
   "packageManager": "pnpm@9.12.2",
   "dependencies": {
     "-": "^0.0.1",
+    "@capacitor/android": "^7.1.0",
     "@capacitor/cli": "7.1.0",
     "@capacitor/core": "7.1.0",
     "@neondatabase/serverless": "^0.10.4",

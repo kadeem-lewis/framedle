@@ -1,5 +1,6 @@
 {
   "name": "framedle",
+  "version": "0.0.0",
   "private": true,
   "type": "module",
   "scripts": {
@@ -46,6 +47,8 @@
   "packageManager": "pnpm@9.12.2",
   "dependencies": {
     "-": "^0.0.1",
+    "@capacitor/cli": "7.1.0",
+    "@capacitor/core": "7.1.0",
     "@neondatabase/serverless": "^0.10.4",
     "@pinia/nuxt": "^0.10.1",
     "@vite-pwa/nuxt": "^0.10.8",

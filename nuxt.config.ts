@@ -17,12 +17,9 @@ export default defineNuxtConfig({
     "nuxt-security",
     "@nuxt/test-utils",
     "@nuxt/scripts",
+    "@vite-pwa/nuxt",
   ],
   runtimeConfig: {
-    turso: {
-      databaseUrl: "",
-      authToken: "",
-    },
     databaseUrl: "",
     public: {
       scripts: {
@@ -89,6 +86,9 @@ export default defineNuxtConfig({
     defaultLocale: "en",
     lazy: true,
     baseUrl: "https://framedle.com",
+    bundle: {
+      optimizeTranslationDirective: false,
+    },
   },
   icon: {
     provider: "server",
@@ -127,6 +127,39 @@ export default defineNuxtConfig({
     },
     scheduledTasks: {
       "0 0 * * *": ["add-daily"],
+    },
+  },
+  pwa: {
+    registerType: "autoUpdate",
+    strategies: "generateSW",
+    manifest: {
+      name: "Framedle",
+      short_name: "Framedle",
+      description: "Daily guessing games for Warframe.",
+      display: "standalone",
+      prefer_related_applications: false,
+      start_url: "/",
+      icons: [
+        { src: "pwa-192x192.png", sizes: "192x192", type: "image/png" },
+        { src: "pwa-512x512.png", sizes: "512x512", type: "image/png" },
+        { src: "pwa-64x64.png", sizes: "64x64", type: "image/png" },
+        {
+          src: "maskable-icon-512x512.png",
+          sizes: "512x512",
+          type: "image/png",
+          purpose: "maskable",
+        },
+      ],
+    },
+    workbox: {
+      globPatterns: ["**/*.{js,css,html,png,svg,ico}"],
+    },
+    devOptions: {
+      enabled: true,
+      type: "module",
+      suppressWarnings: true,
+      navigateFallback: "/",
+      navigateFallbackAllowlist: [/^\/$/],
     },
   },
 });

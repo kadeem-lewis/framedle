@@ -14,7 +14,8 @@
     "typecheck": "nuxt typecheck",
     "db:generate": "drizzle-kit generate",
     "db:push": "drizzle-kit push",
-    "test": "vitest"
+    "test": "vitest",
+    "generate-pwa-assets": "pwa-assets-generator --preset minimal-2023 public/logo.svg"
   },
   "devDependencies": {
     "@iconify-json/heroicons": "^1.2.2",
@@ -28,6 +29,7 @@
     "@nuxt/ui": "3.0.2",
     "@nuxtjs/i18n": "^9.4.0",
     "@nuxtjs/seo": "3.0.1",
+    "@vite-pwa/assets-generator": "^0.2.6",
     "@vue/test-utils": "^2.4.6",
     "drizzle-kit": "^0.30.6",
     "eslint": "^9.23.0",

@@ -30,10 +30,12 @@ export default defineNuxtConfig({
       discordInvite: "",
     },
   },
+  ssr: false,
   routeRules: {
     "/": { prerender: true },
-    "/classic": { ssr: false },
-    "/ability": { ssr: false },
+  },
+  ogImage: {
+    enabled: false,
   },
   css: ["~/assets/css/main.css"],
   ui: {

@@ -140,9 +140,8 @@ export default defineNuxtConfig({
       name: "Framedle",
       short_name: "Framedle",
       description: "Daily guessing games for Warframe.",
-      theme_color: "#3498db",
-      background_color: "#ffffff",
       display: "standalone",
+      prefer_related_applications: false,
       start_url: "/",
       icons: [
         { src: "pwa-192x192.png", sizes: "192x192", type: "image/png" },

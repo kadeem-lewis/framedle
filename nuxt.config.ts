@@ -17,12 +17,9 @@ export default defineNuxtConfig({
     "nuxt-security",
     "@nuxt/test-utils",
     "@nuxt/scripts",
+    "@vite-pwa/nuxt",
   ],
   runtimeConfig: {
-    turso: {
-      databaseUrl: "",
-      authToken: "",
-    },
     databaseUrl: "",
     public: {
       scripts: {
@@ -134,6 +131,17 @@ export default defineNuxtConfig({
     },
     scheduledTasks: {
       "0 0 * * *": ["add-daily"],
+    },
+  },
+  pwa: {
+    registerType: "autoUpdate",
+    manifest: {
+      name: "Framedle",
+      description: "Daily guessing games for Warframe.",
+      theme_color: "#3498db",
+      background_color: "#ffffff",
+      display: "standalone",
+      start_url: "/",
     },
   },
 });

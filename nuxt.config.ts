@@ -135,8 +135,10 @@ export default defineNuxtConfig({
   },
   pwa: {
     registerType: "autoUpdate",
+    strategies: "generateSW",
     manifest: {
       name: "Framedle",
+      short_name: "Framedle",
       description: "Daily guessing games for Warframe.",
       theme_color: "#3498db",
       background_color: "#ffffff",
@@ -153,6 +155,16 @@ export default defineNuxtConfig({
           purpose: "maskable",
         },
       ],
+    },
+    workbox: {
+      globPatterns: ["**/*.{js,css,html,png,svg,ico}"],
+    },
+    devOptions: {
+      enabled: true,
+      type: "module",
+      suppressWarnings: true,
+      navigateFallback: "/",
+      navigateFallbackAllowlist: [/^\/$/],
     },
   },
 });

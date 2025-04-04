@@ -108,11 +108,15 @@ export const useGameStore = defineStore(
       }
     }
 
+    const { resetGameState } = useGameStateStore();
+
     function resetDailyValues() {
       guessedItems.value.classic = [];
       guessedItems.value.ability = [];
       attempts.value.classic = defaultAttempts;
       attempts.value.ability = defaultAttempts;
+      resetGameState("ability");
+      resetGameState("classic");
     }
 
     async function getDaily() {
@@ -152,6 +156,7 @@ export const useGameStore = defineStore(
       if (!mode.value) throw createError("Mode not set");
       attempts.value[mode.value] = 6;
       guessedItems.value[mode.value] = [];
+      resetGameState(mode.value);
 
       proxy.track("started new game", { mode: mode.value });
 

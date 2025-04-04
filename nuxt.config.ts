@@ -89,6 +89,9 @@ export default defineNuxtConfig({
     defaultLocale: "en",
     lazy: true,
     baseUrl: "https://framedle.com",
+    bundle: {
+      optimizeTranslationDirective: false,
+    },
   },
   icon: {
     provider: "server",

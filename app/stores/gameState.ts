@@ -62,7 +62,7 @@ export const useGameStateStore = defineStore(
     }
 
     watch(
-      () => [mode, attempts, guessedItems],
+      () => [() => mode.value, () => attempts.value, () => guessedItems.value],
       () => {
         updateGameState();
       },

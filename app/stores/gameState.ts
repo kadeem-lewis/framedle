@@ -1,4 +1,5 @@
 import type { GameMode } from "@/composables/useGameMode";
+import type { Warframe } from "~~/shared/schemas/warframe";
 
 export const GameStatus = {
   ACTIVE: "active",
@@ -23,15 +24,12 @@ export const useGameStateStore = defineStore(
       abilityUnlimited: GameStatus.ACTIVE,
     });
 
-    function updateGameState() {
-      const gameMode = mode.value;
-      if (!gameMode) return;
-
-      const currentGuessedItems = guessedItems.value[gameMode];
-      const currentAttempts = attempts.value[gameMode];
-
+    function updateGameState(
+      gameMode: GameMode,
+      currentAttempts: number,
+      currentGuessedItems: Warframe[],
+    ) {
       let won = false;
-
       if (gameMode === "classic" || gameMode === "classicUnlimited") {
         won = currentGuessedItems.some(
           (guessedItem) =>
@@ -44,6 +42,7 @@ export const useGameStateStore = defineStore(
             guessedItem.name === itemToGuess.value[gameMode]?.belongsTo,
         );
       }
+
       if (won) {
         if (gameState.value[gameMode] === GameStatus.ACTIVE) {
           gameState.value[gameMode] = GameStatus.WON;
@@ -61,17 +60,19 @@ export const useGameStateStore = defineStore(
       gameState.value[gameMode] = GameStatus.ACTIVE;
     }
 
-    watch(
-      () => [() => mode.value, () => attempts.value, () => guessedItems.value],
-      () => {
-        updateGameState();
-      },
-      { immediate: true, deep: true },
-    );
+    watchEffect(() => {
+      const gameMode = mode.value;
+      if (!gameMode) return;
+      updateGameState(
+        gameMode,
+        attempts.value[gameMode],
+        guessedItems.value[gameMode],
+      );
+    });
 
     const hasWon = computed(() => {
       const gameMode = mode.value;
-      if (!gameMode) return false;
+      if (!gameMode) return;
       return (
         gameState.value[gameMode] === GameStatus.WON ||
         gameState.value[gameMode] === GameStatus.WON_PREVIOUS
@@ -80,7 +81,7 @@ export const useGameStateStore = defineStore(
 
     const isGameOver = computed(() => {
       const gameMode = mode.value;
-      if (!gameMode) return false;
+      if (!gameMode) return;
       const currentState = gameState.value[gameMode];
       return (
         currentState === GameStatus.LOST ||
@@ -115,3 +116,7 @@ export const useGameStateStore = defineStore(
     },
   },
 );
+
+if (import.meta.hot) {
+  import.meta.hot.accept(acceptHMRUpdate(useGameStateStore, import.meta.hot));
+}

@@ -132,7 +132,8 @@ const correctWarframe = computed(() => {
 
 const showGuesses = ref(false);
 
-const { hasWon } = useGameState();
+const { hasWon, isGameOver, currentGameState } =
+  storeToRefs(useGameStateStore());
 
 const answer = computed(() => {
   if (!mode.value) throw createError("Mode is not set");
@@ -151,10 +152,8 @@ function handleStatsClick() {
 
 const gameOverCard = useTemplateRef("gameOverCard");
 
-const { isGameOver } = useGameState();
-
 watchEffect(() => {
-  if (mode.value && isGameOver.value[mode.value]) {
+  if (mode.value && isGameOver.value) {
     gameOverCard.value?.scrollIntoView({ behavior: "smooth" });
   }
 });
@@ -162,7 +161,7 @@ watchEffect(() => {
 const { updateStatsOnGameOver } = useStatsStore();
 const { proxy } = useScriptUmamiAnalytics();
 watchEffect(() => {
-  if (mode.value && isGameOver.value[mode.value]) {
+  if (mode.value && isGameOver.value) {
     updateStatsOnGameOver();
   }
 });
@@ -170,11 +169,7 @@ watchEffect(() => {
 const route = useRoute();
 const { stats } = storeToRefs(useStatsStore());
 watch(isGameOver, (newValue, oldValue) => {
-  if (
-    mode.value &&
-    newValue[mode.value] !== oldValue[mode.value] &&
-    newValue[mode.value]
-  ) {
+  if (newValue !== oldValue && newValue) {
     const currentMode = mode.value as keyof typeof stats.value;
     const today = format(new Date(), "yyyy-MM-dd");
     if (!route.query.mode && stats.value[currentMode].lastPlayedDate === today)
@@ -184,12 +179,7 @@ watch(isGameOver, (newValue, oldValue) => {
 });
 
 watchEffect(() => {
-  if (
-    mode.value &&
-    isGameOver.value[mode.value] &&
-    gameOverCard.value &&
-    hasWon.value
-  ) {
+  if (currentGameState.value === GameStatus.WON && gameOverCard.value) {
     party.confetti(gameOverCard.value);
   }
 });

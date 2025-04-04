@@ -19,7 +19,7 @@
             {{ t("classic.subtitle") }}
           </p>
         </template>
-        <WarframeSearch v-if="!isGameOver[mode]" :items="warframes" />
+        <WarframeSearch v-if="!isGameOver" :items="warframes" />
       </UCard>
       <template v-if="guessedItems[mode].length">
         <div class="space-y-4 overflow-x-auto md:overflow-x-visible">
@@ -51,7 +51,7 @@
           <UIcon name="i-heroicons-arrow-long-right" class="size-5" />
         </div>
       </template>
-      <GameOver v-if="isGameOver[mode]" />
+      <GameOver v-if="isGameOver" />
     </div>
     <ModeUnavailable v-else />
   </div>
@@ -75,7 +75,7 @@ const { itemToGuess, guessedItems, warframes, attempts } =
 const { classicInit, defaultAttempts } = useGameStore();
 
 const mode = useGameMode();
-const { isGameOver } = useGameState();
+const { isGameOver } = storeToRefs(useGameStateStore());
 
 await callOnce("classic-setup", classicInit);
 

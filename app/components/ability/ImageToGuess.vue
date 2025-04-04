@@ -8,8 +8,7 @@
             :key="index"
             class="col-span-1 flex h-full items-center justify-center border bg-red-500 dark:bg-red-600"
             :class="{
-              hidden:
-                index <= defaultAttempts - attempts[mode] || isGameOver[mode],
+              hidden: index <= defaultAttempts - attempts[mode] || isGameOver,
             }"
           >
             <UIcon name="i-mdi-help" class="text-4xl" />
@@ -39,7 +38,7 @@
         />
       </div>
     </div>
-    <template v-if="isGameOver[mode]">
+    <template v-if="isGameOver">
       <p class="text-lg font-bold uppercase">
         {{ itemToGuess[mode]?.name }}
       </p>
@@ -54,7 +53,7 @@
 const { itemToGuess, attempts } = storeToRefs(useGameStore());
 const { defaultAttempts } = useGameStore();
 const mode = useGameMode();
-const { isGameOver } = useGameState();
+const { isGameOver } = storeToRefs(useGameStateStore());
 
 const cleanedDescription = computed(() => {
   if (mode.value === "ability" || mode.value === "abilityUnlimited") {

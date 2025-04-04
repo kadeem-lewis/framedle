@@ -24,15 +24,28 @@
     <p>Digital Extremes does not endorse or sponsor this project.</p>
     <USeparator />
     <section class="space-y-4">
-      <p>Framedle was created by Redeemr.</p>
+      <p>
+        Framedle was created by Redeemr. Source code on
+        <ULink
+          to="https://github.com/kadeem-lewis/framedle"
+          class="text-(--ui-primary) underline"
+          external
+          >Github</ULink
+        >
+      </p>
     </section>
     <USeparator />
     <section class="space-y-4">
       <p class="font-semibold">Special Thanks To:</p>
       <ul class="list-[square] space-y-2">
         <li>
-          Warframe Community Developers for providing the data that powers this
-          app
+          <ULink
+            to="https://github.com/WFCD"
+            class="text-(--ui-primary) underline"
+            external
+            >Warframe Community Developers</ULink
+          >
+          for providing the data that powers this app
         </li>
         <li>
           <ULink

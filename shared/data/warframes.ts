@@ -3780,7 +3780,7 @@
         "imageName": "the-vast-untime-8e73bb6278.png"
       }
     ],
-    "sex": "Non-binary (Pluriform)",
+    "sex": "Non-binary",
     "progenitor": "Magnetic",
     "isPrime": false
   },
@@ -3819,7 +3819,7 @@
         "imageName": "the-vast-untime-8e73bb6278.png"
       }
     ],
-    "sex": "Non-binary (Pluriform)",
+    "sex": "Non-binary",
     "progenitor": "Magnetic",
     "isPrime": true
   },

@@ -6,6 +6,7 @@
       side: 'top',
     }"
     :ui="tooltipStyles"
+    :disabled="tooltipDisabled"
   >
     <div
       tabindex="0"
@@ -38,11 +39,13 @@ const {
   difference,
   fieldLabel,
   fieldValue,
+  tooltipDisabled = false,
 } = defineProps<{
   isCorrect?: boolean;
   difference?: number;
   fieldLabel: string;
   fieldValue?: string | number;
+  tooltipDisabled?: boolean;
 }>();
 
 const tooltipText = computed(() => {

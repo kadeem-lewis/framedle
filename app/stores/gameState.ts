@@ -6,6 +6,7 @@ export const GameStatus = {
   WON: "won",
   LOST: "lost",
   WON_PREVIOUS: "won:previous",
+  LOST_PREVIOUS: "lost:previous",
 } as const;
 
 export type GameStatusType = (typeof GameStatus)[keyof typeof GameStatus];
@@ -53,7 +54,11 @@ export const useGameStateStore = defineStore(
       }
 
       if (currentAttempts === 0) {
-        gameState.value[gameMode] = GameStatus.LOST;
+        if (gameState.value[gameMode] === GameStatus.ACTIVE) {
+          gameState.value[gameMode] = GameStatus.LOST;
+        } else if (gameState.value[gameMode] === GameStatus.LOST) {
+          gameState.value[gameMode] = GameStatus.LOST_PREVIOUS;
+        }
         return;
       }
 
@@ -83,11 +88,7 @@ export const useGameStateStore = defineStore(
       const gameMode = mode.value;
       if (!gameMode) return;
       const currentState = gameState.value[gameMode];
-      return (
-        currentState === GameStatus.LOST ||
-        currentState === GameStatus.WON ||
-        currentState === GameStatus.WON_PREVIOUS
-      );
+      return currentState !== GameStatus.ACTIVE;
     });
 
     const currentGameState = computed(() => {

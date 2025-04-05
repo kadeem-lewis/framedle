@@ -70,9 +70,8 @@ defineOgImageComponent("Framedle");
 
 const { t } = useI18n();
 
-const { itemToGuess, guessedItems, warframes, attempts } =
-  storeToRefs(useGameStore());
-const { classicInit, defaultAttempts } = useGameStore();
+const { itemToGuess, guessedItems, attempts } = storeToRefs(useGameStore());
+const { classicInit, defaultAttempts, warframes } = useGameStore();
 
 const mode = useGameMode();
 const { isGameOver } = storeToRefs(useGameStateStore());

@@ -21,7 +21,8 @@ export default defineTask({
       }
       const result = warframeSchema.safeParse(item);
       if (result.success) {
-        if (result.data.sex.includes("(Pluriform)")) item.sex = "Non-binary";
+        if (result.data.sex.includes("(Pluriform)"))
+          result.data.sex = "Non-binary";
         warframes.push(result.data);
       } else {
         warframes.push(null);

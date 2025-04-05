@@ -29,7 +29,8 @@ export default defineTask({
     });
     const filteredWarframes = warframes.filter((warframe) => warframe !== null);
     const tsContent = `// Auto-generated warframes data
-    export const warframes = ${JSON.stringify(filteredWarframes, null, 2)} as const;
+    import type { Warframe } from "#shared/schemas/warframe";
+    export const warframes: Warframe[] = ${JSON.stringify(filteredWarframes, null, 2)};
     `;
 
     await fs.writeFile("./shared/data/warframes.ts", tsContent);

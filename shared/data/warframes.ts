@@ -1,5 +1,6 @@
 // Auto-generated warframes data
-    export const warframes = [
+    import type { Warframe } from "#shared/schemas/warframe";
+    export const warframes: Warframe[] = [
   {
     "name": "Ash",
     "category": "Warframes",
@@ -3939,5 +3940,5 @@
     "progenitor": "Impact",
     "isPrime": true
   }
-] as const;
+];
     

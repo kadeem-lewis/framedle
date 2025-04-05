@@ -9,6 +9,7 @@
       :is-correct="warframe.name === itemToGuess[mode]?.belongsTo"
       field-label="Warframe"
       :field-value="warframe.name"
+      tooltip-disabled
     >
       <div class="flex w-full items-center justify-between gap-1 px-2">
         <p class="font-semibold uppercase">

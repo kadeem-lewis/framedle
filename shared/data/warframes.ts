@@ -509,6 +509,84 @@
     "isPrime": false
   },
   {
+    "name": "Dagath",
+    "category": "Warframes",
+    "type": "Warframe",
+    "health": 566,
+    "shield": 150,
+    "armor": 125,
+    "releaseDate": "2023-10-18",
+    "imageName": "dagath-7589f2ce5b.png",
+    "abilities": [
+      {
+        "uniqueName": "/Lotus/Powersuits/PowersuitAbilities/DagathVolleyAbility",
+        "name": "Wyrd Scythes",
+        "description": "Wyrd Scythes surround Dagath and seek out nearby enemies. Those struck are slowed and suffer <DT_VIRAL_COLOR>Viral Damage with a guaranteed Status Effect. The scythes also spread Doom and extend its duration.",
+        "imageName": "wyrd-scythes-97c54a322a.png"
+      },
+      {
+        "uniqueName": "/Lotus/Powersuits/PowersuitAbilities/DagathCurseAbility",
+        "name": "Doom",
+        "description": "Condemn nearby enemies to their doom. A portion of the damage Dagath deals is revisited upon them by a Wyrd Scythe. They also suffer <DT_VIRAL_COLOR>Viral Damage.",
+        "imageName": "doom-dfd43154c4.png"
+      },
+      {
+        "uniqueName": "/Lotus/Powersuits/PowersuitAbilities/DagathApparitionAbility",
+        "name": "Grave Spirit",
+        "description": "Supercharge Dagath’s weapons with extra Critical Damage. The effects are doubled on Doomed enemies. Escape fatal blows by briefly assuming a spectral form.",
+        "imageName": "grave-spirit-f0bb484017.png"
+      },
+      {
+        "uniqueName": "/Lotus/Powersuits/PowersuitAbilities/DagathHorseAbility",
+        "name": "Rakhali’S Cavalry",
+        "description": "Phantom Kaithes charge forth, inflicting <DT_VIRAL_COLOR>Viral Damage upon all in their path. Their attack strips the defenses of Doomed enemies.",
+        "imageName": "rakhali’s-cavalry-0981161fe5.png"
+      }
+    ],
+    "sex": "Female",
+    "progenitor": "Toxin",
+    "isPrime": false
+  },
+  {
+    "name": "Dante",
+    "category": "Warframes",
+    "type": "Warframe",
+    "health": 300,
+    "shield": 150,
+    "armor": 145,
+    "releaseDate": "2024-03-27",
+    "imageName": "dante-43d70fb91a.png",
+    "abilities": [
+      {
+        "uniqueName": "/Lotus/Powersuits/PowersuitAbilities/PagemasterBookAbility",
+        "name": "Noctua",
+        "description": "Open Noctua, Dante’s Exalted Tome, and unleash a tale of woe upon his enemies.",
+        "imageName": "noctua-d99abb7850.png"
+      },
+      {
+        "uniqueName": "/Lotus/Powersuits/PowersuitAbilities/PagemasterLifeAbility",
+        "name": "Light Verse",
+        "description": "Dante's vitalizing composition grants him and his allies Overguard and increases their Health.",
+        "imageName": "light-verse-41aad0e821.png"
+      },
+      {
+        "uniqueName": "/Lotus/Powersuits/PowersuitAbilities/PagemasterDeathAbility",
+        "name": "Dark Verse",
+        "description": "Dante's composition draws blood from nearby enemies, inflicting <DT_SLASH_COLOR>Slash Damage upon them.",
+        "imageName": "dark-verse-a32c475c6b.png"
+      },
+      {
+        "uniqueName": "/Lotus/Powersuits/PowersuitAbilities/PagemasterFinalChapterAbility",
+        "name": "Final Verse",
+        "description": "Dante must compose two other Verses before his Final Verse.\n\nTRIUMPH: Two Light Verses cast in succession invigorate allies with a buff that increases Health and grants Overguard. Kills and assists briefly regenerate Overguard.<br>Dante must compose two other Verses before his Final Verse.\n\nTRAGEDY: Two Dark Verses cast in succession attack enemies. Damage Over Time from <DT_SLASH_COLOR>Slash, <DT_FIRE_COLOR>Heat and <DT_POISON_COLOR>Toxin Status Effects accumulates in a single blast.<br>Dante must compose two other Verses before his Final Verse.\n\nWORDWARDEN: A Light Verse followed by a Dark Verse supports allies with copies of Noctua. Noctua copies synchronize their attacks with their designated ally’s attacks.<br>Dante must compose two other Verses before his Final Verse.\n\nPAGEFLIGHT: A Dark Verse followed by a Light Verse summons Paragrimms that swoop at enemies, making them vulnerable to Status Chance and Status Damage, as well as drawing enemy attacks away from allies.",
+        "imageName": "final-verse-728267fdd6.png"
+      }
+    ],
+    "sex": "Male",
+    "progenitor": "Impact",
+    "isPrime": false
+  },
+  {
     "name": "Ember",
     "category": "Warframes",
     "type": "Warframe",
@@ -1250,6 +1328,45 @@
     "isPrime": false
   },
   {
+    "name": "Harrow Prime",
+    "category": "Warframes",
+    "type": "Warframe",
+    "health": 270,
+    "shield": 640,
+    "armor": 185,
+    "releaseDate": "2021-12-15",
+    "imageName": "harrow-prime-8237c36a69.png",
+    "abilities": [
+      {
+        "uniqueName": "/Lotus/Powersuits/PowersuitAbilities/PriestCondemnAbility",
+        "name": "Condemn",
+        "description": "Cast a wave of energy that chains them where they stand. Each enemy held reinforces Harrow's shields.",
+        "imageName": "condemn-072b998437.png"
+      },
+      {
+        "uniqueName": "/Lotus/Powersuits/PowersuitAbilities/PriestPenanceAbility",
+        "name": "Penance",
+        "description": "Sacrifice Shields to boost Reload Speed, and Fire Rate while converting damage inflicted on enemies into health for Harrow and nearby allies.",
+        "imageName": "penance-d3b5fc121f.png"
+      },
+      {
+        "uniqueName": "/Lotus/Powersuits/PowersuitAbilities/PriestRavageAbility",
+        "name": "Thurible",
+        "description": "Channel Harrow's energy into the Thurible to generate a buff. Once finished, kill enemies to bestow nearby allies with bursts of energy. The more energy channeled the greater the reward for each kill. Headshots produce extra energy.",
+        "imageName": "thurible-a4d5d20025.png"
+      },
+      {
+        "uniqueName": "/Lotus/Powersuits/PowersuitAbilities/PriestPactAbility",
+        "name": "Covenant",
+        "description": "Protect nearby allies with an energy force that absorbs all damage and converts it to a Critical Chance bonus for all those under the Covenant. Headshots are amplified even further.",
+        "imageName": "covenant-2de0402714.png"
+      }
+    ],
+    "sex": "Male",
+    "progenitor": "Magnetic",
+    "isPrime": true
+  },
+  {
     "name": "Hildryn",
     "category": "Warframes",
     "type": "Warframe",
@@ -1287,6 +1404,45 @@
     "sex": "Female",
     "progenitor": "Cold",
     "isPrime": false
+  },
+  {
+    "name": "Hildryn Prime",
+    "category": "Warframes",
+    "type": "Warframe",
+    "health": 270,
+    "shield": 1380,
+    "armor": 315,
+    "releaseDate": "2023-03-15",
+    "imageName": "hildryn-prime-20937cebe2.png",
+    "abilities": [
+      {
+        "uniqueName": "/Lotus/Powersuits/PowersuitAbilities/IronFrameBlastAbility",
+        "name": "Balefire",
+        "description": "Charge and launch devastating bolts of fire.",
+        "imageName": "balefire-2fcf75b9a7.png"
+      },
+      {
+        "uniqueName": "/Lotus/Powersuits/PowersuitAbilities/IronFrameStripAbility",
+        "name": "Pillage",
+        "description": "Pillage a percentage of Shields and Armor of nearby enemies to replenish Hildryn's own Shields and Overshields. Also removes Status Effects from Hildryn and her allies.",
+        "imageName": "pillage-ece2ad8fc9.png"
+      },
+      {
+        "uniqueName": "/Lotus/Powersuits/PowersuitAbilities/IronFrameAuraAbility",
+        "name": "Haven",
+        "description": "Create a shield aura around allies. Enemies that approach shielded allies will take damage. ",
+        "imageName": "haven-25f87d273d.png"
+      },
+      {
+        "uniqueName": "/Lotus/Powersuits/PowersuitAbilities/IronFrameEruptionAbility",
+        "name": "Aegis Storm",
+        "description": "Take the skies and rain Balefire rockets down on the enemy. Nearby enemies are blasted into the air where they will create an Energy Orb every few seconds. When shields run out the enemies are smashed into the ground.",
+        "imageName": "aegis-storm-0827c65a8c.png"
+      }
+    ],
+    "sex": "Female",
+    "progenitor": "Cold",
+    "isPrime": true
   },
   {
     "name": "Hydroid",
@@ -2810,6 +2966,45 @@
     "isPrime": true
   },
   {
+    "name": "Qorvex",
+    "category": "Warframes",
+    "type": "Warframe",
+    "health": 600,
+    "shield": 200,
+    "armor": 875,
+    "releaseDate": "2023-12-13",
+    "imageName": "qorvex-ec9d170e8b.png",
+    "abilities": [
+      {
+        "uniqueName": "/Lotus/Powersuits/PowersuitAbilities/ConcretePillarAbility",
+        "name": "Chyrinka Pillar",
+        "description": "Summon a Chyrinka Pillar that slows enemies. It pulses <DT_RADIATION_COLOR>Radiation Damage with a guaranteed Status Effect.",
+        "imageName": "chyrinka-pillar-00bd85d41e.png"
+      },
+      {
+        "uniqueName": "/Lotus/Powersuits/PowersuitAbilities/ConcreteWallAbility",
+        "name": "Containment Wall",
+        "description": "Contain the threat. Qorvex summons walls that slam together, damaging all enemies caught between them and inflicting <DT_RADIATION_COLOR>Radiation Status.",
+        "imageName": "containment-wall-b3d591ff12.png"
+      },
+      {
+        "uniqueName": "/Lotus/Powersuits/PowersuitAbilities/ConcreteAuraAbility",
+        "name": "Disometric Guard",
+        "description": "Guard yourself and nearby allies against Status Effects. Each time Qorvex kills or assists in killing an enemy affected by <DT_RADIATION_COLOR>Radiation Status, the number of Status Effects Disometric Guard can prevent increases.",
+        "imageName": "disometric-guard-1997b02e24.png"
+      },
+      {
+        "uniqueName": "/Lotus/Powersuits/PowersuitAbilities/ConcreteLaserAbility",
+        "name": "Crucible Blast",
+        "description": "Release a beam from Qorvex's Crucible Core. Each enemy struck suffers <DT_RADIATION_COLOR>Radiation Damage with a guaranteed Status Effect. Enemies affected by <DT_RADIATION_COLOR>Radiation Status explode in a chain reaction.",
+        "imageName": "crucible-blast-79289c55ab.png"
+      }
+    ],
+    "sex": "Male",
+    "progenitor": "Radiation",
+    "isPrime": false
+  },
+  {
     "name": "Revenant",
     "category": "Warframes",
     "type": "Warframe",
@@ -3588,6 +3783,45 @@
     "sex": "Male",
     "progenitor": "Electricity",
     "isPrime": true
+  },
+  {
+    "name": "Voruna",
+    "category": "Warframes",
+    "type": "Warframe",
+    "health": 455,
+    "shield": 270,
+    "armor": 200,
+    "releaseDate": "2022-11-30",
+    "imageName": "voruna-83e8799edc.png",
+    "abilities": [
+      {
+        "uniqueName": "/Lotus/Powersuits/PowersuitAbilities/WerewolfShroudAbility",
+        "name": "Shroud Of Dynar",
+        "description": "(TAP) Dynar shrouds Voruna with invisibility and accelerates her speed. Invisibility ends when Voruna attacks. For a short time after invisibility ends, melee attacks have increased Critical Damage, Status Chance, Critical Chance and inflict <DT_SLASH_COLOR>Slash Status Effects. Melee kill an enemy during this time to extend the melee buff once per cast.\n\n(HOLD) Dynar guards Voruna, increasing her Parkour Velocity.",
+        "imageName": "shroud-of-dynar-e6e9f63f40.png"
+      },
+      {
+        "uniqueName": "/Lotus/Powersuits/PowersuitAbilities/WerewolfBiteAbility",
+        "name": "Fangs Of Raksh",
+        "description": "(TAP) Raksh's fangs tear into your enemies. 5 random Status Effects are applied at 10 Stacks each on an enemy. On target's death, spread the Status Effects to other nearby enemies.\n\n(HOLD) Raksh guards Voruna with Status Effect resistance.",
+        "imageName": "fangs-of-raksh-8f4c289f23.png"
+      },
+      {
+        "uniqueName": "/Lotus/Powersuits/PowersuitAbilities/WerewolfLeapAbility",
+        "name": "Lycath's Hunt",
+        "description": "(TAP) Lycath hunts to sustain the pack. Enemies killed by melee attacks drop health orbs and enemies killed by headshots drop energy orbs. Increase the duration of Lycath’s hunt by killing enemies affected by 5 or more Status Effects.\n\n(HOLD) Lycath guards Voruna with increased Heavy Attack efficiency.",
+        "imageName": "lycath's-hunt-4a18ffe049.png"
+      },
+      {
+        "uniqueName": "/Lotus/Powersuits/PowersuitAbilities/WerewolfHowlAbility",
+        "name": "Ulfrun's Descent",
+        "description": "(TAP) Voruna drops to all fours and prepares 5 brutal charges that lock onto enemies. Ulfrun, the most powerful wolf, leads the attack as Voruna dashes toward her target. The pack deals increased damage to targets and nearby enemies that are inflicted by Status Effects. Lethal attacks double the damage of Voruna's remaining charges.\n\n(HOLD) Ulfrun guards Voruna. If Voruna falls during this time, Ulfrun dies in her place.",
+        "imageName": "ulfrun's-descent-27adc96171.png"
+      }
+    ],
+    "sex": "Female",
+    "progenitor": "Radiation",
+    "isPrime": false
   },
   {
     "name": "Wisp",

@@ -19,6 +19,30 @@ export default defineTask({
         item.sex = "Non-binary"; // Temple's sex is missing from the API for some reason
         item.releaseDate = "2025-03-19"; // The release date is also missing
       }
+      if (item.name === "Voruna") {
+        item.sex = "Female";
+        item.releaseDate = "2022-11-30";
+      }
+      if (item.name === "Dante") {
+        item.sex = "Male";
+        item.releaseDate = "2024-03-27";
+      }
+      if (item.name === "Dagath") {
+        item.sex = "Female";
+        item.releaseDate = "2023-10-18";
+      }
+      if (item.name === "Harrow Prime") {
+        item.sex = "Male";
+        item.releaseDate = "2021-12-15";
+      }
+      if (item.name === "Hildryn Prime") {
+        item.sex = "Female";
+        item.releaseDate = "2023-03-15";
+      }
+      if (item.name === "Qorvex") {
+        item.sex = "Male";
+        item.releaseDate = "2023-12-13";
+      }
       const result = warframeSchema.safeParse(item);
       if (result.success) {
         if (result.data.sex.includes("(Pluriform)"))

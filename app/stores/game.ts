@@ -3,6 +3,7 @@ import type {
   Ability as OriginalAbility,
   Warframe,
 } from "#shared/schemas/warframe";
+import { warframes } from "#shared/data/warframes";
 
 type Ability = OriginalAbility & { belongsTo: string };
 
@@ -16,7 +17,6 @@ type itemToGuess = {
 export const useGameStore = defineStore(
   "game",
   () => {
-    const warframes = shallowRef<Warframe[]>([]);
     const itemToGuess = ref<itemToGuess>({
       classic: null,
       classicUnlimited: null,
@@ -53,11 +53,9 @@ export const useGameStore = defineStore(
 
     //TODO: both init functions could be the same function and just pass the mode as an argument
     function classicInit() {
-      if (warframes.value.length === 0)
-        throw createError("Warframes not loaded");
       if (route.query.x) {
         const decoded = decode(route.query.x as string);
-        const decodedWarframe = warframes.value.find(
+        const decodedWarframe = warframes.find(
           (warframe) => warframe.name === decoded,
         ) as Warframe;
         if (itemToGuess.value.classicUnlimited?.name !== decodedWarframe.name) {
@@ -67,8 +65,8 @@ export const useGameStore = defineStore(
         }
       }
       if (!itemToGuess.value.classicUnlimited) {
-        itemToGuess.value.classicUnlimited = warframes.value[
-          Math.floor(Math.random() * warframes.value.length)
+        itemToGuess.value.classicUnlimited = warframes[
+          Math.floor(Math.random() * warframes.length)
         ] as Warframe;
       }
     }
@@ -95,19 +93,6 @@ export const useGameStore = defineStore(
       }
     }
 
-    async function fetchWarframes() {
-      try {
-        const { warframes: data } = await $fetch("/api/warframes");
-        warframes.value = data;
-      } catch (error) {
-        throw createError({
-          statusCode: 500,
-          statusMessage: "Failed to fetch warframes",
-          data: error,
-        });
-      }
-    }
-
     function resetDailyValues() {
       guessedItems.value.classic = [];
       guessedItems.value.ability = [];
@@ -129,7 +114,7 @@ export const useGameStore = defineStore(
         const { daily: data } = await $fetch(
           `/api/daily?date=${dailyDate.value}`,
         );
-        itemToGuess.value.classic = warframes.value.find(
+        itemToGuess.value.classic = warframes.find(
           (warframe) => warframe.name === data.classicId,
         ) as Warframe;
         itemToGuess.value.ability = abilities.value.find(
@@ -157,8 +142,8 @@ export const useGameStore = defineStore(
 
       if (mode.value === "classicUnlimited") {
         router.replace({ query: { mode: "unlimited", x: undefined } });
-        itemToGuess.value.classicUnlimited = warframes.value[
-          Math.floor(Math.random() * warframes.value.length)
+        itemToGuess.value.classicUnlimited = warframes[
+          Math.floor(Math.random() * warframes.length)
         ] as Warframe;
       }
       if (mode.value === "abilityUnlimited") {
@@ -170,7 +155,7 @@ export const useGameStore = defineStore(
     }
 
     const abilities = computed(() =>
-      warframes.value
+      warframes
         .filter(
           (warframe) =>
             !warframe.isPrime && warframe.name !== "Excalibur Umbra",
@@ -185,7 +170,7 @@ export const useGameStore = defineStore(
     );
 
     const vanillaWarframes = computed(() =>
-      warframes.value.filter(
+      warframes.filter(
         (warframe) => !warframe.isPrime && warframe.name !== "Excalibur Umbra",
       ),
     );
@@ -201,7 +186,6 @@ export const useGameStore = defineStore(
       currentDailyDate,
       currentDay,
       vanillaWarframes,
-      fetchWarframes,
       classicInit,
       abilityInit,
       getDaily,

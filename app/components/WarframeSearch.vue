@@ -24,11 +24,20 @@
       </template>
       <template #item="{ item }">
         <div class="flex w-full items-center justify-between gap-2">
-          <p class="font-semibold uppercase">{{ item.name }}</p>
+          <p class="font-semibold uppercase">
+            {{
+              //@ts-ignore
+              item.name
+            }}
+          </p>
           <NuxtImg
             format="webp"
-            :src="`https://cdn.warframestat.us/img/${item.imageName}`"
-            :alt="item.name"
+            :src="//@ts-ignore
+            `https://cdn.warframestat.us/img/${item.imageName}`"
+            :alt="
+              //@ts-ignore
+              item.name
+            "
             placeholder
             height="64"
             class="h-16"
@@ -56,6 +65,8 @@ import type { Warframe } from "#shared/schemas/warframe";
 const props = defineProps<{
   items: Warframe[];
 }>();
+
+//TODO: I need to find out how to override the type of the items accepted by the UInputMenu
 
 const { attempts, guessedItems } = storeToRefs(useGameStore());
 

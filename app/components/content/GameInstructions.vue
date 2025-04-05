@@ -106,12 +106,10 @@ import { startOfTomorrow } from "date-fns";
 
 const { t } = useI18n();
 
-const { defaultAttempts } = useGameStore();
+const { defaultAttempts, warframes } = useGameStore();
 
-const { warframes } = storeToRefs(useGameStore());
-
-const Inaros = warframes.value.find((warframe) => warframe.name === "Inaros");
-const Nezha = warframes.value.find((warframe) => warframe.name === "Nezha");
+const Inaros = warframes.find((warframe) => warframe.name === "Inaros");
+const Nezha = warframes.find((warframe) => warframe.name === "Nezha");
 
 const { $colorblindMode } = useNuxtApp();
 

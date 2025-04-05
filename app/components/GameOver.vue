@@ -94,9 +94,8 @@
 import { startOfTomorrow } from "date-fns";
 import party from "party-js";
 
-const { itemToGuess, guessedItems, attempts, warframes } =
-  storeToRefs(useGameStore());
-const { resetGame, defaultAttempts } = useGameStore();
+const { itemToGuess, guessedItems, attempts } = storeToRefs(useGameStore());
+const { resetGame, defaultAttempts, warframes } = useGameStore();
 
 const mode = useGameMode();
 
@@ -123,7 +122,7 @@ const correctWarframe = computed(() => {
   const gameMode = mode.value as keyof typeof itemToGuess.value;
   if (!gameMode) throw createError("Mode is not set");
   if (gameMode === "ability" || gameMode === "abilityUnlimited") {
-    return warframes.value.find(
+    return warframes.find(
       (warframe) => warframe.name === itemToGuess.value[gameMode]?.belongsTo,
     );
   }

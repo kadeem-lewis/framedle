@@ -12,12 +12,12 @@
         </template>
         <AbilityImageToGuess />
         <template #footer>
-          <WarframeSearch v-if="!isGameOver[mode]" :items="vanillaWarframes" />
+          <WarframeSearch v-if="!isGameOver" :items="vanillaWarframes" />
         </template>
       </UCard>
 
-      <AbilityFeedbackArea v-if="!isGameOver[mode]" />
-      <GameOver v-if="isGameOver[mode]" />
+      <AbilityFeedbackArea v-if="!isGameOver" />
+      <GameOver v-if="isGameOver" />
     </div>
     <ModeUnavailable v-else />
   </div>
@@ -39,7 +39,7 @@ const { t } = useI18n();
 const { itemToGuess, vanillaWarframes } = storeToRefs(useGameStore());
 const { abilityInit } = useGameStore();
 const mode = useGameMode();
-const { isGameOver } = useGameState();
+const { isGameOver } = storeToRefs(useGameStateStore());
 const { resetStreak } = useStatsStore();
 
 await callOnce("ability-setup", abilityInit);

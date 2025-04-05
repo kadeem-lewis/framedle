@@ -89,6 +89,9 @@ export default defineNuxtConfig({
     defaultLocale: "en",
     lazy: true,
     baseUrl: "https://framedle.com",
+    bundle: {
+      optimizeTranslationDirective: false,
+    },
   },
   icon: {
     provider: "server",
@@ -100,14 +103,18 @@ export default defineNuxtConfig({
     ],
   },
   fonts: {
+    defaults: {
+      weights: ["400", "500", "600", "700"],
+      subsets: ["latin", "latin-ext"],
+    },
     families: [
       {
         name: "Noto Sans",
-        provider: "bunny",
+        provider: "fontsource",
       },
       {
         name: "Roboto",
-        provider: "bunny",
+        provider: "fontsource",
       },
     ],
   },

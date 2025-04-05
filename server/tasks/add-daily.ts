@@ -1,4 +1,5 @@
 import { format, startOfTomorrow } from "date-fns";
+import { warframes } from "#shared/data/warframes";
 import { desc } from "drizzle-orm";
 
 export default defineTask({
@@ -7,8 +8,6 @@ export default defineTask({
     description: "Add a new daily entry",
   },
   async run() {
-    const { warframes } = await $fetch("/api/warframes");
-
     const classic = warframes[Math.floor(Math.random() * warframes.length)];
 
     const abilities = warframes

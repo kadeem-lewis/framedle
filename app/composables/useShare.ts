@@ -21,8 +21,8 @@ export function useShare() {
     storeToRefs(useGameStore());
   const { defaultAttempts } = useGameStore();
 
-  const { hasWon } = useGameState();
   const mode = useGameMode();
+  const { hasWon } = storeToRefs(useGameStateStore());
 
   const { encode } = useEncoder();
 

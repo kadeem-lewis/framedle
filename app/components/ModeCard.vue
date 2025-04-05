@@ -12,6 +12,8 @@
         format="webp"
         :src="tab.source"
         :alt="tab.label"
+        height="48"
+        width="48"
         preload
         class="h-12 group-hover:scale-110"
       />

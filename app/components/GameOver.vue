@@ -91,12 +91,11 @@
 </template>
 
 <script setup lang="ts">
-import { format, startOfTomorrow } from "date-fns";
+import { startOfTomorrow } from "date-fns";
 import party from "party-js";
 
-const { itemToGuess, guessedItems, attempts, warframes } =
-  storeToRefs(useGameStore());
-const { resetGame, defaultAttempts } = useGameStore();
+const { itemToGuess, guessedItems, attempts } = storeToRefs(useGameStore());
+const { resetGame, defaultAttempts, warframes } = useGameStore();
 
 const mode = useGameMode();
 
@@ -123,7 +122,7 @@ const correctWarframe = computed(() => {
   const gameMode = mode.value as keyof typeof itemToGuess.value;
   if (!gameMode) throw createError("Mode is not set");
   if (gameMode === "ability" || gameMode === "abilityUnlimited") {
-    return warframes.value.find(
+    return warframes.find(
       (warframe) => warframe.name === itemToGuess.value[gameMode]?.belongsTo,
     );
   }
@@ -132,7 +131,8 @@ const correctWarframe = computed(() => {
 
 const showGuesses = ref(false);
 
-const { hasWon } = useGameState();
+const { hasWon, isGameOver, currentGameState } =
+  storeToRefs(useGameStateStore());
 
 const answer = computed(() => {
   if (!mode.value) throw createError("Mode is not set");
@@ -151,10 +151,8 @@ function handleStatsClick() {
 
 const gameOverCard = useTemplateRef("gameOverCard");
 
-const { isGameOver } = useGameState();
-
 watchEffect(() => {
-  if (mode.value && isGameOver.value[mode.value]) {
+  if (mode.value && isGameOver.value) {
     gameOverCard.value?.scrollIntoView({ behavior: "smooth" });
   }
 });
@@ -162,34 +160,14 @@ watchEffect(() => {
 const { updateStatsOnGameOver } = useStatsStore();
 const { proxy } = useScriptUmamiAnalytics();
 watchEffect(() => {
-  if (mode.value && isGameOver.value[mode.value]) {
+  if (mode.value && currentGameState.value === GameStatus.WON) {
     updateStatsOnGameOver();
-  }
-});
-
-const route = useRoute();
-const { stats } = storeToRefs(useStatsStore());
-watch(isGameOver, (newValue, oldValue) => {
-  if (
-    mode.value &&
-    newValue[mode.value] !== oldValue[mode.value] &&
-    newValue[mode.value]
-  ) {
-    const currentMode = mode.value as keyof typeof stats.value;
-    const today = format(new Date(), "yyyy-MM-dd");
-    if (!route.query.mode && stats.value[currentMode].lastPlayedDate === today)
-      return;
     proxy.track("completed game", { mode: mode.value });
   }
 });
 
 watchEffect(() => {
-  if (
-    mode.value &&
-    isGameOver.value[mode.value] &&
-    gameOverCard.value &&
-    hasWon.value
-  ) {
+  if (currentGameState.value === GameStatus.WON && gameOverCard.value) {
     party.confetti(gameOverCard.value);
   }
 });

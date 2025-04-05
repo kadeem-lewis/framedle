@@ -17,6 +17,7 @@
 </template>
 
 <script setup lang="ts">
+import { useStorage } from "@vueuse/core";
 const { openDialog } = useDialog();
 
 const route = useRoute();
@@ -58,4 +59,17 @@ const items = [
     },
   },
 ];
+
+const firstTimePlaying = useStorage("firstTimePlaying", {
+  classic: true,
+  ability: true,
+});
+
+watchEffect(() => {
+  const currentRoute = route.name as "ability" | "classic";
+  if (firstTimePlaying.value[currentRoute]) {
+    openDialog(dialogOptions.INSTRUCTIONS);
+    firstTimePlaying.value[currentRoute] = false;
+  }
+});
 </script>

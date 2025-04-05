@@ -20,6 +20,7 @@
           <UiFeedbackTile
             field-label="Warframe"
             :field-value="correctWarframe?.name"
+            tooltip-disabled
           >
             <NuxtImg
               :src="`https://cdn.warframestat.us/img/${correctWarframe?.imageName}`"
@@ -160,7 +161,11 @@ watchEffect(() => {
 const { updateStatsOnGameOver } = useStatsStore();
 const { proxy } = useScriptUmamiAnalytics();
 watchEffect(() => {
-  if (mode.value && currentGameState.value === GameStatus.WON) {
+  if (
+    mode.value &&
+    (currentGameState.value === GameStatus.WON ||
+      currentGameState.value === GameStatus.LOST)
+  ) {
     updateStatsOnGameOver();
     proxy.track("completed game", { mode: mode.value });
   }

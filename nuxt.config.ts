@@ -148,14 +148,24 @@ export default defineNuxtConfig({
     registerType: "autoUpdate",
     strategies: "generateSW",
     manifest: {
-      name: "Framedle",
+      name: "Framedle: Warframe Guessing Game",
       short_name: "Framedle",
+      id: "https://framedle.com/",
       description: "Daily guessing games for Warframe.",
       display: "standalone",
       prefer_related_applications: false,
       start_url: "/",
+      launch_handler: {
+        client_mode: ["navigate-existing", "auto"],
+      },
+      orientation: "portrait",
       icons: [
-        { src: "pwa-192x192.png", sizes: "192x192", type: "image/png" },
+        {
+          src: "pwa-192x192.png",
+          sizes: "192x192",
+          type: "image/png",
+          purpose: "any",
+        },
         { src: "pwa-512x512.png", sizes: "512x512", type: "image/png" },
         { src: "pwa-64x64.png", sizes: "64x64", type: "image/png" },
         {

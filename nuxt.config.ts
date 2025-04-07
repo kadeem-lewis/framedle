@@ -35,6 +35,17 @@ export default defineNuxtConfig({
     "/classic": { ssr: false },
     "/ability": { ssr: false },
   },
+  app: {
+    head: {
+      link: [
+        {
+          rel: "icon",
+          type: "image/x-icon",
+          href: "/favicon.ico",
+        },
+      ],
+    },
+  },
   css: ["~/assets/css/main.css"],
   ui: {
     theme: {

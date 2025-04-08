@@ -70,7 +70,15 @@
         >
         and leave a message in the framedle feedback channel
       </li>
-      <li>send me an email at support@framedle.com</li>
+      <li>
+        send me an email at
+        <ULink
+          href="mailto:support@framedle.com"
+          external
+          class="text-(--ui-primary) underline"
+          >support@framedle.com</ULink
+        >
+      </li>
     </ul>
   </div>
 </template>

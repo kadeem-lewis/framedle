@@ -1,4 +1,9 @@
-Guess different Warframes using the clues provided. Resets every day at midnight.
+<h3 align="center">
+  <img src="media/og.png" alt="site og image"/><br>
+  <br/>
+  Guess different Warframes using the clues provided. Resets every day at midnight.
+  <br/>
+</h3>
 
 ## Showcase
 

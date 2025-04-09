@@ -153,8 +153,9 @@ function handleStatsClick() {
 const gameOverCard = useTemplateRef("gameOverCard");
 
 watchEffect(() => {
-  if (mode.value && isGameOver.value) {
-    gameOverCard.value?.scrollIntoView({ behavior: "smooth" });
+  if (mode.value && isGameOver.value && gameOverCard.value) {
+    gameOverCard.value.scrollIntoView({ behavior: "smooth", block: "center" });
+    gameOverCard.value.focus();
   }
 });
 

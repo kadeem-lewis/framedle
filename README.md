@@ -37,8 +37,6 @@
 
 ## Features
 
-This project was built using [`Nuxt`](https://nuxt.com) and [`tailwindcss`](https://tailwindcss.com/).
-
 Major features include:
 
 - Multiple game modes
@@ -57,5 +55,3 @@ Major features include:
 If you like this project you can support me by buying me a coffee.
 
 [![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/O4O318W12)
-
-## License

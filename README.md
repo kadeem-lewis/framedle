@@ -5,10 +5,13 @@
   <br/>
 </h3>
 <br/>
-<a align="center" href="https://framedle.com">
+<p align="center">
+<a href="https://framedle.com">
 <img alt="website" src="https://img.shields.io/badge/website-20B2AA?style=for-the-badge"/>
 </a>
+</p>
 <br/>
+
 ## Showcase
 
 | ![Showcase 1 (showing screenshot of classic mode)](media/showcase1.png) | ![Showcase 2 (showing screenshot of ability mode)](media/showcase2.png) |

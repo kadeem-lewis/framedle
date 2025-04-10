@@ -1,3 +1,90 @@
+<script setup lang="ts">
+import { startOfTomorrow } from "date-fns";
+import party from "party-js";
+
+const { itemToGuess, guessedItems, attempts } = storeToRefs(useGameStore());
+const { resetGame, defaultAttempts, warframes } = useGameStore();
+
+const mode = useGameMode();
+
+const img = useImage();
+
+const tabs = [
+  {
+    label: "Classic",
+    route: "/classic",
+    source: "/warframe.png",
+    background: img("/backgrounds/fortuna.jpg", { format: "webp" }),
+    description: "Guess the Warframe",
+  },
+  {
+    label: "Ability",
+    route: "/ability",
+    source: "/PassiveAbilityIcon.png",
+    background: img("/backgrounds/helminth.jpg", { format: "webp" }),
+    description: "Guess the Ability",
+  },
+];
+
+const correctWarframe = computed(() => {
+  const gameMode = mode.value as keyof typeof itemToGuess.value;
+  if (!gameMode) throw createError("Mode is not set");
+  if (gameMode === "ability" || gameMode === "abilityUnlimited") {
+    return warframes.find(
+      (warframe) => warframe.name === itemToGuess.value[gameMode]?.belongsTo,
+    );
+  }
+  return itemToGuess.value[gameMode];
+});
+
+const showGuesses = ref(false);
+
+const { hasWon, isGameOver, currentGameState } =
+  storeToRefs(useGameStateStore());
+
+const answer = computed(() => {
+  if (!mode.value) throw createError("Mode is not set");
+  if (mode.value === "ability" || mode.value === "abilityUnlimited") {
+    return itemToGuess.value[mode.value]?.belongsTo;
+  } else {
+    return itemToGuess.value[mode.value]?.name;
+  }
+});
+
+const { openDialog } = useDialog();
+
+function handleStatsClick() {
+  openDialog(dialogOptions.STATS);
+}
+
+const gameOverCard = useTemplateRef("gameOverCard");
+
+watchEffect(() => {
+  if (mode.value && isGameOver.value && gameOverCard.value) {
+    gameOverCard.value.scrollIntoView({ behavior: "smooth", block: "center" });
+    gameOverCard.value.focus();
+  }
+});
+
+const { updateStatsOnGameOver } = useStatsStore();
+const { proxy } = useScriptUmamiAnalytics();
+watchEffect(() => {
+  if (
+    mode.value &&
+    (currentGameState.value === GameStatus.WON ||
+      currentGameState.value === GameStatus.LOST)
+  ) {
+    updateStatsOnGameOver();
+    proxy.track("completed game", { mode: mode.value });
+  }
+});
+
+watchEffect(() => {
+  if (currentGameState.value === GameStatus.WON && gameOverCard.value) {
+    party.confetti(gameOverCard.value);
+  }
+});
+</script>
 <template>
   <div ref="gameOverCard">
     <UCard
@@ -90,90 +177,3 @@
     </UCard>
   </div>
 </template>
-
-<script setup lang="ts">
-import { startOfTomorrow } from "date-fns";
-import party from "party-js";
-
-const { itemToGuess, guessedItems, attempts } = storeToRefs(useGameStore());
-const { resetGame, defaultAttempts, warframes } = useGameStore();
-
-const mode = useGameMode();
-
-const img = useImage();
-
-const tabs = [
-  {
-    label: "Classic",
-    route: "/classic",
-    source: "/warframe.png",
-    background: img("/backgrounds/fortuna.jpg", { format: "webp" }),
-    description: "Guess the Warframe",
-  },
-  {
-    label: "Ability",
-    route: "/ability",
-    source: "/PassiveAbilityIcon.png",
-    background: img("/backgrounds/helminth.jpg", { format: "webp" }),
-    description: "Guess the Ability",
-  },
-];
-
-const correctWarframe = computed(() => {
-  const gameMode = mode.value as keyof typeof itemToGuess.value;
-  if (!gameMode) throw createError("Mode is not set");
-  if (gameMode === "ability" || gameMode === "abilityUnlimited") {
-    return warframes.find(
-      (warframe) => warframe.name === itemToGuess.value[gameMode]?.belongsTo,
-    );
-  }
-  return itemToGuess.value[gameMode];
-});
-
-const showGuesses = ref(false);
-
-const { hasWon, isGameOver, currentGameState } =
-  storeToRefs(useGameStateStore());
-
-const answer = computed(() => {
-  if (!mode.value) throw createError("Mode is not set");
-  if (mode.value === "ability" || mode.value === "abilityUnlimited") {
-    return itemToGuess.value[mode.value]?.belongsTo;
-  } else {
-    return itemToGuess.value[mode.value]?.name;
-  }
-});
-
-const { openDialog } = useDialog();
-
-function handleStatsClick() {
-  openDialog(dialogOptions.STATS);
-}
-
-const gameOverCard = useTemplateRef("gameOverCard");
-
-watchEffect(() => {
-  if (mode.value && isGameOver.value) {
-    gameOverCard.value?.scrollIntoView({ behavior: "smooth" });
-  }
-});
-
-const { updateStatsOnGameOver } = useStatsStore();
-const { proxy } = useScriptUmamiAnalytics();
-watchEffect(() => {
-  if (
-    mode.value &&
-    (currentGameState.value === GameStatus.WON ||
-      currentGameState.value === GameStatus.LOST)
-  ) {
-    updateStatsOnGameOver();
-    proxy.track("completed game", { mode: mode.value });
-  }
-});
-
-watchEffect(() => {
-  if (currentGameState.value === GameStatus.WON && gameOverCard.value) {
-    party.confetti(gameOverCard.value);
-  }
-});
-</script>

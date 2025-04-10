@@ -1,64 +1,3 @@
-<template>
-  <div class="space-y-4">
-    <div class="grid grid-cols-6 gap-4">
-      <UiStatsCard label="Played" :value="modeStats.plays" class="col-span-2" />
-      <UiStatsCard label="Wins" :value="modeStats.wins" class="col-span-2" />
-      <UiStatsCard label="Win %" :value="winPercentage" class="col-span-2" />
-      <UiStatsCard
-        label="Current Streak"
-        :value="modeStats.streak"
-        class="col-span-3"
-      />
-      <UiStatsCard
-        label="Longest Streak"
-        :value="modeStats.maxStreak"
-        class="col-span-3"
-      />
-    </div>
-    <div class="space-y-4">
-      <p class="font-semibold uppercase">Guess Distribution</p>
-      <apexchart type="bar" :options="chartOptions" :series="series" />
-    </div>
-    <div class="flex justify-center gap-4">
-      <UButton
-        variant="outline"
-        size="lg"
-        class="uppercase"
-        @click="handleStatsShare"
-      >
-        <span v-if="!copied" class="flex items-center gap-1">
-          <UIcon name="i-heroicons-share-solid" class="size-5" />
-          Share
-        </span>
-        <span v-else>Copied</span>
-      </UButton>
-      <UPopover
-        v-model:open="isOpen"
-        :content="{ side: 'top' }"
-        arrow
-        class="rounded-none"
-      >
-        <UButton variant="outline" size="lg" class="uppercase">Reset</UButton>
-        <template #content>
-          <div class="flex flex-col gap-1 px-3 py-2">
-            <p class="font-semibold">
-              Are you sure you want to clear your stats?
-            </p>
-            <div class="flex justify-end gap-2">
-              <UButton class="uppercase" @click="isOpen = false"
-                >Cancel</UButton
-              >
-              <UButton color="error" class="uppercase" @click="resetStats"
-                >Delete</UButton
-              >
-            </div>
-          </div>
-        </template>
-      </UPopover>
-    </div>
-  </div>
-</template>
-
 <script setup lang="ts">
 import type { ApexOptions } from "apexcharts";
 
@@ -143,3 +82,63 @@ const isOpen = ref(false);
 const { handleStatsShare, copied } = useShare();
 const { resetStats } = useStatsStore();
 </script>
+<template>
+  <div class="space-y-4">
+    <div class="grid grid-cols-6 gap-4">
+      <UiStatsCard label="Played" :value="modeStats.plays" class="col-span-2" />
+      <UiStatsCard label="Wins" :value="modeStats.wins" class="col-span-2" />
+      <UiStatsCard label="Win %" :value="winPercentage" class="col-span-2" />
+      <UiStatsCard
+        label="Current Streak"
+        :value="modeStats.streak"
+        class="col-span-3"
+      />
+      <UiStatsCard
+        label="Longest Streak"
+        :value="modeStats.maxStreak"
+        class="col-span-3"
+      />
+    </div>
+    <div class="space-y-4">
+      <p class="font-semibold uppercase">Guess Distribution</p>
+      <apexchart type="bar" :options="chartOptions" :series="series" />
+    </div>
+    <div class="flex justify-center gap-4">
+      <UButton
+        variant="outline"
+        size="lg"
+        class="uppercase"
+        @click="handleStatsShare"
+      >
+        <span v-if="!copied" class="flex items-center gap-1">
+          <UIcon name="i-heroicons-share-solid" class="size-5" />
+          Share
+        </span>
+        <span v-else>Copied</span>
+      </UButton>
+      <UPopover
+        v-model:open="isOpen"
+        :content="{ side: 'top' }"
+        arrow
+        class="rounded-none"
+      >
+        <UButton variant="outline" size="lg" class="uppercase">Reset</UButton>
+        <template #content>
+          <div class="flex flex-col gap-1 px-3 py-2">
+            <p class="font-semibold">
+              Are you sure you want to clear your stats?
+            </p>
+            <div class="flex justify-end gap-2">
+              <UButton class="uppercase" @click="isOpen = false"
+                >Cancel</UButton
+              >
+              <UButton color="error" class="uppercase" @click="resetStats"
+                >Delete</UButton
+              >
+            </div>
+          </div>
+        </template>
+      </UPopover>
+    </div>
+  </div>
+</template>

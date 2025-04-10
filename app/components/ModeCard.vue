@@ -1,3 +1,14 @@
+<script setup lang="ts">
+const { tab } = defineProps<{
+  tab: {
+    label: string;
+    route: string;
+    source: string;
+    background: string;
+    description: string;
+  };
+}>();
+</script>
 <template>
   <UCard
     class="group hover:bg-opacity-100 relative cursor-pointer border border-(--ui-primary) uppercase transition-all"
@@ -26,15 +37,3 @@
     </div>
   </UCard>
 </template>
-
-<script setup lang="ts">
-const { tab } = defineProps<{
-  tab: {
-    label: string;
-    route: string;
-    source: string;
-    background: string;
-    description: string;
-  };
-}>();
-</script>

@@ -1,3 +1,33 @@
+<script setup lang="ts">
+const colorMode = useColorMode();
+
+const items = [
+  {
+    name: "light",
+    value: "light",
+    icon: "i-heroicons-sun-solid",
+    onSelect: () => {
+      colorMode.preference = "light";
+    },
+  },
+  {
+    name: "dark",
+    value: "dark",
+    icon: "i-heroicons-moon-solid",
+    onSelect: () => {
+      colorMode.preference = "dark";
+    },
+  },
+  {
+    name: "system",
+    value: "system",
+    icon: "i-heroicons-computer-desktop",
+    onSelect: () => {
+      colorMode.preference = "system";
+    },
+  },
+];
+</script>
 <template>
   <UDropdownMenu
     :items="items"
@@ -29,34 +59,3 @@
     </template>
   </UDropdownMenu>
 </template>
-
-<script setup lang="ts">
-const colorMode = useColorMode();
-
-const items = [
-  {
-    name: "light",
-    value: "light",
-    icon: "i-heroicons-sun-solid",
-    onSelect: () => {
-      colorMode.preference = "light";
-    },
-  },
-  {
-    name: "dark",
-    value: "dark",
-    icon: "i-heroicons-moon-solid",
-    onSelect: () => {
-      colorMode.preference = "dark";
-    },
-  },
-  {
-    name: "system",
-    value: "system",
-    icon: "i-heroicons-computer-desktop",
-    onSelect: () => {
-      colorMode.preference = "system";
-    },
-  },
-];
-</script>

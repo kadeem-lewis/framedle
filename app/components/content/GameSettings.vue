@@ -1,3 +1,40 @@
+<script setup lang="ts">
+//colorblind mode
+const { $colorblindMode } = useNuxtApp();
+
+// theme toggle
+const items = [
+  {
+    label: "light",
+    value: "light",
+    icon: "i-heroicons-sun-solid",
+  },
+  {
+    label: "dark",
+    value: "dark",
+    icon: "i-heroicons-moon-solid",
+  },
+  {
+    label: "system",
+    value: "system",
+    icon: "i-heroicons-computer-desktop",
+  },
+];
+
+// localizations
+const { locale, locales, setLocale } = useI18n();
+const selectedLocale = ref(locale.value);
+
+watch(selectedLocale, (newValue) => {
+  setLocale(newValue);
+});
+
+watchEffect(() => {
+  console.log(locales.value);
+});
+
+//data transfer
+</script>
 <template>
   <div class="flex items-center justify-between py-2">
     <p class="text-lg font-medium">Colorblind Mode</p>

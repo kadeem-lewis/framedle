@@ -1,3 +1,9 @@
+<script setup lang="ts">
+const { attempts } = storeToRefs(useGameStore());
+const { defaultAttempts } = useGameStore();
+
+const mode = useGameMode();
+</script>
 <template>
   <div v-if="mode">
     <div class="flex justify-end gap-1">
@@ -16,10 +22,3 @@
     </div>
   </div>
 </template>
-
-<script setup lang="ts">
-const { attempts } = storeToRefs(useGameStore());
-const { defaultAttempts } = useGameStore();
-
-const mode = useGameMode();
-</script>

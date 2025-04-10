@@ -1,21 +1,3 @@
-<template>
-  <div class="space-y-4">
-    <p
-      class="font-roboto p-1 text-center text-lg font-semibold uppercase md:text-xl"
-    >
-      Test your Warframe Knowledge
-    </p>
-    <div class="flex flex-col gap-4">
-      <ModeCard
-        v-for="tab of tabs"
-        :key="tab.label"
-        :tab="tab"
-        class="last:pointer-events-none"
-      />
-    </div>
-  </div>
-</template>
-
 <script setup lang="ts">
 useSeoMeta({
   title: null,
@@ -50,3 +32,20 @@ const tabs = [
   },
 ];
 </script>
+<template>
+  <div class="space-y-4">
+    <p
+      class="font-roboto p-1 text-center text-lg font-semibold uppercase md:text-xl"
+    >
+      Test your Warframe Knowledge
+    </p>
+    <div class="flex flex-col gap-4">
+      <ModeCard
+        v-for="tab of tabs"
+        :key="tab.label"
+        :tab="tab"
+        class="last:pointer-events-none"
+      />
+    </div>
+  </div>
+</template>

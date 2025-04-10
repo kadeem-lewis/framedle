@@ -1,3 +1,6 @@
+<script setup lang="ts">
+const { handleShareClick, copied } = useShare();
+</script>
 <template>
   <UButton
     class="font-semibold uppercase"
@@ -8,7 +11,3 @@
     {{ !copied ? "Share" : "Copied" }}
   </UButton>
 </template>
-
-<script setup lang="ts">
-const { handleShareClick, copied } = useShare();
-</script>

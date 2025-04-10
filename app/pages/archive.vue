@@ -1,3 +1,66 @@
+<script setup lang="ts">
+import { format, subDays } from "date-fns";
+import Fuse from "fuse.js";
+
+useSeoMeta({
+  title: "Archive",
+});
+
+type UpdatedDaily = Daily & {
+  readableDate: string;
+};
+
+const { proxy } = useScriptUmamiAnalytics();
+
+const route = useRoute();
+const router = useRouter();
+
+const order = ref<"OLDEST" | "NEWEST">("NEWEST");
+const selectedMode = ref(route.query.mode || "classic");
+
+const { data } = await useFetch("/api/dailies", {
+  key: "archive",
+  query: {
+    order,
+    date: format(subDays(new Date(), 1), "yyyy-MM-dd"),
+  },
+});
+
+watch(
+  () => selectedMode.value,
+  () => {
+    router.replace({
+      query: {
+        mode: selectedMode.value,
+      },
+    });
+  },
+  { immediate: true },
+);
+
+const filteredDailies = ref<UpdatedDaily[]>(data.value.dailies);
+const searchQuery = ref("");
+
+const fuse = new Fuse(data.value.dailies as UpdatedDaily[], {
+  keys: ["readableDate", "day"],
+  threshold: 0.4,
+});
+
+watch(data, (newData) => {
+  filteredDailies.value = newData.dailies;
+  fuse.setCollection(newData.dailies);
+});
+
+watch(searchQuery, (newQuery) => {
+  if (newQuery === "") {
+    filteredDailies.value = data.value.dailies;
+  } else {
+    filteredDailies.value = fuse
+      .search(newQuery)
+      .map((result) => ({ ...result.item }));
+  }
+});
+</script>
 <template>
   <div class="flex flex-col gap-4">
     <p class="font-roboto text-xl font-bold uppercase">Archive</p>
@@ -75,67 +138,3 @@
     </div>
   </div>
 </template>
-
-<script setup lang="ts">
-import { format, subDays } from "date-fns";
-import Fuse from "fuse.js";
-
-useSeoMeta({
-  title: "Archive",
-});
-
-type UpdatedDaily = Daily & {
-  readableDate: string;
-};
-
-const { proxy } = useScriptUmamiAnalytics();
-
-const route = useRoute();
-const router = useRouter();
-
-const order = ref<"OLDEST" | "NEWEST">("NEWEST");
-const selectedMode = ref(route.query.mode || "classic");
-
-const { data } = await useFetch("/api/dailies", {
-  key: "archive",
-  query: {
-    order,
-    date: format(subDays(new Date(), 1), "yyyy-MM-dd"),
-  },
-});
-
-watch(
-  () => selectedMode.value,
-  () => {
-    router.replace({
-      query: {
-        mode: selectedMode.value,
-      },
-    });
-  },
-  { immediate: true },
-);
-
-const filteredDailies = ref<UpdatedDaily[]>(data.value.dailies);
-const searchQuery = ref("");
-
-const fuse = new Fuse(data.value.dailies as UpdatedDaily[], {
-  keys: ["readableDate", "day"],
-  threshold: 0.4,
-});
-
-watch(data, (newData) => {
-  filteredDailies.value = newData.dailies;
-  fuse.setCollection(newData.dailies);
-});
-
-watch(searchQuery, (newQuery) => {
-  if (newQuery === "") {
-    filteredDailies.value = data.value.dailies;
-  } else {
-    filteredDailies.value = fuse
-      .search(newQuery)
-      .map((result) => ({ ...result.item }));
-  }
-});
-</script>

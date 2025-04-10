@@ -1,3 +1,18 @@
+<script setup lang="ts">
+import { startOfTomorrow } from "date-fns";
+
+const { t } = useI18n();
+
+const { defaultAttempts, warframes } = useGameStore();
+
+const Inaros = warframes.find((warframe) => warframe.name === "Inaros");
+const Nezha = warframes.find((warframe) => warframe.name === "Nezha");
+
+const { $colorblindMode } = useNuxtApp();
+
+const success = computed(() => ($colorblindMode.value ? "Blue" : "Green"));
+const error = computed(() => ($colorblindMode.value ? "Orange" : "Red"));
+</script>
 <template>
   <div class="mb-4 flex flex-col items-center justify-center">
     <p class="text-lg font-semibold">
@@ -100,19 +115,3 @@
     <p>{{ t("instructions.ability.subtitle") }}</p>
   </div>
 </template>
-
-<script setup lang="ts">
-import { startOfTomorrow } from "date-fns";
-
-const { t } = useI18n();
-
-const { defaultAttempts, warframes } = useGameStore();
-
-const Inaros = warframes.find((warframe) => warframe.name === "Inaros");
-const Nezha = warframes.find((warframe) => warframe.name === "Nezha");
-
-const { $colorblindMode } = useNuxtApp();
-
-const success = computed(() => ($colorblindMode.value ? "Blue" : "Green"));
-const error = computed(() => ($colorblindMode.value ? "Orange" : "Red"));
-</script>

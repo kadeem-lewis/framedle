@@ -1,10 +1,3 @@
-<template>
-  <div v-if="timeLeft <= 0">Time's up! Reload to see new Game.</div>
-  <div v-else>
-    <p>{{ formatTimeLeft(timeLeft) }}</p>
-  </div>
-</template>
-
 <script setup lang="ts">
 import { differenceInSeconds } from "date-fns";
 
@@ -48,3 +41,9 @@ tryOnBeforeUnmount(() => {
   clearInterval(intervalId);
 });
 </script>
+<template>
+  <div v-if="timeLeft <= 0">Time's up! Reload to see new Game.</div>
+  <div v-else>
+    <p>{{ formatTimeLeft(timeLeft) }}</p>
+  </div>
+</template>

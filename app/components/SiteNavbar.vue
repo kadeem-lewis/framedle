@@ -1,3 +1,6 @@
+<script setup lang="ts">
+const { openDialog } = useDialog();
+</script>
 <template>
   <header
     class="flex w-full items-center justify-between border-b-2 border-neutral-500 py-2 dark:border-neutral-700"
@@ -25,6 +28,3 @@
     </div>
   </header>
 </template>
-<script setup lang="ts">
-const { openDialog } = useDialog();
-</script>

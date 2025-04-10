@@ -1,3 +1,6 @@
+<script setup lang="ts">
+const runtimeConfig = useRuntimeConfig();
+</script>
 <template>
   <div class="space-y-2">
     <p>
@@ -82,7 +85,3 @@
     </ul>
   </div>
 </template>
-
-<script setup lang="ts">
-const runtimeConfig = useRuntimeConfig();
-</script>

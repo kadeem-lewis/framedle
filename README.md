@@ -10,7 +10,7 @@
 		  <img alt="Stargazers" src="https://img.shields.io/github/stars/kadeem-lewis/framedle?style=for-the-badge&logo=starship&color=C9CBFF&logoColor=D9E0EE&labelColor=302D41">
     </a>
     <a href="">
-      <img alt="Releases" src="https://img.shields.io/github/release/kadeem-lewis/framedle.svg?style=for-the-badge&logo=github&color=F2CDCD&logoColor=D9E0EE&labelColor=302D41"/>
+      <img alt="Releases" src="https://img.shields.io/github/release/kadeem-lewis/framedle?style=for-the-badge&logo=github&color=F2CDCD&logoColor=D9E0EE&labelColor=302D41"/>
     </a>
     <a href="">
 		  <img alt="Issues" src="https://img.shields.io/github/issues/kadeem-lewis/framedle?style=for-the-badge&logo=gitbook&color=B5E8E0&logoColor=D9E0EE&labelColor=302D41"/>

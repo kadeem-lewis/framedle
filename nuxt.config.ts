@@ -80,6 +80,11 @@ export default defineNuxtConfig({
   schemaOrg: {
     identity: "Organization",
   },
+  security: {
+    rateLimiter: {
+      tokensPerInterval: 300, // Doubled limit to prevent unexpected rate limiting
+    },
+  },
   i18n: {
     strategy: "no_prefix",
     vueI18n: "./i18n.config.ts",

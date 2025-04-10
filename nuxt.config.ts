@@ -80,6 +80,11 @@ export default defineNuxtConfig({
   schemaOrg: {
     identity: "Organization",
   },
+  security: {
+    rateLimiter: {
+      tokensPerInterval: 300, // Doubled limit to prevent unexpected rate limiting
+    },
+  },
   i18n: {
     strategy: "no_prefix",
     vueI18n: "./i18n.config.ts",
@@ -148,7 +153,7 @@ export default defineNuxtConfig({
     registerType: "autoUpdate",
     strategies: "generateSW",
     manifest: {
-      name: "Framedle: Warframe Guessing Game",
+      name: "Framedle",
       short_name: "Framedle",
       id: "https://framedle.com/",
       description: "Daily guessing games for Warframe.",

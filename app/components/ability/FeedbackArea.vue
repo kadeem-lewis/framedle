@@ -1,3 +1,7 @@
+<script setup lang="ts">
+const { guessedItems, itemToGuess } = storeToRefs(useGameStore());
+const mode = useGameMode();
+</script>
 <template>
   <div
     v-if="mode === 'ability' || mode === 'abilityUnlimited'"
@@ -27,8 +31,3 @@
     </UiFeedbackTile>
   </div>
 </template>
-
-<script setup lang="ts">
-const { guessedItems, itemToGuess } = storeToRefs(useGameStore());
-const mode = useGameMode();
-</script>

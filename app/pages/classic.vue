@@ -1,3 +1,39 @@
+<script setup lang="ts">
+definePageMeta({
+  layout: "game",
+});
+
+useSeoMeta({
+  title: "Classic",
+});
+
+defineOgImageComponent("Framedle");
+
+const { t } = useI18n();
+
+const { itemToGuess, guessedItems, attempts } = storeToRefs(useGameStore());
+const { classicInit, defaultAttempts, warframes } = useGameStore();
+
+const mode = useGameMode();
+const { isGameOver } = storeToRefs(useGameStateStore());
+
+await callOnce("classic-setup", classicInit);
+
+const { resetStreak } = useStatsStore();
+
+onBeforeMount(() => {
+  resetStreak("classic");
+});
+
+const feedbackLabels = [
+  t("classic.feedback.name"),
+  t("classic.feedback.sex"),
+  t("classic.feedback.base_health"),
+  t("classic.feedback.base_shield"),
+  t("classic.feedback.progenitor_element"),
+  t("classic.feedback.release_year"),
+];
+</script>
 <template>
   <div
     v-if="mode === 'classic' || mode === 'classicUnlimited'"
@@ -56,40 +92,3 @@
     <ModeUnavailable v-else />
   </div>
 </template>
-
-<script setup lang="ts">
-definePageMeta({
-  layout: "game",
-});
-
-useSeoMeta({
-  title: "Classic",
-});
-
-defineOgImageComponent("Framedle");
-
-const { t } = useI18n();
-
-const { itemToGuess, guessedItems, attempts } = storeToRefs(useGameStore());
-const { classicInit, defaultAttempts, warframes } = useGameStore();
-
-const mode = useGameMode();
-const { isGameOver } = storeToRefs(useGameStateStore());
-
-await callOnce("classic-setup", classicInit);
-
-const { resetStreak } = useStatsStore();
-
-onBeforeMount(() => {
-  resetStreak("classic");
-});
-
-const feedbackLabels = [
-  t("classic.feedback.name"),
-  t("classic.feedback.sex"),
-  t("classic.feedback.base_health"),
-  t("classic.feedback.base_shield"),
-  t("classic.feedback.progenitor_element"),
-  t("classic.feedback.release_year"),
-];
-</script>

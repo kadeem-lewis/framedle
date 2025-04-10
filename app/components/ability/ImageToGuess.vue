@@ -1,3 +1,16 @@
+<script setup lang="ts">
+const { itemToGuess, attempts } = storeToRefs(useGameStore());
+const { defaultAttempts } = useGameStore();
+const mode = useGameMode();
+const { isGameOver } = storeToRefs(useGameStateStore());
+
+const cleanedDescription = computed(() => {
+  if (mode.value === "ability" || mode.value === "abilityUnlimited") {
+    return itemToGuess.value[mode.value]?.description.replace(/<[^>]*>?/gm, "");
+  }
+  return "";
+});
+</script>
 <template>
   <div v-if="mode === 'ability' || mode === 'abilityUnlimited'">
     <div class="flex items-center justify-center p-4">
@@ -48,17 +61,3 @@
     </template>
   </div>
 </template>
-
-<script setup lang="ts">
-const { itemToGuess, attempts } = storeToRefs(useGameStore());
-const { defaultAttempts } = useGameStore();
-const mode = useGameMode();
-const { isGameOver } = storeToRefs(useGameStateStore());
-
-const cleanedDescription = computed(() => {
-  if (mode.value === "ability" || mode.value === "abilityUnlimited") {
-    return itemToGuess.value[mode.value]?.description.replace(/<[^>]*>?/gm, "");
-  }
-  return "";
-});
-</script>

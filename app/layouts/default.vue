@@ -2,10 +2,10 @@
   <UContainer
     class="flex min-h-dvh flex-col items-center justify-between gap-y-2"
   >
-    <SiteNavbar />
+    <TheNavbar />
     <main class="w-full grow">
       <NuxtPage />
     </main>
-    <SiteFooter />
+    <TheFooter />
   </UContainer>
 </template>

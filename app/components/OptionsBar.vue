@@ -1,21 +1,3 @@
-<template>
-  <div class="flex w-full items-center justify-center">
-    <menu class="flex gap-2 p-2">
-      <UTooltip v-for="item of items" :key="item.text" :text="item.text">
-        <UButton
-          :aria-label="item.text"
-          :icon="item.icon"
-          variant="outline"
-          size="lg"
-          square
-          type="button"
-          @click="item.command"
-        />
-      </UTooltip>
-    </menu>
-  </div>
-</template>
-
 <script setup lang="ts">
 import { useStorage } from "@vueuse/core";
 const { openDialog } = useDialog();
@@ -73,3 +55,20 @@ watchEffect(() => {
   }
 });
 </script>
+<template>
+  <div class="flex w-full items-center justify-center">
+    <menu class="flex gap-2 p-2">
+      <UTooltip v-for="item of items" :key="item.text" :text="item.text">
+        <UButton
+          :aria-label="item.text"
+          :icon="item.icon"
+          variant="outline"
+          size="lg"
+          square
+          type="button"
+          @click="item.command"
+        />
+      </UTooltip>
+    </menu>
+  </div>
+</template>

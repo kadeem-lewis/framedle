@@ -6,9 +6,19 @@
 </h3>
 <br/>
 <p align="center">
-<a href="https://framedle.com">
-<img alt="website" src="https://img.shields.io/badge/website-20B2AA?style=for-the-badge"/>
-</a>
+    <a href="">
+		  <img alt="Stargazers" src="https://img.shields.io/github/stars/kadeem-lewis/framedle?style=for-the-badge&logo=starship&color=C9CBFF&logoColor=D9E0EE&labelColor=302D41">
+    </a>
+    <a href="">
+      <img alt="Releases" src="https://img.shields.io/github/release/kadeem-lewis/framedle.svg?style=for-the-badge&logo=github&color=F2CDCD&logoColor=D9E0EE&labelColor=302D41"/>
+    </a>
+    <a href="">
+		  <img alt="Issues" src="https://img.shields.io/github/issues/kadeem-lewis/framedle?style=for-the-badge&logo=gitbook&color=B5E8E0&logoColor=D9E0EE&labelColor=302D41"/>
+    </a>
+  <a href="https://framedle.com">
+    <img alt="website" src="https://img.shields.io/badge/view%20website-20B2AA?style=for-the-badge"/>
+  </a>
+
 </p>
 <br/>
 

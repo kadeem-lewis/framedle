@@ -1,17 +1,3 @@
-<template>
-  <UContainer
-    class="flex min-h-dvh flex-col items-center justify-between gap-y-2"
-  >
-    <SiteNavbar />
-    <OptionsBar />
-    <main class="flex w-full grow flex-col gap-4">
-      <ModeSwitch />
-      <NuxtPage />
-    </main>
-    <SiteFooter />
-  </UContainer>
-</template>
-
 <script setup lang="ts">
 const { getDaily } = useGameStore();
 const route = useRoute();
@@ -24,3 +10,16 @@ watch(
   { immediate: true },
 );
 </script>
+<template>
+  <UContainer
+    class="flex min-h-dvh flex-col items-center justify-between gap-y-2"
+  >
+    <TheNavbar />
+    <OptionsBar />
+    <main class="flex w-full grow flex-col gap-4">
+      <ModeSwitch />
+      <NuxtPage />
+    </main>
+    <TheFooter />
+  </UContainer>
+</template>

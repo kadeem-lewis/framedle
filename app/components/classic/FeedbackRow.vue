@@ -1,3 +1,41 @@
+<script setup lang="ts">
+import type { Warframe } from "#shared/schemas/warframe";
+
+// this can receive a guessed item as a prop and then handle the majority of the logic
+defineProps<{
+  guessedWarframe: Warframe;
+  correctWarframe: Warframe;
+}>();
+
+const parseReleaseDate = (releaseDate: string) => {
+  return Number(releaseDate.split("-")[0]);
+};
+
+const compareNumeric = (guessed: number, correct: number) => {
+  if (guessed === correct) return { isCorrect: true };
+  return {
+    isCorrect: false,
+    difference: correct - guessed,
+  };
+};
+
+const getNumericComparisonProps = (
+  guessed: number,
+  correct: number,
+  fieldLabel: string,
+) => {
+  const comparison = compareNumeric(guessed, correct);
+
+  return {
+    isCorrect: comparison.isCorrect,
+    fieldLabel,
+    fieldValue: guessed,
+    ...(comparison.isCorrect === false && {
+      difference: comparison.difference,
+    }),
+  };
+};
+</script>
 <template>
   <div class="contents">
     <UiFeedbackTile field-label="Warframe" :field-value="guessedWarframe.name">
@@ -66,42 +104,3 @@
     </UiFeedbackTile>
   </div>
 </template>
-
-<script setup lang="ts">
-import type { Warframe } from "#shared/schemas/warframe";
-
-// this can receive a guessed item as a prop and then handle the majority of the logic
-defineProps<{
-  guessedWarframe: Warframe;
-  correctWarframe: Warframe;
-}>();
-
-const parseReleaseDate = (releaseDate: string) => {
-  return Number(releaseDate.split("-")[0]);
-};
-
-const compareNumeric = (guessed: number, correct: number) => {
-  if (guessed === correct) return { isCorrect: true };
-  return {
-    isCorrect: false,
-    difference: correct - guessed,
-  };
-};
-
-const getNumericComparisonProps = (
-  guessed: number,
-  correct: number,
-  fieldLabel: string,
-) => {
-  const comparison = compareNumeric(guessed, correct);
-
-  return {
-    isCorrect: comparison.isCorrect,
-    fieldLabel,
-    fieldValue: guessed,
-    ...(comparison.isCorrect === false && {
-      difference: comparison.difference,
-    }),
-  };
-};
-</script>

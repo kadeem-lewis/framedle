@@ -148,7 +148,7 @@ export default defineNuxtConfig({
     registerType: "autoUpdate",
     strategies: "generateSW",
     manifest: {
-      name: "Framedle: Warframe Guessing Game",
+      name: "Framedle",
       short_name: "Framedle",
       id: "https://framedle.com/",
       description: "Daily guessing games for Warframe.",

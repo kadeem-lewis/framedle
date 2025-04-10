@@ -8,7 +8,7 @@ const { openDialog } = useDialog();
     <div>
       <h1 class="font-ailerons flex flex-row gap-2 text-[42px] leading-none">
         <NuxtLink to="/" aria-label="Back to home">
-          <SiteLogo />
+          <TheLogo />
         </NuxtLink>
       </h1>
     </div>

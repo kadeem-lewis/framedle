@@ -60,11 +60,11 @@ export function useShare() {
     } else {
       gridRow.push(emojis.correct);
     }
-    if (correctItem.releaseDate !== guessedItem.releaseDate) {
+    const correctReleaseDate = parseReleaseDate(correctItem.releaseDate);
+    const guessedReleaseDate = parseReleaseDate(guessedItem.releaseDate);
+    if (correctReleaseDate !== guessedReleaseDate) {
       gridRow.push(
-        correctItem.releaseDate > guessedItem.releaseDate
-          ? emojis.higher
-          : emojis.lower,
+        correctReleaseDate > guessedReleaseDate ? emojis.higher : emojis.lower,
       );
     } else {
       gridRow.push(emojis.correct);

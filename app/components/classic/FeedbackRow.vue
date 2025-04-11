@@ -7,10 +7,6 @@ defineProps<{
   correctWarframe: Warframe;
 }>();
 
-const parseReleaseDate = (releaseDate: string) => {
-  return Number(releaseDate.split("-")[0]);
-};
-
 const compareNumeric = (guessed: number, correct: number) => {
   if (guessed === correct) return { isCorrect: true };
   return {

@@ -3,13 +3,6 @@ const { itemToGuess, attempts } = storeToRefs(useGameStore());
 const { defaultAttempts } = useGameStore();
 const mode = useGameMode();
 const { isGameOver } = storeToRefs(useGameStateStore());
-
-const cleanedDescription = computed(() => {
-  if (mode.value === "ability" || mode.value === "abilityUnlimited") {
-    return itemToGuess.value[mode.value]?.description.replace(/<[^>]*>?/gm, "");
-  }
-  return "";
-});
 </script>
 <template>
   <div v-if="mode === 'ability' || mode === 'abilityUnlimited'">
@@ -51,13 +44,5 @@ const cleanedDescription = computed(() => {
         />
       </div>
     </div>
-    <template v-if="isGameOver">
-      <p class="text-lg font-bold uppercase">
-        {{ itemToGuess[mode]?.name }}
-      </p>
-      <p>
-        {{ cleanedDescription }}
-      </p>
-    </template>
   </div>
 </template>

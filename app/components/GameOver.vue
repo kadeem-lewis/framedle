@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { startOfTomorrow } from "date-fns";
 import party from "party-js";
+import type { Ability } from "#shared/schemas/warframe";
 
 const { itemToGuess, guessedItems, attempts } = storeToRefs(useGameStore());
 const { resetGame, defaultAttempts, warframes } = useGameStore();
@@ -122,6 +123,15 @@ watchEffect(() => {
             />
           </UiFeedbackTile>
         </div>
+        <AbilityGameOverMiniGame
+          v-if="
+            correctWarframe &&
+            (mode === 'ability' || mode === 'abilityUnlimited') &&
+            itemToGuess[mode]
+          "
+          :correct-warframe="correctWarframe"
+          :correct-ability="itemToGuess[mode] as Ability"
+        />
         <p>
           Number of tries:
           <span class="font-semibold">{{

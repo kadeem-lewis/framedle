@@ -46,8 +46,11 @@ const abilityNames = computed(() =>
           class="cursor-pointer px-2 py-1 ring"
           :class="{
             'bg-success':
-              selectedMinigameAbility[mode] === ability &&
-              selectedMinigameAbility[mode] === correctAbility.name,
+              (selectedMinigameAbility[mode] === ability &&
+                selectedMinigameAbility[mode] === correctAbility.name) ||
+              (selectedMinigameAbility[mode] &&
+                selectedMinigameAbility[mode] !== correctAbility.name &&
+                ability === correctAbility.name),
             'bg-error': selectedMinigameAbility[mode] === ability,
           }"
           @click="handleAbilityClick(ability)"
@@ -55,7 +58,10 @@ const abilityNames = computed(() =>
           {{ ability }}
         </li>
       </ul>
-      <div v-if="selectedMinigameAbility[mode]" class="text-center uppercase">
+      <div
+        v-if="selectedMinigameAbility[mode]"
+        class="text-center font-medium uppercase"
+      >
         <p
           v-if="selectedMinigameAbility[mode] === correctAbility.name"
           class="text-success"

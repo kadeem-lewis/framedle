@@ -3,8 +3,10 @@ export default defineNuxtConfig({
   future: {
     compatibilityVersion: 4,
   },
+
   compatibilityDate: "2025-02-24",
   devtools: { enabled: true },
+
   modules: [
     "@nuxt/eslint",
     "@nuxt/image",
@@ -18,7 +20,9 @@ export default defineNuxtConfig({
     "@nuxt/test-utils",
     "@nuxt/scripts",
     "@vite-pwa/nuxt",
+    "@sentry/nuxt/module",
   ],
+
   runtimeConfig: {
     databaseUrl: "",
     public: {
@@ -30,11 +34,13 @@ export default defineNuxtConfig({
       discordInvite: "",
     },
   },
+
   routeRules: {
     "/": { prerender: true },
     "/classic": { ssr: false },
     "/ability": { ssr: false },
   },
+
   app: {
     head: {
       link: [
@@ -46,7 +52,9 @@ export default defineNuxtConfig({
       ],
     },
   },
+
   css: ["~/assets/css/main.css"],
+
   ui: {
     theme: {
       colors: [
@@ -60,11 +68,13 @@ export default defineNuxtConfig({
       ],
     },
   },
+
   scripts: {
     registry: {
       umamiAnalytics: true,
     },
   },
+
   $development: {
     scripts: {
       registry: {
@@ -72,19 +82,23 @@ export default defineNuxtConfig({
       },
     },
   },
+
   site: {
     url: "https://framedle.com",
     name: "Framedle",
     description: "Daily guessing games for Warframe.",
   },
+
   schemaOrg: {
     identity: "Organization",
   },
+
   security: {
     rateLimiter: {
       tokensPerInterval: 300, // Doubled limit to prevent unexpected rate limiting
     },
   },
+
   i18n: {
     strategy: "no_prefix",
     vueI18n: "./i18n.config.ts",
@@ -106,6 +120,7 @@ export default defineNuxtConfig({
       optimizeTranslationDirective: false,
     },
   },
+
   icon: {
     provider: "server",
     customCollections: [
@@ -115,6 +130,7 @@ export default defineNuxtConfig({
       },
     ],
   },
+
   fonts: {
     defaults: {
       weights: ["400", "500", "600", "700"],
@@ -131,16 +147,21 @@ export default defineNuxtConfig({
       },
     ],
   },
-  sourcemap: { client: true },
+
+  sourcemap: { client: "hidden" },
+
   experimental: {
     typedPages: true,
   },
+
   colorMode: {
     preference: "system",
   },
+
   image: {
     domains: ["cdn.warframestat.us"],
   },
+
   nitro: {
     experimental: {
       tasks: true,
@@ -149,6 +170,7 @@ export default defineNuxtConfig({
       "0 0 * * *": ["add-daily"],
     },
   },
+
   pwa: {
     registerType: "autoUpdate",
     strategies: "generateSW",
@@ -190,6 +212,13 @@ export default defineNuxtConfig({
       suppressWarnings: true,
       navigateFallback: "/",
       navigateFallbackAllowlist: [/^\/$/],
+    },
+  },
+
+  sentry: {
+    sourceMapsUploadOptions: {
+      org: "framedle",
+      project: "framedle",
     },
   },
 });

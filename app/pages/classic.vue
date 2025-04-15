@@ -72,7 +72,7 @@ const feedbackLabels = [
           </div>
           <div class="grid w-[150%] grid-cols-6 gap-1 uppercase md:-ml-[25%]">
             <ClassicFeedbackRow
-              v-for="warframe of guessedItems[mode].toReversed()"
+              v-for="warframe of [...guessedItems[mode]].reverse()"
               :key="warframe.name"
               :guessed-warframe="warframe"
               :correct-warframe="itemToGuess[mode]!"

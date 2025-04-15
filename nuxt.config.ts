@@ -31,9 +31,6 @@ export default defineNuxtConfig({
           websiteId: "",
         },
       },
-      sentry: {
-        dsn: "",
-      },
       discordInvite: "",
     },
   },

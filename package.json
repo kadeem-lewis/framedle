@@ -7,7 +7,7 @@
     "build": "NODE_OPTIONS=--max_old_space_size=8192 nuxt build",
     "dev": "nuxt dev",
     "generate": "nuxt generate",
-    "start": "node -import ./.output/server/sentry.server.config.mjs .output/server/index.mjs",
+    "start": "node --import ./.output/server/sentry.server.config.mjs .output/server/index.mjs",
     "preview": "nuxt preview",
     "postinstall": "nuxt prepare",
     "lint": "eslint .",

@@ -107,7 +107,7 @@ watchEffect(() => {
 
         <div class="space-y-2 text-center">
           <p class="uppercase">The answer was:</p>
-          <span class="text-xl font-bold capitalize">
+          <span class="text-xl font-bold uppercase">
             {{ answer }}
           </span>
           <UiFeedbackTile

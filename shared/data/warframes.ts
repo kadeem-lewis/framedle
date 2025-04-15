@@ -1831,7 +1831,7 @@
       }
     ],
     "sex": "Female",
-    "progenitor": "Heat",
+    "progenitor": "Cold",
     "isPrime": false
   },
   {

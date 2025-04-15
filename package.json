@@ -7,7 +7,7 @@
     "build": "NODE_OPTIONS=--max_old_space_size=8192 nuxt build",
     "dev": "nuxt dev",
     "generate": "nuxt generate",
-    "start": "node .output/server/index.mjs",
+    "start": "node --import ./.output/server/sentry.server.config.mjs .output/server/index.mjs",
     "preview": "nuxt preview",
     "postinstall": "nuxt prepare",
     "lint": "eslint .",
@@ -49,6 +49,7 @@
     "-": "^0.0.1",
     "@neondatabase/serverless": "^0.10.4",
     "@pinia/nuxt": "^0.10.1",
+    "@sentry/nuxt": "^9",
     "@vite-pwa/nuxt": "^1.0.0",
     "@vueuse/core": "^13.0.0",
     "@vueuse/nuxt": "^13.0.0",
@@ -56,6 +57,7 @@
     "date-fns": "^4.1.0",
     "drizzle-orm": "^0.39.3",
     "fuse.js": "^7.1.0",
+    "import-in-the-middle": "^1.13.1",
     "party-js": "^2.2.0",
     "pinia": "^3.0.1",
     "pinia-plugin-persistedstate": "^4.2.0",
@@ -65,5 +67,10 @@
   },
   "engines": {
     "node": "22.x"
+  },
+  "pnpm": {
+    "overrides": {
+      "@vercel/nft": "^0.27.4"
+    }
   }
 }

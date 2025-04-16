@@ -43,9 +43,18 @@ watch(items, (newItems) => {
   fuse.setCollection(newItems);
 });
 
+watch(query, (newQuery) => {
+  const match = items.value.find(
+    (item) => item.name.toLowerCase() === newQuery.toLowerCase(),
+  );
+  if (match) {
+    selectedWarframe.value = match;
+  }
+});
+
 const addGuess = () => {
-  if (!selectedWarframe.value) throw createError("No warframe selected");
   if (!mode.value) throw createError("Mode is not set");
+  if (!selectedWarframe.value) throw createError("No warframe selected");
 
   attempts.value[mode.value] -= 1;
   guessedItems.value[mode.value].push(selectedWarframe.value);
@@ -59,6 +68,7 @@ const addGuess = () => {
     <UInputMenu
       v-model="selectedWarframe"
       v-model:search-term="query"
+      name="warframe-search"
       :reset-search-term-on-blur="false"
       :items="filteredItems"
       label-key="name"

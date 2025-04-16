@@ -8,7 +8,7 @@ const mode = useGameMode();
     class="flex flex-col gap-4 capitalize"
   >
     <UiFeedbackTile
-      v-for="warframe of guessedItems[mode].toReversed()"
+      v-for="warframe of [...guessedItems[mode]].reverse()"
       :key="warframe.name"
       :is-correct="warframe.name === itemToGuess[mode]?.belongsTo"
       field-label="Warframe"

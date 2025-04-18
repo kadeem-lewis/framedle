@@ -1,0 +1,8 @@
+[{
+      "relation": ["delegate_permission/common.handle_all_urls"],
+      "target": {
+        "namespace": "android_app",
+        "package_name": "com.framedle.twa",
+        "sha256_cert_fingerprints": ["E8:13:1B:DF:9B:CC:8B:44:66:33:4E:01:3E:FB:47:20:23:8A:E0:4A:9C:51:FD:7D:6F:D4:25:DC:62:1A:A6:EE"]
+      }
+    }]

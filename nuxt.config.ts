@@ -186,6 +186,8 @@ export default defineNuxtConfig({
         client_mode: ["navigate-existing", "auto"],
       },
       orientation: "portrait",
+      dir: "rtl",
+      categories: ["puzzle", "trivia"],
       icons: [
         {
           src: "pwa-192x192.png",
@@ -202,6 +204,54 @@ export default defineNuxtConfig({
           purpose: "maskable",
         },
       ],
+      shortcuts: [
+        {
+          name: "Classic",
+          url: "/classic",
+          description: "Guess the Warframe using category clues.",
+        },
+        {
+          name: "Ability",
+          url: "/ability",
+          description:
+            "Guess the warframe using a concealed image of one of it's abilities.",
+        },
+        {
+          name: "Archive",
+          url: "/archive",
+          description: "View a list of all past games.",
+        },
+      ],
+      screenshots: [
+        {
+          src: "screenshots/screenshot1.png",
+          sizes: "850x1714",
+          type: "image/png",
+          form_factor: "narrow",
+          label: "Partially completed classic game",
+        },
+        {
+          src: "screenshots/screenshot2.png",
+          sizes: "850x1714",
+          type: "image/png",
+          form_factor: "narrow",
+          label: "Classic mode victory screen",
+        },
+        {
+          src: "screenshots/screenshot3.png",
+          sizes: "850x1714",
+          type: "image/png",
+          form_factor: "narrow",
+          label: "Ability game mode",
+        },
+        {
+          src: "screenshots/screenshot4.png",
+          sizes: "850x1714",
+          type: "image/png",
+          form_factor: "narrow",
+          label: "Archive of past games",
+        },
+      ],
     },
     workbox: {
       globPatterns: ["**/*.{js,css,html,png,svg,ico}"],
@@ -214,7 +264,6 @@ export default defineNuxtConfig({
       navigateFallbackAllowlist: [/^\/$/],
     },
   },
-
   sentry: {
     sourceMapsUploadOptions: {
       org: "framedle",

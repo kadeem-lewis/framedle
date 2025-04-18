@@ -1,5 +1,15 @@
 # Changelog
 
+## v0.1.4 - April 18, 2025
+
+### Changes
+
+- Updated pwa manifest to include additional app info
+
+### Bug Fixes
+
+- Fixed an issue where confetti would briefly show when directly navigating between game modes
+
 ## v0.1.3 - April 15, 2025
 
 ### Features
@@ -9,8 +19,6 @@
 ### Changes
 
 - Updated method used to reverse array to better support older browsers
-
-### Bug fixes
 
 ## v0.1.2 - April 15,2025
 

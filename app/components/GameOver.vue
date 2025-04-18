@@ -80,7 +80,12 @@ watchEffect(() => {
 });
 
 watchEffect(() => {
-  if (currentGameState.value === GameStatus.WON && gameOverCard.value) {
+  if (!mode.value || !gameOverCard.value) return;
+  // guessed items check is here to make sure confetti doesn't trigger prematurely
+  if (
+    currentGameState.value === GameStatus.WON &&
+    guessedItems.value[mode.value].length > 0
+  ) {
     party.confetti(gameOverCard.value);
   }
 });

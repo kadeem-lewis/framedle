@@ -54,7 +54,7 @@ watch(query, (newQuery) => {
 
 const addGuess = () => {
   if (!mode.value) throw createError("Mode is not set");
-  if (!selectedWarframe.value) throw createError("No warframe selected");
+  if (!selectedWarframe.value) return;
 
   attempts.value[mode.value] -= 1;
   guessedItems.value[mode.value].push(selectedWarframe.value);

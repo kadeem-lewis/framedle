@@ -69,6 +69,11 @@ export function useShare() {
     } else {
       gridRow.push(emojis.correct);
     }
+    if (correctItem.variant !== guessedItem.variant) {
+      gridRow.push(emojis.incorrect);
+    } else {
+      gridRow.push(emojis.correct);
+    }
     return gridRow.join("");
   }
 

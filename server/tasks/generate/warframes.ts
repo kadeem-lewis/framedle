@@ -43,6 +43,14 @@ export default defineTask({
         item.sex = "Male";
         item.releaseDate = "2023-12-13";
       }
+
+      if (item.isPrime) {
+        item.variant = "Prime";
+      } else if (item.name.includes("Umbra")) {
+        item.variant = "Umbra";
+      } else {
+        item.variant = "Standard";
+      }
       const result = warframeSchema.safeParse(item);
       if (result.success) {
         if (result.data.sex.includes("(Pluriform)"))

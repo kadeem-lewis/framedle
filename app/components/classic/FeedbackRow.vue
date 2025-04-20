@@ -98,5 +98,12 @@ const getNumericComparisonProps = (
     >
       {{ parseReleaseDate(guessedWarframe.releaseDate) }}
     </UiFeedbackTile>
+    <UiFeedbackTile
+      :is-correct="guessedWarframe.variant === correctWarframe.variant"
+      field-label="Variant"
+      :field-value="guessedWarframe.variant"
+    >
+      {{ guessedWarframe.variant }}
+    </UiFeedbackTile>
   </div>
 </template>

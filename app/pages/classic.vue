@@ -40,8 +40,7 @@ const tooltipMap = {
   "release year": "Any year between 2012 and today",
   "base health": "The health of the Warframe at level 0",
   "base shield": "The shields of the Warframe at level 0",
-  "progenitor element":
-    "Impact, Heat, Cold, Electricity, Toxin, Magnetic or Radiation",
+  "progenitor element": "Impact, Heat, Cold, etc...",
   variant: "Standard, Prime or Umbra",
 };
 </script>

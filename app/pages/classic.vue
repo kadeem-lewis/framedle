@@ -32,8 +32,18 @@ const feedbackLabels = [
   t("classic.feedback.base_shield"),
   t("classic.feedback.progenitor_element"),
   t("classic.feedback.release_year"),
-  "Variant",
+  "variant",
 ];
+
+const tooltipMap = {
+  sex: "Male, Female or Non-binary",
+  "release year": "Any year between 2012 and today",
+  "base health": "The health of the Warframe at level 0",
+  "base shield": "The shields of the Warframe at level 0",
+  "progenitor element":
+    "Impact, Heat, Cold, Electricity, Toxin, Magnetic or Radiation",
+  variant: "Standard, Prime or Umbra",
+};
 </script>
 <template>
   <div
@@ -63,13 +73,22 @@ const feedbackLabels = [
           <div
             class="grid w-[180%] grid-cols-7 gap-1 border border-neutral-200 bg-white/75 py-0.5 text-sm uppercase md:-ml-[40%] md:text-base dark:border-neutral-800 dark:bg-neutral-900/75"
           >
-            <p
+            <UTooltip
               v-for="label of feedbackLabels"
               :key="label"
-              class="font-roboto self-center justify-self-center text-center font-semibold"
+              :disabled="label === 'name'"
+              :delay-duration="0"
+              :ui="{
+                content: 'text-md rounded-none py-2 px-3',
+              }"
+              :text="tooltipMap[label as keyof typeof tooltipMap]"
             >
-              {{ label }}
-            </p>
+              <p
+                class="font-roboto self-center justify-self-center text-center font-semibold"
+              >
+                {{ label }}
+              </p>
+            </UTooltip>
           </div>
           <div class="grid w-[180%] grid-cols-7 gap-1 uppercase md:-ml-[40%]">
             <ClassicFeedbackRow

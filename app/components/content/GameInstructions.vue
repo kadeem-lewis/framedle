@@ -69,6 +69,7 @@ const error = computed(() => ($colorblindMode.value ? "Orange" : "Red"));
           <span class="text-success">{{ success }}</span>
         </p>
         <p>{{ t("instructions.classic.sex.description") }}</p>
+        <p><span>Possible values:&nbsp;</span> Male, Female or Non-binary</p>
       </div>
       <div class="space-y-1">
         <p class="font-medium">
@@ -90,6 +91,10 @@ const error = computed(() => ($colorblindMode.value ? "Orange" : "Red"));
           <span class="text-success">{{ success }}</span>
         </p>
         <p>{{ t("instructions.classic.progenitor.description") }}</p>
+        <p>
+          <span>Possible values:&nbsp;</span>Impact, Heat, Cold, Electricity,
+          Toxin, Magnetic or Radiation
+        </p>
       </div>
       <div class="space-y-1">
         <p class="font-medium">

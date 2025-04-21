@@ -53,6 +53,13 @@ const getNumericComparisonProps = (
       {{ guessedWarframe.sex }}
     </UiFeedbackTile>
     <UiFeedbackTile
+      :is-correct="guessedWarframe.variant === correctWarframe.variant"
+      field-label="Variant"
+      :field-value="guessedWarframe.variant"
+    >
+      {{ guessedWarframe.variant }}
+    </UiFeedbackTile>
+    <UiFeedbackTile
       v-bind="
         getNumericComparisonProps(
           guessedWarframe.health,
@@ -79,13 +86,17 @@ const getNumericComparisonProps = (
       field-label="Element"
       :field-value="guessedWarframe.progenitor"
     >
-      <NuxtImg
-        format="webp"
-        :src="`/elements/${guessedWarframe.progenitor}.png`"
-        :alt="guessedWarframe.progenitor"
-        class="h-10"
-        preload
-      />
+      <div class="flex flex-col items-center gap-1">
+        <NuxtImg
+          format="webp"
+          :src="`/elements/${guessedWarframe.progenitor}.png`"
+          :alt="guessedWarframe.progenitor"
+          class="h-10"
+          preload
+        />
+
+        <span>{{ guessedWarframe.progenitor }}</span>
+      </div>
     </UiFeedbackTile>
     <UiFeedbackTile
       v-bind="
@@ -97,13 +108,6 @@ const getNumericComparisonProps = (
       "
     >
       {{ parseReleaseDate(guessedWarframe.releaseDate) }}
-    </UiFeedbackTile>
-    <UiFeedbackTile
-      :is-correct="guessedWarframe.variant === correctWarframe.variant"
-      field-label="Variant"
-      :field-value="guessedWarframe.variant"
-    >
-      {{ guessedWarframe.variant }}
     </UiFeedbackTile>
   </div>
 </template>

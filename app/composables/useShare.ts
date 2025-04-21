@@ -40,7 +40,11 @@ export function useShare() {
     } else {
       gridRow.push(emojis.correct);
     }
-
+    if (correctItem.variant !== guessedItem.variant) {
+      gridRow.push(emojis.incorrect);
+    } else {
+      gridRow.push(emojis.correct);
+    }
     if (correctItem.health !== guessedItem.health) {
       gridRow.push(
         correctItem.health > guessedItem.health ? emojis.higher : emojis.lower,
@@ -66,11 +70,6 @@ export function useShare() {
       gridRow.push(
         correctReleaseDate > guessedReleaseDate ? emojis.higher : emojis.lower,
       );
-    } else {
-      gridRow.push(emojis.correct);
-    }
-    if (correctItem.variant !== guessedItem.variant) {
-      gridRow.push(emojis.incorrect);
     } else {
       gridRow.push(emojis.correct);
     }

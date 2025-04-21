@@ -20,6 +20,7 @@ const tooltipText = computed(() => {
   return fieldLabel;
 });
 
+// I might need to make some of these the default styles for all tooltips
 const tooltipStyles = computed(() => {
   const baseStyles = "text-md rounded-none py-2 px-3";
 
@@ -46,7 +47,7 @@ const tooltipStyles = computed(() => {
     <div
       tabindex="0"
       :class="[
-        'relative z-0 min-h-12 w-full border-2 font-semibold text-white shadow-inner transition-colors',
+        'relative z-0 min-h-12 w-full border-2 font-medium break-words text-white shadow-inner transition-colors',
         {
           'border-neutral-500 bg-white/75 dark:border-neutral-700 dark:bg-neutral-900/75':
             isCorrect === null,
@@ -60,7 +61,7 @@ const tooltipStyles = computed(() => {
       ]"
     >
       <div
-        class="relative z-auto flex h-full items-center justify-center pt-2 text-center"
+        class="relative z-auto flex h-full items-center justify-center pt-1 text-center"
       >
         <slot />
       </div>

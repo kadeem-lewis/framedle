@@ -76,6 +76,9 @@ const tooltipMap = {
               v-for="label of feedbackLabels"
               :key="label"
               :disabled="label === 'name'"
+              :content="{
+                side: 'top',
+              }"
               :delay-duration="0"
               :ui="{
                 content: 'text-md rounded-none py-2 px-3',

@@ -57,7 +57,7 @@ const error = computed(() => ($colorblindMode.value ? "Orange" : "Red"));
           properties will appear:
         </p>
       </div>
-      <div class="grid grid-cols-6 gap-1">
+      <div class="grid grid-cols-7 gap-1">
         <ClassicFeedbackRow
           :guessed-warframe="Inaros!"
           :correct-warframe="Nezha!"
@@ -104,7 +104,7 @@ const error = computed(() => ($colorblindMode.value ? "Orange" : "Red"));
         <p>{{ t("instructions.classic.release_year.description") }}</p>
       </div>
       <p>{{ t("instructions.classic.correct_guess") }}</p>
-      <div class="grid grid-cols-6 gap-1">
+      <div class="grid grid-cols-7 gap-1">
         <ClassicFeedbackRow
           :guessed-warframe="Nezha!"
           :correct-warframe="Nezha!"

@@ -5,10 +5,6 @@ export function checkGuess(
   guessedValue: string | number,
 ): Result {
   if (typeof correctValue === "string" || typeof guessedValue === "string") {
-    console.log(
-      "string comparison",
-      correctValue === guessedValue ? "correct" : "incorrect",
-    );
     return correctValue === guessedValue ? "correct" : "incorrect";
   }
 

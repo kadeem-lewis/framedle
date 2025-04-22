@@ -92,7 +92,6 @@ export const useStatsStore = defineStore(
 
     function resetStats() {
       stats.value = getDefaultStats();
-      console.log(stats.value);
     }
 
     return {

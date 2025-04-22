@@ -29,10 +29,6 @@ watch(selectedLocale, (newValue) => {
   setLocale(newValue);
 });
 
-watchEffect(() => {
-  console.log(locales.value);
-});
-
 //data transfer
 </script>
 <template>

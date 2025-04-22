@@ -17,7 +17,9 @@ const mode = useGameMode();
 const { isGameOver } = storeToRefs(useGameStateStore());
 const { resetStreak } = useStatsStore();
 
-await callOnce("ability-setup", abilityInit);
+await callOnce("ability-setup", abilityInit, {
+  mode: "navigation",
+});
 
 // If I get the correct guess it should still be added to guessed items but then I need to update the game over condition
 

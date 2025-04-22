@@ -17,7 +17,9 @@ const { classicInit, defaultAttempts, warframes } = useGameStore();
 const mode = useGameMode();
 const { isGameOver } = storeToRefs(useGameStateStore());
 
-await callOnce("classic-setup", classicInit);
+await callOnce("classic-setup", classicInit, {
+  mode: "navigation",
+});
 
 const { resetStreak } = useStatsStore();
 

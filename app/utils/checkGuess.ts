@@ -1,4 +1,4 @@
-type Result = "correct" | "incorrect" | "higher" | "lower";
+export type Result = "correct" | "incorrect" | "higher" | "lower";
 
 export function checkGuess(
   correctValue: string | number,

@@ -17,7 +17,9 @@ const { classicInit, defaultAttempts, warframes } = useGameStore();
 const mode = useGameMode();
 const { isGameOver } = storeToRefs(useGameStateStore());
 
-await callOnce("classic-setup", classicInit);
+await callOnce("classic-setup", classicInit, {
+  mode: "navigation",
+});
 
 const { resetStreak } = useStatsStore();
 
@@ -28,11 +30,21 @@ onBeforeMount(() => {
 const feedbackLabels = [
   t("classic.feedback.name"),
   t("classic.feedback.sex"),
+  "variant",
   t("classic.feedback.base_health"),
   t("classic.feedback.base_shield"),
   t("classic.feedback.progenitor_element"),
   t("classic.feedback.release_year"),
 ];
+
+const tooltipMap = {
+  sex: "Male, Female or Non-binary",
+  "release year": "Any year between 2012 and today",
+  "base health": "The health of the Warframe at level 0",
+  "base shield": "The shields of the Warframe at level 0",
+  "progenitor element": "Impact, Heat, Cold, etc...",
+  variant: "Standard, Prime or Umbra",
+};
 </script>
 <template>
   <div
@@ -60,17 +72,31 @@ const feedbackLabels = [
       <template v-if="guessedItems[mode].length">
         <div class="space-y-4 overflow-x-auto md:overflow-x-visible">
           <div
-            class="grid w-[150%] grid-cols-6 gap-1 border border-neutral-200 bg-white/75 py-0.5 text-sm uppercase md:-ml-[25%] md:text-base dark:border-neutral-800 dark:bg-neutral-900/75"
+            class="grid w-[160%] grid-cols-7 gap-1 border border-neutral-200 bg-white/75 py-0.5 text-sm uppercase md:-ml-[30%] md:text-base dark:border-neutral-800 dark:bg-neutral-900/75"
           >
-            <p
+            <UTooltip
               v-for="label of feedbackLabels"
               :key="label"
-              class="font-roboto self-center justify-self-center text-center font-semibold"
+              :disabled="label === 'name'"
+              :content="{
+                side: 'top',
+              }"
+              :delay-duration="0"
+              :ui="{
+                content: 'text-md rounded-none py-2 px-3',
+              }"
+              :text="tooltipMap[label as keyof typeof tooltipMap]"
             >
-              {{ label }}
-            </p>
+              <p
+                class="font-roboto self-center justify-self-center text-center font-medium"
+              >
+                {{ label }}
+              </p>
+            </UTooltip>
           </div>
-          <div class="grid w-[150%] grid-cols-6 gap-1 uppercase md:-ml-[25%]">
+          <div
+            class="grid w-[160%] grid-cols-7 gap-1 text-sm capitalize md:-ml-[30%] md:text-base"
+          >
             <ClassicFeedbackRow
               v-for="warframe of [...guessedItems[mode]].reverse()"
               :key="warframe.name"

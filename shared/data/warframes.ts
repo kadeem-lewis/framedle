@@ -37,6 +37,7 @@
       }
     ],
     "sex": "Male",
+    "variant": "Standard",
     "progenitor": "Radiation",
     "isPrime": false
   },
@@ -76,6 +77,7 @@
       }
     ],
     "sex": "Male",
+    "variant": "Prime",
     "progenitor": "Radiation",
     "isPrime": true
   },
@@ -115,6 +117,7 @@
       }
     ],
     "sex": "Male",
+    "variant": "Standard",
     "progenitor": "Toxin",
     "isPrime": false
   },
@@ -154,6 +157,7 @@
       }
     ],
     "sex": "Male",
+    "variant": "Prime",
     "progenitor": "Toxin",
     "isPrime": true
   },
@@ -193,6 +197,7 @@
       }
     ],
     "sex": "Female",
+    "variant": "Standard",
     "progenitor": "Electricity",
     "isPrime": false
   },
@@ -232,6 +237,7 @@
       }
     ],
     "sex": "Female",
+    "variant": "Prime",
     "progenitor": "Electricity",
     "isPrime": true
   },
@@ -271,6 +277,7 @@
       }
     ],
     "sex": "Male",
+    "variant": "Standard",
     "progenitor": "Impact",
     "isPrime": false
   },
@@ -310,6 +317,7 @@
       }
     ],
     "sex": "Male",
+    "variant": "Prime",
     "progenitor": "Impact",
     "isPrime": true
   },
@@ -349,6 +357,7 @@
       }
     ],
     "sex": "Male",
+    "variant": "Standard",
     "progenitor": "Electricity",
     "isPrime": false
   },
@@ -388,6 +397,7 @@
       }
     ],
     "sex": "Male",
+    "variant": "Standard",
     "progenitor": "Heat",
     "isPrime": false
   },
@@ -427,6 +437,7 @@
       }
     ],
     "sex": "Male",
+    "variant": "Prime",
     "progenitor": "Heat",
     "isPrime": true
   },
@@ -466,6 +477,7 @@
       }
     ],
     "sex": "Female",
+    "variant": "Standard",
     "progenitor": "Magnetic",
     "isPrime": false
   },
@@ -505,6 +517,7 @@
       }
     ],
     "sex": "Male",
+    "variant": "Standard",
     "progenitor": "Magnetic",
     "isPrime": false
   },
@@ -544,6 +557,7 @@
       }
     ],
     "sex": "Female",
+    "variant": "Standard",
     "progenitor": "Toxin",
     "isPrime": false
   },
@@ -583,6 +597,7 @@
       }
     ],
     "sex": "Male",
+    "variant": "Standard",
     "progenitor": "Impact",
     "isPrime": false
   },
@@ -622,6 +637,7 @@
       }
     ],
     "sex": "Female",
+    "variant": "Standard",
     "progenitor": "Heat",
     "isPrime": false
   },
@@ -661,6 +677,7 @@
       }
     ],
     "sex": "Female",
+    "variant": "Prime",
     "progenitor": "Heat",
     "isPrime": true
   },
@@ -700,6 +717,7 @@
       }
     ],
     "sex": "Female",
+    "variant": "Standard",
     "progenitor": "Radiation",
     "isPrime": false
   },
@@ -739,6 +757,7 @@
       }
     ],
     "sex": "Female",
+    "variant": "Prime",
     "progenitor": "Radiation",
     "isPrime": true
   },
@@ -778,6 +797,7 @@
       }
     ],
     "sex": "Male",
+    "variant": "Standard",
     "progenitor": "Electricity",
     "isPrime": false
   },
@@ -817,6 +837,7 @@
       }
     ],
     "sex": "Male",
+    "variant": "Prime",
     "progenitor": "Electricity",
     "isPrime": true
   },
@@ -856,6 +877,7 @@
       }
     ],
     "sex": "Male",
+    "variant": "Umbra",
     "progenitor": "Electricity",
     "isPrime": false
   },
@@ -895,6 +917,7 @@
       }
     ],
     "sex": "Male",
+    "variant": "Standard",
     "progenitor": "Cold",
     "isPrime": false
   },
@@ -934,6 +957,7 @@
       }
     ],
     "sex": "Male",
+    "variant": "Prime",
     "progenitor": "Cold",
     "isPrime": true
   },
@@ -973,6 +997,7 @@
       }
     ],
     "sex": "Female",
+    "variant": "Standard",
     "progenitor": "Cold",
     "isPrime": false
   },
@@ -1012,6 +1037,7 @@
       }
     ],
     "sex": "Female",
+    "variant": "Prime",
     "progenitor": "Cold",
     "isPrime": true
   },
@@ -1051,6 +1077,7 @@
       }
     ],
     "sex": "Female",
+    "variant": "Standard",
     "progenitor": "Radiation",
     "isPrime": false
   },
@@ -1090,6 +1117,7 @@
       }
     ],
     "sex": "Female",
+    "variant": "Prime",
     "progenitor": "Radiation",
     "isPrime": true
   },
@@ -1129,6 +1157,7 @@
       }
     ],
     "sex": "Male",
+    "variant": "Standard",
     "progenitor": "Impact",
     "isPrime": false
   },
@@ -1168,6 +1197,7 @@
       }
     ],
     "sex": "Male",
+    "variant": "Prime",
     "progenitor": "Impact",
     "isPrime": true
   },
@@ -1207,6 +1237,7 @@
       }
     ],
     "sex": "Male",
+    "variant": "Standard",
     "progenitor": "Impact",
     "isPrime": false
   },
@@ -1246,6 +1277,7 @@
       }
     ],
     "sex": "Male",
+    "variant": "Prime",
     "progenitor": "Impact",
     "isPrime": true
   },
@@ -1285,6 +1317,7 @@
       }
     ],
     "sex": "Female",
+    "variant": "Standard",
     "progenitor": "Electricity",
     "isPrime": false
   },
@@ -1324,6 +1357,7 @@
       }
     ],
     "sex": "Male",
+    "variant": "Standard",
     "progenitor": "Magnetic",
     "isPrime": false
   },
@@ -1363,6 +1397,7 @@
       }
     ],
     "sex": "Male",
+    "variant": "Prime",
     "progenitor": "Magnetic",
     "isPrime": true
   },
@@ -1402,6 +1437,7 @@
       }
     ],
     "sex": "Female",
+    "variant": "Standard",
     "progenitor": "Cold",
     "isPrime": false
   },
@@ -1441,6 +1477,7 @@
       }
     ],
     "sex": "Female",
+    "variant": "Prime",
     "progenitor": "Cold",
     "isPrime": true
   },
@@ -1480,6 +1517,7 @@
       }
     ],
     "sex": "Male",
+    "variant": "Standard",
     "progenitor": "Magnetic",
     "isPrime": false
   },
@@ -1519,6 +1557,7 @@
       }
     ],
     "sex": "Male",
+    "variant": "Prime",
     "progenitor": "Magnetic",
     "isPrime": true
   },
@@ -1558,6 +1597,7 @@
       }
     ],
     "sex": "Male",
+    "variant": "Standard",
     "progenitor": "Heat",
     "isPrime": false
   },
@@ -1597,6 +1637,7 @@
       }
     ],
     "sex": "Male",
+    "variant": "Prime",
     "progenitor": "Heat",
     "isPrime": true
   },
@@ -1636,6 +1677,7 @@
       }
     ],
     "sex": "Female",
+    "variant": "Standard",
     "progenitor": "Toxin",
     "isPrime": false
   },
@@ -1675,6 +1717,7 @@
       }
     ],
     "sex": "Female",
+    "variant": "Prime",
     "progenitor": "Toxin",
     "isPrime": true
   },
@@ -1714,6 +1757,7 @@
       }
     ],
     "sex": "Female",
+    "variant": "Standard",
     "progenitor": "Heat",
     "isPrime": false
   },
@@ -1753,6 +1797,7 @@
       }
     ],
     "sex": "Female",
+    "variant": "Standard",
     "progenitor": "Toxin",
     "isPrime": false
   },
@@ -1792,6 +1837,7 @@
       }
     ],
     "sex": "Female",
+    "variant": "Prime",
     "progenitor": "Toxin",
     "isPrime": true
   },
@@ -1831,6 +1877,7 @@
       }
     ],
     "sex": "Female",
+    "variant": "Standard",
     "progenitor": "Cold",
     "isPrime": false
   },
@@ -1870,6 +1917,7 @@
       }
     ],
     "sex": "Male",
+    "variant": "Standard",
     "progenitor": "Heat",
     "isPrime": false
   },
@@ -1909,6 +1957,7 @@
       }
     ],
     "sex": "Male",
+    "variant": "Standard",
     "progenitor": "Magnetic",
     "isPrime": false
   },
@@ -1948,6 +1997,7 @@
       }
     ],
     "sex": "Male",
+    "variant": "Prime",
     "progenitor": "Magnetic",
     "isPrime": true
   },
@@ -1987,6 +2037,7 @@
       }
     ],
     "sex": "Male",
+    "variant": "Standard",
     "progenitor": "Electricity",
     "isPrime": false
   },
@@ -2026,6 +2077,7 @@
       }
     ],
     "sex": "Male",
+    "variant": "Prime",
     "progenitor": "Electricity",
     "isPrime": true
   },
@@ -2065,6 +2117,7 @@
       }
     ],
     "sex": "Male",
+    "variant": "Standard",
     "progenitor": "Radiation",
     "isPrime": false
   },
@@ -2104,6 +2157,7 @@
       }
     ],
     "sex": "Male",
+    "variant": "Prime",
     "progenitor": "Radiation",
     "isPrime": true
   },
@@ -2143,6 +2197,7 @@
       }
     ],
     "sex": "Female",
+    "variant": "Standard",
     "progenitor": "Magnetic",
     "isPrime": false
   },
@@ -2182,6 +2237,7 @@
       }
     ],
     "sex": "Female",
+    "variant": "Prime",
     "progenitor": "Magnetic",
     "isPrime": true
   },
@@ -2221,6 +2277,7 @@
       }
     ],
     "sex": "Female",
+    "variant": "Standard",
     "progenitor": "Magnetic",
     "isPrime": false
   },
@@ -2260,6 +2317,7 @@
       }
     ],
     "sex": "Female",
+    "variant": "Prime",
     "progenitor": "Magnetic",
     "isPrime": true
   },
@@ -2299,6 +2357,7 @@
       }
     ],
     "sex": "Female",
+    "variant": "Standard",
     "progenitor": "Radiation",
     "isPrime": false
   },
@@ -2338,6 +2397,7 @@
       }
     ],
     "sex": "Female",
+    "variant": "Prime",
     "progenitor": "Radiation",
     "isPrime": true
   },
@@ -2377,6 +2437,7 @@
       }
     ],
     "sex": "Male",
+    "variant": "Standard",
     "progenitor": "Toxin",
     "isPrime": false
   },
@@ -2416,6 +2477,7 @@
       }
     ],
     "sex": "Male",
+    "variant": "Prime",
     "progenitor": "Toxin",
     "isPrime": true
   },
@@ -2455,6 +2517,7 @@
       }
     ],
     "sex": "Male",
+    "variant": "Standard",
     "progenitor": "Heat",
     "isPrime": false
   },
@@ -2494,6 +2557,7 @@
       }
     ],
     "sex": "Male",
+    "variant": "Prime",
     "progenitor": "Heat",
     "isPrime": true
   },
@@ -2533,6 +2597,7 @@
       }
     ],
     "sex": "Male",
+    "variant": "Standard",
     "progenitor": "Toxin",
     "isPrime": false
   },
@@ -2572,6 +2637,7 @@
       }
     ],
     "sex": "Male",
+    "variant": "Prime",
     "progenitor": "Toxin",
     "isPrime": true
   },
@@ -2611,6 +2677,7 @@
       }
     ],
     "sex": "Female",
+    "variant": "Standard",
     "progenitor": "Electricity",
     "isPrime": false
   },
@@ -2650,6 +2717,7 @@
       }
     ],
     "sex": "Female",
+    "variant": "Prime",
     "progenitor": "Electricity",
     "isPrime": true
   },
@@ -2689,6 +2757,7 @@
       }
     ],
     "sex": "Female",
+    "variant": "Standard",
     "progenitor": "Radiation",
     "isPrime": false
   },
@@ -2728,6 +2797,7 @@
       }
     ],
     "sex": "Female",
+    "variant": "Prime",
     "progenitor": "Radiation",
     "isPrime": true
   },
@@ -2767,6 +2837,7 @@
       }
     ],
     "sex": "Male",
+    "variant": "Standard",
     "progenitor": "Toxin",
     "isPrime": false
   },
@@ -2806,6 +2877,7 @@
       }
     ],
     "sex": "Male",
+    "variant": "Prime",
     "progenitor": "Toxin",
     "isPrime": true
   },
@@ -2845,6 +2917,7 @@
       }
     ],
     "sex": "Female",
+    "variant": "Standard",
     "progenitor": "Radiation",
     "isPrime": false
   },
@@ -2884,6 +2957,7 @@
       }
     ],
     "sex": "Female",
+    "variant": "Prime",
     "progenitor": "Radiation",
     "isPrime": true
   },
@@ -2923,6 +2997,7 @@
       }
     ],
     "sex": "Female",
+    "variant": "Standard",
     "progenitor": "Heat",
     "isPrime": false
   },
@@ -2962,6 +3037,7 @@
       }
     ],
     "sex": "Female",
+    "variant": "Prime",
     "progenitor": "Heat",
     "isPrime": true
   },
@@ -3001,6 +3077,7 @@
       }
     ],
     "sex": "Male",
+    "variant": "Standard",
     "progenitor": "Radiation",
     "isPrime": false
   },
@@ -3040,6 +3117,7 @@
       }
     ],
     "sex": "Male",
+    "variant": "Standard",
     "progenitor": "Cold",
     "isPrime": false
   },
@@ -3079,6 +3157,7 @@
       }
     ],
     "sex": "Male",
+    "variant": "Prime",
     "progenitor": "Cold",
     "isPrime": true
   },
@@ -3118,6 +3197,7 @@
       }
     ],
     "sex": "Male",
+    "variant": "Standard",
     "progenitor": "Impact",
     "isPrime": false
   },
@@ -3157,6 +3237,7 @@
       }
     ],
     "sex": "Male",
+    "variant": "Prime",
     "progenitor": "Impact",
     "isPrime": true
   },
@@ -3196,6 +3277,7 @@
       }
     ],
     "sex": "Female",
+    "variant": "Standard",
     "progenitor": "Toxin",
     "isPrime": false
   },
@@ -3235,6 +3317,7 @@
       }
     ],
     "sex": "Female",
+    "variant": "Prime",
     "progenitor": "Toxin",
     "isPrime": true
   },
@@ -3274,6 +3357,7 @@
       }
     ],
     "sex": "Male",
+    "variant": "Standard",
     "progenitor": "Impact",
     "isPrime": false
   },
@@ -3313,6 +3397,7 @@
       }
     ],
     "sex": "Male",
+    "variant": "Prime",
     "progenitor": "Impact",
     "isPrime": true
   },
@@ -3352,6 +3437,7 @@
       }
     ],
     "sex": "Male",
+    "variant": "Standard",
     "progenitor": "Cold",
     "isPrime": false
   },
@@ -3391,6 +3477,7 @@
       }
     ],
     "sex": "Non-binary",
+    "variant": "Standard",
     "progenitor": "Heat",
     "isPrime": false
   },
@@ -3430,6 +3517,7 @@
       }
     ],
     "sex": "Female",
+    "variant": "Standard",
     "progenitor": "Cold",
     "isPrime": false
   },
@@ -3469,6 +3557,7 @@
       }
     ],
     "sex": "Female",
+    "variant": "Prime",
     "progenitor": "Cold",
     "isPrime": true
   },
@@ -3508,6 +3597,7 @@
       }
     ],
     "sex": "Female",
+    "variant": "Standard",
     "progenitor": "Cold",
     "isPrime": false
   },
@@ -3547,6 +3637,7 @@
       }
     ],
     "sex": "Female",
+    "variant": "Prime",
     "progenitor": "Cold",
     "isPrime": true
   },
@@ -3586,6 +3677,7 @@
       }
     ],
     "sex": "Female",
+    "variant": "Standard",
     "progenitor": "Electricity",
     "isPrime": false
   },
@@ -3625,6 +3717,7 @@
       }
     ],
     "sex": "Female",
+    "variant": "Prime",
     "progenitor": "Electricity",
     "isPrime": true
   },
@@ -3664,6 +3757,7 @@
       }
     ],
     "sex": "Male",
+    "variant": "Standard",
     "progenitor": "Heat",
     "isPrime": false
   },
@@ -3703,6 +3797,7 @@
       }
     ],
     "sex": "Male",
+    "variant": "Prime",
     "progenitor": "Heat",
     "isPrime": true
   },
@@ -3742,6 +3837,7 @@
       }
     ],
     "sex": "Male",
+    "variant": "Standard",
     "progenitor": "Electricity",
     "isPrime": false
   },
@@ -3781,6 +3877,7 @@
       }
     ],
     "sex": "Male",
+    "variant": "Prime",
     "progenitor": "Electricity",
     "isPrime": true
   },
@@ -3820,6 +3917,7 @@
       }
     ],
     "sex": "Female",
+    "variant": "Standard",
     "progenitor": "Radiation",
     "isPrime": false
   },
@@ -3859,6 +3957,7 @@
       }
     ],
     "sex": "Female",
+    "variant": "Standard",
     "progenitor": "Heat",
     "isPrime": false
   },
@@ -3898,6 +3997,7 @@
       }
     ],
     "sex": "Female",
+    "variant": "Prime",
     "progenitor": "Heat",
     "isPrime": true
   },
@@ -3937,6 +4037,7 @@
       }
     ],
     "sex": "Male",
+    "variant": "Standard",
     "progenitor": "Impact",
     "isPrime": false
   },
@@ -3976,6 +4077,7 @@
       }
     ],
     "sex": "Male",
+    "variant": "Prime",
     "progenitor": "Impact",
     "isPrime": true
   },
@@ -4015,6 +4117,7 @@
       }
     ],
     "sex": "Non-binary",
+    "variant": "Standard",
     "progenitor": "Magnetic",
     "isPrime": false
   },
@@ -4054,6 +4157,7 @@
       }
     ],
     "sex": "Non-binary",
+    "variant": "Prime",
     "progenitor": "Magnetic",
     "isPrime": true
   },
@@ -4093,6 +4197,7 @@
       }
     ],
     "sex": "Female",
+    "variant": "Standard",
     "progenitor": "Magnetic",
     "isPrime": false
   },
@@ -4132,6 +4237,7 @@
       }
     ],
     "sex": "Female",
+    "variant": "Standard",
     "progenitor": "Impact",
     "isPrime": false
   },
@@ -4171,6 +4277,7 @@
       }
     ],
     "sex": "Female",
+    "variant": "Prime",
     "progenitor": "Impact",
     "isPrime": true
   }

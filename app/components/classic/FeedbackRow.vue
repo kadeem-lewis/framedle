@@ -6,31 +6,6 @@ defineProps<{
   guessedWarframe: Warframe;
   correctWarframe: Warframe;
 }>();
-
-const compareNumeric = (guessed: number, correct: number) => {
-  if (guessed === correct) return { isCorrect: true };
-  return {
-    isCorrect: false,
-    difference: correct - guessed,
-  };
-};
-
-const getNumericComparisonProps = (
-  guessed: number,
-  correct: number,
-  fieldLabel: string,
-) => {
-  const comparison = compareNumeric(guessed, correct);
-
-  return {
-    isCorrect: comparison.isCorrect,
-    fieldLabel,
-    fieldValue: guessed,
-    ...(comparison.isCorrect === false && {
-      difference: comparison.difference,
-    }),
-  };
-};
 </script>
 <template>
   <div class="contents">
@@ -46,55 +21,59 @@ const getNumericComparisonProps = (
     </UiFeedbackTile>
 
     <UiFeedbackTile
-      :is-correct="guessedWarframe.sex === correctWarframe.sex"
+      :variant="checkGuess(correctWarframe.sex, guessedWarframe.sex)"
       field-label="Sex"
       :field-value="guessedWarframe.sex"
     >
       {{ guessedWarframe.sex }}
     </UiFeedbackTile>
     <UiFeedbackTile
-      v-bind="
-        getNumericComparisonProps(
-          guessedWarframe.health,
-          correctWarframe.health,
-          'Health',
-        )
-      "
+      :variant="checkGuess(correctWarframe.variant, guessedWarframe.variant)"
+      field-label="Variant"
+      :field-value="guessedWarframe.variant"
+    >
+      {{ guessedWarframe.variant }}
+    </UiFeedbackTile>
+    <UiFeedbackTile
+      :variant="checkGuess(correctWarframe.health, guessedWarframe.health)"
+      field-label="Health"
+      :field-value="guessedWarframe.health"
     >
       {{ guessedWarframe.health }}
     </UiFeedbackTile>
     <UiFeedbackTile
-      v-bind="
-        getNumericComparisonProps(
-          guessedWarframe.shield,
-          correctWarframe.shield,
-          'Shield',
-        )
-      "
+      :variant="checkGuess(correctWarframe.shield, guessedWarframe.shield)"
+      field-label="Shield"
+      :field-value="guessedWarframe.shield"
     >
       {{ guessedWarframe.shield }}
     </UiFeedbackTile>
     <UiFeedbackTile
-      :is-correct="guessedWarframe.progenitor === correctWarframe.progenitor"
+      :variant="
+        checkGuess(correctWarframe.progenitor, guessedWarframe.progenitor)
+      "
       field-label="Element"
       :field-value="guessedWarframe.progenitor"
     >
-      <NuxtImg
-        format="webp"
-        :src="`/elements/${guessedWarframe.progenitor}.png`"
-        :alt="guessedWarframe.progenitor"
-        class="h-10"
-        preload
-      />
+      <div class="flex flex-col items-center gap-1">
+        <NuxtImg
+          format="webp"
+          :src="`/elements/${guessedWarframe.progenitor}.png`"
+          :alt="guessedWarframe.progenitor"
+          class="h-10"
+          preload
+        />
+      </div>
     </UiFeedbackTile>
     <UiFeedbackTile
-      v-bind="
-        getNumericComparisonProps(
-          parseReleaseDate(guessedWarframe.releaseDate),
+      :variant="
+        checkGuess(
           parseReleaseDate(correctWarframe.releaseDate),
-          'Release Date',
+          parseReleaseDate(guessedWarframe.releaseDate),
         )
       "
+      field-label="Release Date"
+      :field-value="parseReleaseDate(guessedWarframe.releaseDate)"
     >
       {{ parseReleaseDate(guessedWarframe.releaseDate) }}
     </UiFeedbackTile>

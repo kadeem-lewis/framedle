@@ -34,10 +34,11 @@ onBeforeMount(() => {
       <UCard class="divide-y-0">
         <template #header>
           <p
-            class="text-(--ui-primary)-600 font-roboto text-xl font-bold uppercase dark:text-(--ui-primary)"
+            class="text-primary-600 font-roboto text-xl font-bold uppercase dark:text-(--ui-primary)"
           >
             {{ t("ability.title") }}
           </p>
+          <p class="font-semibold uppercase">Each try reveals a tile</p>
         </template>
         <AbilityImageToGuess />
         <template #footer>

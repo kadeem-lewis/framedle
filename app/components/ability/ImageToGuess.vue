@@ -1,4 +1,6 @@
 <script setup lang="ts">
+const emit = defineEmits(["loading", "loaded"]);
+
 const { itemToGuess, attempts } = storeToRefs(useGameStore());
 const { defaultAttempts } = useGameStore();
 const mode = useGameMode();
@@ -15,17 +17,11 @@ const totalCells = gridCols * gridRows;
 
 const img = useImage();
 
-/* Let's take this step by step
-- Step 1: Create a canvas element I can see
-- Step 2: Draw the image to the canvas
-
-*/
-
 const imageUrl = computed(() => {
   if (mode.value === "ability") {
     return img(
       `https://cdn.warframestat.us/img/${itemToGuess.value.ability?.imageName}`,
-      { format: "webp", width: 240, height: 240 },
+      { format: "webp", width: 240, height: 240, fit: "inside" },
     );
   } else if (mode.value === "abilityUnlimited") {
     return img(
@@ -45,7 +41,7 @@ const revealedCells = computed(() => {
 
   const cellsToReveal = totalCells - attempts.value[mode.value];
 
-  return Math.max(1, cellsToReveal) + 1;
+  return Math.max(0, cellsToReveal) + 1;
 });
 
 // Deterministic cell reveal order - this defines the sequence in which cells are revealed
@@ -65,9 +61,11 @@ function loadImage() {
     imageObj.value = img;
     imageLoaded.value = true;
     renderCanvas();
+    emit("loaded", true);
   };
 
   img.onerror = (err) => {
+    emit("loaded", false);
     console.error("Error loading image:", err);
   };
 
@@ -136,15 +134,15 @@ watch(
   { deep: true, immediate: true },
 );
 
-// Initial image loading
-onMounted(() => {
-  loadImage();
-});
-
 // Reload image when item to guess changes
-watch(imageUrl, () => {
-  loadImage();
-});
+watch(
+  imageUrl,
+  () => {
+    emit("loading");
+    loadImage();
+  },
+  { immediate: true },
+);
 </script>
 <template>
   <div v-if="mode === 'ability' || mode === 'abilityUnlimited'">

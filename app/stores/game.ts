@@ -182,6 +182,8 @@ export const useGameStore = defineStore(
       ),
     );
 
+    const version = ref(1);
+
     return {
       warframes,
       attempts,
@@ -194,6 +196,7 @@ export const useGameStore = defineStore(
       currentDay,
       vanillaWarframes,
       selectedMinigameAbility,
+      version,
       classicInit,
       abilityInit,
       getDaily,
@@ -210,6 +213,7 @@ export const useGameStore = defineStore(
         "dailyDate",
         "currentDailyDate",
         "selectedMinigameAbility",
+        "version",
       ],
     },
   },

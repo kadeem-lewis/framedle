@@ -148,7 +148,9 @@ watch(
           class="col-span-1 aspect-square invert transition-transform duration-500 dark:invert-0"
           :class="{
             'rotate-180':
-              index === revealedCells && revealedCells !== totalCells,
+              index === revealedCells &&
+              revealedCells !== totalCells &&
+              !isGameOver,
           }"
         />
         <div

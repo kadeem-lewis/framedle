@@ -42,6 +42,47 @@ const error = computed(() => ($colorblindMode.value ? "Orange" : "Red"));
     </p>
     <p><span>⬆️⬇️</span> {{ t("instructions.classic.properties.arrows") }}</p>
     <p class="font-roboto text-center text-lg font-bold uppercase">
+      Properties
+    </p>
+    <p>Here is the details of each of the properties columns:</p>
+    <div class="space-y-2">
+      <div class="space-y-1">
+        <p class="font-medium text-(--ui-info)">Gender:</p>
+        <p><span>Possible values:&nbsp;</span> Male, Female or Non-binary</p>
+      </div>
+      <div class="space-y-1">
+        <p class="font-medium text-(--ui-info)">Variant:</p>
+        <p><span>Possible values:&nbsp;</span> Standard, Prime or Umbra</p>
+      </div>
+      <div class="space-y-1">
+        <p class="font-medium text-(--ui-info)">Health:</p>
+        <p>
+          <span>Possible values:&nbsp;</span> Base shield values of Warframes
+          e.g 180, 270, 365
+        </p>
+      </div>
+      <div class="space-y-1">
+        <p class="font-medium text-(--ui-info)">Shield:</p>
+        <p>
+          <span>Possible values:&nbsp;</span> Base shield values of Warframes
+          e.g 0, 135, 180
+        </p>
+      </div>
+      <div class="space-y-1">
+        <p class="font-medium text-(--ui-info)">Progenitor Element:</p>
+        <p>
+          <span>Possible values:&nbsp;</span>Impact, Heat, Cold, Electricity,
+          Toxin, Magnetic or Radiation
+        </p>
+      </div>
+      <div class="space-y-1">
+        <p class="font-medium text-(--ui-info)">Release Year:</p>
+        <p>
+          <span>Possible values:&nbsp;</span>Any year between 2012 and today
+        </p>
+      </div>
+    </div>
+    <p class="font-roboto text-center text-lg font-bold uppercase">
       {{ t("instructions.classic.example") }}
     </p>
     <USeparator />
@@ -69,7 +110,6 @@ const error = computed(() => ($colorblindMode.value ? "Orange" : "Red"));
           <span class="text-success">{{ success }}</span>
         </p>
         <p>{{ t("instructions.classic.sex.description") }}</p>
-        <p><span>Possible values:&nbsp;</span> Male, Female or Non-binary</p>
       </div>
       <div class="space-y-1">
         <p class="font-medium">
@@ -91,10 +131,6 @@ const error = computed(() => ($colorblindMode.value ? "Orange" : "Red"));
           <span class="text-success">{{ success }}</span>
         </p>
         <p>{{ t("instructions.classic.progenitor.description") }}</p>
-        <p>
-          <span>Possible values:&nbsp;</span>Impact, Heat, Cold, Electricity,
-          Toxin, Magnetic or Radiation
-        </p>
       </div>
       <div class="space-y-1">
         <p class="font-medium">

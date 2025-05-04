@@ -21,32 +21,44 @@ await callOnce("ability-setup", abilityInit, {
   mode: "navigation",
 });
 
-// If I get the correct guess it should still be added to guessed items but then I need to update the game over condition
-
 onBeforeMount(() => {
   resetStreak("ability");
 });
 
 // Loading state for the image
-const isImageLoading = ref(true);
+const isImageLoading = ref(false);
+const showLoadingSpinner = ref(false);
+let loadingTimeout: ReturnType<typeof setTimeout>;
 
 // Handle loading state changes
 function handleImageLoading() {
   isImageLoading.value = true;
+  // Only show spinner after 150ms delay (adjust as needed)
+  loadingTimeout = setTimeout(() => {
+    if (isImageLoading.value) {
+      showLoadingSpinner.value = true;
+    }
+  }, 150);
 }
 
 function handleImageLoaded(success: boolean) {
   isImageLoading.value = false;
+  showLoadingSpinner.value = false;
+  clearTimeout(loadingTimeout);
+
   if (!success) {
-    // Handle loading error if needed
     console.error("Failed to load image");
   }
 }
+
+onUnmounted(() => {
+  clearTimeout(loadingTimeout);
+});
 </script>
 <template>
   <div>
-    <UiAppSpinner v-if="isImageLoading" />
-    <div v-show="!isImageLoading">
+    <UiAppSpinner v-if="showLoadingSpinner" />
+    <div v-show="!showLoadingSpinner">
       <div v-if="mode" class="flex flex-col gap-4">
         <div v-if="itemToGuess[mode]" class="space-y-4">
           <RemainingGuesses />

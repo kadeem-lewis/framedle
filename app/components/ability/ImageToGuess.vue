@@ -145,12 +145,11 @@ watch(
           v-for="index of revealedCells"
           :key="index"
           :ref="canvasRefs.set"
-          class="col-span-1 aspect-square invert transition-transform duration-500 dark:invert-0"
+          class="col-span-1 invert dark:invert-0"
           :class="{
             'rotate-180':
-              index === revealedCells &&
-              revealedCells !== totalCells &&
-              !isGameOver,
+              index === revealedCells && revealedCells !== totalCells,
+            'transition-transform duration-500': !isGameOver,
           }"
         />
         <div

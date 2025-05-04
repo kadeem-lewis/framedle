@@ -8,7 +8,7 @@ const mode = useGameMode();
   <div v-if="mode">
     <div class="flex justify-end gap-1">
       <NuxtImg
-        v-for="(_, index) in Array(defaultAttempts)"
+        v-for="index of defaultAttempts"
         :key="index"
         format="webp"
         src="/warframe.png"
@@ -17,7 +17,7 @@ const mode = useGameMode();
         height="24"
         width="24"
         class="invert dark:invert-0"
-        :class="index + 1 > attempts[mode] ? 'brightness-50' : ''"
+        :class="index > attempts[mode] ? 'brightness-50' : ''"
       />
     </div>
   </div>

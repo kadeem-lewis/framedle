@@ -33,7 +33,7 @@ const abilityNames = computed(() =>
     <NuxtImg
       v-if="correctAbility"
       :src="`https://cdn.warframestat.us/img/${correctAbility.imageName}`"
-      :alt="correctAbility.name"
+      alt="ability image"
       format="webp"
       height="96"
       class="mx-auto mb-2 h-24 w-24 object-cover ring invert dark:invert-0"

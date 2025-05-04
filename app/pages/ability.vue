@@ -28,7 +28,7 @@ onBeforeMount(() => {
 // Loading state for the image
 const isImageLoading = ref(false);
 const showLoadingSpinner = ref(false);
-let loadingTimeout: ReturnType<typeof setTimeout>;
+let loadingTimeout: NodeJS.Timeout;
 
 // Handle loading state changes
 function handleImageLoading() {

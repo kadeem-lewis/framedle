@@ -41,6 +41,7 @@ const error = computed(() => ($colorblindMode.value ? "Orange" : "Red"));
       {{ t("instructions.classic.properties.red_explanation") }}
     </p>
     <p><span>⬆️⬇️</span> {{ t("instructions.classic.properties.arrows") }}</p>
+    <USeparator />
     <p class="font-roboto text-center text-lg font-bold uppercase">
       Properties
     </p>
@@ -98,11 +99,13 @@ const error = computed(() => ($colorblindMode.value ? "Orange" : "Red"));
           properties will appear:
         </p>
       </div>
-      <div class="grid grid-cols-7 gap-1">
-        <ClassicFeedbackRow
-          :guessed-warframe="Inaros!"
-          :correct-warframe="Nezha!"
-        />
+      <div class="overflow-x-auto">
+        <div class="grid w-[160%] grid-cols-7 gap-1">
+          <ClassicFeedbackRow
+            :guessed-warframe="Inaros!"
+            :correct-warframe="Nezha!"
+          />
+        </div>
       </div>
       <div class="space-y-1">
         <p class="font-medium">
@@ -140,11 +143,13 @@ const error = computed(() => ($colorblindMode.value ? "Orange" : "Red"));
         <p>{{ t("instructions.classic.release_year.description") }}</p>
       </div>
       <p>{{ t("instructions.classic.correct_guess") }}</p>
-      <div class="grid grid-cols-7 gap-1">
-        <ClassicFeedbackRow
-          :guessed-warframe="Nezha!"
-          :correct-warframe="Nezha!"
-        />
+      <div class="overflow-x-auto">
+        <div class="grid w-[150%] grid-cols-7 gap-1">
+          <ClassicFeedbackRow
+            :guessed-warframe="Nezha!"
+            :correct-warframe="Nezha!"
+          />
+        </div>
       </div>
     </div>
   </div>

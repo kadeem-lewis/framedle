@@ -8,6 +8,8 @@ const { isGameOver } = storeToRefs(useGameStateStore());
 const imageLoaded = ref(false);
 const imageObj = ref<HTMLImageElement | null>(null);
 
+const CANVAS_SIZE = 240; // Size of the canvas in pixels
+
 // Grid configuration
 const gridCols = 3;
 const gridRows = 2;
@@ -19,14 +21,14 @@ const imageUrl = computed(() => {
   if (mode.value === "ability") {
     return img(
       `https://cdn.warframestat.us/img/${itemToGuess.value.ability?.imageName}`,
-      { format: "webp", width: 240, height: 240 },
-      { modifiers: { enlarge: "240x240" } }, // scale smaller images up to 240px
+      { format: "webp", width: CANVAS_SIZE, height: CANVAS_SIZE },
+      { modifiers: { enlarge: `${CANVAS_SIZE}x${CANVAS_SIZE}` } }, // scale smaller images up to CANVAS_SIZE
     );
   } else if (mode.value === "abilityUnlimited") {
     return img(
       `https://cdn.warframestat.us/img/${itemToGuess.value.abilityUnlimited?.imageName}`,
-      { format: "webp", width: 240, height: 240 },
-      { modifiers: { enlarge: "240x240" } },
+      { format: "webp", width: CANVAS_SIZE, height: CANVAS_SIZE },
+      { modifiers: { enlarge: `${CANVAS_SIZE}x${CANVAS_SIZE}` } },
     );
   }
   throw createError("Ability mode is not set");
@@ -85,8 +87,8 @@ const canvasRefs = useTemplateRefsList<HTMLCanvasElement>();
 function renderCanvases() {
   if (!imageObj.value || !canvasRefs.value.length) return;
 
-  const cellWidth = 240 / gridCols; // Assuming 240px width for the whole image
-  const cellHeight = 240 / gridRows; // Assuming 240px height for the whole image
+  const cellWidth = CANVAS_SIZE / gridCols;
+  const cellHeight = CANVAS_SIZE / gridRows;
 
   canvasRefs.value.forEach((canvas, i) => {
     if (!canvas) return;
@@ -143,7 +145,11 @@ watch(
           v-for="index of revealedCells"
           :key="index"
           :ref="canvasRefs.set"
-          class="anim col-span-1 aspect-square invert transition-transform dark:invert-0"
+          class="col-span-1 aspect-square invert transition-transform duration-500 dark:invert-0"
+          :class="{
+            'rotate-180':
+              index === revealedCells && revealedCells !== totalCells,
+          }"
         />
         <div
           v-for="index of totalCells - revealedCells"

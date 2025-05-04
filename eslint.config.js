@@ -1,5 +1,5 @@
-import { createConfigForNuxt } from "@nuxt/eslint-config/flat";
+// @ts-check
+import withNuxt from "./.nuxt/eslint.config.mjs";
 
-export default createConfigForNuxt({
-  // options here
-});
+export default withNuxt();
+// Your custom configs here

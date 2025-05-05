@@ -1,5 +1,21 @@
 # Changelog
 
+## v0.2.0 - May 4th, 2025
+
+### Features
+
+- Added an additional column to the classic game mode that shows the warframe variant
+- Added tooltips to classic mode headings to show possible values
+- Updated ability mode to start with image rotate to increase difficulty
+- Add a mini game to guess the ability name after the image is revealed
+- Updated game instructions to include new changes and be better formatted
+- Changed daily mode refresh to trigger when navigating between game modes
+
+### Bug Fixes
+
+- Fixed game returning to the home page when reloading the page
+- Fixed error where clicking on the next mode button would cause the daily mode button to link to previous game mode
+
 ## v0.1.4 - April 18, 2025
 
 ### Changes

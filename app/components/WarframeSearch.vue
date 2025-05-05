@@ -24,23 +24,22 @@ const items = computed(() => {
 const selectedWarframe = ref<Warframe>();
 const query = ref("");
 
-const fuse = new Fuse(items.value, {
-  keys: ["name"],
-  threshold: 0.4,
-});
+const fuse = computed(
+  () =>
+    new Fuse(items.value, {
+      keys: ["name"],
+      threshold: 0.4,
+    }),
+);
 
 const filteredItems = computed(() => {
   if (!query.value) {
     return items.value.slice(0, 6);
   }
-  return fuse
+  return fuse.value
     .search(query.value)
     .map((result) => ({ ...result.item }))
     .slice(0, 6);
-});
-
-watch(items, (newItems) => {
-  fuse.setCollection(newItems);
 });
 
 watch(query, (newQuery) => {

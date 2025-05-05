@@ -10,7 +10,7 @@ const mode = useGameMode();
     <UiFeedbackTile
       v-for="warframe of [...guessedItems[mode]].reverse()"
       :key="warframe.name"
-      :is-correct="warframe.name === itemToGuess[mode]?.belongsTo"
+      :variant="checkGuess(itemToGuess[mode]!.belongsTo, warframe.name)"
       field-label="Warframe"
       :field-value="warframe.name"
       tooltip-disabled

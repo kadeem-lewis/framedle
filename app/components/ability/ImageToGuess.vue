@@ -1,63 +1,165 @@
 <script setup lang="ts">
+const emit = defineEmits(["loading", "loaded"]);
+
 const { itemToGuess, attempts } = storeToRefs(useGameStore());
-const { defaultAttempts } = useGameStore();
 const mode = useGameMode();
 const { isGameOver } = storeToRefs(useGameStateStore());
 
-const cleanedDescription = computed(() => {
-  if (mode.value === "ability" || mode.value === "abilityUnlimited") {
-    return itemToGuess.value[mode.value]?.description.replace(/<[^>]*>?/gm, "");
+const imageLoaded = ref(false);
+const imageObj = ref<HTMLImageElement | null>(null);
+
+const CANVAS_SIZE = 240; // Size of the canvas in pixels
+
+// Grid configuration
+const gridCols = 3;
+const gridRows = 2;
+const totalCells = gridCols * gridRows;
+
+const img = useImage();
+
+const imageUrl = computed(() => {
+  if (mode.value === "ability") {
+    return img(
+      `https://cdn.warframestat.us/img/${itemToGuess.value.ability?.imageName}`,
+      { format: "webp", width: CANVAS_SIZE, height: CANVAS_SIZE },
+      { modifiers: { enlarge: `${CANVAS_SIZE}x${CANVAS_SIZE}` } }, // scale smaller images up to CANVAS_SIZE
+    );
+  } else if (mode.value === "abilityUnlimited") {
+    return img(
+      `https://cdn.warframestat.us/img/${itemToGuess.value.abilityUnlimited?.imageName}`,
+      { format: "webp", width: CANVAS_SIZE, height: CANVAS_SIZE },
+      { modifiers: { enlarge: `${CANVAS_SIZE}x${CANVAS_SIZE}` } },
+    );
   }
-  return "";
+  throw createError("Ability mode is not set");
 });
+
+// Compute which cells should be revealed based on attempts remaining
+const revealedCells = computed(() => {
+  if (!mode.value) throw createError("Mode is not set");
+  if (isGameOver.value) {
+    return totalCells; // Show entire image when game is over
+  }
+
+  const cellsToReveal = totalCells - attempts.value[mode.value];
+
+  return Math.max(0, cellsToReveal) + 1;
+});
+
+function loadImage() {
+  if (!imageUrl.value) return;
+
+  const img = new Image();
+  img.crossOrigin = "anonymous"; // Handle CORS if needed
+
+  img.onload = () => {
+    imageObj.value = img;
+    imageLoaded.value = true;
+    renderCanvases();
+    emit("loaded", true);
+  };
+
+  img.onerror = (err) => {
+    emit("loaded", false);
+    console.error("Error loading image:", err);
+  };
+
+  img.src = imageUrl.value;
+}
+
+watch(
+  imageUrl,
+  () => {
+    emit("loading");
+    loadImage();
+  },
+  { immediate: true },
+);
+
+const canvasRefs = useTemplateRefsList<HTMLCanvasElement>();
+
+/**
+ * The actual rendering of the images is one guess behind so the new canvas is added but nothing is rendered on it the first time
+ *  - I think I fixed this by using nextTick to wait for the DOM to update before rendering
+ * There needs to be a separate loading state or variable for each mode, the game shouldn't have to reload an image when swapping modes
+ */
+
+function renderCanvases() {
+  if (!imageObj.value || !canvasRefs.value.length) return;
+
+  const cellWidth = CANVAS_SIZE / gridCols;
+  const cellHeight = CANVAS_SIZE / gridRows;
+
+  canvasRefs.value.forEach((canvas, i) => {
+    if (!canvas) return;
+
+    // Set canvas dimensions
+    canvas.width = cellWidth;
+    canvas.height = cellHeight;
+
+    const ctx = canvas.getContext("2d");
+    if (!ctx) return;
+
+    // Clear canvas
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    const cellIndex = i;
+    const col = cellIndex % gridCols;
+    const row = Math.floor(cellIndex / gridCols);
+
+    // Calculate positions
+    const sourceX = col * cellWidth;
+    const sourceY = row * cellHeight;
+
+    // Draw the image fragment
+    ctx.drawImage(
+      imageObj.value!,
+      sourceX,
+      sourceY,
+      cellWidth,
+      cellHeight, // Source rectangle
+      0,
+      0,
+      cellWidth,
+      cellHeight, // Destination rectangle
+    );
+  });
+}
+
+// Watch for changes in attempts or game state to update the canvas
+watch(
+  [attempts, isGameOver, mode, revealedCells],
+  () => {
+    if (imageLoaded.value) {
+      nextTick(() => renderCanvases());
+    }
+  },
+  { deep: true, immediate: true },
+);
 </script>
 <template>
-  <div v-if="mode === 'ability' || mode === 'abilityUnlimited'">
+  <template v-if="mode === 'ability' || mode === 'abilityUnlimited'">
     <div class="flex items-center justify-center p-4">
-      <div class="relative">
-        <div class="absolute inset-0 z-10 grid grid-cols-3 grid-rows-2">
-          <div
-            v-for="(_, index) of new Array(defaultAttempts)"
-            :key="index"
-            class="col-span-1 flex h-full items-center justify-center border bg-red-500 dark:bg-red-600"
-            :class="{
-              hidden: index <= defaultAttempts - attempts[mode] || isGameOver,
-            }"
-          >
-            <UIcon name="i-mdi-help" class="text-4xl" />
-          </div>
+      <div class="grid h-60 w-60 grid-cols-3 grid-rows-2">
+        <canvas
+          v-for="index of revealedCells"
+          :key="index"
+          :ref="canvasRefs.set"
+          class="col-span-1 invert dark:invert-0"
+          :class="{
+            'rotate-180':
+              index === revealedCells && revealedCells !== totalCells,
+            'transition-transform duration-500': !isGameOver,
+          }"
+        />
+        <div
+          v-for="index of totalCells - revealedCells"
+          :key="index"
+          class="col-span-1 flex h-full items-center justify-center border bg-red-500 dark:bg-red-600"
+        >
+          <UIcon name="i-mdi-help" class="text-4xl" />
         </div>
-        <NuxtImg
-          v-if="mode === 'ability'"
-          format="webp"
-          :src="`https://cdn.warframestat.us/img/${itemToGuess.ability?.imageName}`"
-          alt="Ability Image"
-          placeholder
-          preload
-          height="240"
-          width="240"
-          class="h-60 invert dark:invert-0"
-        />
-        <NuxtImg
-          v-if="mode === 'abilityUnlimited'"
-          format="webp"
-          :src="`https://cdn.warframestat.us/img/${itemToGuess.abilityUnlimited?.imageName}`"
-          alt="Ability Image"
-          placeholder
-          preload
-          height="240"
-          width="240"
-          class="h-60 invert dark:invert-0"
-        />
       </div>
     </div>
-    <template v-if="isGameOver">
-      <p class="text-lg font-bold uppercase">
-        {{ itemToGuess[mode]?.name }}
-      </p>
-      <p>
-        {{ cleanedDescription }}
-      </p>
-    </template>
-  </div>
+  </template>
 </template>

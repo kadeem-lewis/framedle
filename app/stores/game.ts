@@ -49,6 +49,11 @@ export const useGameStore = defineStore(
       abilityUnlimited: [] as Warframe[],
     });
 
+    const selectedMinigameAbility = ref({
+      ability: "",
+      abilityUnlimited: "",
+    });
+
     const { decode } = useEncoder();
 
     //TODO: both init functions could be the same function and just pass the mode as an argument
@@ -98,6 +103,7 @@ export const useGameStore = defineStore(
       guessedItems.value.ability = [];
       attempts.value.classic = defaultAttempts;
       attempts.value.ability = defaultAttempts;
+      selectedMinigameAbility.value.ability = "";
     }
 
     async function getDaily() {
@@ -151,6 +157,7 @@ export const useGameStore = defineStore(
         itemToGuess.value.abilityUnlimited = abilities.value[
           Math.floor(Math.random() * abilities.value.length)
         ] as Ability;
+        selectedMinigameAbility.value.abilityUnlimited = "";
       }
     }
 
@@ -175,6 +182,8 @@ export const useGameStore = defineStore(
       ),
     );
 
+    const version = ref(1);
+
     return {
       warframes,
       attempts,
@@ -186,6 +195,8 @@ export const useGameStore = defineStore(
       currentDailyDate,
       currentDay,
       vanillaWarframes,
+      selectedMinigameAbility,
+      version,
       classicInit,
       abilityInit,
       getDaily,
@@ -201,6 +212,8 @@ export const useGameStore = defineStore(
         "itemToGuess",
         "dailyDate",
         "currentDailyDate",
+        "selectedMinigameAbility",
+        "version",
       ],
     },
   },

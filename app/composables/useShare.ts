@@ -35,40 +35,20 @@ export function useShare() {
   ) {
     const gridRow: string[] = [];
 
-    if (correctItem.sex !== guessedItem.sex) {
-      gridRow.push(emojis.incorrect);
-    } else {
-      gridRow.push(emojis.correct);
-    }
+    gridRow.push(
+      emojis[checkGuess(correctItem.sex, guessedItem.sex)],
+      emojis[checkGuess(correctItem.variant, guessedItem.variant)],
+      emojis[checkGuess(correctItem.health, guessedItem.health)],
+      emojis[checkGuess(correctItem.shield, guessedItem.shield)],
+      emojis[checkGuess(correctItem.progenitor, guessedItem.progenitor)],
+      emojis[
+        checkGuess(
+          parseReleaseDate(correctItem.releaseDate),
+          parseReleaseDate(guessedItem.releaseDate),
+        )
+      ],
+    );
 
-    if (correctItem.health !== guessedItem.health) {
-      gridRow.push(
-        correctItem.health > guessedItem.health ? emojis.higher : emojis.lower,
-      );
-    } else {
-      gridRow.push(emojis.correct);
-    }
-    if (correctItem.shield !== guessedItem.shield) {
-      gridRow.push(
-        correctItem.shield > guessedItem.shield ? emojis.higher : emojis.lower,
-      );
-    } else {
-      gridRow.push(emojis.correct);
-    }
-    if (correctItem.progenitor !== guessedItem.progenitor) {
-      gridRow.push(emojis.incorrect);
-    } else {
-      gridRow.push(emojis.correct);
-    }
-    const correctReleaseDate = parseReleaseDate(correctItem.releaseDate);
-    const guessedReleaseDate = parseReleaseDate(guessedItem.releaseDate);
-    if (correctReleaseDate !== guessedReleaseDate) {
-      gridRow.push(
-        correctReleaseDate > guessedReleaseDate ? emojis.higher : emojis.lower,
-      );
-    } else {
-      gridRow.push(emojis.correct);
-    }
     return gridRow.join("");
   }
 
@@ -77,11 +57,15 @@ export function useShare() {
     if (!currentMode) throw createError("Mode is not set");
     if (currentMode === "ability" || currentMode === "abilityUnlimited") {
       guessedItems.value[currentMode].forEach((guessedItem) => {
-        if (guessedItem.name === itemToGuess.value[currentMode]?.belongsTo) {
-          emojiFeedback.value.push(emojis.correct);
-        } else {
-          emojiFeedback.value.push(emojis.incorrect);
-        }
+        if (!itemToGuess.value[currentMode]?.belongsTo) return;
+        emojiFeedback.value.push(
+          emojis[
+            checkGuess(
+              itemToGuess.value[currentMode]?.belongsTo,
+              guessedItem.name,
+            )
+          ],
+        );
       });
       emojiFeedback.value = emojiFeedback.value.concat(
         new Array(attempts.value[currentMode]).fill(emojis.unused),

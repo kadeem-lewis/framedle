@@ -36,7 +36,6 @@ export default defineNuxtConfig({
   },
 
   routeRules: {
-    "/": { prerender: true },
     "/classic": { ssr: false },
     "/ability": { ssr: false },
   },

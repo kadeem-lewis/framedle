@@ -1,5 +1,11 @@
 # Changelog
 
+## v0.2.1 - May 5th, 2025
+
+### Bug fixes
+
+- Disabled prerendering of home page to properly fix issue of refreshing the page causing the game to return to the home page
+
 ## v0.2.0 - May 4th, 2025
 
 ### Features

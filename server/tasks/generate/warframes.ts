@@ -1,7 +1,19 @@
 import type { Warframe } from "#shared/schemas/warframe";
 import { warframeSchema } from "#shared/schemas/warframe";
-import { progenitors } from "../../constants/progenitors";
 import { promises as fs } from "fs";
+import { transformKeys, capitalize } from "~~/server/utils/transform";
+
+type WarframeWikiData = {
+  Warframes: Record<string, Record<string, unknown>>;
+  [key: string]: unknown;
+};
+
+const polarityMap = {
+  V: "Madurai",
+  D: "Vazarin",
+  Bar: "Naramon",
+  Scratch: "Zenurik",
+};
 
 export default defineTask({
   meta: {
@@ -10,11 +22,40 @@ export default defineTask({
   },
   async run() {
     const warframes: (Warframe | null)[] = [];
-    const data = await $fetch<Omit<Warframe, "progenitor">[]>(
-      "https://api.warframestat.us/warframes?remove=patchlogs,components,introduced",
-    );
-    data.forEach((item) => {
-      Object.assign(item, { progenitor: progenitors[item.name!] });
+
+    const [wikiData, apiData] = await Promise.all([
+      $fetch<WarframeWikiData>(
+        "https://wiki.warframe.com/w/Module:Warframes/data?action=raw",
+      ),
+      $fetch<Omit<Warframe, "progenitor">[]>(
+        "https://api.warframestat.us/warframes?remove=patchlogs,components,introduced",
+      ),
+    ]);
+
+    const parsedWikiData = parse(wikiData);
+
+    apiData.forEach((item) => {
+      if (item.type !== "Warframe" || item.productCategory !== "Suits") return; // filter out non-warframes
+
+      let wikiItem;
+      if (item.name in parsedWikiData.Warframes) {
+        wikiItem = transformKeys(parsedWikiData.Warframes[item.name]);
+        item = {
+          ...wikiItem,
+          ...item,
+        };
+      }
+
+      // numerous warframes from the api are missing the aura polarity
+      if (!("aura" in item)) {
+        // I don't like that I made the key lowercase completely
+        item.aura = ["None", "Aura", ...Object.values(polarityMap)].includes(
+          item.aurapolarity,
+        )
+          ? item.aurapolarity
+          : polarityMap[item.aurapolarity] || "None";
+      }
+      item.aura = capitalize(item.aura);
       if (item.name === "Temple") {
         item.sex = "Non-binary"; // Temple's sex is missing from the API for some reason
         item.releaseDate = "2025-03-19"; // The release date is also missing
@@ -57,16 +98,18 @@ export default defineTask({
           result.data.sex = "Non-binary";
         warframes.push(result.data);
       } else {
+        console.error("Error parsing warframe", item.name, result.error);
         warframes.push(null);
       }
     });
     const filteredWarframes = warframes.filter((warframe) => warframe !== null);
+    const warframeObject = Object.fromEntries(
+      filteredWarframes.map((warframe) => [warframe.name, warframe]),
+    );
     const tsContent = `// Auto-generated warframes data
-    import type { Warframe } from "#shared/schemas/warframe";
-    export const warframes: Warframe[] = ${JSON.stringify(filteredWarframes, null, 2)};
-    `;
+    export const warframes = ${JSON.stringify(warframeObject, null, 2)} as const;`;
 
-    await fs.writeFile("./shared/data/warframes.ts", tsContent);
+    await fs.writeFile("./shared/data/warframes2.ts", tsContent);
     return {
       result: "Success",
     };

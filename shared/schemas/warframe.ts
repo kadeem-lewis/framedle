@@ -26,6 +26,9 @@ export const warframeSchema = z.object({
   health: z.number(),
   shield: z.number(),
   armor: z.number(),
+  energy: z.number(),
+  sprint: z.number(),
+  aura: z.enum(["Madurai", "Vazarin", "Naramon", "Zenurik", "None", "Aura"]),
   releaseDate: z.string(),
   imageName: z.string(),
   abilities: z.array(abilitySchema),
@@ -33,6 +36,15 @@ export const warframeSchema = z.object({
   variant: z.enum(["Standard", "Prime", "Umbra"]),
   progenitor: z.enum(progenitorElements),
   isPrime: z.boolean(),
+  conclave: z.boolean(),
+  playstyle: z.string(),
+  exalted: z.array(z.string()).optional(),
 });
 
+// gonna need to add exalted, sprint speed, aura polarity, playstyle, energy, conclave
+
 export type Warframe = z.infer<typeof warframeSchema>;
+
+// playstyle: z
+// .enum(["Damage", "Crowd Control", "Support", "Stealth", "Survival"])
+// .array(),

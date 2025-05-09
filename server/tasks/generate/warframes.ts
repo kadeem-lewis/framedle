@@ -4,8 +4,29 @@ import { promises as fs } from "fs";
 import { transformKeys, capitalize } from "~~/server/utils/transform";
 
 type WarframeWikiData = {
-  Warframes: Record<string, Record<string, unknown>>;
+  Warframes: {
+    [key: string]: {
+      aurapolarity: string;
+      introduced: string;
+      [key: string]: unknown;
+    };
+  };
   [key: string]: unknown;
+};
+
+type WarframeWikiVersionData = {
+  Aliases: string[];
+  Date: string;
+  [key: string]: unknown;
+}[];
+
+type WarframeApiData = {
+  name: string;
+  type: string;
+  productCategory: string;
+  aura: string;
+  releaseDate: string | null;
+  isPrime: boolean;
 };
 
 const polarityMap = {
@@ -23,31 +44,39 @@ export default defineTask({
   async run() {
     const warframes: (Warframe | null)[] = [];
 
-    const [wikiData, apiData] = await Promise.all([
-      $fetch<WarframeWikiData>(
+    const [wikiWarframeData, apiData, wikiVersionData] = await Promise.all([
+      $fetch<string>(
         "https://wiki.warframe.com/w/Module:Warframes/data?action=raw",
+        {
+          parseResponse: (text) => text,
+        },
       ),
-      $fetch<Omit<Warframe, "progenitor">[]>(
+      $fetch<WarframeApiData[]>(
         "https://api.warframestat.us/warframes?remove=patchlogs,components,introduced",
+      ),
+
+      $fetch<string>(
+        "https://wiki.warframe.com/w/Module:Version/data?action=raw",
+        {
+          parseResponse: (text) => text,
+        },
       ),
     ]);
 
-    const parsedWikiData = parse(wikiData);
+    const parsedWikiData = parse(wikiWarframeData) as WarframeWikiData;
+    const parsedVersionData = parse(wikiVersionData) as WarframeWikiVersionData;
 
     apiData.forEach((item) => {
       if (item.type !== "Warframe" || item.productCategory !== "Suits") return; // filter out non-warframes
 
-      let wikiItem;
-      if (item.name in parsedWikiData.Warframes) {
-        wikiItem = transformKeys(parsedWikiData.Warframes[item.name]);
-        item = {
-          ...wikiItem,
-          ...item,
-        };
-      }
+      const wikiItem = transformKeys(parsedWikiData.Warframes[item.name]);
+      item = {
+        ...wikiItem,
+        ...item,
+      } as WarframeApiData & WarframeWikiData["Warframes"][string];
 
       // numerous warframes from the api are missing the aura polarity
-      if (!("aura" in item)) {
+      if (!Object.hasOwn(item, "aura")) {
         // I don't like that I made the key lowercase completely
         item.aura = ["None", "Aura", ...Object.values(polarityMap)].includes(
           item.aurapolarity,
@@ -56,42 +85,25 @@ export default defineTask({
           : polarityMap[item.aurapolarity] || "None";
       }
       item.aura = capitalize(item.aura);
-      if (item.name === "Temple") {
-        item.sex = "Non-binary"; // Temple's sex is missing from the API for some reason
-        item.releaseDate = "2025-03-19"; // The release date is also missing
-      }
-      if (item.name === "Voruna") {
-        item.sex = "Female";
-        item.releaseDate = "2022-11-30";
-      }
-      if (item.name === "Dante") {
-        item.sex = "Male";
-        item.releaseDate = "2024-03-27";
-      }
-      if (item.name === "Dagath") {
-        item.sex = "Female";
-        item.releaseDate = "2023-10-18";
-      }
-      if (item.name === "Harrow Prime") {
-        item.sex = "Male";
-        item.releaseDate = "2021-12-15";
-      }
-      if (item.name === "Hildryn Prime") {
-        item.sex = "Female";
-        item.releaseDate = "2023-03-15";
-      }
-      if (item.name === "Qorvex") {
-        item.sex = "Male";
-        item.releaseDate = "2023-12-13";
+
+      if (!Object.hasOwn(item, "releaseDate")) {
+        item.releaseDate =
+          parsedVersionData.find((version) =>
+            version.Aliases.includes(item.introduced),
+          )?.Date ?? null;
       }
 
+      let variant;
       if (item.isPrime) {
-        item.variant = "Prime";
+        variant = "Prime";
       } else if (item.name.includes("Umbra")) {
-        item.variant = "Umbra";
+        variant = "Umbra";
       } else {
-        item.variant = "Standard";
+        variant = "Standard";
       }
+      Object.assign(item, {
+        variant,
+      });
       const result = warframeSchema.safeParse(item);
       if (result.success) {
         if (result.data.sex.includes("(Pluriform)"))

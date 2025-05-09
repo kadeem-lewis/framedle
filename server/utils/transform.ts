@@ -1,9 +1,12 @@
-export function transformKeys(object: Record<string, unknown>) {
+export function pascalCaseToCamelCase<T extends Record<string, unknown>>(
+  object: T,
+) {
   const transformedObject: Record<string, unknown> = {};
   for (const [key, value] of Object.entries(object)) {
-    transformedObject[key.toLowerCase()] = value;
+    const camelCaseKey = key.charAt(0).toLowerCase() + key.slice(1);
+    transformedObject[camelCaseKey] = value;
   }
-  return transformedObject;
+  return transformedObject as T;
 }
 
 export function capitalize(string: string) {

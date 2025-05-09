@@ -1,13 +1,21 @@
 import type { Warframe } from "#shared/schemas/warframe";
 import { warframeSchema } from "#shared/schemas/warframe";
 import { promises as fs } from "fs";
-import { transformKeys, capitalize } from "~~/server/utils/transform";
+import { capitalize, pascalCaseToCamelCase } from "~~/server/utils/transform";
+
+const polarityMap = {
+  V: "Madurai",
+  D: "Vazarin",
+  Bar: "Naramon",
+  Scratch: "Zenurik",
+} as const;
 
 type WarframeWikiData = {
   Warframes: {
     [key: string]: {
-      aurapolarity: string;
+      auraPolarity: (typeof polarityMap)[keyof typeof polarityMap];
       introduced: string;
+      playstyle: string | string[];
       [key: string]: unknown;
     };
   };
@@ -24,16 +32,9 @@ type WarframeApiData = {
   name: string;
   type: string;
   productCategory: string;
-  aura: string;
+  aura: string | string[];
   releaseDate: string | null;
   isPrime: boolean;
-};
-
-const polarityMap = {
-  V: "Madurai",
-  D: "Vazarin",
-  Bar: "Naramon",
-  Scratch: "Zenurik",
 };
 
 export default defineTask({
@@ -44,17 +45,16 @@ export default defineTask({
   async run() {
     const warframes: (Warframe | null)[] = [];
 
-    const [wikiWarframeData, apiData, wikiVersionData] = await Promise.all([
+    const [apiData, wikiWarframeData, wikiVersionData] = await Promise.all([
+      $fetch<WarframeApiData[]>(
+        "https://api.warframestat.us/warframes?remove=patchlogs,components,introduced",
+      ),
       $fetch<string>(
         "https://wiki.warframe.com/w/Module:Warframes/data?action=raw",
         {
           parseResponse: (text) => text,
         },
       ),
-      $fetch<WarframeApiData[]>(
-        "https://api.warframestat.us/warframes?remove=patchlogs,components,introduced",
-      ),
-
       $fetch<string>(
         "https://wiki.warframe.com/w/Module:Version/data?action=raw",
         {
@@ -69,42 +69,63 @@ export default defineTask({
     apiData.forEach((item) => {
       if (item.type !== "Warframe" || item.productCategory !== "Suits") return; // filter out non-warframes
 
-      const wikiItem = transformKeys(parsedWikiData.Warframes[item.name]);
-      item = {
+      const wikiItem = pascalCaseToCamelCase(
+        parsedWikiData.Warframes[item.name],
+      );
+      const mergedItem = {
         ...wikiItem,
         ...item,
-      } as WarframeApiData & WarframeWikiData["Warframes"][string];
+      };
 
-      // numerous warframes from the api are missing the aura polarity
-      if (!Object.hasOwn(item, "aura")) {
-        // I don't like that I made the key lowercase completely
-        item.aura = ["None", "Aura", ...Object.values(polarityMap)].includes(
-          item.aurapolarity,
-        )
-          ? item.aurapolarity
-          : polarityMap[item.aurapolarity] || "None";
+      if (typeof mergedItem.playstyle === "string") {
+        mergedItem.playstyle = mergedItem.playstyle
+          .split(",")
+          .map((item) => item.trim())
+          .filter((item) => item.length > 0);
       }
-      item.aura = capitalize(item.aura);
 
-      if (!Object.hasOwn(item, "releaseDate")) {
-        item.releaseDate =
+      // At least one warframe has multiple auras
+      if (Array.isArray(wikiItem.auraPolarity)) {
+        mergedItem.aura = wikiItem.auraPolarity.map((polarity) =>
+          ["None", "Aura", ...Object.values(polarityMap)].includes(polarity)
+            ? polarity
+            : polarityMap[polarity as keyof typeof polarityMap] || "None",
+        );
+        mergedItem.aura = mergedItem.aura.map((a) => capitalize(a));
+      } else if (!Object.hasOwn(mergedItem, "aura")) {
+        // numerous warframes from the api are missing the aura polarity
+        mergedItem.aura = [
+          "None",
+          "Aura",
+          ...Object.values(polarityMap),
+        ].includes(mergedItem.auraPolarity)
+          ? mergedItem.auraPolarity
+          : polarityMap[mergedItem.auraPolarity as keyof typeof polarityMap] ||
+            "None";
+      }
+      if (typeof mergedItem.aura === "string") {
+        mergedItem.aura = capitalize(mergedItem.aura);
+      }
+
+      if (!Object.hasOwn(mergedItem, "releaseDate") && mergedItem.introduced) {
+        mergedItem.releaseDate =
           parsedVersionData.find((version) =>
-            version.Aliases.includes(item.introduced),
+            version.Aliases.includes(mergedItem.introduced),
           )?.Date ?? null;
       }
 
       let variant;
-      if (item.isPrime) {
+      if (mergedItem.isPrime) {
         variant = "Prime";
-      } else if (item.name.includes("Umbra")) {
+      } else if (mergedItem.name.includes("Umbra")) {
         variant = "Umbra";
       } else {
         variant = "Standard";
       }
-      Object.assign(item, {
+      Object.assign(mergedItem, {
         variant,
       });
-      const result = warframeSchema.safeParse(item);
+      const result = warframeSchema.safeParse(mergedItem);
       if (result.success) {
         if (result.data.sex.includes("(Pluriform)"))
           result.data.sex = "Non-binary";
@@ -121,7 +142,7 @@ export default defineTask({
     const tsContent = `// Auto-generated warframes data
     export const warframes = ${JSON.stringify(warframeObject, null, 2)} as const;`;
 
-    await fs.writeFile("./shared/data/warframes2.ts", tsContent);
+    await fs.writeFile("./shared/data/warframes.ts", tsContent);
     return {
       result: "Success",
     };

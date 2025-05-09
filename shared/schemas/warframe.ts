@@ -19,6 +19,15 @@ const progenitorElements = [
 
 export type Ability = z.infer<typeof abilitySchema>;
 
+const polarities = [
+  "Madurai",
+  "Vazarin",
+  "Naramon",
+  "Zenurik",
+  "None",
+  "Aura",
+] as const;
+
 export const warframeSchema = z.object({
   name: z.string(),
   category: z.literal("Warframes"),
@@ -26,6 +35,9 @@ export const warframeSchema = z.object({
   health: z.number(),
   shield: z.number(),
   armor: z.number(),
+  energy: z.number(),
+  sprint: z.number(),
+  aura: z.union([z.array(z.enum(polarities)), z.enum(polarities)]),
   releaseDate: z.string(),
   imageName: z.string(),
   abilities: z.array(abilitySchema),
@@ -33,6 +45,11 @@ export const warframeSchema = z.object({
   variant: z.enum(["Standard", "Prime", "Umbra"]),
   progenitor: z.enum(progenitorElements),
   isPrime: z.boolean(),
+  conclave: z.boolean(),
+  playstyle: z.array(
+    z.enum(["Damage", "Crowd Control", "Support", "Stealth", "Survival"]),
+  ),
+  exalted: z.array(z.string()).optional(),
 });
 
 export type Warframe = z.infer<typeof warframeSchema>;

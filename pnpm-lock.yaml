@@ -47,6 +47,9 @@ importers:
       import-in-the-middle:
         specifier: ^1.13.1
         version: 1.13.1
+      luaparse:
+        specifier: ^0.3.1
+        version: 0.3.1
       party-js:
         specifier: ^2.2.0
         version: 2.2.0
@@ -96,6 +99,9 @@ importers:
       '@nuxtjs/seo':
         specifier: 3.0.3
         version: 3.0.3(@unhead/vue@2.0.8(vue@3.5.13(typescript@5.8.3)))(h3@1.15.3)(magicast@0.3.5)(rollup@4.40.1)(unstorage@1.16.0(db0@0.3.2(@libsql/client@0.14.0)(drizzle-orm@0.43.1(@libsql/client@0.14.0)(@neondatabase/serverless@1.0.0)(@opentelemetry/api@1.9.0)(@types/pg@8.11.6)(gel@2.0.1)))(ioredis@5.6.1))(vite@6.3.4(@types/node@22.15.3)(jiti@2.4.2)(lightningcss@1.29.2)(terser@5.39.0)(yaml@2.7.1))(vue@3.5.13(typescript@5.8.3))
+      '@types/luaparse':
+        specifier: ^0.2.12
+        version: 0.2.12
       '@vite-pwa/assets-generator':
         specifier: ^1.0.0
         version: 1.0.0
@@ -2858,6 +2864,9 @@ packages:
 
   '@types/json-schema@7.0.15':
     resolution: {integrity: sha512-5+fP8P8MFNC+AyZCDxrB2pkZFPGzqQWUzpSeuuVLvm8VMcorNYavBqoFcxK8bQz4Qsbn4oUEEem4wDLfcysGHA==}
+
+  '@types/luaparse@0.2.12':
+    resolution: {integrity: sha512-liSE0OFeTsKejYrWVZHNA+WOPHj+kGjjZwE+xcojPM9SE2k8sdLDXZB4CObQ+uUkVtKKNOC8+m0wg1F7Nlmt8w==}
 
   '@types/mysql@2.15.26':
     resolution: {integrity: sha512-DSLCOXhkvfS5WNNPbfn2KdICAmk8lLc+/PNvnPnF7gOdMZCxopXduqv0OQ13y/yA/zXTSikZZqVgybUxOEg6YQ==}
@@ -5681,6 +5690,10 @@ packages:
 
   lru-cache@5.1.1:
     resolution: {integrity: sha512-KpNARQA3Iwv+jTA0utUVVbrh+Jlrr1Fv0e56GGzAFOXN7dk/FviaDW8LHmK52DlcH4WP2n6gI8vN1aesBFgo9w==}
+
+  luaparse@0.3.1:
+    resolution: {integrity: sha512-b21h2bFEbtGXmVqguHogbyrMAA0wOHyp9u/rx+w6Yc9pW1t9YjhGUsp87lYcp7pFRqSWN/PhFkrdIqKEUzRjjQ==}
+    hasBin: true
 
   luxon@3.6.1:
     resolution: {integrity: sha512-tJLxrKJhO2ukZ5z0gyjY1zPh3Rh88Ej9P7jNrZiHMUXHae1yvI2imgOZtL1TO8TW6biMMKfTtAOoEJANgtWBMQ==}
@@ -11353,6 +11366,8 @@ snapshots:
 
   '@types/json-schema@7.0.15': {}
 
+  '@types/luaparse@0.2.12': {}
+
   '@types/mysql@2.15.26':
     dependencies:
       '@types/node': 22.15.3
@@ -14534,6 +14549,8 @@ snapshots:
   lru-cache@5.1.1:
     dependencies:
       yallist: 3.1.1
+
+  luaparse@0.3.1: {}
 
   luxon@3.6.1: {}
 

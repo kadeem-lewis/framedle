@@ -1,5 +1,11 @@
 # Changelog
 
+## v0.2.2 - June 3rd, 2025
+
+### Changes
+
+- Added Yareli Prime to the game
+
 ## v0.2.1 - May 5th, 2025
 
 ### Bug fixes

@@ -90,6 +90,7 @@ export const progenitors: { [key: string]: string } = {
   Xaku: "Magnetic",
   "Xaku Prime": "Magnetic",
   Yareli: "Magnetic",
+  "Yareli Prime": "Magnetic",
   Ash: "Radiation",
   "Ash Prime": "Radiation",
   Equinox: "Radiation",

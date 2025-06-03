@@ -4202,6 +4202,46 @@
     "isPrime": false
   },
   {
+    "name": "Yareli Prime",
+    "category": "Warframes",
+    "type": "Warframe",
+    "health": 270,
+    "shield": 550,
+    "armor": 105,
+    "releaseDate": "2025-05-21",
+    "imageName": "yareli-prime-c4dbed6caa.png",
+    "abilities": [
+      {
+        "uniqueName": "/Lotus/Powersuits/PowersuitAbilities/YareliBubbleAbility",
+        "name": "Sea Snares",
+        "description": "Form five water globules that seek out enemies and expand on contact, simultaneously damaging and immobilizing their victims.\nEnemies hit by the globules take increased damage from all sources.",
+        "imageName": "sea-snares-50c5c34cb9.png"
+      },
+      {
+        "uniqueName": "/Lotus/Powersuits/PowersuitAbilities/YareliBoardAbility",
+        "name": "Merulina",
+        "description": "Summon Merulina, a rideable creature of the waves, and the inspiration for K-Driving. Merulina protects Yareli by absorbing a large portion of incoming damage.",
+        "imageName": "merulina-9e79178eaa.png"
+      },
+      {
+        "uniqueName": "/Lotus/Powersuits/PowersuitAbilities/YareliDisksAbility",
+        "name": "Aquablades",
+        "description": "Tear through foes with a trio of orbiting aquatic blades.",
+        "imageName": "aquablades-af4f288fc7.png"
+      },
+      {
+        "uniqueName": "/Lotus/Powersuits/PowersuitAbilities/YareliSpoutAbility",
+        "name": "Riptide",
+        "description": "Drag enemies into a crushing maelstrom and then blow them away in a watery burst. Each enemy trapped in the vortex increases the burst's damage.",
+        "imageName": "riptide-a5e5a01730.png"
+      }
+    ],
+    "sex": "Female",
+    "variant": "Prime",
+    "progenitor": "Magnetic",
+    "isPrime": true
+  },
+  {
     "name": "Zephyr",
     "category": "Warframes",
     "type": "Warframe",

@@ -1,5 +1,11 @@
 # Changelog
 
+## v0.2.3 - June 27th, 2025
+
+### Changes
+
+- Added Oraxia to the game
+
 ## v0.2.2 - June 3rd, 2025
 
 ### Changes

@@ -2660,7 +2660,7 @@
       {
         "uniqueName": "/Lotus/Powersuits/PowersuitAbilities/AntiMatterDrop",
         "name": "Antimatter Drop",
-        "description": "Launch a large particle of charged antimatter that will detonate contact. Direct the particle by aiming, shoot it to charge it further. Deals <DT_EXPLOSION_COLOR>Blast Damage with a guaranteed Status Effect.",
+        "description": "Launch a large particle of charged antimatter that will detonate on contact. Direct the particle by aiming, shoot it to charge it further. Deals <DT_EXPLOSION_COLOR>Blast Damage with a guaranteed Status Effect.",
         "imageName": "antimatter-drop-1a72f86ab4.png"
       },
       {
@@ -2700,7 +2700,7 @@
       {
         "uniqueName": "/Lotus/Powersuits/PowersuitAbilities/AntiMatterDrop",
         "name": "Antimatter Drop",
-        "description": "Launch a large particle of charged antimatter that will detonate contact. Direct the particle by aiming, shoot it to charge it further. Deals <DT_EXPLOSION_COLOR>Blast Damage with a guaranteed Status Effect.",
+        "description": "Launch a large particle of charged antimatter that will detonate on contact. Direct the particle by aiming, shoot it to charge it further. Deals <DT_EXPLOSION_COLOR>Blast Damage with a guaranteed Status Effect.",
         "imageName": "antimatter-drop-1a72f86ab4.png"
       },
       {
@@ -2960,6 +2960,46 @@
     "variant": "Prime",
     "progenitor": "Radiation",
     "isPrime": true
+  },
+  {
+    "name": "Oraxia",
+    "category": "Warframes",
+    "type": "Warframe",
+    "health": 575,
+    "shield": 125,
+    "armor": 125,
+    "releaseDate": "2025-06-25",
+    "imageName": "oraxia-8a9e4aab09.png",
+    "abilities": [
+      {
+        "uniqueName": "/Lotus/Powersuits/PowersuitAbilities/OraxiaLungeAbility",
+        "name": "Mercy's Kiss",
+        "description": "Leap onto an enemy and pierce them with Oraxia’s spider legs, dealing <DT_POISON_COLOR>Toxin Damage. Enemies defeated by this attack have a chance to drop Health or Energy Orbs.",
+        "imageName": "mercy's-kiss-97372a3361.png"
+      },
+      {
+        "uniqueName": "/Lotus/Powersuits/PowersuitAbilities/OraxiaEntangleAbility",
+        "name": "Webbed Embrace",
+        "description": "Oraxia throws a creeping web to ensnare her prey. Enemies caught within the widening radius are trapped inside a cocoon that increases their Damage Vulnerability.",
+        "imageName": "webbed-embrace-665b59d8c2.png"
+      },
+      {
+        "uniqueName": "/Lotus/Powersuits/PowersuitAbilities/OraxiaSpidersAbility",
+        "name": "Widow's Brood",
+        "description": "Oraxia launches a barrage of stinging darts in front of her that applies <DT_POISON_COLOR> Toxin Status Effect. Poisoned enemies spawn Scuttlers when killed.",
+        "imageName": "widow's-brood-db5889252e.png"
+      },
+      {
+        "uniqueName": "/Lotus/Powersuits/PowersuitAbilities/OraxiaClimbAbility",
+        "name": "Silken Stride",
+        "description": "Unfurl Oraxia’s spider legs and go on the prowl. Oraxia is immune to Status Effects and has increased Maximum Health. Ranged Weapons are imbued with <DT_POISON_COLOR> Toxin Damage. Killing enemies causes them to burst with <DT_POISON_COLOR>Toxin.\n\nSilken Thread: Tap Dodge to leap to a targeted surface.",
+        "imageName": "silken-stride-77f68af156.png"
+      }
+    ],
+    "sex": "Female",
+    "variant": "Standard",
+    "progenitor": "Toxin",
+    "isPrime": false
   },
   {
     "name": "Protea",
@@ -3645,34 +3685,34 @@
     "name": "Valkyr",
     "category": "Warframes",
     "type": "Warframe",
-    "health": 270,
+    "health": 650,
     "shield": 135,
-    "armor": 630,
+    "armor": 855,
     "releaseDate": "2013-11-20",
     "imageName": "valkyr-c1f7e5d2ab.png",
     "abilities": [
       {
         "uniqueName": "/Lotus/Powersuits/PowersuitAbilities/GrappleHookAbility",
         "name": "Rip Line",
-        "description": "Valkyr hurls forth a hook. If it hits an enemy, she pulls them to her. If it hits terrain, she pulls herself to the hook's location.",
+        "description": "Valkyr hurls forth a hook and pulls herself to whatever it hits. If it hits an enemy, nearby foes are pulled in as she unleashes a coordinated Melee attack.",
         "imageName": "rip-line-b7714c7733.png"
       },
       {
         "uniqueName": "/Lotus/Powersuits/PowersuitAbilities/BerserkerScreamAbility",
         "name": "Warcry",
-        "description": "Valkyr lets out a rallying cry that bolsters her allies Attack Speed while slowing down nearby enemies.",
+        "description": "Valkyr lets out a rallying cry that bolsters Armor and Attack Speed for allies while in <AFFINITY_SHARE>Affinity Range.",
         "imageName": "warcry-bee9507006.png"
       },
       {
         "uniqueName": "/Lotus/Powersuits/PowersuitAbilities/ShieldBashAbility",
         "name": "Paralysis",
-        "description": "Valkyr unleashes her shields, stunning and damaging enemies around her.",
+        "description": "Unleash a damaging blast, slowing its victims while increasing their Melee Damage Vulnerability.",
         "imageName": "paralysis-3bfe2d9d48.png"
       },
       {
         "uniqueName": "/Lotus/Powersuits/PowersuitAbilities/LastStandAbility",
         "name": "Hysteria",
-        "description": "Valkyr is imbued with energy and becomes a ball of vicious rage, capable of unleashing a torrent of deadly claw attacks on unsuspecting foes.",
+        "description": "Valkyr bares her deadly claws, unleashing devastating attacks that also heal her. Valkyr becomes immune to Status Effects and her Armor bonus from Warcry is multiplied.",
         "imageName": "hysteria-e7a04e411b.png"
       }
     ],
@@ -3685,34 +3725,34 @@
     "name": "Valkyr Prime",
     "category": "Warframes",
     "type": "Warframe",
-    "health": 270,
+    "health": 650,
     "shield": 135,
-    "armor": 735,
+    "armor": 1000,
     "releaseDate": "2016-11-22",
     "imageName": "valkyr-prime-354cd87f77.png",
     "abilities": [
       {
         "uniqueName": "/Lotus/Powersuits/PowersuitAbilities/GrappleHookAbility",
         "name": "Rip Line",
-        "description": "Valkyr hurls forth a hook. If it hits an enemy, she pulls them to her. If it hits terrain, she pulls herself to the hook's location.",
+        "description": "Valkyr hurls forth a hook and pulls herself to whatever it hits. If it hits an enemy, nearby foes are pulled in as she unleashes a coordinated Melee attack.",
         "imageName": "rip-line-b7714c7733.png"
       },
       {
         "uniqueName": "/Lotus/Powersuits/PowersuitAbilities/BerserkerScreamAbility",
         "name": "Warcry",
-        "description": "Valkyr lets out a rallying cry that bolsters her allies Attack Speed while slowing down nearby enemies.",
+        "description": "Valkyr lets out a rallying cry that bolsters Armor and Attack Speed for allies while in <AFFINITY_SHARE>Affinity Range.",
         "imageName": "warcry-bee9507006.png"
       },
       {
         "uniqueName": "/Lotus/Powersuits/PowersuitAbilities/ShieldBashAbility",
         "name": "Paralysis",
-        "description": "Valkyr unleashes her shields, stunning and damaging enemies around her.",
+        "description": "Unleash a damaging blast, slowing its victims while increasing their Melee Damage Vulnerability.",
         "imageName": "paralysis-3bfe2d9d48.png"
       },
       {
         "uniqueName": "/Lotus/Powersuits/PowersuitAbilities/LastStandAbility",
         "name": "Hysteria",
-        "description": "Valkyr is imbued with energy and becomes a ball of vicious rage, capable of unleashing a torrent of deadly claw attacks on unsuspecting foes.",
+        "description": "Valkyr bares her deadly claws, unleashing devastating attacks that also heal her. Valkyr becomes immune to Status Effects and her Armor bonus from Warcry is multiplied.",
         "imageName": "hysteria-e7a04e411b.png"
       }
     ],

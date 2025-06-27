@@ -73,6 +73,7 @@ export const progenitors: { [key: string]: string } = {
   "Nidus Prime": "Toxin",
   Oberon: "Toxin",
   "Oberon Prime": "Toxin",
+  Oraxia: "Toxin",
   Saryn: "Toxin",
   "Saryn Prime": "Toxin",
   Citrine: "Magnetic",

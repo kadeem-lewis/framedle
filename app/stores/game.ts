@@ -1,22 +1,23 @@
 import { format } from "date-fns";
-import type {
-  Ability as OriginalAbility,
-  Warframe,
-} from "#shared/schemas/warframe";
-import { warframes } from "#shared/data/warframes";
+import type { Ability as OriginalAbility } from "#shared/schemas/warframe";
+import { warframes as warframeData } from "#shared/data/warframes";
 
 type Ability = OriginalAbility & { belongsTo: string };
 
 type itemToGuess = {
-  classic: Warframe | null;
-  classicUnlimited: Warframe | null;
+  classic: WarframeName | null;
+  classicUnlimited: WarframeName | null;
   ability: Ability | null;
   abilityUnlimited: Ability | null;
 };
 
+type WarframeName = keyof typeof warframeData;
+
 export const useGameStore = defineStore(
-  "game",
+  "game.v2",
   () => {
+    const warframes = Object.keys(warframeData) as WarframeName[];
+
     const itemToGuess = ref<itemToGuess>({
       classic: null,
       classicUnlimited: null,
@@ -43,10 +44,10 @@ export const useGameStore = defineStore(
     const currentDay = ref<number>();
 
     const guessedItems = ref({
-      classic: [] as Warframe[],
-      classicUnlimited: [] as Warframe[],
-      ability: [] as Warframe[],
-      abilityUnlimited: [] as Warframe[],
+      classic: [] as WarframeName[],
+      classicUnlimited: [] as WarframeName[],
+      ability: [] as WarframeName[],
+      abilityUnlimited: [] as WarframeName[],
     });
 
     const selectedMinigameAbility = ref({
@@ -59,20 +60,17 @@ export const useGameStore = defineStore(
     //TODO: both init functions could be the same function and just pass the mode as an argument
     function classicInit() {
       if (route.query.x) {
-        const decoded = decode(route.query.x as string);
-        const decodedWarframe = warframes.find(
-          (warframe) => warframe.name === decoded,
-        ) as Warframe;
-        if (itemToGuess.value.classicUnlimited?.name !== decodedWarframe.name) {
-          itemToGuess.value.classicUnlimited = decodedWarframe;
+        const decoded = decode(route.query.x as string) as WarframeName;
+        const decodedWarframe = warframeData[decoded];
+        if (itemToGuess.value.classicUnlimited !== decodedWarframe.name) {
+          itemToGuess.value.classicUnlimited = decodedWarframe.name;
           guessedItems.value.classicUnlimited = [];
           attempts.value.classicUnlimited = defaultAttempts;
         }
       }
       if (!itemToGuess.value.classicUnlimited) {
-        itemToGuess.value.classicUnlimited = warframes[
-          Math.floor(Math.random() * warframes.length)
-        ] as Warframe;
+        itemToGuess.value.classicUnlimited =
+          warframes[Math.floor(Math.random() * warframes.length)] ?? null;
       }
     }
 
@@ -120,9 +118,8 @@ export const useGameStore = defineStore(
         const { daily: data } = await $fetch(
           `/api/daily?date=${dailyDate.value}`,
         );
-        itemToGuess.value.classic = warframes.find(
-          (warframe) => warframe.name === data.classicId,
-        ) as Warframe;
+        itemToGuess.value.classic =
+          warframes.find((warframe) => warframe === data.classicId) ?? null;
         itemToGuess.value.ability = abilities.value.find(
           (ability) => ability.name === data.abilityId,
         ) as Ability;
@@ -148,9 +145,8 @@ export const useGameStore = defineStore(
 
       if (mode.value === "classicUnlimited") {
         router.replace({ query: { mode: "unlimited", x: undefined } });
-        itemToGuess.value.classicUnlimited = warframes[
-          Math.floor(Math.random() * warframes.length)
-        ] as Warframe;
+        itemToGuess.value.classicUnlimited =
+          warframes[Math.floor(Math.random() * warframes.length)] ?? null;
       }
       if (mode.value === "abilityUnlimited") {
         router.replace({ query: { mode: "unlimited", x: undefined } });
@@ -162,23 +158,17 @@ export const useGameStore = defineStore(
     }
 
     const abilities = computed(() =>
-      warframes
-        .filter(
-          (warframe) =>
-            !warframe.isPrime && warframe.name !== "Excalibur Umbra",
-        )
-        .map((warframe) =>
-          warframe.abilities.map((ability) => ({
-            ...ability,
-            belongsTo: warframe.name,
-          })),
-        )
-        .flat(),
+      Object.values(warframeData).flatMap((warframe) =>
+        warframe.abilities.map((ability) => ({
+          ...ability,
+          belongsTo: warframe.name,
+        })),
+      ),
     );
 
     const vanillaWarframes = computed(() =>
-      warframes.filter(
-        (warframe) => !warframe.isPrime && warframe.name !== "Excalibur Umbra",
+      Object.values(warframeData).filter(
+        (warframe) => warframe.variant === "Standard",
       ),
     );
 

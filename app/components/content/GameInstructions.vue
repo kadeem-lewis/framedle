@@ -5,9 +5,6 @@ const { t } = useI18n();
 
 const { defaultAttempts, warframes } = useGameStore();
 
-const Inaros = warframes.find((warframe) => warframe.name === "Inaros");
-const Nezha = warframes.find((warframe) => warframe.name === "Nezha");
-
 const { $colorblindMode } = useNuxtApp();
 
 const success = computed(() => ($colorblindMode.value ? "Blue" : "Green"));
@@ -102,8 +99,8 @@ const error = computed(() => ($colorblindMode.value ? "Orange" : "Red"));
       <div class="overflow-x-auto">
         <div class="grid w-[160%] grid-cols-7 gap-1">
           <ClassicFeedbackRow
-            :guessed-warframe="Inaros!"
-            :correct-warframe="Nezha!"
+            :guessed-warframe="warframes.Inaros"
+            :correct-warframe="warframes.Nezha"
           />
         </div>
       </div>
@@ -146,8 +143,8 @@ const error = computed(() => ($colorblindMode.value ? "Orange" : "Red"));
       <div class="overflow-x-auto">
         <div class="grid w-[150%] grid-cols-7 gap-1">
           <ClassicFeedbackRow
-            :guessed-warframe="Nezha!"
-            :correct-warframe="Nezha!"
+            :guessed-warframe="warframes.Inaros"
+            :correct-warframe="warframes.Nezha"
           />
         </div>
       </div>

@@ -2,7 +2,9 @@ import { format } from "date-fns";
 import type { Ability as OriginalAbility } from "#shared/schemas/warframe";
 import { warframes as warframeData } from "#shared/data/warframes";
 
-type Ability = OriginalAbility & { belongsTo: string };
+export type WarframeName = keyof typeof warframeData;
+
+type Ability = OriginalAbility & { belongsTo: WarframeName };
 
 type itemToGuess = {
   classic: WarframeName | null;
@@ -10,8 +12,6 @@ type itemToGuess = {
   ability: Ability | null;
   abilityUnlimited: Ability | null;
 };
-
-type WarframeName = keyof typeof warframeData;
 
 export const useGameStore = defineStore(
   "game.v2",

@@ -1,12 +1,9 @@
 <script setup lang="ts">
 import Fuse from "fuse.js";
-import type { Warframe } from "#shared/schemas/warframe";
 
 const props = defineProps<{
-  items: Warframe[];
+  items: WarframeName[];
 }>();
-
-//TODO: I need to find out how to override the type of the items accepted by the UInputMenu
 
 const { attempts, guessedItems } = storeToRefs(useGameStore());
 
@@ -16,18 +13,17 @@ const items = computed(() => {
   return props.items.filter(
     (item) =>
       !guessedItems.value[mode.value!].some(
-        (guessedItem) => guessedItem.name === item.name,
+        (guessedItem) => guessedItem === item,
       ),
   );
 });
 
-const selectedWarframe = ref<Warframe>();
+const selectedWarframe = ref<WarframeName>();
 const query = ref("");
 
 const fuse = computed(
   () =>
     new Fuse(items.value, {
-      keys: ["name"],
       threshold: 0.4,
     }),
 );
@@ -38,13 +34,13 @@ const filteredItems = computed(() => {
   }
   return fuse.value
     .search(query.value)
-    .map((result) => ({ ...result.item }))
+    .map((result) => result.item)
     .slice(0, 6);
 });
 
 watch(query, (newQuery) => {
   const match = items.value.find(
-    (item) => item.name.toLowerCase() === newQuery.toLowerCase(),
+    (item) => item.toLowerCase() === newQuery.toLowerCase(),
   );
   if (match) {
     selectedWarframe.value = match;
@@ -63,14 +59,12 @@ const addGuess = () => {
 </script>
 <template>
   <form class="flex gap-2" @submit.prevent="addGuess">
-    <!-- @vue-expect-error I'm not sure why setting a label key is restricting v-model to only a string -->
     <UInputMenu
       v-model="selectedWarframe"
       v-model:search-term="query"
       name="warframe-search"
       :reset-search-term-on-blur="false"
       :items="filteredItems"
-      label-key="name"
       placeholder="SEARCH..."
       size="lg"
       required
@@ -89,19 +83,12 @@ const addGuess = () => {
       <template #item="{ item }">
         <div class="flex w-full items-center justify-between gap-2">
           <p class="font-semibold uppercase">
-            {{
-              //@ts-ignore
-              item.name
-            }}
+            {{ getWarframe(item as WarframeName).name }}
           </p>
           <NuxtImg
             format="webp"
-            :src="//@ts-ignore
-            `https://cdn.warframestat.us/img/${item.imageName}`"
-            :alt="
-              //@ts-ignore
-              item.name
-            "
+            :src="`https://cdn.warframestat.us/img/${getWarframe(item as WarframeName).imageName}`"
+            :alt="getWarframe(item as WarframeName).name"
             placeholder
             height="64"
             class="h-16"

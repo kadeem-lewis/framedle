@@ -1,10 +1,4 @@
 import { format } from "date-fns";
-import type { Ability as OriginalAbility } from "#shared/schemas/warframe";
-import { warframes } from "#shared/data/warframes";
-
-export type WarframeName = keyof typeof warframes;
-
-type Ability = OriginalAbility & { belongsTo: WarframeName };
 
 type itemToGuess = {
   classic: WarframeName | null;
@@ -16,8 +10,6 @@ type itemToGuess = {
 export const useGameStore = defineStore(
   "game.v2",
   () => {
-    const warframeNames = Object.keys(warframes) as WarframeName[];
-
     const itemToGuess = ref<itemToGuess>({
       classic: null,
       classicUnlimited: null,
@@ -61,7 +53,7 @@ export const useGameStore = defineStore(
     function classicInit() {
       if (route.query.x) {
         const decoded = decode(route.query.x as string) as WarframeName;
-        const decodedWarframe = warframes[decoded];
+        const decodedWarframe = getWarframe(decoded);
         if (itemToGuess.value.classicUnlimited !== decodedWarframe.name) {
           itemToGuess.value.classicUnlimited = decodedWarframe.name;
           guessedItems.value.classicUnlimited = [];
@@ -76,12 +68,11 @@ export const useGameStore = defineStore(
     }
 
     function abilityInit() {
-      if (abilities.value.length === 0)
-        throw createError("Abilities not loaded");
+      if (abilities.length === 0) throw createError("Abilities not loaded");
       if (route.query.x) {
         const decoded = decode(route.query.x as string);
 
-        const decodedAbility = abilities.value.find(
+        const decodedAbility = abilities.find(
           (ability) => ability.name === decoded,
         ) as Ability;
         if (itemToGuess.value.abilityUnlimited?.name !== decodedAbility.name) {
@@ -91,8 +82,8 @@ export const useGameStore = defineStore(
         }
       }
       if (!itemToGuess.value.abilityUnlimited) {
-        itemToGuess.value.abilityUnlimited = abilities.value[
-          Math.floor(Math.random() * abilities.value.length)
+        itemToGuess.value.abilityUnlimited = abilities[
+          Math.floor(Math.random() * abilities.length)
         ] as Ability;
       }
     }
@@ -119,9 +110,10 @@ export const useGameStore = defineStore(
         const { daily: data } = await $fetch(
           `/api/daily?date=${dailyDate.value}`,
         );
-        itemToGuess.value.classic =
-          warframes[data.classicId as WarframeName].name;
-        itemToGuess.value.ability = abilities.value.find(
+        itemToGuess.value.classic = getWarframe(
+          data.classicId as WarframeName,
+        ).name;
+        itemToGuess.value.ability = abilities.find(
           (ability) => ability.name === data.abilityId,
         ) as Ability;
         currentDay.value = data.day;
@@ -152,33 +144,16 @@ export const useGameStore = defineStore(
       }
       if (mode.value === "abilityUnlimited") {
         router.replace({ query: { mode: "unlimited", x: undefined } });
-        itemToGuess.value.abilityUnlimited = abilities.value[
-          Math.floor(Math.random() * abilities.value.length)
+        itemToGuess.value.abilityUnlimited = abilities[
+          Math.floor(Math.random() * abilities.length)
         ] as Ability;
         selectedMinigameAbility.value.abilityUnlimited = "";
       }
     }
 
-    const abilities = computed(() =>
-      Object.values(warframes).flatMap((warframe) =>
-        warframe.abilities.map((ability) => ({
-          ...ability,
-          belongsTo: warframe.name,
-        })),
-      ),
-    );
-
-    const vanillaWarframes = computed(() =>
-      Object.values(warframes).filter(
-        (warframe) => warframe.variant === "Standard",
-      ),
-    );
-
     const version = ref(1);
 
     return {
-      warframes,
-      warframeNames,
       attempts,
       itemToGuess,
       guessedItems,

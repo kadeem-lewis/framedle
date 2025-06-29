@@ -13,12 +13,15 @@ export const vanillaWarframes = warframeNames.filter(
   (name) => warframes[name].variant === "Standard",
 );
 
-export const abilities = Object.values(warframes).flatMap((warframe) =>
-  warframe.abilities.map((ability) => ({
-    ...ability,
-    belongsTo: warframe.name,
-  })),
-);
+//TODO: This needs to be moved somewhere where both frontend and backend can use it
+export const abilities = Object.values(warframes)
+  .filter((warframe) => warframe.variant === "Standard")
+  .flatMap((warframe) =>
+    warframe.abilities.map((ability) => ({
+      ...ability,
+      belongsTo: warframe.name,
+    })),
+  );
 
 export const getWarframe = (warframe: WarframeName) => {
   return warframes[warframe];

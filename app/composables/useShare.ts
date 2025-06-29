@@ -1,5 +1,3 @@
-import type { Warframe } from "#shared/schemas/warframe";
-
 export function useShare() {
   const emojis: {
     incorrect: string;
@@ -60,10 +58,7 @@ export function useShare() {
         if (!itemToGuess.value[currentMode]?.belongsTo) return;
         emojiFeedback.value.push(
           emojis[
-            checkGuess(
-              itemToGuess.value[currentMode]?.belongsTo,
-              guessedItem.name,
-            )
+            checkGuess(itemToGuess.value[currentMode]?.belongsTo, guessedItem)
           ],
         );
       });
@@ -76,7 +71,10 @@ export function useShare() {
       guessedItems.value[currentMode].forEach((guessedItem) => {
         if (correctItem) {
           emojiFeedback.value.push(
-            generateClassicEmojiFeedback(correctItem, guessedItem),
+            generateClassicEmojiFeedback(
+              getWarframe(correctItem),
+              getWarframe(guessedItem),
+            ),
           );
         }
       });
@@ -103,7 +101,7 @@ ${emojiGrid}
 ${
   route.query.mode
     ? `See how you do on the same challenge I played:
-${window.location.href}&x=${itemToGuess.value[currentMode] && encode(itemToGuess.value[currentMode].name)}`
+${window.location.href}&x=${itemToGuess.value[currentMode] && encode(`${itemToGuess.value[currentMode]}`)}`
     : window.location.href
 }
         `;

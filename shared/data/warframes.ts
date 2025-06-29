@@ -47,7 +47,7 @@ export const warframes = {
     progenitor: "Radiation",
     isPrime: false,
     conclave: true,
-    playstyle: ["Stealth"],
+    playstyle: ["Stealth", "Damage"],
     exalted: ["/Lotus/Powersuits/Ninja/NinjaStormWeapon"],
   },
   "Ash Prime": {
@@ -97,7 +97,7 @@ export const warframes = {
     progenitor: "Radiation",
     isPrime: true,
     conclave: true,
-    playstyle: ["Stealth"],
+    playstyle: ["Stealth", "Damage"],
     exalted: ["/Lotus/Powersuits/Ninja/NinjaStormWeaponPrime"],
   },
   Atlas: {
@@ -148,7 +148,7 @@ export const warframes = {
     progenitor: "Toxin",
     isPrime: false,
     conclave: true,
-    playstyle: ["Damage"],
+    playstyle: ["Damage", "Survival"],
     exalted: ["/Lotus/Powersuits/Brawler/AtlasPunchWeapon"],
   },
   "Atlas Prime": {
@@ -199,7 +199,7 @@ export const warframes = {
     progenitor: "Toxin",
     isPrime: true,
     conclave: true,
-    playstyle: ["Damage"],
+    playstyle: ["Damage", "Survival"],
     exalted: ["/Lotus/Powersuits/Brawler/AtlasPunchWeaponPrime"],
   },
   Banshee: {
@@ -350,7 +350,7 @@ export const warframes = {
     progenitor: "Impact",
     isPrime: false,
     conclave: false,
-    playstyle: ["Survival", "Crowd Control"],
+    playstyle: ["Damage", "Crowd Control"],
     exalted: ["/Lotus/Powersuits/Pacifist/PacifistFist"],
   },
   "Baruuk Prime": {
@@ -401,7 +401,7 @@ export const warframes = {
     progenitor: "Impact",
     isPrime: true,
     conclave: false,
-    playstyle: ["Survival", "Crowd Control"],
+    playstyle: ["Damage", "Crowd Control"],
     exalted: ["/Lotus/Powersuits/Pacifist/PacifistFistPrime"],
   },
   Caliban: {
@@ -453,7 +453,7 @@ export const warframes = {
     progenitor: "Electricity",
     isPrime: false,
     conclave: false,
-    playstyle: ["Crowd Control", "Survival"],
+    playstyle: ["Survival", "Crowd Control"],
   },
   Chroma: {
     name: "Chroma",
@@ -502,7 +502,7 @@ export const warframes = {
     progenitor: "Heat",
     isPrime: false,
     conclave: true,
-    playstyle: ["Damage", "Survival"],
+    playstyle: ["Survival", "Damage"],
   },
   "Chroma Prime": {
     name: "Chroma Prime",
@@ -551,7 +551,7 @@ export const warframes = {
     progenitor: "Heat",
     isPrime: true,
     conclave: true,
-    playstyle: ["Damage", "Survival"],
+    playstyle: ["Survival", "Damage"],
   },
   Citrine: {
     name: "Citrine",
@@ -653,7 +653,7 @@ export const warframes = {
     progenitor: "Magnetic",
     isPrime: false,
     conclave: false,
-    playstyle: ["Stealth"],
+    playstyle: ["Damage", "Stealth"],
     exalted: ["/Lotus/Powersuits/Frumentarius/ExaltedSniper"],
   },
   Dagath: {
@@ -757,7 +757,7 @@ export const warframes = {
     progenitor: "Impact",
     isPrime: false,
     conclave: false,
-    playstyle: ["Support", "Damage"],
+    playstyle: ["Damage", "Support", "Survival"],
     exalted: ["/Lotus/Powersuits/Pagemaster/ExaltedBook"],
   },
   Ember: {
@@ -1254,7 +1254,7 @@ export const warframes = {
     progenitor: "Cold",
     isPrime: false,
     conclave: true,
-    playstyle: ["Survival", "Damage"],
+    playstyle: ["Damage", "Survival", "Crowd Control"],
     exalted: ["/Lotus/Powersuits/Glass/GaraShankWeapon"],
   },
   "Gara Prime": {
@@ -1304,7 +1304,7 @@ export const warframes = {
     progenitor: "Cold",
     isPrime: true,
     conclave: true,
-    playstyle: ["Survival", "Damage"],
+    playstyle: ["Damage", "Survival", "Crowd Control"],
     exalted: ["/Lotus/Powersuits/Glass/GaraShankWeaponPrime"],
   },
   Garuda: {
@@ -1710,7 +1710,7 @@ export const warframes = {
     progenitor: "Magnetic",
     isPrime: false,
     conclave: true,
-    playstyle: ["Support"],
+    playstyle: ["Survival", "Support"],
   },
   "Harrow Prime": {
     name: "Harrow Prime",
@@ -1759,7 +1759,7 @@ export const warframes = {
     progenitor: "Magnetic",
     isPrime: true,
     conclave: true,
-    playstyle: ["Support"],
+    playstyle: ["Survival", "Support"],
   },
   Hildryn: {
     name: "Hildryn",
@@ -1810,7 +1810,7 @@ export const warframes = {
     progenitor: "Cold",
     isPrime: false,
     conclave: false,
-    playstyle: ["Damage"],
+    playstyle: ["Damage", "Survival"],
     exalted: ["/Lotus/Powersuits/IronFrame/BlastWeapon"],
   },
   "Hildryn Prime": {
@@ -1862,7 +1862,7 @@ export const warframes = {
     progenitor: "Cold",
     isPrime: true,
     conclave: false,
-    playstyle: ["Damage"],
+    playstyle: ["Damage", "Survival"],
     exalted: ["/Lotus/Powersuits/IronFrame/BlastWeaponPrime"],
   },
   Hydroid: {
@@ -2006,7 +2006,7 @@ export const warframes = {
     progenitor: "Heat",
     isPrime: false,
     conclave: true,
-    playstyle: ["Survival"],
+    playstyle: ["Survival", "Crowd Control"],
   },
   "Inaros Prime": {
     name: "Inaros Prime",
@@ -2055,7 +2055,7 @@ export const warframes = {
     progenitor: "Heat",
     isPrime: true,
     conclave: false,
-    playstyle: ["Survival"],
+    playstyle: ["Survival", "Crowd Control"],
   },
   Ivara: {
     name: "Ivara",
@@ -2204,7 +2204,7 @@ export const warframes = {
     progenitor: "Heat",
     isPrime: false,
     conclave: false,
-    playstyle: ["Damage", "Support"],
+    playstyle: ["Support"],
     exalted: ["/Lotus/Powersuits/Choir/ChoirEruptWeapon"],
   },
   Khora: {
@@ -2254,7 +2254,7 @@ export const warframes = {
     progenitor: "Toxin",
     isPrime: false,
     conclave: true,
-    playstyle: ["Damage", "Crowd Control"],
+    playstyle: ["Crowd Control", "Damage"],
     exalted: [
       "/Lotus/Powersuits/Khora/Kavat/KhoraKavatPowerSuit",
       "/Lotus/Powersuits/Khora/KhoraWhipclawWeapon",
@@ -2307,7 +2307,7 @@ export const warframes = {
     progenitor: "Toxin",
     isPrime: true,
     conclave: false,
-    playstyle: ["Damage", "Crowd Control"],
+    playstyle: ["Crowd Control", "Damage"],
     exalted: [
       "/Lotus/Powersuits/Khora/Kavat/KhoraPrimeKavatPowerSuit",
       "/Lotus/Powersuits/Khora/KhoraWhipclawWeaponPrime",
@@ -3162,7 +3162,7 @@ export const warframes = {
     progenitor: "Heat",
     isPrime: false,
     conclave: true,
-    playstyle: ["Survival", "Damage", "Crowd Control"],
+    playstyle: ["Damage", "Survival", "Crowd Control"],
   },
   "Nezha Prime": {
     name: "Nezha Prime",
@@ -3211,7 +3211,7 @@ export const warframes = {
     progenitor: "Heat",
     isPrime: true,
     conclave: true,
-    playstyle: ["Survival", "Damage", "Crowd Control"],
+    playstyle: ["Damage", "Survival", "Crowd Control"],
   },
   Nidus: {
     name: "Nidus",
@@ -3261,7 +3261,7 @@ export const warframes = {
     progenitor: "Toxin",
     isPrime: false,
     conclave: true,
-    playstyle: ["Survival", "Damage", "Crowd Control"],
+    playstyle: ["Damage", "Survival", "Crowd Control"],
   },
   "Nidus Prime": {
     name: "Nidus Prime",
@@ -3311,7 +3311,7 @@ export const warframes = {
     progenitor: "Toxin",
     isPrime: true,
     conclave: false,
-    playstyle: ["Survival", "Damage", "Crowd Control"],
+    playstyle: ["Damage", "Survival", "Crowd Control"],
   },
   Nova: {
     name: "Nova",
@@ -3337,7 +3337,7 @@ export const warframes = {
         uniqueName: "/Lotus/Powersuits/PowersuitAbilities/AntiMatterDrop",
         name: "Antimatter Drop",
         description:
-          "Launch a large particle of charged antimatter that will detonate contact. Direct the particle by aiming, shoot it to charge it further. Deals <DT_EXPLOSION_COLOR>Blast Damage with a guaranteed Status Effect.",
+          "Launch a large particle of charged antimatter that will detonate on contact. Direct the particle by aiming, shoot it to charge it further. Deals <DT_EXPLOSION_COLOR>Blast Damage with a guaranteed Status Effect.",
         imageName: "antimatter-drop-1a72f86ab4.png",
       },
       {
@@ -3361,7 +3361,7 @@ export const warframes = {
     progenitor: "Electricity",
     isPrime: false,
     conclave: true,
-    playstyle: ["Crowd Control", "Damage"],
+    playstyle: ["Damage"],
   },
   "Nova Prime": {
     name: "Nova Prime",
@@ -3387,7 +3387,7 @@ export const warframes = {
         uniqueName: "/Lotus/Powersuits/PowersuitAbilities/AntiMatterDrop",
         name: "Antimatter Drop",
         description:
-          "Launch a large particle of charged antimatter that will detonate contact. Direct the particle by aiming, shoot it to charge it further. Deals <DT_EXPLOSION_COLOR>Blast Damage with a guaranteed Status Effect.",
+          "Launch a large particle of charged antimatter that will detonate on contact. Direct the particle by aiming, shoot it to charge it further. Deals <DT_EXPLOSION_COLOR>Blast Damage with a guaranteed Status Effect.",
         imageName: "antimatter-drop-1a72f86ab4.png",
       },
       {
@@ -3411,7 +3411,7 @@ export const warframes = {
     progenitor: "Electricity",
     isPrime: true,
     conclave: true,
-    playstyle: ["Crowd Control", "Damage"],
+    playstyle: ["Damage"],
   },
   Nyx: {
     name: "Nyx",
@@ -3660,7 +3660,7 @@ export const warframes = {
     progenitor: "Radiation",
     isPrime: false,
     conclave: true,
-    playstyle: ["Survival", "Support"],
+    playstyle: ["Support", "Damage", "Crowd Control"],
   },
   "Octavia Prime": {
     name: "Octavia Prime",
@@ -3709,7 +3709,57 @@ export const warframes = {
     progenitor: "Radiation",
     isPrime: true,
     conclave: true,
-    playstyle: ["Survival", "Support"],
+    playstyle: ["Support", "Damage", "Crowd Control"],
+  },
+  Oraxia: {
+    name: "Oraxia",
+    category: "Warframes",
+    type: "Warframe",
+    health: 575,
+    shield: 125,
+    armor: 125,
+    energy: 150,
+    sprint: 1,
+    aura: "Madurai",
+    releaseDate: "2025-06-25",
+    imageName: "oraxia-8a9e4aab09.png",
+    abilities: [
+      {
+        uniqueName: "/Lotus/Powersuits/PowersuitAbilities/OraxiaLungeAbility",
+        name: "Mercy's Kiss",
+        description:
+          "Leap onto an enemy and pierce them with Oraxia’s spider legs, dealing <DT_POISON_COLOR>Toxin Damage. Enemies defeated by this attack have a chance to drop Health or Energy Orbs.",
+        imageName: "mercy's-kiss-97372a3361.png",
+      },
+      {
+        uniqueName:
+          "/Lotus/Powersuits/PowersuitAbilities/OraxiaEntangleAbility",
+        name: "Webbed Embrace",
+        description:
+          "Oraxia throws a creeping web to ensnare her prey. Enemies caught within the widening radius are trapped inside a cocoon that increases their Damage Vulnerability.",
+        imageName: "webbed-embrace-665b59d8c2.png",
+      },
+      {
+        uniqueName: "/Lotus/Powersuits/PowersuitAbilities/OraxiaSpidersAbility",
+        name: "Widow's Brood",
+        description:
+          "Oraxia launches a barrage of stinging darts in front of her that applies <DT_POISON_COLOR> Toxin Status Effect. Poisoned enemies spawn Scuttlers when killed.",
+        imageName: "widow's-brood-db5889252e.png",
+      },
+      {
+        uniqueName: "/Lotus/Powersuits/PowersuitAbilities/OraxiaClimbAbility",
+        name: "Silken Stride",
+        description:
+          "Unfurl Oraxia’s spider legs and go on the prowl. Oraxia is immune to Status Effects and has increased Maximum Health. Ranged Weapons are imbued with <DT_POISON_COLOR> Toxin Damage. Killing enemies causes them to burst with <DT_POISON_COLOR>Toxin.\n\nSilken Thread: Tap Dodge to leap to a targeted surface.",
+        imageName: "silken-stride-77f68af156.png",
+      },
+    ],
+    sex: "Female",
+    variant: "Standard",
+    progenitor: "Toxin",
+    isPrime: false,
+    conclave: false,
+    playstyle: ["Damage", "Stealth"],
   },
   Protea: {
     name: "Protea",
@@ -3911,7 +3961,7 @@ export const warframes = {
     progenitor: "Cold",
     isPrime: false,
     conclave: false,
-    playstyle: ["Survival", "Damage"],
+    playstyle: ["Damage", "Survival"],
   },
   "Revenant Prime": {
     name: "Revenant Prime",
@@ -3963,7 +4013,7 @@ export const warframes = {
     progenitor: "Cold",
     isPrime: true,
     conclave: false,
-    playstyle: ["Survival", "Damage"],
+    playstyle: ["Damage", "Survival"],
   },
   Rhino: {
     name: "Rhino",
@@ -4516,7 +4566,7 @@ export const warframes = {
     progenitor: "Cold",
     isPrime: false,
     conclave: true,
-    playstyle: ["Support"],
+    playstyle: ["Survival", "Support"],
   },
   "Trinity Prime": {
     name: "Trinity Prime",
@@ -4565,15 +4615,15 @@ export const warframes = {
     progenitor: "Cold",
     isPrime: true,
     conclave: true,
-    playstyle: ["Support"],
+    playstyle: ["Survival", "Support"],
   },
   Valkyr: {
     name: "Valkyr",
     category: "Warframes",
     type: "Warframe",
-    health: 270,
+    health: 650,
     shield: 135,
-    armor: 630,
+    armor: 855,
     energy: 100,
     sprint: 1.1,
     aura: "Madurai",
@@ -4584,7 +4634,7 @@ export const warframes = {
         uniqueName: "/Lotus/Powersuits/PowersuitAbilities/GrappleHookAbility",
         name: "Rip Line",
         description:
-          "Valkyr hurls forth a hook. If it hits an enemy, she pulls them to her. If it hits terrain, she pulls herself to the hook's location.",
+          "Valkyr hurls forth a hook and pulls herself to whatever it hits. If it hits an enemy, nearby foes are pulled in as she unleashes a coordinated Melee attack.",
         imageName: "rip-line-b7714c7733.png",
       },
       {
@@ -4592,21 +4642,21 @@ export const warframes = {
           "/Lotus/Powersuits/PowersuitAbilities/BerserkerScreamAbility",
         name: "Warcry",
         description:
-          "Valkyr lets out a rallying cry that bolsters her allies Attack Speed while slowing down nearby enemies.",
+          "Valkyr lets out a rallying cry that bolsters Armor and Attack Speed for allies while in <AFFINITY_SHARE>Affinity Range.",
         imageName: "warcry-bee9507006.png",
       },
       {
         uniqueName: "/Lotus/Powersuits/PowersuitAbilities/ShieldBashAbility",
         name: "Paralysis",
         description:
-          "Valkyr unleashes her shields, stunning and damaging enemies around her.",
+          "Unleash a damaging blast, slowing its victims while increasing their Melee Damage Vulnerability.",
         imageName: "paralysis-3bfe2d9d48.png",
       },
       {
         uniqueName: "/Lotus/Powersuits/PowersuitAbilities/LastStandAbility",
         name: "Hysteria",
         description:
-          "Valkyr is imbued with energy and becomes a ball of vicious rage, capable of unleashing a torrent of deadly claw attacks on unsuspecting foes.",
+          "Valkyr bares her deadly claws, unleashing devastating attacks that also heal her. Valkyr becomes immune to Status Effects and her Armor bonus from Warcry is multiplied.",
         imageName: "hysteria-e7a04e411b.png",
       },
     ],
@@ -4622,9 +4672,9 @@ export const warframes = {
     name: "Valkyr Prime",
     category: "Warframes",
     type: "Warframe",
-    health: 270,
+    health: 650,
     shield: 135,
-    armor: 735,
+    armor: 1000,
     energy: 175,
     sprint: 1.1,
     aura: "Madurai",
@@ -4635,7 +4685,7 @@ export const warframes = {
         uniqueName: "/Lotus/Powersuits/PowersuitAbilities/GrappleHookAbility",
         name: "Rip Line",
         description:
-          "Valkyr hurls forth a hook. If it hits an enemy, she pulls them to her. If it hits terrain, she pulls herself to the hook's location.",
+          "Valkyr hurls forth a hook and pulls herself to whatever it hits. If it hits an enemy, nearby foes are pulled in as she unleashes a coordinated Melee attack.",
         imageName: "rip-line-b7714c7733.png",
       },
       {
@@ -4643,21 +4693,21 @@ export const warframes = {
           "/Lotus/Powersuits/PowersuitAbilities/BerserkerScreamAbility",
         name: "Warcry",
         description:
-          "Valkyr lets out a rallying cry that bolsters her allies Attack Speed while slowing down nearby enemies.",
+          "Valkyr lets out a rallying cry that bolsters Armor and Attack Speed for allies while in <AFFINITY_SHARE>Affinity Range.",
         imageName: "warcry-bee9507006.png",
       },
       {
         uniqueName: "/Lotus/Powersuits/PowersuitAbilities/ShieldBashAbility",
         name: "Paralysis",
         description:
-          "Valkyr unleashes her shields, stunning and damaging enemies around her.",
+          "Unleash a damaging blast, slowing its victims while increasing their Melee Damage Vulnerability.",
         imageName: "paralysis-3bfe2d9d48.png",
       },
       {
         uniqueName: "/Lotus/Powersuits/PowersuitAbilities/LastStandAbility",
         name: "Hysteria",
         description:
-          "Valkyr is imbued with energy and becomes a ball of vicious rage, capable of unleashing a torrent of deadly claw attacks on unsuspecting foes.",
+          "Valkyr bares her deadly claws, unleashing devastating attacks that also heal her. Valkyr becomes immune to Status Effects and her Armor bonus from Warcry is multiplied.",
         imageName: "hysteria-e7a04e411b.png",
       },
     ],
@@ -4815,7 +4865,7 @@ export const warframes = {
     progenitor: "Electricity",
     isPrime: false,
     conclave: true,
-    playstyle: ["Damage"],
+    playstyle: ["Damage", "Support"],
   },
   "Volt Prime": {
     name: "Volt Prime",
@@ -4863,7 +4913,7 @@ export const warframes = {
     progenitor: "Electricity",
     isPrime: true,
     conclave: true,
-    playstyle: ["Damage"],
+    playstyle: ["Damage", "Support"],
   },
   Voruna: {
     name: "Voruna",
@@ -5260,7 +5310,56 @@ export const warframes = {
     progenitor: "Magnetic",
     isPrime: false,
     conclave: false,
-    playstyle: ["Damage"],
+    playstyle: ["Damage", "Crowd Control"],
+  },
+  "Yareli Prime": {
+    name: "Yareli Prime",
+    category: "Warframes",
+    type: "Warframe",
+    health: 270,
+    shield: 550,
+    armor: 105,
+    energy: 215,
+    sprint: 1.1,
+    aura: "Madurai",
+    releaseDate: "2025-05-21",
+    imageName: "yareli-prime-c4dbed6caa.png",
+    abilities: [
+      {
+        uniqueName: "/Lotus/Powersuits/PowersuitAbilities/YareliBubbleAbility",
+        name: "Sea Snares",
+        description:
+          "Form five water globules that seek out enemies and expand on contact, simultaneously damaging and immobilizing their victims.\nEnemies hit by the globules take increased damage from all sources.",
+        imageName: "sea-snares-50c5c34cb9.png",
+      },
+      {
+        uniqueName: "/Lotus/Powersuits/PowersuitAbilities/YareliBoardAbility",
+        name: "Merulina",
+        description:
+          "Summon Merulina, a rideable creature of the waves, and the inspiration for K-Driving. Merulina protects Yareli by absorbing a large portion of incoming damage.",
+        imageName: "merulina-9e79178eaa.png",
+      },
+      {
+        uniqueName: "/Lotus/Powersuits/PowersuitAbilities/YareliDisksAbility",
+        name: "Aquablades",
+        description:
+          "Tear through foes with a trio of orbiting aquatic blades.",
+        imageName: "aquablades-af4f288fc7.png",
+      },
+      {
+        uniqueName: "/Lotus/Powersuits/PowersuitAbilities/YareliSpoutAbility",
+        name: "Riptide",
+        description:
+          "Drag enemies into a crushing maelstrom and then blow them away in a watery burst. Each enemy trapped in the vortex increases the burst's damage.",
+        imageName: "riptide-a5e5a01730.png",
+      },
+    ],
+    sex: "Female",
+    variant: "Prime",
+    progenitor: "Magnetic",
+    isPrime: true,
+    conclave: false,
+    playstyle: ["Damage", "Crowd Control"],
   },
   Zephyr: {
     name: "Zephyr",

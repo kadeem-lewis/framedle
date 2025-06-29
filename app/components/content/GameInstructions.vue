@@ -1,9 +1,10 @@
 <script setup lang="ts">
 import { startOfTomorrow } from "date-fns";
+import { warframes } from "#shared/data/warframes";
 
 const { t } = useI18n();
 
-const { defaultAttempts, warframes } = useGameStore();
+const { defaultAttempts } = useGameStore();
 
 const { $colorblindMode } = useNuxtApp();
 

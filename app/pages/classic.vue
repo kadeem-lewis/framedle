@@ -12,7 +12,7 @@ defineOgImageComponent("Framedle");
 const { t } = useI18n();
 
 const { itemToGuess, guessedItems, attempts } = storeToRefs(useGameStore());
-const { classicInit, defaultAttempts, warframes } = useGameStore();
+const { classicInit, defaultAttempts } = useGameStore();
 
 const mode = useGameMode();
 const { isGameOver } = storeToRefs(useGameStateStore());
@@ -67,7 +67,7 @@ const tooltipMap = {
             {{ t("classic.subtitle") }}
           </p>
         </template>
-        <WarframeSearch v-if="!isGameOver" :items="warframes" />
+        <WarframeSearch v-if="!isGameOver" :items="warframeNames" />
       </UCard>
       <template v-if="guessedItems[mode].length">
         <div class="space-y-4 overflow-x-auto md:overflow-x-visible">
@@ -99,9 +99,9 @@ const tooltipMap = {
           >
             <ClassicFeedbackRow
               v-for="warframe of [...guessedItems[mode]].reverse()"
-              :key="warframe.name"
-              :guessed-warframe="warframe"
-              :correct-warframe="itemToGuess[mode]!"
+              :key="warframe"
+              :guessed-warframe="getWarframe(warframe)"
+              :correct-warframe="getWarframe(itemToGuess[mode]!)"
             />
           </div>
         </div>

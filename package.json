@@ -53,18 +53,22 @@
     "@vite-pwa/nuxt": "^1.0.0",
     "@vueuse/core": "^13.1.0",
     "@vueuse/nuxt": "^13.1.0",
+    "@vueuse/rxjs": "^13.4.0",
     "apexcharts": "^4.7.0",
     "date-fns": "^4.1.0",
+    "dexie": "^4.0.11",
     "drizzle-orm": "^0.43.1",
+    "drizzle-zod": "^0.8.2",
     "fuse.js": "^7.1.0",
     "import-in-the-middle": "^1.13.1",
     "luaparse": "^0.3.1",
     "party-js": "^2.2.0",
     "pinia": "^3.0.2",
     "pinia-plugin-persistedstate": "^4.2.0",
+    "rxjs": "^7.8.2",
     "tailwindcss": "^4.1.5",
     "vue3-apexcharts": "^1.7.0",
-    "zod": "^3.24.3"
+    "zod": "^3.25.67"
   },
   "engines": {
     "node": "22.x"

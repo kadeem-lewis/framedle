@@ -32,15 +32,24 @@ importers:
       '@vueuse/nuxt':
         specifier: ^13.1.0
         version: 13.1.0(magicast@0.3.5)(nuxt@3.17.1(@libsql/client@0.14.0)(@parcel/watcher@2.5.0)(@types/node@22.15.3)(db0@0.3.2(@libsql/client@0.14.0)(drizzle-orm@0.43.1(@libsql/client@0.14.0)(@neondatabase/serverless@1.0.0)(@opentelemetry/api@1.9.0)(@types/pg@8.11.6)(gel@2.0.1)))(drizzle-orm@0.43.1(@libsql/client@0.14.0)(@neondatabase/serverless@1.0.0)(@opentelemetry/api@1.9.0)(@types/pg@8.11.6)(gel@2.0.1))(eslint@9.26.0(jiti@2.4.2))(ioredis@5.6.1)(lightningcss@1.29.2)(magicast@0.3.5)(optionator@0.9.4)(rollup@4.40.1)(terser@5.39.0)(typescript@5.8.3)(vite@6.3.4(@types/node@22.15.3)(jiti@2.4.2)(lightningcss@1.29.2)(terser@5.39.0)(yaml@2.7.1))(vue-tsc@2.2.10(typescript@5.8.3))(yaml@2.7.1))(vue@3.5.13(typescript@5.8.3))
+      '@vueuse/rxjs':
+        specifier: ^13.4.0
+        version: 13.4.0(rxjs@7.8.2)(vue@3.5.13(typescript@5.8.3))
       apexcharts:
         specifier: ^4.7.0
         version: 4.7.0
       date-fns:
         specifier: ^4.1.0
         version: 4.1.0
+      dexie:
+        specifier: ^4.0.11
+        version: 4.0.11
       drizzle-orm:
         specifier: ^0.43.1
         version: 0.43.1(@libsql/client@0.14.0)(@neondatabase/serverless@1.0.0)(@opentelemetry/api@1.9.0)(@types/pg@8.11.6)(gel@2.0.1)
+      drizzle-zod:
+        specifier: ^0.8.2
+        version: 0.8.2(drizzle-orm@0.43.1(@libsql/client@0.14.0)(@neondatabase/serverless@1.0.0)(@opentelemetry/api@1.9.0)(@types/pg@8.11.6)(gel@2.0.1))(zod@3.25.67)
       fuse.js:
         specifier: ^7.1.0
         version: 7.1.0
@@ -59,6 +68,9 @@ importers:
       pinia-plugin-persistedstate:
         specifier: ^4.2.0
         version: 4.2.0(@pinia/nuxt@0.11.0(magicast@0.3.5)(pinia@3.0.2(typescript@5.8.3)(vue@3.5.13(typescript@5.8.3))))(magicast@0.3.5)(pinia@3.0.2(typescript@5.8.3)(vue@3.5.13(typescript@5.8.3)))
+      rxjs:
+        specifier: ^7.8.2
+        version: 7.8.2
       tailwindcss:
         specifier: ^4.1.5
         version: 4.1.5
@@ -66,8 +78,8 @@ importers:
         specifier: ^1.7.0
         version: 1.8.0(apexcharts@4.7.0)(vue@3.5.13(typescript@5.8.3))
       zod:
-        specifier: ^3.24.3
-        version: 3.24.3
+        specifier: ^3.25.67
+        version: 3.25.67
     devDependencies:
       '@iconify-json/heroicons':
         specifier: ^1.2.2
@@ -92,7 +104,7 @@ importers:
         version: 3.18.0(@types/node@22.15.3)(@vue/test-utils@2.4.6)(happy-dom@17.4.6)(jiti@2.4.2)(lightningcss@1.29.2)(magicast@0.3.5)(playwright-core@1.52.0)(terser@5.39.0)(typescript@5.8.3)(vitest@3.1.2(@types/node@22.15.3)(happy-dom@17.4.6)(jiti@2.4.2)(lightningcss@1.29.2)(terser@5.39.0)(yaml@2.7.1))(yaml@2.7.1)
       '@nuxt/ui':
         specifier: 3.0.2
-        version: 3.0.2(@babel/parser@7.27.1)(change-case@5.4.4)(db0@0.3.2(@libsql/client@0.14.0)(drizzle-orm@0.43.1(@libsql/client@0.14.0)(@neondatabase/serverless@1.0.0)(@opentelemetry/api@1.9.0)(@types/pg@8.11.6)(gel@2.0.1)))(embla-carousel@8.5.2)(ioredis@5.6.1)(jwt-decode@4.0.0)(magicast@0.3.5)(typescript@5.8.3)(valibot@1.0.0(typescript@5.8.3))(vite@6.3.4(@types/node@22.15.3)(jiti@2.4.2)(lightningcss@1.29.2)(terser@5.39.0)(yaml@2.7.1))(zod@3.24.3)
+        version: 3.0.2(@babel/parser@7.27.1)(change-case@5.4.4)(db0@0.3.2(@libsql/client@0.14.0)(drizzle-orm@0.43.1(@libsql/client@0.14.0)(@neondatabase/serverless@1.0.0)(@opentelemetry/api@1.9.0)(@types/pg@8.11.6)(gel@2.0.1)))(embla-carousel@8.5.2)(ioredis@5.6.1)(jwt-decode@4.0.0)(magicast@0.3.5)(typescript@5.8.3)(valibot@1.0.0(typescript@5.8.3))(vite@6.3.4(@types/node@22.15.3)(jiti@2.4.2)(lightningcss@1.29.2)(terser@5.39.0)(yaml@2.7.1))(zod@3.25.67)
       '@nuxtjs/i18n':
         specifier: ^9.5.4
         version: 9.5.4(@vue/compiler-dom@3.5.13)(eslint@9.26.0(jiti@2.4.2))(magicast@0.3.5)(rollup@4.40.1)(vue@3.5.13(typescript@5.8.3))
@@ -3354,6 +3366,12 @@ packages:
       nuxt: ^3.0.0 || ^4.0.0-0
       vue: ^3.5.0
 
+  '@vueuse/rxjs@13.4.0':
+    resolution: {integrity: sha512-KhfZ7qHlZXuV76KLpk10Ozg3Jq99GiuX+1sk/MMh3Jt8ubkZ8bhLRq2+M2buYdjlPt8O6600WV9K7fBIOLqKZQ==}
+    peerDependencies:
+      rxjs: '>=6.0.0'
+      vue: ^3.5.0
+
   '@vueuse/shared@10.11.1':
     resolution: {integrity: sha512-LHpC8711VFZlDaYUXEBbFBCQ7GS3dVU9mjOhhMhXP6txTV4EhYQg/KGnQuvt/sPAtoUKq7VVUnL6mVtFoL42sA==}
 
@@ -3367,6 +3385,11 @@ packages:
 
   '@vueuse/shared@13.1.0':
     resolution: {integrity: sha512-IVS/qRRjhPTZ6C2/AM3jieqXACGwFZwWTdw5sNTSKk2m/ZpkuuN+ri+WCVUP8TqaKwJYt/KuMwmXspMAw8E6ew==}
+    peerDependencies:
+      vue: ^3.5.0
+
+  '@vueuse/shared@13.4.0':
+    resolution: {integrity: sha512-+AxuKbw8R1gYy5T21V5yhadeNM7rJqb4cPaRI9DdGnnNl3uqXh+unvQ3uCaA2DjYLbNr1+l7ht/B4qEsRegX6A==}
     peerDependencies:
       vue: ^3.5.0
 
@@ -4224,6 +4247,9 @@ packages:
   devalue@5.1.1:
     resolution: {integrity: sha512-maua5KUiapvEwiEAe+XnlZ3Rh0GD+qI1J/nb9vrJc3muPXvcF/8gXYTWF76+5DAqHyDUtOIImEuo0YKE9mshVw==}
 
+  dexie@4.0.11:
+    resolution: {integrity: sha512-SOKO002EqlvBYYKQSew3iymBoN2EQ4BDw/3yprjh7kAfFzjBYkaMNa/pZvcA7HSWlcKSQb9XhPe3wKyQ0x4A8A==}
+
   dfa@1.2.0:
     resolution: {integrity: sha512-ED3jP8saaweFTjeGX8HQPjeC1YYyZs98jGNZx6IiBvxW7JG5v492kamAQB3m2wop07CvU/RQmzcKr6bgcC5D/Q==}
 
@@ -4352,6 +4378,12 @@ packages:
         optional: true
       sqlite3:
         optional: true
+
+  drizzle-zod@0.8.2:
+    resolution: {integrity: sha512-9Do/16OjFFNrQDZgvMtxtDDwKWbFOxUAIwNPKX98SfxrP8H18vhN1BvNXbhelLcdgCE7GEaXDJqBjMExSkhpkA==}
+    peerDependencies:
+      drizzle-orm: '>=0.36.0'
+      zod: ^3.25.1
 
   dunder-proto@1.0.1:
     resolution: {integrity: sha512-KIN/nDJBQRcXw0MLVhZE9iQHmG68qAVIBg9CqmUYjmQIhgij9U5MFvrqkUL5FbtyyzZuOeOt0zdeRe4UY7ct+A==}
@@ -6879,6 +6911,9 @@ packages:
   run-parallel@1.2.0:
     resolution: {integrity: sha512-5l4VyZR86LZ/lDxZTR6jqL8AFE2S0IFLMP26AbjsLVADxHdhB/c0GUsH+y39UfCi3dzz8OlQuPmnaJOMoDHQBA==}
 
+  rxjs@7.8.2:
+    resolution: {integrity: sha512-dhKf903U/PQZY6boNNtAGdWbG85WAbjT/1xYoZIC7FAY0yWapOBQVsVrDl58W86//e1VpMNBtRV4MaXfdMySFA==}
+
   safe-array-concat@1.1.3:
     resolution: {integrity: sha512-AURm5f0jYEOydBj7VQlVvDrjeFgthDdEF5H1dP+6mNpoXOMo1quQqJ4wvJDyRZ9+pO3kGWoOdmV08cSv2aJV6Q==}
     engines: {node: '>=0.4'}
@@ -8135,8 +8170,8 @@ packages:
     peerDependencies:
       zod: ^3.24.1
 
-  zod@3.24.3:
-    resolution: {integrity: sha512-HhY1oqzWCQWuUqvBFnsyrtZRhyPeR7SUGv+C4+MsisMuVfSPx8HpwWqH8tRahSlt6M3PiFAcoeFhZAqIXTxoSg==}
+  zod@3.25.67:
+    resolution: {integrity: sha512-idA2YXwpCdqUSKRCACDE6ItZD9TZzy3OZMtpfLoh6oPR47lipysRrJfjzMqFxQ3uJuUPyUeWe1r9vLH33xO/Qw==}
 
 snapshots:
 
@@ -9574,8 +9609,8 @@ snapshots:
       express-rate-limit: 7.5.0(express@5.1.0)
       pkce-challenge: 5.0.0
       raw-body: 3.0.0
-      zod: 3.24.3
-      zod-to-json-schema: 3.24.5(zod@3.24.3)
+      zod: 3.25.67
+      zod-to-json-schema: 3.24.5(zod@3.25.67)
     transitivePeerDependencies:
       - supports-color
 
@@ -9674,7 +9709,7 @@ snapshots:
       unixify: 1.0.0
       urlpattern-polyfill: 8.0.2
       yargs: 17.7.2
-      zod: 3.24.3
+      zod: 3.25.67
     transitivePeerDependencies:
       - encoding
       - rollup
@@ -10104,7 +10139,7 @@ snapshots:
       - typescript
       - yaml
 
-  '@nuxt/ui@3.0.2(@babel/parser@7.27.1)(change-case@5.4.4)(db0@0.3.2(@libsql/client@0.14.0)(drizzle-orm@0.43.1(@libsql/client@0.14.0)(@neondatabase/serverless@1.0.0)(@opentelemetry/api@1.9.0)(@types/pg@8.11.6)(gel@2.0.1)))(embla-carousel@8.5.2)(ioredis@5.6.1)(jwt-decode@4.0.0)(magicast@0.3.5)(typescript@5.8.3)(valibot@1.0.0(typescript@5.8.3))(vite@6.3.4(@types/node@22.15.3)(jiti@2.4.2)(lightningcss@1.29.2)(terser@5.39.0)(yaml@2.7.1))(zod@3.24.3)':
+  '@nuxt/ui@3.0.2(@babel/parser@7.27.1)(change-case@5.4.4)(db0@0.3.2(@libsql/client@0.14.0)(drizzle-orm@0.43.1(@libsql/client@0.14.0)(@neondatabase/serverless@1.0.0)(@opentelemetry/api@1.9.0)(@types/pg@8.11.6)(gel@2.0.1)))(embla-carousel@8.5.2)(ioredis@5.6.1)(jwt-decode@4.0.0)(magicast@0.3.5)(typescript@5.8.3)(valibot@1.0.0(typescript@5.8.3))(vite@6.3.4(@types/node@22.15.3)(jiti@2.4.2)(lightningcss@1.29.2)(terser@5.39.0)(yaml@2.7.1))(zod@3.25.67)':
     dependencies:
       '@iconify/vue': 4.3.0(vue@3.5.13(typescript@5.8.3))
       '@internationalized/date': 3.7.0
@@ -10152,7 +10187,7 @@ snapshots:
       vue-router: 4.5.1(vue@3.5.13(typescript@5.8.3))
     optionalDependencies:
       valibot: 1.0.0(typescript@5.8.3)
-      zod: 3.24.3
+      zod: 3.25.67
     transitivePeerDependencies:
       - '@azure/app-configuration'
       - '@azure/cosmos'
@@ -11974,6 +12009,12 @@ snapshots:
     transitivePeerDependencies:
       - magicast
 
+  '@vueuse/rxjs@13.4.0(rxjs@7.8.2)(vue@3.5.13(typescript@5.8.3))':
+    dependencies:
+      '@vueuse/shared': 13.4.0(vue@3.5.13(typescript@5.8.3))
+      rxjs: 7.8.2
+      vue: 3.5.13(typescript@5.8.3)
+
   '@vueuse/shared@10.11.1(vue@3.5.13(typescript@5.8.3))':
     dependencies:
       vue-demi: 0.14.10(vue@3.5.13(typescript@5.8.3))
@@ -11992,6 +12033,10 @@ snapshots:
       vue: 3.5.13(typescript@5.8.3)
 
   '@vueuse/shared@13.1.0(vue@3.5.13(typescript@5.8.3))':
+    dependencies:
+      vue: 3.5.13(typescript@5.8.3)
+
+  '@vueuse/shared@13.4.0(vue@3.5.13(typescript@5.8.3))':
     dependencies:
       vue: 3.5.13(typescript@5.8.3)
 
@@ -12901,6 +12946,8 @@ snapshots:
 
   devalue@5.1.1: {}
 
+  dexie@4.0.11: {}
+
   dfa@1.2.0: {}
 
   diff@7.0.0: {}
@@ -12953,6 +13000,11 @@ snapshots:
       '@opentelemetry/api': 1.9.0
       '@types/pg': 8.11.6
       gel: 2.0.1
+
+  drizzle-zod@0.8.2(drizzle-orm@0.43.1(@libsql/client@0.14.0)(@neondatabase/serverless@1.0.0)(@opentelemetry/api@1.9.0)(@types/pg@8.11.6)(gel@2.0.1))(zod@3.25.67):
+    dependencies:
+      drizzle-orm: 0.43.1(@libsql/client@0.14.0)(@neondatabase/serverless@1.0.0)(@opentelemetry/api@1.9.0)(@types/pg@8.11.6)(gel@2.0.1)
+      zod: 3.25.67
 
   dunder-proto@1.0.1:
     dependencies:
@@ -13385,7 +13437,7 @@ snapshots:
       minimatch: 3.1.2
       natural-compare: 1.4.0
       optionator: 0.9.4
-      zod: 3.24.3
+      zod: 3.25.67
     optionalDependencies:
       jiti: 2.4.2
     transitivePeerDependencies:
@@ -15989,6 +16041,10 @@ snapshots:
     dependencies:
       queue-microtask: 1.2.3
 
+  rxjs@7.8.2:
+    dependencies:
+      tslib: 2.8.1
+
   safe-array-concat@1.1.3:
     dependencies:
       call-bind: 1.0.8
@@ -17479,8 +17535,8 @@ snapshots:
       compress-commons: 6.0.2
       readable-stream: 4.7.0
 
-  zod-to-json-schema@3.24.5(zod@3.24.3):
+  zod-to-json-schema@3.24.5(zod@3.25.67):
     dependencies:
-      zod: 3.24.3
+      zod: 3.25.67
 
-  zod@3.24.3: {}
+  zod@3.25.67: {}

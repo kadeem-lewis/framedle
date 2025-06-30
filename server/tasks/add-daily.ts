@@ -1,6 +1,7 @@
 import { format, startOfTomorrow } from "date-fns";
 import { warframes } from "#shared/data/warframes";
 import { desc } from "drizzle-orm";
+import type { Daily } from "#shared/schemas/db";
 
 export default defineTask({
   meta: {

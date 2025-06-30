@@ -12,5 +12,3 @@ export const tables = schema;
 export function useDrizzle() {
   return drizzle({ client: sql, schema });
 }
-
-export type Daily = typeof schema.daily.$inferSelect;

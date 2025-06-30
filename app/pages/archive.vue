@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { format, subDays } from "date-fns";
 import Fuse from "fuse.js";
+import type { Daily } from "#shared/schemas/db";
 
 useSeoMeta({
   title: "Archive",

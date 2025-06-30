@@ -3,9 +3,13 @@ const { getDaily } = useGameStore();
 const route = useRoute();
 
 watch(
-  () => route.query.date,
+  () => route.params,
   () => {
-    getDaily();
+    if (route.name === "ability-path" || route.name === "classic-path") {
+      if (!route.params.path || validateParamAsDate(route.params.path.at(-1))) {
+        getDaily();
+      }
+    }
   },
   { immediate: true },
 );

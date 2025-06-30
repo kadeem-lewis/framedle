@@ -140,6 +140,7 @@ export const useGameStore = defineStore(
     const mode = useGameMode();
 
     const { proxy } = useScriptUmamiAnalytics();
+
     function resetGame() {
       if (!mode.value) throw createError("Mode not set");
       attempts.value[mode.value] = 6;
@@ -148,13 +149,13 @@ export const useGameStore = defineStore(
       proxy.track("started new game", { mode: mode.value });
 
       if (mode.value === "classicUnlimited") {
-        router.replace({ query: { mode: "unlimited", x: undefined } });
+        router.replace("/classic/unlimited");
         itemToGuess.value.classicUnlimited =
           warframeNames[Math.floor(Math.random() * warframeNames.length)] ??
           null;
       }
       if (mode.value === "abilityUnlimited") {
-        router.replace({ query: { mode: "unlimited", x: undefined } });
+        router.replace("/ability/unlimited");
         itemToGuess.value.abilityUnlimited = abilities[
           Math.floor(Math.random() * abilities.length)
         ] as Ability;

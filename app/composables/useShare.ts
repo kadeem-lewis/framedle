@@ -101,7 +101,7 @@ ${emojiGrid}
 ${
   route.path.includes("unlimited")
     ? `See how you do on the same challenge I played:
-${window.location.href}&x=${itemToGuess.value[currentMode] && encode(`${itemToGuess.value[currentMode]}`)}`
+${window.location.href}?x=${itemToGuess.value[currentMode] && encode(`${itemToGuess.value[currentMode]}`)}`
     : window.location.href
 }
         `;

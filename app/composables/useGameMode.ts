@@ -22,7 +22,7 @@ export function useGameMode() {
     const paths = route.path.split("/");
     const routeName = paths[1];
     if (!routeName) return undefined;
-    const variant = paths[2] || "daily";
+    const variant = paths[2] === "unlimited" ? "unlimited" : "daily";
 
     if (modeLookup[routeName]) {
       return modeLookup[routeName][variant];

@@ -8,4 +8,6 @@ export const daily = pgTable("daily", {
   abilityId: text("abilityId").notNull(),
 });
 
+export type Daily = typeof daily.$inferSelect;
+
 //TODO: consider adding totalGuesses and average attempts to daily table in the future

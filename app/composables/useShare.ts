@@ -88,7 +88,7 @@ export function useShare() {
 
     const attemptsUsed = defaultAttempts - attempts.value[currentMode];
 
-    const topText = route.query.mode
+    const topText = route.path.includes("unlimited")
       ? hasWon.value
         ? `I solved a Framedle in ${attemptsUsed} out of ${defaultAttempts} turns.`
         : `I couldn't solve this Framedle in ${defaultAttempts} turns.`
@@ -99,7 +99,7 @@ ${topText}
       
 ${emojiGrid}
 ${
-  route.query.mode
+  route.path.includes("unlimited")
     ? `See how you do on the same challenge I played:
 ${window.location.href}&x=${itemToGuess.value[currentMode] && encode(`${itemToGuess.value[currentMode]}`)}`
     : window.location.href

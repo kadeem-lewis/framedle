@@ -137,7 +137,7 @@ watchEffect(() => {
           }}</span>
         </p>
         <UButton
-          v-if="!$route.query.mode"
+          v-if="!$route.path.includes('unlimited')"
           icon="i-heroicons-chart-bar-solid"
           variant="outline"
           class="font-semibold uppercase"
@@ -145,7 +145,7 @@ watchEffect(() => {
           >Stats</UButton
         >
         <UButton
-          v-if="$route.query.mode"
+          v-if="$route.path.includes('unlimited')"
           variant="outline"
           class="font-semibold uppercase"
           size="xl"
@@ -170,7 +170,7 @@ watchEffect(() => {
             </li>
           </ul>
         </div>
-        <template v-if="!$route.query.mode">
+        <template v-if="!$route.path.includes('unlimited')">
           <div class="flex gap-2 text-xl">
             <p>New Game in:</p>
             <span class="flex items-center gap-1">

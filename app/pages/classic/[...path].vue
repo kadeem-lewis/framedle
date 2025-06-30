@@ -1,13 +1,29 @@
 <script setup lang="ts">
 definePageMeta({
   layout: "game",
+  validate(route) {
+    if (route.name === "ability-path") {
+      const paths = route.params.path;
+      if (paths?.length === 0 || !paths) {
+        return true;
+      }
+      if (paths && paths[0] === "unlimited") {
+        return true;
+      }
+      if (paths && paths.length > 1) {
+        return false;
+      }
+      if (paths && validateParamAsDate(paths[0])) {
+        return true;
+      }
+    }
+    return false;
+  },
 });
 
 useSeoMeta({
   title: "Classic",
 });
-
-defineOgImageComponent("Framedle");
 
 const { t } = useI18n();
 

@@ -9,7 +9,10 @@ const items = [
     text: "Archive",
     icon: "i-heroicons-calendar-solid",
     command: () => {
-      navigateTo({ path: "/archive", query: { mode: route.name } });
+      navigateTo({
+        path: "/archive",
+        query: { mode: route.path.split("/")[1] },
+      });
     },
   },
   {

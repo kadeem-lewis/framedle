@@ -82,7 +82,7 @@ export function useShare() {
 
     //! As more game modes are added, this will need to be updated
     const emojiGrid =
-      route.name === "classic"
+      route.name === "classic-path"
         ? emojiFeedback.value.join("\n")
         : emojiFeedback.value.join(" ");
 

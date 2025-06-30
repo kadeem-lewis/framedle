@@ -2,7 +2,7 @@
 definePageMeta({
   layout: "game",
   validate(route) {
-    if (route.name === "ability-path") {
+    if (route.name === "classic-path") {
       const paths = route.params.path;
       if (paths?.length === 0 || !paths) {
         return true;

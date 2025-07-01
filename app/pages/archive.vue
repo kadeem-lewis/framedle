@@ -125,7 +125,7 @@ watch(searchQuery, (newQuery) => {
           class="contents cursor-pointer odd:bg-neutral-700"
           @click="
             proxy.track('started archive game', { date: daily.date });
-            navigateTo(`/${selectedMode}/${daily.date}`);
+            navigateTo(`/${selectedMode}/${daily.day}`);
           "
         >
           <p>Framedle #{{ daily.day }}</p>

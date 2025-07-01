@@ -9,21 +9,23 @@ export function useGameMode() {
 
   const modeLookup: Record<string, Record<string, GameMode>> = {
     classic: {
-      default: "classic",
+      daily: "classic",
       unlimited: "classicUnlimited",
     },
     ability: {
-      default: "ability",
+      daily: "ability",
       unlimited: "abilityUnlimited",
     },
   };
 
   const mode = computed<GameMode | undefined>(() => {
-    const routeName = route.name;
-    const queryMode = route.query.mode as string | undefined;
+    const paths = route.path.split("/");
+    const routeName = paths[1];
+    if (!routeName) return undefined;
+    const variant = paths[2] === "unlimited" ? "unlimited" : "daily";
 
     if (modeLookup[routeName]) {
-      return modeLookup[routeName][queryMode || "default"];
+      return modeLookup[routeName][variant];
     }
 
     return undefined;

@@ -1,4 +1,4 @@
-import * as schema from "../database/schema";
+import * as schema from "#shared/schemas/db";
 import { neon } from "@neondatabase/serverless";
 import { drizzle } from "drizzle-orm/neon-http";
 export { sql, eq, and, or } from "drizzle-orm";
@@ -12,5 +12,3 @@ export const tables = schema;
 export function useDrizzle() {
   return drizzle({ client: sql, schema });
 }
-
-export type Daily = typeof schema.daily.$inferSelect;

@@ -1,4 +1,5 @@
 import { format } from "date-fns";
+import type { Daily } from "#shared/schemas/db";
 
 type itemToGuess = {
   classic: WarframeName | null;
@@ -26,14 +27,17 @@ export const useGameStore = defineStore(
       abilityUnlimited: defaultAttempts,
     });
 
-    const route = useRoute();
+    const route = useRoute("classic-path");
     const router = useRouter();
 
     const currentDailyDate = ref(format(new Date(), "yyyy-MM-dd"));
-    const dailyDate = ref<string>(
-      (route.query.date as string) || currentDailyDate.value,
-    );
-    const currentDay = ref<number>();
+
+    const lastPath = computed(() => {
+      if (!route.params.path) return null;
+      return route.params.path.at(-1);
+    });
+
+    const selectedDaily = ref<Daily | null>(null);
 
     const guessedItems = ref({
       classic: [] as WarframeName[],
@@ -51,7 +55,7 @@ export const useGameStore = defineStore(
 
     //TODO: both init functions could be the same function and just pass the mode as an argument
     function classicInit() {
-      if (route.query.x) {
+      if (route.query.x && lastPath.value === "unlimited") {
         const decoded = decode(route.query.x as string) as WarframeName;
         const decodedWarframe = getWarframe(decoded);
         if (itemToGuess.value.classicUnlimited !== decodedWarframe.name) {
@@ -68,8 +72,7 @@ export const useGameStore = defineStore(
     }
 
     function abilityInit() {
-      if (abilities.length === 0) throw createError("Abilities not loaded");
-      if (route.query.x) {
+      if (route.query.x && lastPath.value === "unlimited") {
         const decoded = decode(route.query.x as string);
 
         const decodedAbility = abilities.find(
@@ -98,25 +101,46 @@ export const useGameStore = defineStore(
 
     async function getDaily() {
       //if todays date is the same as the servers date, then I fetch the daily because it is possible for the date to be the same without the daily being fetched
-      // if the date isn't the same then I also fetch the
-      dailyDate.value =
-        (route.query.date as string) ?? format(new Date(), "yyyy-MM-dd");
 
-      if (currentDailyDate.value !== dailyDate.value) {
-        resetDailyValues();
-        currentDailyDate.value = dailyDate.value;
+      const previousDay = selectedDaily.value?.day;
+
+      let query: { day: number } | { date: string };
+      let expectedDay: number | null = null;
+
+      if (lastPath.value && isValidDayNumber(lastPath.value)) {
+        expectedDay = Number(lastPath.value);
+        query = { day: expectedDay };
+      } else {
+        const todayDate = format(new Date(), "yyyy-MM-dd");
+        query = { date: todayDate };
+        currentDailyDate.value = todayDate;
       }
+
+      // Reset if switching to a different day
+      if (previousDay && expectedDay && previousDay !== expectedDay) {
+        resetDailyValues();
+      }
+
       try {
-        const { daily: data } = await $fetch(
-          `/api/daily?date=${dailyDate.value}`,
-        );
+        const { daily: data } = await $fetch<{
+          daily: Daily;
+        }>("/api/daily", {
+          query,
+        });
+
+        // Reset if the fetched day is different from what we had
+        if (previousDay && previousDay !== data.day) {
+          resetDailyValues();
+        }
+
         itemToGuess.value.classic = getWarframe(
           data.classicId as WarframeName,
         ).name;
         itemToGuess.value.ability = abilities.find(
           (ability) => ability.name === data.abilityId,
         ) as Ability;
-        currentDay.value = data.day;
+        selectedDaily.value = data;
+        currentDailyDate.value = data.date;
       } catch (error) {
         throw createError({
           statusCode: 500,
@@ -129,6 +153,7 @@ export const useGameStore = defineStore(
     const mode = useGameMode();
 
     const { proxy } = useScriptUmamiAnalytics();
+
     function resetGame() {
       if (!mode.value) throw createError("Mode not set");
       attempts.value[mode.value] = 6;
@@ -137,13 +162,13 @@ export const useGameStore = defineStore(
       proxy.track("started new game", { mode: mode.value });
 
       if (mode.value === "classicUnlimited") {
-        router.replace({ query: { mode: "unlimited", x: undefined } });
+        router.replace("/classic/unlimited");
         itemToGuess.value.classicUnlimited =
           warframeNames[Math.floor(Math.random() * warframeNames.length)] ??
           null;
       }
       if (mode.value === "abilityUnlimited") {
-        router.replace({ query: { mode: "unlimited", x: undefined } });
+        router.replace("/ability/unlimited");
         itemToGuess.value.abilityUnlimited = abilities[
           Math.floor(Math.random() * abilities.length)
         ] as Ability;
@@ -157,12 +182,9 @@ export const useGameStore = defineStore(
       attempts,
       itemToGuess,
       guessedItems,
-      dailyDate,
       defaultAttempts,
-      abilities,
       currentDailyDate,
-      currentDay,
-      vanillaWarframes,
+      selectedDaily,
       selectedMinigameAbility,
       version,
       classicInit,

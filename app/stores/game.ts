@@ -36,12 +36,7 @@ export const useGameStore = defineStore(
       if (!route.params.path) return null;
       return route.params.path.at(-1);
     });
-    //! This function isn't really doing as much as it can since I still need to check if the path exists
-    const dailyDate = ref<string>(
-      lastPath.value && validateParamAsDate(lastPath.value)
-        ? lastPath.value
-        : format(new Date(), "yyyy-MM-dd"),
-    );
+
     const selectedDaily = ref<Daily | null>(null);
 
     const guessedItems = ref({
@@ -77,7 +72,6 @@ export const useGameStore = defineStore(
     }
 
     function abilityInit() {
-      if (abilities.length === 0) throw createError("Abilities not loaded");
       if (route.query.x && lastPath.value === "unlimited") {
         const decoded = decode(route.query.x as string);
 
@@ -105,23 +99,45 @@ export const useGameStore = defineStore(
       selectedMinigameAbility.value.ability = "";
     }
 
+    const isValidDayNumber = (value: string): boolean => {
+      const num = Number(value);
+      return Number.isInteger(num) && num > 0;
+    };
+
     async function getDaily() {
       //if todays date is the same as the servers date, then I fetch the daily because it is possible for the date to be the same without the daily being fetched
-      // if the date isn't the same then I also fetch the
 
-      dailyDate.value =
-        lastPath.value && validateParamAsDate(lastPath.value)
-          ? lastPath.value
-          : format(new Date(), "yyyy-MM-dd");
+      const previousDay = selectedDaily.value?.day;
 
-      if (currentDailyDate.value !== dailyDate.value) {
-        resetDailyValues();
-        currentDailyDate.value = dailyDate.value;
+      let query: { day: number } | { date: string };
+      let expectedDay: number | null = null;
+
+      if (lastPath.value && isValidDayNumber(lastPath.value)) {
+        expectedDay = Number(lastPath.value);
+        query = { day: expectedDay };
+      } else {
+        const todayDate = format(new Date(), "yyyy-MM-dd");
+        query = { date: todayDate };
+        currentDailyDate.value = todayDate;
       }
+
+      // Reset if switching to a different day
+      if (previousDay && expectedDay && previousDay !== expectedDay) {
+        resetDailyValues();
+      }
+
       try {
         const { daily: data } = await $fetch<{
           daily: Daily;
-        }>(`/api/daily?date=${dailyDate.value}`);
+        }>("/api/daily", {
+          query,
+        });
+
+        // Reset if the fetched day is different from what we had
+        if (previousDay && previousDay !== data.day) {
+          resetDailyValues();
+        }
+
         itemToGuess.value.classic = getWarframe(
           data.classicId as WarframeName,
         ).name;
@@ -129,6 +145,7 @@ export const useGameStore = defineStore(
           (ability) => ability.name === data.abilityId,
         ) as Ability;
         selectedDaily.value = data;
+        currentDailyDate.value = data.date;
       } catch (error) {
         throw createError({
           statusCode: 500,
@@ -170,7 +187,6 @@ export const useGameStore = defineStore(
       attempts,
       itemToGuess,
       guessedItems,
-      dailyDate,
       defaultAttempts,
       currentDailyDate,
       selectedDaily,

@@ -15,7 +15,7 @@ export function useShare() {
 
   const emojiFeedback = ref<string[]>([]);
 
-  const { guessedItems, itemToGuess, attempts, currentDay } =
+  const { guessedItems, itemToGuess, attempts, selectedDaily } =
     storeToRefs(useGameStore());
   const { defaultAttempts } = useGameStore();
 
@@ -82,26 +82,26 @@ export function useShare() {
 
     //! As more game modes are added, this will need to be updated
     const emojiGrid =
-      route.name === "classic"
+      route.name === "classic-path"
         ? emojiFeedback.value.join("\n")
         : emojiFeedback.value.join(" ");
 
     const attemptsUsed = defaultAttempts - attempts.value[currentMode];
 
-    const topText = route.query.mode
+    const topText = route.path.includes("unlimited")
       ? hasWon.value
         ? `I solved a Framedle in ${attemptsUsed} out of ${defaultAttempts} turns.`
         : `I couldn't solve this Framedle in ${defaultAttempts} turns.`
-      : `Framedle ${currentMode} #${currentDay.value} ${hasWon.value ? attemptsUsed : "X"}/${defaultAttempts}`;
+      : `Framedle ${currentMode} #${selectedDaily.value?.day} ${hasWon.value ? attemptsUsed : "X"}/${defaultAttempts}`;
 
     const grid = `
 ${topText}
       
 ${emojiGrid}
 ${
-  route.query.mode
+  route.path.includes("unlimited")
     ? `See how you do on the same challenge I played:
-${window.location.href}&x=${itemToGuess.value[currentMode] && encode(`${itemToGuess.value[currentMode]}`)}`
+${window.location.href}?x=${itemToGuess.value[currentMode] && encode(`${itemToGuess.value[currentMode]}`)}`
     : window.location.href
 }
         `;

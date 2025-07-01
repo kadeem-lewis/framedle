@@ -1,13 +1,12 @@
 <script setup lang="ts">
 definePageMeta({
   layout: "game",
+  validate: validateRoute,
 });
 
 useSeoMeta({
   title: "Ability",
 });
-
-defineOgImageComponent("Framedle");
 
 const { t } = useI18n();
 

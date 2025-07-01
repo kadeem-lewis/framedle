@@ -21,7 +21,7 @@ const error = computed(() => ($colorblindMode.value ? "Orange" : "Red"));
       <NextGameCountdown :target-date="startOfTomorrow()" class="text-2xl" />
     </span>
   </div>
-  <div v-if="$route.name === 'classic'" class="space-y-2">
+  <div v-if="$route.name === 'classic-path'" class="space-y-2">
     <p>Guess the Warframe in {{ defaultAttempts }} tries</p>
     <p>
       {{ t("instructions.classic.subtitle") }}
@@ -152,7 +152,7 @@ const error = computed(() => ($colorblindMode.value ? "Orange" : "Red"));
     </div>
   </div>
 
-  <div v-if="$route.name === 'ability'" class="space-y-4">
+  <div v-if="$route.name === 'ability-path'" class="space-y-4">
     <p>
       Guess the Warframe the ability belongs to in {{ defaultAttempts }} tries
     </p>

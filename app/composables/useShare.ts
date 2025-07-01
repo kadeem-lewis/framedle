@@ -15,7 +15,7 @@ export function useShare() {
 
   const emojiFeedback = ref<string[]>([]);
 
-  const { guessedItems, itemToGuess, attempts, currentDay } =
+  const { guessedItems, itemToGuess, attempts, selectedDaily } =
     storeToRefs(useGameStore());
   const { defaultAttempts } = useGameStore();
 
@@ -92,7 +92,7 @@ export function useShare() {
       ? hasWon.value
         ? `I solved a Framedle in ${attemptsUsed} out of ${defaultAttempts} turns.`
         : `I couldn't solve this Framedle in ${defaultAttempts} turns.`
-      : `Framedle ${currentMode} #${currentDay.value} ${hasWon.value ? attemptsUsed : "X"}/${defaultAttempts}`;
+      : `Framedle ${currentMode} #${selectedDaily.value?.day} ${hasWon.value ? attemptsUsed : "X"}/${defaultAttempts}`;
 
     const grid = `
 ${topText}

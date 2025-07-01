@@ -1,4 +1,5 @@
 import { format } from "date-fns";
+import type { Daily } from "#shared/schemas/db";
 
 type itemToGuess = {
   classic: WarframeName | null;
@@ -41,7 +42,7 @@ export const useGameStore = defineStore(
         ? lastPath.value
         : format(new Date(), "yyyy-MM-dd"),
     );
-    const currentDay = ref<number>();
+    const selectedDaily = ref<Daily | null>(null);
 
     const guessedItems = ref({
       classic: [] as WarframeName[],
@@ -118,16 +119,16 @@ export const useGameStore = defineStore(
         currentDailyDate.value = dailyDate.value;
       }
       try {
-        const { daily: data } = await $fetch(
-          `/api/daily?date=${dailyDate.value}`,
-        );
+        const { daily: data } = await $fetch<{
+          daily: Daily;
+        }>(`/api/daily?date=${dailyDate.value}`);
         itemToGuess.value.classic = getWarframe(
           data.classicId as WarframeName,
         ).name;
         itemToGuess.value.ability = abilities.find(
           (ability) => ability.name === data.abilityId,
         ) as Ability;
-        currentDay.value = data.day;
+        selectedDaily.value = data;
       } catch (error) {
         throw createError({
           statusCode: 500,
@@ -171,10 +172,8 @@ export const useGameStore = defineStore(
       guessedItems,
       dailyDate,
       defaultAttempts,
-      abilities,
       currentDailyDate,
-      currentDay,
-      vanillaWarframes,
+      selectedDaily,
       selectedMinigameAbility,
       version,
       classicInit,

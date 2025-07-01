@@ -99,11 +99,6 @@ export const useGameStore = defineStore(
       selectedMinigameAbility.value.ability = "";
     }
 
-    const isValidDayNumber = (value: string): boolean => {
-      const num = Number(value);
-      return Number.isInteger(num) && num > 0;
-    };
-
     async function getDaily() {
       //if todays date is the same as the servers date, then I fetch the daily because it is possible for the date to be the same without the daily being fetched
 

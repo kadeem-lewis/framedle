@@ -6,7 +6,10 @@ watch(
   () => route.params,
   () => {
     if (route.name === "ability-path" || route.name === "classic-path") {
-      if (!route.params.path || validateParamAsDate(route.params.path.at(-1))) {
+      if (
+        !route.params.path ||
+        Number.isInteger(Number(route.params.path.at(-1)))
+      ) {
         getDaily();
       }
     }

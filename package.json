@@ -38,8 +38,8 @@
     "nuxt": "^3.17.1",
     "nuxt-security": "^2.2.0",
     "playwright-core": "^1.52.0",
-    "prettier": "^3.5.3",
-    "prettier-plugin-tailwindcss": "^0.6.11",
+    "prettier": "^3.6.2",
+    "prettier-plugin-tailwindcss": "^0.6.13",
     "typescript": "^5.8.3",
     "vitest": "^3.1.2",
     "vue-tsc": "^2.2.10"

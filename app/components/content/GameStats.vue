@@ -6,10 +6,10 @@ const { stats } = storeToRefs(useStatsStore());
 const { defaultAttempts } = useGameStore();
 
 const modeStats = computed(() => {
-  if (route.name === "ability") {
+  if (route.name === "ability-path") {
     return stats.value.ability;
   }
-  if (route.name === "classic") {
+  if (route.name === "classic-path") {
     return stats.value.classic;
   }
   return {

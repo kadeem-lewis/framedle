@@ -362,6 +362,46 @@
     "isPrime": false
   },
   {
+    "name": "Caliban Prime",
+    "category": "Warframes",
+    "type": "Warframe",
+    "health": 270,
+    "shield": 640,
+    "armor": 290,
+    "releaseDate": "2025-08-26",
+    "imageName": "caliban-prime-6e04a41118.png",
+    "abilities": [
+      {
+        "uniqueName": "/Lotus/Powersuits/PowersuitAbilities/SentientWhirlwindAbility",
+        "name": "Razor Gyre",
+        "description": "Dash forward in a spinning vortex of death. Struck enemies are inflicted with <DT_SENTIENT_COLOR>Tau Status Effect, making them more vulnerable to all other status effects. For each enemy hit, recover a portion of the energy cost, as well as health and shields. Enemies lifted by Sentient Wrath take increased damage.",
+        "imageName": "razor-gyre-f147238fff.png"
+      },
+      {
+        "uniqueName": "/Lotus/Powersuits/PowersuitAbilities/SentientStompAbility",
+        "name": "Sentient Wrath",
+        "description": "Smash the ground sending out a radial wave of destruction. Those not killed by the initial blast are helplessly raised into the air, where they take amplified damage for a short time.",
+        "imageName": "sentient-wrath-75cb0065b9.png"
+      },
+      {
+        "uniqueName": "/Lotus/Powersuits/PowersuitAbilities/SentientSummonAbility",
+        "name": "Lethal Progeny",
+        "description": "Cycle through Sentient unit types, then summon them to Caliban's side. Conculysts focus on raw melee damage. Ortholysts specialize in ranged attacks and inflict <DT_SENTIENT_COLOR>Tau Status Effect. Summulysts summon their own Choralysts and provide shield protection for the squad.",
+        "imageName": "lethal-progeny-8c3670258d.png"
+      },
+      {
+        "uniqueName": "/Lotus/Powersuits/PowersuitAbilities/SentientBlastAbility",
+        "name": "Fusion Strike",
+        "description": "Converge three streams of raw energy upon a single point, causing a massive explosion. The streams strip armor and shields, and each enemy struck detonates on stream convergence. Summoned Conculysts can wield their own mini Fusion Strikes. ",
+        "imageName": "fusion-strike-75c01a55e1.png"
+      }
+    ],
+    "sex": "Male",
+    "variant": "Prime",
+    "progenitor": "Electricity",
+    "isPrime": true
+  },
+  {
     "name": "Chroma",
     "category": "Warframes",
     "type": "Warframe",
@@ -3712,7 +3752,7 @@
       {
         "uniqueName": "/Lotus/Powersuits/PowersuitAbilities/LastStandAbility",
         "name": "Hysteria",
-        "description": "Valkyr bares her deadly claws, unleashing devastating attacks that also heal her. Valkyr becomes immune to Status Effects and her Armor bonus from Warcry is multiplied.",
+        "description": "Valkyr bares her deadly claws, unleashing devastating attacks that also heal her. Valkyr becomes immune to Status Effects and her Armor bonus from Warcry is multiplied while using the claws.",
         "imageName": "hysteria-e7a04e411b.png"
       }
     ],
@@ -3752,7 +3792,7 @@
       {
         "uniqueName": "/Lotus/Powersuits/PowersuitAbilities/LastStandAbility",
         "name": "Hysteria",
-        "description": "Valkyr bares her deadly claws, unleashing devastating attacks that also heal her. Valkyr becomes immune to Status Effects and her Armor bonus from Warcry is multiplied.",
+        "description": "Valkyr bares her deadly claws, unleashing devastating attacks that also heal her. Valkyr becomes immune to Status Effects and her Armor bonus from Warcry is multiplied while using the claws.",
         "imageName": "hysteria-e7a04e411b.png"
       }
     ],

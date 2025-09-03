@@ -1,5 +1,11 @@
 # Changelog
 
+## v0.2.4 - September 3rd, 2025
+
+### Changes
+
+- Added Caliban Prime to the game
+
 ## v0.2.3 - June 27th, 2025
 
 ### Changes

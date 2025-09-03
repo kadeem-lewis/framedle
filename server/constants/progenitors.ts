@@ -48,6 +48,7 @@ export const progenitors: { [key: string]: string } = {
   Banshee: "Electricity",
   "Banshee Prime": "Electricity",
   Caliban: "Electricity",
+  "Caliban Prime": "Electricity",
   Excalibur: "Electricity",
   "Excalibur Prime": "Electricity",
   "Excalibur Umbra": "Electricity",

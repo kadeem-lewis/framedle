@@ -30,11 +30,11 @@ importers:
         specifier: ^13.1.0
         version: 13.9.0(vue@3.5.22(typescript@5.9.3))
       '@vueuse/nuxt':
-        specifier: ^13.1.0
-        version: 13.1.0(magicast@0.3.5)(nuxt@4.1.2(@libsql/client@0.14.0)(@parcel/watcher@2.5.0)(@types/node@22.18.8)(@vue/compiler-sfc@3.5.22)(db0@0.3.2(@libsql/client@0.14.0)(drizzle-orm@0.44.6(@libsql/client@0.14.0)(@neondatabase/serverless@1.0.2)(@opentelemetry/api@1.9.0)(@types/pg@8.11.6)(gel@2.0.1)))(drizzle-orm@0.44.6(@libsql/client@0.14.0)(@neondatabase/serverless@1.0.2)(@opentelemetry/api@1.9.0)(@types/pg@8.11.6)(gel@2.0.1))(eslint@9.36.0(jiti@2.6.1))(ioredis@5.8.0)(lightningcss@1.29.2)(magicast@0.3.5)(optionator@0.9.4)(rollup@4.52.4)(terser@5.39.0)(typescript@5.9.3)(vite@6.3.4(@types/node@22.18.8)(jiti@2.6.1)(lightningcss@1.29.2)(terser@5.39.0)(yaml@2.8.1))(vue-tsc@3.1.0(typescript@5.9.3))(yaml@2.8.1))(vue@3.5.22(typescript@5.9.3))
+        specifier: ^13.9.0
+        version: 13.9.0(magicast@0.3.5)(nuxt@4.1.2(@libsql/client@0.14.0)(@parcel/watcher@2.5.0)(@types/node@22.18.8)(@vue/compiler-sfc@3.5.22)(db0@0.3.2(@libsql/client@0.14.0)(drizzle-orm@0.44.6(@libsql/client@0.14.0)(@neondatabase/serverless@1.0.2)(@opentelemetry/api@1.9.0)(@types/pg@8.11.6)(gel@2.0.1)))(drizzle-orm@0.44.6(@libsql/client@0.14.0)(@neondatabase/serverless@1.0.2)(@opentelemetry/api@1.9.0)(@types/pg@8.11.6)(gel@2.0.1))(eslint@9.36.0(jiti@2.6.1))(ioredis@5.8.0)(lightningcss@1.29.2)(magicast@0.3.5)(optionator@0.9.4)(rollup@4.52.4)(terser@5.39.0)(typescript@5.9.3)(vite@6.3.4(@types/node@22.18.8)(jiti@2.6.1)(lightningcss@1.29.2)(terser@5.39.0)(yaml@2.8.1))(vue-tsc@3.1.0(typescript@5.9.3))(yaml@2.8.1))(vue@3.5.22(typescript@5.9.3))
       '@vueuse/rxjs':
-        specifier: ^13.4.0
-        version: 13.4.0(rxjs@7.8.2)(vue@3.5.22(typescript@5.9.3))
+        specifier: ^13.9.0
+        version: 13.9.0(rxjs@7.8.2)(vue@3.5.22(typescript@5.9.3))
       apexcharts:
         specifier: ^4.7.0
         version: 4.7.0
@@ -42,8 +42,8 @@ importers:
         specifier: ^4.1.0
         version: 4.1.0
       dexie:
-        specifier: ^4.0.11
-        version: 4.0.11
+        specifier: ^4.2.0
+        version: 4.2.0
       drizzle-orm:
         specifier: ^0.44.6
         version: 0.44.6(@libsql/client@0.14.0)(@neondatabase/serverless@1.0.2)(@opentelemetry/api@1.9.0)(@types/pg@8.11.6)(gel@2.0.1)
@@ -3418,11 +3418,6 @@ packages:
     peerDependencies:
       vue: ^3.5.0
 
-  '@vueuse/core@13.1.0':
-    resolution: {integrity: sha512-PAauvdRXZvTWXtGLg8cPUFjiZEddTqmogdwYpnn60t08AA5a8Q4hZokBnpTOnVNqySlFlTcRYIC8OqreV4hv3Q==}
-    peerDependencies:
-      vue: ^3.5.0
-
   '@vueuse/core@13.9.0':
     resolution: {integrity: sha512-ts3regBQyURfCE2BcytLqzm8+MmLlo5Ln/KLoxDVcsZ2gzIwVNnQpQOL/UKV8alUqjSZOlpFZcRNsLRqj+OzyA==}
     peerDependencies:
@@ -3479,20 +3474,17 @@ packages:
   '@vueuse/metadata@13.0.0':
     resolution: {integrity: sha512-TRNksqmvtvqsuHf7bbgH9OSXEV2b6+M3BSN4LR5oxWKykOFT9gV78+C2/0++Pq9KCp9KQ1OQDPvGlWNQpOb2Mw==}
 
-  '@vueuse/metadata@13.1.0':
-    resolution: {integrity: sha512-+TDd7/a78jale5YbHX9KHW3cEDav1lz1JptwDvep2zSG8XjCsVE+9mHIzjTOaPbHUAk5XiE4jXLz51/tS+aKQw==}
-
   '@vueuse/metadata@13.9.0':
     resolution: {integrity: sha512-1AFRvuiGphfF7yWixZa0KwjYH8ulyjDCC0aFgrGRz8+P4kvDFSdXLVfTk5xAN9wEuD1J6z4/myMoYbnHoX07zg==}
 
-  '@vueuse/nuxt@13.1.0':
-    resolution: {integrity: sha512-4xdxwKanLY4+z+/ZgSZcJvwuHlgZMU3km7z4lhlbLl6WZTKS3BiztnRzcrdt4zjU512oTlH5nsPNhUhV0KXiOA==}
+  '@vueuse/nuxt@13.9.0':
+    resolution: {integrity: sha512-n/9BRU3nLl2mVI6rYbB3jOctCmQD0xT799hXPCwCn1PyvK7r6O9Nt1dxfVCMfKCDAiCi8Fz2IqPC6Zs2Dv1pVA==}
     peerDependencies:
       nuxt: ^3.0.0 || ^4.0.0-0
       vue: ^3.5.0
 
-  '@vueuse/rxjs@13.4.0':
-    resolution: {integrity: sha512-KhfZ7qHlZXuV76KLpk10Ozg3Jq99GiuX+1sk/MMh3Jt8ubkZ8bhLRq2+M2buYdjlPt8O6600WV9K7fBIOLqKZQ==}
+  '@vueuse/rxjs@13.9.0':
+    resolution: {integrity: sha512-VcEux+0rl1cpi2lUASzldb1o9l3uSFOmovRcsF6+EvDF2d3lXCHabTjwpVrj2CLg5irwTG9FbSPHrmHLHYvXDQ==}
     peerDependencies:
       rxjs: '>=6.0.0'
       vue: ^3.5.0
@@ -3505,16 +3497,6 @@ packages:
 
   '@vueuse/shared@13.0.0':
     resolution: {integrity: sha512-9MiHhAPw+sqCF/RLo8V6HsjRqEdNEWVpDLm2WBRW2G/kSQjb8X901sozXpSCaeLG0f7TEfMrT4XNaA5m1ez7Dg==}
-    peerDependencies:
-      vue: ^3.5.0
-
-  '@vueuse/shared@13.1.0':
-    resolution: {integrity: sha512-IVS/qRRjhPTZ6C2/AM3jieqXACGwFZwWTdw5sNTSKk2m/ZpkuuN+ri+WCVUP8TqaKwJYt/KuMwmXspMAw8E6ew==}
-    peerDependencies:
-      vue: ^3.5.0
-
-  '@vueuse/shared@13.4.0':
-    resolution: {integrity: sha512-+AxuKbw8R1gYy5T21V5yhadeNM7rJqb4cPaRI9DdGnnNl3uqXh+unvQ3uCaA2DjYLbNr1+l7ht/B4qEsRegX6A==}
     peerDependencies:
       vue: ^3.5.0
 
@@ -4230,8 +4212,8 @@ packages:
   devalue@5.3.2:
     resolution: {integrity: sha512-UDsjUbpQn9kvm68slnrs+mfxwFkIflOhkanmyabZ8zOYk8SMEIbJ3TK+88g70hSIeytu4y18f0z/hYHMTrXIWw==}
 
-  dexie@4.0.11:
-    resolution: {integrity: sha512-SOKO002EqlvBYYKQSew3iymBoN2EQ4BDw/3yprjh7kAfFzjBYkaMNa/pZvcA7HSWlcKSQb9XhPe3wKyQ0x4A8A==}
+  dexie@4.2.0:
+    resolution: {integrity: sha512-OSeyyWOUetDy9oFWeddJgi83OnRA3hSFh3RrbltmPgqHszE9f24eUCVLI4mPg0ifsWk0lQTdnS+jyGNrPMvhDA==}
 
   dfa@1.2.0:
     resolution: {integrity: sha512-ED3jP8saaweFTjeGX8HQPjeC1YYyZs98jGNZx6IiBvxW7JG5v492kamAQB3m2wop07CvU/RQmzcKr6bgcC5D/Q==}
@@ -11725,13 +11707,6 @@ snapshots:
       '@vueuse/shared': 13.0.0(vue@3.5.22(typescript@5.9.3))
       vue: 3.5.22(typescript@5.9.3)
 
-  '@vueuse/core@13.1.0(vue@3.5.22(typescript@5.9.3))':
-    dependencies:
-      '@types/web-bluetooth': 0.0.21
-      '@vueuse/metadata': 13.1.0
-      '@vueuse/shared': 13.1.0(vue@3.5.22(typescript@5.9.3))
-      vue: 3.5.22(typescript@5.9.3)
-
   '@vueuse/core@13.9.0(vue@3.5.22(typescript@5.9.3))':
     dependencies:
       '@types/web-bluetooth': 0.0.21
@@ -11755,24 +11730,22 @@ snapshots:
 
   '@vueuse/metadata@13.0.0': {}
 
-  '@vueuse/metadata@13.1.0': {}
-
   '@vueuse/metadata@13.9.0': {}
 
-  '@vueuse/nuxt@13.1.0(magicast@0.3.5)(nuxt@4.1.2(@libsql/client@0.14.0)(@parcel/watcher@2.5.0)(@types/node@22.18.8)(@vue/compiler-sfc@3.5.22)(db0@0.3.2(@libsql/client@0.14.0)(drizzle-orm@0.44.6(@libsql/client@0.14.0)(@neondatabase/serverless@1.0.2)(@opentelemetry/api@1.9.0)(@types/pg@8.11.6)(gel@2.0.1)))(drizzle-orm@0.44.6(@libsql/client@0.14.0)(@neondatabase/serverless@1.0.2)(@opentelemetry/api@1.9.0)(@types/pg@8.11.6)(gel@2.0.1))(eslint@9.36.0(jiti@2.6.1))(ioredis@5.8.0)(lightningcss@1.29.2)(magicast@0.3.5)(optionator@0.9.4)(rollup@4.52.4)(terser@5.39.0)(typescript@5.9.3)(vite@6.3.4(@types/node@22.18.8)(jiti@2.6.1)(lightningcss@1.29.2)(terser@5.39.0)(yaml@2.8.1))(vue-tsc@3.1.0(typescript@5.9.3))(yaml@2.8.1))(vue@3.5.22(typescript@5.9.3))':
+  '@vueuse/nuxt@13.9.0(magicast@0.3.5)(nuxt@4.1.2(@libsql/client@0.14.0)(@parcel/watcher@2.5.0)(@types/node@22.18.8)(@vue/compiler-sfc@3.5.22)(db0@0.3.2(@libsql/client@0.14.0)(drizzle-orm@0.44.6(@libsql/client@0.14.0)(@neondatabase/serverless@1.0.2)(@opentelemetry/api@1.9.0)(@types/pg@8.11.6)(gel@2.0.1)))(drizzle-orm@0.44.6(@libsql/client@0.14.0)(@neondatabase/serverless@1.0.2)(@opentelemetry/api@1.9.0)(@types/pg@8.11.6)(gel@2.0.1))(eslint@9.36.0(jiti@2.6.1))(ioredis@5.8.0)(lightningcss@1.29.2)(magicast@0.3.5)(optionator@0.9.4)(rollup@4.52.4)(terser@5.39.0)(typescript@5.9.3)(vite@6.3.4(@types/node@22.18.8)(jiti@2.6.1)(lightningcss@1.29.2)(terser@5.39.0)(yaml@2.8.1))(vue-tsc@3.1.0(typescript@5.9.3))(yaml@2.8.1))(vue@3.5.22(typescript@5.9.3))':
     dependencies:
       '@nuxt/kit': 3.19.2(magicast@0.3.5)
-      '@vueuse/core': 13.1.0(vue@3.5.22(typescript@5.9.3))
-      '@vueuse/metadata': 13.1.0
+      '@vueuse/core': 13.9.0(vue@3.5.22(typescript@5.9.3))
+      '@vueuse/metadata': 13.9.0
       local-pkg: 1.1.2
       nuxt: 4.1.2(@libsql/client@0.14.0)(@parcel/watcher@2.5.0)(@types/node@22.18.8)(@vue/compiler-sfc@3.5.22)(db0@0.3.2(@libsql/client@0.14.0)(drizzle-orm@0.44.6(@libsql/client@0.14.0)(@neondatabase/serverless@1.0.2)(@opentelemetry/api@1.9.0)(@types/pg@8.11.6)(gel@2.0.1)))(drizzle-orm@0.44.6(@libsql/client@0.14.0)(@neondatabase/serverless@1.0.2)(@opentelemetry/api@1.9.0)(@types/pg@8.11.6)(gel@2.0.1))(eslint@9.36.0(jiti@2.6.1))(ioredis@5.8.0)(lightningcss@1.29.2)(magicast@0.3.5)(optionator@0.9.4)(rollup@4.52.4)(terser@5.39.0)(typescript@5.9.3)(vite@6.3.4(@types/node@22.18.8)(jiti@2.6.1)(lightningcss@1.29.2)(terser@5.39.0)(yaml@2.8.1))(vue-tsc@3.1.0(typescript@5.9.3))(yaml@2.8.1)
       vue: 3.5.22(typescript@5.9.3)
     transitivePeerDependencies:
       - magicast
 
-  '@vueuse/rxjs@13.4.0(rxjs@7.8.2)(vue@3.5.22(typescript@5.9.3))':
+  '@vueuse/rxjs@13.9.0(rxjs@7.8.2)(vue@3.5.22(typescript@5.9.3))':
     dependencies:
-      '@vueuse/shared': 13.4.0(vue@3.5.22(typescript@5.9.3))
+      '@vueuse/shared': 13.9.0(vue@3.5.22(typescript@5.9.3))
       rxjs: 7.8.2
       vue: 3.5.22(typescript@5.9.3)
 
@@ -11790,14 +11763,6 @@ snapshots:
       - typescript
 
   '@vueuse/shared@13.0.0(vue@3.5.22(typescript@5.9.3))':
-    dependencies:
-      vue: 3.5.22(typescript@5.9.3)
-
-  '@vueuse/shared@13.1.0(vue@3.5.22(typescript@5.9.3))':
-    dependencies:
-      vue: 3.5.22(typescript@5.9.3)
-
-  '@vueuse/shared@13.4.0(vue@3.5.22(typescript@5.9.3))':
     dependencies:
       vue: 3.5.22(typescript@5.9.3)
 
@@ -12520,7 +12485,7 @@ snapshots:
 
   devalue@5.3.2: {}
 
-  dexie@4.0.11: {}
+  dexie@4.2.0: {}
 
   dfa@1.2.0: {}
 

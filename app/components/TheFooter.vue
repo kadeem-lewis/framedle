@@ -68,7 +68,7 @@ const items = [
       <p>Warframe does not endorse or sponsor this product</p>
       <ULink
         to="/privacy"
-        class="text-sm text-(--ui-primary) underline hover:text-(--ui-primary)/70"
+        class="text-primary hover:text-primary/70 text-sm underline"
         >Privacy Policy</ULink
       >
     </div>

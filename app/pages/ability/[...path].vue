@@ -64,7 +64,7 @@ onUnmounted(() => {
           <UCard class="divide-y-0">
             <template #header>
               <p
-                class="text-primary-600 font-roboto text-xl font-bold uppercase dark:text-(--ui-primary)"
+                class="text-primary-600 font-roboto dark:text-primary text-xl font-bold uppercase"
               >
                 {{ t("ability.title") }}
               </p>

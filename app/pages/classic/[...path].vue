@@ -1,18 +1,17 @@
 <script setup lang="ts">
 definePageMeta({
   layout: "game",
+  validate: validateRoute,
 });
 
 useSeoMeta({
   title: "Classic",
 });
 
-defineOgImageComponent("Framedle");
-
 const { t } = useI18n();
 
 const { itemToGuess, guessedItems, attempts } = storeToRefs(useGameStore());
-const { classicInit, defaultAttempts, warframes } = useGameStore();
+const { classicInit, defaultAttempts } = useGameStore();
 
 const mode = useGameMode();
 const { isGameOver } = storeToRefs(useGameStateStore());
@@ -56,7 +55,7 @@ const tooltipMap = {
       <UCard class="divide-y-0">
         <template #header>
           <p
-            class="text-primary-600 font-roboto text-2xl font-bold uppercase dark:text-(--ui-primary)"
+            class="text-primary-600 font-roboto dark:text-primary text-2xl font-bold uppercase"
           >
             {{ t("classic.title") }}
           </p>
@@ -67,7 +66,7 @@ const tooltipMap = {
             {{ t("classic.subtitle") }}
           </p>
         </template>
-        <WarframeSearch v-if="!isGameOver" :items="warframes" />
+        <WarframeSearch v-if="!isGameOver" :items="warframeNames" />
       </UCard>
       <template v-if="guessedItems[mode].length">
         <div class="space-y-4 overflow-x-auto md:overflow-x-visible">
@@ -99,9 +98,9 @@ const tooltipMap = {
           >
             <ClassicFeedbackRow
               v-for="warframe of [...guessedItems[mode]].reverse()"
-              :key="warframe.name"
-              :guessed-warframe="warframe"
-              :correct-warframe="itemToGuess[mode]!"
+              :key="warframe"
+              :guessed-warframe="getWarframe(warframe)"
+              :correct-warframe="getWarframe(itemToGuess[mode]!)"
             />
           </div>
         </div>

@@ -1,12 +1,10 @@
 <script setup lang="ts">
 import { startOfTomorrow } from "date-fns";
+import { warframes } from "#shared/data/warframes";
 
 const { t } = useI18n();
 
-const { defaultAttempts, warframes } = useGameStore();
-
-const Inaros = warframes.find((warframe) => warframe.name === "Inaros");
-const Nezha = warframes.find((warframe) => warframe.name === "Nezha");
+const { defaultAttempts } = useGameStore();
 
 const { $colorblindMode } = useNuxtApp();
 
@@ -23,7 +21,7 @@ const error = computed(() => ($colorblindMode.value ? "Orange" : "Red"));
       <NextGameCountdown :target-date="startOfTomorrow()" class="text-2xl" />
     </span>
   </div>
-  <div v-if="$route.name === 'classic'" class="space-y-2">
+  <div v-if="$route.name === 'classic-path'" class="space-y-2">
     <p>Guess the Warframe in {{ defaultAttempts }} tries</p>
     <p>
       {{ t("instructions.classic.subtitle") }}
@@ -48,36 +46,36 @@ const error = computed(() => ($colorblindMode.value ? "Orange" : "Red"));
     <p>Here is the details of each of the properties columns:</p>
     <div class="space-y-2">
       <div class="space-y-1">
-        <p class="font-medium text-(--ui-info)">Gender:</p>
+        <p class="text-info font-medium">Gender:</p>
         <p><span>Possible values:&nbsp;</span> Male, Female or Non-binary</p>
       </div>
       <div class="space-y-1">
-        <p class="font-medium text-(--ui-info)">Variant:</p>
+        <p class="text-info font-medium">Variant:</p>
         <p><span>Possible values:&nbsp;</span> Standard, Prime or Umbra</p>
       </div>
       <div class="space-y-1">
-        <p class="font-medium text-(--ui-info)">Health:</p>
+        <p class="text-info font-medium">Health:</p>
         <p>
           <span>Possible values:&nbsp;</span> Base shield values of Warframes
           e.g 180, 270, 365
         </p>
       </div>
       <div class="space-y-1">
-        <p class="font-medium text-(--ui-info)">Shield:</p>
+        <p class="text-info font-medium">Shield:</p>
         <p>
           <span>Possible values:&nbsp;</span> Base shield values of Warframes
           e.g 0, 135, 180
         </p>
       </div>
       <div class="space-y-1">
-        <p class="font-medium text-(--ui-info)">Progenitor Element:</p>
+        <p class="text-info font-medium">Progenitor Element:</p>
         <p>
           <span>Possible values:&nbsp;</span>Impact, Heat, Cold, Electricity,
           Toxin, Magnetic or Radiation
         </p>
       </div>
       <div class="space-y-1">
-        <p class="font-medium text-(--ui-info)">Release Year:</p>
+        <p class="text-info font-medium">Release Year:</p>
         <p>
           <span>Possible values:&nbsp;</span>Any year between 2012 and today
         </p>
@@ -91,19 +89,19 @@ const error = computed(() => ($colorblindMode.value ? "Orange" : "Red"));
       <div class="space-y-1">
         <p>
           Consider the correct answer is
-          <span class="font-medium text-(--ui-primary)">Nezha</span>
+          <span class="text-primary font-medium">Nezha</span>
         </p>
         <p>
           If you enter
-          <span class="font-medium text-(--ui-primary)">Inaros</span>, these
-          properties will appear:
+          <span class="text-primary font-medium">Inaros</span>, these properties
+          will appear:
         </p>
       </div>
       <div class="overflow-x-auto">
         <div class="grid w-[160%] grid-cols-7 gap-1">
           <ClassicFeedbackRow
-            :guessed-warframe="Inaros!"
-            :correct-warframe="Nezha!"
+            :guessed-warframe="warframes.Inaros"
+            :correct-warframe="warframes.Nezha"
           />
         </div>
       </div>
@@ -146,15 +144,15 @@ const error = computed(() => ($colorblindMode.value ? "Orange" : "Red"));
       <div class="overflow-x-auto">
         <div class="grid w-[150%] grid-cols-7 gap-1">
           <ClassicFeedbackRow
-            :guessed-warframe="Nezha!"
-            :correct-warframe="Nezha!"
+            :guessed-warframe="warframes.Inaros"
+            :correct-warframe="warframes.Nezha"
           />
         </div>
       </div>
     </div>
   </div>
 
-  <div v-if="$route.name === 'ability'" class="space-y-4">
+  <div v-if="$route.name === 'ability-path'" class="space-y-4">
     <p>
       Guess the Warframe the ability belongs to in {{ defaultAttempts }} tries
     </p>

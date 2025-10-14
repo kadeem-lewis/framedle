@@ -1,5 +1,3 @@
-import type { Warframe } from "#shared/schemas/warframe";
-
 export function useShare() {
   const emojis: {
     incorrect: string;
@@ -17,7 +15,7 @@ export function useShare() {
 
   const emojiFeedback = ref<string[]>([]);
 
-  const { guessedItems, itemToGuess, attempts, currentDay } =
+  const { guessedItems, itemToGuess, attempts, selectedDaily } =
     storeToRefs(useGameStore());
   const { defaultAttempts } = useGameStore();
 
@@ -60,10 +58,7 @@ export function useShare() {
         if (!itemToGuess.value[currentMode]?.belongsTo) return;
         emojiFeedback.value.push(
           emojis[
-            checkGuess(
-              itemToGuess.value[currentMode]?.belongsTo,
-              guessedItem.name,
-            )
+            checkGuess(itemToGuess.value[currentMode]?.belongsTo, guessedItem)
           ],
         );
       });
@@ -76,7 +71,10 @@ export function useShare() {
       guessedItems.value[currentMode].forEach((guessedItem) => {
         if (correctItem) {
           emojiFeedback.value.push(
-            generateClassicEmojiFeedback(correctItem, guessedItem),
+            generateClassicEmojiFeedback(
+              getWarframe(correctItem),
+              getWarframe(guessedItem),
+            ),
           );
         }
       });
@@ -84,26 +82,26 @@ export function useShare() {
 
     //! As more game modes are added, this will need to be updated
     const emojiGrid =
-      route.name === "classic"
+      route.name === "classic-path"
         ? emojiFeedback.value.join("\n")
         : emojiFeedback.value.join(" ");
 
     const attemptsUsed = defaultAttempts - attempts.value[currentMode];
 
-    const topText = route.query.mode
+    const topText = route.path.includes("unlimited")
       ? hasWon.value
         ? `I solved a Framedle in ${attemptsUsed} out of ${defaultAttempts} turns.`
         : `I couldn't solve this Framedle in ${defaultAttempts} turns.`
-      : `Framedle ${currentMode} #${currentDay.value} ${hasWon.value ? attemptsUsed : "X"}/${defaultAttempts}`;
+      : `Framedle ${currentMode} #${selectedDaily.value?.day} ${hasWon.value ? attemptsUsed : "X"}/${defaultAttempts}`;
 
     const grid = `
 ${topText}
       
 ${emojiGrid}
 ${
-  route.query.mode
+  route.path.includes("unlimited")
     ? `See how you do on the same challenge I played:
-${window.location.href}&x=${itemToGuess.value[currentMode] && encode(itemToGuess.value[currentMode].name)}`
+${window.location.href}?x=${itemToGuess.value[currentMode] && encode(`${itemToGuess.value[currentMode]}`)}`
     : window.location.href
 }
         `;

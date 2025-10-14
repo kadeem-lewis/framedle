@@ -11,7 +11,7 @@ const { tab } = defineProps<{
 </script>
 <template>
   <UCard
-    class="group hover:bg-opacity-100 relative cursor-pointer border border-(--ui-primary) uppercase transition-all"
+    class="group hover:bg-opacity-100 border-primary relative cursor-pointer border uppercase transition-all"
     @click="navigateTo(tab.route)"
   >
     <div

@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { format, subDays } from "date-fns";
 import Fuse from "fuse.js";
+import type { Daily } from "#shared/schemas/db";
 
 useSeoMeta({
   title: "Archive",
@@ -68,9 +69,9 @@ watch(searchQuery, (newQuery) => {
       <!-- These aren't styled when highlighted -->
       <UButton
         variant="outline"
-        class="uppercase ring-neutral-800 hover:border-(--ui-primary)"
+        class="hover:border-primary uppercase ring-neutral-800"
         :class="{
-          'border-b-2 border-neutral-800 dark:border-(--ui-primary)':
+          'dark:border-primary border-b-2 border-neutral-800':
             selectedMode === 'classic',
         }"
         @click="selectedMode = 'classic'"
@@ -79,9 +80,9 @@ watch(searchQuery, (newQuery) => {
       </UButton>
       <UButton
         variant="outline"
-        class="uppercase ring-neutral-800 hover:border-(--ui-primary)"
+        class="hover:border-primary uppercase ring-neutral-800"
         :class="{
-          'border-b-2 border-neutral-800 dark:border-(--ui-primary)':
+          'dark:border-primary border-b-2 border-neutral-800':
             selectedMode === 'ability',
         }"
         @click="selectedMode = 'ability'"
@@ -124,10 +125,7 @@ watch(searchQuery, (newQuery) => {
           class="contents cursor-pointer odd:bg-neutral-700"
           @click="
             proxy.track('started archive game', { date: daily.date });
-            navigateTo({
-              path: `/${selectedMode}`,
-              query: { date: daily.date },
-            });
+            navigateTo(`/${selectedMode}/${daily.day}`);
           "
         >
           <p>Framedle #{{ daily.day }}</p>

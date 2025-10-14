@@ -4,7 +4,7 @@ import party from "party-js";
 import type { Ability } from "#shared/schemas/warframe";
 
 const { itemToGuess, guessedItems, attempts } = storeToRefs(useGameStore());
-const { resetGame, defaultAttempts, warframes } = useGameStore();
+const { resetGame, defaultAttempts } = useGameStore();
 
 const mode = useGameMode();
 
@@ -31,11 +31,9 @@ const correctWarframe = computed(() => {
   const gameMode = mode.value as keyof typeof itemToGuess.value;
   if (!gameMode) throw createError("Mode is not set");
   if (gameMode === "ability" || gameMode === "abilityUnlimited") {
-    return warframes.find(
-      (warframe) => warframe.name === itemToGuess.value[gameMode]?.belongsTo,
-    );
+    return getWarframe(itemToGuess.value[gameMode]!.belongsTo);
   }
-  return itemToGuess.value[gameMode];
+  return getWarframe(itemToGuess.value[gameMode]!);
 });
 
 const showGuesses = ref(false);
@@ -48,7 +46,7 @@ const answer = computed(() => {
   if (mode.value === "ability" || mode.value === "abilityUnlimited") {
     return itemToGuess.value[mode.value]?.belongsTo;
   } else {
-    return itemToGuess.value[mode.value]?.name;
+    return itemToGuess.value[mode.value];
   }
 });
 
@@ -112,12 +110,12 @@ watchEffect(() => {
           </span>
           <UiFeedbackTile
             field-label="Warframe"
-            :field-value="correctWarframe?.name"
+            :field-value="`${correctWarframe}`"
             tooltip-disabled
           >
             <NuxtImg
               :src="`https://cdn.warframestat.us/img/${correctWarframe?.imageName}`"
-              :alt="correctWarframe?.name"
+              :alt="`${correctWarframe}`"
               format="webp"
               height="64"
             />
@@ -139,7 +137,7 @@ watchEffect(() => {
           }}</span>
         </p>
         <UButton
-          v-if="!$route.query.mode"
+          v-if="!$route.path.includes('unlimited')"
           icon="i-heroicons-chart-bar-solid"
           variant="outline"
           class="font-semibold uppercase"
@@ -147,7 +145,7 @@ watchEffect(() => {
           >Stats</UButton
         >
         <UButton
-          v-if="$route.query.mode"
+          v-if="$route.path.includes('unlimited')"
           variant="outline"
           class="font-semibold uppercase"
           size="xl"
@@ -162,17 +160,17 @@ watchEffect(() => {
           <ul v-if="showGuesses">
             <li
               v-for="guessedItem in guessedItems[mode]"
-              :key="guessedItem.name"
+              :key="guessedItem"
               class="flex gap-2"
             >
-              <p>{{ guessedItem.name === answer ? "✅" : "❌" }}</p>
+              <p>{{ guessedItem === answer ? "✅" : "❌" }}</p>
               <p class="font-semibold uppercase">
-                {{ guessedItem.name }}
+                {{ guessedItem }}
               </p>
             </li>
           </ul>
         </div>
-        <template v-if="!$route.query.mode">
+        <template v-if="!$route.path.includes('unlimited')">
           <div class="flex gap-2 text-xl">
             <p>New Game in:</p>
             <span class="flex items-center gap-1">

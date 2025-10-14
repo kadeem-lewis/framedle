@@ -12,7 +12,7 @@ const runtimeConfig = useRuntimeConfig();
         You can
         <ULink
           to="https://ko-fi.com/redeemr"
-          class="text-(--ui-primary) underline"
+          class="text-primary underline"
           external
           target="blank"
           >buy me a coffee</ULink
@@ -22,7 +22,7 @@ const runtimeConfig = useRuntimeConfig();
         Check out
         <ULink
           to="https://www.youtube.com/@redeemr"
-          class="text-(--ui-primary) underline"
+          class="text-primary underline"
           external
           target="blank"
           >my youtube channel</ULink
@@ -32,7 +32,7 @@ const runtimeConfig = useRuntimeConfig();
         Join
         <ULink
           :to="runtimeConfig.public.discordInvite"
-          class="text-(--ui-primary) underline"
+          class="text-primary underline"
           external
           target="blank"
           >my discord server</ULink
@@ -57,7 +57,7 @@ const runtimeConfig = useRuntimeConfig();
         Open an Issue on
         <ULink
           to="https://github.com/kadeem-lewis/framedle/issues"
-          class="text-(--ui-primary) underline"
+          class="text-primary underline"
           external
           >Github</ULink
         >
@@ -66,7 +66,7 @@ const runtimeConfig = useRuntimeConfig();
         Join
         <ULink
           :to="runtimeConfig.public.discordInvite"
-          class="text-(--ui-primary) underline"
+          class="text-primary underline"
           external
           target="blank"
           >my discord</ULink
@@ -78,7 +78,7 @@ const runtimeConfig = useRuntimeConfig();
         <ULink
           href="mailto:support@framedle.com"
           external
-          class="text-(--ui-primary) underline"
+          class="text-primary underline"
           >support@framedle.com</ULink
         >
       </li>

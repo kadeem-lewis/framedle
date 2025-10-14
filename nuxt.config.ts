@@ -1,9 +1,5 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
-  future: {
-    compatibilityVersion: 4,
-  },
-
   compatibilityDate: "2025-02-24",
   devtools: { enabled: true },
 
@@ -36,8 +32,8 @@ export default defineNuxtConfig({
   },
 
   routeRules: {
-    "/classic": { ssr: false },
-    "/ability": { ssr: false },
+    "/classic/**": { ssr: false },
+    "/ability/**": { ssr: false },
   },
 
   app: {

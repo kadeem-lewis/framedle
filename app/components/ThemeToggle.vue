@@ -42,7 +42,7 @@ const items = [
       variant="outline"
       aria-label="theme-toggle"
       square
-      class="border-b-4 border-neutral-800 hover:border-(--ui-primary) dark:border-(--ui-primary)"
+      class="hover:border-primary dark:border-primary border-b-4 border-neutral-800"
     >
       <UIcon
         name="i-heroicons-sun-solid"

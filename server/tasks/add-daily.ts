@@ -1,6 +1,7 @@
 import { format, startOfTomorrow } from "date-fns";
 import { warframes } from "#shared/data/warframes";
 import { desc } from "drizzle-orm";
+import type { Daily } from "#shared/schemas/db";
 
 export default defineTask({
   meta: {
@@ -8,19 +9,19 @@ export default defineTask({
     description: "Add a new daily entry",
   },
   async run() {
-    const classic = warframes[Math.floor(Math.random() * warframes.length)];
+    const classic =
+      Object.values(warframes)[
+        Math.floor(Math.random() * Object.keys(warframes).length)
+      ];
 
-    const abilities = warframes
-      .filter(
-        (warframe) => !warframe.isPrime && warframe.name !== "Excalibur Umbra",
-      )
-      .map((warframe) =>
+    const abilities = Object.values(warframes)
+      .filter((warframe) => warframe.variant === "Standard")
+      .flatMap((warframe) =>
         warframe.abilities.map((ability) => ({
           ...ability,
-          warframe: warframe.name,
+          belongsTo: warframe.name,
         })),
-      )
-      .flat();
+      );
 
     const ability = abilities[Math.floor(Math.random() * abilities.length)];
 

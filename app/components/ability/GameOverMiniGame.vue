@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { Ability, Warframe } from "#shared/schemas/warframe";
+import type { Ability } from "#shared/schemas/warframe";
 
 const { correctWarframe, correctAbility } = defineProps<{
   correctWarframe: Warframe;

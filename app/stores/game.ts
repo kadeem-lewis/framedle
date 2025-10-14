@@ -1,5 +1,7 @@
 import { format } from "date-fns";
 import type { Daily } from "#shared/schemas/db";
+import { liveQuery } from "dexie";
+import { useObservable } from "@vueuse/rxjs";
 
 type itemToGuess = {
   classic: WarframeName | null;
@@ -32,6 +34,23 @@ export const useGameStore = defineStore(
     const currentDailyDate = ref(format(new Date(), "yyyy-MM-dd"));
 
     const selectedDaily = ref<Daily | null>(null);
+    const currentDay = computed(() => selectedDaily.value?.day);
+
+    const dailyClassicObservable = useObservable<DailyData | undefined>(
+      from(
+        liveQuery(() =>
+          db.dailies.where({ mode: "classic", day: currentDay.value }).first(),
+        ),
+      ),
+    );
+
+    watch(
+      dailyClassicObservable,
+      (newVal) => {
+        console.log("Current Daily Classic:", newVal);
+      },
+      { immediate: true },
+    );
 
     const guessedItems = ref({
       classic: [] as WarframeName[],

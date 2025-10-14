@@ -54,7 +54,7 @@
     "@vueuse/core": "^13.1.0",
     "@vueuse/nuxt": "^13.9.0",
     "@vueuse/rxjs": "^13.9.0",
-    "apexcharts": "^4.7.0",
+    "apexcharts": "^5.3.5",
     "date-fns": "^4.1.0",
     "dexie": "^4.2.1",
     "drizzle-orm": "^0.44.6",

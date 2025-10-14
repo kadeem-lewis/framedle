@@ -145,6 +145,32 @@ export const useGameStore = defineStore(
         ) as Ability;
         selectedDaily.value = data;
         currentDailyDate.value = data.date;
+
+        await db.dailies
+          .bulkAdd([
+            {
+              day: data.day,
+              itemToGuess: getWarframe(data.classicId as WarframeName).name,
+              mode: "classic",
+              date: data.date,
+              guessedItems: [],
+              attempts: defaultAttempts,
+            },
+            {
+              day: data.day,
+              itemToGuess: abilities.find(
+                (ability) => ability.name === data.abilityId,
+              ) as Ability,
+              mode: "ability",
+              date: data.date,
+              guessedItems: [],
+              attempts: defaultAttempts,
+            },
+          ])
+          .catch((e) => {
+            // If I throw an error here, it will bubble up to the other catch and cause that error to be thrown
+            console.error("Failed to store daily in indexeddb", e);
+          });
       } catch (error) {
         throw createError({
           statusCode: 500,

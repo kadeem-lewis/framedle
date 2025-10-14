@@ -5,7 +5,7 @@ const props = defineProps<{
   items: WarframeName[];
 }>();
 
-const { attempts, guessedItems } = storeToRefs(useGameStore());
+const { attempts, guessedItems, selectedDaily } = storeToRefs(useGameStore());
 
 const mode = useGameMode();
 
@@ -47,13 +47,28 @@ watch(query, (newQuery) => {
   }
 });
 
-const addGuess = () => {
+const { gameState } = storeToRefs(useGameStateStore());
+
+const addGuess = async () => {
   if (!mode.value) throw createError("Mode is not set");
   if (!selectedWarframe.value) return;
+  if (!selectedDaily.value) return;
 
   attempts.value[mode.value] -= 1;
   guessedItems.value[mode.value].push(selectedWarframe.value);
 
+  if (mode.value === "classic" || mode.value === "ability") {
+    await db.dailies
+      .where({
+        mode: mode.value,
+        day: selectedDaily.value.day,
+      })
+      .modify({
+        guessedItems: [...guessedItems.value[mode.value]],
+        attempts: attempts.value[mode.value],
+        state: gameState.value[mode.value],
+      });
+  }
   selectedWarframe.value = undefined;
 };
 </script>

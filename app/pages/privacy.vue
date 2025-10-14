@@ -107,9 +107,7 @@ useSeoMeta({
       <p>
         If you have any questions or concerns about this privacy policy, please
         contact us at:
-        <a
-          href="mailto:support@framedle.com"
-          class="text-(--ui-primary) underline"
+        <a href="mailto:support@framedle.com" class="text-primary underline"
           >support@framedle.com</a
         >
       </p>

@@ -24,10 +24,9 @@ const modes = computed(() => {
       :key="mode.label"
       :to="mode.to"
       :class="{
-        'border-b-4 border-neutral-800 dark:border-(--ui-primary)':
-          mode.isActive,
+        'dark:border-primary border-b-4 border-neutral-800': mode.isActive,
       }"
-      class="font-semibold uppercase ring-neutral-800 hover:border-(--ui-primary)"
+      class="hover:border-primary font-semibold uppercase ring-neutral-800"
       variant="outline"
       size="xl"
     >

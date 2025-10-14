@@ -46,36 +46,36 @@ const error = computed(() => ($colorblindMode.value ? "Orange" : "Red"));
     <p>Here is the details of each of the properties columns:</p>
     <div class="space-y-2">
       <div class="space-y-1">
-        <p class="font-medium text-(--ui-info)">Gender:</p>
+        <p class="text-info font-medium">Gender:</p>
         <p><span>Possible values:&nbsp;</span> Male, Female or Non-binary</p>
       </div>
       <div class="space-y-1">
-        <p class="font-medium text-(--ui-info)">Variant:</p>
+        <p class="text-info font-medium">Variant:</p>
         <p><span>Possible values:&nbsp;</span> Standard, Prime or Umbra</p>
       </div>
       <div class="space-y-1">
-        <p class="font-medium text-(--ui-info)">Health:</p>
+        <p class="text-info font-medium">Health:</p>
         <p>
           <span>Possible values:&nbsp;</span> Base shield values of Warframes
           e.g 180, 270, 365
         </p>
       </div>
       <div class="space-y-1">
-        <p class="font-medium text-(--ui-info)">Shield:</p>
+        <p class="text-info font-medium">Shield:</p>
         <p>
           <span>Possible values:&nbsp;</span> Base shield values of Warframes
           e.g 0, 135, 180
         </p>
       </div>
       <div class="space-y-1">
-        <p class="font-medium text-(--ui-info)">Progenitor Element:</p>
+        <p class="text-info font-medium">Progenitor Element:</p>
         <p>
           <span>Possible values:&nbsp;</span>Impact, Heat, Cold, Electricity,
           Toxin, Magnetic or Radiation
         </p>
       </div>
       <div class="space-y-1">
-        <p class="font-medium text-(--ui-info)">Release Year:</p>
+        <p class="text-info font-medium">Release Year:</p>
         <p>
           <span>Possible values:&nbsp;</span>Any year between 2012 and today
         </p>
@@ -89,12 +89,12 @@ const error = computed(() => ($colorblindMode.value ? "Orange" : "Red"));
       <div class="space-y-1">
         <p>
           Consider the correct answer is
-          <span class="font-medium text-(--ui-primary)">Nezha</span>
+          <span class="text-primary font-medium">Nezha</span>
         </p>
         <p>
           If you enter
-          <span class="font-medium text-(--ui-primary)">Inaros</span>, these
-          properties will appear:
+          <span class="text-primary font-medium">Inaros</span>, these properties
+          will appear:
         </p>
       </div>
       <div class="overflow-x-auto">

@@ -18,7 +18,7 @@ const { openDialog } = useDialog();
         icon="i-heroicons-cog-6-tooth-solid"
         variant="outline"
         square
-        class="group border-b-4 border-neutral-800 hover:border-(--ui-primary) dark:border-(--ui-primary)"
+        class="group hover:border-primary dark:border-primary border-b-4 border-neutral-800"
         :ui="{
           leadingIcon: 'group-hover:rotate-45 transition-transform',
         }"

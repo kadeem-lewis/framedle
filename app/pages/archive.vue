@@ -69,9 +69,9 @@ watch(searchQuery, (newQuery) => {
       <!-- These aren't styled when highlighted -->
       <UButton
         variant="outline"
-        class="uppercase ring-neutral-800 hover:border-(--ui-primary)"
+        class="hover:border-primary uppercase ring-neutral-800"
         :class="{
-          'border-b-2 border-neutral-800 dark:border-(--ui-primary)':
+          'dark:border-primary border-b-2 border-neutral-800':
             selectedMode === 'classic',
         }"
         @click="selectedMode = 'classic'"
@@ -80,9 +80,9 @@ watch(searchQuery, (newQuery) => {
       </UButton>
       <UButton
         variant="outline"
-        class="uppercase ring-neutral-800 hover:border-(--ui-primary)"
+        class="hover:border-primary uppercase ring-neutral-800"
         :class="{
-          'border-b-2 border-neutral-800 dark:border-(--ui-primary)':
+          'dark:border-primary border-b-2 border-neutral-800':
             selectedMode === 'ability',
         }"
         @click="selectedMode = 'ability'"

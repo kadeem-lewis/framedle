@@ -30,7 +30,7 @@ export const useGameStore = defineStore(
 
     const currentDailyDate = ref(format(new Date(), "yyyy-MM-dd"));
 
-    const selectedDaily = ref<Daily | null>(null);
+    const selectedDaily = ref<Omit<Daily, "id"> | null>(null);
     const currentDay = computed(() => selectedDaily.value?.day);
 
     const dailyClassicData = useObservable(
@@ -152,6 +152,25 @@ export const useGameStore = defineStore(
       }
 
       try {
+        const existingDailies = await db.dailies.where(query).toArray();
+
+        const existingClassic = existingDailies.find(
+          (daily) => daily.mode === "classic",
+        ) as ClassicDailyData | undefined;
+        const existingAbility = existingDailies.find(
+          (daily) => daily.mode === "ability",
+        ) as AbilityDailyData | undefined;
+
+        if (existingClassic && existingAbility) {
+          selectedDaily.value = {
+            day: existingClassic.day,
+            date: existingClassic.date,
+            classicId: existingClassic.itemToGuess as WarframeName,
+            abilityId: existingAbility.itemToGuess.name,
+          };
+          return;
+        }
+        // fetch data from server if it's not in indexeddb
         const { daily: data } = await $fetch<{
           daily: Daily;
         }>("/api/daily", {
@@ -162,7 +181,7 @@ export const useGameStore = defineStore(
         currentDailyDate.value = data.date;
 
         await db.dailies
-          .bulkAdd([
+          .bulkPut([
             {
               day: data.day,
               itemToGuess: getWarframe(data.classicId as WarframeName).name,
@@ -184,10 +203,10 @@ export const useGameStore = defineStore(
             },
           ])
           .catch((e) => {
-            // If I throw an error here, it will bubble up to the other catch and cause that error to be thrown
-            console.error("Failed to store daily in indexeddb", e);
+            console.error("Failed to fetch or store daily", e);
           });
       } catch (error) {
+        console.error(error);
         throw createError({
           statusCode: 500,
           statusMessage: "Failed to fetch daily",

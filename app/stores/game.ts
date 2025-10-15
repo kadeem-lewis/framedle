@@ -3,30 +3,24 @@ import type { Daily } from "#shared/schemas/db";
 import { liveQuery } from "dexie";
 import { switchMap } from "rxjs";
 
-type itemToGuess = {
-  classic: WarframeName | null;
-  classicUnlimited: WarframeName | null;
-  ability: Ability | null;
-  abilityUnlimited: Ability | null;
-};
-
 export const useGameStore = defineStore(
   "game.v2",
   () => {
-    const itemToGuess = ref<itemToGuess>({
-      classic: null,
-      classicUnlimited: null,
-      ability: null,
-      abilityUnlimited: null,
-    });
-
     const defaultAttempts = 6;
 
-    const attempts = ref({
-      classic: defaultAttempts,
-      classicUnlimited: defaultAttempts,
-      ability: defaultAttempts,
-      abilityUnlimited: defaultAttempts,
+    const unlimitedState = ref({
+      attempts: {
+        classicUnlimited: defaultAttempts,
+        abilityUnlimited: defaultAttempts,
+      },
+      guessedItems: {
+        classicUnlimited: [] as WarframeName[],
+        abilityUnlimited: [] as WarframeName[],
+      },
+      itemToGuess: {
+        classicUnlimited: null as WarframeName | null,
+        abilityUnlimited: null as Ability | null,
+      },
     });
 
     const router = useRouter();
@@ -36,9 +30,7 @@ export const useGameStore = defineStore(
     const selectedDaily = ref<Daily | null>(null);
     const currentDay = computed(() => selectedDaily.value?.day);
 
-    toObserver(currentDay);
-
-    const dailyClassicData = useObservable<DailyData | undefined>(
+    const dailyClassicData = useObservable(
       from(currentDay).pipe(
         switchMap((day) =>
           from(
@@ -46,23 +38,39 @@ export const useGameStore = defineStore(
           ),
         ),
       ),
-    );
+    ) as Ref<ClassicDailyData | undefined>;
 
-    watch(
-      dailyClassicData,
-      (newVal) => {
-        console.log(currentDay.value);
-        console.log("Current Daily Classic:", newVal);
-      },
-      { immediate: true },
-    );
+    const dailyAbilityData = useObservable(
+      from(currentDay).pipe(
+        switchMap((day) =>
+          from(
+            liveQuery(() => db.dailies.where({ mode: "ability", day }).first()),
+          ),
+        ),
+      ),
+    ) as Ref<AbilityDailyData | undefined>;
 
-    const guessedItems = ref({
-      classic: [] as WarframeName[],
-      classicUnlimited: [] as WarframeName[],
-      ability: [] as WarframeName[],
-      abilityUnlimited: [] as WarframeName[],
-    });
+    // I think the type of the db is causing errors here
+    const itemToGuess = computed(() => ({
+      classic: dailyClassicData.value?.itemToGuess ?? null,
+      classicUnlimited: unlimitedState.value.itemToGuess.classicUnlimited,
+      ability: dailyAbilityData.value?.itemToGuess ?? null,
+      abilityUnlimited: unlimitedState.value.itemToGuess.abilityUnlimited,
+    }));
+
+    const attempts = computed(() => ({
+      classic: dailyClassicData.value?.attempts ?? defaultAttempts,
+      classicUnlimited: unlimitedState.value.attempts.classicUnlimited,
+      ability: dailyAbilityData.value?.attempts ?? defaultAttempts,
+      abilityUnlimited: unlimitedState.value.attempts.abilityUnlimited,
+    }));
+
+    const guessedItems = computed(() => ({
+      classic: dailyClassicData.value?.guessedItems ?? [],
+      classicUnlimited: unlimitedState.value.guessedItems.classicUnlimited,
+      ability: dailyAbilityData.value?.guessedItems ?? [],
+      abilityUnlimited: unlimitedState.value.guessedItems.abilityUnlimited,
+    }));
 
     const selectedMinigameAbility = ref({
       ability: "",
@@ -78,14 +86,18 @@ export const useGameStore = defineStore(
       if (route.query.x && lastPath === "unlimited") {
         const decoded = decode(route.query.x as string) as WarframeName;
         const decodedWarframe = getWarframe(decoded);
-        if (itemToGuess.value.classicUnlimited !== decodedWarframe.name) {
-          itemToGuess.value.classicUnlimited = decodedWarframe.name;
-          guessedItems.value.classicUnlimited = [];
-          attempts.value.classicUnlimited = defaultAttempts;
+        if (
+          unlimitedState.value.itemToGuess.classicUnlimited !==
+          decodedWarframe.name
+        ) {
+          unlimitedState.value.itemToGuess.classicUnlimited =
+            decodedWarframe.name;
+          unlimitedState.value.guessedItems.classicUnlimited = [];
+          unlimitedState.value.attempts.classicUnlimited = defaultAttempts;
         }
       }
-      if (!itemToGuess.value.classicUnlimited) {
-        itemToGuess.value.classicUnlimited =
+      if (!unlimitedState.value.itemToGuess.classicUnlimited) {
+        unlimitedState.value.itemToGuess.classicUnlimited =
           warframeNames[Math.floor(Math.random() * warframeNames.length)] ??
           null;
       }
@@ -100,26 +112,20 @@ export const useGameStore = defineStore(
         const decodedAbility = abilities.find(
           (ability) => ability.name === decoded,
         ) as Ability;
-        if (itemToGuess.value.abilityUnlimited?.name !== decodedAbility.name) {
-          itemToGuess.value.abilityUnlimited = decodedAbility;
-          guessedItems.value.abilityUnlimited = [];
-          attempts.value.abilityUnlimited = defaultAttempts;
+        if (
+          unlimitedState.value.itemToGuess.abilityUnlimited?.name !==
+          decodedAbility.name
+        ) {
+          unlimitedState.value.itemToGuess.abilityUnlimited = decodedAbility;
+          unlimitedState.value.guessedItems.abilityUnlimited = [];
+          unlimitedState.value.attempts.abilityUnlimited = defaultAttempts;
         }
       }
-      if (!itemToGuess.value.abilityUnlimited) {
-        itemToGuess.value.abilityUnlimited = abilities[
+      if (!unlimitedState.value.itemToGuess.abilityUnlimited) {
+        unlimitedState.value.itemToGuess.abilityUnlimited = abilities[
           Math.floor(Math.random() * abilities.length)
         ] as Ability;
       }
-    }
-
-    //! This function is problematic because the resets the game state for both modes when switching days
-    function resetDailyValues() {
-      guessedItems.value.classic = [];
-      guessedItems.value.ability = [];
-      attempts.value.classic = defaultAttempts;
-      attempts.value.ability = defaultAttempts;
-      selectedMinigameAbility.value.ability = "";
     }
 
     async function getDaily() {
@@ -129,8 +135,6 @@ export const useGameStore = defineStore(
         return;
       }
       const lastPath = route.params.path?.at(-1);
-
-      const previousDay = selectedDaily.value?.day;
 
       let query: { day: number } | { date: string };
       let expectedDay: number | null = null;
@@ -144,11 +148,6 @@ export const useGameStore = defineStore(
         currentDailyDate.value = todayDate;
       }
 
-      // Reset if switching to a different day
-      if (previousDay && expectedDay && previousDay !== expectedDay) {
-        resetDailyValues();
-      }
-
       try {
         const { daily: data } = await $fetch<{
           daily: Daily;
@@ -156,17 +155,6 @@ export const useGameStore = defineStore(
           query,
         });
 
-        // Reset if the fetched day is different from what we had
-        if (previousDay && previousDay !== data.day) {
-          resetDailyValues();
-        }
-
-        itemToGuess.value.classic = getWarframe(
-          data.classicId as WarframeName,
-        ).name;
-        itemToGuess.value.ability = abilities.find(
-          (ability) => ability.name === data.abilityId,
-        ) as Ability;
         selectedDaily.value = data;
         currentDailyDate.value = data.date;
 
@@ -217,13 +205,13 @@ export const useGameStore = defineStore(
 
       if (mode.value === "classicUnlimited") {
         router.replace("/classic/unlimited");
-        itemToGuess.value.classicUnlimited =
+        unlimitedState.value.itemToGuess.classicUnlimited =
           warframeNames[Math.floor(Math.random() * warframeNames.length)] ??
           null;
       }
       if (mode.value === "abilityUnlimited") {
         router.replace("/ability/unlimited");
-        itemToGuess.value.abilityUnlimited = abilities[
+        unlimitedState.value.itemToGuess.abilityUnlimited = abilities[
           Math.floor(Math.random() * abilities.length)
         ] as Ability;
         selectedMinigameAbility.value.abilityUnlimited = "";
@@ -240,6 +228,7 @@ export const useGameStore = defineStore(
       currentDailyDate,
       selectedDaily,
       selectedMinigameAbility,
+      unlimitedState,
       version,
       classicInit,
       abilityInit,

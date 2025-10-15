@@ -5,7 +5,8 @@ const props = defineProps<{
   items: WarframeName[];
 }>();
 
-const { attempts, guessedItems, selectedDaily } = storeToRefs(useGameStore());
+const { attempts, guessedItems, selectedDaily, unlimitedState } =
+  storeToRefs(useGameStore());
 
 const mode = useGameMode();
 
@@ -54,18 +55,21 @@ const addGuess = async () => {
   if (!selectedWarframe.value) return;
   if (!selectedDaily.value) return;
 
-  attempts.value[mode.value] -= 1;
-  guessedItems.value[mode.value].push(selectedWarframe.value);
-
-  if (mode.value === "classic" || mode.value === "ability") {
+  if (mode.value === "classicUnlimited" || mode.value === "abilityUnlimited") {
+    unlimitedState.value.attempts[mode.value] -= 1;
+    unlimitedState.value.guessedItems[mode.value].push(selectedWarframe.value);
+  } else if (mode.value === "classic" || mode.value === "ability") {
     await db.dailies
       .where({
         mode: mode.value,
         day: selectedDaily.value.day,
       })
       .modify({
-        guessedItems: [...guessedItems.value[mode.value]],
-        attempts: attempts.value[mode.value],
+        guessedItems: [
+          ...guessedItems.value[mode.value],
+          selectedWarframe.value,
+        ],
+        attempts: attempts.value[mode.value] - 1,
         state: gameState.value[mode.value],
       });
   }

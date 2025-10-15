@@ -27,15 +27,9 @@ export const useGameStore = defineStore(
       abilityUnlimited: defaultAttempts,
     });
 
-    const route = useRoute("classic-path");
     const router = useRouter();
 
     const currentDailyDate = ref(format(new Date(), "yyyy-MM-dd"));
-
-    const lastPath = computed(() => {
-      if (!route.params.path) return null;
-      return route.params.path.at(-1);
-    });
 
     const selectedDaily = ref<Daily | null>(null);
 
@@ -55,7 +49,9 @@ export const useGameStore = defineStore(
 
     //TODO: both init functions could be the same function and just pass the mode as an argument
     function classicInit() {
-      if (route.query.x && lastPath.value === "unlimited") {
+      const route = useRoute("classic-path");
+      const lastPath = route.params.path?.at(-1);
+      if (route.query.x && lastPath === "unlimited") {
         const decoded = decode(route.query.x as string) as WarframeName;
         const decodedWarframe = getWarframe(decoded);
         if (itemToGuess.value.classicUnlimited !== decodedWarframe.name) {
@@ -72,7 +68,9 @@ export const useGameStore = defineStore(
     }
 
     function abilityInit() {
-      if (route.query.x && lastPath.value === "unlimited") {
+      const route = useRoute("ability-path");
+      const lastPath = route.params.path?.at(-1);
+      if (route.query.x && lastPath === "unlimited") {
         const decoded = decode(route.query.x as string);
 
         const decodedAbility = abilities.find(
@@ -91,6 +89,7 @@ export const useGameStore = defineStore(
       }
     }
 
+    //! This function is problematic because the resets the game state for both modes when switching days
     function resetDailyValues() {
       guessedItems.value.classic = [];
       guessedItems.value.ability = [];
@@ -101,14 +100,19 @@ export const useGameStore = defineStore(
 
     async function getDaily() {
       //if todays date is the same as the servers date, then I fetch the daily because it is possible for the date to be the same without the daily being fetched
+      const route = useRoute();
+      if (route.name !== "ability-path" && route.name !== "classic-path") {
+        return;
+      }
+      const lastPath = route.params.path?.at(-1);
 
       const previousDay = selectedDaily.value?.day;
 
       let query: { day: number } | { date: string };
       let expectedDay: number | null = null;
 
-      if (lastPath.value && isValidDayNumber(lastPath.value)) {
-        expectedDay = Number(lastPath.value);
+      if (lastPath && isValidDayNumber(lastPath)) {
+        expectedDay = Number(lastPath);
         query = { day: expectedDay };
       } else {
         const todayDate = format(new Date(), "yyyy-MM-dd");

@@ -3,7 +3,8 @@ import { startOfTomorrow } from "date-fns";
 import party from "party-js";
 import type { Ability } from "#shared/schemas/warframe";
 
-const { itemToGuess, guessedItems, attempts } = storeToRefs(useGameStore());
+const { itemToGuess, guessedItems, attempts, selectedDaily } =
+  storeToRefs(useGameStore());
 const { resetGame, defaultAttempts } = useGameStore();
 
 const mode = useGameMode();
@@ -86,6 +87,28 @@ watchEffect(() => {
     guessedItems.value[mode.value].length > 0
   ) {
     party.confetti(gameOverCard.value);
+  }
+});
+
+watchEffect(async () => {
+  if (!mode.value) return;
+
+  // Only for daily modes
+  if (mode.value !== "classic" && mode.value !== "ability") return;
+
+  // Only when state changes to WON or LOST (not ACTIVE or *_PREVIOUS)
+  if (
+    currentGameState.value === GameStatus.WON ||
+    currentGameState.value === GameStatus.LOST
+  ) {
+    await db.dailies
+      .where({
+        mode: mode.value,
+        day: selectedDaily.value?.day,
+      })
+      .modify({
+        state: currentGameState.value,
+      });
   }
 });
 </script>

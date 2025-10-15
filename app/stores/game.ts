@@ -1,7 +1,7 @@
 import { format } from "date-fns";
 import type { Daily } from "#shared/schemas/db";
 import { liveQuery } from "dexie";
-import { useObservable } from "@vueuse/rxjs";
+import { switchMap } from "rxjs";
 
 type itemToGuess = {
   classic: WarframeName | null;
@@ -36,17 +36,22 @@ export const useGameStore = defineStore(
     const selectedDaily = ref<Daily | null>(null);
     const currentDay = computed(() => selectedDaily.value?.day);
 
-    const dailyClassicObservable = useObservable<DailyData | undefined>(
-      from(
-        liveQuery(() =>
-          db.dailies.where({ mode: "classic", day: currentDay.value }).first(),
+    toObserver(currentDay);
+
+    const dailyClassicData = useObservable<DailyData | undefined>(
+      from(currentDay).pipe(
+        switchMap((day) =>
+          from(
+            liveQuery(() => db.dailies.where({ mode: "classic", day }).first()),
+          ),
         ),
       ),
     );
 
     watch(
-      dailyClassicObservable,
+      dailyClassicData,
       (newVal) => {
+        console.log(currentDay.value);
         console.log("Current Daily Classic:", newVal);
       },
       { immediate: true },

@@ -21,6 +21,9 @@ export const useGameStore = defineStore(
         classicUnlimited: null as WarframeName | null,
         abilityUnlimited: null as Ability | null,
       },
+      selectedMinigameAbility: {
+        abilityUnlimited: "",
+      },
     });
 
     const router = useRouter();
@@ -50,7 +53,6 @@ export const useGameStore = defineStore(
       ),
     ) as Ref<AbilityDailyData | undefined>;
 
-    // I think the type of the db is causing errors here
     const itemToGuess = computed(() => ({
       classic: dailyClassicData.value?.itemToGuess ?? null,
       classicUnlimited: unlimitedState.value.itemToGuess.classicUnlimited,
@@ -72,10 +74,11 @@ export const useGameStore = defineStore(
       abilityUnlimited: unlimitedState.value.guessedItems.abilityUnlimited,
     }));
 
-    const selectedMinigameAbility = ref({
-      ability: "",
-      abilityUnlimited: "",
-    });
+    const selectedMinigameAbility = computed(() => ({
+      ability: dailyAbilityData.value?.selectedMinigameAbility ?? "",
+      abilityUnlimited:
+        unlimitedState.value.selectedMinigameAbility.abilityUnlimited,
+    }));
 
     const { decode } = useEncoder();
 
@@ -177,6 +180,7 @@ export const useGameStore = defineStore(
               date: data.date,
               guessedItems: [],
               attempts: defaultAttempts,
+              selectedMinigameAbility: "",
             },
           ])
           .catch((e) => {
@@ -214,7 +218,7 @@ export const useGameStore = defineStore(
         unlimitedState.value.itemToGuess.abilityUnlimited = abilities[
           Math.floor(Math.random() * abilities.length)
         ] as Ability;
-        selectedMinigameAbility.value.abilityUnlimited = "";
+        unlimitedState.value.selectedMinigameAbility.abilityUnlimited = "";
       }
     }
 
@@ -239,15 +243,7 @@ export const useGameStore = defineStore(
   {
     persist: {
       storage: piniaPluginPersistedstate.localStorage(),
-      pick: [
-        "guessedItems",
-        "attempts",
-        "itemToGuess",
-        "dailyDate",
-        "currentDailyDate",
-        "selectedMinigameAbility",
-        "version",
-      ],
+      pick: ["unlimitedState", "currentDailyDate", "version"],
     },
   },
 );

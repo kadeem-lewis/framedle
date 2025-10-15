@@ -3,12 +3,12 @@ import type { EntityTable } from "dexie";
 import type { GameStatusType } from "#imports";
 
 type DailyDataBase = {
-  mode: "classic" | "ability";
   day: number;
   date: string;
   attempts: number;
   state?: GameStatusType;
   guessedItems: WarframeName[];
+  selectedMinigameAbility?: string;
 };
 
 export type ClassicDailyData = DailyDataBase & {
@@ -19,6 +19,7 @@ export type ClassicDailyData = DailyDataBase & {
 export type AbilityDailyData = DailyDataBase & {
   mode: "ability";
   itemToGuess: Ability;
+  selectedMinigameAbility: string;
 };
 
 export type DailyData = ClassicDailyData | AbilityDailyData;

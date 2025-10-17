@@ -4,6 +4,7 @@ const runtimeConfig = useRuntimeConfig();
 const { openDialog } = useDialog();
 const { proxy } = useScriptUmamiAnalytics();
 
+const START_YEAR = 2024 as const;
 const year = ref(new Date().getFullYear());
 
 const items = [
@@ -64,7 +65,7 @@ const items = [
       </UButton>
     </div>
     <div class="flex flex-col gap-2 text-sm">
-      <p>&copy; {{ year }} Framedle.com</p>
+      <p>&copy; {{ START_YEAR }} - {{ year }} Framedle.com</p>
       <p>Warframe does not endorse or sponsor this product</p>
       <ULink
         to="/privacy"

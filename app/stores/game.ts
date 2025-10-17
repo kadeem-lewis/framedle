@@ -131,20 +131,11 @@ export const useGameStore = defineStore(
       }
     }
 
-    async function getDaily() {
-      //if todays date is the same as the servers date, then I fetch the daily because it is possible for the date to be the same without the daily being fetched
-      const route = useRoute();
-      if (route.name !== "ability-path" && route.name !== "classic-path") {
-        return;
-      }
-      const lastPath = route.params.path?.at(-1);
-
+    async function getDaily(day?: number) {
       let query: { day: number } | { date: string };
-      let expectedDay: number | null = null;
 
-      if (lastPath && isValidDayNumber(lastPath)) {
-        expectedDay = Number(lastPath);
-        query = { day: expectedDay };
+      if (day) {
+        query = { day };
       } else {
         const todayDate = format(new Date(), "yyyy-MM-dd");
         query = { date: todayDate };

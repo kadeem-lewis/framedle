@@ -175,7 +175,7 @@ export const useGameStore = defineStore(
           .bulkPut([
             {
               day: data.day,
-              itemToGuess: getWarframe(data.classicId as WarframeName).name,
+              itemToGuess: data.classicId as WarframeName,
               mode: "classic",
               date: data.date,
               guessedItems: [],
@@ -197,11 +197,10 @@ export const useGameStore = defineStore(
             console.error("Failed to fetch or store daily", e);
           });
       } catch (error) {
-        console.error(error);
         throw createError({
           statusCode: 500,
           statusMessage: "Failed to fetch daily",
-          data: error,
+          cause: error,
         });
       }
     }

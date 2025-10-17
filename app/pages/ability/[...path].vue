@@ -10,7 +10,7 @@ useSeoMeta({
 
 const { t } = useI18n();
 
-const { itemToGuess } = storeToRefs(useGameStore());
+const { itemToGuess, isLoadingDaily } = storeToRefs(useGameStore());
 const { abilityInit } = useGameStore();
 const mode = useGameMode();
 const { isGameOver } = storeToRefs(useGameStateStore());
@@ -56,8 +56,8 @@ onUnmounted(() => {
 </script>
 <template>
   <div>
-    <UiAppSpinner v-if="showLoadingSpinner" />
-    <div v-show="!showLoadingSpinner">
+    <UiAppSpinner v-if="showLoadingSpinner || isLoadingDaily" />
+    <div v-show="!showLoadingSpinner && !isLoadingDaily">
       <div v-if="mode" class="flex flex-col gap-4">
         <div v-if="itemToGuess[mode]" class="space-y-4">
           <RemainingGuesses />

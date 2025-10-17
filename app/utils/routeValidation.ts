@@ -1,4 +1,4 @@
-export const isValidDayNumber = (value: string): boolean => {
+export const isValidDayNumber = (value: string | number): boolean => {
   const num = Number(value);
   return Number.isInteger(num) && num > 0;
 };

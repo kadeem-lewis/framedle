@@ -8,12 +8,12 @@ const { isGameOver } = storeToRefs(useGameStateStore());
 const imageLoaded = ref(false);
 const imageObj = ref<HTMLImageElement | null>(null);
 
-const CANVAS_SIZE = 240; // Size of the canvas in pixels
+const CANVAS_SIZE = 240 as const; // Size of the canvas in pixels
 
 // Grid configuration
-const gridCols = 3;
-const gridRows = 2;
-const totalCells = gridCols * gridRows;
+const GRID_COLS = 3 as const;
+const GRID_ROWS = 2 as const;
+const totalCells = GRID_COLS * GRID_ROWS;
 
 const img = useImage();
 
@@ -43,8 +43,11 @@ const revealedCells = computed(() => {
 
   const cellsToReveal = totalCells - attempts.value[mode.value];
 
-  return Math.max(0, cellsToReveal) + 1;
+  const calculatedRevealedCells = Math.max(0, cellsToReveal) + 1;
+  return Math.min(totalCells, calculatedRevealedCells);
 });
+
+const remainingCells = computed(() => totalCells - revealedCells.value);
 
 function loadImage() {
   if (!imageUrl.value) return;
@@ -87,8 +90,8 @@ const canvasRefs = useTemplateRefsList<HTMLCanvasElement>();
 function renderCanvases() {
   if (!imageObj.value || !canvasRefs.value.length) return;
 
-  const cellWidth = CANVAS_SIZE / gridCols;
-  const cellHeight = CANVAS_SIZE / gridRows;
+  const cellWidth = CANVAS_SIZE / GRID_COLS;
+  const cellHeight = CANVAS_SIZE / GRID_ROWS;
 
   canvasRefs.value.forEach((canvas, i) => {
     if (!canvas) return;
@@ -104,8 +107,8 @@ function renderCanvases() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
     const cellIndex = i;
-    const col = cellIndex % gridCols;
-    const row = Math.floor(cellIndex / gridCols);
+    const col = cellIndex % GRID_COLS;
+    const row = Math.floor(cellIndex / GRID_COLS);
 
     // Calculate positions
     const sourceX = col * cellWidth;
@@ -153,7 +156,7 @@ watch(
           }"
         />
         <div
-          v-for="index of totalCells - revealedCells"
+          v-for="index of remainingCells"
           :key="index"
           class="col-span-1 flex h-full items-center justify-center border bg-red-500 dark:bg-red-600"
         >

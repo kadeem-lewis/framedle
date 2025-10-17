@@ -6,15 +6,48 @@ const { correctWarframe, correctAbility } = defineProps<{
   correctAbility: Ability;
 }>();
 
-const { selectedMinigameAbility } = storeToRefs(useGameStore());
+const { selectedMinigameAbility, unlimitedState, selectedDaily } =
+  storeToRefs(useGameStore());
 const mode = useGameMode();
 
 function handleAbilityClick(ability: string) {
-  if (mode.value === "ability" || mode.value === "abilityUnlimited") {
-    if (selectedMinigameAbility.value[mode.value]) return;
-    selectedMinigameAbility.value[mode.value] = ability;
+  if (mode.value === "ability") {
+    if (selectedMinigameAbility.value.ability) return;
+    db.dailies
+      .where({
+        mode: "ability",
+        day: selectedDaily.value?.day,
+      })
+      .modify({
+        selectedMinigameAbility: ability,
+      })
+      .catch((e) => {
+        console.error("Failed to update daily state", e);
+      });
+  }
+  if (mode.value === "abilityUnlimited") {
+    if (selectedMinigameAbility.value.abilityUnlimited) return;
+    unlimitedState.value.selectedMinigameAbility.abilityUnlimited = ability;
   }
 }
+
+const hasSelected = computed(() => {
+  if (mode.value !== "ability" && mode.value !== "abilityUnlimited") return;
+  return !!selectedMinigameAbility.value[mode.value];
+});
+const isCorrectAnswer = (ability: string) => ability === correctAbility.name;
+const isUserSelection = (ability: string) => {
+  if (mode.value !== "ability" && mode.value !== "abilityUnlimited")
+    return false;
+  return selectedMinigameAbility.value[mode.value] === ability;
+};
+const userWasCorrect = computed(() => {
+  if (mode.value !== "ability" && mode.value !== "abilityUnlimited") return;
+  return (
+    hasSelected.value &&
+    selectedMinigameAbility.value[mode.value] === correctAbility.name
+  );
+});
 
 // I save the selected item to the store and maybe some key for checking if it was previous completed if I don't want to show the animation again
 const abilityNames = computed(() =>
@@ -46,12 +79,13 @@ const abilityNames = computed(() =>
           class="cursor-pointer px-2 py-1 ring"
           :class="{
             'bg-success':
-              (selectedMinigameAbility[mode] === ability &&
-                selectedMinigameAbility[mode] === correctAbility.name) ||
-              (selectedMinigameAbility[mode] &&
-                selectedMinigameAbility[mode] !== correctAbility.name &&
-                ability === correctAbility.name),
-            'bg-error': selectedMinigameAbility[mode] === ability,
+              hasSelected &&
+              ((isUserSelection(ability) && isCorrectAnswer(ability)) || // User picked correct
+                (!userWasCorrect && isCorrectAnswer(ability))), // Show correct answer if user was wrong
+            'bg-error':
+              hasSelected &&
+              isUserSelection(ability) &&
+              !isCorrectAnswer(ability), // User picked wrong
           }"
           @click="handleAbilityClick(ability)"
         >
@@ -59,7 +93,9 @@ const abilityNames = computed(() =>
         </li>
       </ul>
       <div
-        v-if="selectedMinigameAbility[mode]"
+        v-if="
+          selectedMinigameAbility[mode] && selectedMinigameAbility[mode] !== ''
+        "
         class="text-center font-medium uppercase"
       >
         <p

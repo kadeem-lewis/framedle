@@ -455,6 +455,57 @@ export const warframes = {
     conclave: false,
     playstyle: ["Survival", "Crowd Control"],
   },
+  "Caliban Prime": {
+    name: "Caliban Prime",
+    category: "Warframes",
+    type: "Warframe",
+    health: 270,
+    shield: 640,
+    armor: 290,
+    energy: 175,
+    sprint: 1.1,
+    aura: "Naramon",
+    releaseDate: "2025-08-26",
+    imageName: "caliban-prime-6e04a41118.png",
+    abilities: [
+      {
+        uniqueName:
+          "/Lotus/Powersuits/PowersuitAbilities/SentientWhirlwindAbility",
+        name: "Razor Gyre",
+        description:
+          "Dash forward in a spinning vortex of death. Struck enemies are inflicted with <DT_SENTIENT_COLOR>Tau Status Effect, making them more vulnerable to all other status effects. For each enemy hit, recover a portion of the energy cost, as well as health and shields. Enemies lifted by Sentient Wrath take increased damage.",
+        imageName: "razor-gyre-f147238fff.png",
+      },
+      {
+        uniqueName: "/Lotus/Powersuits/PowersuitAbilities/SentientStompAbility",
+        name: "Sentient Wrath",
+        description:
+          "Smash the ground sending out a radial wave of destruction. Those not killed by the initial blast are helplessly raised into the air, where they take amplified damage for a short time.",
+        imageName: "sentient-wrath-75cb0065b9.png",
+      },
+      {
+        uniqueName:
+          "/Lotus/Powersuits/PowersuitAbilities/SentientSummonAbility",
+        name: "Lethal Progeny",
+        description:
+          "Cycle through Sentient unit types, then summon them to Caliban's side. Conculysts focus on raw melee damage. Ortholysts specialize in ranged attacks and inflict <DT_SENTIENT_COLOR>Tau Status Effect. Summulysts summon their own Choralysts and provide shield protection for the squad.",
+        imageName: "lethal-progeny-8c3670258d.png",
+      },
+      {
+        uniqueName: "/Lotus/Powersuits/PowersuitAbilities/SentientBlastAbility",
+        name: "Fusion Strike",
+        description:
+          "Converge three streams of raw energy upon a single point, causing a massive explosion. The streams strip armor and shields, and each enemy struck detonates on stream convergence. Summoned Conculysts can wield their own mini Fusion Strikes. ",
+        imageName: "fusion-strike-75c01a55e1.png",
+      },
+    ],
+    sex: "Male",
+    variant: "Prime",
+    progenitor: "Electricity",
+    isPrime: true,
+    conclave: false,
+    playstyle: ["Survival", "Crowd Control"],
+  },
   Chroma: {
     name: "Chroma",
     category: "Warframes",
@@ -1778,7 +1829,7 @@ export const warframes = {
         uniqueName:
           "/Lotus/Powersuits/PowersuitAbilities/IronFrameBlastAbility",
         name: "Balefire",
-        description: "Charge and launch devastating bolts of fire.",
+        description: "Charge and launch devastating bolts of electricity.",
         imageName: "balefire-2fcf75b9a7.png",
       },
       {
@@ -1830,7 +1881,7 @@ export const warframes = {
         uniqueName:
           "/Lotus/Powersuits/PowersuitAbilities/IronFrameBlastAbility",
         name: "Balefire",
-        description: "Charge and launch devastating bolts of fire.",
+        description: "Charge and launch devastating bolts of electricity.",
         imageName: "balefire-2fcf75b9a7.png",
       },
       {
@@ -3313,6 +3364,57 @@ export const warframes = {
     conclave: false,
     playstyle: ["Damage", "Survival", "Crowd Control"],
   },
+  Nokko: {
+    name: "Nokko",
+    category: "Warframes",
+    type: "Warframe",
+    health: 150,
+    shield: 300,
+    armor: 135,
+    energy: 130,
+    sprint: 1.25,
+    aura: "Madurai",
+    releaseDate: "2025-10-15",
+    imageName: "nokko-519627ee77.png",
+    abilities: [
+      {
+        uniqueName:
+          "/Lotus/Powersuits/PowersuitAbilities/NokkoToxicShroomAbility",
+        name: "Stinkbrain",
+        description:
+          "Throw a mushroom that periodically sheds poisonous spores, inflicting <DT_VIRAL_COLOR> Viral Damage and Status Effect upon nearby enemies while also lulling them to sleep.",
+        imageName: "stinkbrain-3698e97a1b.png",
+      },
+      {
+        uniqueName:
+          "/Lotus/Powersuits/PowersuitAbilities/NokkoPowerShroomAbility",
+        name: "Brightbonnet",
+        description:
+          "Release a rejuvenating mushroom that emits a radial pulse, giving Nokko and his allies’ <ENERGY> Energy and applying a buff to Ability Strength that lasts for a short time.",
+        imageName: "brightbonnet-7b80f16d96.png",
+      },
+      {
+        uniqueName: "/Lotus/Powersuits/PowersuitAbilities/NokkoShrinkAbility",
+        name: "Reroot",
+        description:
+          "Revert to Sprodling form, spawning orbs that heal Nokko and grant a speed boost. While in this state, Nokko is untargetable and heals gradually.",
+        imageName: "reroot-5f82d8900a.png",
+      },
+      {
+        uniqueName: "/Lotus/Powersuits/PowersuitAbilities/NokkoLaunchAbility",
+        name: "Sporespring",
+        description:
+          "Unleash a chaotic ballistic mushroom that seeks enemies and bounces explosively off whatever it touches. Contact with any of Nokko’s mushrooms invigorates them, doubling their pulse rate.",
+        imageName: "sporespring-d4733c65ed.png",
+      },
+    ],
+    sex: "Male",
+    variant: "Standard",
+    progenitor: "Toxin",
+    isPrime: false,
+    conclave: false,
+    playstyle: ["Damage", "Crowd Control"],
+  },
   Nova: {
     name: "Nova",
     category: "Warframes",
@@ -3519,7 +3621,7 @@ export const warframes = {
     type: "Warframe",
     health: 365,
     shield: 270,
-    armor: 185,
+    armor: 385,
     energy: 175,
     sprint: 1,
     aura: "Madurai",
@@ -3530,7 +3632,7 @@ export const warframes = {
         uniqueName: "/Lotus/Powersuits/PowersuitAbilities/SmiteAbility",
         name: "Smite",
         description:
-          "Focuses deadly energy within a target and then projects it outwards, damaging both the target and surrounding enemies.",
+          "Focuses deadly energy within a target, dealing massive damage and removing all of its defenses, including Overguard. Enemies near the target also take a portion of the damage.",
         imageName: "smite-942e22c6ce.png",
       },
       {
@@ -3538,21 +3640,21 @@ export const warframes = {
           "/Lotus/Powersuits/PowersuitAbilities/StairwayToHeavenAbility",
         name: "Hallowed Ground",
         description:
-          "Sanctifies the ground before Oberon with righteous fire, inflicting damage to any enemy that stands in the flames.",
+          "Sanctifies the ground around Oberon, inflicting <DT_RADIATION_COLOR>Radiation Damage to all enemies within the radius. Also grants protection against Status Effects for Oberon and his allies.",
         imageName: "hallowed-ground-baa8b25238.png",
       },
       {
         uniqueName: "/Lotus/Powersuits/PowersuitAbilities/RegenerationAbility",
         name: "Renewal",
         description:
-          "Healing waves of energy flow outward from Oberon to his allies, regenerating Health over time.",
+          "Generates a protective aura that grants bonus Armor to Oberon and his allies and restores allies’ Health over time. Healing is doubled while within the radius of Hallowed Ground.",
         imageName: "renewal-a3905ebe88.png",
       },
       {
         uniqueName: "/Lotus/Powersuits/PowersuitAbilities/ReckoningAbility",
         name: "Reckoning",
         description:
-          "Quickly lifts enemies into the air and then hurls them down with conviction. Enemies who succumb to this power have a chance to spawn a Health Orb.",
+          "Lifts enemies into the air and then hurls them down with conviction, removing their Armor. Enemies hit by this ability will grant Oberon additional Armor and have a chance to spawn a <HEALTH>Health Orb when they die.",
         imageName: "reckoning-c3d44402b5.png",
       },
     ],
@@ -3569,7 +3671,7 @@ export const warframes = {
     type: "Warframe",
     health: 365,
     shield: 270,
-    armor: 240,
+    armor: 450,
     energy: 215,
     sprint: 1,
     aura: "Madurai",
@@ -3580,7 +3682,7 @@ export const warframes = {
         uniqueName: "/Lotus/Powersuits/PowersuitAbilities/SmiteAbility",
         name: "Smite",
         description:
-          "Focuses deadly energy within a target and then projects it outwards, damaging both the target and surrounding enemies.",
+          "Focuses deadly energy within a target, dealing massive damage and removing all of its defenses, including Overguard. Enemies near the target also take a portion of the damage.",
         imageName: "smite-942e22c6ce.png",
       },
       {
@@ -3588,21 +3690,21 @@ export const warframes = {
           "/Lotus/Powersuits/PowersuitAbilities/StairwayToHeavenAbility",
         name: "Hallowed Ground",
         description:
-          "Sanctifies the ground before Oberon with righteous fire, inflicting damage to any enemy that stands in the flames.",
+          "Sanctifies the ground around Oberon, inflicting <DT_RADIATION_COLOR>Radiation Damage to all enemies within the radius. Also grants protection against Status Effects for Oberon and his allies.",
         imageName: "hallowed-ground-baa8b25238.png",
       },
       {
         uniqueName: "/Lotus/Powersuits/PowersuitAbilities/RegenerationAbility",
         name: "Renewal",
         description:
-          "Healing waves of energy flow outward from Oberon to his allies, regenerating Health over time.",
+          "Generates a protective aura that grants bonus Armor to Oberon and his allies and restores allies’ Health over time. Healing is doubled while within the radius of Hallowed Ground.",
         imageName: "renewal-a3905ebe88.png",
       },
       {
         uniqueName: "/Lotus/Powersuits/PowersuitAbilities/ReckoningAbility",
         name: "Reckoning",
         description:
-          "Quickly lifts enemies into the air and then hurls them down with conviction. Enemies who succumb to this power have a chance to spawn a Health Orb.",
+          "Lifts enemies into the air and then hurls them down with conviction, removing their Armor. Enemies hit by this ability will grant Oberon additional Armor and have a chance to spawn a <HEALTH>Health Orb when they die.",
         imageName: "reckoning-c3d44402b5.png",
       },
     ],
@@ -4656,7 +4758,7 @@ export const warframes = {
         uniqueName: "/Lotus/Powersuits/PowersuitAbilities/LastStandAbility",
         name: "Hysteria",
         description:
-          "Valkyr bares her deadly claws, unleashing devastating attacks that also heal her. Valkyr becomes immune to Status Effects and her Armor bonus from Warcry is multiplied.",
+          "Valkyr bares her deadly claws, unleashing devastating attacks that also heal her. Valkyr becomes immune to Status Effects and her Armor bonus from Warcry is multiplied while using the claws.",
         imageName: "hysteria-e7a04e411b.png",
       },
     ],
@@ -4707,7 +4809,7 @@ export const warframes = {
         uniqueName: "/Lotus/Powersuits/PowersuitAbilities/LastStandAbility",
         name: "Hysteria",
         description:
-          "Valkyr bares her deadly claws, unleashing devastating attacks that also heal her. Valkyr becomes immune to Status Effects and her Armor bonus from Warcry is multiplied.",
+          "Valkyr bares her deadly claws, unleashing devastating attacks that also heal her. Valkyr becomes immune to Status Effects and her Armor bonus from Warcry is multiplied while using the claws.",
         imageName: "hysteria-e7a04e411b.png",
       },
     ],

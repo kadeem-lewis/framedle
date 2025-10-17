@@ -108,6 +108,9 @@ watchEffect(async () => {
       })
       .modify({
         state: currentGameState.value,
+      })
+      .catch((e) => {
+        console.error("Failed to update daily state", e);
       });
   }
 });

@@ -20,6 +20,9 @@ function handleAbilityClick(ability: string) {
       })
       .modify({
         selectedMinigameAbility: ability,
+      })
+      .catch((e) => {
+        console.error("Failed to update daily state", e);
       });
   }
   if (mode.value === "abilityUnlimited") {

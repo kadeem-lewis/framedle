@@ -71,6 +71,9 @@ const addGuess = async () => {
         ],
         attempts: attempts.value[mode.value] - 1,
         state: gameState.value[mode.value],
+      })
+      .catch((e) => {
+        console.error("Failed to update daily state", e);
       });
   }
   selectedWarframe.value = undefined;

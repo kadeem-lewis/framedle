@@ -5,6 +5,8 @@ const props = defineProps<{
   items: WarframeName[];
 }>();
 
+const MAX_VISIBLE_ITEMS = 6 as const;
+
 const { attempts, guessedItems, selectedDaily, unlimitedState } =
   storeToRefs(useGameStore());
 
@@ -29,22 +31,29 @@ const fuse = computed(
     }),
 );
 
-const filteredItems = computed(() => {
+const fullSearchResults = computed(() => {
   if (!query.value) {
-    return items.value.slice(0, 6);
+    return [];
   }
-  return fuse.value
-    .search(query.value)
-    .map((result) => result.item)
-    .slice(0, 6);
+  return fuse.value.search(query.value).map((result) => result.item);
 });
 
+const filteredItems = computed(() =>
+  fullSearchResults.value.slice(0, MAX_VISIBLE_ITEMS),
+);
+
+const isOpen = ref(false);
+
 watch(query, (newQuery) => {
-  const match = items.value.find(
-    (item) => item.toLowerCase() === newQuery.toLowerCase(),
-  );
-  if (match) {
-    selectedWarframe.value = match;
+  isOpen.value = newQuery.length > 0 && fullSearchResults.value.length > 0;
+
+  if (isOpen.value) {
+    const exactMatch = items.value.find(
+      (item) => item.toLowerCase() === newQuery.toLowerCase(),
+    );
+    if (exactMatch) {
+      selectedWarframe.value = exactMatch;
+    }
   }
 });
 
@@ -84,9 +93,11 @@ const addGuess = async () => {
     <UInputMenu
       v-model="selectedWarframe"
       v-model:search-term="query"
+      v-model:open="isOpen"
       name="warframe-search"
       :reset-search-term-on-blur="false"
       :items="filteredItems"
+      trailing-icon=""
       placeholder="SEARCH..."
       size="lg"
       required
@@ -98,10 +109,6 @@ const addGuess = async () => {
       }"
       class="grow rounded-none"
     >
-      <template #trailing>
-        <span class="sr-only">options dropdown</span>
-        <UIcon name="i-mdi-triangle-down" class="size-3" />
-      </template>
       <template #item="{ item }">
         <div class="flex w-full items-center justify-between gap-2">
           <p class="font-semibold uppercase">
@@ -119,6 +126,15 @@ const addGuess = async () => {
       </template>
       <template #empty>
         <p class="font-semibold uppercase">No Warframes Found</p>
+      </template>
+      <template #content-bottom>
+        <div
+          v-if="query && items.length > MAX_VISIBLE_ITEMS"
+          class="border-t border-gray-200 p-2 text-center text-xs"
+        >
+          Showing {{ filteredItems.length }} of
+          {{ fullSearchResults.length }} results for "{{ query }}"
+        </div>
       </template>
     </UInputMenu>
     <UButton

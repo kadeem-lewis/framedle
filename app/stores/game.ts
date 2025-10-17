@@ -131,7 +131,10 @@ export const useGameStore = defineStore(
       }
     }
 
+    const isLoadingDaily = ref(false);
+
     async function getDaily(day?: number) {
+      isLoadingDaily.value = true;
       let query: { day: number } | { date: string };
 
       if (day) {
@@ -202,6 +205,8 @@ export const useGameStore = defineStore(
           statusMessage: "Failed to fetch daily",
           cause: error,
         });
+      } finally {
+        isLoadingDaily.value = false;
       }
     }
 
@@ -242,6 +247,7 @@ export const useGameStore = defineStore(
       selectedDaily,
       selectedMinigameAbility,
       unlimitedState,
+      isLoadingDaily,
       version,
       classicInit,
       abilityInit,

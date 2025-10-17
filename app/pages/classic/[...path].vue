@@ -10,7 +10,8 @@ useSeoMeta({
 
 const { t } = useI18n();
 
-const { itemToGuess, guessedItems, attempts } = storeToRefs(useGameStore());
+const { itemToGuess, guessedItems, attempts, isLoadingDaily } =
+  storeToRefs(useGameStore());
 const { classicInit, defaultAttempts } = useGameStore();
 
 const mode = useGameMode();
@@ -50,70 +51,73 @@ const tooltipMap = {
     v-if="mode === 'classic' || mode === 'classicUnlimited'"
     class="flex flex-col gap-4"
   >
-    <div v-if="itemToGuess[mode]" class="space-y-4">
-      <RemainingGuesses />
-      <UCard class="divide-y-0">
-        <template #header>
-          <p
-            class="text-primary-600 font-roboto dark:text-primary text-2xl font-bold uppercase"
-          >
-            {{ t("classic.title") }}
-          </p>
-          <p
-            v-if="attempts[mode] === defaultAttempts"
-            class="font-semibold uppercase"
-          >
-            {{ t("classic.subtitle") }}
-          </p>
-        </template>
-        <WarframeSearch v-if="!isGameOver" :items="warframeNames" />
-      </UCard>
-      <template v-if="guessedItems[mode].length">
-        <div class="space-y-4 overflow-x-auto md:overflow-x-visible">
-          <div
-            class="grid w-[160%] grid-cols-7 gap-1 border border-neutral-200 bg-white/75 py-0.5 text-sm uppercase md:-ml-[30%] md:text-base dark:border-neutral-800 dark:bg-neutral-900/75"
-          >
-            <UTooltip
-              v-for="label of feedbackLabels"
-              :key="label"
-              :disabled="label === 'name'"
-              :content="{
-                side: 'top',
-              }"
-              :delay-duration="0"
-              :ui="{
-                content: 'text-md rounded-none py-2 px-3',
-              }"
-              :text="tooltipMap[label as keyof typeof tooltipMap]"
+    <UiAppSpinner v-if="isLoadingDaily" />
+    <div v-else>
+      <div v-if="itemToGuess[mode]" class="space-y-4">
+        <RemainingGuesses />
+        <UCard class="divide-y-0">
+          <template #header>
+            <p
+              class="text-primary-600 font-roboto dark:text-primary text-2xl font-bold uppercase"
             >
-              <p
-                class="font-roboto self-center justify-self-center text-center font-medium"
+              {{ t("classic.title") }}
+            </p>
+            <p
+              v-if="attempts[mode] === defaultAttempts"
+              class="font-semibold uppercase"
+            >
+              {{ t("classic.subtitle") }}
+            </p>
+          </template>
+          <WarframeSearch v-if="!isGameOver" :items="warframeNames" />
+        </UCard>
+        <template v-if="guessedItems[mode].length">
+          <div class="space-y-4 overflow-x-auto md:overflow-x-visible">
+            <div
+              class="grid w-[160%] grid-cols-7 gap-1 border border-neutral-200 bg-white/75 py-0.5 text-sm uppercase md:-ml-[30%] md:text-base dark:border-neutral-800 dark:bg-neutral-900/75"
+            >
+              <UTooltip
+                v-for="label of feedbackLabels"
+                :key="label"
+                :disabled="label === 'name'"
+                :content="{
+                  side: 'top',
+                }"
+                :delay-duration="0"
+                :ui="{
+                  content: 'text-md rounded-none py-2 px-3',
+                }"
+                :text="tooltipMap[label as keyof typeof tooltipMap]"
               >
-                {{ label }}
-              </p>
-            </UTooltip>
+                <p
+                  class="font-roboto self-center justify-self-center text-center font-medium"
+                >
+                  {{ label }}
+                </p>
+              </UTooltip>
+            </div>
+            <div
+              class="grid w-[160%] grid-cols-7 gap-1 text-sm capitalize md:-ml-[30%] md:text-base"
+            >
+              <ClassicFeedbackRow
+                v-for="warframe of [...guessedItems[mode]].reverse()"
+                :key="warframe"
+                :guessed-warframe="getWarframe(warframe)"
+                :correct-warframe="getWarframe(itemToGuess[mode]!)"
+              />
+            </div>
           </div>
           <div
-            class="grid w-[160%] grid-cols-7 gap-1 text-sm capitalize md:-ml-[30%] md:text-base"
+            class="flex items-center justify-center gap-1 font-semibold text-neutral-800 md:hidden dark:text-neutral-400"
           >
-            <ClassicFeedbackRow
-              v-for="warframe of [...guessedItems[mode]].reverse()"
-              :key="warframe"
-              :guessed-warframe="getWarframe(warframe)"
-              :correct-warframe="getWarframe(itemToGuess[mode]!)"
-            />
+            <UIcon name="i-heroicons-arrow-long-left" class="size-5" />
+            {{ t("classic.scroll_hint") }}
+            <UIcon name="i-heroicons-arrow-long-right" class="size-5" />
           </div>
-        </div>
-        <div
-          class="flex items-center justify-center gap-1 font-semibold text-neutral-800 md:hidden dark:text-neutral-400"
-        >
-          <UIcon name="i-heroicons-arrow-long-left" class="size-5" />
-          {{ t("classic.scroll_hint") }}
-          <UIcon name="i-heroicons-arrow-long-right" class="size-5" />
-        </div>
-      </template>
-      <GameOver v-if="isGameOver" />
+        </template>
+        <GameOver v-if="isGameOver" />
+      </div>
+      <ModeUnavailable v-else />
     </div>
-    <ModeUnavailable v-else />
   </div>
 </template>

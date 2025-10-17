@@ -43,7 +43,8 @@ const revealedCells = computed(() => {
 
   const cellsToReveal = totalCells - attempts.value[mode.value];
 
-  return Math.max(0, cellsToReveal) + 1;
+  const calculatedRevealedCells = Math.max(0, cellsToReveal) + 1;
+  return Math.min(totalCells, calculatedRevealedCells);
 });
 
 const remainingCells = computed(() => totalCells - revealedCells.value);

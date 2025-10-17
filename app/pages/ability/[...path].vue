@@ -80,7 +80,10 @@ onUnmounted(() => {
           </UCard>
 
           <AbilityFeedbackArea v-if="!isGameOver" />
-          <GameOver v-if="isGameOver" />
+          <template v-else>
+            <GameOverNavigation v-if="!mode.includes('Unlimited')" />
+            <GameOver />
+          </template>
         </div>
         <ModeUnavailable v-else />
       </div>

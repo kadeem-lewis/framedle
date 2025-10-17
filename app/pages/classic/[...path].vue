@@ -115,7 +115,10 @@ const tooltipMap = {
             <UIcon name="i-heroicons-arrow-long-right" class="size-5" />
           </div>
         </template>
-        <GameOver v-if="isGameOver" />
+        <template v-if="isGameOver">
+          <GameOverNavigation v-if="!mode.includes('Unlimited')" />
+          <GameOver />
+        </template>
       </div>
       <ModeUnavailable v-else />
     </div>

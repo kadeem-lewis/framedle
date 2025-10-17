@@ -215,9 +215,13 @@ export const useGameStore = defineStore(
     const { proxy } = useScriptUmamiAnalytics();
 
     function resetGame() {
-      if (!mode.value) throw createError("Mode not set");
-      attempts.value[mode.value] = 6;
-      guessedItems.value[mode.value] = [];
+      if (
+        mode.value !== "classicUnlimited" &&
+        mode.value !== "abilityUnlimited"
+      )
+        throw createError("Mode not set");
+      unlimitedState.value.attempts[mode.value] = 6;
+      unlimitedState.value.guessedItems[mode.value] = [];
 
       proxy.track("started new game", { mode: mode.value });
 

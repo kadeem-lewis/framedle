@@ -9,9 +9,9 @@ export type UpdatedDaily = Daily & {
 
 export const useDailiesStore = defineStore("dailies", () => {
   const lastFetchedDate = useLocalStorage("lastFetchedDate", "");
-  const selectedArchiveMode = ref<GameMode>();
+  const currentDay = ref();
 
-  // maybe selectedDaily variable should also be here?
+  const selectedArchiveMode = ref<GameMode>();
 
   const pastDays = useObservable(
     from(selectedArchiveMode).pipe(
@@ -38,12 +38,16 @@ export const useDailiesStore = defineStore("dailies", () => {
       }>("/api/dailies", {
         params,
       });
-      await db.dailies.bulkAdd(convertDailyDataToEntries(data.dailies));
+      await db.dailies
+        .bulkAdd(convertDailyDataToEntries(data.dailies))
+        .catch((error) => {
+          if (!(error instanceof Dexie.BulkError)) {
+            throw error;
+          }
+        });
       lastFetchedDate.value = currentDate;
     } catch (error) {
-      if (!(error instanceof Dexie.ConstraintError)) {
-        console.error("Error fetching dailies:", error);
-      }
+      console.error("Error fetching dailies:", error);
     }
   }
 
@@ -80,6 +84,7 @@ export const useDailiesStore = defineStore("dailies", () => {
 
   return {
     pastDays,
+    currentDay,
     getDailies,
   };
 });

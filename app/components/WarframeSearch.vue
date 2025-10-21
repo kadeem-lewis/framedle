@@ -7,8 +7,8 @@ const props = defineProps<{
 
 const MAX_VISIBLE_ITEMS = 6 as const;
 
-const { attempts, guessedItems, selectedDaily, unlimitedState } =
-  storeToRefs(useGameStore());
+const { attempts, guessedItems, unlimitedState } = storeToRefs(useGameStore());
+const { currentDay } = storeToRefs(useDailiesStore());
 
 const mode = useGameMode();
 
@@ -62,7 +62,6 @@ const { gameState } = storeToRefs(useGameStateStore());
 const addGuess = async () => {
   if (!mode.value) throw createError("Mode is not set");
   if (!selectedWarframe.value) return;
-  if (!selectedDaily.value) return;
 
   if (mode.value === "classicUnlimited" || mode.value === "abilityUnlimited") {
     unlimitedState.value.attempts[mode.value] -= 1;
@@ -71,7 +70,7 @@ const addGuess = async () => {
     await db.dailies
       .where({
         mode: mode.value,
-        day: selectedDaily.value.day,
+        day: currentDay.value,
       })
       .modify({
         guessedItems: [

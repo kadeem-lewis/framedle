@@ -30,5 +30,5 @@ export const db = new Dexie("framedle") as Dexie & {
 };
 
 db.version(1).stores({
-  dailies: "&[day+mode], &[date+mode]",
+  dailies: "&[day+mode], &[date+mode], mode",
 });

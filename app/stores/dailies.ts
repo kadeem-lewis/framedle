@@ -1,7 +1,11 @@
 import { format } from "date-fns";
 import type { Daily } from "#shared/schemas/db";
 import { switchMap } from "rxjs";
-import { liveQuery } from "dexie";
+import Dexie, { liveQuery } from "dexie";
+
+export type UpdatedDaily = Daily & {
+  readableDate: string;
+};
 
 export const useDailiesStore = defineStore("dailies", () => {
   const lastFetchedDate = useLocalStorage("lastFetchedDate", "");
@@ -29,17 +33,21 @@ export const useDailiesStore = defineStore("dailies", () => {
     };
 
     try {
-      const dailies = await $fetch<Daily[]>("/api/dailies", {
+      const data = await $fetch<{
+        dailies: UpdatedDaily[];
+      }>("/api/dailies", {
         params,
       });
-      await db.dailies.bulkAdd(convertDailyDataToEntries(dailies));
+      await db.dailies.bulkAdd(convertDailyDataToEntries(data.dailies));
       lastFetchedDate.value = currentDate;
     } catch (error) {
-      console.error("Error fetching dailies:", error);
+      if (!(error instanceof Dexie.ConstraintError)) {
+        console.error("Error fetching dailies:", error);
+      }
     }
   }
 
-  function convertDailyDataToEntries(dailyData: Daily[]) {
+  function convertDailyDataToEntries(dailyData: UpdatedDaily[]) {
     const entries: DailyData[] = [];
     for (const daily of dailyData) {
       const ability = abilities.find(
@@ -49,6 +57,7 @@ export const useDailiesStore = defineStore("dailies", () => {
         {
           day: daily.day,
           date: daily.date,
+          readableDate: daily.readableDate,
           attempts: 0,
           guessedItems: [],
           mode: "classic",
@@ -57,6 +66,7 @@ export const useDailiesStore = defineStore("dailies", () => {
         {
           day: daily.day,
           date: daily.date,
+          readableDate: daily.readableDate,
           attempts: 0,
           guessedItems: [],
           mode: "ability",

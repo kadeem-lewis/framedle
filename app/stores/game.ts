@@ -1,5 +1,3 @@
-import { format } from "date-fns";
-import type { Daily } from "#shared/schemas/db";
 import { liveQuery } from "dexie";
 import { switchMap } from "rxjs";
 
@@ -28,10 +26,7 @@ export const useGameStore = defineStore(
 
     const router = useRouter();
 
-    const currentDailyDate = ref(format(new Date(), "yyyy-MM-dd"));
-
-    const selectedDaily = ref<Omit<Daily, "id"> | null>(null);
-    const currentDay = computed(() => selectedDaily.value?.day);
+    const { currentDay } = storeToRefs(useDailiesStore());
 
     const dailyClassicData = useObservable(
       from(currentDay).pipe(
@@ -131,85 +126,6 @@ export const useGameStore = defineStore(
       }
     }
 
-    const isLoadingDaily = ref(false);
-
-    async function getDaily(day?: number) {
-      isLoadingDaily.value = true;
-      let query: { day: number } | { date: string };
-
-      if (day) {
-        query = { day };
-      } else {
-        const todayDate = format(new Date(), "yyyy-MM-dd");
-        query = { date: todayDate };
-        currentDailyDate.value = todayDate;
-      }
-
-      try {
-        const existingDailies = await db.dailies.where(query).toArray();
-
-        const existingClassic = existingDailies.find(
-          (daily) => daily.mode === "classic",
-        ) as ClassicDailyData | undefined;
-        const existingAbility = existingDailies.find(
-          (daily) => daily.mode === "ability",
-        ) as AbilityDailyData | undefined;
-
-        if (existingClassic && existingAbility) {
-          selectedDaily.value = {
-            day: existingClassic.day,
-            date: existingClassic.date,
-            classicId: existingClassic.itemToGuess as WarframeName,
-            abilityId: existingAbility.itemToGuess.name,
-          };
-          return;
-        }
-        // fetch data from server if it's not in indexeddb
-        const { daily: data } = await $fetch<{
-          daily: Daily;
-        }>("/api/daily", {
-          query,
-        });
-
-        selectedDaily.value = data;
-        currentDailyDate.value = data.date;
-
-        await db.dailies
-          .bulkPut([
-            {
-              day: data.day,
-              itemToGuess: data.classicId as WarframeName,
-              mode: "classic",
-              date: data.date,
-              guessedItems: [],
-              attempts: defaultAttempts,
-            },
-            {
-              day: data.day,
-              itemToGuess: abilities.find(
-                (ability) => ability.name === data.abilityId,
-              ) as Ability,
-              mode: "ability",
-              date: data.date,
-              guessedItems: [],
-              attempts: defaultAttempts,
-              selectedMinigameAbility: "",
-            },
-          ])
-          .catch((e) => {
-            console.error("Failed to fetch or store daily", e);
-          });
-      } catch (error) {
-        throw createError({
-          statusCode: 500,
-          statusMessage: "Failed to fetch daily",
-          cause: error,
-        });
-      } finally {
-        isLoadingDaily.value = false;
-      }
-    }
-
     const mode = useGameMode();
 
     const { proxy } = useScriptUmamiAnalytics();
@@ -247,15 +163,11 @@ export const useGameStore = defineStore(
       itemToGuess,
       guessedItems,
       defaultAttempts,
-      currentDailyDate,
-      selectedDaily,
       selectedMinigameAbility,
       unlimitedState,
-      isLoadingDaily,
       version,
       classicInit,
       abilityInit,
-      getDaily,
       resetGame,
     };
   },

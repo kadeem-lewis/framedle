@@ -1,20 +1,39 @@
 import { format, parseISO } from "date-fns";
-import { asc, desc, lte } from "drizzle-orm";
+import { gt, lte } from "drizzle-orm";
+import { z } from "zod";
+
+const dailiesQuerySchema = z.object({
+  since: z.iso.date().optional(),
+  until: z.iso.date(),
+});
 
 export default defineEventHandler<{
-  query: { order: "OLDEST" | "NEWEST"; date: string };
+  query: z.infer<typeof dailiesQuerySchema>;
 }>(async (event) => {
-  const { order = "NEWEST", date } = getQuery(event);
+  const result = await getValidatedQuery(event, (body) =>
+    dailiesQuerySchema.safeParse(body),
+  );
 
-  const orderByClause =
-    order === "NEWEST" ? desc(tables.daily.date) : asc(tables.daily.date);
+  if (!result.success) {
+    throw createError({
+      statusCode: 400,
+      message: "Invalid query parameters",
+    });
+  }
+
+  const { since, until } = result.data;
+
+  const filterConditions = [lte(tables.daily.date, until)];
+
+  if (since) {
+    filterConditions.push(gt(tables.daily.date, since));
+  }
 
   try {
     const result = await useDrizzle()
       .select()
       .from(tables.daily)
-      .where(lte(tables.daily.date, date))
-      .orderBy(orderByClause);
+      .where(and(...filterConditions));
 
     if (result.length === 0) {
       throw createError({

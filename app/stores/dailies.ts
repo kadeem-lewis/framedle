@@ -13,6 +13,26 @@ export const useDailiesStore = defineStore("dailies", () => {
 
   const selectedArchiveMode = ref<GameMode>();
 
+  const currentDailyClassicData = useObservable(
+    from(currentDay).pipe(
+      switchMap((day) =>
+        from(
+          liveQuery(() => db.dailies.where({ mode: "classic", day }).first()),
+        ),
+      ),
+    ),
+  ) as Ref<ClassicDailyData | undefined>;
+
+  const currentDailyAbilityData = useObservable(
+    from(currentDay).pipe(
+      switchMap((day) =>
+        from(
+          liveQuery(() => db.dailies.where({ mode: "ability", day }).first()),
+        ),
+      ),
+    ),
+  ) as Ref<AbilityDailyData | undefined>;
+
   const pastDays = useObservable(
     from(selectedArchiveMode).pipe(
       switchMap((mode) =>
@@ -85,6 +105,9 @@ export const useDailiesStore = defineStore("dailies", () => {
   return {
     pastDays,
     currentDay,
+    selectedArchiveMode,
+    currentDailyClassicData,
+    currentDailyAbilityData,
     getDailies,
   };
 });

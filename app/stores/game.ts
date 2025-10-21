@@ -1,6 +1,3 @@
-import { liveQuery } from "dexie";
-import { switchMap } from "rxjs";
-
 export const useGameStore = defineStore(
   "game.v2",
   () => {
@@ -26,51 +23,32 @@ export const useGameStore = defineStore(
 
     const router = useRouter();
 
-    const { currentDay } = storeToRefs(useDailiesStore());
-
-    const dailyClassicData = useObservable(
-      from(currentDay).pipe(
-        switchMap((day) =>
-          from(
-            liveQuery(() => db.dailies.where({ mode: "classic", day }).first()),
-          ),
-        ),
-      ),
-    ) as Ref<ClassicDailyData | undefined>;
-
-    const dailyAbilityData = useObservable(
-      from(currentDay).pipe(
-        switchMap((day) =>
-          from(
-            liveQuery(() => db.dailies.where({ mode: "ability", day }).first()),
-          ),
-        ),
-      ),
-    ) as Ref<AbilityDailyData | undefined>;
+    const { currentDailyAbilityData, currentDailyClassicData } =
+      storeToRefs(useDailiesStore());
 
     const itemToGuess = computed(() => ({
-      classic: dailyClassicData.value?.itemToGuess ?? null,
+      classic: currentDailyClassicData.value?.itemToGuess ?? null,
       classicUnlimited: unlimitedState.value.itemToGuess.classicUnlimited,
-      ability: dailyAbilityData.value?.itemToGuess ?? null,
+      ability: currentDailyAbilityData.value?.itemToGuess ?? null,
       abilityUnlimited: unlimitedState.value.itemToGuess.abilityUnlimited,
     }));
 
     const attempts = computed(() => ({
-      classic: dailyClassicData.value?.attempts ?? defaultAttempts,
+      classic: currentDailyClassicData.value?.attempts ?? defaultAttempts,
       classicUnlimited: unlimitedState.value.attempts.classicUnlimited,
-      ability: dailyAbilityData.value?.attempts ?? defaultAttempts,
+      ability: currentDailyAbilityData.value?.attempts ?? defaultAttempts,
       abilityUnlimited: unlimitedState.value.attempts.abilityUnlimited,
     }));
 
     const guessedItems = computed(() => ({
-      classic: dailyClassicData.value?.guessedItems ?? [],
+      classic: currentDailyClassicData.value?.guessedItems ?? [],
       classicUnlimited: unlimitedState.value.guessedItems.classicUnlimited,
-      ability: dailyAbilityData.value?.guessedItems ?? [],
+      ability: currentDailyAbilityData.value?.guessedItems ?? [],
       abilityUnlimited: unlimitedState.value.guessedItems.abilityUnlimited,
     }));
 
     const selectedMinigameAbility = computed(() => ({
-      ability: dailyAbilityData.value?.selectedMinigameAbility ?? "",
+      ability: currentDailyAbilityData.value?.selectedMinigameAbility ?? "",
       abilityUnlimited:
         unlimitedState.value.selectedMinigameAbility.abilityUnlimited,
     }));

@@ -5,6 +5,7 @@ import type { GameStatusType } from "#imports";
 type DailyDataBase = {
   day: number;
   date: string;
+  readableDate: string;
   attempts: number;
   state?: GameStatusType;
   guessedItems: WarframeName[];

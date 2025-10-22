@@ -14,7 +14,14 @@ export const useDailiesStore = defineStore("dailies", () => {
     from(currentDay).pipe(
       switchMap((day) =>
         from(
-          liveQuery(() => db.dailies.where({ mode: "classic", day }).first()),
+          liveQuery(() =>
+            db.dailies
+              .where({
+                mode: "classic",
+                ...(day ? { day } : { date: format(new Date(), "yyyy-MM-dd") }),
+              })
+              .first(),
+          ),
         ),
       ),
     ),
@@ -24,11 +31,23 @@ export const useDailiesStore = defineStore("dailies", () => {
     from(currentDay).pipe(
       switchMap((day) =>
         from(
-          liveQuery(() => db.dailies.where({ mode: "ability", day }).first()),
+          liveQuery(() =>
+            db.dailies
+              .where({
+                mode: "ability",
+                ...(day ? { day } : { date: format(new Date(), "yyyy-MM-dd") }),
+              })
+              .first(),
+          ),
         ),
       ),
     ),
   ) as Ref<AbilityDailyData | undefined>;
+
+  const currentDailyDate = computed(() => {
+    //! this is a temporary change to allow the app to still work, eventually I think this tracker should be individual for each daily game
+    return currentDailyClassicData.value?.date || null;
+  });
 
   const route = useRoute("archive");
   const selectedArchiveMode = ref(
@@ -113,6 +132,7 @@ export const useDailiesStore = defineStore("dailies", () => {
     selectedArchiveMode,
     currentDailyClassicData,
     currentDailyAbilityData,
+    currentDailyDate,
     isLoadingDailies,
     getDailies,
   };

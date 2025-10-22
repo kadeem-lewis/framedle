@@ -29,10 +29,11 @@ export const useStatsStore = defineStore(
 
     type Stats = (typeof stats.value)[keyof typeof stats.value];
 
-    const { attempts, currentDailyDate } = storeToRefs(useGameStore());
+    const { attempts } = storeToRefs(useGameStore());
     const { defaultAttempts } = useGameStore();
 
     const { hasWon, isGameOver } = storeToRefs(useGameStateStore());
+    const { currentDailyDate } = storeToRefs(useDailiesStore());
     const mode = useGameMode();
 
     function resetStreak(mode: "classic" | "ability") {

@@ -152,7 +152,7 @@ export const useGameStore = defineStore(
   {
     persist: {
       storage: piniaPluginPersistedstate.localStorage(),
-      pick: ["unlimitedState", "currentDailyDate", "version"],
+      pick: ["unlimitedState", "version"],
     },
   },
 );

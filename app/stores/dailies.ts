@@ -8,10 +8,7 @@ export type UpdatedDaily = Daily & {
 };
 
 export const useDailiesStore = defineStore("dailies", () => {
-  const lastFetchedDate = useLocalStorage("lastFetchedDate", "");
   const currentDay = ref();
-
-  const selectedArchiveMode = ref<GameMode>();
 
   const currentDailyClassicData = useObservable(
     from(currentDay).pipe(
@@ -33,23 +30,29 @@ export const useDailiesStore = defineStore("dailies", () => {
     ),
   ) as Ref<AbilityDailyData | undefined>;
 
-  const pastDays = useObservable(
-    from(selectedArchiveMode).pipe(
-      switchMap((mode) =>
-        from(liveQuery(() => db.dailies.where({ mode }).toArray())),
-      ),
-    ),
+  const route = useRoute("archive");
+  const selectedArchiveMode = ref(
+    (route.query.mode as "classic" | "ability") || "classic",
   );
+
+  const pastDays = useLiveQuery(
+    () => db.dailies.where({ mode: selectedArchiveMode.value }).toArray(),
+    [selectedArchiveMode],
+  );
+
+  const isLoadingDailies = ref(false);
 
   async function getDailies() {
     const currentDate = format(new Date(), "yyyy-MM-dd");
-    if (lastFetchedDate.value === currentDate) return;
+    const latestDailyDate = await db.dailies.orderBy("date").last();
+    if (latestDailyDate?.date === currentDate) return;
+    isLoadingDailies.value = true;
     const params: {
       since?: string;
       until: string;
     } = {
       until: currentDate,
-      since: lastFetchedDate.value || undefined,
+      since: latestDailyDate?.date,
     };
 
     try {
@@ -58,6 +61,7 @@ export const useDailiesStore = defineStore("dailies", () => {
       }>("/api/dailies", {
         params,
       });
+
       await db.dailies
         .bulkAdd(convertDailyDataToEntries(data.dailies))
         .catch((error) => {
@@ -65,9 +69,10 @@ export const useDailiesStore = defineStore("dailies", () => {
             throw error;
           }
         });
-      lastFetchedDate.value = currentDate;
     } catch (error) {
       console.error("Error fetching dailies:", error);
+    } finally {
+      isLoadingDailies.value = false;
     }
   }
 
@@ -108,6 +113,7 @@ export const useDailiesStore = defineStore("dailies", () => {
     selectedArchiveMode,
     currentDailyClassicData,
     currentDailyAbilityData,
+    isLoadingDailies,
     getDailies,
   };
 });

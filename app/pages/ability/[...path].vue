@@ -10,11 +10,12 @@ useSeoMeta({
 
 const { t } = useI18n();
 
-const { itemToGuess, isLoadingDaily } = storeToRefs(useGameStore());
+const { itemToGuess } = storeToRefs(useGameStore());
 const { abilityInit } = useGameStore();
 const mode = useGameMode();
 const { isGameOver } = storeToRefs(useGameStateStore());
 const { resetStreak } = useStatsStore();
+const { isLoadingDailies } = storeToRefs(useDailiesStore());
 
 await callOnce("ability-setup", abilityInit, {
   mode: "navigation",
@@ -53,11 +54,15 @@ function handleImageLoaded(success: boolean) {
 onUnmounted(() => {
   clearTimeout(loadingTimeout);
 });
+
+const isLoading = computed(() => {
+  return showLoadingSpinner.value || isLoadingDailies.value;
+});
 </script>
 <template>
   <div>
-    <UiAppSpinner v-if="showLoadingSpinner || isLoadingDaily" />
-    <div v-show="!showLoadingSpinner && !isLoadingDaily">
+    <UiAppSpinner v-if="isLoading" />
+    <div v-show="!isLoading">
       <div v-if="mode" class="flex flex-col gap-4">
         <div v-if="itemToGuess[mode]" class="space-y-4">
           <RemainingGuesses />

@@ -10,9 +10,9 @@ useSeoMeta({
 
 const { t } = useI18n();
 
-const { itemToGuess, guessedItems, attempts, isLoadingDaily } =
-  storeToRefs(useGameStore());
+const { itemToGuess, guessedItems, attempts } = storeToRefs(useGameStore());
 const { classicInit, defaultAttempts } = useGameStore();
+const { isLoadingDailies } = storeToRefs(useDailiesStore());
 
 const mode = useGameMode();
 const { isGameOver } = storeToRefs(useGameStateStore());
@@ -51,7 +51,7 @@ const tooltipMap = {
     v-if="mode === 'classic' || mode === 'classicUnlimited'"
     class="flex flex-col gap-4"
   >
-    <UiAppSpinner v-if="isLoadingDaily" />
+    <UiAppSpinner v-if="isLoadingDailies" />
     <div v-else>
       <div v-if="itemToGuess[mode]" class="space-y-4">
         <RemainingGuesses />

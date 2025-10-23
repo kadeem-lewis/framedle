@@ -25,7 +25,14 @@ export const useDailiesStore = defineStore("dailies", () => {
         ),
       ),
     ),
+    {
+      initialValue: {
+        itemToGuess: null,
+      },
+    },
   ) as Ref<ClassicDailyData | undefined>;
+
+  const { updateDailyData } = useGameStore();
 
   const currentDailyAbilityData = useObservable(
     from(currentDay).pipe(
@@ -42,7 +49,25 @@ export const useDailiesStore = defineStore("dailies", () => {
         ),
       ),
     ),
+    {
+      initialValue: {
+        itemToGuess: null,
+      },
+    },
   ) as Ref<AbilityDailyData | undefined>;
+
+  watch(
+    [currentDailyClassicData, currentDailyAbilityData],
+    ([newClassicVal, newAbilityVal]) => {
+      // this technically works but it needs a lot of improvements
+      if (newClassicVal && newAbilityVal) {
+        updateDailyData({
+          ability: newAbilityVal,
+          classic: newClassicVal,
+        });
+      }
+    },
+  );
 
   const currentDailyDate = computed(() => {
     //! this is a temporary change to allow the app to still work, eventually I think this tracker should be individual for each daily game

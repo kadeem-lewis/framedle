@@ -1,22 +1,23 @@
 <script setup lang="ts">
 const mode = useGameMode();
-// Maybe I get a set of all the unique days from indexeddb and then use the selectedDay from pinia to see if next or previous exists
 
-// What if this is the user's first game? Their browser wouldn't have loaded any days into indexeddb yet
+const { getAdjacentArchiveDays } = useArchiveStore();
+const { currentDailyClassicData } = storeToRefs(useDailiesStore());
 
-const nextDay = computed(() => {
-  // I need to find to tell if the next day exists and if it does return the day
-  return true;
-});
-
-const previousDay = computed(() => {
-  // I need to find to tell if the previous day exists and if it does return the day
-  return true;
+const adjacentDays = computedAsync(async () => {
+  if (!currentDailyClassicData.value) {
+    return { previous: null, next: null };
+  }
+  return await getAdjacentArchiveDays(currentDailyClassicData.value.day);
 });
 </script>
 <template>
   <div class="flex items-center justify-center gap-2">
-    <UButton v-if="previousDay" variant="outline" icon="i-heroicons-arrow-left"
+    <UButton
+      v-if="adjacentDays?.previous"
+      :to="`${adjacentDays?.previous}`"
+      variant="outline"
+      icon="i-heroicons-arrow-left"
       >Previous Day</UButton
     >
     <UButton
@@ -29,7 +30,8 @@ const previousDay = computed(() => {
       >Past Days</UButton
     >
     <UButton
-      v-if="nextDay"
+      v-if="adjacentDays?.next"
+      :to="`${adjacentDays?.next}`"
       variant="outline"
       trailing
       icon="i-heroicons-arrow-right"

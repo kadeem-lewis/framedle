@@ -7,7 +7,7 @@ const { correctWarframe, correctAbility } = defineProps<{
   correctAbility: Ability;
 }>();
 
-const { selectedMinigameAbility, unlimitedState } = storeToRefs(useGameStore());
+const { selectedMinigameAbility } = storeToRefs(useGameStore());
 const { currentDay } = storeToRefs(useDailiesStore());
 const mode = useGameMode();
 
@@ -30,7 +30,7 @@ function handleAbilityClick(ability: string) {
   }
   if (mode.value === "abilityUnlimited") {
     if (selectedMinigameAbility.value.abilityUnlimited) return;
-    unlimitedState.value.selectedMinigameAbility.abilityUnlimited = ability;
+    selectedMinigameAbility.value.abilityUnlimited = ability;
   }
 }
 

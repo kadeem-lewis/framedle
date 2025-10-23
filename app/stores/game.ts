@@ -61,9 +61,7 @@ export const useGameStore = defineStore(
         }
       }
       if (!itemToGuess.value.classicUnlimited) {
-        itemToGuess.value.classicUnlimited =
-          warframeNames[Math.floor(Math.random() * warframeNames.length)] ??
-          null;
+        itemToGuess.value.classicUnlimited = getRandomWarframe();
       }
     }
 
@@ -83,9 +81,7 @@ export const useGameStore = defineStore(
         }
       }
       if (!itemToGuess.value.abilityUnlimited) {
-        itemToGuess.value.abilityUnlimited = abilities[
-          Math.floor(Math.random() * abilities.length)
-        ] as Ability;
+        itemToGuess.value.abilityUnlimited = getRandomAbility();
       }
     }
 
@@ -106,15 +102,11 @@ export const useGameStore = defineStore(
 
       if (mode.value === "classicUnlimited") {
         router.replace("/classic/unlimited");
-        itemToGuess.value.classicUnlimited =
-          warframeNames[Math.floor(Math.random() * warframeNames.length)] ??
-          null;
+        itemToGuess.value.classicUnlimited = getRandomWarframe();
       }
       if (mode.value === "abilityUnlimited") {
         router.replace("/ability/unlimited");
-        itemToGuess.value.abilityUnlimited = abilities[
-          Math.floor(Math.random() * abilities.length)
-        ] as Ability;
+        itemToGuess.value.abilityUnlimited = getRandomAbility();
         selectedMinigameAbility.value.abilityUnlimited = "";
       }
     }

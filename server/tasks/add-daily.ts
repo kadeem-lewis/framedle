@@ -1,5 +1,5 @@
 import { format, startOfTomorrow } from "date-fns";
-import { warframes } from "#shared/data/warframes";
+import { getRandomAbility, getRandomWarframe } from "#shared/utils/warframe";
 import { desc } from "drizzle-orm";
 import type { Daily } from "#shared/schemas/db";
 
@@ -9,21 +9,9 @@ export default defineTask({
     description: "Add a new daily entry",
   },
   async run() {
-    const classic =
-      Object.values(warframes)[
-        Math.floor(Math.random() * Object.keys(warframes).length)
-      ];
+    const classic = getRandomWarframe();
 
-    const abilities = Object.values(warframes)
-      .filter((warframe) => warframe.variant === "Standard")
-      .flatMap((warframe) =>
-        warframe.abilities.map((ability) => ({
-          ...ability,
-          belongsTo: warframe.name,
-        })),
-      );
-
-    const ability = abilities[Math.floor(Math.random() * abilities.length)];
+    const ability = getRandomAbility();
 
     let lastDaily: Daily | null = null;
 
@@ -47,7 +35,7 @@ export default defineTask({
       const newDaily = await useDrizzle()
         .insert(tables.daily)
         .values({
-          classicId: classic.name,
+          classicId: classic,
           abilityId: ability.name,
           date: format(startOfTomorrow(), "yyyy-MM-dd"),
           day: lastDaily?.day ? lastDaily.day + 1 : 1,

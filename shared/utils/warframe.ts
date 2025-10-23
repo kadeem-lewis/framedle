@@ -13,7 +13,6 @@ export const vanillaWarframes = warframeNames.filter(
   (name) => warframes[name].variant === "Standard",
 );
 
-//TODO: This needs to be moved somewhere where both frontend and backend can use it
 export const abilities = Object.values(warframes)
   .filter((warframe) => warframe.variant === "Standard")
   .flatMap((warframe) =>
@@ -25,4 +24,12 @@ export const abilities = Object.values(warframes)
 
 export const getWarframe = (warframe: WarframeName) => {
   return warframes[warframe];
+};
+
+export const getRandomWarframe = (): WarframeName => {
+  return warframeNames[Math.floor(Math.random() * warframeNames.length)]!;
+};
+
+export const getRandomAbility = (): Ability => {
+  return abilities[Math.floor(Math.random() * abilities.length)]!;
 };

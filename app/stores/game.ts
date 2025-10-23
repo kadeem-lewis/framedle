@@ -95,7 +95,7 @@ export const useGameStore = defineStore(
         mode.value !== "abilityUnlimited"
       )
         throw createError("Mode not set");
-      attempts.value[mode.value] = 6;
+      attempts.value[mode.value] = DEFAULT_ATTEMPTS;
       guessedItems.value[mode.value] = [];
 
       proxy.track("started new game", { mode: mode.value });

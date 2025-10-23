@@ -1,10 +1,9 @@
 <script setup lang="ts">
-import { startOfTomorrow } from "date-fns";
+import { format, startOfTomorrow } from "date-fns";
 import party from "party-js";
 import type { Ability } from "#shared/schemas/warframe";
 
-const { itemToGuess, guessedItems, attempts, selectedDaily } =
-  storeToRefs(useGameStore());
+const { itemToGuess, guessedItems, attempts } = storeToRefs(useGameStore());
 const { resetGame, defaultAttempts } = useGameStore();
 
 const mode = useGameMode();
@@ -90,6 +89,8 @@ watchEffect(() => {
   }
 });
 
+const { currentDay } = storeToRefs(useDailiesStore());
+
 watchEffect(async () => {
   if (!mode.value) return;
 
@@ -104,7 +105,9 @@ watchEffect(async () => {
     await db.dailies
       .where({
         mode: mode.value,
-        day: selectedDaily.value?.day,
+        ...(currentDay.value
+          ? { day: currentDay.value }
+          : { date: format(new Date(), "yyyy-MM-dd") }),
       })
       .modify({
         state: currentGameState.value,

@@ -1,13 +1,14 @@
 <script setup lang="ts">
 import type { Ability } from "#shared/schemas/warframe";
+import { format } from "date-fns";
 
 const { correctWarframe, correctAbility } = defineProps<{
   correctWarframe: Warframe;
   correctAbility: Ability;
 }>();
 
-const { selectedMinigameAbility, unlimitedState, selectedDaily } =
-  storeToRefs(useGameStore());
+const { selectedMinigameAbility } = storeToRefs(useGameStore());
+const { currentDay } = storeToRefs(useDailiesStore());
 const mode = useGameMode();
 
 function handleAbilityClick(ability: string) {
@@ -16,7 +17,9 @@ function handleAbilityClick(ability: string) {
     db.dailies
       .where({
         mode: "ability",
-        day: selectedDaily.value?.day,
+        ...(currentDay.value
+          ? { day: currentDay.value }
+          : { date: format(new Date(), "yyyy-MM-dd") }),
       })
       .modify({
         selectedMinigameAbility: ability,
@@ -27,7 +30,7 @@ function handleAbilityClick(ability: string) {
   }
   if (mode.value === "abilityUnlimited") {
     if (selectedMinigameAbility.value.abilityUnlimited) return;
-    unlimitedState.value.selectedMinigameAbility.abilityUnlimited = ability;
+    selectedMinigameAbility.value.abilityUnlimited = ability;
   }
 }
 

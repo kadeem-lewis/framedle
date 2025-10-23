@@ -1,7 +1,7 @@
 import { z } from "zod";
 
 const dateQuerySchema = z.object({
-  date: z.string().date(),
+  date: z.iso.date(),
 });
 
 const dayQuerySchema = z.object({

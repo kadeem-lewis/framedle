@@ -1,70 +1,59 @@
 <script setup lang="ts">
-import { format, subDays } from "date-fns";
 import Fuse from "fuse.js";
-import type { Daily } from "#shared/schemas/db";
 
 useSeoMeta({
   title: "Archive",
 });
 
-type UpdatedDaily = Daily & {
-  readableDate: string;
-};
-
 const { proxy } = useScriptUmamiAnalytics();
 
-const route = useRoute();
 const router = useRouter();
 
-const order = ref<"OLDEST" | "NEWEST">("NEWEST");
-const selectedMode = ref(route.query.mode || "classic");
+const { pastDays, selectedArchiveMode, randomPastDay } =
+  storeToRefs(useArchiveStore());
 
-const { data } = await useFetch("/api/dailies", {
-  key: "archive",
-  query: {
-    order,
-    date: format(subDays(new Date(), 1), "yyyy-MM-dd"),
-  },
-});
+const order = ref<"OLDEST" | "NEWEST">("NEWEST");
 
 watch(
-  () => selectedMode.value,
+  () => selectedArchiveMode.value,
   () => {
     router.replace({
       query: {
-        mode: selectedMode.value,
+        mode: selectedArchiveMode.value,
       },
     });
   },
   { immediate: true },
 );
 
-const filteredDailies = ref<UpdatedDaily[]>(data.value.dailies);
 const searchQuery = ref("");
 
-const fuse = new Fuse(data.value.dailies as UpdatedDaily[], {
-  keys: ["readableDate", "day"],
-  threshold: 0.4,
-});
+const fuse = computed(
+  () =>
+    new Fuse(pastDays.value ?? [], {
+      keys: ["readableDate", "day"],
+      threshold: 0.4,
+    }),
+);
 
-watch(data, (newData) => {
-  filteredDailies.value = newData.dailies;
-  fuse.setCollection(newData.dailies);
-});
+const filteredDailies = computed(() => {
+  const days = pastDays.value;
 
-watch(searchQuery, (newQuery) => {
-  if (newQuery === "") {
-    filteredDailies.value = data.value.dailies;
-  } else {
-    filteredDailies.value = fuse
-      .search(newQuery)
-      .map((result) => ({ ...result.item }));
+  if (!days || days.length === 0) {
+    return [];
   }
+
+  if (searchQuery.value === "") {
+    return days;
+  }
+
+  return fuse.value.search(searchQuery.value).map((result) => result.item);
 });
 </script>
 <template>
   <div class="flex flex-col gap-4">
     <p class="font-roboto text-xl font-bold uppercase">Archive</p>
+    <ArchiveGameStats />
     <div class="font-roboto flex gap-2">
       <!-- These aren't styled when highlighted -->
       <UButton
@@ -72,9 +61,9 @@ watch(searchQuery, (newQuery) => {
         class="hover:border-primary uppercase ring-neutral-800"
         :class="{
           'dark:border-primary border-b-2 border-neutral-800':
-            selectedMode === 'classic',
+            selectedArchiveMode === 'classic',
         }"
-        @click="selectedMode = 'classic'"
+        @click="selectedArchiveMode = 'classic'"
       >
         Classic
       </UButton>
@@ -83,9 +72,9 @@ watch(searchQuery, (newQuery) => {
         class="hover:border-primary uppercase ring-neutral-800"
         :class="{
           'dark:border-primary border-b-2 border-neutral-800':
-            selectedMode === 'ability',
+            selectedArchiveMode === 'ability',
         }"
-        @click="selectedMode = 'ability'"
+        @click="selectedArchiveMode = 'ability'"
       >
         Ability
       </UButton>
@@ -121,11 +110,11 @@ watch(searchQuery, (newQuery) => {
       <div class="grid h-full max-h-96 grid-cols-2 gap-4 overflow-y-auto">
         <div
           v-for="daily of filteredDailies"
-          :key="daily.id"
+          :key="daily.day"
           class="contents cursor-pointer odd:bg-neutral-700"
           @click="
             proxy.track('started archive game', { date: daily.date });
-            navigateTo(`/${selectedMode}/${daily.day}`);
+            navigateTo(`/${selectedArchiveMode}/${daily.day}`);
           "
         >
           <p>Framedle #{{ daily.day }}</p>
@@ -134,5 +123,12 @@ watch(searchQuery, (newQuery) => {
         </div>
       </div>
     </div>
+    <UButton
+      :to="`/${selectedArchiveMode}/${randomPastDay}`"
+      variant="outline"
+      icon="i-mdi-dice"
+      class="flex items-center justify-center uppercase"
+      >Random</UButton
+    >
   </div>
 </template>

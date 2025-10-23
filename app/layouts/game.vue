@@ -1,5 +1,5 @@
 <script setup lang="ts">
-const { getDaily } = useGameStore();
+const { currentDay } = storeToRefs(useDailiesStore());
 const route = useRoute();
 
 watch(
@@ -8,7 +8,7 @@ watch(
     if (route.name === "ability-path" || route.name === "classic-path") {
       const day = Number(route.params.path?.at(-1));
       if (!route.params.path || isValidDayNumber(day)) {
-        getDaily(day);
+        currentDay.value = day;
       }
     }
   },

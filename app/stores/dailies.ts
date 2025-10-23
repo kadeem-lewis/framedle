@@ -74,16 +74,6 @@ export const useDailiesStore = defineStore("dailies", () => {
     return currentDailyClassicData.value?.date || null;
   });
 
-  const route = useRoute("archive");
-  const selectedArchiveMode = ref(
-    (route.query.mode as "classic" | "ability") || "classic",
-  );
-
-  const pastDays = useLiveQuery(
-    () => db.dailies.where({ mode: selectedArchiveMode.value }).toArray(),
-    [selectedArchiveMode],
-  );
-
   const isLoadingDailies = ref(false);
 
   async function getDailies() {
@@ -153,9 +143,7 @@ export const useDailiesStore = defineStore("dailies", () => {
   }
 
   return {
-    pastDays,
     currentDay,
-    selectedArchiveMode,
     currentDailyClassicData,
     currentDailyAbilityData,
     currentDailyDate,

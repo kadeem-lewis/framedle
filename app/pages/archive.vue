@@ -9,7 +9,7 @@ const { proxy } = useScriptUmamiAnalytics();
 
 const router = useRouter();
 
-const { pastDays, selectedArchiveMode } = storeToRefs(useDailiesStore());
+const { pastDays, selectedArchiveMode } = storeToRefs(useArchiveStore());
 
 const order = ref<"OLDEST" | "NEWEST">("NEWEST");
 

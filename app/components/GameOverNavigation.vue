@@ -15,7 +15,7 @@ const adjacentDays = computedAsync(async () => {
   <div class="flex items-center justify-center gap-2">
     <UButton
       v-if="adjacentDays?.previous"
-      :to="`${adjacentDays?.previous}`"
+      :to="`/${mode}/${adjacentDays?.previous}`"
       variant="outline"
       icon="i-heroicons-arrow-left"
       >Previous Day</UButton
@@ -31,7 +31,7 @@ const adjacentDays = computedAsync(async () => {
     >
     <UButton
       v-if="adjacentDays?.next"
-      :to="`${adjacentDays?.next}`"
+      :to="`/${mode}/${adjacentDays?.next}`"
       variant="outline"
       trailing
       icon="i-heroicons-arrow-right"

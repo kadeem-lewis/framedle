@@ -34,6 +34,12 @@ export const useArchiveStore = defineStore(
       ).length;
     });
 
+    const randomPastDay = computed(() => {
+      if (!pastDays.value || pastDays.value.length === 0) return null;
+      const randomIndex = Math.floor(Math.random() * pastDays.value.length);
+      return randomIndex;
+    });
+
     const notStartedDaysCount = computed(() => {
       if (totalArchiveGames.value === 0) return 0;
       // "Played" is the sum of completed and in-progress games
@@ -66,6 +72,7 @@ export const useArchiveStore = defineStore(
       inProgressDaysCount,
       completedDaysCount,
       notStartedDaysCount,
+      randomPastDay,
       getAdjacentArchiveDays,
     };
   },

@@ -9,7 +9,8 @@ const { proxy } = useScriptUmamiAnalytics();
 
 const router = useRouter();
 
-const { pastDays, selectedArchiveMode } = storeToRefs(useArchiveStore());
+const { pastDays, selectedArchiveMode, randomPastDay } =
+  storeToRefs(useArchiveStore());
 
 const order = ref<"OLDEST" | "NEWEST">("NEWEST");
 
@@ -122,5 +123,12 @@ const filteredDailies = computed(() => {
         </div>
       </div>
     </div>
+    <UButton
+      :to="`/${selectedArchiveMode}/${randomPastDay}`"
+      variant="outline"
+      icon="i-mdi-dice"
+      class="flex items-center justify-center uppercase"
+      >Random</UButton
+    >
   </div>
 </template>

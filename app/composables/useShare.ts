@@ -16,7 +16,7 @@ export function useShare() {
   const emojiFeedback = ref<string[]>([]);
 
   const { guessedItems, itemToGuess, attempts } = storeToRefs(useGameStore());
-  const { defaultAttempts } = useGameStore();
+  const { DEFAULT_ATTEMPTS } = useGameStore();
   const { currentDay } = storeToRefs(useDailiesStore());
 
   const mode = useGameMode();
@@ -86,13 +86,13 @@ export function useShare() {
         ? emojiFeedback.value.join("\n")
         : emojiFeedback.value.join(" ");
 
-    const attemptsUsed = defaultAttempts - attempts.value[currentMode];
+    const attemptsUsed = DEFAULT_ATTEMPTS - attempts.value[currentMode];
 
     const topText = route.path.includes("unlimited")
       ? hasWon.value
-        ? `I solved a Framedle in ${attemptsUsed} out of ${defaultAttempts} turns.`
-        : `I couldn't solve this Framedle in ${defaultAttempts} turns.`
-      : `Framedle ${currentMode} #${currentDay.value} ${hasWon.value ? attemptsUsed : "X"}/${defaultAttempts}`;
+        ? `I solved a Framedle in ${attemptsUsed} out of ${DEFAULT_ATTEMPTS} turns.`
+        : `I couldn't solve this Framedle in ${DEFAULT_ATTEMPTS} turns.`
+      : `Framedle ${currentMode} #${currentDay.value} ${hasWon.value ? attemptsUsed : "X"}/${DEFAULT_ATTEMPTS}`;
 
     const grid = `
 ${topText}

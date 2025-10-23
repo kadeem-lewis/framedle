@@ -1,6 +1,6 @@
 <script setup lang="ts">
 const { attempts } = storeToRefs(useGameStore());
-const { defaultAttempts } = useGameStore();
+const { DEFAULT_ATTEMPTS } = useGameStore();
 
 const mode = useGameMode();
 </script>
@@ -8,7 +8,7 @@ const mode = useGameMode();
   <div v-if="mode">
     <div class="flex justify-end gap-1">
       <NuxtImg
-        v-for="index of defaultAttempts"
+        v-for="index of DEFAULT_ATTEMPTS"
         :key="index"
         format="webp"
         src="/warframe.png"

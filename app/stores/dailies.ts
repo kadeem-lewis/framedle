@@ -110,7 +110,7 @@ export const useDailiesStore = defineStore("dailies", () => {
     }
   }
 
-  const { defaultAttempts } = useGameStore();
+  const { DEFAULT_ATTEMPTS } = useGameStore();
   function convertDailyDataToEntries(dailyData: UpdatedDaily[]) {
     const entries: DailyData[] = [];
     for (const daily of dailyData) {
@@ -122,7 +122,7 @@ export const useDailiesStore = defineStore("dailies", () => {
           day: daily.day,
           date: daily.date,
           readableDate: daily.readableDate,
-          attempts: defaultAttempts,
+          attempts: DEFAULT_ATTEMPTS,
           guessedItems: [],
           mode: "classic",
           itemToGuess: daily.classicId as WarframeName,
@@ -131,7 +131,7 @@ export const useDailiesStore = defineStore("dailies", () => {
           day: daily.day,
           date: daily.date,
           readableDate: daily.readableDate,
-          attempts: defaultAttempts,
+          attempts: DEFAULT_ATTEMPTS,
           guessedItems: [],
           mode: "ability",
           itemToGuess: ability,

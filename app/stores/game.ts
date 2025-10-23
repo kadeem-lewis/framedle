@@ -1,7 +1,7 @@
 export const useGameStore = defineStore(
   "game.v2",
   () => {
-    const defaultAttempts = 6;
+    const DEFAULT_ATTEMPTS = 6;
 
     const router = useRouter();
 
@@ -13,10 +13,10 @@ export const useGameStore = defineStore(
     });
 
     const attempts = ref({
-      classic: defaultAttempts,
-      classicUnlimited: defaultAttempts,
-      ability: defaultAttempts,
-      abilityUnlimited: defaultAttempts,
+      classic: DEFAULT_ATTEMPTS,
+      classicUnlimited: DEFAULT_ATTEMPTS,
+      ability: DEFAULT_ATTEMPTS,
+      abilityUnlimited: DEFAULT_ATTEMPTS,
     });
 
     const guessedItems = ref({
@@ -57,7 +57,7 @@ export const useGameStore = defineStore(
         if (itemToGuess.value.classicUnlimited !== decodedWarframe.name) {
           itemToGuess.value.classicUnlimited = decodedWarframe.name;
           guessedItems.value.classicUnlimited = [];
-          attempts.value.classicUnlimited = defaultAttempts;
+          attempts.value.classicUnlimited = DEFAULT_ATTEMPTS;
         }
       }
       if (!itemToGuess.value.classicUnlimited) {
@@ -79,7 +79,7 @@ export const useGameStore = defineStore(
         if (itemToGuess.value.abilityUnlimited?.name !== decodedAbility.name) {
           itemToGuess.value.abilityUnlimited = decodedAbility;
           guessedItems.value.abilityUnlimited = [];
-          attempts.value.abilityUnlimited = defaultAttempts;
+          attempts.value.abilityUnlimited = DEFAULT_ATTEMPTS;
         }
       }
       if (!itemToGuess.value.abilityUnlimited) {
@@ -123,7 +123,7 @@ export const useGameStore = defineStore(
       attempts,
       itemToGuess,
       guessedItems,
-      defaultAttempts,
+      DEFAULT_ATTEMPTS,
       selectedMinigameAbility,
       updateDailyData,
       classicInit,

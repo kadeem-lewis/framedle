@@ -4,7 +4,7 @@ import party from "party-js";
 import type { Ability } from "#shared/schemas/warframe";
 
 const { itemToGuess, guessedItems, attempts } = storeToRefs(useGameStore());
-const { resetGame, defaultAttempts } = useGameStore();
+const { resetGame, DEFAULT_ATTEMPTS } = useGameStore();
 
 const mode = useGameMode();
 
@@ -162,7 +162,7 @@ watchEffect(async () => {
         <p>
           Number of tries:
           <span class="font-semibold">{{
-            defaultAttempts - attempts[mode]
+            DEFAULT_ATTEMPTS - attempts[mode]
           }}</span>
         </p>
         <UButton

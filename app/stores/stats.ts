@@ -30,7 +30,7 @@ export const useStatsStore = defineStore(
     type Stats = (typeof stats.value)[keyof typeof stats.value];
 
     const { attempts } = storeToRefs(useGameStore());
-    const { defaultAttempts } = useGameStore();
+    const { DEFAULT_ATTEMPTS } = useGameStore();
 
     const { hasWon, isGameOver } = storeToRefs(useGameStateStore());
     const { currentDailyDate } = storeToRefs(useDailiesStore());
@@ -71,7 +71,7 @@ export const useStatsStore = defineStore(
       }
 
       currentStats.wins++;
-      const attemptsUsed = defaultAttempts - attempts.value[mode.value];
+      const attemptsUsed = DEFAULT_ATTEMPTS - attempts.value[mode.value];
       // @ts-expect-error I need to figure out how to properly type this fixed length array to prevent such as error
       currentStats.guesses[attemptsUsed - 1]++;
 

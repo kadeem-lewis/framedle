@@ -4,7 +4,7 @@ import { warframes } from "#shared/data/warframes";
 
 const { t } = useI18n();
 
-const { defaultAttempts } = useGameStore();
+const { DEFAULT_ATTEMPTS } = useGameStore();
 
 const { $colorblindMode } = useNuxtApp();
 
@@ -22,7 +22,7 @@ const error = computed(() => ($colorblindMode.value ? "Orange" : "Red"));
     </span>
   </div>
   <div v-if="$route.name === 'classic-path'" class="space-y-2">
-    <p>Guess the Warframe in {{ defaultAttempts }} tries</p>
+    <p>Guess the Warframe in {{ DEFAULT_ATTEMPTS }} tries</p>
     <p>
       {{ t("instructions.classic.subtitle") }}
     </p>
@@ -154,7 +154,7 @@ const error = computed(() => ($colorblindMode.value ? "Orange" : "Red"));
 
   <div v-if="$route.name === 'ability-path'" class="space-y-4">
     <p>
-      Guess the Warframe the ability belongs to in {{ defaultAttempts }} tries
+      Guess the Warframe the ability belongs to in {{ DEFAULT_ATTEMPTS }} tries
     </p>
     <p>{{ t("instructions.ability.subtitle") }}</p>
     <p>

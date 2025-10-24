@@ -7,8 +7,7 @@ const props = defineProps<{
 
 const MAX_VISIBLE_ITEMS = 6 as const;
 
-const { attempts, guessedItems } = storeToRefs(useGameStore());
-const { currentDay, currentDailyClassicData } = storeToRefs(useDailiesStore());
+const { guessedItems } = storeToRefs(useGameStore());
 
 const mode = useGameMode();
 
@@ -65,49 +64,18 @@ watch(query, (newQuery) => {
   }
 });
 
-const { gameState } = storeToRefs(useGameStateStore());
+const { makeGuess } = useGuess();
 
-const addGuess = async () => {
+const handleSubmit = async () => {
   if (!mode.value) throw createError("Mode is not set");
   if (!selectedWarframe.value) return;
 
-  if (mode.value === "classicUnlimited" || mode.value === "abilityUnlimited") {
-    attempts.value[mode.value] -= 1;
-    guessedItems.value[mode.value].push(selectedWarframe.value);
-  } else if (mode.value === "classic" || mode.value === "ability") {
-    await db.dailies
-      .where({
-        mode: mode.value,
-        day: currentDay.value || currentDailyClassicData.value?.day, //TODO: Please fix
-      })
-      .modify({
-        guessedItems: [
-          ...guessedItems.value[mode.value],
-          selectedWarframe.value,
-        ],
-        attempts: attempts.value[mode.value] - 1,
-        state: gameState.value[mode.value],
-      })
-      .catch((e) => {
-        console.log({
-          mode: mode.value,
-          day: currentDay.value,
-          guessedItems: [
-            ...guessedItems.value[mode.value!],
-            selectedWarframe.value,
-          ],
-          attempts: attempts.value[mode.value!] - 1,
-          state: gameState.value[mode.value!],
-        });
-
-        console.error("Failed to add new guess", e);
-      });
-  }
+  await makeGuess(selectedWarframe.value, mode.value);
   selectedWarframe.value = undefined;
 };
 </script>
 <template>
-  <form class="flex gap-2" @submit.prevent="addGuess">
+  <form class="flex gap-2" @submit.prevent="handleSubmit">
     <UInputMenu
       v-model="selectedWarframe"
       v-model:search-term="query"

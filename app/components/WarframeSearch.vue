@@ -45,6 +45,14 @@ const filteredItems = computed(() =>
 const isOpen = ref(false);
 
 watch(query, (newQuery) => {
+  if (
+    selectedWarframe.value &&
+    selectedWarframe.value.toLowerCase() === newQuery.toLowerCase()
+  ) {
+    isOpen.value = false;
+    return;
+  }
+
   isOpen.value = newQuery.length > 0 && fullSearchResults.value.length > 0;
 
   if (isOpen.value) {

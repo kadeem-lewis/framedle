@@ -2,12 +2,14 @@ export function useShare() {
   const emojis: {
     incorrect: string;
     correct: string;
+    partial: string;
     lower: string;
     higher: string;
     unused: string;
   } = {
     incorrect: "🟥",
     correct: "🟩",
+    partial: "🟨",
     lower: "🔽",
     higher: "🔼",
     unused: "◻️",
@@ -26,6 +28,7 @@ export function useShare() {
 
   const route = useRoute();
   const { copy, copied } = useClipboard();
+  const { checkGuess } = useGuess();
 
   function generateClassicEmojiFeedback(
     correctItem: Warframe,

@@ -1,3 +1,5 @@
+export type Result = "correct" | "incorrect" | "partial" | "higher" | "lower";
+
 export function useGuess() {
   const { attempts, guessedItems } = storeToRefs(useGameStore());
   const { currentDay, currentDailyClassicData } =
@@ -41,11 +43,23 @@ export function useGuess() {
     }
   }
 
-  // This needs to be updated to have a partial state
   function checkGuess(
-    correctValue: string | number,
-    guessedValue: string | number,
-  ) {
+    correctValue: string | number | string[],
+    guessedValue: string | number | string[],
+  ): Result {
+    if (Array.isArray(correctValue) && Array.isArray(guessedValue)) {
+      if (
+        correctValue.every((val) => guessedValue.includes(val)) &&
+        correctValue.length === guessedValue.length
+      ) {
+        return "correct";
+      }
+      if (correctValue.some((val) => guessedValue.includes(val))) {
+        return "partial";
+      }
+      return "incorrect";
+    }
+
     if (typeof correctValue === "string" || typeof guessedValue === "string") {
       return correctValue === guessedValue ? "correct" : "incorrect";
     }

@@ -1,12 +1,12 @@
 <script setup lang="ts">
 const {
   fieldLabel,
-  fieldValue,
+  fieldValue = "",
   tooltipDisabled = false,
   variant = "neutral",
 } = defineProps<{
   fieldLabel: string;
-  fieldValue?: string | number;
+  fieldValue?: string | number | string[];
   tooltipDisabled?: boolean;
   variant?: Result;
 }>();
@@ -15,6 +15,8 @@ const tooltipText = computed(() => {
   if (fieldLabel === "Warframe") return `${fieldValue}`;
   if (variant === "correct") {
     return `Correct ${fieldLabel} (${fieldValue})`;
+  } else if (variant === "partial") {
+    return `Partially Correct ${fieldLabel}`;
   } else {
     return `Incorrect ${fieldLabel} (${fieldValue})`;
   }
@@ -28,6 +30,8 @@ const tooltipStyles = computed(() => {
     return {
       content: `${baseStyles} bg-success`,
     };
+  } else if (variant === "partial") {
+    return { content: `${baseStyles} bg-yellow-500` };
   } else if (variant === "neutral") {
     return { content: `${baseStyles}` };
   }
@@ -53,6 +57,8 @@ const tooltipStyles = computed(() => {
             variant === 'neutral',
           'border-border-success bg-success hover:shadow-inner hover:brightness-110':
             variant === 'correct',
+          'border-yellow-500 bg-yellow-500/75 hover:shadow-inner hover:brightness-110':
+            variant === 'partial',
           'border-border-error bg-error hover:shadow-inner hover:brightness-110':
             variant !== 'correct' && variant !== 'neutral',
           'arrow-up': variant === 'higher',

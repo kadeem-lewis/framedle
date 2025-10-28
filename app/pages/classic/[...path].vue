@@ -11,7 +11,7 @@ useSeoMeta({
 const { t } = useI18n();
 
 const { itemToGuess, guessedItems, attempts } = storeToRefs(useGameStore());
-const { classicInit, defaultAttempts } = useGameStore();
+const { classicInit, DEFAULT_ATTEMPTS } = useGameStore();
 const { isLoadingDailies } = storeToRefs(useDailiesStore());
 
 const mode = useGameMode();
@@ -63,7 +63,7 @@ const tooltipMap = {
               {{ t("classic.title") }}
             </p>
             <p
-              v-if="attempts[mode] === defaultAttempts"
+              v-if="attempts[mode] === DEFAULT_ATTEMPTS"
               class="font-semibold uppercase"
             >
               {{ t("classic.subtitle") }}

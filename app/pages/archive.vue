@@ -8,9 +8,12 @@ useSeoMeta({
 const { proxy } = useScriptUmamiAnalytics();
 
 const router = useRouter();
+const route = useRoute("archive");
 
 const { pastDays, selectedArchiveMode, randomPastDay } =
   storeToRefs(useArchiveStore());
+selectedArchiveMode.value =
+  (route.query.mode as "classic" | "ability") || "classic";
 
 const order = ref<"OLDEST" | "NEWEST">("NEWEST");
 

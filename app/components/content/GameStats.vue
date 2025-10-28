@@ -3,7 +3,7 @@ import type { ApexOptions } from "apexcharts";
 
 const route = useRoute();
 const { stats } = storeToRefs(useStatsStore());
-const { defaultAttempts } = useGameStore();
+const { DEFAULT_ATTEMPTS } = useGameStore();
 
 const modeStats = computed(() => {
   if (route.name === "ability-path") {
@@ -36,7 +36,7 @@ const chartOptions: ApexOptions = {
     },
   },
   xaxis: {
-    categories: Array.from({ length: defaultAttempts }, (_, i) => i + 1),
+    categories: Array.from({ length: DEFAULT_ATTEMPTS }, (_, i) => i + 1),
     labels: {
       show: false,
     },

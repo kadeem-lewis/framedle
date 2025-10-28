@@ -1,7 +1,7 @@
 export const useGameStore = defineStore(
   "game.v2",
   () => {
-    const defaultAttempts = 6;
+    const DEFAULT_ATTEMPTS = 6;
 
     const router = useRouter();
 
@@ -13,10 +13,10 @@ export const useGameStore = defineStore(
     });
 
     const attempts = ref({
-      classic: defaultAttempts,
-      classicUnlimited: defaultAttempts,
-      ability: defaultAttempts,
-      abilityUnlimited: defaultAttempts,
+      classic: DEFAULT_ATTEMPTS,
+      classicUnlimited: DEFAULT_ATTEMPTS,
+      ability: DEFAULT_ATTEMPTS,
+      abilityUnlimited: DEFAULT_ATTEMPTS,
     });
 
     const guessedItems = ref({
@@ -57,13 +57,11 @@ export const useGameStore = defineStore(
         if (itemToGuess.value.classicUnlimited !== decodedWarframe.name) {
           itemToGuess.value.classicUnlimited = decodedWarframe.name;
           guessedItems.value.classicUnlimited = [];
-          attempts.value.classicUnlimited = defaultAttempts;
+          attempts.value.classicUnlimited = DEFAULT_ATTEMPTS;
         }
       }
       if (!itemToGuess.value.classicUnlimited) {
-        itemToGuess.value.classicUnlimited =
-          warframeNames[Math.floor(Math.random() * warframeNames.length)] ??
-          null;
+        itemToGuess.value.classicUnlimited = getRandomWarframe();
       }
     }
 
@@ -79,13 +77,11 @@ export const useGameStore = defineStore(
         if (itemToGuess.value.abilityUnlimited?.name !== decodedAbility.name) {
           itemToGuess.value.abilityUnlimited = decodedAbility;
           guessedItems.value.abilityUnlimited = [];
-          attempts.value.abilityUnlimited = defaultAttempts;
+          attempts.value.abilityUnlimited = DEFAULT_ATTEMPTS;
         }
       }
       if (!itemToGuess.value.abilityUnlimited) {
-        itemToGuess.value.abilityUnlimited = abilities[
-          Math.floor(Math.random() * abilities.length)
-        ] as Ability;
+        itemToGuess.value.abilityUnlimited = getRandomAbility();
       }
     }
 
@@ -99,22 +95,18 @@ export const useGameStore = defineStore(
         mode.value !== "abilityUnlimited"
       )
         throw createError("Mode not set");
-      attempts.value[mode.value] = 6;
+      attempts.value[mode.value] = DEFAULT_ATTEMPTS;
       guessedItems.value[mode.value] = [];
 
       proxy.track("started new game", { mode: mode.value });
 
       if (mode.value === "classicUnlimited") {
         router.replace("/classic/unlimited");
-        itemToGuess.value.classicUnlimited =
-          warframeNames[Math.floor(Math.random() * warframeNames.length)] ??
-          null;
+        itemToGuess.value.classicUnlimited = getRandomWarframe();
       }
       if (mode.value === "abilityUnlimited") {
         router.replace("/ability/unlimited");
-        itemToGuess.value.abilityUnlimited = abilities[
-          Math.floor(Math.random() * abilities.length)
-        ] as Ability;
+        itemToGuess.value.abilityUnlimited = getRandomAbility();
         selectedMinigameAbility.value.abilityUnlimited = "";
       }
     }
@@ -123,7 +115,7 @@ export const useGameStore = defineStore(
       attempts,
       itemToGuess,
       guessedItems,
-      defaultAttempts,
+      DEFAULT_ATTEMPTS,
       selectedMinigameAbility,
       updateDailyData,
       classicInit,

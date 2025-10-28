@@ -1,6 +1,7 @@
 <script setup lang="ts">
 const { guessedItems, itemToGuess } = storeToRefs(useGameStore());
 const mode = useGameMode();
+const { checkGuess } = useGuess();
 </script>
 <template>
   <div

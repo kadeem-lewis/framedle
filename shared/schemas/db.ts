@@ -1,13 +1,26 @@
-import { pgTable, text, integer, date, serial } from "drizzle-orm/pg-core";
+import {
+  pgTable,
+  text,
+  integer,
+  date,
+  jsonb,
+  uniqueIndex,
+  primaryKey,
+} from "drizzle-orm/pg-core";
 
-export const daily = pgTable("daily", {
-  id: serial("id").primaryKey(),
-  date: date("date").notNull().unique(),
-  day: integer("day").notNull().unique(),
-  classicId: text("classicId").notNull(),
-  abilityId: text("abilityId").notNull(),
-});
+export const daily = pgTable(
+  "daily",
+  {
+    date: date("date").notNull(),
+    readableDate: text("readableDate").notNull(),
+    day: integer("day").notNull(),
+    mode: text("mode").notNull(),
+    puzzle: jsonb("puzzle").notNull(),
+  },
+  (table) => [
+    primaryKey({ columns: [table.day, table.mode] }),
+    uniqueIndex("unique_date_mode").on(table.date, table.mode),
+  ],
+);
 
 export type Daily = typeof daily.$inferSelect;
-
-//TODO: consider adding totalGuesses and average attempts to daily table in the future

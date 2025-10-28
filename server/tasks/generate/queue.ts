@@ -6,13 +6,21 @@ export default defineTask({
     name: "generate:queue",
     description: "Generate the warframe data used in app",
   },
-  async run() {
+  async run({ payload }) {
     try {
+      const currentWarframeNames =
+        (payload?.warframeNames as WarframeName[]) || warframeNames;
       const updatedWarframeQueue = await processQueue(
         "warframe",
-        warframeNames,
+        currentWarframeNames,
       );
-      const updatedAbilityQueue = await processQueue("ability", abilityNames);
+
+      const currentAbilityNames =
+        (payload?.abilityNames as string[]) || abilityNames;
+      const updatedAbilityQueue = await processQueue(
+        "ability",
+        currentAbilityNames,
+      );
 
       await Promise.all([
         fs.writeFile(

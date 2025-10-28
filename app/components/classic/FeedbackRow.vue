@@ -3,6 +3,7 @@ defineProps<{
   guessedWarframe: Warframe;
   correctWarframe: Warframe;
 }>();
+const { checkGuess } = useGuess();
 </script>
 <template>
   <div class="contents">
@@ -61,6 +62,18 @@ defineProps<{
           preload
         />
       </div>
+    </UiFeedbackTile>
+    <UiFeedbackTile
+      :variant="
+        checkGuess(
+          [...correctWarframe.playstyle],
+          [...guessedWarframe.playstyle],
+        )
+      "
+      field-label="Playstyle"
+      :field-value="[...guessedWarframe.playstyle]"
+    >
+      {{ [...guessedWarframe.playstyle].join(", ") }}
     </UiFeedbackTile>
     <UiFeedbackTile
       :variant="

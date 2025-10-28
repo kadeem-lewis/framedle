@@ -126,3 +126,37 @@ export async function processQueue(
   console.log(`👍 '${name}' queue is up to date.`);
   return existingQueue;
 }
+
+export async function getNextFromQueue(
+  name: "warframe" | "ability",
+): Promise<string> {
+  const filePath = `./server/data/${name}-queue.json`;
+
+  // 1. READ
+  const fileContent = await fs.readFile(filePath, "utf-8");
+  const queueData: QueueFile = JSON.parse(fileContent);
+
+  // 2. FIND NEXT
+  const nextItem = queueData.queue.find((item) => !item.used);
+
+  if (!nextItem) {
+    // This is a critical error. The generate:warframes task should have reset the queue.
+    throw new Error(
+      `CRITICAL: No available items in the '${name}' queue. Please run the data generation task.`,
+    );
+  }
+
+  // 3. MODIFY
+  const nextItemIndex = queueData.queue.findIndex(
+    (item) => item.key === nextItem.key,
+  );
+  if (nextItemIndex > -1) {
+    queueData.queue[nextItemIndex].used = true;
+    queueData.queue[nextItemIndex].usedAt = new Date().toISOString();
+  }
+
+  // 4. WRITE
+  await fs.writeFile(filePath, JSON.stringify(queueData, null, 2));
+
+  return nextItem.key;
+}

@@ -22,6 +22,8 @@ export const abilities = Object.values(warframes)
     })),
   );
 
+export const abilityNames = abilities.map((ability) => ability.name);
+
 export const getWarframe = (warframe: WarframeName) => {
   return warframes[warframe];
 };

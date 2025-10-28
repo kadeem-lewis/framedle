@@ -8,6 +8,13 @@
       "when": 1740382963861,
       "tag": "0000_thankful_nehzno",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1761692392847,
+      "tag": "0001_pale_warpath",
+      "breakpoints": true
     }
   ]
 }

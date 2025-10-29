@@ -14,7 +14,7 @@ const mode = useGameMode();
 function handleAbilityClick(ability: string) {
   if (mode.value === "ability") {
     if (selectedMinigameAbility.value.ability) return;
-    db.dailies
+    db.progress
       .where({
         mode: "ability",
         ...(currentDay.value

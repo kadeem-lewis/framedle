@@ -19,7 +19,7 @@ export function useGuess() {
       attempts.value[currentMode] -= 1;
       guessedItems.value[currentMode].push(warframe);
     } else if (currentMode === "classic" || currentMode === "ability") {
-      await db.dailies
+      await db.progress
         .where({
           mode: currentMode,
           day: currentDay.value || currentDailyClassicData.value?.day, //TODO: Please fix

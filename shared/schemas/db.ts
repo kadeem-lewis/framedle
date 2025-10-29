@@ -9,7 +9,7 @@ import {
   pgEnum,
 } from "drizzle-orm/pg-core";
 
-const modeEnum = pgEnum("mode_enum", ["classic", "ability", "grid"]);
+export const modeEnum = pgEnum("mode_enum", ["classic", "ability", "grid"]);
 
 export const daily = pgTable(
   "daily",
@@ -28,7 +28,7 @@ export const daily = pgTable(
 
 export type Daily = typeof daily.$inferSelect;
 
-const queueModeEnum = pgEnum("queue_mode_enum", ["warframe", "ability"]);
+export const queueModeEnum = pgEnum("queue_mode_enum", ["warframe", "ability"]);
 
 export const queue = pgTable("queue", {
   name: queueModeEnum("name").primaryKey(),

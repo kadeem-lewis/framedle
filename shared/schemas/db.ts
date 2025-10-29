@@ -24,3 +24,11 @@ export const daily = pgTable(
 );
 
 export type Daily = typeof daily.$inferSelect;
+
+export const queue = pgTable("queue", {
+  name: text("name").notNull().primaryKey(),
+  data: jsonb("data").$type<DailyQueue>().notNull(),
+  updatedAt: date("updatedAt").defaultNow().notNull(),
+});
+
+export type DatabaseQueue = typeof queue.$inferSelect;

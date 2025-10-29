@@ -28,7 +28,7 @@ export const daily = pgTable(
 
 export type Daily = typeof daily.$inferSelect;
 
-const queueModeEnum = pgEnum("queue_mode_enum", ["classic", "ability"]);
+const queueModeEnum = pgEnum("queue_mode_enum", ["warframe", "ability"]);
 
 export const queue = pgTable("queue", {
   name: queueModeEnum("name").primaryKey(),

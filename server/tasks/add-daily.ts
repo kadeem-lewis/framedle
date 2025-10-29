@@ -30,10 +30,11 @@ export default defineTask({
       const date = format(startOfTomorrow(), "yyyy-MM-dd");
       const readableDate = format(startOfTomorrow(), "PPP");
 
-      const puzzlesToCreate = [
-        { mode: "classic", answer: classicPuzzle },
-        { mode: "ability", answer: abilityPuzzle },
-      ];
+      const puzzlesToCreate: { mode: "classic" | "ability"; answer: string }[] =
+        [
+          { mode: "classic", answer: classicPuzzle },
+          { mode: "ability", answer: abilityPuzzle },
+        ];
 
       const valuesToInsert = puzzlesToCreate.map(({ mode, answer }) => {
         // Get the last day for this specific mode, defaulting to 0 if it's a new mode

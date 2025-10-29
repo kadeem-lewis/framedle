@@ -1,4 +1,3 @@
-import { format, parseISO } from "date-fns";
 import { gt, lte } from "drizzle-orm";
 import { z } from "zod";
 
@@ -43,10 +42,7 @@ export default defineEventHandler<{
     }
     return {
       status: 200,
-      dailies: result.map((daily) => ({
-        ...daily,
-        readableDate: format(parseISO(daily.date), "PPP"),
-      })),
+      dailies: result,
     };
   } catch (error) {
     throw createError({

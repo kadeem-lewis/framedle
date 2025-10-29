@@ -15,6 +15,13 @@
       "when": 1761692392847,
       "tag": "0001_pale_warpath",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1761723571761,
+      "tag": "0002_colossal_makkari",
+      "breakpoints": true
     }
   ]
 }

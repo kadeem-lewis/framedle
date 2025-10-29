@@ -6,7 +6,10 @@ import {
   jsonb,
   uniqueIndex,
   primaryKey,
+  pgEnum,
 } from "drizzle-orm/pg-core";
+
+const modeEnum = pgEnum("mode_enum", ["classic", "ability", "grid"]);
 
 export const daily = pgTable(
   "daily",
@@ -14,7 +17,7 @@ export const daily = pgTable(
     date: date("date").notNull(),
     readableDate: text("readableDate").notNull(),
     day: integer("day").notNull(),
-    mode: text("mode").notNull(),
+    mode: modeEnum("mode").notNull(),
     puzzle: jsonb("puzzle").notNull(),
   },
   (table) => [
@@ -25,8 +28,10 @@ export const daily = pgTable(
 
 export type Daily = typeof daily.$inferSelect;
 
+const queueModeEnum = pgEnum("queue_mode_enum", ["classic", "ability"]);
+
 export const queue = pgTable("queue", {
-  name: text("name").notNull().primaryKey(),
+  name: queueModeEnum("name").primaryKey(),
   data: jsonb("data").$type<DailyQueue>().notNull(),
   updatedAt: date("updatedAt").defaultNow().notNull(),
 });

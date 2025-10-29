@@ -7,7 +7,7 @@ type QueueItem = {
   usedAt: string | null;
 };
 
-type QueueFile = {
+export type DailyQueue = {
   length: number;
   cycleNumber: number;
   queue: QueueItem[];
@@ -43,12 +43,13 @@ export function createNewQueue(
 export async function processQueue(
   name: "warframe" | "ability",
   sourceKeys: string[],
-): Promise<QueueFile> {
+): Promise<DailyQueue> {
   const filePath = `./server/data/${name}-queue.json`;
-  let existingQueue: QueueFile | null = null;
+  let existingQueue: DailyQueue | null = null;
 
   try {
     const fileContent = await fs.readFile(filePath, "utf-8");
+    
     existingQueue = JSON.parse(fileContent);
   } catch (error) {
     // **SCENARIO 1: INITIALIZATION**
@@ -134,7 +135,7 @@ export async function getNextFromQueue(
 
   // 1. READ
   const fileContent = await fs.readFile(filePath, "utf-8");
-  const queueData: QueueFile = JSON.parse(fileContent);
+  const queueData: DailyQueue = JSON.parse(fileContent);
 
   // 2. FIND NEXT
   const nextItem = queueData.queue.find((item) => !item.used);

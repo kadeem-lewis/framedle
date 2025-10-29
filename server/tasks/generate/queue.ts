@@ -1,4 +1,4 @@
-import { promises as fs } from "fs";
+import { format } from "date-fns";
 import { processQueue } from "~~/server/utils/queue";
 
 export default defineTask({
@@ -22,16 +22,25 @@ export default defineTask({
         currentAbilityNames,
       );
 
-      await Promise.all([
-        fs.writeFile(
-          "./server/data/warframe-queue.json",
-          JSON.stringify(updatedWarframeQueue, null, 2),
-        ),
-        fs.writeFile(
-          "./server/data/ability-queue.json",
-          JSON.stringify(updatedAbilityQueue, null, 2),
-        ),
-      ]);
+      await useDrizzle()
+        .insert(tables.queue)
+        .values([
+          {
+            name: "warframe",
+            data: updatedWarframeQueue,
+          },
+          {
+            name: "ability",
+            data: updatedAbilityQueue,
+          },
+        ])
+        .onConflictDoUpdate({
+          target: tables.queue.name,
+          set: {
+            data: sql.raw(`excluded.data`),
+            updatedAt: format(new Date(), "yyyy-MM-dd"),
+          },
+        });
 
       console.log("✅ Queue generation complete.");
       return { result: "Success" };

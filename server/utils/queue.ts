@@ -51,14 +51,13 @@ export async function processQueue(
 
   const existingQueue: DailyQueue | null =
     result.length > 0 ? result[0].data : null;
-  let finalQueueData: DailyQueue;
 
   if (!existingQueue) {
     // SCENARIO 1: INITIALIZATION
     // The queue doesn't exist in the database, so we create it.
     console.log(`💡 No '${name}' queue found in DB. Creating a new one...`);
     const newQueueItems = createNewQueue(sourceKeys);
-    finalQueueData = {
+    return {
       length: newQueueItems.length,
       cycleNumber: 1,
       queue: newQueueItems,
@@ -99,7 +98,7 @@ export async function processQueue(
         }),
       );
 
-      finalQueueData = {
+      return {
         ...existingQueue,
         length: finalQueue.length,
         queue: finalQueue,
@@ -114,29 +113,13 @@ export async function processQueue(
       );
       const newQueueItems = createNewQueue(sourceKeys, lastUsedItem?.key);
 
-      finalQueueData = {
+      return {
         length: newQueueItems.length,
         cycleNumber: existingQueue.cycleNumber + 1,
         queue: newQueueItems,
       };
-    } else {
-      console.log(`👍 '${name}' queue is up to date.`);
-      finalQueueData = existingQueue;
     }
-    await useDrizzle()
-      .insert(tables.queue)
-      .values({
-        name: name,
-        data: finalQueueData,
-        updatedAt: format(new Date(), "yyyy-MM-dd"),
-      })
-      .onConflictDoUpdate({
-        target: tables.queue.name,
-        set: {
-          data: finalQueueData,
-          updatedAt: format(new Date(), "yyyy-MM-dd"),
-        },
-      });
+    return existingQueue;
   }
 }
 

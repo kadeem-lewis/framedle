@@ -3,34 +3,40 @@ import type { Daily } from "#shared/schemas/db";
 import { switchMap } from "rxjs";
 import Dexie, { liveQuery } from "dexie";
 
-export type UpdatedDaily = Daily & {
-  readableDate: string;
-};
-
 export const useDailiesStore = defineStore("dailies", () => {
   const currentDay = ref();
+
+  const { DEFAULT_ATTEMPTS } = useGameStore();
 
   const currentDailyClassicData = useObservable(
     from(currentDay).pipe(
       switchMap((day) =>
         from(
-          liveQuery(() =>
-            db.dailies
-              .where({
-                mode: "classic",
-                ...(day ? { day } : { date: format(new Date(), "yyyy-MM-dd") }),
-              })
-              .first(),
-          ),
+          liveQuery(async () => {
+            const query = {
+              mode: "classic" as const, // Add 'as const' for type inference
+              ...(day ? { day } : { date: format(new Date(), "yyyy-MM-dd") }),
+            };
+
+            const puzzle = await db.dailies.where(query).first();
+            if (!puzzle) return undefined;
+
+            const progress = await db.progress.get([puzzle.day, "classic"]);
+
+            const fullState: FullClassicData = {
+              ...puzzle,
+              attempts: progress?.attempts ?? DEFAULT_ATTEMPTS, // Use your game's default max attempts
+              guessedItems: progress?.guessedItems || [], // THE FIX: Default to an empty array
+              state: progress?.state,
+              selectedMinigameAbility: progress?.selectedMinigameAbility, // Can be undefined
+            };
+            return fullState;
+          }),
         ),
       ),
     ),
-    {
-      initialValue: {
-        itemToGuess: null,
-      },
-    },
-  ) as Ref<ClassicDailyData | undefined>;
+    { initialValue: undefined }, // Can set initial value to undefined
+  ) as Ref<FullClassicData | undefined>;
 
   const { updateDailyData } = useGameStore();
 
@@ -38,23 +44,33 @@ export const useDailiesStore = defineStore("dailies", () => {
     from(currentDay).pipe(
       switchMap((day) =>
         from(
-          liveQuery(() =>
-            db.dailies
-              .where({
-                mode: "ability",
-                ...(day ? { day } : { date: format(new Date(), "yyyy-MM-dd") }),
-              })
-              .first(),
-          ),
+          liveQuery(async () => {
+            const query = {
+              mode: "ability" as const,
+              ...(day ? { day } : { date: format(new Date(), "yyyy-MM-dd") }),
+            };
+
+            const puzzle = await db.dailies.where(query).first();
+            if (!puzzle) return undefined;
+
+            const progress = await db.progress.get([puzzle.day, "ability"]);
+
+            const fullState: FullAbilityData = {
+              ...puzzle,
+              attempts: progress?.attempts ?? DEFAULT_ATTEMPTS, // Use your game's default max attempts
+              guessedItems: progress?.guessedItems || [], // THE FIX: Default to an empty array
+              state: progress?.state,
+              selectedMinigameAbility: progress?.selectedMinigameAbility, // Can be undefined
+            };
+            return fullState;
+          }),
         ),
       ),
     ),
     {
-      initialValue: {
-        itemToGuess: null,
-      },
+      initialValue: undefined,
     },
-  ) as Ref<AbilityDailyData | undefined>;
+  ) as Ref<FullAbilityData | undefined>;
 
   watch(
     [currentDailyClassicData, currentDailyAbilityData],
@@ -91,7 +107,7 @@ export const useDailiesStore = defineStore("dailies", () => {
 
     try {
       const data = await $fetch<{
-        dailies: UpdatedDaily[];
+        dailies: Daily[];
       }>("/api/dailies", {
         params,
       });
@@ -110,34 +126,27 @@ export const useDailiesStore = defineStore("dailies", () => {
     }
   }
 
-  const { DEFAULT_ATTEMPTS } = useGameStore();
-  function convertDailyDataToEntries(dailyData: UpdatedDaily[]) {
+  function convertDailyDataToEntries(dailyData: Daily[]) {
     const entries: DailyData[] = [];
     for (const daily of dailyData) {
-      const ability = abilities.find(
-        (ab) => ab.name === daily.abilityId,
-      ) as Ability;
-      entries.push(
-        {
-          day: daily.day,
-          date: daily.date,
-          readableDate: daily.readableDate,
-          attempts: DEFAULT_ATTEMPTS,
-          guessedItems: [],
-          mode: "classic",
-          itemToGuess: daily.classicId as WarframeName,
-        },
-        {
-          day: daily.day,
-          date: daily.date,
-          readableDate: daily.readableDate,
-          attempts: DEFAULT_ATTEMPTS,
-          guessedItems: [],
-          mode: "ability",
+      const { puzzle, mode, ...rest } = daily;
+      if (mode === "ability") {
+        const ability = abilities.find(
+          (ab) => ab.name === puzzle.answer,
+        ) as Ability;
+        entries.push({
+          ...rest,
           itemToGuess: ability,
-          selectedMinigameAbility: "",
-        },
-      );
+          mode,
+        });
+      }
+      if (mode === "classic") {
+        entries.push({
+          itemToGuess: puzzle.answer as WarframeName,
+          mode,
+          ...rest,
+        });
+      }
     }
     return entries;
   }

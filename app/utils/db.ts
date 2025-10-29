@@ -3,35 +3,35 @@ import type { EntityTable } from "dexie";
 import type { GameStatusType } from "#imports";
 import type { Daily } from "#shared/schemas/db";
 
-export type DailyData = Omit<Daily, "puzzle">;
+export type DailyDataBase = Omit<Daily, "puzzle">;
 
-export type ProgressDataBase = {
+export type ClassicDailyData = DailyDataBase & {
+  mode: "classic";
+  itemToGuess: WarframeName;
+};
+
+export type AbilityDailyData = DailyDataBase & {
+  mode: "ability";
+  itemToGuess: Ability;
+};
+
+export type DailyData = ClassicDailyData | AbilityDailyData;
+
+export type ProgressData = {
   date: string;
   day: number;
+  mode: "classic" | "ability";
   attempts: number;
   guessedItems: WarframeName[];
   state?: GameStatusType;
   selectedMinigameAbility?: string;
 };
 
-export type ClassicProgressData = ProgressDataBase & {
-  mode: "classic";
-  itemToGuess: WarframeName;
-};
+export type FullClassicData = DailyData &
+  Omit<ProgressData, "date" | "day" | "mode">;
 
-export type AbilityProgressData = ProgressDataBase & {
-  mode: "ability";
-  itemToGuess: Ability;
-  selectedMinigameAbility: string;
-};
-
-export type ProgressData = ClassicProgressData | AbilityProgressData;
-
-export type ClassicDailyData = DailyData &
-  Omit<ClassicProgressData, "date" | "day" | "mode">;
-
-export type AbilityDailyData = DailyData &
-  Omit<AbilityProgressData, "date" | "day" | "mode">;
+export type FullAbilityData = DailyData &
+  Omit<ProgressData, "date" | "day" | "mode">;
 
 export const db = new Dexie("framedle") as Dexie & {
   dailies: EntityTable<DailyData>;

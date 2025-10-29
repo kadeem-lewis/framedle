@@ -18,7 +18,7 @@ export const daily = pgTable(
     readableDate: text("readableDate").notNull(),
     day: integer("day").notNull(),
     mode: modeEnum("mode").notNull(),
-    puzzle: jsonb("puzzle").notNull(),
+    puzzle: jsonb("puzzle").$type<{ answer: string }>().notNull(),
   },
   (table) => [
     primaryKey({ columns: [table.day, table.mode] }),

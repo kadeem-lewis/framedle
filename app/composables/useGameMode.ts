@@ -32,5 +32,18 @@ export function useGameMode() {
     return undefined;
   });
 
-  return { mode };
+  const dailyModes = computed(() => {
+    const modes = Object.values(modeLookup).map((mode) => mode.daily);
+    return modes;
+  });
+
+  const isDaily = computed(() => {
+    return dailyModes.value.includes(mode.value);
+  });
+
+  const isUnlimited = computed(() => {
+    return !isDaily.value && mode.value !== undefined;
+  });
+
+  return { mode, isDaily, isUnlimited };
 }

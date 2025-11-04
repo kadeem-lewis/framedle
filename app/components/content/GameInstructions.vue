@@ -14,7 +14,7 @@ const error = computed(() => ($colorblindMode.value ? "Orange" : "Red"));
 <template>
   <div class="mb-4 flex flex-col items-center justify-center">
     <NextGameCountdown :target-date="startOfTomorrow()">
-      <template #title>Next Challenge in:</template>
+      <template #title>{{ t("instructions.next_challenge_in") }}</template>
     </NextGameCountdown>
   </div>
   <div v-if="$route.name === 'classic-path'" class="space-y-2">

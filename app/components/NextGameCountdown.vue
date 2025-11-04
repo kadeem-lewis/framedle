@@ -1,49 +1,41 @@
 <script setup lang="ts">
-import { differenceInSeconds } from "date-fns";
-
 const props = defineProps<{
   targetDate: Date;
 }>();
 
-const timeLeft = ref(calculateTimeLeft(props.targetDate));
+const router = useRouter();
 
-let intervalId: NodeJS.Timeout;
+const isTimeUp = ref(false);
 
-onMounted(() => {
-  intervalId = setInterval(() => {
-    const newTimeLeft = calculateTimeLeft(props.targetDate);
-
-    if (newTimeLeft <= 0) {
-      clearInterval(intervalId);
-    }
-
-    timeLeft.value = newTimeLeft;
-  }, 1000);
-});
-
-function calculateTimeLeft(endDate: Date) {
-  const now = new Date();
-  return differenceInSeconds(endDate, now);
-}
-
-function formatTimeLeft(timeLeftInSeconds: number) {
-  const hours = Math.floor(timeLeftInSeconds / 3600);
-  let remaining = timeLeftInSeconds % 3600;
-  const minutes = Math.floor(remaining / 60);
-  remaining = remaining % 60;
-  const seconds = remaining;
-  return `${hours.toString().padStart(2, "0")}:${minutes
-    .toString()
-    .padStart(2, "0")}:${seconds.toString().padStart(2, "0")}`;
-}
-
-tryOnBeforeUnmount(() => {
-  clearInterval(intervalId);
-});
+const handleTimeUp = () => {
+  isTimeUp.value = true;
+};
 </script>
 <template>
-  <div v-if="timeLeft <= 0">Time's up! Reload to see new Game.</div>
-  <div v-else>
-    <p>{{ formatTimeLeft(timeLeft) }}</p>
+  <div>
+    <div
+      v-if="isTimeUp"
+      class="flex flex-col items-center justify-center gap-2"
+    >
+      <p class="text-lg">A new game is available!</p>
+      <UButton variant="outline" @click="router.go(0)">Reload</UButton>
+    </div>
+    <div v-else class="flex flex-col items-center justify-center gap-2 text-xl">
+      <p class="font-semibold">
+        <slot name="title"> New Game in: </slot>
+      </p>
+      <span class="flex items-center gap-1">
+        <slot name="icon">
+          <UIcon name="i-mdi-circle-slice-2" class="size-5" />
+        </slot>
+        <UiBaseCountdown
+          :target-date="props.targetDate"
+          @finished="handleTimeUp"
+        />
+      </span>
+      <small class="text-muted text-sm"
+        >Resets at midnight in your local time.</small
+      >
+    </div>
   </div>
 </template>

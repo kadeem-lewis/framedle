@@ -13,13 +13,9 @@ const error = computed(() => ($colorblindMode.value ? "Orange" : "Red"));
 </script>
 <template>
   <div class="mb-4 flex flex-col items-center justify-center">
-    <p class="text-lg font-semibold">
-      {{ t("instructions.next_challenge_in") }}
-    </p>
-    <span class="flex items-center gap-1">
-      <UIcon name="i-mdi-circle-slice-2" class="size-5" />
-      <NextGameCountdown :target-date="startOfTomorrow()" class="text-2xl" />
-    </span>
+    <NextGameCountdown :target-date="startOfTomorrow()">
+      <template #title>Next Challenge in:</template>
+    </NextGameCountdown>
   </div>
   <div v-if="$route.name === 'classic-path'" class="space-y-2">
     <p>Guess the Warframe in {{ DEFAULT_ATTEMPTS }} tries</p>

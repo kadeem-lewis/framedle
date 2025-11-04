@@ -210,13 +210,7 @@ const isPastDay = computed(() => {
           </ul>
         </div>
         <template v-if="!$route.path.includes('unlimited')">
-          <div class="flex gap-2 text-xl">
-            <p>New Game in:</p>
-            <span class="flex items-center gap-1">
-              <UIcon name="i-mdi-circle-slice-2" class="size-5" />
-              <NextGameCountdown :target-date="startOfTomorrow()" />
-            </span>
-          </div>
+          <NextGameCountdown :target-date="startOfTomorrow()" />
           <template v-if="isPastDay">
             <USeparator />
             <div class="space-y-4">

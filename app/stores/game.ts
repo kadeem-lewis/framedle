@@ -85,7 +85,7 @@ export const useGameStore = defineStore(
       }
     }
 
-    const mode = useGameMode();
+    const { mode } = useGameMode();
 
     const { proxy } = useScriptUmamiAnalytics();
 

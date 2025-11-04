@@ -1,5 +1,5 @@
 <script setup lang="ts">
-const mode = useGameMode();
+const { mode } = useGameMode();
 
 const { getAdjacentArchiveDays } = useArchiveStore();
 const { currentDailyClassicData } = storeToRefs(useDailiesStore());

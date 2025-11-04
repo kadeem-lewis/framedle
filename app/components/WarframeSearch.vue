@@ -9,7 +9,7 @@ const MAX_VISIBLE_ITEMS = 6 as const;
 
 const { guessedItems } = storeToRefs(useGameStore());
 
-const mode = useGameMode();
+const { mode } = useGameMode();
 
 const items = computed(() => {
   return props.items.filter(

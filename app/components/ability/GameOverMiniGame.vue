@@ -9,7 +9,7 @@ const { correctWarframe, correctAbility } = defineProps<{
 
 const { selectedMinigameAbility } = storeToRefs(useGameStore());
 const { currentDay } = storeToRefs(useDailiesStore());
-const mode = useGameMode();
+const { mode } = useGameMode();
 
 function handleAbilityClick(ability: string) {
   if (mode.value === "ability") {

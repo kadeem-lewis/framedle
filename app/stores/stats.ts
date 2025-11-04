@@ -34,7 +34,7 @@ export const useStatsStore = defineStore(
 
     const { hasWon, isGameOver } = storeToRefs(useGameStateStore());
     const { currentDailyDate } = storeToRefs(useDailiesStore());
-    const mode = useGameMode();
+    const { mode } = useGameMode();
 
     function resetStreak(mode: "classic" | "ability") {
       const lastPlayedDate = stats.value[mode].lastPlayedDate;

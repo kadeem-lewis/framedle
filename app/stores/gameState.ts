@@ -15,7 +15,7 @@ export const useGameStateStore = defineStore(
   () => {
     const { itemToGuess, guessedItems, attempts } = storeToRefs(useGameStore());
 
-    const mode = useGameMode();
+    const { mode } = useGameMode();
 
     const gameState = ref<Record<GameMode, GameStatusType>>({
       classic: GameStatus.ACTIVE,

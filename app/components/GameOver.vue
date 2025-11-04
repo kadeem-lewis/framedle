@@ -6,7 +6,7 @@ import type { Ability } from "#shared/schemas/warframe";
 const { itemToGuess, guessedItems, attempts } = storeToRefs(useGameStore());
 const { resetGame, DEFAULT_ATTEMPTS } = useGameStore();
 
-const mode = useGameMode();
+const { mode } = useGameMode();
 
 const correctWarframe = computed(() => {
   const gameMode = mode.value as keyof typeof itemToGuess.value;

@@ -2,7 +2,7 @@
 const { attempts } = storeToRefs(useGameStore());
 const { DEFAULT_ATTEMPTS } = useGameStore();
 
-const mode = useGameMode();
+const { mode } = useGameMode();
 </script>
 <template>
   <div v-if="mode">

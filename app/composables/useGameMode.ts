@@ -4,6 +4,7 @@ export type GameMode =
   | "ability"
   | "abilityUnlimited";
 
+//TODO: This needs to be expanded to have a variable for tracking if its a daily or unlimited mode
 export function useGameMode() {
   const route = useRoute();
 
@@ -31,5 +32,5 @@ export function useGameMode() {
     return undefined;
   });
 
-  return mode;
+  return { mode };
 }

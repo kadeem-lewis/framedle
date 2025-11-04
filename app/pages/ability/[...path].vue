@@ -12,7 +12,7 @@ const { t } = useI18n();
 
 const { itemToGuess } = storeToRefs(useGameStore());
 const { abilityInit } = useGameStore();
-const mode = useGameMode();
+const { mode } = useGameMode();
 const { isGameOver } = storeToRefs(useGameStateStore());
 const { resetStreak } = useStatsStore();
 const { isLoadingDailies } = storeToRefs(useDailiesStore());

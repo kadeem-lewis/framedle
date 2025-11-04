@@ -2,7 +2,7 @@
 const emit = defineEmits(["loading", "loaded"]);
 
 const { itemToGuess, attempts } = storeToRefs(useGameStore());
-const mode = useGameMode();
+const { mode } = useGameMode();
 const { isGameOver } = storeToRefs(useGameStateStore());
 
 const imageLoaded = ref(false);

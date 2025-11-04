@@ -14,7 +14,7 @@ const { itemToGuess, guessedItems, attempts } = storeToRefs(useGameStore());
 const { classicInit, DEFAULT_ATTEMPTS } = useGameStore();
 const { isLoadingDailies } = storeToRefs(useDailiesStore());
 
-const mode = useGameMode();
+const { mode } = useGameMode();
 const { isGameOver } = storeToRefs(useGameStateStore());
 
 await callOnce("classic-setup", classicInit, {

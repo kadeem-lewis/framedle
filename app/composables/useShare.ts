@@ -21,7 +21,7 @@ export function useShare() {
   const { DEFAULT_ATTEMPTS } = useGameStore();
   const { currentDay } = storeToRefs(useDailiesStore());
 
-  const mode = useGameMode();
+  const { mode } = useGameMode();
   const { hasWon } = storeToRefs(useGameStateStore());
 
   const { encode } = useEncoder();

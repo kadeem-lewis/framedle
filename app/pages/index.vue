@@ -19,6 +19,7 @@ const { cards } = useModeCards();
         v-for="card of cards"
         :key="card.label"
         :card="card"
+        :show-stats="true"
         class="last:pointer-events-none"
       />
     </div>

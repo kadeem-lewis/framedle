@@ -1,12 +1,14 @@
 <script setup lang="ts">
-const { card } = defineProps<{
+const { card, showStats = false } = defineProps<{
   card: {
     label: string;
     route: string;
     source: string;
     background: string;
     description: string;
+    streak: number;
   };
+  showStats?: boolean;
 }>();
 </script>
 <template>
@@ -33,6 +35,12 @@ const { card } = defineProps<{
           {{ card.label }}
         </p>
         <p class="font-semibold">{{ card.description }}</p>
+      </div>
+      <div v-if="showStats && card.streak > 0" class="text-right">
+        <UIcon name="mdi-fire" class="inline-block h-6 w-6 text-yellow-400" />
+        <span class="font-roboto align-middle text-lg font-bold">
+          {{ card.streak }}
+        </span>
       </div>
     </div>
   </UCard>

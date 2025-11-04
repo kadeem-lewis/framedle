@@ -6,7 +6,7 @@ import type { Ability } from "#shared/schemas/warframe";
 const { itemToGuess, guessedItems, attempts } = storeToRefs(useGameStore());
 const { resetGame, DEFAULT_ATTEMPTS } = useGameStore();
 
-const { mode } = useGameMode();
+const { mode, isDaily } = useGameMode();
 
 const correctWarframe = computed(() => {
   const gameMode = mode.value as keyof typeof itemToGuess.value;
@@ -76,7 +76,7 @@ watchEffect(async () => {
   if (!mode.value) return;
 
   // Only for daily modes
-  if (mode.value !== "classic" && mode.value !== "ability") return;
+  if (!isDaily.value) return;
 
   // Only when state changes to WON or LOST (not ACTIVE or *_PREVIOUS)
   if (
@@ -197,7 +197,7 @@ const differentMode = computed(() => {
             </li>
           </ul>
         </div>
-        <template v-if="!$route.path.includes('unlimited')">
+        <template v-if="isDaily">
           <NextGameCountdown :target-date="startOfTomorrow()" />
           <template v-if="isPastDay && differentMode">
             <USeparator />

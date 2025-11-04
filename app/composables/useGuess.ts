@@ -5,6 +5,7 @@ export function useGuess() {
   const { currentDay, currentDailyClassicData, currentDailyAbilityData } =
     storeToRefs(useDailiesStore());
   const { gameState } = storeToRefs(useGameStateStore());
+  const { isUnlimited } = useGameMode();
 
   async function makeGuess(
     selectedWarframe: MaybeRef<WarframeName>,
@@ -13,10 +14,7 @@ export function useGuess() {
     //!!! Extremely temporary fix
     const currentMode = toValue(mode);
     const warframe = toValue(selectedWarframe);
-    if (
-      currentMode === "classicUnlimited" ||
-      currentMode === "abilityUnlimited"
-    ) {
+    if (isUnlimited) {
       attempts.value[currentMode] -= 1;
       guessedItems.value[currentMode].push(warframe);
     } else if (currentMode === "classic") {

@@ -2,6 +2,7 @@ import type { Warframe } from "#shared/schemas/warframe";
 import { warframeSchema } from "#shared/schemas/warframe";
 import { promises as fs } from "fs";
 import { capitalize, pascalCaseToCamelCase } from "~~/server/utils/transform";
+import type { Warframe as ConstWarframe } from "#shared/utils/warframe";
 
 const polarityMap = {
   V: "Madurai",
@@ -153,6 +154,17 @@ export default defineTask({
       export const warframes = ${JSON.stringify(warframeObject, null, 2)} as const;`;
 
       await fs.writeFile("./shared/data/warframes.ts", tsContent);
+
+      const warframeNames = filteredWarframes.map((wf) => wf.name);
+      const abilityNames = generateAbilityNames(
+        filteredWarframes as unknown as ConstWarframe[],
+      );
+      runTask("generate:queue", {
+        payload: {
+          warframeNames,
+          abilityNames,
+        },
+      }); // regenerate the queues after warframes are updated
       return {
         result: "Success",
       };

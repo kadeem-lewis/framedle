@@ -1,7 +1,5 @@
 import { format, startOfTomorrow } from "date-fns";
-import { getRandomAbility, getRandomWarframe } from "#shared/utils/warframe";
-import { desc } from "drizzle-orm";
-import type { Daily } from "#shared/schemas/db";
+import { max } from "drizzle-orm";
 
 export default defineTask({
   meta: {
@@ -9,39 +7,50 @@ export default defineTask({
     description: "Add a new daily entry",
   },
   async run() {
-    const classic = getRandomWarframe();
-
-    const ability = getRandomAbility();
-
-    let lastDaily: Daily | null = null;
-
     try {
-      const result = await useDrizzle()
-        .select()
+      const classicPuzzle = await getNextFromQueue("warframe");
+
+      const abilityPuzzle = await getNextFromQueue("ability");
+
+      const lastDayResults = await useDrizzle()
+        .select({
+          mode: tables.daily.mode,
+          lastDay: max(tables.daily.day),
+        })
         .from(tables.daily)
-        .orderBy(desc(tables.daily.day))
-        .limit(1);
+        .groupBy(tables.daily.mode);
 
-      lastDaily = result[0];
-    } catch (error) {
-      throw createError({
-        statusCode: 500,
-        message: "Failed to fetch last daily entry",
-        data: error,
+      const lastDayMap = new Map<string, number>();
+      for (const result of lastDayResults) {
+        if (result.mode && result.lastDay !== null) {
+          lastDayMap.set(result.mode, result.lastDay);
+        }
+      }
+
+      const date = format(startOfTomorrow(), "yyyy-MM-dd");
+      const readableDate = format(startOfTomorrow(), "PPP");
+
+      const puzzlesToCreate: { mode: "classic" | "ability"; answer: string }[] =
+        [
+          { mode: "classic", answer: classicPuzzle },
+          { mode: "ability", answer: abilityPuzzle },
+        ];
+
+      const valuesToInsert = puzzlesToCreate.map(({ mode, answer }) => {
+        // Get the last day for this specific mode, defaulting to 0 if it's a new mode
+        const lastDay = lastDayMap.get(mode) ?? 0;
+        return {
+          date,
+          readableDate,
+          day: lastDay + 1,
+          mode: mode,
+          puzzle: { answer },
+        };
       });
-    }
 
-    try {
-      const newDaily = await useDrizzle()
-        .insert(tables.daily)
-        .values({
-          classicId: classic,
-          abilityId: ability.name,
-          date: format(startOfTomorrow(), "yyyy-MM-dd"),
-          day: lastDaily?.day ? lastDaily.day + 1 : 1,
-        });
+      await useDrizzle().insert(tables.daily).values(valuesToInsert);
 
-      console.log("New daily entry added:", newDaily);
+      console.log(`✅ New daily entries added for ${readableDate}:`);
 
       return {
         result: "Success",
@@ -49,7 +58,7 @@ export default defineTask({
     } catch (error) {
       throw createError({
         statusCode: 500,
-        message: "Failed to add new daily entry",
+        message: "Failed to add new daily entries",
         data: error,
       });
     }

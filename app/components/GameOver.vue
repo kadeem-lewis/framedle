@@ -102,7 +102,7 @@ watchEffect(async () => {
     currentGameState.value === GameStatus.WON ||
     currentGameState.value === GameStatus.LOST
   ) {
-    await db.dailies
+    await db.progress
       .where({
         mode: mode.value,
         ...(currentDay.value

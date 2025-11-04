@@ -1,13 +1,39 @@
-import { pgTable, text, integer, date, serial } from "drizzle-orm/pg-core";
+import {
+  pgTable,
+  text,
+  integer,
+  date,
+  jsonb,
+  uniqueIndex,
+  primaryKey,
+  pgEnum,
+} from "drizzle-orm/pg-core";
 
-export const daily = pgTable("daily", {
-  id: serial("id").primaryKey(),
-  date: date("date").notNull().unique(),
-  day: integer("day").notNull().unique(),
-  classicId: text("classicId").notNull(),
-  abilityId: text("abilityId").notNull(),
-});
+export const modeEnum = pgEnum("mode_enum", ["classic", "ability", "grid"]);
+
+export const daily = pgTable(
+  "daily",
+  {
+    date: date("date").notNull(),
+    readableDate: text("readableDate").notNull(),
+    day: integer("day").notNull(),
+    mode: modeEnum("mode").notNull(),
+    puzzle: jsonb("puzzle").$type<{ answer: string }>().notNull(),
+  },
+  (table) => [
+    primaryKey({ columns: [table.day, table.mode] }),
+    uniqueIndex("unique_date_mode").on(table.date, table.mode),
+  ],
+);
 
 export type Daily = typeof daily.$inferSelect;
 
-//TODO: consider adding totalGuesses and average attempts to daily table in the future
+export const queueModeEnum = pgEnum("queue_mode_enum", ["warframe", "ability"]);
+
+export const queue = pgTable("queue", {
+  name: queueModeEnum("name").primaryKey(),
+  data: jsonb("data").$type<DailyQueue>().notNull(),
+  updatedAt: date("updatedAt").defaultNow().notNull(),
+});
+
+export type DatabaseQueue = typeof queue.$inferSelect;

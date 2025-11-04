@@ -22,6 +22,12 @@ export const abilities = Object.values(warframes)
     })),
   );
 
+export const generateAbilityNames = (warframe: Warframe[]) => {
+  return warframe.flatMap((wf) => wf.abilities.map((ability) => ability.name));
+};
+
+export const abilityNames = abilities.map((ability) => ability.name);
+
 export const getWarframe = (warframe: WarframeName) => {
   return warframes[warframe];
 };

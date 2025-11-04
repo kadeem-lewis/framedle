@@ -32,8 +32,8 @@ export const useGameStore = defineStore(
     });
 
     function updateDailyData(data: {
-      ability: AbilityDailyData;
-      classic: ClassicDailyData;
+      ability: FullAbilityData;
+      classic: FullClassicData;
     }) {
       itemToGuess.value.classic = data.classic.itemToGuess;
       itemToGuess.value.ability = data.ability.itemToGuess;

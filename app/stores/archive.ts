@@ -6,34 +6,57 @@ export const useArchiveStore = defineStore(
       (route.query.mode as "classic" | "ability") || "classic",
     ); // This is making it so the mode is defaulting to classic
 
-    const pastDays = useLiveQuery(
-      () => db.dailies.where({ mode: selectedArchiveMode.value }).toArray(),
-      [selectedArchiveMode],
-    );
+    const { DEFAULT_ATTEMPTS } = useGameStore();
+
+    const pastDays = useLiveQuery(async () => {
+      const mode = selectedArchiveMode.value;
+
+      // 1. Fetch all puzzles for the selected mode
+      const puzzles = await db.dailies.where({ mode }).toArray();
+      if (puzzles.length === 0) return [];
+
+      // 2. Fetch all progress entries for that mode
+      const progresses = await db.progress.where({ mode }).toArray();
+
+      // 3. Create a Map for fast lookups (more efficient than repeated .find())
+      const progressMap = new Map(progresses.map((p) => [p.day, p]));
+
+      // 4. Map over the puzzles and merge with corresponding progress
+      return puzzles.map((puzzle) => {
+        const progress = progressMap.get(puzzle.day);
+        return {
+          ...puzzle,
+          attempts: progress?.attempts ?? DEFAULT_ATTEMPTS, // Use your game's default max attempts
+          guessedItems: progress?.guessedItems || [], // THE FIX: Default to an empty array
+          state: progress?.state,
+          selectedMinigameAbility: progress?.selectedMinigameAbility, // Can be undefined
+        };
+      });
+    }, [selectedArchiveMode]);
 
     const totalArchiveGames = computed(() =>
       pastDays.value ? pastDays.value.length : 0,
     );
 
-    const inProgressDaysCount = computed(() => {
-      if (!pastDays.value) return null;
-      return pastDays.value.filter(
-        (day) =>
-          day.state === GameStatus.ACTIVE &&
-          day.mode === selectedArchiveMode.value,
-      ).length;
-    });
+    // I can use count() for some of these
 
-    const completedDaysCount = computed(() => {
-      if (!pastDays.value) return null;
-      return pastDays.value.filter(
-        (day) =>
-          day.state &&
-          day.state !== GameStatus.ACTIVE &&
-          day.mode === selectedArchiveMode.value,
-      ).length;
-    });
+    const inProgressDaysCount = useLiveQuery(
+      () =>
+        db.progress
+          .where({ mode: selectedArchiveMode.value, state: GameStatus.ACTIVE })
+          .count(),
+      [selectedArchiveMode],
+    );
 
+    const completedDaysCount = useLiveQuery(
+      () =>
+        db.progress
+          .where("state")
+          .notEqual(GameStatus.ACTIVE)
+          .and((progress) => progress.mode === selectedArchiveMode.value)
+          .count(),
+      [selectedArchiveMode],
+    );
     const randomPastDay = computed(() => {
       if (!pastDays.value || pastDays.value.length === 0) return null;
       const randomIndex = Math.floor(Math.random() * pastDays.value.length);

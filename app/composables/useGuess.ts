@@ -2,7 +2,7 @@ export type Result = "correct" | "incorrect" | "partial" | "higher" | "lower";
 
 export function useGuess() {
   const { attempts, guessedItems } = storeToRefs(useGameStore());
-  const { currentDay, currentDailyClassicData } =
+  const { currentDay, currentDailyClassicData, currentDailyAbilityData } =
     storeToRefs(useDailiesStore());
   const { gameState } = storeToRefs(useGameStateStore());
 
@@ -10,6 +10,7 @@ export function useGuess() {
     selectedWarframe: MaybeRef<WarframeName>,
     mode: MaybeRef<GameMode>,
   ) {
+    //!!! Extremely temporary fix
     const currentMode = toValue(mode);
     const warframe = toValue(selectedWarframe);
     if (
@@ -18,13 +19,33 @@ export function useGuess() {
     ) {
       attempts.value[currentMode] -= 1;
       guessedItems.value[currentMode].push(warframe);
-    } else if (currentMode === "classic" || currentMode === "ability") {
-      await db.dailies
-        .where({
+    } else if (currentMode === "classic") {
+      await db.progress
+        .put({
           mode: currentMode,
+          date: currentDailyClassicData.value!.date,
           day: currentDay.value || currentDailyClassicData.value?.day, //TODO: Please fix
+          guessedItems: [...guessedItems.value[currentMode], warframe],
+          attempts: attempts.value[currentMode] - 1,
+          state: gameState.value[currentMode],
         })
-        .modify({
+        .catch((e) => {
+          console.log({
+            mode: currentMode,
+            day: currentDay.value,
+            guessedItems: [...guessedItems.value[currentMode], warframe],
+            attempts: attempts.value[currentMode] - 1,
+            state: gameState.value[currentMode],
+          });
+
+          console.error("Failed to add new guess", e);
+        });
+    } else if (currentMode === "ability") {
+      await db.progress
+        .put({
+          day: currentDay.value || currentDailyAbilityData.value?.day,
+          date: currentDailyAbilityData.value!.date,
+          mode: currentMode,
           guessedItems: [...guessedItems.value[currentMode], warframe],
           attempts: attempts.value[currentMode] - 1,
           state: gameState.value[currentMode],

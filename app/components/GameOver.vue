@@ -8,25 +8,6 @@ const { resetGame, DEFAULT_ATTEMPTS } = useGameStore();
 
 const mode = useGameMode();
 
-const img = useImage();
-
-const tabs = [
-  {
-    label: "Classic",
-    route: "/classic",
-    source: "/warframe.png",
-    background: img("/backgrounds/fortuna.jpg", { format: "webp" }),
-    description: "Guess the Warframe",
-  },
-  {
-    label: "Ability",
-    route: "/ability",
-    source: "/PassiveAbilityIcon.png",
-    background: img("/backgrounds/helminth.jpg", { format: "webp" }),
-    description: "Guess the Ability",
-  },
-];
-
 const correctWarframe = computed(() => {
   const gameMode = mode.value as keyof typeof itemToGuess.value;
   if (!gameMode) throw createError("Mode is not set");
@@ -127,6 +108,13 @@ const isPastDay = computed(() => {
   }
   return false;
 });
+
+const { activeCards } = useModeCards();
+
+const differentMode = computed(() => {
+  if (!mode.value) return;
+  return activeCards.value.find((card) => card.route !== route.path);
+});
 </script>
 <template>
   <div ref="gameOverCard">
@@ -211,7 +199,7 @@ const isPastDay = computed(() => {
         </div>
         <template v-if="!$route.path.includes('unlimited')">
           <NextGameCountdown :target-date="startOfTomorrow()" />
-          <template v-if="isPastDay">
+          <template v-if="isPastDay && differentMode">
             <USeparator />
             <div class="space-y-4">
               <p
@@ -219,7 +207,7 @@ const isPastDay = computed(() => {
               >
                 Next Mode:
               </p>
-              <ModeCard :tab="tabs.find((tab) => tab.route !== $route.path)!" />
+              <UiAppModeCard :card="differentMode" />
             </div>
           </template>
         </template>

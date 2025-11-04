@@ -117,6 +117,16 @@ watchEffect(async () => {
       });
   }
 });
+
+const route = useRoute();
+const isPastDay = computed(() => {
+  if (route.name === "ability-path" || route.name === "classic-path") {
+    const day = Number(route.params.path?.at(-1));
+    if (isValidDayNumber(day)) return false;
+    return true;
+  }
+  return false;
+});
 </script>
 <template>
   <div ref="gameOverCard">
@@ -207,13 +217,17 @@ watchEffect(async () => {
               <NextGameCountdown :target-date="startOfTomorrow()" />
             </span>
           </div>
-          <USeparator />
-          <div class="space-y-4">
-            <p class="font-roboto text-center text-xl font-semibold uppercase">
-              Next Mode:
-            </p>
-            <ModeCard :tab="tabs.find((tab) => tab.route !== $route.path)!" />
-          </div>
+          <template v-if="isPastDay">
+            <USeparator />
+            <div class="space-y-4">
+              <p
+                class="font-roboto text-center text-xl font-semibold uppercase"
+              >
+                Next Mode:
+              </p>
+              <ModeCard :tab="tabs.find((tab) => tab.route !== $route.path)!" />
+            </div>
+          </template>
         </template>
       </div>
     </UCard>

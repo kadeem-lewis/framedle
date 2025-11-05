@@ -138,23 +138,18 @@ export async function getNextFromQueue(
   const queueData = result[0].data;
 
   // 2. FIND NEXT
-  const nextItem = queueData.queue.find((item) => !item.used);
+  const nextItemIndex = queueData.queue.findIndex((item) => !item.used);
 
-  if (!nextItem) {
-    // This is a critical error. The generate:warframes task should have reset the queue.
-    throw new Error(
+  if (nextItemIndex === -1) {
+    throw createError(
       `CRITICAL: No available items in the '${name}' queue. Please run the data generation task.`,
     );
   }
 
   // 3. MODIFY
-  const nextItemIndex = queueData.queue.findIndex(
-    (item) => item.key === nextItem.key,
-  );
-  if (nextItemIndex > -1) {
-    queueData.queue[nextItemIndex].used = true;
-    queueData.queue[nextItemIndex].usedAt = new Date().toISOString();
-  }
+  const nextItem = queueData.queue[nextItemIndex];
+  nextItem.used = true;
+  nextItem.usedAt = new Date().toISOString();
 
   // 4. WRITE
   await useDrizzle()

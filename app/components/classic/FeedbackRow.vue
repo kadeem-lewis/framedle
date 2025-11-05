@@ -7,7 +7,11 @@ const { checkGuess } = useGuess();
 </script>
 <template>
   <div class="contents">
-    <UiFeedbackTile field-label="Warframe" :field-value="guessedWarframe.name">
+    <UiFeedbackTile
+      field-label="Warframe"
+      :field-value="guessedWarframe.name"
+      :show-visual-assist="true"
+    >
       <NuxtImg
         format="webp"
         :src="`https://cdn.warframestat.us/img/${guessedWarframe.imageName}`"
@@ -22,6 +26,7 @@ const { checkGuess } = useGuess();
       :variant="checkGuess(correctWarframe.sex, guessedWarframe.sex)"
       field-label="Sex"
       :field-value="guessedWarframe.sex"
+      :show-visual-assist="true"
     >
       {{ guessedWarframe.sex }}
     </UiFeedbackTile>
@@ -29,6 +34,7 @@ const { checkGuess } = useGuess();
       :variant="checkGuess(correctWarframe.variant, guessedWarframe.variant)"
       field-label="Variant"
       :field-value="guessedWarframe.variant"
+      :show-visual-assist="true"
     >
       {{ guessedWarframe.variant }}
     </UiFeedbackTile>
@@ -36,6 +42,7 @@ const { checkGuess } = useGuess();
       :variant="checkGuess(correctWarframe.health, guessedWarframe.health)"
       field-label="Health"
       :field-value="guessedWarframe.health"
+      :show-visual-assist="true"
     >
       {{ guessedWarframe.health }}
     </UiFeedbackTile>
@@ -43,6 +50,7 @@ const { checkGuess } = useGuess();
       :variant="checkGuess(correctWarframe.shield, guessedWarframe.shield)"
       field-label="Shield"
       :field-value="guessedWarframe.shield"
+      :show-visual-assist="true"
     >
       {{ guessedWarframe.shield }}
     </UiFeedbackTile>
@@ -52,6 +60,7 @@ const { checkGuess } = useGuess();
       "
       field-label="Element"
       :field-value="guessedWarframe.progenitor"
+      :show-visual-assist="true"
     >
       <div class="flex flex-col items-center gap-1">
         <NuxtImg
@@ -72,6 +81,7 @@ const { checkGuess } = useGuess();
       "
       field-label="Playstyle"
       :field-value="[...guessedWarframe.playstyle]"
+      :show-visual-assist="true"
     >
       {{ [...guessedWarframe.playstyle].join(", ") }}
     </UiFeedbackTile>
@@ -84,6 +94,7 @@ const { checkGuess } = useGuess();
       "
       field-label="Release Date"
       :field-value="parseReleaseDate(guessedWarframe.releaseDate)"
+      :show-visual-assist="true"
     >
       {{ parseReleaseDate(guessedWarframe.releaseDate) }}
     </UiFeedbackTile>

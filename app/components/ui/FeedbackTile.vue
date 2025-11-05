@@ -3,11 +3,13 @@ const {
   fieldLabel,
   fieldValue = "",
   tooltipDisabled = false,
+  showVisualAssist = false,
   variant = "neutral",
 } = defineProps<{
   fieldLabel: string;
   fieldValue?: string | number | string[];
   tooltipDisabled?: boolean;
+  showVisualAssist?: boolean;
   variant?: Result;
 }>();
 
@@ -66,6 +68,10 @@ const tooltipStyles = computed(() => {
         },
       ]"
     >
+      <ClassicFeedbackTileStateIndicator
+        v-if="showVisualAssist"
+        :variant="variant"
+      />
       <div
         class="relative z-auto flex h-full items-center justify-center pt-1 text-center"
       >

@@ -10,12 +10,10 @@ const { proxy } = useScriptUmamiAnalytics();
 const router = useRouter();
 const route = useRoute("archive");
 
-const { pastDays, selectedArchiveMode, randomPastDay } =
+const { pastDays, selectedArchiveMode, randomPastDay, order } =
   storeToRefs(useArchiveStore());
 selectedArchiveMode.value =
   (route.query.mode as "classic" | "ability") || "classic";
-
-const order = ref<"OLDEST" | "NEWEST">("NEWEST");
 
 watch(
   () => selectedArchiveMode.value,
@@ -57,7 +55,6 @@ const filteredDailies = computed(() => {
   <div class="flex flex-col gap-4">
     <p class="font-roboto text-xl font-bold uppercase">Archive</p>
     <div class="font-roboto flex gap-2">
-      <!-- These aren't styled when highlighted -->
       <UButton
         variant="outline"
         class="hover:border-primary uppercase ring-neutral-800"

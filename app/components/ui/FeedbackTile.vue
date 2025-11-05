@@ -68,7 +68,7 @@ const tooltipStyles = computed(() => {
         },
       ]"
     >
-      <ClassicFeedbackTileStateIndicator
+      <UiFeedbackTileStateIndicator
         v-if="showVisualAssist"
         :variant="variant"
       />

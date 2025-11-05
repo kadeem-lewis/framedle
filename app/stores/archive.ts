@@ -58,13 +58,12 @@ export const useArchiveStore = defineStore("archive", () => {
     return randomIndex;
   });
 
+  const attemptedCount = computed(() => {
+    return (inProgressDaysCount.value ?? 0) + (completedDaysCount.value ?? 0);
+  });
+
   const notStartedDaysCount = computed(() => {
-    if (totalArchiveGames.value === 0) return 0;
-    // "Played" is the sum of completed and in-progress games
-    const playedCount =
-      (inProgressDaysCount.value ?? 0) + (completedDaysCount.value ?? 0);
-    // "Not Started" is the total minus the ones already played
-    const notStarted = totalArchiveGames.value - playedCount;
+    const notStarted = totalArchiveGames.value - attemptedCount.value;
     return notStarted > 0 ? notStarted : 0;
   });
 

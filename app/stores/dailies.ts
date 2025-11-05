@@ -14,28 +14,32 @@ export const useDailiesStore = defineStore("dailies", () => {
         from(
           liveQuery(async () => {
             const query = {
-              mode: "classic" as const, // Add 'as const' for type inference
+              mode: "classic" as const,
               ...(day ? { day } : { date: format(new Date(), "yyyy-MM-dd") }),
             };
+            return await db.transaction(
+              "r",
+              "dailies",
+              "progress",
+              async () => {
+                const puzzle = await db.dailies.where(query).first();
+                if (!puzzle) return undefined;
 
-            const puzzle = await db.dailies.where(query).first();
-            if (!puzzle) return undefined;
+                const progress = await db.progress.get([puzzle.day, "classic"]);
 
-            const progress = await db.progress.get([puzzle.day, "classic"]);
-
-            const fullState: FullClassicData = {
-              ...puzzle,
-              attempts: progress?.attempts ?? DEFAULT_ATTEMPTS, // Use your game's default max attempts
-              guessedItems: progress?.guessedItems || [], // THE FIX: Default to an empty array
-              state: progress?.state,
-              selectedMinigameAbility: progress?.selectedMinigameAbility, // Can be undefined
-            };
-            return fullState;
+                return {
+                  ...puzzle,
+                  attempts: progress?.attempts ?? DEFAULT_ATTEMPTS,
+                  guessedItems: progress?.guessedItems || [],
+                  state: progress?.state,
+                };
+              },
+            );
           }),
         ),
       ),
     ),
-    { initialValue: undefined }, // Can set initial value to undefined
+    { initialValue: undefined },
   ) as Ref<FullClassicData | undefined>;
 
   const { updateDailyData } = useGameStore();
@@ -49,20 +53,26 @@ export const useDailiesStore = defineStore("dailies", () => {
               mode: "ability" as const,
               ...(day ? { day } : { date: format(new Date(), "yyyy-MM-dd") }),
             };
+            return await db.transaction(
+              "r",
+              "dailies",
+              "progress",
+              async () => {
+                const puzzle = await db.dailies.where(query).first();
+                if (!puzzle) return undefined;
 
-            const puzzle = await db.dailies.where(query).first();
-            if (!puzzle) return undefined;
+                const progress = await db.progress.get([puzzle.day, "ability"]);
 
-            const progress = await db.progress.get([puzzle.day, "ability"]);
-
-            const fullState: FullAbilityData = {
-              ...puzzle,
-              attempts: progress?.attempts ?? DEFAULT_ATTEMPTS, // Use your game's default max attempts
-              guessedItems: progress?.guessedItems || [], // THE FIX: Default to an empty array
-              state: progress?.state,
-              selectedMinigameAbility: progress?.selectedMinigameAbility, // Can be undefined
-            };
-            return fullState;
+                return {
+                  ...puzzle,
+                  attempts: progress?.attempts ?? DEFAULT_ATTEMPTS,
+                  guessedItems: progress?.guessedItems || [],
+                  state: progress?.state,
+                  selectedMinigameAbility:
+                    progress?.selectedMinigameAbility || "",
+                };
+              },
+            );
           }),
         ),
       ),

@@ -56,7 +56,6 @@ const filteredDailies = computed(() => {
 <template>
   <div class="flex flex-col gap-4">
     <p class="font-roboto text-xl font-bold uppercase">Archive</p>
-    <ArchiveGameStats />
     <div class="font-roboto flex gap-2">
       <!-- These aren't styled when highlighted -->
       <UButton
@@ -82,6 +81,7 @@ const filteredDailies = computed(() => {
         Ability
       </UButton>
     </div>
+    <ArchiveGameStats />
     <div class="flex items-center justify-end gap-4">
       <USelect
         v-model="order"

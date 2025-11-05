@@ -106,11 +106,13 @@ const filteredDailies = computed(() => {
     <div
       class="flex flex-col gap-4 border border-neutral-200 bg-white/75 p-2 dark:border-neutral-800 dark:bg-neutral-900/75"
     >
-      <div v-if="filteredDailies" class="grid grid-cols-2 gap-4">
-        <p class="font-semibold">Name</p>
-        <p class="font-semibold">Date</p>
+      <div v-if="filteredDailies" class="grid grid-cols-12 gap-2">
+        <p class="col-span-5 col-start-3 font-semibold">Name</p>
+        <p class="col-span-5 font-semibold">Date</p>
       </div>
-      <div class="grid h-full max-h-96 grid-cols-2 gap-4 overflow-y-auto">
+      <div
+        class="grid h-full max-h-96 grid-cols-12 items-center gap-2 overflow-y-auto"
+      >
         <div
           v-for="daily of filteredDailies"
           :key="daily.day"
@@ -120,9 +122,22 @@ const filteredDailies = computed(() => {
             navigateTo(`/${selectedArchiveMode}/${daily.day}`);
           "
         >
-          <p>Framedle #{{ daily.day }}</p>
-          <p>{{ daily.readableDate }}</p>
-          <USeparator class="col-span-2" />
+          <UIcon
+            v-if="daily.state === GameStatus.ACTIVE"
+            name="i-mdi-play-circle"
+            class="text-partial col-span-2 size-6"
+          />
+          <UIcon
+            v-else
+            name="i-mdi-check-circle"
+            class="col-span-2 size-6"
+            :class="{
+              'text-success': daily.state,
+            }"
+          />
+          <p class="col-span-5">Framedle #{{ daily.day }}</p>
+          <p class="col-span-5">{{ daily.readableDate }}</p>
+          <USeparator class="col-span-12" />
         </div>
       </div>
     </div>

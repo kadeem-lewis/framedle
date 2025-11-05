@@ -31,10 +31,10 @@ const feedbackLabels = [
   t("classic.feedback.name"),
   t("classic.feedback.sex"),
   "variant",
+  "playstyle",
   t("classic.feedback.base_health"),
   t("classic.feedback.base_shield"),
   t("classic.feedback.progenitor_element"),
-  "playstyle",
   t("classic.feedback.release_year"),
 ];
 
@@ -76,7 +76,7 @@ const tooltipMap = {
         <template v-if="guessedItems[mode].length">
           <div class="space-y-4 overflow-x-auto md:overflow-x-visible">
             <div
-              class="grid w-[200%] grid-cols-8 gap-1 border border-neutral-200 bg-white/75 py-0.5 text-sm uppercase md:-ml-[50%] md:text-base dark:border-neutral-800 dark:bg-neutral-900/75"
+              class="grid w-[190%] grid-cols-8 gap-1 border border-neutral-200 bg-white/75 py-0.5 text-sm uppercase md:-ml-[45%] md:text-base dark:border-neutral-800 dark:bg-neutral-900/75"
             >
               <UTooltip
                 v-for="label of feedbackLabels"
@@ -99,7 +99,7 @@ const tooltipMap = {
               </UTooltip>
             </div>
             <div
-              class="grid w-[200%] grid-cols-8 gap-1 text-sm capitalize md:-ml-[50%] md:text-base"
+              class="grid w-[190%] grid-cols-8 gap-1 text-sm capitalize md:-ml-[45%] md:text-base"
             >
               <ClassicFeedbackRow
                 v-for="warframe of [...guessedItems[mode]].reverse()"

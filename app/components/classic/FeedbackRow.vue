@@ -39,6 +39,19 @@ const { checkGuess } = useGuess();
       {{ guessedWarframe.variant }}
     </UiFeedbackTile>
     <UiFeedbackTile
+      :variant="
+        checkGuess(
+          [...correctWarframe.playstyle],
+          [...guessedWarframe.playstyle],
+        )
+      "
+      field-label="Playstyle"
+      :field-value="[...guessedWarframe.playstyle]"
+      :show-visual-assist="true"
+    >
+      {{ [...guessedWarframe.playstyle].join(", ") }}
+    </UiFeedbackTile>
+    <UiFeedbackTile
       :variant="checkGuess(correctWarframe.health, guessedWarframe.health)"
       field-label="Health"
       :field-value="guessedWarframe.health"
@@ -71,19 +84,6 @@ const { checkGuess } = useGuess();
           preload
         />
       </div>
-    </UiFeedbackTile>
-    <UiFeedbackTile
-      :variant="
-        checkGuess(
-          [...correctWarframe.playstyle],
-          [...guessedWarframe.playstyle],
-        )
-      "
-      field-label="Playstyle"
-      :field-value="[...guessedWarframe.playstyle]"
-      :show-visual-assist="true"
-    >
-      {{ [...guessedWarframe.playstyle].join(", ") }}
     </UiFeedbackTile>
     <UiFeedbackTile
       :variant="

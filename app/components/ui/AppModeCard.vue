@@ -36,12 +36,21 @@ const { card, showStats = false } = defineProps<{
         </p>
         <p class="font-semibold">{{ card.description }}</p>
       </div>
-      <div v-if="showStats && card.streak > 0" class="text-right">
-        <UIcon name="mdi-fire" class="inline-block h-6 w-6 text-yellow-400" />
-        <span class="font-roboto align-middle text-lg font-bold">
-          {{ card.streak }}
+    </div>
+    <ClientOnly>
+      <div v-if="showStats && card.streak > 0" class="absolute top-2 right-2">
+        <span class="relative inline-block">
+          <UIcon
+            name="my-icon:flame"
+            class="inline-block size-9 text-amber-500 dark:text-amber-600"
+          />
+          <span
+            class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 align-middle font-bold text-white"
+          >
+            {{ card.streak }}
+          </span>
         </span>
       </div>
-    </div>
+    </ClientOnly>
   </UCard>
 </template>

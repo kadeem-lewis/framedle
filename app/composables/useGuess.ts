@@ -14,7 +14,7 @@ export function useGuess() {
     //!!! Extremely temporary fix
     const currentMode = toValue(mode);
     const warframe = toValue(selectedWarframe);
-    if (isUnlimited) {
+    if (isUnlimited.value) {
       attempts.value[currentMode] -= 1;
       guessedItems.value[currentMode].push(warframe);
     } else if (currentMode === "classic") {

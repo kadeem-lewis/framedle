@@ -135,6 +135,10 @@ export const useGameStore = defineStore(
         "itemToGuess.abilityUnlimited",
         "selectedMinigameAbility.abilityUnlimited",
       ],
+      afterHydrate(context) {
+        convertVersionOneGameData(context);
+      },
+      debug: true,
     },
   },
 );

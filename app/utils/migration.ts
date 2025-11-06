@@ -6,9 +6,7 @@ export function convertVersionOneGameData(context: PiniaPluginContext) {
   if (!gameDataVersionOne) return;
   try {
     const parsed = JSON.parse(gameDataVersionOne);
-    console.log("Migrating version one game data:", parsed);
     if (parsed.itemToGuess?.classicUnlimited) {
-      console.log("does classic unlimited guess run?");
       store.itemToGuess.classicUnlimited =
         parsed.itemToGuess.classicUnlimited.name;
     }
@@ -19,18 +17,15 @@ export function convertVersionOneGameData(context: PiniaPluginContext) {
       store.attempts.classicUnlimited = parsed.attempts.classicUnlimited;
     }
     if (parsed.attempts?.abilityUnlimited) {
-      console.log("does attempts run?");
       store.attempts.abilityUnlimited = parsed.attempts.abilityUnlimited;
     }
     if (parsed.guessedItems?.classicUnlimited) {
       if (Array.isArray(parsed.guessedItems.classicUnlimited)) {
-        console.log("its an array");
         store.guessedItems.classicUnlimited =
           parsed.guessedItems.classicUnlimited.map(
             (item: { name: string }) => item.name,
           );
       } else {
-        console.log("its not an array");
         store.guessedItems.classicUnlimited = [
           parsed.guessedItems.classicUnlimited.name,
         ];

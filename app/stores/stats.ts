@@ -3,7 +3,7 @@ import { format, startOfDay, startOfYesterday } from "date-fns";
 export type FixedGuessArray = [number, number, number, number, number, number];
 
 export const useStatsStore = defineStore(
-  "stats",
+  "stats.v2",
   () => {
     const getDefaultStats = () => ({
       classic: {

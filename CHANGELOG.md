@@ -1,5 +1,29 @@
 # Changelog
 
+## v0.3.0 - November 10th, 2025
+
+### Features
+
+- Game mode cards now show the user's current streak for that mode
+- Add Icons on feedback tiles to indicate correct and partially correct guesses
+- Archive games are now saved and tracked using IndexedDB for better user experience and offline support
+- Added a navigation component on the game over screen to cycle through previous archive games
+- Added component to archive page to show stats for completed, in-progress, and not started games
+- Added "Random" button to archive page to navigate to a random past archive game
+- Added new "Playstyle" column to classic mode to show warframe playstyle (e.g., Damage, Support, Stealth etc.)
+- Changed daily warframe selection logic to remove duplicates until all warframes have been used
+- Began fetching data from warframe wiki to better automate warframe data updates
+
+### Changes
+
+- Updated Site Logo!
+- Added Nokko to the game
+- Changed website url structure to use route params instead of query params for game mode and day selection
+
+### Bug Fixes
+
+- Fixed an issue where the warframe search component was not showing the correct results on first input
+
 ## v0.2.4 - September 3rd, 2025
 
 ### Changes

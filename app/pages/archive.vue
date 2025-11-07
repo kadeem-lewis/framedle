@@ -138,7 +138,16 @@ const filteredDailies = computed(() => {
         </div>
       </div>
     </div>
+    <UBadge
+      v-if="!randomPastDay"
+      variant="outline"
+      size="lg"
+      class="flex w-full items-center justify-center rounded-none text-base uppercase"
+    >
+      All days completed!
+    </UBadge>
     <UButton
+      v-else
       :to="`/${selectedArchiveMode}/${randomPastDay}`"
       variant="outline"
       icon="i-mdi-dice"

@@ -53,7 +53,6 @@ export const useArchiveStore = defineStore("archive", () => {
     [selectedArchiveMode],
   );
 
-  //! This needs to do something but return when there aren't any valid days to pick from
   const randomPastDay = computed(() => {
     if (!pastDays.value || pastDays.value.length === 0) return null;
     const filteredDays = pastDays.value.filter(

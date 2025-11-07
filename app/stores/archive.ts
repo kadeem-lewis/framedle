@@ -52,10 +52,15 @@ export const useArchiveStore = defineStore("archive", () => {
         .count(),
     [selectedArchiveMode],
   );
+
+  //! This needs to do something but return when there aren't any valid days to pick from
   const randomPastDay = computed(() => {
     if (!pastDays.value || pastDays.value.length === 0) return null;
-    const randomIndex = Math.floor(Math.random() * pastDays.value.length);
-    return randomIndex;
+    const filteredDays = pastDays.value.filter(
+      (day) => !day.state || day.state === GameStatus.ACTIVE,
+    );
+    const randomDay = Math.ceil(Math.random() * filteredDays.length);
+    return randomDay;
   });
 
   const attemptedCount = computed(() => {

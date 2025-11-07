@@ -37,7 +37,7 @@ const items = [
     },
   },
   {
-    text: "Instructions",
+    text: "How To",
     icon: "i-mdi-help",
     command: () => {
       openDialog(dialogOptions.INSTRUCTIONS);
@@ -59,9 +59,13 @@ watchEffect(() => {
 });
 </script>
 <template>
-  <div class="flex w-full items-center justify-center">
-    <menu class="flex gap-2 p-2">
-      <UTooltip v-for="item of items" :key="item.text" :text="item.text">
+  <div class="flex w-full items-center">
+    <menu class="flex w-full items-center justify-center gap-3">
+      <div
+        v-for="item of items"
+        :key="item.text"
+        class="flex flex-col items-center gap-1"
+      >
         <UButton
           :aria-label="item.text"
           :icon="item.icon"
@@ -71,7 +75,10 @@ watchEffect(() => {
           type="button"
           @click="item.command"
         />
-      </UTooltip>
+        <p class="text-sm font-semibold uppercase">
+          {{ item.text }}
+        </p>
+      </div>
     </menu>
   </div>
 </template>

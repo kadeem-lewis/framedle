@@ -44,13 +44,20 @@ export async function processQueue(
   name: "warframe" | "ability",
   sourceKeys: string[],
 ) {
+  let existingQueue: DailyQueue | null = null;
+
   const result = await useDrizzle()
     .select()
     .from(tables.queue)
-    .where(eq(tables.queue.name, name));
+    .where(eq(tables.queue.name, name))
+    .catch((error) => {
+      console.error(`Error fetching queue for ${name}:`, error);
+      return [];
+    });
 
-  const existingQueue: DailyQueue | null =
-    result.length > 0 ? result[0].data : null;
+  if (result.length > 0) {
+    existingQueue = result[0].data as DailyQueue;
+  }
 
   if (!existingQueue) {
     // SCENARIO 1: INITIALIZATION

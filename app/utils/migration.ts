@@ -1,6 +1,9 @@
 import type { PiniaPluginContext } from "pinia";
 
 export function convertVersionOneGameData(context: PiniaPluginContext) {
+  if (!import.meta.client) {
+    return;
+  }
   const store = context.store;
   const gameDataVersionOne = localStorage.getItem("game");
   if (!gameDataVersionOne) return;

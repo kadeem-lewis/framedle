@@ -58,8 +58,8 @@ export const useArchiveStore = defineStore("archive", () => {
     const filteredDays = pastDays.value.filter(
       (day) => !day.state || day.state === GameStatus.ACTIVE,
     );
-    const randomDay = Math.ceil(Math.random() * filteredDays.length);
-    return randomDay;
+    const randomDay = Math.floor(Math.random() * filteredDays.length);
+    return filteredDays[randomDay]?.day;
   });
 
   const attemptedCount = computed(() => {

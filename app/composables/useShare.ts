@@ -21,7 +21,7 @@ export function useShare() {
   const { DEFAULT_ATTEMPTS } = useGameStore();
   const { currentDay } = storeToRefs(useDailiesStore());
 
-  const { mode } = useGameMode();
+  const { mode, gameVariant } = useGameMode();
   const { hasWon } = storeToRefs(useGameStateStore());
 
   const { encode } = useEncoder();
@@ -97,14 +97,30 @@ export function useShare() {
         : `I couldn't solve this Framedle in ${DEFAULT_ATTEMPTS} turns.`
       : `Framedle ${currentMode} #${currentDay.value} ${hasWon.value ? attemptsUsed : "X"}/${DEFAULT_ATTEMPTS}`;
 
+    const encodedAnswer = computed(() => {
+      if (
+        mode.value === "classicUnlimited" &&
+        itemToGuess.value["classicUnlimited"]
+      ) {
+        return encode(itemToGuess.value["classicUnlimited"]);
+      }
+      if (
+        mode.value === "abilityUnlimited" &&
+        itemToGuess.value["abilityUnlimited"]
+      ) {
+        return encode(itemToGuess.value["abilityUnlimited"].name);
+      }
+      return;
+    });
+
     const grid = `
 ${topText}
       
 ${emojiGrid}
 ${
-  route.path.includes("unlimited")
+  gameVariant.value === "unlimited"
     ? `See how you do on the same challenge I played:
-${window.location.href}?x=${itemToGuess.value[currentMode] && encode(`${itemToGuess.value[currentMode]}`)}`
+${window.location.href}?x=${encodedAnswer.value}`
     : window.location.href
 }
         `;

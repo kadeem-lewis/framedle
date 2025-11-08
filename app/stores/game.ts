@@ -63,6 +63,7 @@ export const useGameStore = defineStore(
           const decodedWarframe = getWarframe(decoded);
           if (itemToGuess.value.classicUnlimited !== decodedWarframe.name) {
             newItem = decodedWarframe.name;
+            needsReset = true;
           }
         }
         if (currentMode === "abilityUnlimited") {
@@ -74,6 +75,7 @@ export const useGameStore = defineStore(
             itemToGuess.value.abilityUnlimited?.name !== decodedAbility.name
           ) {
             newItem = decodedAbility;
+            needsReset = true;
           }
         }
       }

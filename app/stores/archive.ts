@@ -4,6 +4,7 @@ export const useArchiveStore = defineStore("archive", () => {
     (route.query.mode as "classic" | "ability") || "classic",
   );
   const order = ref<"OLDEST" | "NEWEST">("NEWEST");
+  const { mode } = useGameMode();
 
   const pastDays = useLiveQuery(async () => {
     const mode = selectedArchiveMode.value;
@@ -29,7 +30,7 @@ export const useArchiveStore = defineStore("archive", () => {
         };
       });
     });
-  }, [selectedArchiveMode, order]);
+  }, [selectedArchiveMode, order, mode]); // mode to added to deps to force a refresh whenever I navigate to the archive page
 
   const totalArchiveGames = computed(() =>
     pastDays.value ? pastDays.value.length : 0,
@@ -40,7 +41,7 @@ export const useArchiveStore = defineStore("archive", () => {
       db.progress
         .where({ mode: selectedArchiveMode.value, state: GameStatus.ACTIVE })
         .count(),
-    [selectedArchiveMode],
+    [selectedArchiveMode, mode],
   );
 
   const completedDaysCount = useLiveQuery(
@@ -50,7 +51,7 @@ export const useArchiveStore = defineStore("archive", () => {
         .notEqual(GameStatus.ACTIVE)
         .and((progress) => progress.mode === selectedArchiveMode.value)
         .count(),
-    [selectedArchiveMode],
+    [selectedArchiveMode, mode],
   );
 
   function getRandomPastDay() {

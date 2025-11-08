@@ -22,11 +22,11 @@ export function useModeCards() {
       streak: stats.value.ability.streak,
     },
     {
-      label: "Coming Soon",
+      label: "Coming Soon™",
       route: "",
       source: "/BuildIcon.png",
       background: img("/backgrounds/orbiter.jpg", { format: "webp" }),
-      description: "Stay tuned",
+      description: "Coming Dec 2025",
       streak: 0,
     },
   ]);

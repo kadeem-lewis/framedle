@@ -51,10 +51,12 @@ export const useGameStore = defineStore(
     function initializeUnlimitedGame(
       mode: MaybeRef<GameMode>,
       queryValue?: string,
+      options: { forceReset?: boolean } = {},
     ) {
       const currentMode = toValue(mode);
       let newItem: WarframeName | Ability | null = null;
       let needsReset = false;
+      const { forceReset = false } = options;
       if (queryValue) {
         if (currentMode === "classicUnlimited") {
           const decoded = decode(queryValue) as WarframeName;
@@ -75,7 +77,7 @@ export const useGameStore = defineStore(
           }
         }
       }
-      if (!itemToGuess.value[currentMode] && !queryValue) {
+      if (!itemToGuess.value[currentMode] || forceReset) {
         newItem =
           gameType.value === "classic"
             ? getRandomWarframe()
@@ -103,10 +105,11 @@ export const useGameStore = defineStore(
         console.error("Can only reset unlimited game modes");
         return;
       }
+      console.log("howdy");
 
       router.replace(`/${gameType.value}/unlimited`);
 
-      initializeUnlimitedGame(mode.value);
+      initializeUnlimitedGame(mode.value, undefined, { forceReset: true });
 
       proxy.track("started new game", { mode: mode.value });
     }

@@ -11,15 +11,22 @@ useSeoMeta({
 const { t } = useI18n();
 
 const { itemToGuess, guessedItems, attempts } = storeToRefs(useGameStore());
-const { classicInit, DEFAULT_ATTEMPTS } = useGameStore();
+const { DEFAULT_ATTEMPTS, initializeUnlimitedGame } = useGameStore();
 const { isLoadingDailies } = storeToRefs(useDailiesStore());
 
 const { mode } = useGameMode();
 const { isGameOver } = storeToRefs(useGameStateStore());
 
-await callOnce("classic-setup", classicInit, {
-  mode: "navigation",
-});
+await callOnce(
+  "classic-setup",
+  () => {
+    if (!mode.value) return;
+    initializeUnlimitedGame(mode.value);
+  },
+  {
+    mode: "navigation",
+  },
+);
 
 const { resetStreak } = useStatsStore();
 

@@ -79,7 +79,7 @@ const abilityNames = computed(() =>
         <li
           v-for="ability in abilityNames"
           :key="ability"
-          class="cursor-pointer px-2 py-1 ring"
+          class="cursor-pointer border px-2 py-1"
           :class="{
             'bg-success':
               hasSelected &&

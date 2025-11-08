@@ -4,7 +4,7 @@ import party from "party-js";
 import type { Ability } from "#shared/schemas/warframe";
 
 const { itemToGuess, guessedItems, attempts } = storeToRefs(useGameStore());
-const { resetGame, DEFAULT_ATTEMPTS } = useGameStore();
+const { resetCurrentGame, DEFAULT_ATTEMPTS } = useGameStore();
 
 const { mode, isDaily } = useGameMode();
 
@@ -176,7 +176,7 @@ const differentMode = computed(() => {
           variant="outline"
           class="font-semibold uppercase"
           size="xl"
-          @click="resetGame"
+          @click="resetCurrentGame"
           >New Game</UButton
         >
         <ShareButton />

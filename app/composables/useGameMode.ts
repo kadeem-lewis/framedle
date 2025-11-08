@@ -4,6 +4,9 @@ export type GameMode =
   | "ability"
   | "abilityUnlimited";
 
+export type GameType = "classic" | "ability";
+export type GameVariant = "daily" | "unlimited";
+
 //TODO: This needs to be expanded to have a variable for tracking if its a daily or unlimited mode
 export function useGameMode() {
   const route = useRoute();
@@ -17,33 +20,35 @@ export function useGameMode() {
       daily: "ability",
       unlimited: "abilityUnlimited",
     },
-  };
+  } as const;
 
-  const mode = computed<GameMode | undefined>(() => {
-    const paths = route.path.split("/");
-    const routeName = paths[1];
-    if (!routeName) return undefined;
-    const variant = paths[2] === "unlimited" ? "unlimited" : "daily";
-
-    if (modeLookup[routeName]) {
-      return modeLookup[routeName][variant];
-    }
-
-    return undefined;
+  const gameType = computed<GameType | undefined>(() => {
+    const type = route.path.split("/")[1] as GameType;
+    return modeLookup[type] ? type : undefined;
   });
 
-  const dailyModes = computed(() => {
-    const modes = Object.values(modeLookup).map((mode) => mode.daily);
-    return modes;
+  const gameVariant = computed<GameVariant | undefined>(() => {
+    if (!gameType.value) return;
+    const variant = route.path.split("/")[2];
+    return variant === "unlimited" ? "unlimited" : "daily";
+  });
+
+  const mode = computed<GameMode | undefined>(() => {
+    if (!gameType.value || !gameVariant.value) return;
+    return modeLookup[gameType.value]?.[gameVariant.value];
+  });
+
+  watch(mode, (newMode) => {
+    console.log("mode changed to:", newMode);
   });
 
   const isDaily = computed(() => {
-    return dailyModes.value.includes(mode.value);
+    return gameVariant.value === "daily";
   });
 
   const isUnlimited = computed(() => {
-    return !isDaily.value && mode.value !== undefined;
+    return gameVariant.value === "unlimited";
   });
 
-  return { mode, isDaily, isUnlimited };
+  return { mode, gameType, gameVariant, isDaily, isUnlimited };
 }

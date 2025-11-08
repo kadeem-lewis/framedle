@@ -10,8 +10,8 @@ const { proxy } = useScriptUmamiAnalytics();
 const router = useRouter();
 const route = useRoute("archive");
 
-const { pastDays, selectedArchiveMode, randomPastDay, order } =
-  storeToRefs(useArchiveStore());
+const { pastDays, selectedArchiveMode, order } = storeToRefs(useArchiveStore());
+const { getRandomPastDay } = useArchiveStore();
 selectedArchiveMode.value =
   (route.query.mode as "classic" | "ability") || "classic";
 
@@ -50,6 +50,8 @@ const filteredDailies = computed(() => {
 
   return fuse.value.search(searchQuery.value).map((result) => result.item);
 });
+
+const randomPastDay = computed(() => getRandomPastDay());
 </script>
 <template>
   <div class="flex flex-col gap-4">

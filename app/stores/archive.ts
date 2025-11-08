@@ -53,14 +53,14 @@ export const useArchiveStore = defineStore("archive", () => {
     [selectedArchiveMode],
   );
 
-  const randomPastDay = computed(() => {
+  function getRandomPastDay() {
     if (!pastDays.value || pastDays.value.length === 0) return null;
     const filteredDays = pastDays.value.filter(
       (day) => !day.state || day.state === GameStatus.ACTIVE,
     );
     const randomDay = Math.floor(Math.random() * filteredDays.length);
     return filteredDays[randomDay]?.day;
-  });
+  }
 
   const attemptedCount = computed(() => {
     return (inProgressDaysCount.value ?? 0) + (completedDaysCount.value ?? 0);
@@ -94,7 +94,7 @@ export const useArchiveStore = defineStore("archive", () => {
     inProgressDaysCount,
     completedDaysCount,
     notStartedDaysCount,
-    randomPastDay,
+    getRandomPastDay,
     getAdjacentArchiveDays,
   };
 });

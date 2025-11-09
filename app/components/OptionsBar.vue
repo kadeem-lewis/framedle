@@ -4,6 +4,7 @@ const { openDialog } = useDialog();
 
 const route = useRoute();
 const { gameType } = useGameMode();
+const { proxy } = useScriptUmamiAnalytics();
 
 const items = [
   {
@@ -20,6 +21,7 @@ const items = [
     text: "Stats",
     icon: "i-heroicons-chart-bar-solid",
     command: () => {
+      proxy.track("Opened Options Dialog", { modal: dialogOptions.STATS });
       openDialog(
         dialogOptions.STATS,
         `${gameType.value} ${dialogOptions.STATS}`,
@@ -30,6 +32,7 @@ const items = [
     text: "About",
     icon: "i-mdi-information-variant",
     command: () => {
+      proxy.track("Opened Options Dialog", { modal: dialogOptions.ABOUT });
       openDialog(dialogOptions.ABOUT);
     },
   },
@@ -37,6 +40,7 @@ const items = [
     text: "Support",
     icon: "i-heroicons-heart",
     command: () => {
+      proxy.track("Opened Options Dialog", { modal: dialogOptions.SUPPORT });
       openDialog(dialogOptions.SUPPORT);
     },
   },
@@ -44,6 +48,9 @@ const items = [
     text: "How To",
     icon: "i-mdi-help",
     command: () => {
+      proxy.track("Opened Options Dialog", {
+        modal: dialogOptions.INSTRUCTIONS,
+      });
       openDialog(dialogOptions.INSTRUCTIONS);
     },
   },

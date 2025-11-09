@@ -154,6 +154,12 @@ const randomPastDay = computed(() => getRandomPastDay());
       variant="outline"
       icon="i-mdi-dice"
       class="flex items-center justify-center uppercase"
+      @click="
+        proxy.track('Started Random Archive Game', {
+          selectedArchiveMode,
+          randomPastDay,
+        })
+      "
       >Random</UButton
     >
   </div>

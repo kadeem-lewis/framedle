@@ -10,6 +10,8 @@ const adjacentDays = computedAsync(async () => {
   }
   return await getAdjacentArchiveDays(currentDailyClassicData.value.day);
 });
+
+const { proxy } = useScriptUmamiAnalytics();
 </script>
 <template>
   <div class="flex items-center justify-center gap-2">
@@ -18,6 +20,7 @@ const adjacentDays = computedAsync(async () => {
       :to="`/${mode}/${adjacentDays?.previous}`"
       variant="outline"
       icon="i-heroicons-arrow-left"
+      @click="proxy.track('Visited Previous Day', { mode })"
       >Previous Day</UButton
     >
     <UButton
@@ -35,6 +38,7 @@ const adjacentDays = computedAsync(async () => {
       variant="outline"
       trailing
       icon="i-heroicons-arrow-right"
+      @click="proxy.track('Visited Next Day', { mode })"
       >Next Day</UButton
     >
   </div>

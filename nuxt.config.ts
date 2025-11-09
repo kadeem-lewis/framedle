@@ -117,11 +117,7 @@ export default defineNuxtConfig({
       { code: "en", language: "en-US", name: "English", file: "en.json" },
     ],
     defaultLocale: "en",
-    lazy: true,
     baseUrl: "https://framedle.com",
-    bundle: {
-      optimizeTranslationDirective: false,
-    },
   },
 
   icon: {

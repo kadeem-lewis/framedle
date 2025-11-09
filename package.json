@@ -23,7 +23,7 @@
     "@iconify-json/mdi": "^1.2.3",
     "@nuxt/devtools": "^2.7.0",
     "@nuxt/eslint": "^1.10.0",
-    "@nuxt/image": "^1.11.0",
+    "@nuxt/image": "^2.0.0",
     "@nuxt/scripts": "^0.12.2",
     "@nuxt/test-utils": "^3.20.1",
     "@nuxt/ui": "4.0.1",

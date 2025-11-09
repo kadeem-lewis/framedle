@@ -66,12 +66,12 @@
       "health": {
         "title": "Health:",
         "state": "Red and a down arrow",
-        "description": "Nezha has less health than Inaros"
+        "description": "Nezha has less health than Inaros Prime"
       },
       "shield": {
         "title": "Shield:",
         "state": "Red and an up arrow",
-        "description": "Nezha has more shields than Inaros"
+        "description": "Nezha has more shields than Inaros Prime"
       },
       "progenitor": {
         "title": "Progenitor:",
@@ -81,7 +81,7 @@
       "release_year": {
         "title": "Release Year:",
         "state": "Red and a down arrow",
-        "description": "Nezha was released before Inaros"
+        "description": "Nezha was released before Inaros Prime"
       },
       "correct_guess": "If you entered Nezha, here is what would come up:"
     },

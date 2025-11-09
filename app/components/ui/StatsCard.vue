@@ -6,9 +6,9 @@ const props = defineProps<{
 </script>
 <template>
   <div
-    class="flex flex-col items-center text-center font-semibold uppercase ring-1 ring-(--ui-primary)"
+    class="ring-primary flex flex-col items-center text-center font-semibold uppercase ring-1"
   >
     <p class="py-0.5">{{ props.value }}</p>
-    <p class="w-full bg-(--ui-primary) py-0.5">{{ props.label }}</p>
+    <p class="bg-primary w-full py-0.5">{{ props.label }}</p>
   </div>
 </template>

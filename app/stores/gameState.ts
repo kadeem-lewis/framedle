@@ -1,5 +1,4 @@
 import type { GameMode } from "@/composables/useGameMode";
-import type { Warframe } from "~~/shared/schemas/warframe";
 
 export const GameStatus = {
   ACTIVE: "active",
@@ -16,7 +15,7 @@ export const useGameStateStore = defineStore(
   () => {
     const { itemToGuess, guessedItems, attempts } = storeToRefs(useGameStore());
 
-    const mode = useGameMode();
+    const { mode } = useGameMode();
 
     const gameState = ref<Record<GameMode, GameStatusType>>({
       classic: GameStatus.ACTIVE,
@@ -28,19 +27,18 @@ export const useGameStateStore = defineStore(
     function updateGameState(
       gameMode: GameMode,
       currentAttempts: number,
-      currentGuessedItems: Warframe[],
+      currentGuessedItems: WarframeName[],
     ) {
       let won = false;
       if (gameMode === "classic" || gameMode === "classicUnlimited") {
         won = currentGuessedItems.some(
-          (guessedItem) =>
-            guessedItem.name === itemToGuess.value[gameMode]?.name,
+          (guessedItem) => guessedItem === itemToGuess.value[gameMode],
         );
       }
       if (gameMode === "ability" || gameMode === "abilityUnlimited") {
         won = currentGuessedItems.some(
           (guessedItem) =>
-            guessedItem.name === itemToGuess.value[gameMode]?.belongsTo,
+            guessedItem === itemToGuess.value[gameMode]?.belongsTo,
         );
       }
 

@@ -1,41 +1,20 @@
 <script setup lang="ts">
-import { startOfTomorrow } from "date-fns";
+import { format, startOfTomorrow } from "date-fns";
 import party from "party-js";
 import type { Ability } from "#shared/schemas/warframe";
 
 const { itemToGuess, guessedItems, attempts } = storeToRefs(useGameStore());
-const { resetGame, defaultAttempts, warframes } = useGameStore();
+const { resetCurrentGame, DEFAULT_ATTEMPTS } = useGameStore();
 
-const mode = useGameMode();
-
-const img = useImage();
-
-const tabs = [
-  {
-    label: "Classic",
-    route: "/classic",
-    source: "/warframe.png",
-    background: img("/backgrounds/fortuna.jpg", { format: "webp" }),
-    description: "Guess the Warframe",
-  },
-  {
-    label: "Ability",
-    route: "/ability",
-    source: "/PassiveAbilityIcon.png",
-    background: img("/backgrounds/helminth.jpg", { format: "webp" }),
-    description: "Guess the Ability",
-  },
-];
+const { mode, isDaily } = useGameMode();
 
 const correctWarframe = computed(() => {
   const gameMode = mode.value as keyof typeof itemToGuess.value;
   if (!gameMode) throw createError("Mode is not set");
   if (gameMode === "ability" || gameMode === "abilityUnlimited") {
-    return warframes.find(
-      (warframe) => warframe.name === itemToGuess.value[gameMode]?.belongsTo,
-    );
+    return getWarframe(itemToGuess.value[gameMode]!.belongsTo);
   }
-  return itemToGuess.value[gameMode];
+  return getWarframe(itemToGuess.value[gameMode]!);
 });
 
 const showGuesses = ref(false);
@@ -48,7 +27,7 @@ const answer = computed(() => {
   if (mode.value === "ability" || mode.value === "abilityUnlimited") {
     return itemToGuess.value[mode.value]?.belongsTo;
   } else {
-    return itemToGuess.value[mode.value]?.name;
+    return itemToGuess.value[mode.value];
   }
 });
 
@@ -90,6 +69,52 @@ watchEffect(() => {
     party.confetti(gameOverCard.value);
   }
 });
+
+const { currentDay } = storeToRefs(useDailiesStore());
+
+watchEffect(async () => {
+  if (!mode.value) return;
+
+  // Only for daily modes
+  if (!isDaily.value) return;
+
+  // Only when state changes to WON or LOST (not ACTIVE or *_PREVIOUS)
+  if (
+    currentGameState.value === GameStatus.WON ||
+    currentGameState.value === GameStatus.LOST
+  ) {
+    await db.progress
+      .where({
+        mode: mode.value,
+        ...(currentDay.value
+          ? { day: currentDay.value }
+          : { date: format(new Date(), "yyyy-MM-dd") }),
+      })
+      .modify({
+        state: currentGameState.value,
+      })
+      .catch((e) => {
+        console.error("Failed to update daily state", e);
+      });
+  }
+});
+
+const route = useRoute();
+const isPastDay = computed(() => {
+  if (route.name === "ability-path" || route.name === "classic-path") {
+    const day = Number(route.params.path?.at(-1));
+    if (isValidDayNumber(day)) return false;
+    return true;
+  }
+  return false;
+});
+
+const { activeCards } = useModeCards();
+
+const differentMode = computed(() => {
+  if (!mode.value) return;
+  return activeCards.value.find((card) => card.route !== route.path);
+});
 </script>
 <template>
   <div ref="gameOverCard">
@@ -112,12 +137,12 @@ watchEffect(() => {
           </span>
           <UiFeedbackTile
             field-label="Warframe"
-            :field-value="correctWarframe?.name"
+            :field-value="`${correctWarframe}`"
             tooltip-disabled
           >
             <NuxtImg
               :src="`https://cdn.warframestat.us/img/${correctWarframe?.imageName}`"
-              :alt="correctWarframe?.name"
+              :alt="`${correctWarframe}`"
               format="webp"
               height="64"
             />
@@ -135,11 +160,11 @@ watchEffect(() => {
         <p>
           Number of tries:
           <span class="font-semibold">{{
-            defaultAttempts - attempts[mode]
+            DEFAULT_ATTEMPTS - attempts[mode]
           }}</span>
         </p>
         <UButton
-          v-if="!$route.query.mode"
+          v-if="!$route.path.includes('unlimited')"
           icon="i-heroicons-chart-bar-solid"
           variant="outline"
           class="font-semibold uppercase"
@@ -147,11 +172,11 @@ watchEffect(() => {
           >Stats</UButton
         >
         <UButton
-          v-if="$route.query.mode"
+          v-if="$route.path.includes('unlimited')"
           variant="outline"
           class="font-semibold uppercase"
           size="xl"
-          @click="resetGame"
+          @click="resetCurrentGame"
           >New Game</UButton
         >
         <ShareButton />
@@ -162,31 +187,29 @@ watchEffect(() => {
           <ul v-if="showGuesses">
             <li
               v-for="guessedItem in guessedItems[mode]"
-              :key="guessedItem.name"
+              :key="guessedItem"
               class="flex gap-2"
             >
-              <p>{{ guessedItem.name === answer ? "✅" : "❌" }}</p>
+              <p>{{ guessedItem === answer ? "✅" : "❌" }}</p>
               <p class="font-semibold uppercase">
-                {{ guessedItem.name }}
+                {{ guessedItem }}
               </p>
             </li>
           </ul>
         </div>
-        <template v-if="!$route.query.mode">
-          <div class="flex gap-2 text-xl">
-            <p>New Game in:</p>
-            <span class="flex items-center gap-1">
-              <UIcon name="i-mdi-circle-slice-2" class="size-5" />
-              <NextGameCountdown :target-date="startOfTomorrow()" />
-            </span>
-          </div>
-          <USeparator />
-          <div class="space-y-4">
-            <p class="font-roboto text-center text-xl font-semibold uppercase">
-              Next Mode:
-            </p>
-            <ModeCard :tab="tabs.find((tab) => tab.route !== $route.path)!" />
-          </div>
+        <template v-if="isDaily">
+          <NextGameCountdown :target-date="startOfTomorrow()" />
+          <template v-if="isPastDay && differentMode">
+            <USeparator />
+            <div class="space-y-4">
+              <p
+                class="font-roboto text-center text-xl font-semibold uppercase"
+              >
+                Next Mode:
+              </p>
+              <UiAppModeCard :card="differentMode" />
+            </div>
+          </template>
         </template>
       </div>
     </UCard>

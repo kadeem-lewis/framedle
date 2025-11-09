@@ -3,26 +3,36 @@ import { useStorage } from "@vueuse/core";
 const { openDialog } = useDialog();
 
 const route = useRoute();
+const { gameType } = useGameMode();
+const { proxy } = useScriptUmamiAnalytics();
 
 const items = [
   {
     text: "Archive",
     icon: "i-heroicons-calendar-solid",
     command: () => {
-      navigateTo({ path: "/archive", query: { mode: route.name } });
+      navigateTo({
+        path: "/archive",
+        query: { mode: route.path.split("/")[1] },
+      });
     },
   },
   {
     text: "Stats",
     icon: "i-heroicons-chart-bar-solid",
     command: () => {
-      openDialog(dialogOptions.STATS, `${route.name} ${dialogOptions.STATS}`);
+      proxy.track("Opened Options Dialog", { modal: dialogOptions.STATS });
+      openDialog(
+        dialogOptions.STATS,
+        `${gameType.value} ${dialogOptions.STATS}`,
+      );
     },
   },
   {
     text: "About",
     icon: "i-mdi-information-variant",
     command: () => {
+      proxy.track("Opened Options Dialog", { modal: dialogOptions.ABOUT });
       openDialog(dialogOptions.ABOUT);
     },
   },
@@ -30,13 +40,17 @@ const items = [
     text: "Support",
     icon: "i-heroicons-heart",
     command: () => {
+      proxy.track("Opened Options Dialog", { modal: dialogOptions.SUPPORT });
       openDialog(dialogOptions.SUPPORT);
     },
   },
   {
-    text: "Instructions",
+    text: "How To",
     icon: "i-mdi-help",
     command: () => {
+      proxy.track("Opened Options Dialog", {
+        modal: dialogOptions.INSTRUCTIONS,
+      });
       openDialog(dialogOptions.INSTRUCTIONS);
     },
   },
@@ -56,9 +70,13 @@ watchEffect(() => {
 });
 </script>
 <template>
-  <div class="flex w-full items-center justify-center">
-    <menu class="flex gap-2 p-2">
-      <UTooltip v-for="item of items" :key="item.text" :text="item.text">
+  <div class="flex w-full items-center">
+    <menu class="flex w-full items-center justify-center gap-3">
+      <div
+        v-for="item of items"
+        :key="item.text"
+        class="flex flex-col items-center gap-1"
+      >
         <UButton
           :aria-label="item.text"
           :icon="item.icon"
@@ -68,7 +86,10 @@ watchEffect(() => {
           type="button"
           @click="item.command"
         />
-      </UTooltip>
+        <p class="text-sm font-semibold uppercase">
+          {{ item.text }}
+        </p>
+      </div>
     </menu>
   </div>
 </template>

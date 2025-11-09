@@ -1,6 +1,7 @@
 <script setup lang="ts">
 const { guessedItems, itemToGuess } = storeToRefs(useGameStore());
-const mode = useGameMode();
+const { mode } = useGameMode();
+const { checkGuess } = useGuess();
 </script>
 <template>
   <div
@@ -9,20 +10,20 @@ const mode = useGameMode();
   >
     <UiFeedbackTile
       v-for="warframe of [...guessedItems[mode]].reverse()"
-      :key="warframe.name"
-      :variant="checkGuess(itemToGuess[mode]!.belongsTo, warframe.name)"
+      :key="warframe"
+      :variant="checkGuess(itemToGuess[mode]!.belongsTo, warframe)"
       field-label="Warframe"
-      :field-value="warframe.name"
+      :field-value="warframe"
       tooltip-disabled
     >
       <div class="flex w-full items-center justify-between gap-1 px-2">
         <p class="font-semibold uppercase">
-          {{ warframe.name }}
+          {{ warframe }}
         </p>
         <NuxtImg
           format="webp"
-          :src="`https://cdn.warframestat.us/img/${warframe.imageName}`"
-          :alt="warframe.name"
+          :src="`https://cdn.warframestat.us/img/${getWarframe(warframe).imageName}`"
+          :alt="warframe"
           placeholder
           height="64"
           class="h-16"

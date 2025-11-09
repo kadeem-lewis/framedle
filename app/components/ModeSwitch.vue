@@ -1,20 +1,21 @@
 <script setup lang="ts">
 const route = useRoute();
 
-const modes = computed(() => [
-  {
-    label: "Daily",
-    to: route.path,
-    isActive: !route.query.mode,
-  },
-  {
-    label: "Unlimited",
-    to: {
-      query: { mode: "unlimited" },
+const modes = computed(() => {
+  const mode = route.path.split("/")[1];
+  return [
+    {
+      label: "Daily",
+      to: `/${mode}`,
+      isActive: !route.path.endsWith("unlimited"),
     },
-    isActive: !!route.query.mode,
-  },
-]);
+    {
+      label: "Unlimited",
+      to: `/${mode}/unlimited`,
+      isActive: route.path.endsWith("unlimited"),
+    },
+  ];
+});
 </script>
 <template>
   <div class="font-roboto flex justify-center gap-2">
@@ -23,10 +24,9 @@ const modes = computed(() => [
       :key="mode.label"
       :to="mode.to"
       :class="{
-        'border-b-4 border-neutral-800 dark:border-(--ui-primary)':
-          mode.isActive,
+        'dark:border-primary border-b-4 border-neutral-800': mode.isActive,
       }"
-      class="font-semibold uppercase ring-neutral-800 hover:border-(--ui-primary)"
+      class="hover:border-primary font-semibold uppercase ring-neutral-800"
       variant="outline"
       size="xl"
     >

@@ -1,9 +1,5 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
-  future: {
-    compatibilityVersion: 4,
-  },
-
   compatibilityDate: "2025-02-24",
   devtools: { enabled: true },
 
@@ -32,12 +28,14 @@ export default defineNuxtConfig({
         },
       },
       discordInvite: "",
+      kofiUrl: "",
     },
   },
 
   routeRules: {
-    "/classic": { ssr: false },
-    "/ability": { ssr: false },
+    "/classic/**": { ssr: false },
+    "/ability/**": { ssr: false },
+    "/archive/**": { ssr: false },
   },
 
   app: {
@@ -45,8 +43,15 @@ export default defineNuxtConfig({
       link: [
         {
           rel: "icon",
+          type: "image/svg+xml",
+          href: "/logo.svg",
+          sizes: "any",
+        },
+        {
+          rel: "icon",
           type: "image/x-icon",
           href: "/favicon.ico",
+          sizes: "32x32",
         },
       ],
     },
@@ -113,11 +118,7 @@ export default defineNuxtConfig({
       { code: "en", language: "en-US", name: "English", file: "en.json" },
     ],
     defaultLocale: "en",
-    lazy: true,
     baseUrl: "https://framedle.com",
-    bundle: {
-      optimizeTranslationDirective: false,
-    },
   },
 
   icon: {

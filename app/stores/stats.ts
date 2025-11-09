@@ -3,7 +3,7 @@ import { format, startOfDay, startOfYesterday } from "date-fns";
 export type FixedGuessArray = [number, number, number, number, number, number];
 
 export const useStatsStore = defineStore(
-  "stats",
+  "stats.v2",
   () => {
     const getDefaultStats = () => ({
       classic: {
@@ -29,11 +29,12 @@ export const useStatsStore = defineStore(
 
     type Stats = (typeof stats.value)[keyof typeof stats.value];
 
-    const { attempts, currentDailyDate } = storeToRefs(useGameStore());
-    const { defaultAttempts } = useGameStore();
+    const { attempts } = storeToRefs(useGameStore());
+    const { DEFAULT_ATTEMPTS } = useGameStore();
 
     const { hasWon, isGameOver } = storeToRefs(useGameStateStore());
-    const mode = useGameMode();
+    const { currentDailyDate } = storeToRefs(useDailiesStore());
+    const { mode } = useGameMode();
 
     function resetStreak(mode: "classic" | "ability") {
       const lastPlayedDate = stats.value[mode].lastPlayedDate;
@@ -70,7 +71,7 @@ export const useStatsStore = defineStore(
       }
 
       currentStats.wins++;
-      const attemptsUsed = defaultAttempts - attempts.value[mode.value];
+      const attemptsUsed = DEFAULT_ATTEMPTS - attempts.value[mode.value];
       // @ts-expect-error I need to figure out how to properly type this fixed length array to prevent such as error
       currentStats.guesses[attemptsUsed - 1]++;
 

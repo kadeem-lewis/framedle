@@ -1,94 +1,86 @@
 <script setup lang="ts">
-import { format, subDays } from "date-fns";
 import Fuse from "fuse.js";
 
 useSeoMeta({
   title: "Archive",
 });
 
-type UpdatedDaily = Daily & {
-  readableDate: string;
-};
-
 const { proxy } = useScriptUmamiAnalytics();
 
-const route = useRoute();
 const router = useRouter();
+const route = useRoute("archive");
 
-const order = ref<"OLDEST" | "NEWEST">("NEWEST");
-const selectedMode = ref(route.query.mode || "classic");
-
-const { data } = await useFetch("/api/dailies", {
-  key: "archive",
-  query: {
-    order,
-    date: format(subDays(new Date(), 1), "yyyy-MM-dd"),
-  },
-});
+const { pastDays, selectedArchiveMode, order } = storeToRefs(useArchiveStore());
+const { getRandomPastDay } = useArchiveStore();
+selectedArchiveMode.value =
+  (route.query.mode as "classic" | "ability") || "classic";
 
 watch(
-  () => selectedMode.value,
+  () => selectedArchiveMode.value,
   () => {
     router.replace({
       query: {
-        mode: selectedMode.value,
+        mode: selectedArchiveMode.value,
       },
     });
   },
   { immediate: true },
 );
 
-const filteredDailies = ref<UpdatedDaily[]>(data.value.dailies);
 const searchQuery = ref("");
 
-const fuse = new Fuse(data.value.dailies as UpdatedDaily[], {
-  keys: ["readableDate", "day"],
-  threshold: 0.4,
-});
+const fuse = computed(
+  () =>
+    new Fuse(pastDays.value ?? [], {
+      keys: ["readableDate", "day"],
+      threshold: 0.4,
+    }),
+);
 
-watch(data, (newData) => {
-  filteredDailies.value = newData.dailies;
-  fuse.setCollection(newData.dailies);
-});
+const filteredDailies = computed(() => {
+  const days = pastDays.value;
 
-watch(searchQuery, (newQuery) => {
-  if (newQuery === "") {
-    filteredDailies.value = data.value.dailies;
-  } else {
-    filteredDailies.value = fuse
-      .search(newQuery)
-      .map((result) => ({ ...result.item }));
+  if (!days || days.length === 0) {
+    return [];
   }
+
+  if (searchQuery.value === "") {
+    return days;
+  }
+
+  return fuse.value.search(searchQuery.value).map((result) => result.item);
 });
+
+const randomPastDay = computed(() => getRandomPastDay());
 </script>
 <template>
   <div class="flex flex-col gap-4">
     <p class="font-roboto text-xl font-bold uppercase">Archive</p>
     <div class="font-roboto flex gap-2">
-      <!-- These aren't styled when highlighted -->
       <UButton
         variant="outline"
-        class="uppercase ring-neutral-800 hover:border-(--ui-primary)"
+        class="hover:border-primary uppercase ring-neutral-800"
         :class="{
-          'border-b-2 border-neutral-800 dark:border-(--ui-primary)':
-            selectedMode === 'classic',
+          'dark:border-primary border-b-2 border-neutral-800':
+            selectedArchiveMode === 'classic',
         }"
-        @click="selectedMode = 'classic'"
+        @click="selectedArchiveMode = 'classic'"
       >
         Classic
       </UButton>
       <UButton
         variant="outline"
-        class="uppercase ring-neutral-800 hover:border-(--ui-primary)"
+        class="hover:border-primary uppercase ring-neutral-800"
         :class="{
-          'border-b-2 border-neutral-800 dark:border-(--ui-primary)':
-            selectedMode === 'ability',
+          'dark:border-primary border-b-2 border-neutral-800':
+            selectedArchiveMode === 'ability',
         }"
-        @click="selectedMode = 'ability'"
+        @click="selectedArchiveMode = 'ability'"
       >
         Ability
       </UButton>
     </div>
+    <ArchiveGameStats />
     <div class="flex items-center justify-end gap-4">
       <USelect
         v-model="order"
@@ -113,28 +105,62 @@ watch(searchQuery, (newQuery) => {
     <div
       class="flex flex-col gap-4 border border-neutral-200 bg-white/75 p-2 dark:border-neutral-800 dark:bg-neutral-900/75"
     >
-      <div v-if="filteredDailies" class="grid grid-cols-2 gap-4">
-        <p class="font-semibold">Name</p>
-        <p class="font-semibold">Date</p>
+      <div v-if="filteredDailies" class="grid grid-cols-12 gap-2">
+        <p class="col-span-5 col-start-3 font-semibold">Name</p>
+        <p class="col-span-5 font-semibold">Date</p>
       </div>
-      <div class="grid h-full max-h-96 grid-cols-2 gap-4 overflow-y-auto">
+      <div
+        class="grid h-full max-h-96 grid-cols-12 items-center gap-2 overflow-y-auto"
+      >
         <div
           v-for="daily of filteredDailies"
-          :key="daily.id"
+          :key="daily.day"
           class="contents cursor-pointer odd:bg-neutral-700"
           @click="
             proxy.track('started archive game', { date: daily.date });
-            navigateTo({
-              path: `/${selectedMode}`,
-              query: { date: daily.date },
-            });
+            navigateTo(`/${selectedArchiveMode}/${daily.day}`);
           "
         >
-          <p>Framedle #{{ daily.day }}</p>
-          <p>{{ daily.readableDate }}</p>
-          <USeparator class="col-span-2" />
+          <UIcon
+            v-if="daily.state === GameStatus.ACTIVE"
+            name="i-mdi-play-circle"
+            class="text-partial col-span-2 size-6"
+          />
+          <UIcon
+            v-else
+            name="i-mdi-check-circle"
+            class="col-span-2 size-6"
+            :class="{
+              'text-success': daily.state,
+            }"
+          />
+          <p class="col-span-5">Framedle #{{ daily.day }}</p>
+          <p class="col-span-5">{{ daily.readableDate }}</p>
+          <USeparator class="col-span-12" />
         </div>
       </div>
     </div>
+    <UBadge
+      v-if="!randomPastDay"
+      variant="outline"
+      size="lg"
+      class="flex w-full items-center justify-center rounded-none text-base uppercase"
+    >
+      All days completed!
+    </UBadge>
+    <UButton
+      v-else
+      :to="`/${selectedArchiveMode}/${randomPastDay}`"
+      variant="outline"
+      icon="i-mdi-dice"
+      class="flex items-center justify-center uppercase"
+      @click="
+        proxy.track('Started Random Archive Game', {
+          selectedArchiveMode,
+          randomPastDay,
+        })
+      "
+      >Random</UButton
+    >
   </div>
 </template>

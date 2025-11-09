@@ -1,76 +1,89 @@
 <script setup lang="ts">
 import Fuse from "fuse.js";
-import type { Warframe } from "#shared/schemas/warframe";
 
 const props = defineProps<{
-  items: Warframe[];
+  items: WarframeName[];
 }>();
 
-//TODO: I need to find out how to override the type of the items accepted by the UInputMenu
+const MAX_VISIBLE_ITEMS = 6 as const;
 
-const { attempts, guessedItems } = storeToRefs(useGameStore());
+const { guessedItems } = storeToRefs(useGameStore());
 
-const mode = useGameMode();
+const { mode } = useGameMode();
 
 const items = computed(() => {
   return props.items.filter(
     (item) =>
       !guessedItems.value[mode.value!].some(
-        (guessedItem) => guessedItem.name === item.name,
+        (guessedItem) => guessedItem === item,
       ),
   );
 });
 
-const selectedWarframe = ref<Warframe>();
+const selectedWarframe = ref<WarframeName>();
 const query = ref("");
 
 const fuse = computed(
   () =>
     new Fuse(items.value, {
-      keys: ["name"],
       threshold: 0.4,
     }),
 );
 
-const filteredItems = computed(() => {
+const fullSearchResults = computed(() => {
   if (!query.value) {
-    return items.value.slice(0, 6);
+    return [];
   }
-  return fuse.value
-    .search(query.value)
-    .map((result) => ({ ...result.item }))
-    .slice(0, 6);
+  return fuse.value.search(query.value).map((result) => result.item);
 });
+
+const filteredItems = computed(() =>
+  fullSearchResults.value.slice(0, MAX_VISIBLE_ITEMS),
+);
+
+const isOpen = ref(false);
 
 watch(query, (newQuery) => {
-  const match = items.value.find(
-    (item) => item.name.toLowerCase() === newQuery.toLowerCase(),
-  );
-  if (match) {
-    selectedWarframe.value = match;
+  if (
+    selectedWarframe.value &&
+    selectedWarframe.value.toLowerCase() === newQuery.toLowerCase()
+  ) {
+    isOpen.value = false;
+    return;
+  }
+
+  isOpen.value = newQuery.length > 0 && fullSearchResults.value.length > 0;
+
+  if (isOpen.value) {
+    const exactMatch = items.value.find(
+      (item) => item.toLowerCase() === newQuery.toLowerCase(),
+    );
+    if (exactMatch) {
+      selectedWarframe.value = exactMatch;
+    }
   }
 });
 
-const addGuess = () => {
+const { makeGuess } = useGuess();
+
+const handleSubmit = async () => {
   if (!mode.value) throw createError("Mode is not set");
   if (!selectedWarframe.value) return;
 
-  attempts.value[mode.value] -= 1;
-  guessedItems.value[mode.value].push(selectedWarframe.value);
-
+  await makeGuess(selectedWarframe.value, mode.value);
   selectedWarframe.value = undefined;
 };
 </script>
 <template>
-  <form class="flex gap-2" @submit.prevent="addGuess">
-    <!-- @vue-expect-error I'm not sure why setting a label key is restricting v-model to only a string -->
+  <form class="flex gap-2" @submit.prevent="handleSubmit">
     <UInputMenu
       v-model="selectedWarframe"
       v-model:search-term="query"
+      v-model:open="isOpen"
       name="warframe-search"
       :reset-search-term-on-blur="false"
       :items="filteredItems"
-      label-key="name"
+      trailing-icon=""
       placeholder="SEARCH..."
       size="lg"
       required
@@ -82,26 +95,15 @@ const addGuess = () => {
       }"
       class="grow rounded-none"
     >
-      <template #trailing>
-        <span class="sr-only">options dropdown</span>
-        <UIcon name="i-mdi-triangle-down" class="size-3" />
-      </template>
       <template #item="{ item }">
         <div class="flex w-full items-center justify-between gap-2">
           <p class="font-semibold uppercase">
-            {{
-              //@ts-ignore
-              item.name
-            }}
+            {{ getWarframe(item as WarframeName).name }}
           </p>
           <NuxtImg
             format="webp"
-            :src="//@ts-ignore
-            `https://cdn.warframestat.us/img/${item.imageName}`"
-            :alt="
-              //@ts-ignore
-              item.name
-            "
+            :src="`https://cdn.warframestat.us/img/${getWarframe(item as WarframeName).imageName}`"
+            :alt="getWarframe(item as WarframeName).name"
             placeholder
             height="64"
             class="h-16"
@@ -110,6 +112,15 @@ const addGuess = () => {
       </template>
       <template #empty>
         <p class="font-semibold uppercase">No Warframes Found</p>
+      </template>
+      <template #content-bottom>
+        <div
+          v-if="query && items.length > MAX_VISIBLE_ITEMS"
+          class="border-t border-gray-200 p-2 text-center text-xs"
+        >
+          Showing {{ filteredItems.length }} of
+          {{ fullSearchResults.length }} results for "{{ query }}"
+        </div>
       </template>
     </UInputMenu>
     <UButton

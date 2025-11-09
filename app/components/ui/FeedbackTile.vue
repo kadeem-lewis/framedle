@@ -1,13 +1,15 @@
 <script setup lang="ts">
 const {
   fieldLabel,
-  fieldValue,
+  fieldValue = "",
   tooltipDisabled = false,
+  showVisualAssist = false,
   variant = "neutral",
 } = defineProps<{
   fieldLabel: string;
-  fieldValue?: string | number;
+  fieldValue?: string | number | string[];
   tooltipDisabled?: boolean;
+  showVisualAssist?: boolean;
   variant?: Result;
 }>();
 
@@ -15,6 +17,8 @@ const tooltipText = computed(() => {
   if (fieldLabel === "Warframe") return `${fieldValue}`;
   if (variant === "correct") {
     return `Correct ${fieldLabel} (${fieldValue})`;
+  } else if (variant === "partial") {
+    return `Partially Correct ${fieldLabel}`;
   } else {
     return `Incorrect ${fieldLabel} (${fieldValue})`;
   }
@@ -28,6 +32,8 @@ const tooltipStyles = computed(() => {
     return {
       content: `${baseStyles} bg-success`,
     };
+  } else if (variant === "partial") {
+    return { content: `${baseStyles} bg-partial` };
   } else if (variant === "neutral") {
     return { content: `${baseStyles}` };
   }
@@ -53,6 +59,8 @@ const tooltipStyles = computed(() => {
             variant === 'neutral',
           'border-border-success bg-success hover:shadow-inner hover:brightness-110':
             variant === 'correct',
+          'border-border-partial bg-partial hover:shadow-inner hover:brightness-110':
+            variant === 'partial',
           'border-border-error bg-error hover:shadow-inner hover:brightness-110':
             variant !== 'correct' && variant !== 'neutral',
           'arrow-up': variant === 'higher',
@@ -60,8 +68,12 @@ const tooltipStyles = computed(() => {
         },
       ]"
     >
+      <UiFeedbackTileStateIndicator
+        v-if="showVisualAssist"
+        :variant="variant"
+      />
       <div
-        class="relative z-auto flex h-full items-center justify-center pt-1 text-center"
+        class="relative z-auto flex h-full items-center justify-center pt-1 text-center text-shadow-md"
       >
         <slot />
       </div>

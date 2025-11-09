@@ -1,15 +1,15 @@
-import type { Warframe } from "#shared/schemas/warframe";
-
 export function useShare() {
   const emojis: {
     incorrect: string;
     correct: string;
+    partial: string;
     lower: string;
     higher: string;
     unused: string;
   } = {
     incorrect: "🟥",
     correct: "🟩",
+    partial: "🟨",
     lower: "🔽",
     higher: "🔼",
     unused: "◻️",
@@ -17,17 +17,18 @@ export function useShare() {
 
   const emojiFeedback = ref<string[]>([]);
 
-  const { guessedItems, itemToGuess, attempts, currentDay } =
-    storeToRefs(useGameStore());
-  const { defaultAttempts } = useGameStore();
+  const { guessedItems, itemToGuess, attempts } = storeToRefs(useGameStore());
+  const { DEFAULT_ATTEMPTS } = useGameStore();
+  const { currentDay } = storeToRefs(useDailiesStore());
 
-  const mode = useGameMode();
+  const { mode, gameVariant } = useGameMode();
   const { hasWon } = storeToRefs(useGameStateStore());
 
   const { encode } = useEncoder();
 
   const route = useRoute();
   const { copy, copied } = useClipboard();
+  const { checkGuess } = useGuess();
 
   function generateClassicEmojiFeedback(
     correctItem: Warframe,
@@ -60,10 +61,7 @@ export function useShare() {
         if (!itemToGuess.value[currentMode]?.belongsTo) return;
         emojiFeedback.value.push(
           emojis[
-            checkGuess(
-              itemToGuess.value[currentMode]?.belongsTo,
-              guessedItem.name,
-            )
+            checkGuess(itemToGuess.value[currentMode]?.belongsTo, guessedItem)
           ],
         );
       });
@@ -76,7 +74,10 @@ export function useShare() {
       guessedItems.value[currentMode].forEach((guessedItem) => {
         if (correctItem) {
           emojiFeedback.value.push(
-            generateClassicEmojiFeedback(correctItem, guessedItem),
+            generateClassicEmojiFeedback(
+              getWarframe(correctItem),
+              getWarframe(guessedItem),
+            ),
           );
         }
       });
@@ -84,26 +85,42 @@ export function useShare() {
 
     //! As more game modes are added, this will need to be updated
     const emojiGrid =
-      route.name === "classic"
+      route.name === "classic-path"
         ? emojiFeedback.value.join("\n")
         : emojiFeedback.value.join(" ");
 
-    const attemptsUsed = defaultAttempts - attempts.value[currentMode];
+    const attemptsUsed = DEFAULT_ATTEMPTS - attempts.value[currentMode];
 
-    const topText = route.query.mode
+    const topText = route.path.includes("unlimited")
       ? hasWon.value
-        ? `I solved a Framedle in ${attemptsUsed} out of ${defaultAttempts} turns.`
-        : `I couldn't solve this Framedle in ${defaultAttempts} turns.`
-      : `Framedle ${currentMode} #${currentDay.value} ${hasWon.value ? attemptsUsed : "X"}/${defaultAttempts}`;
+        ? `I solved a Framedle in ${attemptsUsed} out of ${DEFAULT_ATTEMPTS} turns.`
+        : `I couldn't solve this Framedle in ${DEFAULT_ATTEMPTS} turns.`
+      : `Framedle ${currentMode} #${currentDay.value} ${hasWon.value ? attemptsUsed : "X"}/${DEFAULT_ATTEMPTS}`;
+
+    const encodedAnswer = computed(() => {
+      if (
+        mode.value === "classicUnlimited" &&
+        itemToGuess.value["classicUnlimited"]
+      ) {
+        return encode(itemToGuess.value["classicUnlimited"]);
+      }
+      if (
+        mode.value === "abilityUnlimited" &&
+        itemToGuess.value["abilityUnlimited"]
+      ) {
+        return encode(itemToGuess.value["abilityUnlimited"].name);
+      }
+      return;
+    });
 
     const grid = `
 ${topText}
       
 ${emojiGrid}
 ${
-  route.query.mode
+  gameVariant.value === "unlimited"
     ? `See how you do on the same challenge I played:
-${window.location.href}&x=${itemToGuess.value[currentMode] && encode(itemToGuess.value[currentMode].name)}`
+${window.location.href}?x=${encodedAnswer.value}`
     : window.location.href
 }
         `;

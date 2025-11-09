@@ -1,25 +1,33 @@
 <script setup lang="ts">
 definePageMeta({
   layout: "game",
+  validate: validateRoute,
 });
 
 useSeoMeta({
   title: "Ability",
 });
 
-defineOgImageComponent("Framedle");
-
 const { t } = useI18n();
 
-const { itemToGuess, vanillaWarframes } = storeToRefs(useGameStore());
-const { abilityInit } = useGameStore();
-const mode = useGameMode();
+const { itemToGuess } = storeToRefs(useGameStore());
+const { initializeUnlimitedGame } = useGameStore();
+const { mode } = useGameMode();
+const route = useRoute("ability-path");
 const { isGameOver } = storeToRefs(useGameStateStore());
 const { resetStreak } = useStatsStore();
+const { isLoadingDailies } = storeToRefs(useDailiesStore());
 
-await callOnce("ability-setup", abilityInit, {
-  mode: "navigation",
-});
+await callOnce(
+  "ability-setup",
+  () => {
+    if (!mode.value) return;
+    initializeUnlimitedGame(mode.value, route.query.x as string);
+  },
+  {
+    mode: "navigation",
+  },
+);
 
 onBeforeMount(() => {
   resetStreak("ability");
@@ -54,18 +62,22 @@ function handleImageLoaded(success: boolean) {
 onUnmounted(() => {
   clearTimeout(loadingTimeout);
 });
+
+const isLoading = computed(() => {
+  return showLoadingSpinner.value || isLoadingDailies.value;
+});
 </script>
 <template>
   <div>
-    <UiAppSpinner v-if="showLoadingSpinner" />
-    <div v-show="!showLoadingSpinner">
+    <UiAppSpinner v-if="isLoading" />
+    <div v-show="!isLoading">
       <div v-if="mode" class="flex flex-col gap-4">
         <div v-if="itemToGuess[mode]" class="space-y-4">
           <RemainingGuesses />
           <UCard class="divide-y-0">
             <template #header>
               <p
-                class="text-primary-600 font-roboto text-xl font-bold uppercase dark:text-(--ui-primary)"
+                class="text-primary-600 font-roboto dark:text-primary text-xl font-bold uppercase"
               >
                 {{ t("ability.title") }}
               </p>
@@ -81,7 +93,10 @@ onUnmounted(() => {
           </UCard>
 
           <AbilityFeedbackArea v-if="!isGameOver" />
-          <GameOver v-if="isGameOver" />
+          <template v-else>
+            <GameOverNavigation v-if="!mode.includes('Unlimited')" />
+            <GameOver />
+          </template>
         </div>
         <ModeUnavailable v-else />
       </div>

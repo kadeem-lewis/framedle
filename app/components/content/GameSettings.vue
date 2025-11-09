@@ -2,25 +2,6 @@
 //colorblind mode
 const { $colorblindMode } = useNuxtApp();
 
-// theme toggle
-const items = [
-  {
-    label: "light",
-    value: "light",
-    icon: "i-heroicons-sun-solid",
-  },
-  {
-    label: "dark",
-    value: "dark",
-    icon: "i-heroicons-moon-solid",
-  },
-  {
-    label: "system",
-    value: "system",
-    icon: "i-heroicons-computer-desktop",
-  },
-];
-
 // localizations
 const { locale, locales, setLocale } = useI18n();
 const selectedLocale = ref(locale.value);
@@ -39,18 +20,13 @@ watch(selectedLocale, (newValue) => {
   <USeparator />
   <div class="flex items-center justify-between py-2">
     <p class="text-lg font-medium">Theme</p>
-    <USelect
-      v-model="$colorMode.preference"
-      :items="items"
-      class="capitalize"
+    <UColorModeSelect
       size="lg"
-      :ui="{ base: 'rounded-none ', content: 'rounded-none', value: 'px-2' }"
-    >
-      <template #item="{ item }">
-        <UIcon :name="item.icon" class="size-5" />
-        <span class="ml-2">{{ item.label }}</span>
-      </template>
-    </USelect>
+      class="min-w-fit rounded-none"
+      :ui="{
+        content: 'rounded-none',
+      }"
+    />
   </div>
   <USeparator />
   <div class="flex flex-col gap-1 py-2">
@@ -65,7 +41,7 @@ watch(selectedLocale, (newValue) => {
         :ui="{ base: 'rounded-none ', content: 'rounded-none', value: 'px-2' }"
       />
     </div>
-    <p class="text-sm text-(--ui-text-muted)">More languages coming soon</p>
+    <p class="text-muted text-sm">More languages coming soon</p>
   </div>
   <USeparator />
 </template>

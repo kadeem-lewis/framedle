@@ -3,11 +3,13 @@ const {
   fieldLabel,
   fieldValue = "",
   tooltipDisabled = false,
+  showVisualAssist = false,
   variant = "neutral",
 } = defineProps<{
   fieldLabel: string;
   fieldValue?: string | number | string[];
   tooltipDisabled?: boolean;
+  showVisualAssist?: boolean;
   variant?: Result;
 }>();
 
@@ -31,7 +33,7 @@ const tooltipStyles = computed(() => {
       content: `${baseStyles} bg-success`,
     };
   } else if (variant === "partial") {
-    return { content: `${baseStyles} bg-yellow-500` };
+    return { content: `${baseStyles} bg-partial` };
   } else if (variant === "neutral") {
     return { content: `${baseStyles}` };
   }
@@ -57,7 +59,7 @@ const tooltipStyles = computed(() => {
             variant === 'neutral',
           'border-border-success bg-success hover:shadow-inner hover:brightness-110':
             variant === 'correct',
-          'border-yellow-500 bg-yellow-500/75 hover:shadow-inner hover:brightness-110':
+          'border-border-partial bg-partial hover:shadow-inner hover:brightness-110':
             variant === 'partial',
           'border-border-error bg-error hover:shadow-inner hover:brightness-110':
             variant !== 'correct' && variant !== 'neutral',
@@ -66,8 +68,12 @@ const tooltipStyles = computed(() => {
         },
       ]"
     >
+      <UiFeedbackTileStateIndicator
+        v-if="showVisualAssist"
+        :variant="variant"
+      />
       <div
-        class="relative z-auto flex h-full items-center justify-center pt-1 text-center"
+        class="relative z-auto flex h-full items-center justify-center pt-1 text-center text-shadow-md"
       >
         <slot />
       </div>

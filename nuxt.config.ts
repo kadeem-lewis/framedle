@@ -28,6 +28,7 @@ export default defineNuxtConfig({
         },
       },
       discordInvite: "",
+      kofiUrl: "",
     },
   },
 
@@ -42,8 +43,15 @@ export default defineNuxtConfig({
       link: [
         {
           rel: "icon",
+          type: "image/svg+xml",
+          href: "/logo.svg",
+          sizes: "any",
+        },
+        {
+          rel: "icon",
           type: "image/x-icon",
           href: "/favicon.ico",
+          sizes: "32x32",
         },
       ],
     },
@@ -110,11 +118,7 @@ export default defineNuxtConfig({
       { code: "en", language: "en-US", name: "English", file: "en.json" },
     ],
     defaultLocale: "en",
-    lazy: true,
     baseUrl: "https://framedle.com",
-    bundle: {
-      optimizeTranslationDirective: false,
-    },
   },
 
   icon: {

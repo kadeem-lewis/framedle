@@ -27,11 +27,13 @@ export type ProgressData = {
   selectedMinigameAbility?: string;
 };
 
-export type FullClassicData = DailyData &
+export type FullClassicData = ClassicDailyData &
   Omit<ProgressData, "date" | "day" | "mode">;
 
-export type FullAbilityData = DailyData &
-  Omit<ProgressData, "date" | "day" | "mode">;
+export type FullAbilityData = AbilityDailyData &
+  Omit<ProgressData, "date" | "day" | "mode"> & {
+    selectedMinigameAbility: string;
+  };
 
 export const db = new Dexie("framedle") as Dexie & {
   dailies: EntityTable<DailyData>;
@@ -40,5 +42,5 @@ export const db = new Dexie("framedle") as Dexie & {
 
 db.version(1).stores({
   dailies: "&[day+mode], &[date+mode], mode",
-  progress: "&[day+mode], &[date+mode], mode",
+  progress: "&[day+mode], &[date+mode],[state+mode], mode",
 });

@@ -6,6 +6,11 @@ export default defineAppConfig({
       discord: "discord",
       bluesky: "bluesky",
     },
+    icons: {
+      light: "i-heroicons-sun-solid",
+      dark: "i-heroicons-moon-solid",
+      system: "i-heroicons-computer-desktop",
+    },
     button: {
       variants: {
         variant: {

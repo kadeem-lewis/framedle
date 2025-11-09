@@ -5,39 +5,45 @@
 
 :root {
   --ui-container: var(--container-md);
-  --success: hsl(120, 61%, 50%); /* green ( #32cd32 ) */
-  --border-success: hsl(120, 39%, 32%); /* 50% darker green */
-  --error: hsl(0, 100%, 50%); /* red ( #FF0000 ) */
-  --border-error: hsl(0, 64%, 32%); /* 50% darker red */
-  --ui-discord: hsl(235, 86%, 65%); /* blurple */
-  --ui-bluesky: hsl(209, 100%, 50%); /* #0085ff */
+  --success: hsl(120 61% 50%); /* green ( #32cd32 ) */
+  --border-success: hsl(120 39% 32%); /* 50% darker green */
+  --error: hsl(0 100% 50%); /* red ( #FF0000 ) */
+  --border-error: hsl(0 64% 32%); /* 50% darker red */
+  --partial: hsl(49 79% 47%); /* 50% saturated version of dark */
+  --border-partial: hsl(49 51% 30%); /* 50% darker */
+  --ui-discord: hsl(235 86% 65%); /* blurple */
+  --ui-bluesky: hsl(209 100% 50%); /* #0085ff */
 }
 
 .dark {
-  --success: hsl(120, 49%, 50%); /* 25% desaturated green */
-  --border-success: hsl(120, 31%, 32%); /* 50% darker 25% desaturated green */
-  --error: hsl(0, 80%, 50%); /* 25% desaturated red  */
-  --border-error: hsl(0, 52%, 32%); /* 50% darker 25% desaturated red */
-  --ui-discord: hsl(235, 69%, 65%); /* 25% desaturated blurple */
-  --ui-bluesky: hsl(209, 80%, 50%); /* 25% desaturated #0085ff */
+  --success: hsl(120 49% 50%); /* 25% desaturated green */
+  --border-success: hsl(120 31% 32%); /* 50% darker 25% desaturated green */
+  --error: hsl(0 80% 50%); /* 25% desaturated red  */
+  --border-error: hsl(0 52% 32%); /* 50% darker 25% desaturated red */
+  --partial: hsl(49 51% 47%); /* (#b59f3b) wordle partial color */
+  --border-partial: hsl(49 32% 30%); /* 50% darker yellow */
+  --ui-discord: hsl(235 69% 65%); /* 25% desaturated blurple */
+  --ui-bluesky: hsl(209 80% 50%); /* 25% desaturated #0085ff */
 }
 
 .colorblind {
-  --success: hsl(210, 100%, 56%); /* dodger blue ( #1e90ff ) */
-  --border-success: hsl(210, 64%, 36%); /* 50% darker dodger blue */
-  --error: hsl(39, 100%, 50%); /* orange ( #FFA500 ) */
-  --border-error: hsl(39, 64%, 32%); /* 50% darker orange */
+  --success: hsl(210 100% 56%); /* dodger blue ( #1e90ff ) */
+  --border-success: hsl(210 64% 36%); /* 50% darker dodger blue */
+  --error: hsl(32 100% 50%); /* orange ( #FFA500 ) */
+  --border-error: hsl(32 52% 32%); /* 50% darker orange */
+  --partial: hsl(344 95% 77%); /* flamingo pink ( #fc8eac ) */
+  --border-partial: hsl(344 52% 32%); /* 50% darker orange */
 }
 
 .dark.colorblind {
-  --success: hsl(210, 80%, 56%); /* 25% desaturated dodger blue */
+  --success: hsl(210 80% 56%); /* 25% desaturated dodger blue */
   --border-success: hsl(
-    210,
-    52%,
-    36%
+    210 52% 36%
   ); /* 50% darker 25% desaturated dodger blue */
-  --error: hsl(39, 80%, 50%); /* 25% desaturated orange */
-  --border-error: hsl(39, 52%, 32%); /* 50% darker 25% desaturated orange */
+  --error: hsl(32 80% 50%); /* 25% desaturated orange */
+  --border-error: hsl(39 52% 32%); /* 50% darker 25% desaturated orange */
+  --partial: hsl(344 76% 77%); /* 25% desaturated orange */
+  --border-partial: hsl(344 52% 32%); /* 50% darker 25% desaturated orange */
 }
 
 @theme static {
@@ -45,11 +51,12 @@
   --font-roboto: Roboto, sans-serif;
 
   --color-success: var(--success);
-
   --color-error: var(--error);
+  --color-partial: var(--partial);
 
   --color-border-success: var(--border-success);
   --color-border-error: var(--border-error);
+  --color-border-partial: var(--border-partial);
 }
 
 /*

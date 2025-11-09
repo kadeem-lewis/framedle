@@ -81,9 +81,47 @@ const isOpen = ref(false);
 
 const { handleStatsShare, copied } = useShare();
 const { resetStats } = useStatsStore();
+
+function handleResetStats() {
+  resetStats();
+  isOpen.value = false;
+}
+
+const { migrateGameStats, shouldShowMigrationBanner } = useMigration();
+const toast = useToast();
+
+function handleMigrationClick() {
+  const result = migrateGameStats();
+
+  if (result.success) {
+    toast.add({
+      title: "Success!",
+      description: result.message,
+      color: "success",
+    });
+  } else {
+    toast.add({ title: "Oops!", description: result.message, color: "error" });
+  }
+  // Because 'stats' from storeToRefs is reactive,
+  // your component's charts and stats will update automatically!
+}
 </script>
 <template>
   <div class="space-y-4">
+    <UBanner
+      v-if="shouldShowMigrationBanner"
+      title="Game stats have been reset"
+    >
+      <template #actions>
+        <UButton
+          class="uppercase"
+          color="neutral"
+          @click="handleMigrationClick"
+        >
+          Migrate old stats
+        </UButton>
+      </template>
+    </UBanner>
     <div class="grid grid-cols-6 gap-4">
       <UiStatsCard label="Played" :value="modeStats.plays" class="col-span-2" />
       <UiStatsCard label="Wins" :value="modeStats.wins" class="col-span-2" />
@@ -132,7 +170,7 @@ const { resetStats } = useStatsStore();
               <UButton class="uppercase" @click="isOpen = false"
                 >Cancel</UButton
               >
-              <UButton color="error" class="uppercase" @click="resetStats"
+              <UButton color="error" class="uppercase" @click="handleResetStats"
                 >Delete</UButton
               >
             </div>

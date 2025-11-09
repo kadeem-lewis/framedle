@@ -11,7 +11,7 @@ const runtimeConfig = useRuntimeConfig();
       <li>
         You can
         <ULink
-          to="https://ko-fi.com/redeemr"
+          :to="runtimeConfig.public.kofiUrl"
           class="text-primary underline"
           external
           target="blank"

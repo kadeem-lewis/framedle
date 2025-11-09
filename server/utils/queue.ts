@@ -44,13 +44,20 @@ export async function processQueue(
   name: "warframe" | "ability",
   sourceKeys: string[],
 ) {
+  let existingQueue: DailyQueue | null = null;
+
   const result = await useDrizzle()
     .select()
     .from(tables.queue)
-    .where(eq(tables.queue.name, name));
+    .where(eq(tables.queue.name, name))
+    .catch((error) => {
+      console.error(`Error fetching queue for ${name}:`, error);
+      return [];
+    });
 
-  const existingQueue: DailyQueue | null =
-    result.length > 0 ? result[0].data : null;
+  if (result.length > 0) {
+    existingQueue = result[0].data as DailyQueue;
+  }
 
   if (!existingQueue) {
     // SCENARIO 1: INITIALIZATION
@@ -138,23 +145,18 @@ export async function getNextFromQueue(
   const queueData = result[0].data;
 
   // 2. FIND NEXT
-  const nextItem = queueData.queue.find((item) => !item.used);
+  const nextItemIndex = queueData.queue.findIndex((item) => !item.used);
 
-  if (!nextItem) {
-    // This is a critical error. The generate:warframes task should have reset the queue.
-    throw new Error(
+  if (nextItemIndex === -1) {
+    throw createError(
       `CRITICAL: No available items in the '${name}' queue. Please run the data generation task.`,
     );
   }
 
   // 3. MODIFY
-  const nextItemIndex = queueData.queue.findIndex(
-    (item) => item.key === nextItem.key,
-  );
-  if (nextItemIndex > -1) {
-    queueData.queue[nextItemIndex].used = true;
-    queueData.queue[nextItemIndex].usedAt = new Date().toISOString();
-  }
+  const nextItem = queueData.queue[nextItemIndex];
+  nextItem.used = true;
+  nextItem.usedAt = new Date().toISOString();
 
   // 4. WRITE
   await useDrizzle()

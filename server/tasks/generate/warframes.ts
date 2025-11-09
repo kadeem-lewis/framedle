@@ -156,9 +156,10 @@ export default defineTask({
       await fs.writeFile("./shared/data/warframes.ts", tsContent);
 
       const warframeNames = filteredWarframes.map((wf) => wf.name);
-      const abilityNames = generateAbilityNames(
-        filteredWarframes as unknown as ConstWarframe[],
-      );
+      const vanillaWarframes = filteredWarframes.filter(
+        (wf) => wf.variant === "Standard",
+      ) as unknown as ConstWarframe[];
+      const abilityNames = generateAbilityNames(vanillaWarframes);
       runTask("generate:queue", {
         payload: {
           warframeNames,

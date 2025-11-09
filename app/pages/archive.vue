@@ -10,12 +10,10 @@ const { proxy } = useScriptUmamiAnalytics();
 const router = useRouter();
 const route = useRoute("archive");
 
-const { pastDays, selectedArchiveMode, randomPastDay } =
-  storeToRefs(useArchiveStore());
+const { pastDays, selectedArchiveMode, order } = storeToRefs(useArchiveStore());
+const { getRandomPastDay } = useArchiveStore();
 selectedArchiveMode.value =
   (route.query.mode as "classic" | "ability") || "classic";
-
-const order = ref<"OLDEST" | "NEWEST">("NEWEST");
 
 watch(
   () => selectedArchiveMode.value,
@@ -52,13 +50,13 @@ const filteredDailies = computed(() => {
 
   return fuse.value.search(searchQuery.value).map((result) => result.item);
 });
+
+const randomPastDay = computed(() => getRandomPastDay());
 </script>
 <template>
   <div class="flex flex-col gap-4">
     <p class="font-roboto text-xl font-bold uppercase">Archive</p>
-    <ArchiveGameStats />
     <div class="font-roboto flex gap-2">
-      <!-- These aren't styled when highlighted -->
       <UButton
         variant="outline"
         class="hover:border-primary uppercase ring-neutral-800"
@@ -82,6 +80,7 @@ const filteredDailies = computed(() => {
         Ability
       </UButton>
     </div>
+    <ArchiveGameStats />
     <div class="flex items-center justify-end gap-4">
       <USelect
         v-model="order"
@@ -106,11 +105,13 @@ const filteredDailies = computed(() => {
     <div
       class="flex flex-col gap-4 border border-neutral-200 bg-white/75 p-2 dark:border-neutral-800 dark:bg-neutral-900/75"
     >
-      <div v-if="filteredDailies" class="grid grid-cols-2 gap-4">
-        <p class="font-semibold">Name</p>
-        <p class="font-semibold">Date</p>
+      <div v-if="filteredDailies" class="grid grid-cols-12 gap-2">
+        <p class="col-span-5 col-start-3 font-semibold">Name</p>
+        <p class="col-span-5 font-semibold">Date</p>
       </div>
-      <div class="grid h-full max-h-96 grid-cols-2 gap-4 overflow-y-auto">
+      <div
+        class="grid h-full max-h-96 grid-cols-12 items-center gap-2 overflow-y-auto"
+      >
         <div
           v-for="daily of filteredDailies"
           :key="daily.day"
@@ -120,17 +121,45 @@ const filteredDailies = computed(() => {
             navigateTo(`/${selectedArchiveMode}/${daily.day}`);
           "
         >
-          <p>Framedle #{{ daily.day }}</p>
-          <p>{{ daily.readableDate }}</p>
-          <USeparator class="col-span-2" />
+          <UIcon
+            v-if="daily.state === GameStatus.ACTIVE"
+            name="i-mdi-play-circle"
+            class="text-partial col-span-2 size-6"
+          />
+          <UIcon
+            v-else
+            name="i-mdi-check-circle"
+            class="col-span-2 size-6"
+            :class="{
+              'text-success': daily.state,
+            }"
+          />
+          <p class="col-span-5">Framedle #{{ daily.day }}</p>
+          <p class="col-span-5">{{ daily.readableDate }}</p>
+          <USeparator class="col-span-12" />
         </div>
       </div>
     </div>
+    <UBadge
+      v-if="!randomPastDay"
+      variant="outline"
+      size="lg"
+      class="flex w-full items-center justify-center rounded-none text-base uppercase"
+    >
+      All days completed!
+    </UBadge>
     <UButton
+      v-else
       :to="`/${selectedArchiveMode}/${randomPastDay}`"
       variant="outline"
       icon="i-mdi-dice"
       class="flex items-center justify-center uppercase"
+      @click="
+        proxy.track('Started Random Archive Game', {
+          selectedArchiveMode,
+          randomPastDay,
+        })
+      "
       >Random</UButton
     >
   </div>

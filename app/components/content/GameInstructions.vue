@@ -10,16 +10,13 @@ const { $colorblindMode } = useNuxtApp();
 
 const success = computed(() => ($colorblindMode.value ? "Blue" : "Green"));
 const error = computed(() => ($colorblindMode.value ? "Orange" : "Red"));
+const partial = computed(() => ($colorblindMode.value ? "Pink" : "Yellow"));
 </script>
 <template>
   <div class="mb-4 flex flex-col items-center justify-center">
-    <p class="text-lg font-semibold">
-      {{ t("instructions.next_challenge_in") }}
-    </p>
-    <span class="flex items-center gap-1">
-      <UIcon name="i-mdi-circle-slice-2" class="size-5" />
-      <NextGameCountdown :target-date="startOfTomorrow()" class="text-2xl" />
-    </span>
+    <NextGameCountdown :target-date="startOfTomorrow()">
+      <template #title>{{ t("instructions.next_challenge_in") }}</template>
+    </NextGameCountdown>
   </div>
   <div v-if="$route.name === 'classic-path'" class="space-y-2">
     <p>Guess the Warframe in {{ DEFAULT_ATTEMPTS }} tries</p>
@@ -33,6 +30,10 @@ const error = computed(() => ($colorblindMode.value ? "Orange" : "Red"));
     <p>
       <span class="text-success font-semibold">{{ success }}</span>
       {{ t("instructions.classic.properties.green_explanation") }}
+    </p>
+    <p>
+      <span class="text-partial font-semibold">{{ partial }}</span>
+      indicates that some, but not all, aspects of that property are correct
     </p>
     <p>
       <span class="text-error font-semibold">{{ error }}</span>
@@ -52,6 +53,13 @@ const error = computed(() => ($colorblindMode.value ? "Orange" : "Red"));
       <div class="space-y-1">
         <p class="text-info font-medium">Variant:</p>
         <p><span>Possible values:&nbsp;</span> Standard, Prime or Umbra</p>
+      </div>
+      <div class="space-y-1">
+        <p class="text-info font-medium">Playstyle:</p>
+        <p>
+          <span>Possible values:&nbsp;</span> A combination of Crowd Control,
+          Damage, Stealth, Support or Survival
+        </p>
       </div>
       <div class="space-y-1">
         <p class="text-info font-medium">Health:</p>
@@ -93,14 +101,14 @@ const error = computed(() => ($colorblindMode.value ? "Orange" : "Red"));
         </p>
         <p>
           If you enter
-          <span class="text-primary font-medium">Inaros</span>, these properties
-          will appear:
+          <span class="text-primary font-medium">Inaros Prime</span>, these
+          properties will appear:
         </p>
       </div>
       <div class="overflow-x-auto">
-        <div class="grid w-[160%] grid-cols-7 gap-1">
+        <div class="grid w-[190%] grid-cols-8 gap-1">
           <ClassicFeedbackRow
-            :guessed-warframe="warframes.Inaros"
+            :guessed-warframe="warframes['Inaros Prime']"
             :correct-warframe="warframes.Nezha"
           />
         </div>
@@ -111,6 +119,23 @@ const error = computed(() => ($colorblindMode.value ? "Orange" : "Red"));
           <span class="text-success">{{ success }}</span>
         </p>
         <p>{{ t("instructions.classic.sex.description") }}</p>
+      </div>
+      <div class="space-y-1">
+        <p class="font-medium">
+          Variant:
+          <span class="text-error">{{ error }}</span>
+        </p>
+        <p>Nezha is a Standard Warframe while Inaros Prime is not</p>
+      </div>
+      <div class="space-y-1">
+        <p class="font-medium">
+          Playstyle:
+          <span class="text-partial">{{ partial }}</span>
+        </p>
+        <p>
+          Both Nezha and Inaros Prime have the Survival and Crowd Control
+          Playstyles, but only Nezha has the Damage Playstyle
+        </p>
       </div>
       <div class="space-y-1">
         <p class="font-medium">
@@ -142,9 +167,9 @@ const error = computed(() => ($colorblindMode.value ? "Orange" : "Red"));
       </div>
       <p>{{ t("instructions.classic.correct_guess") }}</p>
       <div class="overflow-x-auto">
-        <div class="grid w-[150%] grid-cols-7 gap-1">
+        <div class="grid w-[190%] grid-cols-8 gap-1">
           <ClassicFeedbackRow
-            :guessed-warframe="warframes.Inaros"
+            :guessed-warframe="warframes.Nezha"
             :correct-warframe="warframes.Nezha"
           />
         </div>

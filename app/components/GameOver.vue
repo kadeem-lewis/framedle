@@ -4,28 +4,9 @@ import party from "party-js";
 import type { Ability } from "#shared/schemas/warframe";
 
 const { itemToGuess, guessedItems, attempts } = storeToRefs(useGameStore());
-const { resetGame, DEFAULT_ATTEMPTS } = useGameStore();
+const { resetCurrentGame, DEFAULT_ATTEMPTS } = useGameStore();
 
-const mode = useGameMode();
-
-const img = useImage();
-
-const tabs = [
-  {
-    label: "Classic",
-    route: "/classic",
-    source: "/warframe.png",
-    background: img("/backgrounds/fortuna.jpg", { format: "webp" }),
-    description: "Guess the Warframe",
-  },
-  {
-    label: "Ability",
-    route: "/ability",
-    source: "/PassiveAbilityIcon.png",
-    background: img("/backgrounds/helminth.jpg", { format: "webp" }),
-    description: "Guess the Ability",
-  },
-];
+const { mode, isDaily } = useGameMode();
 
 const correctWarframe = computed(() => {
   const gameMode = mode.value as keyof typeof itemToGuess.value;
@@ -95,7 +76,7 @@ watchEffect(async () => {
   if (!mode.value) return;
 
   // Only for daily modes
-  if (mode.value !== "classic" && mode.value !== "ability") return;
+  if (!isDaily.value) return;
 
   // Only when state changes to WON or LOST (not ACTIVE or *_PREVIOUS)
   if (
@@ -126,6 +107,13 @@ const isPastDay = computed(() => {
     return true;
   }
   return false;
+});
+
+const { activeCards } = useModeCards();
+
+const differentMode = computed(() => {
+  if (!mode.value) return;
+  return activeCards.value.find((card) => card.route !== route.path);
 });
 </script>
 <template>
@@ -188,7 +176,7 @@ const isPastDay = computed(() => {
           variant="outline"
           class="font-semibold uppercase"
           size="xl"
-          @click="resetGame"
+          @click="resetCurrentGame"
           >New Game</UButton
         >
         <ShareButton />
@@ -209,15 +197,9 @@ const isPastDay = computed(() => {
             </li>
           </ul>
         </div>
-        <template v-if="!$route.path.includes('unlimited')">
-          <div class="flex gap-2 text-xl">
-            <p>New Game in:</p>
-            <span class="flex items-center gap-1">
-              <UIcon name="i-mdi-circle-slice-2" class="size-5" />
-              <NextGameCountdown :target-date="startOfTomorrow()" />
-            </span>
-          </div>
-          <template v-if="isPastDay">
+        <template v-if="isDaily">
+          <NextGameCountdown :target-date="startOfTomorrow()" />
+          <template v-if="isPastDay && differentMode">
             <USeparator />
             <div class="space-y-4">
               <p
@@ -225,7 +207,7 @@ const isPastDay = computed(() => {
               >
                 Next Mode:
               </p>
-              <ModeCard :tab="tabs.find((tab) => tab.route !== $route.path)!" />
+              <UiAppModeCard :card="differentMode" />
             </div>
           </template>
         </template>

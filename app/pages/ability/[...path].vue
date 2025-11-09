@@ -11,15 +11,23 @@ useSeoMeta({
 const { t } = useI18n();
 
 const { itemToGuess } = storeToRefs(useGameStore());
-const { abilityInit } = useGameStore();
-const mode = useGameMode();
+const { initializeUnlimitedGame } = useGameStore();
+const { mode } = useGameMode();
+const route = useRoute("ability-path");
 const { isGameOver } = storeToRefs(useGameStateStore());
 const { resetStreak } = useStatsStore();
 const { isLoadingDailies } = storeToRefs(useDailiesStore());
 
-await callOnce("ability-setup", abilityInit, {
-  mode: "navigation",
-});
+await callOnce(
+  "ability-setup",
+  () => {
+    if (!mode.value) return;
+    initializeUnlimitedGame(mode.value, route.query.x as string);
+  },
+  {
+    mode: "navigation",
+  },
+);
 
 onBeforeMount(() => {
   resetStreak("ability");

@@ -3,7 +3,7 @@ import { format, startOfDay, startOfYesterday } from "date-fns";
 export type FixedGuessArray = [number, number, number, number, number, number];
 
 export const useStatsStore = defineStore(
-  "stats",
+  "stats.v2",
   () => {
     const getDefaultStats = () => ({
       classic: {
@@ -34,7 +34,7 @@ export const useStatsStore = defineStore(
 
     const { hasWon, isGameOver } = storeToRefs(useGameStateStore());
     const { currentDailyDate } = storeToRefs(useDailiesStore());
-    const mode = useGameMode();
+    const { mode } = useGameMode();
 
     function resetStreak(mode: "classic" | "ability") {
       const lastPlayedDate = stats.value[mode].lastPlayedDate;

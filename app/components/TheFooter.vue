@@ -13,9 +13,10 @@ const items = [
     icon: "my-icon:discord",
     color: "discord" as const,
     class: "dark:text-white",
+    to: runtimeConfig.public.discordInvite,
+    external: true,
     command: () => {
       proxy.track("clicked footer button", { name: "Discord" });
-      navigateTo(runtimeConfig.public.discordInvite, { external: true });
     },
   },
   {
@@ -23,11 +24,10 @@ const items = [
     icon: "my-icon:bluesky",
     color: "bluesky" as const,
     class: "text-white",
+    to: "https://bsky.app/profile/framedle.bsky.social",
+    external: true,
     command: () => {
       proxy.track("clicked footer button", { name: "Bluesky" });
-      navigateTo("https://bsky.app/profile/framedle.bsky.social", {
-        external: true,
-      });
     },
   },
   {
@@ -42,9 +42,10 @@ const items = [
     icon: "my-icon:kofi",
     color: "primary" as const,
     class: "-m-2 size-9",
+    to: runtimeConfig.public.kofiUrl,
+    external: true,
     command: () => {
       proxy.track("clicked footer button", { name: "Ko-fi" });
-      navigateTo("https://ko-fi.com/redeemr", { external: true });
     },
   },
 ];
@@ -58,6 +59,8 @@ const items = [
         :color="item.color"
         size="lg"
         class="transition-transform hover:scale-110"
+        :to="item.to"
+        :external="item.external"
         @click="item.command"
       >
         <UIcon :name="item.icon" class="size-6" :class="item.class" />

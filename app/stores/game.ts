@@ -107,7 +107,6 @@ export const useGameStore = defineStore(
         console.error("Can only reset unlimited game modes");
         return;
       }
-      console.log("howdy");
 
       router.replace(`/${gameType.value}/unlimited`);
 

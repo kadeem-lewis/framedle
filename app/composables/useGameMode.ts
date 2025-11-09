@@ -38,10 +38,6 @@ export function useGameMode() {
     return modeLookup[gameType.value]?.[gameVariant.value];
   });
 
-  watch(mode, (newMode) => {
-    console.log("mode changed to:", newMode);
-  });
-
   const isDaily = computed(() => {
     return gameVariant.value === "daily";
   });

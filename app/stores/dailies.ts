@@ -1,7 +1,8 @@
 import { format } from "date-fns";
 import type { Daily } from "#shared/schemas/db";
 import { switchMap } from "rxjs";
-import Dexie, { liveQuery } from "dexie";
+import Dexie from "dexie";
+const { liveQuery } = Dexie;
 
 export const useDailiesStore = defineStore("dailies", () => {
   const currentDay = ref();

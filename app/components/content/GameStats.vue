@@ -82,6 +82,11 @@ const isOpen = ref(false);
 const { handleStatsShare, copied } = useShare();
 const { resetStats } = useStatsStore();
 
+function handleResetStats() {
+  resetStats();
+  isOpen.value = false;
+}
+
 const { migrateGameStats, shouldShowMigrationBanner } = useMigration();
 const toast = useToast();
 
@@ -105,7 +110,7 @@ function handleMigrationClick() {
   <div class="space-y-4">
     <UBanner
       v-if="shouldShowMigrationBanner"
-      title="Game Stats have been reset"
+      title="Game stats have been reset"
     >
       <template #actions>
         <UButton
@@ -113,7 +118,7 @@ function handleMigrationClick() {
           color="neutral"
           @click="handleMigrationClick"
         >
-          Migrate old Stats
+          Migrate old stats
         </UButton>
       </template>
     </UBanner>
@@ -165,7 +170,7 @@ function handleMigrationClick() {
               <UButton class="uppercase" @click="isOpen = false"
                 >Cancel</UButton
               >
-              <UButton color="error" class="uppercase" @click="resetStats"
+              <UButton color="error" class="uppercase" @click="handleResetStats"
                 >Delete</UButton
               >
             </div>

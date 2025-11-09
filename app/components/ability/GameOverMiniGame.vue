@@ -10,8 +10,13 @@ const { correctWarframe, correctAbility } = defineProps<{
 const { selectedMinigameAbility } = storeToRefs(useGameStore());
 const { currentDay } = storeToRefs(useDailiesStore());
 const { mode } = useGameMode();
+const { proxy } = useScriptUmamiAnalytics();
 
 function handleAbilityClick(ability: string) {
+  proxy.track("Played Ability Mini Game", {
+    mode: mode.value,
+    isCorrect: isCorrectAnswer(ability),
+  });
   if (mode.value === "ability") {
     if (selectedMinigameAbility.value.ability) return;
     db.progress

@@ -3,6 +3,7 @@ import { useStorage } from "@vueuse/core";
 const { openDialog } = useDialog();
 
 const route = useRoute();
+const { gameType } = useGameMode();
 
 const items = [
   {
@@ -19,7 +20,10 @@ const items = [
     text: "Stats",
     icon: "i-heroicons-chart-bar-solid",
     command: () => {
-      openDialog(dialogOptions.STATS, `${route.name} ${dialogOptions.STATS}`);
+      openDialog(
+        dialogOptions.STATS,
+        `${gameType.value} ${dialogOptions.STATS}`,
+      );
     },
   },
   {

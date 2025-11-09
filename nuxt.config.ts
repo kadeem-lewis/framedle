@@ -28,6 +28,7 @@ export default defineNuxtConfig({
         },
       },
       discordInvite: "",
+      kofiUrl: "",
     },
   },
 

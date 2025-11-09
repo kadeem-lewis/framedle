@@ -42,7 +42,7 @@ const items = [
     icon: "my-icon:kofi",
     color: "primary" as const,
     class: "-m-2 size-9",
-    to: "https://ko-fi.com/redeemr",
+    to: runtimeConfig.public.kofiUrl,
     external: true,
     command: () => {
       proxy.track("clicked footer button", { name: "Ko-fi" });

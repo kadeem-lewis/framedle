@@ -22,13 +22,13 @@ const imageUrl = computed(() => {
     return img(
       `https://cdn.warframestat.us/img/${itemToGuess.value.ability?.imageName}`,
       { format: "webp", width: CANVAS_SIZE, height: CANVAS_SIZE },
-      { modifiers: { enlarge: `${CANVAS_SIZE}x${CANVAS_SIZE}` } }, // scale smaller images up to CANVAS_SIZE
+      { modifiers: { enlarge: true } }, // scale smaller images up to CANVAS_SIZE
     );
   } else if (mode.value === "abilityUnlimited") {
     return img(
       `https://cdn.warframestat.us/img/${itemToGuess.value.abilityUnlimited?.imageName}`,
       { format: "webp", width: CANVAS_SIZE, height: CANVAS_SIZE },
-      { modifiers: { enlarge: `${CANVAS_SIZE}x${CANVAS_SIZE}` } },
+      { modifiers: { enlarge: true } },
     );
   }
   throw createError("Ability mode is not set");

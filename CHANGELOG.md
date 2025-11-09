@@ -17,6 +17,7 @@
 ### Changes
 
 - Changed database to store daily game data separately for each game mode
+- Changed game to only store the name of the correct warframe in daily games to reduce storage usage
 - Updated Site Logo!
 - Added Nokko to the game
 - Changed website url structure to use route params instead of query params for game mode and day selection

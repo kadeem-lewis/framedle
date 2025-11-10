@@ -64,4 +64,4 @@ Major features include:
 
 If you like this project you can support me by buying me a coffee.
 
-[![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/O4O318W12)
+[![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/framedle)

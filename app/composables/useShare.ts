@@ -19,7 +19,7 @@ export function useShare() {
 
   const { guessedItems, itemToGuess, attempts } = storeToRefs(useGameStore());
   const { DEFAULT_ATTEMPTS } = useGameStore();
-  const { currentDay } = storeToRefs(useDailiesStore());
+  const { currentDailyClassicData } = storeToRefs(useDailiesStore()); //! Temporary change to allow day to be available
 
   const { mode, gameVariant } = useGameMode();
   const { hasWon } = storeToRefs(useGameStateStore());
@@ -95,7 +95,7 @@ export function useShare() {
       ? hasWon.value
         ? `I solved a Framedle in ${attemptsUsed} out of ${DEFAULT_ATTEMPTS} turns.`
         : `I couldn't solve this Framedle in ${DEFAULT_ATTEMPTS} turns.`
-      : `Framedle ${currentMode} #${currentDay.value} ${hasWon.value ? attemptsUsed : "X"}/${DEFAULT_ATTEMPTS}`;
+      : `Framedle ${currentMode} #${currentDailyClassicData.value?.day} ${hasWon.value ? attemptsUsed : "X"}/${DEFAULT_ATTEMPTS}`;
 
     const encodedAnswer = computed(() => {
       if (

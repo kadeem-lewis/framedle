@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { startOfTomorrow } from "date-fns";
+
 useSeoMeta({
   title: "Framedle",
   ogTitle: "Framedle",
@@ -12,9 +14,23 @@ useSeoMeta({
 });
 
 const { getDailies } = useDailiesStore();
+const visibility = useDocumentVisibility();
+const { isFinished } = useTimeUntil(startOfTomorrow());
 
 onMounted(() => {
   getDailies();
+});
+
+watch(visibility, (newVisibility, previousVisibility) => {
+  if (newVisibility === "visible" && previousVisibility === "hidden") {
+    getDailies();
+  }
+});
+
+watch(isFinished, (newIsFinished) => {
+  if (newIsFinished) {
+    getDailies();
+  }
 });
 </script>
 <template>

@@ -16,12 +16,13 @@ const { isLoadingDailies } = storeToRefs(useDailiesStore());
 
 const { mode } = useGameMode();
 const { isGameOver } = storeToRefs(useGameStateStore());
+const route = useRoute("classic-path");
 
 await callOnce(
   "classic-setup",
   () => {
     if (!mode.value) return;
-    initializeUnlimitedGame(mode.value);
+    initializeUnlimitedGame(mode.value, route.query.x as string | undefined);
   },
   {
     mode: "navigation",

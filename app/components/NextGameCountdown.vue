@@ -5,16 +5,12 @@ const props = defineProps<{
 
 const router = useRouter();
 
-const isTimeUp = ref(false);
-
-const handleTimeUp = () => {
-  isTimeUp.value = true;
-};
+const { timeUntil, isFinished } = useTimeUntil(props.targetDate);
 </script>
 <template>
   <div>
     <div
-      v-if="isTimeUp"
+      v-if="isFinished"
       class="flex flex-col items-center justify-center gap-2"
     >
       <p class="text-lg">A new game is available!</p>
@@ -28,10 +24,7 @@ const handleTimeUp = () => {
         <slot name="icon">
           <UIcon name="i-mdi-circle-slice-2" class="size-5" />
         </slot>
-        <UiBaseCountdown
-          :target-date="props.targetDate"
-          @finished="handleTimeUp"
-        />
+        <span>{{ timeUntil }}</span>
       </span>
       <small class="text-muted text-sm"
         >Resets at midnight in your local time.</small

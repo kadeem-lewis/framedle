@@ -88,6 +88,9 @@ function handleResetStats() {
 }
 
 const { migrateGameStats, shouldShowMigrationBanner } = useMigration();
+const hasMigrationBeenPerformed = ref(
+  shouldShowMigrationBanner.value === false,
+);
 const toast = useToast();
 
 function handleMigrationClick() {
@@ -99,17 +102,16 @@ function handleMigrationClick() {
       description: result.message,
       color: "success",
     });
+    hasMigrationBeenPerformed.value = true;
   } else {
     toast.add({ title: "Oops!", description: result.message, color: "error" });
   }
-  // Because 'stats' from storeToRefs is reactive,
-  // your component's charts and stats will update automatically!
 }
 </script>
 <template>
   <div class="space-y-4">
     <UBanner
-      v-if="shouldShowMigrationBanner"
+      v-if="shouldShowMigrationBanner && !hasMigrationBeenPerformed"
       title="Game stats have been reset"
     >
       <template #actions>

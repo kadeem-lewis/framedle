@@ -1,6 +1,12 @@
 # Changelog
 
-## v0.3.0 - November 10th, 2025
+## v0.3.1 - November 9th, 2025
+
+### Bug Fixes
+
+- Fixed an issue where the migration banner would still show after a successful migration
+
+## v0.3.0 - November 9th, 2025
 
 ### Features
 

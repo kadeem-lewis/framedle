@@ -1,5 +1,16 @@
 # Changelog
 
+## v0.3.2 - November 10th, 2025
+
+### Changes
+
+- Changed daily update logic to run whenever it's midnight or whenever the user comes back to the app after being away for a while
+
+### Bug Fixes
+
+- Fixed a bug where sharing date would show NaN for the day in unlimited games
+- Fixed a bug where sharing classic unlimited games would not work properly
+
 ## v0.3.1 - November 9th, 2025
 
 ### Bug Fixes

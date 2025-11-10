@@ -22,7 +22,7 @@ await callOnce(
   "ability-setup",
   () => {
     if (!mode.value) return;
-    initializeUnlimitedGame(mode.value, route.query.x as string);
+    initializeUnlimitedGame(mode.value, route.query.x as string | undefined);
   },
   {
     mode: "navigation",

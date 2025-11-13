@@ -7,7 +7,7 @@ export const abilitySchema = z.object({
   imageName: z.string(),
 });
 
-const progenitorElements = [
+export const progenitorElements = [
   "Impact",
   "Toxin",
   "Electricity",
@@ -19,7 +19,7 @@ const progenitorElements = [
 
 export type Ability = z.infer<typeof abilitySchema>;
 
-const polarities = [
+export const polarities = [
   "Madurai",
   "Vazarin",
   "Naramon",
@@ -27,6 +27,16 @@ const polarities = [
   "None",
   "Aura",
 ] as const;
+
+export const playstyles = [
+  "Damage",
+  "Crowd Control",
+  "Support",
+  "Stealth",
+  "Survival",
+] as const;
+
+export const variant = ["Standard", "Prime", "Umbra"] as const;
 
 export const warframeSchema = z.object({
   name: z.string(),
@@ -42,13 +52,11 @@ export const warframeSchema = z.object({
   imageName: z.string(),
   abilities: z.array(abilitySchema),
   sex: z.enum(["Male", "Female", "Non-binary (Pluriform)", "Non-binary"]),
-  variant: z.enum(["Standard", "Prime", "Umbra"]),
+  variant: z.enum(variant),
   progenitor: z.enum(progenitorElements),
   isPrime: z.boolean(),
   conclave: z.boolean(),
-  playstyle: z.array(
-    z.enum(["Damage", "Crowd Control", "Support", "Stealth", "Survival"]),
-  ),
+  playstyle: z.array(z.enum(playstyles)),
   exalted: z.array(z.string()).optional(),
 });
 

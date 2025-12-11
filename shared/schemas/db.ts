@@ -8,8 +8,18 @@ import {
   primaryKey,
   pgEnum,
 } from "drizzle-orm/pg-core";
+import { relations } from "drizzle-orm";
 
 export const modeEnum = pgEnum("mode_enum", ["classic", "ability", "grid"]);
+
+export type ClassicPuzzle = {
+  answer: string;
+};
+
+export type GridPuzzle = {
+  rowIds: [string, string, string];
+  columnIds: [string, string, string];
+};
 
 export const daily = pgTable(
   "daily",
@@ -18,7 +28,7 @@ export const daily = pgTable(
     readableDate: text("readableDate").notNull(),
     day: integer("day").notNull(),
     mode: modeEnum("mode").notNull(),
-    puzzle: jsonb("puzzle").$type<{ answer: string }>().notNull(),
+    puzzle: jsonb("puzzle").$type<{ answer: string } | GridPuzzle>().notNull(),
   },
   (table) => [
     primaryKey({ columns: [table.day, table.mode] }),
@@ -37,3 +47,49 @@ export const queue = pgTable("queue", {
 });
 
 export type DatabaseQueue = typeof queue.$inferSelect;
+
+export const categories = pgTable("categories", {
+  id: text("id").primaryKey(),
+  lastUsed: date("lastUsed"),
+  description: text("description").notNull(),
+  key: text("key").notNull(),
+  type: text("type").notNull(),
+  warframes: text("warframes").array().notNull(),
+});
+
+export type Category = typeof categories.$inferSelect;
+
+type ValidWarframeData = {
+  name: string;
+  guessCount: number;
+};
+
+export const categoryPairs = pgTable(
+  "category_pairs",
+  {
+    categoryA: text("categoryA")
+      .references(() => categories.id)
+      .notNull(),
+    categoryB: text("categoryB")
+      .references(() => categories.id)
+      .notNull(),
+    lastUsed: date("lastUsed"),
+    validWarframes: jsonb("warframes").$type<ValidWarframeData[]>().notNull(),
+  },
+  (table) => [primaryKey({ columns: [table.categoryA, table.categoryB] })],
+);
+
+export type CategoryPair = typeof categoryPairs.$inferSelect;
+
+export const categoryPairsRelations = relations(categoryPairs, ({ one }) => ({
+  catA: one(categories, {
+    fields: [categoryPairs.categoryA],
+    references: [categories.id],
+    relationName: "catA",
+  }),
+  catB: one(categories, {
+    fields: [categoryPairs.categoryB],
+    references: [categories.id],
+    relationName: "catB",
+  }),
+}));

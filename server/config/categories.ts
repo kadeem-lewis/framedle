@@ -1,4 +1,10 @@
-export const categoryConfig = [
+type CategoryConfigEntry =
+  | { key: string; type: "string"; template: (val: string) => string }
+  | { key: string; type: "boolean"; template: (val: boolean) => string }
+  | { key: string; type: "array"; template: (val: string[]) => string }
+  | { key: string; type: "numeric_top_2"; template: (val: number) => string };
+
+export const categoryConfig: CategoryConfigEntry[] = [
   {
     key: "sex",
     type: "string",
@@ -37,6 +43,12 @@ export const categoryConfig = [
       val ? "Conclave enabled Warframes" : "Non-Conclave Warframes",
   },
   {
+    key: "vaulted",
+    type: "boolean",
+    template: (val: boolean) =>
+      val ? "Vaulted Warframes" : "Non-Vaulted Warframes",
+  },
+  {
     key: "exalted",
     type: "array",
     template: (val: string[]) =>
@@ -69,5 +81,5 @@ export const categoryConfig = [
     type: "numeric_top_2",
     template: (val: number) => `Warframes with ${val} sprint speed`,
   },
-] as const;
-// I want to eventually add protoframe, vaulted and maybe leverian
+];
+// I want to eventually add protoframe, leverian and quest frames

@@ -75,7 +75,10 @@ export const categoryPairs = pgTable(
       .references(() => categories.id)
       .notNull(),
     lastUsed: date("lastUsed").default(sql`NULL`),
-    validWarframes: jsonb("warframes").$type<ValidWarframeData[]>().notNull(),
+    totalGuesses: integer("totalGuesses").default(0).notNull(),
+    validWarframes: jsonb("validWarframes")
+      .$type<ValidWarframeData[]>()
+      .notNull(),
   },
   (table) => [primaryKey({ columns: [table.categoryA, table.categoryB] })],
 );

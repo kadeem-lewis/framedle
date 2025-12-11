@@ -1,6 +1,7 @@
 export const manualCategories = [
   {
     id: "leverian:true",
+    label: "Has Leverian Entry",
     key: "leverian",
     type: "boolean",
     description: "Warframes that have a Leverian Entry",
@@ -20,6 +21,7 @@ export const manualCategories = [
   },
   {
     id: "protoframe:true",
+    label: "Has Protoframe",
     type: "boolean",
     key: "protoframe",
     description: "Warframes with a Protoframe that possess their traits",
@@ -41,6 +43,7 @@ export const manualCategories = [
   },
   {
     id: "questframe:true",
+    label: "Is Quest Frame",
     type: "boolean",
     key: "questframe",
     description:
@@ -84,6 +87,7 @@ export const manualCategories = [
   },
   {
     id: "circuit:true",
+    label: "Obtainable Through the Circuit",
     type: "boolean",
     key: "circuit",
     description: "Warframes that can obtained through the Circuit",

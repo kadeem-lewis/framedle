@@ -7,7 +7,7 @@ export const categoryConfig = [
   {
     key: "releaseDate",
     type: "string",
-    template: (val: string) => `Warframes released in ${parseReleaseDate(val)}`,
+    template: (val: string) => `Warframes released in ${val}`,
   },
   {
     key: "progenitor",
@@ -21,12 +21,12 @@ export const categoryConfig = [
       val ? "Prime Warframes" : "Non-Prime Warframes",
   },
   {
-    key: "aura",
+    key: "aura", // could cause problems here
     type: "string",
     template: (val: string) => `Warframes with ${val} aura polarity`,
   },
   {
-    key: "playstyle",
+    key: "playstyle", // could also cause problems here
     type: "string",
     template: (val: string) => `Warframes suited for ${val} playstyle`,
   },
@@ -69,5 +69,5 @@ export const categoryConfig = [
     type: "numeric_top_2",
     template: (val: number) => `Warframes with ${val} sprint speed`,
   },
-];
+] as const;
 // I want to eventually add protoframe, vaulted and maybe leverian

@@ -8,7 +8,7 @@ import {
   primaryKey,
   pgEnum,
 } from "drizzle-orm/pg-core";
-import { relations } from "drizzle-orm";
+import { relations, sql } from "drizzle-orm";
 
 export const modeEnum = pgEnum("mode_enum", ["classic", "ability", "grid"]);
 
@@ -51,7 +51,7 @@ export type DatabaseQueue = typeof queue.$inferSelect;
 export const categories = pgTable("categories", {
   id: text("id").primaryKey(),
   label: text("label").notNull(),
-  lastUsed: date("lastUsed"),
+  lastUsed: date("lastUsed").default(sql`NULL`),
   description: text("description").notNull(),
   key: text("key").notNull(),
   type: text("type").notNull(),
@@ -74,7 +74,7 @@ export const categoryPairs = pgTable(
     categoryB: text("categoryB")
       .references(() => categories.id)
       .notNull(),
-    lastUsed: date("lastUsed"),
+    lastUsed: date("lastUsed").default(sql`NULL`),
     validWarframes: jsonb("warframes").$type<ValidWarframeData[]>().notNull(),
   },
   (table) => [primaryKey({ columns: [table.categoryA, table.categoryB] })],

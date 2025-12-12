@@ -60,7 +60,7 @@ export const categories = pgTable("categories", {
 
 export type Category = typeof categories.$inferSelect;
 
-type ValidWarframeData = {
+export type ValidWarframeData = {
   name: string;
   guessCount: number;
 };

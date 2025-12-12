@@ -24,8 +24,6 @@ type CategoryConfigEntry =
       template: (val: number) => string;
     };
 
-// I need a human readable name for the grid headers
-
 export const categoryConfig: CategoryConfigEntry[] = [
   {
     key: "sex",

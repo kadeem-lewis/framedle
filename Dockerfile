@@ -9,6 +9,10 @@ RUN corepack enable
 
 WORKDIR /app
 
+ARG NUXT_PUBLIC_DISCORD_INVITE
+ARG NUXT_PUBLIC_KOFI_URL
+ARG NUXT_PUBLIC_SCRIPTS_UMAMI_ANALYTICS_WEBSITE_ID
+
 FROM base as deps
 
 COPY package.json pnpm-lock.yaml ./

@@ -1,0 +1,50 @@
+name: Build and Publish Docker Image
+
+on:
+    push:
+        branches: ["main"]
+    workflow_dispatch:
+
+env:
+    REGISTRY: ghcr.io
+    IMAGE_NAME: ${{ github.repository }}
+
+jobs:
+    build-and-publish:
+        runs-on: ubuntu-latest
+        permissions:
+            contents: read
+            packages: write
+
+        steps:
+            - name: Checkout repository
+              uses: actions/checkout@v4
+
+            - name: Log in to Container Registry
+              uses: docker/login-action@v3
+              with:
+                  registry: ${{ env.REGISTRY }}
+                  username: ${{ github.actor }}
+                  password: ${{ secrets.GITHUB_TOKEN }}
+
+            - name: Extract metadata (tags, labels) for Docker
+              id: meta
+              uses: docker/metadata-action@v5
+              with:
+                  images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
+                  tags: |
+                      type=raw,value=latest
+                      type=sha,prefix=,format=long
+
+            - name: Build and Publish Docker Image
+              uses: docker/build-push-action@v5
+              with:
+                  context: .
+                  push: true
+                  tags: ${{ steps.meta.outputs.tags }}
+                  labels: ${{ steps.meta.outputs.labels }}
+                  build-args: |
+                      NODE_VERSION=22
+                      NUXT_PUBLIC_DISCORD_INVITE=${{ secrets.DISCORD_INVITE }}
+                      NUXT_PUBLIC_KOFI_URL=${{ secrets.KOFI_URL }}
+                      NUXT_PUBLIC_SCRIPTS_UMAMI_ANALYTICS_WEBSITE_ID=${{ secrets.UMAMI_WEBSITE_ID }}

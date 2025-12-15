@@ -1,5 +1,5 @@
 import { format } from "date-fns";
-import type { Daily } from "#shared/schemas/db";
+import type { ClassicPuzzle, Daily } from "#shared/schemas/db";
 import { switchMap } from "rxjs";
 import Dexie from "dexie";
 const { liveQuery } = Dexie;
@@ -142,8 +142,9 @@ export const useDailiesStore = defineStore("dailies", () => {
     for (const daily of dailyData) {
       const { puzzle, mode, ...rest } = daily;
       if (mode === "ability") {
+        const abilityPuzzle = puzzle as ClassicPuzzle;
         const ability = abilities.find(
-          (ab) => ab.name === puzzle.answer,
+          (ab) => ab.name === abilityPuzzle.answer,
         ) as Ability;
         entries.push({
           ...rest,
@@ -152,8 +153,9 @@ export const useDailiesStore = defineStore("dailies", () => {
         });
       }
       if (mode === "classic") {
+        const classicPuzzle = puzzle as ClassicPuzzle;
         entries.push({
-          itemToGuess: puzzle.answer as WarframeName,
+          itemToGuess: classicPuzzle.answer as WarframeName,
           mode,
           ...rest,
         });

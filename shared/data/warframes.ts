@@ -97,6 +97,7 @@ export const warframes = {
     progenitor: "Radiation",
     isPrime: true,
     conclave: true,
+    vaulted: true,
     playstyle: ["Stealth", "Damage"],
     exalted: ["/Lotus/Powersuits/Ninja/NinjaStormWeaponPrime"],
   },
@@ -199,6 +200,7 @@ export const warframes = {
     progenitor: "Toxin",
     isPrime: true,
     conclave: true,
+    vaulted: true,
     playstyle: ["Damage", "Survival"],
     exalted: ["/Lotus/Powersuits/Brawler/AtlasPunchWeaponPrime"],
   },
@@ -300,6 +302,7 @@ export const warframes = {
     progenitor: "Electricity",
     isPrime: true,
     conclave: true,
+    vaulted: true,
     playstyle: ["Crowd Control"],
   },
   Baruuk: {
@@ -401,6 +404,7 @@ export const warframes = {
     progenitor: "Impact",
     isPrime: true,
     conclave: false,
+    vaulted: false,
     playstyle: ["Damage", "Crowd Control"],
     exalted: ["/Lotus/Powersuits/Pacifist/PacifistFistPrime"],
   },
@@ -504,6 +508,7 @@ export const warframes = {
     progenitor: "Electricity",
     isPrime: true,
     conclave: false,
+    vaulted: false,
     playstyle: ["Survival", "Crowd Control"],
   },
   Chroma: {
@@ -602,6 +607,7 @@ export const warframes = {
     progenitor: "Heat",
     isPrime: true,
     conclave: true,
+    vaulted: true,
     playstyle: ["Survival", "Damage"],
   },
   Citrine: {
@@ -909,6 +915,7 @@ export const warframes = {
     progenitor: "Heat",
     isPrime: true,
     conclave: false,
+    vaulted: true,
     playstyle: ["Damage"],
   },
   Equinox: {
@@ -1007,6 +1014,7 @@ export const warframes = {
     progenitor: "Radiation",
     isPrime: true,
     conclave: true,
+    vaulted: true,
     playstyle: ["Support"],
   },
   Excalibur: {
@@ -1104,61 +1112,9 @@ export const warframes = {
     progenitor: "Electricity",
     isPrime: true,
     conclave: true,
+    vaulted: true,
     playstyle: ["Damage"],
     exalted: ["/Lotus/Powersuits/Excalibur/DoomSwordPrime"],
-  },
-  "Excalibur Umbra": {
-    name: "Excalibur Umbra",
-    category: "Warframes",
-    type: "Warframe",
-    health: 270,
-    shield: 270,
-    armor: 315,
-    energy: 175,
-    sprint: 1,
-    aura: "Madurai",
-    releaseDate: "2018-06-15",
-    imageName: "excalibur-umbra-d421af56c1.png",
-    abilities: [
-      {
-        uniqueName:
-          "/Lotus/Powersuits/PowersuitAbilities/UmbraSlashDashNewAbility",
-        name: "Slash Dash",
-        description:
-          "Slash and dash through enemies alongside a radial specter. The powerful Exalted Blade’s slashes inflict <DT_SLASH_COLOR>Slash Status.",
-        imageName: "slash-dash-4fd80938ec.png",
-      },
-      {
-        uniqueName:
-          "/Lotus/Powersuits/PowersuitAbilities/UmbraRadialRoarAbility",
-        name: "Radial Howl",
-        description:
-          "Let out ferocious howl that stuns nearby enemies and causes Sentients to shed any built up resistances.",
-        imageName: "radial-howl-1671e5fdcb.png",
-      },
-      {
-        uniqueName:
-          "/Lotus/Powersuits/PowersuitAbilities/UmbraRadialJavelinAbility",
-        name: "Radial Javelin",
-        description:
-          "Radial javelins impale nearby enemies, inflicting <DT_SLASH_COLOR>Slash Status.",
-        imageName: "radial-javelin-f78f565ba0.png",
-      },
-      {
-        uniqueName:
-          "/Lotus/Powersuits/PowersuitAbilities/UmbraSwordOfDoomAbility",
-        name: "Exalted Blade",
-        description: "Summon a sword of pure light and immense power.",
-        imageName: "exalted-blade-1cccdc8d7b.png",
-      },
-    ],
-    sex: "Male",
-    variant: "Umbra",
-    progenitor: "Electricity",
-    isPrime: false,
-    conclave: true,
-    playstyle: ["Damage"],
-    exalted: ["/Lotus/Powersuits/Excalibur/DoomSwordUmbra"],
   },
   Frost: {
     name: "Frost",
@@ -1256,6 +1212,7 @@ export const warframes = {
     progenitor: "Cold",
     isPrime: true,
     conclave: true,
+    vaulted: true,
     playstyle: ["Crowd Control", "Survival"],
   },
   Gara: {
@@ -1355,6 +1312,7 @@ export const warframes = {
     progenitor: "Cold",
     isPrime: true,
     conclave: true,
+    vaulted: false,
     playstyle: ["Damage", "Survival", "Crowd Control"],
     exalted: ["/Lotus/Powersuits/Glass/GaraShankWeaponPrime"],
   },
@@ -1457,6 +1415,7 @@ export const warframes = {
     progenitor: "Radiation",
     isPrime: true,
     conclave: false,
+    vaulted: false,
     playstyle: ["Damage"],
     exalted: ["/Lotus/Powersuits/Garuda/GarudaPrimeClaws"],
   },
@@ -1662,6 +1621,7 @@ export const warframes = {
     progenitor: "Impact",
     isPrime: true,
     conclave: false,
+    vaulted: true,
     playstyle: ["Survival"],
   },
   Gyre: {
@@ -1810,6 +1770,7 @@ export const warframes = {
     progenitor: "Magnetic",
     isPrime: true,
     conclave: true,
+    vaulted: false,
     playstyle: ["Survival", "Support"],
   },
   Hildryn: {
@@ -1913,6 +1874,7 @@ export const warframes = {
     progenitor: "Cold",
     isPrime: true,
     conclave: false,
+    vaulted: true,
     playstyle: ["Damage", "Survival"],
     exalted: ["/Lotus/Powersuits/IronFrame/BlastWeaponPrime"],
   },
@@ -2008,6 +1970,7 @@ export const warframes = {
     progenitor: "Magnetic",
     isPrime: true,
     conclave: true,
+    vaulted: true,
     playstyle: ["Crowd Control"],
   },
   Inaros: {
@@ -2106,6 +2069,7 @@ export const warframes = {
     progenitor: "Heat",
     isPrime: true,
     conclave: false,
+    vaulted: true,
     playstyle: ["Survival", "Crowd Control"],
   },
   Ivara: {
@@ -2205,6 +2169,7 @@ export const warframes = {
     progenitor: "Toxin",
     isPrime: true,
     conclave: true,
+    vaulted: true,
     playstyle: ["Stealth"],
     exalted: ["/Lotus/Powersuits/Ranger/PrimeExaltedBow"],
   },
@@ -2358,6 +2323,7 @@ export const warframes = {
     progenitor: "Toxin",
     isPrime: true,
     conclave: false,
+    vaulted: false,
     playstyle: ["Crowd Control", "Damage"],
     exalted: [
       "/Lotus/Powersuits/Khora/Kavat/KhoraPrimeKavatPowerSuit",
@@ -2564,6 +2530,7 @@ export const warframes = {
     progenitor: "Magnetic",
     isPrime: true,
     conclave: false,
+    vaulted: false,
     playstyle: ["Damage"],
   },
   Limbo: {
@@ -2664,6 +2631,7 @@ export const warframes = {
     progenitor: "Electricity",
     isPrime: true,
     conclave: true,
+    vaulted: true,
     playstyle: ["Crowd Control"],
   },
   Loki: {
@@ -2762,6 +2730,7 @@ export const warframes = {
     progenitor: "Radiation",
     isPrime: true,
     conclave: true,
+    vaulted: true,
     playstyle: ["Stealth"],
   },
   Mag: {
@@ -2862,6 +2831,7 @@ export const warframes = {
     progenitor: "Magnetic",
     isPrime: true,
     conclave: true,
+    vaulted: true,
     playstyle: ["Crowd Control"],
   },
   Mesa: {
@@ -2965,6 +2935,7 @@ export const warframes = {
     progenitor: "Magnetic",
     isPrime: true,
     conclave: true,
+    vaulted: true,
     playstyle: ["Damage"],
     exalted: ["/Lotus/Powersuits/Cowgirl/PrimeSlingerPistols"],
   },
@@ -3066,6 +3037,7 @@ export const warframes = {
     progenitor: "Radiation",
     isPrime: true,
     conclave: true,
+    vaulted: true,
     playstyle: ["Damage"],
   },
   Nekros: {
@@ -3164,6 +3136,7 @@ export const warframes = {
     progenitor: "Toxin",
     isPrime: true,
     conclave: true,
+    vaulted: true,
     playstyle: ["Crowd Control"],
   },
   Nezha: {
@@ -3262,6 +3235,7 @@ export const warframes = {
     progenitor: "Heat",
     isPrime: true,
     conclave: true,
+    vaulted: true,
     playstyle: ["Damage", "Survival", "Crowd Control"],
   },
   Nidus: {
@@ -3362,6 +3336,7 @@ export const warframes = {
     progenitor: "Toxin",
     isPrime: true,
     conclave: false,
+    vaulted: false,
     playstyle: ["Damage", "Survival", "Crowd Control"],
   },
   Nokko: {
@@ -3513,6 +3488,7 @@ export const warframes = {
     progenitor: "Electricity",
     isPrime: true,
     conclave: true,
+    vaulted: true,
     playstyle: ["Damage"],
   },
   Nyx: {
@@ -3613,6 +3589,7 @@ export const warframes = {
     progenitor: "Radiation",
     isPrime: true,
     conclave: true,
+    vaulted: true,
     playstyle: ["Crowd Control"],
   },
   Oberon: {
@@ -3713,6 +3690,7 @@ export const warframes = {
     progenitor: "Toxin",
     isPrime: true,
     conclave: true,
+    vaulted: true,
     playstyle: ["Support"],
   },
   Octavia: {
@@ -3811,6 +3789,7 @@ export const warframes = {
     progenitor: "Radiation",
     isPrime: true,
     conclave: true,
+    vaulted: true,
     playstyle: ["Support", "Damage", "Crowd Control"],
   },
   Oraxia: {
@@ -3961,6 +3940,7 @@ export const warframes = {
     progenitor: "Heat",
     isPrime: true,
     conclave: false,
+    vaulted: false,
     playstyle: ["Damage", "Support"],
   },
   Qorvex: {
@@ -4115,6 +4095,7 @@ export const warframes = {
     progenitor: "Cold",
     isPrime: true,
     conclave: false,
+    vaulted: false,
     playstyle: ["Damage", "Survival"],
   },
   Rhino: {
@@ -4213,6 +4194,7 @@ export const warframes = {
     progenitor: "Impact",
     isPrime: true,
     conclave: true,
+    vaulted: true,
     playstyle: ["Survival", "Crowd Control"],
   },
   Saryn: {
@@ -4313,6 +4295,7 @@ export const warframes = {
     progenitor: "Toxin",
     isPrime: true,
     conclave: true,
+    vaulted: true,
     playstyle: ["Damage"],
   },
   Sevagoth: {
@@ -4412,6 +4395,7 @@ export const warframes = {
     progenitor: "Impact",
     isPrime: true,
     conclave: false,
+    vaulted: false,
     playstyle: ["Damage", "Survival"],
     exalted: ["/Lotus/Powersuits/Wraith/SevagothShadowPrimeClawsWeapon"],
   },
@@ -4615,6 +4599,7 @@ export const warframes = {
     progenitor: "Cold",
     isPrime: true,
     conclave: false,
+    vaulted: true,
     playstyle: ["Damage", "Crowd Control"],
     exalted: [
       "/Lotus/Powersuits/Fairy/PrimeFlightPistols",
@@ -4717,6 +4702,7 @@ export const warframes = {
     progenitor: "Cold",
     isPrime: true,
     conclave: true,
+    vaulted: true,
     playstyle: ["Survival", "Support"],
   },
   Valkyr: {
@@ -4818,6 +4804,7 @@ export const warframes = {
     progenitor: "Electricity",
     isPrime: true,
     conclave: true,
+    vaulted: true,
     playstyle: ["Damage", "Survival"],
     exalted: ["/Lotus/Powersuits/Berserker/BerserkerMeleePrime"],
   },
@@ -4919,6 +4906,7 @@ export const warframes = {
     progenitor: "Heat",
     isPrime: true,
     conclave: false,
+    vaulted: true,
     playstyle: ["Crowd Control"],
   },
   Volt: {
@@ -5015,6 +5003,7 @@ export const warframes = {
     progenitor: "Electricity",
     isPrime: true,
     conclave: true,
+    vaulted: true,
     playstyle: ["Damage", "Support"],
   },
   Voruna: {
@@ -5163,6 +5152,7 @@ export const warframes = {
     progenitor: "Heat",
     isPrime: true,
     conclave: false,
+    vaulted: true,
     playstyle: ["Support"],
   },
   Wukong: {
@@ -5262,6 +5252,7 @@ export const warframes = {
     progenitor: "Impact",
     isPrime: true,
     conclave: false,
+    vaulted: true,
     playstyle: ["Damage", "Survival"],
     exalted: ["/Lotus/Powersuits/MonkeyKing/WukongPrimeStaff"],
   },
@@ -5313,6 +5304,7 @@ export const warframes = {
     progenitor: "Magnetic",
     isPrime: false,
     conclave: false,
+    vaulted: false,
     playstyle: ["Damage"],
   },
   "Xaku Prime": {
@@ -5363,6 +5355,7 @@ export const warframes = {
     progenitor: "Magnetic",
     isPrime: true,
     conclave: false,
+    vaulted: false,
     playstyle: ["Damage"],
   },
   Yareli: {
@@ -5461,6 +5454,7 @@ export const warframes = {
     progenitor: "Magnetic",
     isPrime: true,
     conclave: false,
+    vaulted: false,
     playstyle: ["Damage", "Crowd Control"],
   },
   Zephyr: {
@@ -5559,6 +5553,7 @@ export const warframes = {
     progenitor: "Impact",
     isPrime: true,
     conclave: true,
+    vaulted: true,
     playstyle: ["Damage", "Crowd Control"],
   },
 } as const;

@@ -1,0 +1,27 @@
+# documentation files
+*.md
+COPYING
+
+# git and github files
+.gitignore
+.git
+.github
+
+# Node dependencies
+node_modules
+
+# nuxt specific folders
+.output
+.nuxt
+dist
+
+# local env files
+.env
+.env.*
+
+# tests
+test
+
+# media files
+
+media

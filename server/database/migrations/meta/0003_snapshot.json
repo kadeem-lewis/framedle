@@ -1,0 +1,273 @@
+{
+  "id": "fbc55d0f-3f41-43b1-ad03-0c589a48ddd2",
+  "prevId": "261cda00-ef18-4d7c-814e-539013f67424",
+  "version": "7",
+  "dialect": "postgresql",
+  "tables": {
+    "public.categories": {
+      "name": "categories",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "text",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "label": {
+          "name": "label",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "lastUsed": {
+          "name": "lastUsed",
+          "type": "date",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "NULL"
+        },
+        "description": {
+          "name": "description",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "key": {
+          "name": "key",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "type": {
+          "name": "type",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "warframes": {
+          "name": "warframes",
+          "type": "text[]",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.category_pairs": {
+      "name": "category_pairs",
+      "schema": "",
+      "columns": {
+        "categoryA": {
+          "name": "categoryA",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "categoryB": {
+          "name": "categoryB",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "lastUsed": {
+          "name": "lastUsed",
+          "type": "date",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "NULL"
+        },
+        "warframes": {
+          "name": "warframes",
+          "type": "jsonb",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "category_pairs_categoryA_categories_id_fk": {
+          "name": "category_pairs_categoryA_categories_id_fk",
+          "tableFrom": "category_pairs",
+          "tableTo": "categories",
+          "columnsFrom": [
+            "categoryA"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "category_pairs_categoryB_categories_id_fk": {
+          "name": "category_pairs_categoryB_categories_id_fk",
+          "tableFrom": "category_pairs",
+          "tableTo": "categories",
+          "columnsFrom": [
+            "categoryB"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {
+        "category_pairs_categoryA_categoryB_pk": {
+          "name": "category_pairs_categoryA_categoryB_pk",
+          "columns": [
+            "categoryA",
+            "categoryB"
+          ]
+        }
+      },
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.daily": {
+      "name": "daily",
+      "schema": "",
+      "columns": {
+        "date": {
+          "name": "date",
+          "type": "date",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "readableDate": {
+          "name": "readableDate",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "day": {
+          "name": "day",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "mode": {
+          "name": "mode",
+          "type": "mode_enum",
+          "typeSchema": "public",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "puzzle": {
+          "name": "puzzle",
+          "type": "jsonb",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {
+        "unique_date_mode": {
+          "name": "unique_date_mode",
+          "columns": [
+            {
+              "expression": "date",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            },
+            {
+              "expression": "mode",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": true,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        }
+      },
+      "foreignKeys": {},
+      "compositePrimaryKeys": {
+        "daily_day_mode_pk": {
+          "name": "daily_day_mode_pk",
+          "columns": [
+            "day",
+            "mode"
+          ]
+        }
+      },
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.queue": {
+      "name": "queue",
+      "schema": "",
+      "columns": {
+        "name": {
+          "name": "name",
+          "type": "queue_mode_enum",
+          "typeSchema": "public",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "data": {
+          "name": "data",
+          "type": "jsonb",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "updatedAt": {
+          "name": "updatedAt",
+          "type": "date",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    }
+  },
+  "enums": {
+    "public.mode_enum": {
+      "name": "mode_enum",
+      "schema": "public",
+      "values": [
+        "classic",
+        "ability",
+        "grid"
+      ]
+    },
+    "public.queue_mode_enum": {
+      "name": "queue_mode_enum",
+      "schema": "public",
+      "values": [
+        "warframe",
+        "ability"
+      ]
+    }
+  },
+  "schemas": {},
+  "sequences": {},
+  "roles": {},
+  "policies": {},
+  "views": {},
+  "_meta": {
+    "columns": {},
+    "schemas": {},
+    "tables": {}
+  }
+}

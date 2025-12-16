@@ -54,11 +54,15 @@ services:
       && exec node --import ./.output/server/sentry.server.config.mjs ./.output/server/index.mjs'
   redis:
     image: redis:8.4-alpine
-    restart: always
+    volumes:
+      - redis-data:/data
     networks:
       - web
+    deploy:
+      replicas: 1
 volumes:
   letsencrypt:
+  redis-data:
 networks:
   web:
     driver: overlay

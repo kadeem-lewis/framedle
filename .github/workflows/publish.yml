@@ -48,3 +48,24 @@ jobs:
                       NUXT_PUBLIC_DISCORD_INVITE=${{ secrets.DISCORD_INVITE }}
                       NUXT_PUBLIC_KOFI_URL=${{ secrets.KOFI_URL }}
                       NUXT_PUBLIC_SCRIPTS_UMAMI_ANALYTICS_WEBSITE_ID=${{ secrets.UMAMI_WEBSITE_ID }}
+
+    deploy:
+        runs-on: ubuntu-latest
+        needs: build-and-publish
+        steps:
+            - name: Checkout code
+              uses: actions/checkout@v4
+
+            - name: Create env file
+              run: |
+                  echo "GIT_COMMIT_HASH=${{ github.sha }}" >> ./envfile
+            - name: Docker Stack Deploy
+              uses: cssnr/stack-deploy-action@v1
+
+              with:
+                  host: ${{ secrets.SSH_HOST }}
+                  user: deploy
+                  file: docker-stack.yml
+                  name: framedle
+                  ssh_key: ${{ secrets.DEPLOY_SSH_PRIVATE_KEY }}
+                  env_file: ./envfile

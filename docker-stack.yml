@@ -28,7 +28,6 @@ services:
       placement:
         constraints:
           - node.role == manager
-
   framedle:
     image: ghcr.io/kadeem-lewis/framedle:latest
     networks:
@@ -53,6 +52,11 @@ services:
       sh -c 'export NUXT_DATABASE_URL="$$(cat $$NUXT_DATABASE_URL_FILE)"
       && export SENTRY_AUTH_TOKEN="$$(cat $$SENTRY_AUTH_TOKEN_FILE)"
       && exec node --import ./.output/server/sentry.server.config.mjs ./.output/server/index.mjs'
+  redis:
+    image: redis:8.4-alpine
+    restart: always
+    networks:
+      - web
 volumes:
   letsencrypt:
 networks:

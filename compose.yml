@@ -1,0 +1,65 @@
+services:
+  traefik:
+    image: traefik:v3.6
+    command:
+      - "--api.insecure=true"
+      - "--providers.docker"
+      - "--providers.docker.exposedbydefault=false"
+      - "--entrypoints.web.address=:80"
+      - "--entrypoints.websecure.address=:443"
+      # Let's Encrypt configuration
+      - "--certificatesresolvers.myresolver.acme.tlschallenge=true"
+      - "--certificatesresolvers.myresolver.acme.email=email@framedle.com"
+      - "--certificatesresolvers.myresolver.acme.storage=/letsencrypt/acme.json"
+      # Redirect HTTP to HTTPS
+      - "--entrypoints.web.http.redirections.entrypoint.to=websecure"
+      - "--entrypoints.web.http.redirections.entrypoint.scheme=https"
+    ports:
+      - "80:80"
+      - "443:443"
+      - "8080:8080"
+    volumes:
+      - "letsencrypt:/letsencrypt"
+      - "/var/run/docker.sock:/var/run/docker.sock"
+    networks:
+      - web
+    deploy:
+      mode: global
+      placement:
+        constraints:
+          - node.role == manager
+
+  framedle:
+    image: ghcr.io/kadeem-lewis/framedle:latest
+    networks:
+      - web
+    secrets:
+      - database_url
+      - sentry_auth_token
+    environment:
+      - NUXT_DATABASE_URL_FILE=/run/secrets/database_url
+      - SENTRY_AUTH_TOKEN_FILE=/run/secrets/sentry_auth_token
+    deploy:
+      replicas: 2
+      update_config:
+        order: start-first
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.framedle.rule=Host(`staging.framedle.com`)"
+      - "traefik.http.routers.framedle.entrypoints=websecure"
+      - "traefik.http.routers.framedle.tls.certresolver=myresolver"
+      - "traefik.http.services.framedle.loadbalancer.server.port=3000"
+    entrypoint: >
+      sh -c 'export NUXT_DATABASE_URL="$$(cat $$NUXT_DATABASE_URL_FILE)"
+      && export SENTRY_AUTH_TOKEN="$$(cat $$SENTRY_AUTH_TOKEN_FILE)"
+      && exec node --import ./.output/server/sentry.server.config.mjs ./.output/server/index.mjs'
+volumes:
+  letsencrypt:
+networks:
+  web:
+    driver: overlay
+secrets:
+  database_url:
+    external: true
+  sentry_auth_token:
+    external: true

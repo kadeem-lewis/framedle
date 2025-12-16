@@ -29,7 +29,7 @@ services:
         constraints:
           - node.role == manager
   framedle:
-    image: ghcr.io/kadeem-lewis/framedle:latest
+    image: ghcr.io/kadeem-lewis/framedle:${GIT_COMMIT_HASH:-latest}
     networks:
       - web
     secrets:

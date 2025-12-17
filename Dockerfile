@@ -2,6 +2,11 @@ ARG NODE_VERSION=22
 
 FROM node:${NODE_VERSION}-slim AS base
 
+# Install curl for health checks or other uses
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends curl && \
+    rm -rf /var/lib/apt/lists/*
+
 # Setup PNPM
 ENV PNPM_HOME="/pnpm"
 ENV PATH="$PNPM_HOME:$PATH"

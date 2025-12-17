@@ -27,8 +27,8 @@ export default defineNuxtConfig({
           websiteId: "",
         },
       },
-      discordInvite: "",
-      kofiUrl: "",
+      discordInvite: "https://discord.gg/PwAJX7tbzR",
+      kofiUrl: "https://ko-fi.com/framedle",
     },
   },
 

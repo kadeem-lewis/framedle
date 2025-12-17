@@ -17,7 +17,6 @@ services:
     ports:
       - "80:80"
       - "443:443"
-      - "8080:8080"
     volumes:
       - "letsencrypt:/letsencrypt"
       - "/var/run/docker.sock:/var/run/docker.sock"
@@ -28,7 +27,7 @@ services:
       placement:
         constraints:
           - node.role == manager
-  framedle:
+  app:
     image: ghcr.io/kadeem-lewis/framedle:${GIT_COMMIT_HASH:-latest}
     networks:
       - web
@@ -36,22 +35,35 @@ services:
       - database_url
       - sentry_auth_token
     environment:
-      - NUXT_DATABASE_URL_FILE=/run/secrets/database_url
+      - DATABASE_URL_FILE=/run/secrets/database_url
       - SENTRY_AUTH_TOKEN_FILE=/run/secrets/sentry_auth_token
+    entrypoint: > # make secrets available to the app
+      sh -c 'export NUXT_DATABASE_URL="$$(cat $$DATABASE_URL_FILE)"
+      && export SENTRY_AUTH_TOKEN="$$(cat $$SENTRY_AUTH_TOKEN_FILE)"
+      && exec node --import ./.output/server/sentry.server.config.mjs ./.output/server/index.mjs'
     deploy:
       replicas: 2
+      restart_policy:
+        condition: on-failure
+        delay: 5s
+        max_attempts: 3
+        window: 120s
       update_config:
+        parallelism: 1 # Update one instance at a time
+        delay: 10s
         order: start-first
+        failure_action: rollback
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.framedle.rule=Host(`staging.framedle.com`)"
       - "traefik.http.routers.framedle.entrypoints=websecure"
       - "traefik.http.routers.framedle.tls.certresolver=myresolver"
       - "traefik.http.services.framedle.loadbalancer.server.port=3000"
-    entrypoint: >
-      sh -c 'export NUXT_DATABASE_URL="$$(cat $$NUXT_DATABASE_URL_FILE)"
-      && export SENTRY_AUTH_TOKEN="$$(cat $$SENTRY_AUTH_TOKEN_FILE)"
-      && exec node --import ./.output/server/sentry.server.config.mjs ./.output/server/index.mjs'
+    healthcheck:
+      test: ["CMD-SHELL", "curl -f http://localhost:3000/health"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
   redis:
     image: redis:8.4-alpine
     volumes:
@@ -60,6 +72,8 @@ services:
       - web
     deploy:
       replicas: 1
+      restart_policy:
+        condition: on-failure
 volumes:
   letsencrypt:
   redis-data:

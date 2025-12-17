@@ -1,6 +1,6 @@
 ARG NODE_VERSION=22
 
-FROM node:${NODE_VERSION}-slim as base
+FROM node:${NODE_VERSION}-slim AS base
 
 # Setup PNPM
 ENV PNPM_HOME="/pnpm"
@@ -13,12 +13,12 @@ ARG NUXT_PUBLIC_DISCORD_INVITE
 ARG NUXT_PUBLIC_KOFI_URL
 ARG NUXT_PUBLIC_SCRIPTS_UMAMI_ANALYTICS_WEBSITE_ID
 
-FROM base as deps
+FROM base AS deps
 
 COPY package.json pnpm-lock.yaml ./
 RUN pnpm install --frozen-lockfile
 
-FROM base as build
+FROM base AS build
 
 
 COPY --from=deps /app/node_modules ./node_modules
@@ -26,7 +26,7 @@ COPY . .
 
 RUN pnpm build
 
-FROM base as production
+FROM base AS production
 
 # Create a non-root user to run the application
 RUN groupadd --system --gid 1001 nodejs && \

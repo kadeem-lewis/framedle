@@ -45,9 +45,6 @@ jobs:
                   labels: ${{ steps.meta.outputs.labels }}
                   build-args: |
                       NODE_VERSION=22
-                      NUXT_PUBLIC_DISCORD_INVITE=${{ secrets.DISCORD_INVITE }}
-                      NUXT_PUBLIC_KOFI_URL=${{ secrets.KOFI_URL }}
-                      NUXT_PUBLIC_SCRIPTS_UMAMI_ANALYTICS_WEBSITE_ID=${{ secrets.UMAMI_WEBSITE_ID }}
 
     deploy:
         runs-on: ubuntu-latest

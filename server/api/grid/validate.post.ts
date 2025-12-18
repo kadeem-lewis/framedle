@@ -78,5 +78,7 @@ export default defineEventHandler(async (event) => {
       statusCode: 500,
       statusMessage: "Failed to validate grid guess",
     });
+  } finally {
+    await useDrizzle().$client.end();
   }
 });

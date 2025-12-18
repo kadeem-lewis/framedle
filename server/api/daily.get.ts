@@ -54,5 +54,7 @@ export default defineEventHandler<{ query: Query }>(async (event) => {
       message: "Internal server error",
       data: error,
     });
+  } finally {
+    await useDrizzle().$client.end();
   }
 });

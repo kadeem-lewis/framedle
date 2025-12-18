@@ -40,6 +40,7 @@ export default defineEventHandler<{
         message: "No entries found",
       });
     }
+
     return {
       status: 200,
       dailies: result,
@@ -50,5 +51,7 @@ export default defineEventHandler<{
       message: "Internal server error",
       data: error,
     });
+  } finally {
+    await useDrizzle().$client.end();
   }
 });

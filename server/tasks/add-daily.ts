@@ -76,6 +76,8 @@ export default defineTask({
         message: "Failed to add new daily entries :(",
         data: typeof error === "string" ? error : (error as Error).message,
       });
+    } finally {
+      await useDrizzle().$client.end();
     }
   },
 });

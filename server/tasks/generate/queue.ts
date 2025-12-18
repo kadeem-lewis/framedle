@@ -47,6 +47,8 @@ export default defineTask({
     } catch (error) {
       console.error("❌ Error generating queues:", error);
       return { result: "Error", error };
+    } finally {
+      await useDrizzle().$client.end();
     }
   },
 });

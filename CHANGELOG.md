@@ -1,10 +1,17 @@
 # Changelog
 
+## v0.3.4 - December 18th, 2025
+
+### Bug Fixes
+
+- Fixed an issue where the daily game would skip items from the queue if add daily task ran multiple times in a day
+
 ## v0.3.3 - December 17th, 2025
 
 ### Changes
 
 - Added Gyre Prime and Uriel to the game
+- Updated app to be ran as a docker container using docker stack for better scalability and deployment
 
 ## v0.3.2 - November 10th, 2025
 

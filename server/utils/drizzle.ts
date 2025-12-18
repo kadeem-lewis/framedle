@@ -1,14 +1,14 @@
 import * as schema from "#shared/schemas/db";
-import { neon } from "@neondatabase/serverless";
-import { drizzle } from "drizzle-orm/neon-http";
+import { drizzle } from "drizzle-orm/postgres-js";
+import postgres from "postgres";
 export { sql, eq, and, or } from "drizzle-orm";
 
 const { databaseUrl } = useRuntimeConfig();
 
-const sql = neon(databaseUrl);
+const client = postgres(databaseUrl);
 
 export const tables = schema;
 
 export function useDrizzle() {
-  return drizzle({ client: sql, schema });
+  return drizzle({ client, schema });
 }

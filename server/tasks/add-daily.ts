@@ -73,8 +73,8 @@ export default defineTask({
     } catch (error) {
       throw createError({
         statusCode: 500,
-        message: "Failed to add new daily entries",
-        data: error,
+        message: "Failed to add new daily entries :(",
+        data: typeof error === "string" ? error : (error as Error).message,
       });
     }
   },

@@ -1,5 +1,11 @@
 # Changelog
 
+## v0.3.3 - December 17th, 2025
+
+### Changes
+
+- Added Gyre Prime and Uriel to the game
+
 ## v0.3.2 - November 10th, 2025
 
 ### Changes

@@ -1517,6 +1517,7 @@ export const warframes = {
     progenitor: "Impact",
     isPrime: true,
     conclave: false,
+    vaulted: true,
     playstyle: ["Damage", "Survival"],
   },
   Grendel: {
@@ -1671,6 +1672,56 @@ export const warframes = {
     variant: "Standard",
     progenitor: "Electricity",
     isPrime: false,
+    conclave: false,
+    playstyle: ["Crowd Control"],
+  },
+  "Gyre Prime": {
+    name: "Gyre Prime",
+    category: "Warframes",
+    type: "Warframe",
+    health: 345,
+    shield: 640,
+    armor: 105,
+    energy: 190,
+    sprint: 1.05,
+    aura: "Naramon",
+    releaseDate: "2025-12-10",
+    imageName: "gyre-prime-f8b507d90e.png",
+    abilities: [
+      {
+        uniqueName: "/Lotus/Powersuits/PowersuitAbilities/GyrePulseAbility",
+        name: "Arcsphere",
+        description:
+          "Launch a Gyratory Sphere that will deal high damage on impact and periodically deal electrical shocks to nearby enemies. Hit multiple enemies at once with the initial launch to enhance damage.",
+        imageName: "arcsphere-e6acb6ba09.png",
+      },
+      {
+        uniqueName: "/Lotus/Powersuits/PowersuitAbilities/GyreSphereAbility",
+        name: "Coil Horizon",
+        description:
+          "Throw forward a Gyratory Sphere that will implode after a few seconds or can be manually triggered.",
+        imageName: "coil-horizon-b11e3c20a3.png",
+      },
+      {
+        uniqueName: "/Lotus/Powersuits/PowersuitAbilities/GyreEnergizedAbility",
+        name: "Cathode Grace",
+        description:
+          "Gain a brief burst of increased Critical Chance and Energy Regen, with each kill extending duration of Cathode Grace. Casting is on a cooldown. ",
+        imageName: "cathode-grace-37df3a50a7.png",
+      },
+      {
+        uniqueName:
+          "/Lotus/Powersuits/PowersuitAbilities/GyreOverchargedAbility",
+        name: "Rotorswell",
+        description:
+          "Gyre’s mechanisms spin at incredible speeds, generating an Electric Field that shocks nearby enemies. When Gyre gets a critical hit, a large electrical discharge will chain from the enemy that was hit to nearby enemies.",
+        imageName: "rotorswell-41f16d9925.png",
+      },
+    ],
+    sex: "Female",
+    variant: "Prime",
+    progenitor: "Electricity",
+    isPrime: true,
     conclave: false,
     playstyle: ["Crowd Control"],
   },
@@ -4704,6 +4755,59 @@ export const warframes = {
     conclave: true,
     vaulted: true,
     playstyle: ["Survival", "Support"],
+  },
+  Uriel: {
+    name: "Uriel",
+    category: "Warframes",
+    type: "Warframe",
+    health: 566,
+    shield: 566,
+    armor: 105,
+    energy: 100,
+    sprint: 1.1,
+    aura: "Madurai",
+    releaseDate: "2025-12-10",
+    imageName: "uriel-f39d1dadc6.png",
+    abilities: [
+      {
+        uniqueName:
+          "/Lotus/Powersuits/PowersuitAbilities/DemonFrameFireBallAbility",
+        name: "Infernalis",
+        description:
+          "Manifest an aura of flames inflicting <DT_FIRE_COLOR>Heat Damage and Status Effect on nearby enemies.\n\nTap Dodge while airborne to take flight as a flaming meteor of destruction.",
+        imageName: "infernalis-4ec4ec17f5.png",
+      },
+      {
+        uniqueName:
+          "/Lotus/Powersuits/PowersuitAbilities/DemonFrameHealAbility",
+        name: "Remedium",
+        description:
+          "Uriel heals himself and his demons. If his demons are dead, they are resurrected.",
+        imageName: "remedium-9f6a0f4752.png",
+      },
+      {
+        uniqueName:
+          "/Lotus/Powersuits/PowersuitAbilities/DemonFrameCloneAbility",
+        name: "Demonium",
+        description:
+          "Uriel rips out the souls of his demons, draining their health, and sends them in search of new victims. Souls explode on contact with an enemy, rendering it vulnerable to Damage.",
+        imageName: "demonium-a408d434bd.png",
+      },
+      {
+        uniqueName:
+          "/Lotus/Powersuits/PowersuitAbilities/DemonFrameBrimstoneAbility",
+        name: "Brimstone",
+        description:
+          "Uriel and his demons create a growing ring of flaming brimstone. Charge the ability by utilizing demon abilities. Damage inflicted increases with each consecutive hit.",
+        imageName: "brimstone-3a63ad793c.png",
+      },
+    ],
+    sex: "Male",
+    variant: "Standard",
+    progenitor: "Heat",
+    isPrime: false,
+    conclave: false,
+    playstyle: ["Damage", "Crowd Control"],
   },
   Valkyr: {
     name: "Valkyr",

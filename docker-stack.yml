@@ -32,10 +32,10 @@ services:
     networks:
       - web
     secrets:
-      - database_url
+      - database_url_staging
       - sentry_auth_token
     environment:
-      - DATABASE_URL_FILE=/run/secrets/database_url
+      - DATABASE_URL_FILE=/run/secrets/database_url_staging
       - SENTRY_AUTH_TOKEN_FILE=/run/secrets/sentry_auth_token
       - NUXT_PUBLIC_SCRIPTS_UMAMI_ANALYTICS_WEBSITE_ID=28866016-a151-4d95-bc2e-c31779a8aaad
       - NUXT_PUBLIC_SCRIPTS_UMAMI_ANALYTICS_SCRIPT_INPUT_SRC=https://analytics.kadeemlewis.com/script.js

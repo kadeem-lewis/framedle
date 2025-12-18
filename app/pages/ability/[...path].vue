@@ -10,7 +10,7 @@ useSeoMeta({
 
 const { t } = useI18n();
 
-const { itemToGuess } = storeToRefs(useGameStore());
+const { itemToGuess, guessedItems } = storeToRefs(useGameStore());
 const { initializeUnlimitedGame } = useGameStore();
 const { mode } = useGameMode();
 const route = useRoute("ability-path");
@@ -71,7 +71,10 @@ const isLoading = computed(() => {
   <div>
     <UiAppSpinner v-if="isLoading" />
     <div v-show="!isLoading">
-      <div v-if="mode" class="flex flex-col gap-4">
+      <div
+        v-if="mode === 'ability' || mode === 'abilityUnlimited'"
+        class="flex flex-col gap-4"
+      >
         <div v-if="itemToGuess[mode]" class="space-y-4">
           <RemainingGuesses />
           <UCard class="divide-y-0">
@@ -88,7 +91,11 @@ const isLoading = computed(() => {
               @loaded="handleImageLoaded"
             />
             <template #footer>
-              <WarframeSearch v-if="!isGameOver" :items="vanillaWarframes" />
+              <WarframeSearch
+                v-if="!isGameOver"
+                :items="vanillaWarframes"
+                :excluded-items="guessedItems[mode]"
+              />
             </template>
           </UCard>
 

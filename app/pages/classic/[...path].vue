@@ -79,7 +79,11 @@ const tooltipMap = {
               {{ t("classic.subtitle") }}
             </p>
           </template>
-          <WarframeSearch v-if="!isGameOver" :items="warframeNames" />
+          <WarframeSearch
+            v-if="!isGameOver"
+            :items="warframeNames"
+            :excluded-items="guessedItems[mode]"
+          />
         </UCard>
         <template v-if="guessedItems[mode].length">
           <div class="space-y-4 overflow-x-auto md:overflow-x-visible">

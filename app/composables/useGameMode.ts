@@ -2,10 +2,12 @@ export type GameMode =
   | "classic"
   | "classicUnlimited"
   | "ability"
-  | "abilityUnlimited";
+  | "abilityUnlimited"
+  | "grid"
+  | "gridUnlimited";
 
-export type GameType = "classic" | "ability";
-export type GameVariant = "daily" | "unlimited";
+export type GameType = "classic" | "ability" | "grid";
+export type GameVariant = "daily" | "unlimited" | "gridUnlimited";
 
 //TODO: This needs to be expanded to have a variable for tracking if its a daily or unlimited mode
 export function useGameMode() {
@@ -19,6 +21,10 @@ export function useGameMode() {
     ability: {
       daily: "ability",
       unlimited: "abilityUnlimited",
+    },
+    grid: {
+      daily: "grid",
+      unlimited: "gridUnlimited",
     },
   } as const;
 

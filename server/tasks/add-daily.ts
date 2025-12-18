@@ -8,6 +8,24 @@ export default defineTask({
   },
   async run() {
     try {
+      const date = format(startOfTomorrow(), "yyyy-MM-dd");
+      const readableDate = format(startOfTomorrow(), "PPP");
+
+      const existingEntry = await useDrizzle()
+        .select()
+        .from(tables.daily)
+        .where(eq(tables.daily.date, date))
+        .limit(1);
+
+      if (existingEntry.length > 0) {
+        console.log(
+          `ℹ️ Daily entry for ${readableDate} already exists. Skipping addition.`,
+        );
+        return {
+          result: "Skipped - Already Exists",
+        };
+      }
+
       const classicPuzzle = await getNextFromQueue("warframe");
 
       const abilityPuzzle = await getNextFromQueue("ability");
@@ -26,9 +44,6 @@ export default defineTask({
           lastDayMap.set(result.mode, result.lastDay);
         }
       }
-
-      const date = format(startOfTomorrow(), "yyyy-MM-dd");
-      const readableDate = format(startOfTomorrow(), "PPP");
 
       const puzzlesToCreate: { mode: "classic" | "ability"; answer: string }[] =
         [

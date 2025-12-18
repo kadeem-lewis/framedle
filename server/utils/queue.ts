@@ -133,36 +133,39 @@ export async function processQueue(
 export async function getNextFromQueue(
   name: "warframe" | "ability",
 ): Promise<string> {
-  const result = await useDrizzle()
-    .select()
-    .from(tables.queue)
-    .where(eq(tables.queue.name, name));
+  return await useDrizzle().transaction(async (tx) => {
+    const result = await tx
+      .select()
+      .from(tables.queue)
+      .where(eq(tables.queue.name, name))
+      .for("update");
 
-  if (result.length === 0) {
-    throw createError(`No queue found for name: ${name}`);
-  }
+    if (result.length === 0) {
+      throw createError(`No queue found for name: ${name}`);
+    }
 
-  const queueData = result[0].data;
+    const queueData = result[0].data;
 
-  // 2. FIND NEXT
-  const nextItemIndex = queueData.queue.findIndex((item) => !item.used);
+    // 2. FIND NEXT
+    const nextItemIndex = queueData.queue.findIndex((item) => !item.used);
 
-  if (nextItemIndex === -1) {
-    throw createError(
-      `CRITICAL: No available items in the '${name}' queue. Please run the data generation task.`,
-    );
-  }
+    if (nextItemIndex === -1) {
+      throw createError(
+        `CRITICAL: No available items in the '${name}' queue. Please run the data generation task.`,
+      );
+    }
 
-  // 3. MODIFY
-  const nextItem = queueData.queue[nextItemIndex];
-  nextItem.used = true;
-  nextItem.usedAt = new Date().toISOString();
+    // 3. MODIFY
+    const nextItem = queueData.queue[nextItemIndex];
+    nextItem.used = true;
+    nextItem.usedAt = new Date().toISOString();
 
-  // 4. WRITE
-  await useDrizzle()
-    .update(tables.queue)
-    .set({ data: queueData, updatedAt: format(new Date(), "yyyy-MM-dd") })
-    .where(eq(tables.queue.name, name));
+    // 4. WRITE
+    await tx
+      .update(tables.queue)
+      .set({ data: queueData, updatedAt: format(new Date(), "yyyy-MM-dd") })
+      .where(eq(tables.queue.name, name));
 
-  return nextItem.key;
+    return nextItem.key;
+  });
 }

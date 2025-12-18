@@ -1,23 +1,17 @@
 <script setup lang="ts">
 import Fuse from "fuse.js";
 
-const props = defineProps<{
+const { items: originalItems, excludedItems = [] } = defineProps<{
   items: WarframeName[];
+  excludedItems?: WarframeName[];
 }>();
 
 const MAX_VISIBLE_ITEMS = 6 as const;
 
-const { guessedItems } = storeToRefs(useGameStore());
-
 const { mode } = useGameMode();
 
 const items = computed(() => {
-  return props.items.filter(
-    (item) =>
-      !guessedItems.value[mode.value!].some(
-        (guessedItem) => guessedItem === item,
-      ),
-  );
+  return originalItems.filter((item) => !excludedItems.includes(item));
 });
 
 const selectedWarframe = ref<WarframeName>();

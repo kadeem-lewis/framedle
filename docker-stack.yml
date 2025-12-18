@@ -38,7 +38,7 @@ services:
       - DATABASE_URL_FILE=/run/secrets/database_url
       - SENTRY_AUTH_TOKEN_FILE=/run/secrets/sentry_auth_token
       - NUXT_PUBLIC_SCRIPTS_UMAMI_ANALYTICS_WEBSITE_ID=28866016-a151-4d95-bc2e-c31779a8aaad
-      - NUXT_PUBLIC_SCRIPTS_UMAMI_ANALYTICS_SRC=https://analytics.kadeemlewis.com/script.js
+      - NUXT_PUBLIC_SCRIPTS_UMAMI_ANALYTICS_SCRIPT_INPUT_SRC=https://analytics.kadeemlewis.com/script.js
     entrypoint: > # make secrets available to the app
       sh -c 'export NUXT_DATABASE_URL="$$(cat $$DATABASE_URL_FILE)"
       && export SENTRY_AUTH_TOKEN="$$(cat $$SENTRY_AUTH_TOKEN_FILE)"
@@ -77,7 +77,7 @@ services:
       - DATABASE_URL_FILE=/run/secrets/database_url
       - SENTRY_AUTH_TOKEN_FILE=/run/secrets/sentry_auth_token
       - NUXT_PUBLIC_SCRIPTS_UMAMI_ANALYTICS_WEBSITE_ID=28866016-a151-4d95-bc2e-c31779a8aaad
-      - NUXT_PUBLIC_SCRIPTS_UMAMI_ANALYTICS_SRC=https://analytics.kadeemlewis.com/script.js
+      - NUXT_PUBLIC_SCRIPTS_UMAMI_ANALYTICS_SCRIPT_INPUT_SRC=https://analytics.kadeemlewis.com/script.js
     entrypoint: > # make secrets available to the app
       sh -c 'export NUXT_DATABASE_URL="$$(cat $$DATABASE_URL_FILE)"
       && export SENTRY_AUTH_TOKEN="$$(cat $$SENTRY_AUTH_TOKEN_FILE)"

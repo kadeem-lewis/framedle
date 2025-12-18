@@ -24,7 +24,9 @@ export default defineNuxtConfig({
     public: {
       scripts: {
         umamiAnalytics: {
-          src: "",
+          scriptInput: {
+            src: "",
+          },
           websiteId: "",
         },
       },

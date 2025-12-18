@@ -126,3 +126,5 @@ secrets:
     external: true
   sentry_auth_token:
     external: true
+  database_url_staging:
+    external: true

@@ -22,11 +22,11 @@ export function useModeCards() {
       streak: stats.value.ability.streak,
     },
     {
-      label: "Coming Soon™",
-      route: "",
+      label: "Grid",
+      route: "/grid",
       source: "/BuildIcon.png",
       background: img("/backgrounds/orbiter.jpg", { format: "webp" }),
-      description: "Coming Dec 2025",
+      description: "Complete the Logic Grid",
       streak: 0,
     },
   ]);

@@ -55,6 +55,8 @@ const tooltipMap = {
   playstyle: "Damage, Stealth, Support, Survival, etc...",
   variant: "Standard, Prime or Umbra",
 };
+
+const { makeGuess } = useGuess();
 </script>
 <template>
   <div
@@ -79,10 +81,12 @@ const tooltipMap = {
               {{ t("classic.subtitle") }}
             </p>
           </template>
+          <!-- I guess this is gonna emit submit and the selected Warframe and then handle the guess submission here -->
           <WarframeSearch
             v-if="!isGameOver"
             :items="warframeNames"
             :excluded-items="guessedItems[mode]"
+            @submit="makeGuess($event, mode)"
           />
         </UCard>
         <template v-if="guessedItems[mode].length">

@@ -66,6 +66,8 @@ onUnmounted(() => {
 const isLoading = computed(() => {
   return showLoadingSpinner.value || isLoadingDailies.value;
 });
+
+const { makeGuess } = useGuess();
 </script>
 <template>
   <div>
@@ -95,6 +97,7 @@ const isLoading = computed(() => {
                 v-if="!isGameOver"
                 :items="vanillaWarframes"
                 :excluded-items="guessedItems[mode]"
+                @submit="makeGuess($event, mode)"
               />
             </template>
           </UCard>

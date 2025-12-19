@@ -7,7 +7,7 @@ export type GameMode =
   | "gridUnlimited";
 
 export type GameType = "classic" | "ability" | "grid";
-export type GameVariant = "daily" | "unlimited" | "gridUnlimited";
+export type GameVariant = "daily" | "unlimited";
 
 //TODO: This needs to be expanded to have a variable for tracking if its a daily or unlimited mode
 export function useGameMode() {

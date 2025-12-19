@@ -5,7 +5,7 @@ export function useGuess() {
   const { currentDay, currentDailyClassicData, currentDailyAbilityData } =
     storeToRefs(useDailiesStore());
   const { gameState } = storeToRefs(useGameStateStore());
-  const { isUnlimited } = useGameMode();
+  const { isUnlimited, gameVariant } = useGameMode();
 
   async function makeGuess(
     selectedWarframe: MaybeRef<WarframeName>,
@@ -14,7 +14,10 @@ export function useGuess() {
     //!!! Extremely temporary fix
     const currentMode = toValue(mode);
     const warframe = toValue(selectedWarframe);
-    if (isUnlimited.value) {
+    if (
+      currentMode === "abilityUnlimited" ||
+      currentMode === "classicUnlimited"
+    ) {
       attempts.value[currentMode] -= 1;
       guessedItems.value[currentMode].push(warframe);
     } else if (currentMode === "classic") {
@@ -92,8 +95,46 @@ export function useGuess() {
     return "correct";
   }
 
+  const { registerGuess } = useGridGameStore();
+
+  async function submitGridGuess(
+    row: CategoryItem,
+    col: CategoryItem,
+    rowIndex: number,
+    colIndex: number,
+    guess: WarframeName,
+  ) {
+    try {
+      const response = await $fetch("/api/grid/validate", {
+        method: "POST",
+        body: {
+          rowCategoryId: row.id,
+          columnCategoryId: col.id,
+          guessedWarframe: guess,
+          isUnlimited: isUnlimited.value,
+        },
+      });
+
+      console.log("submitGridGuess response", response);
+
+      if (response.correct) {
+        // This is expecting the row and column ids so I will need to emit from warframe search and then pass in those values in the handler
+        registerGuess(
+          rowIndex,
+          colIndex,
+          guess,
+          response.correct,
+          gameVariant.value!,
+        );
+      }
+    } catch (error) {
+      console.error("Error submitting grid guess:", error);
+    }
+  }
+
   return {
     makeGuess,
     checkGuess,
+    submitGridGuess,
   };
 }

@@ -6,9 +6,11 @@ const { items: originalItems, excludedItems = [] } = defineProps<{
   excludedItems?: WarframeName[];
 }>();
 
-const MAX_VISIBLE_ITEMS = 6 as const;
+const emit = defineEmits<{
+  (e: "submit", selectedWarframe: WarframeName): void;
+}>();
 
-const { mode } = useGameMode();
+const MAX_VISIBLE_ITEMS = 6 as const;
 
 const items = computed(() => {
   return originalItems.filter((item) => !excludedItems.includes(item));
@@ -58,13 +60,10 @@ watch(query, (newQuery) => {
   }
 });
 
-const { makeGuess } = useGuess();
-
 const handleSubmit = async () => {
-  if (!mode.value) throw createError("Mode is not set");
   if (!selectedWarframe.value) return;
 
-  await makeGuess(selectedWarframe.value, mode.value);
+  emit("submit", selectedWarframe.value);
   selectedWarframe.value = undefined;
 };
 </script>

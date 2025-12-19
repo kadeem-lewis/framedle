@@ -9,6 +9,9 @@ export type GameMode =
 export type GameType = "classic" | "ability" | "grid";
 export type GameVariant = "daily" | "unlimited";
 
+export type LegacyDailyMode = Extract<GameMode, "classic" | "ability">;
+export type LegacyMode = Exclude<GameMode, "grid" | "gridUnlimited">;
+
 //TODO: This needs to be expanded to have a variable for tracking if its a daily or unlimited mode
 export function useGameMode() {
   const route = useRoute();
@@ -52,5 +55,40 @@ export function useGameMode() {
     return gameVariant.value === "unlimited";
   });
 
-  return { mode, gameType, gameVariant, isDaily, isUnlimited };
+  function isDailyMode(mode: string): mode is GameType {
+    return ["classic", "ability", "grid"].includes(mode);
+  }
+
+  function isUnlimitedMode(
+    mode: string,
+  ): mode is Exclude<GameMode, "classic" | "ability" | "grid"> {
+    return ["classicUnlimited", "abilityUnlimited", "gridUnlimited"].includes(
+      mode,
+    );
+  }
+
+  function isLegacyDailyMode(mode: string): mode is LegacyDailyMode {
+    return ["classic", "ability"].includes(mode);
+  }
+
+  function isLegacyMode(mode: string): mode is LegacyMode {
+    return [
+      "classic",
+      "classicUnlimited",
+      "ability",
+      "abilityUnlimited",
+    ].includes(mode);
+  }
+
+  return {
+    mode,
+    gameType,
+    gameVariant,
+    isDaily,
+    isUnlimited,
+    isLegacyDailyMode,
+    isLegacyMode,
+    isUnlimitedMode,
+    isDailyMode,
+  };
 }

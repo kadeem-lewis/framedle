@@ -5,7 +5,9 @@ export { sql, eq, and, or } from "drizzle-orm";
 
 const { databaseUrl } = useRuntimeConfig();
 
-const client = postgres(databaseUrl);
+const client = postgres(databaseUrl, {
+  ssl: "require",
+});
 
 export const tables = schema;
 

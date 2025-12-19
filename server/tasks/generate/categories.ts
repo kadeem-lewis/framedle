@@ -162,8 +162,6 @@ export default defineTask({
     } catch (error) {
       console.error("Error inserting/updating categories:", error);
       return { result: "Failure", error };
-    } finally {
-      await useDrizzle().$client.end();
     }
   },
 });

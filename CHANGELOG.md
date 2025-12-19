@@ -1,5 +1,11 @@
 # Changelog
 
+## v0.3.5 - December 19th, 2025
+
+### Bug Fixes
+
+- Fixed bug where new daily game would not load
+
 ## v0.3.4 - December 18th, 2025
 
 ### Bug Fixes

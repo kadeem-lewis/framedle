@@ -6,7 +6,7 @@ import type { Ability } from "#shared/schemas/warframe";
 const { itemToGuess, guessedItems, attempts } = storeToRefs(useGameStore());
 const { resetCurrentGame, DEFAULT_ATTEMPTS } = useGameStore();
 
-const { mode, isDaily } = useGameMode();
+const { mode, isDaily, isLegacyMode } = useGameMode();
 
 const correctWarframe = computed(() => {
   const gameMode = mode.value as keyof typeof itemToGuess.value;
@@ -24,6 +24,7 @@ const { hasWon, isGameOver, currentGameState } =
 
 const answer = computed(() => {
   if (!mode.value) throw createError("Mode is not set");
+  if (!isLegacyMode(mode.value)) throw createError("Not a legacy mode");
   if (mode.value === "ability" || mode.value === "abilityUnlimited") {
     return itemToGuess.value[mode.value]?.belongsTo;
   } else {
@@ -64,6 +65,7 @@ watchEffect(() => {
   // guessed items check is here to make sure confetti doesn't trigger prematurely
   if (
     currentGameState.value === GameStatus.WON &&
+    isLegacyMode(mode.value) &&
     guessedItems.value[mode.value].length > 0
   ) {
     party.confetti(gameOverCard.value);
@@ -119,7 +121,7 @@ const differentMode = computed(() => {
 <template>
   <div ref="gameOverCard">
     <UCard
-      v-if="mode"
+      v-if="mode && isLegacyMode(mode)"
       :class="[
         'border-2',
         { 'border-success': hasWon, 'border-error': !hasWon },

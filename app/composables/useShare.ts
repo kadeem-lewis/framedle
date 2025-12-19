@@ -21,7 +21,7 @@ export function useShare() {
   const { DEFAULT_ATTEMPTS } = useGameStore();
   const { currentDailyClassicData } = storeToRefs(useDailiesStore()); //! Temporary change to allow day to be available
 
-  const { mode, gameVariant } = useGameMode();
+  const { mode, gameVariant, isLegacyMode } = useGameMode();
   const { hasWon } = storeToRefs(useGameStateStore());
 
   const { encode } = useEncoder();
@@ -55,7 +55,8 @@ export function useShare() {
 
   function handleShareClick() {
     const currentMode = mode.value;
-    if (!currentMode) throw createError("Mode is not set");
+    if (!currentMode || !isLegacyMode(currentMode))
+      throw createError("Mode is not set or not a legacy mode");
     if (currentMode === "ability" || currentMode === "abilityUnlimited") {
       guessedItems.value[currentMode].forEach((guessedItem) => {
         if (!itemToGuess.value[currentMode]?.belongsTo) return;

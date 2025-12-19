@@ -37,6 +37,8 @@ const imageUrl = computed(() => {
 // Compute which cells should be revealed based on attempts remaining
 const revealedCells = computed(() => {
   if (!mode.value) throw createError("Mode is not set");
+  if (mode.value !== "ability" && mode.value !== "abilityUnlimited")
+    throw createError("Not an ability mode");
   if (isGameOver.value) {
     return totalCells; // Show entire image when game is over
   }

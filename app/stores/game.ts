@@ -46,7 +46,7 @@ export const useGameStore = defineStore(
     }
 
     const { decode } = useEncoder();
-    const { mode, gameType, gameVariant } = useGameMode();
+    const { mode, gameType, gameVariant, isLegacyMode } = useGameMode();
 
     function initializeUnlimitedGame(
       mode: MaybeRef<GameMode>,
@@ -57,6 +57,12 @@ export const useGameStore = defineStore(
       let newItem: WarframeName | Ability | null = null;
       let needsReset = false;
       const { forceReset = false } = options;
+
+      if (!isLegacyMode(currentMode)) {
+        console.error("Can only initialize legacy unlimited modes");
+        return;
+      }
+
       if (queryValue) {
         if (currentMode === "classicUnlimited") {
           const decoded = decode(queryValue) as WarframeName;

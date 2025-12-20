@@ -92,12 +92,12 @@ const handleSubmit = async () => {
       <template #item="{ item }">
         <div class="flex w-full items-center justify-between gap-2">
           <p class="font-semibold uppercase">
-            {{ getWarframe(item as WarframeName).name }}
+            {{ item }}
           </p>
           <NuxtImg
             format="webp"
             :src="`https://cdn.warframestat.us/img/${getWarframe(item as WarframeName).imageName}`"
-            :alt="getWarframe(item as WarframeName).name"
+            :alt="item"
             placeholder
             height="64"
             class="h-16"

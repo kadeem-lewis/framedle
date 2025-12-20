@@ -4,12 +4,15 @@ const { warframeName, isRevealed } = defineProps<{
   isRevealed?: boolean;
 }>();
 
-const warframe = ref(getWarframe(warframeName as WarframeName));
+const warframe = computed(() => {
+  if (!warframeName) return;
+  return getWarframe(warframeName as WarframeName);
+});
 </script>
 <template>
-  <div>
+  <div class="bg-neutral-500 hover:bg-neutral-600">
     <div
-      v-if="isRevealed"
+      v-if="isRevealed && warframe"
       class="flex flex-col items-center justify-center gap-1"
     >
       <NuxtImg

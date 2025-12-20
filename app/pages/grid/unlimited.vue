@@ -18,11 +18,5 @@ await callOnce("grid-setup", async () => {
 </script>
 <template>
   <UiAppSpinner v-if="isLoading || !unlimited.config" />
-  <GridGameShell
-    v-else
-    :rows="unlimited.config.rows"
-    :columns="unlimited.config.cols"
-    :attempts="unlimited.attempts"
-    :user-grid-guesses="unlimited.grid"
-  />
+  <GridGameShell v-else :game-state="unlimited" />
 </template>

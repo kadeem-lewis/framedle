@@ -1,10 +1,10 @@
 <script setup lang="ts">
-const { rows, columns, attempts, userGridGuesses } = defineProps<{
-  rows: CategoryItem[];
-  columns: CategoryItem[];
-  attempts: number;
-  userGridGuesses: Record<string, GridCell>;
+const { gameState } = defineProps<{
+  gameState: GridGameState;
 }>();
+
+const cols = computed(() => gameState.config?.cols || []);
+const rows = computed(() => gameState.config?.rows || []);
 
 const selectedColumn = ref<CategoryItem>();
 const selectedColumnIndex = ref<number>();
@@ -16,25 +16,24 @@ const isOpen = ref(false);
 const { usedGuesses } = storeToRefs(useGridGameStore());
 
 function updateSelectedCell(rowIndex: number, columnIndex: number) {
-  if (!columns[columnIndex] || !rows[rowIndex]) {
+  if (!cols.value[columnIndex] || !rows.value[rowIndex]) {
     return;
   }
 
   selectedColumnIndex.value = columnIndex;
   selectedRowIndex.value = rowIndex;
 
-  selectedColumn.value = columns[columnIndex];
-  selectedRow.value = rows[rowIndex];
+  selectedColumn.value = cols.value[columnIndex];
+  selectedRow.value = rows.value[rowIndex];
 
   isOpen.value = true;
-
-  console.log("Selected cell:", selectedColumn.value, selectedRow.value);
 }
 
 const { submitGridGuess } = useGuess();
 
+const toast = useToast();
+
 async function handleGuess(selectedWarframe: WarframeName) {
-  console.log("Handling guess for:", selectedWarframe);
   if (
     !selectedRow.value ||
     !selectedColumn.value ||
@@ -42,37 +41,72 @@ async function handleGuess(selectedWarframe: WarframeName) {
     selectedColumnIndex.value === undefined
   )
     return;
-  console.log("Hi");
-  await submitGridGuess(
-    selectedRow.value,
-    selectedColumn.value,
-    selectedRowIndex.value,
-    selectedColumnIndex.value,
-    selectedWarframe,
-  );
-  isOpen.value = false;
+  try {
+    const response = await submitGridGuess(
+      selectedRow.value,
+      selectedColumn.value,
+      selectedRowIndex.value,
+      selectedColumnIndex.value,
+      selectedWarframe,
+    );
+    if (response) {
+      isOpen.value = false;
+    } else {
+      toast.add({
+        title: "Incorrect Guess",
+        color: "error",
+      });
+    }
+  } catch (error) {
+    console.error("Error handling guess:", error);
+  }
 }
+
+const { mode } = useGameMode();
+const { resetGridGame } = useGridGameStore();
+
+const pairExcludedItems = computed(() => {
+  const currentCell =
+    gameState.grid[`${selectedRowIndex.value}-${selectedColumnIndex.value}`];
+  return currentCell?.invalidGuesses || [];
+});
+
+const allExcludedItems = computed(() => [
+  ...usedGuesses.value,
+  ...pairExcludedItems.value,
+]);
 </script>
 <template>
-  <div class="grid grid-cols-4 gap-1">
-    <div>Hello {{ attempts }}</div>
-    <span v-for="column in columns" :key="column.label">
-      {{ column.label }}
-    </span>
-    <template v-for="(row, i) in rows" :key="row.label">
-      <div class="flex items-center justify-center">
-        {{ row.label }}
-      </div>
-      <GridCell
-        v-for="(col, j) in columns"
-        :id="`cell-${i}-${j}`"
-        :key="col.label"
-        class="w-full bg-red-500 first:rounded-tl-xl last:rounded-br-xl"
-        :is-revealed="!!userGridGuesses[`${i}-${j}`]"
-        :warframe-name="userGridGuesses[`${i}-${j}`]?.value || ''"
-        @click="updateSelectedCell(i, j)"
-      />
-    </template>
+  <div>
+    <div class="grid grid-cols-4 gap-1">
+      <div>Hello {{ gameState.attempts }}</div>
+      <GridLabel v-for="column in cols" :key="column.label" :category="column">
+        {{ column.label }}
+      </GridLabel>
+      <template v-for="(row, i) in rows" :key="row.label">
+        <GridLabel :category="row" class="flex items-center justify-center">
+          {{ row.label }}
+        </GridLabel>
+        <GridCell
+          v-for="(col, j) in cols"
+          :id="`cell-${i}-${j}`"
+          :key="col.label"
+          class="w-full first:rounded-tl-xl last:rounded-br-xl"
+          :is-revealed="!!gameState.grid[`${i}-${j}`]"
+          :warframe-name="gameState.grid[`${i}-${j}`]?.value || ''"
+          @click="updateSelectedCell(i, j)"
+        />
+      </template>
+    </div>
+    <div class="mt-2 w-full text-center">
+      <small class="text-muted">Tap on a category for help</small>
+    </div>
+    <div
+      v-if="mode === 'gridUnlimited'"
+      class="flex w-full items-center justify-center"
+    >
+      <UButton icon="i-mdi-refresh" @click="resetGridGame">Generate</UButton>
+    </div>
     <UModal v-model:open="isOpen" title="Make your guess">
       <template #description>
         <p>{{ selectedRow?.label }}/{{ selectedColumn?.label }}</p>
@@ -81,7 +115,7 @@ async function handleGuess(selectedWarframe: WarframeName) {
         <!-- This fails because a lot of my app relies on the arrays from the game store which are currently only available for the classic games -->
         <WarframeSearch
           :items="warframeNames"
-          :excluded-items="usedGuesses"
+          :excluded-items="allExcludedItems"
           @submit="handleGuess"
         />
       </template>

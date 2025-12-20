@@ -10,7 +10,13 @@ const warframe = computed(() => {
 });
 </script>
 <template>
-  <div class="bg-neutral-500 hover:bg-neutral-600">
+  <div
+    class="bg-neutral-500"
+    :class="{
+      'cursor-not-allowed': warframe,
+      'hover:bg-neutral-600': !warframe,
+    }"
+  >
     <div
       v-if="isRevealed && warframe"
       class="flex flex-col items-center justify-center gap-1"

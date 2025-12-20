@@ -16,7 +16,11 @@ const isOpen = ref(false);
 const { usedGuesses } = storeToRefs(useGridGameStore());
 
 function updateSelectedCell(rowIndex: number, columnIndex: number) {
-  if (!cols.value[columnIndex] || !rows.value[rowIndex]) {
+  if (
+    !cols.value[columnIndex] ||
+    !rows.value[rowIndex] ||
+    gameState.grid[`${rowIndex}-${columnIndex}`]?.value
+  ) {
     return;
   }
 

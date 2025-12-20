@@ -81,6 +81,7 @@ const handleSubmit = async () => {
       size="lg"
       required
       ignore-filter
+      autofocus
       :ui="{
         base: 'rounded-none',
         content:

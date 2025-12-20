@@ -98,17 +98,17 @@ export function useGuess() {
   const { registerGuess } = useGridGameStore();
 
   async function submitGridGuess(
-    row: CategoryItem,
-    col: CategoryItem,
-    rowIndex: number,
-    colIndex: number,
+    row: MaybeRef<CategoryItem>,
+    col: MaybeRef<CategoryItem>,
+    rowIndex: MaybeRef<number>,
+    colIndex: MaybeRef<number>,
     guess: WarframeName,
   ) {
     const response = await $fetch("/api/grid/validate", {
       method: "POST",
       body: {
-        rowCategoryId: row.id,
-        columnCategoryId: col.id,
+        rowCategoryId: toValue(row).id,
+        columnCategoryId: toValue(col).id,
         guessedWarframe: guess,
         isUnlimited: isUnlimited.value,
       },
@@ -116,7 +116,12 @@ export function useGuess() {
 
     console.log("submitGridGuess response", response);
 
-    registerGuess(rowIndex, colIndex, guess, response.correct);
+    registerGuess(
+      toValue(rowIndex),
+      toValue(colIndex),
+      guess,
+      response.correct,
+    );
     if (response.correct) {
       return true;
     }

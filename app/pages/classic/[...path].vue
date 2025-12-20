@@ -81,7 +81,6 @@ const { makeGuess } = useGuess();
               {{ t("classic.subtitle") }}
             </p>
           </template>
-          <!-- I guess this is gonna emit submit and the selected Warframe and then handle the guess submission here -->
           <WarframeSearch
             v-if="!isGameOver"
             :items="warframeNames"

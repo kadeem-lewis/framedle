@@ -8,13 +8,15 @@ const warframe = computed(() => {
   if (!warframeName) return;
   return getWarframe(warframeName as WarframeName);
 });
+
+const { isGameOver } = storeToRefs(useGameStateStore());
 </script>
 <template>
   <div
     class="bg-elevated min-h-24"
     :class="{
       'cursor-not-allowed': warframe,
-      'hover:brightness-90 dark:hover:brightness-125': !warframe,
+      'hover:brightness-90 dark:hover:brightness-125': !warframe && !isGameOver,
     }"
   >
     <div

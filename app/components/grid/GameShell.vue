@@ -14,12 +14,14 @@ const selectedRowIndex = ref<number>();
 const isOpen = ref(false);
 
 const { usedGuesses } = storeToRefs(useGridGameStore());
+const { isGameOver } = storeToRefs(useGameStateStore());
 
 function updateSelectedCell(rowIndex: number, columnIndex: number) {
   if (
     !cols.value[columnIndex] ||
     !rows.value[rowIndex] ||
-    gameState.grid[`${rowIndex}-${columnIndex}`]?.value
+    gameState.grid[`${rowIndex}-${columnIndex}`]?.value ||
+    isGameOver.value
   ) {
     return;
   }

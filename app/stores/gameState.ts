@@ -41,7 +41,7 @@ export const useGameStateStore = defineStore(
         else if (current === GameStatus.LOST)
           gameState.value[mode] = GameStatus.LOST_PREVIOUS;
       } else {
-        if (current === GameStatus.WON || current === GameStatus.LOST) {
+        if (current !== GameStatus.ACTIVE) {
           gameState.value[mode] = GameStatus.ACTIVE;
         }
       }

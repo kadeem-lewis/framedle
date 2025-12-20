@@ -95,7 +95,6 @@ const allExcludedItems = computed(() => [
           v-for="(col, j) in cols"
           :id="`cell-${i}-${j}`"
           :key="col.label"
-          class="w-full first:rounded-tl-xl last:rounded-br-xl"
           :is-revealed="!!gameState.grid[`${i}-${j}`]"
           :warframe-name="gameState.grid[`${i}-${j}`]?.value || ''"
           @click="updateSelectedCell(i, j)"

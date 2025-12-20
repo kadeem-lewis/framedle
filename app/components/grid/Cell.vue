@@ -11,10 +11,10 @@ const warframe = computed(() => {
 </script>
 <template>
   <div
-    class="bg-neutral-500"
+    class="bg-elevated min-h-24"
     :class="{
       'cursor-not-allowed': warframe,
-      'hover:bg-neutral-600': !warframe,
+      'hover:brightness-90 dark:hover:brightness-125': !warframe,
     }"
   >
     <div
@@ -25,9 +25,9 @@ const warframe = computed(() => {
         :src="`https://cdn.warframestat.us/img/${warframe.imageName}`"
         :alt="`Image of ${warframe.name}`"
         format="avif"
-        height="40"
+        height="64"
       />
-      <UBadge :label="warframe.name" />
+      <UBadge :label="warframe.name" class="rounded-none" />
     </div>
   </div>
 </template>

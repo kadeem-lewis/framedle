@@ -101,5 +101,5 @@ export const useArchiveStore = defineStore("archive", () => {
 });
 
 if (import.meta.hot) {
-  import.meta.hot.accept(acceptHMRUpdate(useGameStateStore, import.meta.hot));
+  import.meta.hot.accept(acceptHMRUpdate(useArchiveStore, import.meta.hot));
 }

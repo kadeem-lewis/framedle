@@ -2,10 +2,10 @@
 const { attempts } = storeToRefs(useGameStore());
 const { DEFAULT_ATTEMPTS } = useGameStore();
 
-const { mode } = useGameMode();
+const { mode, isLegacyMode } = useGameMode();
 </script>
 <template>
-  <div v-if="mode">
+  <div v-if="mode && isLegacyMode(mode)">
     <div class="flex justify-end gap-1">
       <NuxtImg
         v-for="index of DEFAULT_ATTEMPTS"

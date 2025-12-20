@@ -55,6 +55,8 @@ const tooltipMap = {
   playstyle: "Damage, Stealth, Support, Survival, etc...",
   variant: "Standard, Prime or Umbra",
 };
+
+const { makeGuess } = useGuess();
 </script>
 <template>
   <div
@@ -79,7 +81,12 @@ const tooltipMap = {
               {{ t("classic.subtitle") }}
             </p>
           </template>
-          <WarframeSearch v-if="!isGameOver" :items="warframeNames" />
+          <WarframeSearch
+            v-if="!isGameOver"
+            :items="warframeNames"
+            :excluded-items="guessedItems[mode]"
+            @submit="makeGuess($event, mode)"
+          />
         </UCard>
         <template v-if="guessedItems[mode].length">
           <div class="space-y-4 overflow-x-auto md:overflow-x-visible">

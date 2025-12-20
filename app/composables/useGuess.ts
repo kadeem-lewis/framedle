@@ -14,7 +14,10 @@ export function useGuess() {
     //!!! Extremely temporary fix
     const currentMode = toValue(mode);
     const warframe = toValue(selectedWarframe);
-    if (isUnlimited.value) {
+    if (
+      currentMode === "abilityUnlimited" ||
+      currentMode === "classicUnlimited"
+    ) {
       attempts.value[currentMode] -= 1;
       guessedItems.value[currentMode].push(warframe);
     } else if (currentMode === "classic") {
@@ -92,8 +95,42 @@ export function useGuess() {
     return "correct";
   }
 
+  const { registerGuess } = useGridGameStore();
+
+  async function submitGridGuess(
+    row: MaybeRef<CategoryItem>,
+    col: MaybeRef<CategoryItem>,
+    rowIndex: MaybeRef<number>,
+    colIndex: MaybeRef<number>,
+    guess: WarframeName,
+  ) {
+    const response = await $fetch("/api/grid/validate", {
+      method: "POST",
+      body: {
+        rowCategoryId: toValue(row).id,
+        columnCategoryId: toValue(col).id,
+        guessedWarframe: guess,
+        isUnlimited: isUnlimited.value,
+      },
+    });
+
+    console.log("submitGridGuess response", response);
+
+    registerGuess(
+      toValue(rowIndex),
+      toValue(colIndex),
+      guess,
+      response.correct,
+    );
+    if (response.correct) {
+      return true;
+    }
+    return false;
+  }
+
   return {
     makeGuess,
     checkGuess,
+    submitGridGuess,
   };
 }

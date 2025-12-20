@@ -1,23 +1,19 @@
 <script setup lang="ts">
 import Fuse from "fuse.js";
 
-const props = defineProps<{
+const { items: originalItems, excludedItems = [] } = defineProps<{
   items: WarframeName[];
+  excludedItems?: WarframeName[];
+}>();
+
+const emit = defineEmits<{
+  (e: "submit", selectedWarframe: WarframeName): void;
 }>();
 
 const MAX_VISIBLE_ITEMS = 6 as const;
 
-const { guessedItems } = storeToRefs(useGameStore());
-
-const { mode } = useGameMode();
-
 const items = computed(() => {
-  return props.items.filter(
-    (item) =>
-      !guessedItems.value[mode.value!].some(
-        (guessedItem) => guessedItem === item,
-      ),
-  );
+  return originalItems.filter((item) => !excludedItems.includes(item));
 });
 
 const selectedWarframe = ref<WarframeName>();
@@ -64,13 +60,10 @@ watch(query, (newQuery) => {
   }
 });
 
-const { makeGuess } = useGuess();
-
 const handleSubmit = async () => {
-  if (!mode.value) throw createError("Mode is not set");
   if (!selectedWarframe.value) return;
 
-  await makeGuess(selectedWarframe.value, mode.value);
+  emit("submit", selectedWarframe.value);
   selectedWarframe.value = undefined;
 };
 </script>
@@ -88,6 +81,7 @@ const handleSubmit = async () => {
       size="lg"
       required
       ignore-filter
+      autofocus
       :ui="{
         base: 'rounded-none',
         content:
@@ -98,12 +92,12 @@ const handleSubmit = async () => {
       <template #item="{ item }">
         <div class="flex w-full items-center justify-between gap-2">
           <p class="font-semibold uppercase">
-            {{ getWarframe(item as WarframeName).name }}
+            {{ item }}
           </p>
           <NuxtImg
             format="webp"
             :src="`https://cdn.warframestat.us/img/${getWarframe(item as WarframeName).imageName}`"
-            :alt="getWarframe(item as WarframeName).name"
+            :alt="item"
             placeholder
             height="64"
             class="h-16"

@@ -1,0 +1,137 @@
+export type CategoryItem = {
+  label: string;
+  id: string;
+  description: string;
+};
+
+export type GridCell = {
+  rowId: string;
+  colId: string;
+  value: string | null;
+  invalidGuesses: WarframeName[];
+  status: "correct" | "incorrect" | "empty";
+  // a grid is only correct or empty, if its empty then its automatically incorrect
+  //  rarity probably
+};
+
+export type GridGameState = {
+  grid: { [key: string]: GridCell };
+  config: { rows: CategoryItem[]; cols: CategoryItem[] } | null;
+  attempts: number;
+};
+
+export const useGridGameStore = defineStore(
+  "grid-game",
+  () => {
+    const MAX_GRID_ATTEMPTS = 10;
+
+    const unlimited = ref<GridGameState>({
+      grid: {},
+      attempts: MAX_GRID_ATTEMPTS,
+      config: null,
+    });
+
+    const daily = ref<GridGameState>({
+      grid: {},
+      attempts: MAX_GRID_ATTEMPTS,
+      config: null,
+    });
+
+    const { gameVariant } = useGameMode();
+
+    const currentGame = computed(() => {
+      return gameVariant.value === "daily" ? daily.value : unlimited.value;
+    });
+
+    const usedGuesses = computed(() => {
+      const answers = Object.values(currentGame.value.grid);
+      if (answers.length === 0) return [];
+      return answers.map((cell) => cell.value) as WarframeName[];
+    });
+
+    function registerGuess(
+      rowIndex: number,
+      colIndex: number,
+      guess: WarframeName,
+      isCorrect: boolean,
+    ) {
+      const key = `${rowIndex}-${colIndex}`;
+
+      if (!currentGame.value.grid[key]) {
+        currentGame.value.grid[key] = {
+          rowId: currentGame.value.config!.rows[rowIndex]!.id,
+          colId: currentGame.value.config!.cols[colIndex]!.id,
+          value: null,
+          invalidGuesses: [],
+          status: isCorrect ? "correct" : "incorrect",
+        };
+      }
+
+      const cell = currentGame.value.grid[key];
+
+      if (isCorrect) {
+        cell.value = guess;
+      } else {
+        cell.invalidGuesses.push(guess);
+      }
+      currentGame.value.attempts = Math.max(0, currentGame.value.attempts - 1);
+    }
+
+    const isLoading = ref(false);
+
+    type UnlimitedGridGameOptions = {
+      forceReset?: boolean;
+    };
+
+    async function initializeUnlimitedGridGame(
+      options: UnlimitedGridGameOptions = {},
+    ) {
+      const { forceReset = false } = options;
+      if (!forceReset && unlimited.value.config) return;
+
+      isLoading.value = true;
+      try {
+        const response = await $fetch("/api/grid/generate");
+        console.log("response", response);
+        if (response.status === 200) {
+          unlimited.value = {
+            grid: {},
+            config: {
+              rows: response.grid.rows,
+              cols: response.grid.columns,
+            },
+            attempts: MAX_GRID_ATTEMPTS,
+          };
+        }
+      } catch (error) {
+        console.error(error);
+      } finally {
+        isLoading.value = false;
+      }
+    }
+
+    function resetGridGame() {
+      initializeUnlimitedGridGame({ forceReset: true });
+    }
+
+    return {
+      unlimited,
+      usedGuesses,
+      daily,
+      isLoading,
+      currentGame,
+      registerGuess,
+      initializeUnlimitedGridGame,
+      resetGridGame,
+    };
+  },
+  {
+    persist: {
+      pick: ["unlimited"],
+    },
+  },
+);
+
+if (import.meta.hot) {
+  import.meta.hot.accept(acceptHMRUpdate(useGridGameStore, import.meta.hot));
+}

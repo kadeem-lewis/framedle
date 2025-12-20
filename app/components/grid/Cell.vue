@@ -15,7 +15,7 @@ const { isGameOver } = storeToRefs(useGameStateStore());
   <div
     class="bg-elevated min-h-24"
     :class="{
-      'cursor-not-allowed': warframe,
+      'cursor-not-allowed': warframe || isGameOver,
       'hover:brightness-90 dark:hover:brightness-125': !warframe && !isGameOver,
     }"
   >

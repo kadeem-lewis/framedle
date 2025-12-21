@@ -1,16 +1,26 @@
 import { format } from "date-fns";
-import type { ClassicPuzzle, Daily } from "#shared/schemas/db";
+import type { ClassicPuzzle, Daily, GridPuzzle } from "#shared/schemas/db";
 import { switchMap } from "rxjs";
 import Dexie from "dexie";
 const { liveQuery } = Dexie;
 
 export const useDailiesStore = defineStore("dailies", () => {
-  const currentDay = ref();
+  const activeDays = ref<{
+    classic: number | undefined;
+    ability: number | undefined;
+    grid: number | undefined;
+  }>({
+    classic: undefined,
+    ability: undefined,
+    grid: undefined,
+  });
 
   const { DEFAULT_ATTEMPTS } = useGameStore();
 
+  const { updateDailyData } = useGameStore();
+
   const currentDailyClassicData = useObservable(
-    from(currentDay).pipe(
+    from(toRef(activeDays.value, "classic")).pipe(
       switchMap((day) =>
         from(
           liveQuery(async () => {
@@ -43,10 +53,8 @@ export const useDailiesStore = defineStore("dailies", () => {
     { initialValue: undefined },
   ) as Ref<FullClassicData | undefined>;
 
-  const { updateDailyData } = useGameStore();
-
   const currentDailyAbilityData = useObservable(
-    from(currentDay).pipe(
+    from(toRef(activeDays.value, "ability")).pipe(
       switchMap((day) =>
         from(
           liveQuery(async () => {
@@ -160,12 +168,19 @@ export const useDailiesStore = defineStore("dailies", () => {
           ...rest,
         });
       }
+      if (mode === "grid") {
+        entries.push({
+          ...rest,
+          mode,
+          puzzle: puzzle as GridPuzzle,
+        });
+      }
     }
     return entries;
   }
 
   return {
-    currentDay,
+    activeDays,
     currentDailyClassicData,
     currentDailyAbilityData,
     currentDailyDate,

@@ -94,8 +94,12 @@ export const useDailiesStore = defineStore("dailies", () => {
   watch(
     [currentDailyClassicData, currentDailyAbilityData],
     ([newClassicVal, newAbilityVal]) => {
+      console.log("Updating daily data in game store", {
+        newClassicVal,
+        newAbilityVal,
+      });
       // this technically works but it needs a lot of improvements
-      if (newClassicVal && newAbilityVal) {
+      if (newClassicVal || newAbilityVal) {
         updateDailyData({
           ability: newAbilityVal,
           classic: newClassicVal,
@@ -103,6 +107,49 @@ export const useDailiesStore = defineStore("dailies", () => {
       }
     },
   );
+
+  const currentDailyGridData = useObservable(
+    from(toRef(activeDays.value, "grid")).pipe(
+      switchMap((day) =>
+        from(
+          liveQuery(async () => {
+            const query = {
+              mode: "grid" as const,
+              ...(day ? { day } : { date: format(new Date(), "yyyy-MM-dd") }),
+            };
+            return await db.transaction(
+              "r",
+              "dailies",
+              "progress",
+              async () => {
+                const puzzle = await db.dailies.where(query).first();
+                if (!puzzle) return undefined;
+
+                const progress = await db.progress.get([puzzle.day, "grid"]);
+
+                return {
+                  ...puzzle,
+                  attempts: progress?.attempts ?? DEFAULT_ATTEMPTS,
+                  state: progress?.state,
+                  gridState: progress?.gridState || {},
+                };
+              },
+            );
+          }),
+        ),
+      ),
+    ),
+    { initialValue: undefined },
+  ) as Ref<FullGridData | undefined>;
+
+  const { syncGridData } = useGridGameStore();
+
+  watch(currentDailyGridData, (newGridVal) => {
+    console.log("newGridVal", newGridVal);
+    if (newGridVal) {
+      syncGridData(newGridVal);
+    }
+  });
 
   const currentDailyDate = computed(() => {
     //! this is a temporary change to allow the app to still work, eventually I think this tracker should be individual for each daily game
@@ -183,6 +230,7 @@ export const useDailiesStore = defineStore("dailies", () => {
     activeDays,
     currentDailyClassicData,
     currentDailyAbilityData,
+    currentDailyGridData,
     currentDailyDate,
     isLoadingDailies,
     getDailies,

@@ -39,6 +39,7 @@ export default defineNuxtConfig({
     "/classic/**": { ssr: false },
     "/ability/**": { ssr: false },
     "/archive/**": { ssr: false },
+    "/grid": { ssr: false },
   },
 
   app: {

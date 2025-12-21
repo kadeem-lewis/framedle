@@ -2,7 +2,10 @@
 definePageMeta({
   layout: "game",
 });
+
+const { daily } = storeToRefs(useGridGameStore());
 </script>
 <template>
-  <div>Hi</div>
+  <UiAppSpinner v-if="!daily.config" />
+  <GridGameShell v-else :game-state="daily" />
 </template>

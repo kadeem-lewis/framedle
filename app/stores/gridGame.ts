@@ -77,6 +77,14 @@ export const useGridGameStore = defineStore(
       currentGame.value.attempts = Math.max(0, currentGame.value.attempts - 1);
     }
 
+    function syncGridData(gridData: FullGridData) {
+      daily.value = {
+        grid: gridData.gridState,
+        attempts: gridData.attempts,
+        config: gridData.puzzle,
+      };
+    }
+
     const isLoading = ref(false);
 
     type UnlimitedGridGameOptions = {
@@ -92,7 +100,6 @@ export const useGridGameStore = defineStore(
       isLoading.value = true;
       try {
         const response = await $fetch("/api/grid/generate");
-        console.log("response", response);
         if (response.status === 200) {
           unlimited.value = {
             grid: {},
@@ -120,7 +127,9 @@ export const useGridGameStore = defineStore(
       daily,
       isLoading,
       currentGame,
+      MAX_GRID_ATTEMPTS,
       registerGuess,
+      syncGridData,
       initializeUnlimitedGridGame,
       resetGridGame,
     };

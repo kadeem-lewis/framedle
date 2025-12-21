@@ -18,7 +18,7 @@ export type ClassicPuzzle = {
 
 export type GridPuzzle = {
   rowIds: [string, string, string];
-  columnIds: [string, string, string];
+  colIds: [string, string, string];
 };
 
 export const daily = pgTable(

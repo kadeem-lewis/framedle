@@ -6,7 +6,7 @@ import type { Ability } from "#shared/schemas/warframe";
 const { itemToGuess, guessedItems, attempts } = storeToRefs(useGameStore());
 const { resetCurrentGame, DEFAULT_ATTEMPTS } = useGameStore();
 
-const { mode, isDaily, isLegacyMode } = useGameMode();
+const { mode, isDaily, isLegacyMode, isLegacyDailyMode } = useGameMode();
 
 const correctWarframe = computed(() => {
   const gameMode = mode.value as keyof typeof itemToGuess.value;
@@ -72,13 +72,10 @@ watchEffect(() => {
   }
 });
 
-const { currentDay } = storeToRefs(useDailiesStore());
+const { activeDays } = storeToRefs(useDailiesStore());
 
 watchEffect(async () => {
-  if (!mode.value) return;
-
-  // Only for daily modes
-  if (!isDaily.value) return;
+  if (!mode.value || !isLegacyDailyMode(mode.value)) return;
 
   // Only when state changes to WON or LOST (not ACTIVE or *_PREVIOUS)
   if (
@@ -88,8 +85,8 @@ watchEffect(async () => {
     await db.progress
       .where({
         mode: mode.value,
-        ...(currentDay.value
-          ? { day: currentDay.value }
+        ...(activeDays.value[mode.value]
+          ? { day: activeDays.value[mode.value] }
           : { date: format(new Date(), "yyyy-MM-dd") }),
       })
       .modify({

@@ -2,7 +2,7 @@ export type Result = "correct" | "incorrect" | "partial" | "higher" | "lower";
 
 export function useGuess() {
   const { attempts, guessedItems } = storeToRefs(useGameStore());
-  const { currentDay, currentDailyClassicData, currentDailyAbilityData } =
+  const { currentDailyClassicData, currentDailyAbilityData } =
     storeToRefs(useDailiesStore());
   const { gameState } = storeToRefs(useGameStateStore());
   const { isUnlimited } = useGameMode();
@@ -11,7 +11,6 @@ export function useGuess() {
     selectedWarframe: MaybeRef<WarframeName>,
     mode: MaybeRef<GameMode>,
   ) {
-    //!!! Extremely temporary fix
     const currentMode = toValue(mode);
     const warframe = toValue(selectedWarframe);
     if (
@@ -20,46 +19,30 @@ export function useGuess() {
     ) {
       attempts.value[currentMode] -= 1;
       guessedItems.value[currentMode].push(warframe);
-    } else if (currentMode === "classic") {
+    } else if (currentMode === "classic" && currentDailyClassicData.value) {
       await db.progress
         .put({
           mode: currentMode,
-          date: currentDailyClassicData.value!.date,
-          day: currentDay.value || currentDailyClassicData.value?.day, //TODO: Please fix
+          date: currentDailyClassicData.value.date,
+          day: currentDailyClassicData.value.day,
           guessedItems: [...guessedItems.value[currentMode], warframe],
           attempts: attempts.value[currentMode] - 1,
           state: gameState.value[currentMode],
         })
         .catch((e) => {
-          console.log({
-            mode: currentMode,
-            day: currentDay.value,
-            guessedItems: [...guessedItems.value[currentMode], warframe],
-            attempts: attempts.value[currentMode] - 1,
-            state: gameState.value[currentMode],
-          });
-
           console.error("Failed to add new guess", e);
         });
-    } else if (currentMode === "ability") {
+    } else if (currentMode === "ability" && currentDailyAbilityData.value) {
       await db.progress
         .put({
-          day: currentDay.value || currentDailyAbilityData.value?.day,
-          date: currentDailyAbilityData.value!.date,
+          day: currentDailyAbilityData.value.day,
+          date: currentDailyAbilityData.value.date,
           mode: currentMode,
           guessedItems: [...guessedItems.value[currentMode], warframe],
           attempts: attempts.value[currentMode] - 1,
           state: gameState.value[currentMode],
         })
         .catch((e) => {
-          console.log({
-            mode: currentMode,
-            day: currentDay.value,
-            guessedItems: [...guessedItems.value[currentMode], warframe],
-            attempts: attempts.value[currentMode] - 1,
-            state: gameState.value[currentMode],
-          });
-
           console.error("Failed to add new guess", e);
         });
     }

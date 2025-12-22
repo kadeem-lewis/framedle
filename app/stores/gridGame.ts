@@ -31,11 +31,13 @@ export const useGridGameStore = defineStore(
       config: null,
     });
 
-    const daily = ref<GridGameState>({
+    const _daily = shallowRef<GridGameState>({
       grid: {},
       attempts: MAX_GRID_ATTEMPTS,
       config: null,
     });
+
+    const daily = readonly(_daily);
 
     const { gameVariant } = useGameMode();
 
@@ -57,28 +59,28 @@ export const useGridGameStore = defineStore(
     ) {
       const key = `${rowIndex}-${colIndex}`;
 
-      if (!currentGame.value.grid[key]) {
-        currentGame.value.grid[key] = {
-          rowId: currentGame.value.config!.rows[rowIndex]!.id,
-          colId: currentGame.value.config!.cols[colIndex]!.id,
+      if (!unlimited.value.grid[key]) {
+        unlimited.value.grid[key] = {
+          rowId: unlimited.value.config!.rows[rowIndex]!.id,
+          colId: unlimited.value.config!.cols[colIndex]!.id,
           value: null,
           invalidGuesses: [],
           status: isCorrect ? "correct" : "incorrect",
         };
       }
 
-      const cell = currentGame.value.grid[key];
+      const cell = unlimited.value.grid[key];
 
       if (isCorrect) {
         cell.value = guess;
       } else {
         cell.invalidGuesses.push(guess);
       }
-      currentGame.value.attempts = Math.max(0, currentGame.value.attempts - 1);
+      unlimited.value.attempts = Math.max(0, unlimited.value.attempts - 1);
     }
 
     function syncGridData(gridData: FullGridData) {
-      daily.value = {
+      _daily.value = {
         grid: gridData.gridState,
         attempts: gridData.attempts,
         config: gridData.puzzle,

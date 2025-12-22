@@ -2,10 +2,13 @@ export type Result = "correct" | "incorrect" | "partial" | "higher" | "lower";
 
 export function useGuess() {
   const { attempts, guessedItems } = storeToRefs(useGameStore());
-  const { currentDailyClassicData, currentDailyAbilityData } =
-    storeToRefs(useDailiesStore());
+  const {
+    currentDailyClassicData,
+    currentDailyAbilityData,
+    currentDailyGridData,
+  } = storeToRefs(useDailiesStore());
   const { gameState } = storeToRefs(useGameStateStore());
-  const { isUnlimited } = useGameMode();
+  const { isUnlimited, mode } = useGameMode();
 
   async function makeGuess(
     selectedWarframe: MaybeRef<WarframeName>,
@@ -99,12 +102,56 @@ export function useGuess() {
 
     console.log("submitGridGuess response", response);
 
-    registerGuess(
-      toValue(rowIndex),
-      toValue(colIndex),
-      guess,
-      response.correct,
-    );
+    if (mode.value === "grid" && currentDailyGridData.value) {
+      const dailyData = currentDailyGridData.value;
+
+      const nextGridState = structuredClone(toRaw(dailyData.gridState));
+      const key = `${toValue(rowIndex)}-${toValue(colIndex)}`;
+
+      let cell = nextGridState[key] ? { ...nextGridState[key] } : undefined;
+
+      if (!cell) {
+        cell = {
+          rowId: toValue(row).id,
+          colId: toValue(col).id,
+          value: null,
+          invalidGuesses: [],
+          status: response.correct ? "correct" : "incorrect",
+        };
+      } else {
+        cell.invalidGuesses = [...cell.invalidGuesses];
+      }
+
+      if (response.correct) {
+        cell.value = guess;
+        cell.status = "correct";
+      } else {
+        cell.invalidGuesses.push(guess);
+      }
+
+      nextGridState[key] = cell;
+
+      await db.progress
+        .put({
+          mode: "grid",
+          date: dailyData.date,
+          day: dailyData.day,
+          attempts: Math.max(0, dailyData.attempts - 1),
+          gridState: nextGridState,
+          state: gameState.value["grid"],
+        })
+        .catch((e) => {
+          console.error("Failed to update grid guess", e);
+        });
+    } else {
+      //! Register guess should ideally be handling both unlimited and daily states but I can't call grid data in the grid store because of circular dependencies
+      registerGuess(
+        toValue(rowIndex),
+        toValue(colIndex),
+        guess,
+        response.correct,
+      );
+    }
     if (response.correct) {
       return true;
     }

@@ -12,8 +12,7 @@ const route = useRoute("archive");
 
 const { pastDays, selectedArchiveMode, order } = storeToRefs(useArchiveStore());
 const { getRandomPastDay } = useArchiveStore();
-selectedArchiveMode.value =
-  (route.query.mode as "classic" | "ability") || "classic";
+selectedArchiveMode.value = (route.query.mode as GameType) || "classic";
 
 watch(
   () => selectedArchiveMode.value,
@@ -78,6 +77,17 @@ const randomPastDay = computed(() => getRandomPastDay());
         @click="selectedArchiveMode = 'ability'"
       >
         Ability
+      </UButton>
+      <UButton
+        variant="outline"
+        class="hover:border-primary uppercase ring-neutral-800"
+        :class="{
+          'dark:border-primary border-b-2 border-neutral-800':
+            selectedArchiveMode === 'grid',
+        }"
+        @click="selectedArchiveMode = 'grid'"
+      >
+        Grid
       </UButton>
     </div>
     <ArchiveGameStats />

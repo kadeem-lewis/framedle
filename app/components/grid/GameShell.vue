@@ -71,15 +71,15 @@ async function handleGuess(selectedWarframe: WarframeName) {
 const { mode } = useGameMode();
 const { resetGridGame } = useGridGameStore();
 
-const pairExcludedItems = computed(() => {
+const pairDisabledItems = computed(() => {
   const currentCell =
     gameState.grid[`${selectedRowIndex.value}-${selectedColumnIndex.value}`];
   return currentCell?.invalidGuesses || [];
 });
 
-const allExcludedItems = computed(() => [
+const allDisabledItems = computed(() => [
   ...usedGuesses.value,
-  ...pairExcludedItems.value,
+  ...pairDisabledItems.value,
 ]);
 </script>
 <template>
@@ -106,11 +106,14 @@ const allExcludedItems = computed(() => [
     <div class="mt-2 w-full text-center">
       <small class="text-muted">Tap on a category for help</small>
     </div>
-    <div
-      v-if="mode === 'gridUnlimited'"
-      class="flex w-full items-center justify-center"
-    >
-      <UButton icon="i-mdi-refresh" @click="resetGridGame">Generate</UButton>
+    <div class="flex w-full items-center justify-center">
+      <UButton
+        v-if="mode === 'gridUnlimited'"
+        icon="i-mdi-refresh"
+        @click="resetGridGame"
+        >Generate</UButton
+      >
+      <UButton v-else color="error" class="mt-4"> Give Up </UButton>
     </div>
     <UModal v-model:open="isOpen" title="Make your guess">
       <template #description>
@@ -120,7 +123,7 @@ const allExcludedItems = computed(() => [
         <!-- This fails because a lot of my app relies on the arrays from the game store which are currently only available for the classic games -->
         <WarframeSearch
           :items="warframeNames"
-          :excluded-items="allExcludedItems"
+          :disabled-items="allDisabledItems"
           @submit="handleGuess"
         />
       </template>

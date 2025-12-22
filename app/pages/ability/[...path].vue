@@ -96,7 +96,7 @@ const { makeGuess } = useGuess();
               <WarframeSearch
                 v-if="!isGameOver"
                 :items="vanillaWarframes"
-                :excluded-items="guessedItems[mode]"
+                :disabled-items="guessedItems[mode]"
                 @submit="makeGuess($event, mode)"
               />
             </template>

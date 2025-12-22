@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import Fuse from "fuse.js";
 
-const { items: originalItems, excludedItems = [] } = defineProps<{
+const { items, disabledItems = [] } = defineProps<{
   items: WarframeName[];
-  excludedItems?: WarframeName[];
+  disabledItems?: WarframeName[];
 }>();
 
 const emit = defineEmits<{
@@ -12,8 +12,13 @@ const emit = defineEmits<{
 
 const MAX_VISIBLE_ITEMS = 6 as const;
 
-const items = computed(() => {
-  return originalItems.filter((item) => !excludedItems.includes(item));
+const searchItems = computed(() => {
+  const disabledSet = new Set(disabledItems);
+  return items.map((item) => ({
+    label: item,
+    value: item,
+    disabled: disabledSet.has(item),
+  }));
 });
 
 const selectedWarframe = ref<WarframeName>();
@@ -21,8 +26,9 @@ const query = ref("");
 
 const fuse = computed(
   () =>
-    new Fuse(items.value, {
+    new Fuse(searchItems.value, {
       threshold: 0.4,
+      keys: ["label"],
     }),
 );
 
@@ -51,11 +57,12 @@ watch(query, (newQuery) => {
   isOpen.value = newQuery.length > 0 && fullSearchResults.value.length > 0;
 
   if (isOpen.value) {
-    const exactMatch = items.value.find(
-      (item) => item.toLowerCase() === newQuery.toLowerCase(),
+    const exactMatch = searchItems.value.find(
+      (item) =>
+        item.label.toLowerCase() === newQuery.toLowerCase() && !item.disabled,
     );
     if (exactMatch) {
-      selectedWarframe.value = exactMatch;
+      selectedWarframe.value = exactMatch.value;
     }
   }
 });
@@ -73,6 +80,8 @@ const handleSubmit = async () => {
       v-model="selectedWarframe"
       v-model:search-term="query"
       v-model:open="isOpen"
+      value-key="value"
+      label-key="label"
       name="warframe-search"
       :reset-search-term-on-blur="false"
       :items="filteredItems"
@@ -92,12 +101,12 @@ const handleSubmit = async () => {
       <template #item="{ item }">
         <div class="flex w-full items-center justify-between gap-2">
           <p class="font-semibold uppercase">
-            {{ item }}
+            {{ item.label }}
           </p>
           <NuxtImg
             format="webp"
-            :src="`https://cdn.warframestat.us/img/${getWarframe(item as WarframeName).imageName}`"
-            :alt="item"
+            :src="`https://cdn.warframestat.us/img/${getWarframe(item.value).imageName}`"
+            :alt="item.label"
             placeholder
             height="64"
             class="h-16"

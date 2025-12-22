@@ -13,7 +13,7 @@ const selectedRowIndex = ref<number>();
 
 const isOpen = ref(false);
 
-const { usedGuesses } = storeToRefs(useGridGameStore());
+const { usedGuesses, currentGame } = storeToRefs(useGridGameStore());
 const { isGameOver } = storeToRefs(useGameStateStore());
 
 function updateSelectedCell(rowIndex: number, columnIndex: number) {
@@ -57,7 +57,7 @@ async function handleGuess(selectedWarframe: WarframeName) {
     );
     if (response) {
       isOpen.value = false;
-    } else {
+    } else if (currentGame.value.attempts <= 1) {
       toast.add({
         title: "Incorrect Guess",
         color: "error",

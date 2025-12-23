@@ -118,13 +118,11 @@ export function useGuess() {
           invalidGuesses: [],
           status: response.correct ? "correct" : "incorrect",
         };
-      } else {
-        cell.invalidGuesses = [...cell.invalidGuesses];
       }
 
       if (response.correct) {
         cell.value = guess;
-        cell.status = "correct";
+        cell.rarity = response.rarity;
       } else {
         cell.invalidGuesses.push(guess);
       }

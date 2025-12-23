@@ -32,13 +32,11 @@ export const useGridGameStore = defineStore(
       config: null,
     });
 
-    const _daily = shallowRef<GridGameState>({
+    const daily = shallowRef<GridGameState>({
       grid: {},
       attempts: MAX_GRID_ATTEMPTS,
       config: null,
     });
-
-    const daily = readonly(_daily);
 
     const { gameVariant } = useGameMode();
 
@@ -81,7 +79,7 @@ export const useGridGameStore = defineStore(
     }
 
     function syncGridData(gridData: FullGridData) {
-      _daily.value = {
+      daily.value = {
         grid: gridData.gridState,
         attempts: gridData.attempts,
         config: gridData.puzzle,

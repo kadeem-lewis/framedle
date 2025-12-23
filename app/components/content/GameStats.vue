@@ -156,29 +156,14 @@ function handleMigrationClick() {
         </span>
         <span v-else>Copied</span>
       </UButton>
-      <UPopover
-        v-model:open="isOpen"
-        :content="{ side: 'top' }"
-        arrow
-        class="rounded-none"
+      <UiConfirmPopup
+        title="Are you sure you want to clear your stats?"
+        success-label="Delete"
+        cancel-label="Cancel"
+        @confirm="handleResetStats"
       >
         <UButton variant="outline" size="lg" class="uppercase">Reset</UButton>
-        <template #content>
-          <div class="flex flex-col gap-1 px-3 py-2">
-            <p class="font-semibold">
-              Are you sure you want to clear your stats?
-            </p>
-            <div class="flex justify-end gap-2">
-              <UButton class="uppercase" @click="isOpen = false"
-                >Cancel</UButton
-              >
-              <UButton color="error" class="uppercase" @click="handleResetStats"
-                >Delete</UButton
-              >
-            </div>
-          </div>
-        </template>
-      </UPopover>
+      </UiConfirmPopup>
     </div>
   </div>
 </template>

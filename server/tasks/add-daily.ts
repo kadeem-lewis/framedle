@@ -30,6 +30,8 @@ export default defineTask({
 
       const abilityPuzzle = await getNextFromQueue("ability");
 
+      const gridPuzzle = await generateGridPuzzle();
+
       const lastDayResults = await useDrizzle()
         .select({
           mode: tables.daily.mode,
@@ -45,23 +47,29 @@ export default defineTask({
         }
       }
 
-      const puzzlesToCreate: { mode: "classic" | "ability"; answer: string }[] =
-        [
-          { mode: "classic", answer: classicPuzzle },
-          { mode: "ability", answer: abilityPuzzle },
-        ];
-
-      const valuesToInsert = puzzlesToCreate.map(({ mode, answer }) => {
-        // Get the last day for this specific mode, defaulting to 0 if it's a new mode
-        const lastDay = lastDayMap.get(mode) ?? 0;
-        return {
+      const valuesToInsert = [
+        {
           date,
           readableDate,
-          day: lastDay + 1,
-          mode: mode,
-          puzzle: { answer },
-        };
-      });
+          day: (lastDayMap.get("classic") ?? 0) + 1,
+          mode: "classic" as const,
+          puzzle: { answer: classicPuzzle },
+        },
+        {
+          date,
+          readableDate,
+          day: (lastDayMap.get("ability") ?? 0) + 1,
+          mode: "ability" as const,
+          puzzle: { answer: abilityPuzzle },
+        },
+        {
+          date,
+          readableDate,
+          day: (lastDayMap.get("grid") ?? 0) + 1,
+          mode: "grid" as const,
+          puzzle: gridPuzzle,
+        },
+      ];
 
       await useDrizzle().insert(tables.daily).values(valuesToInsert);
 

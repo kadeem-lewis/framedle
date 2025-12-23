@@ -7,9 +7,10 @@ export type CategoryItem = {
 export type GridCell = {
   rowId: string;
   colId: string;
-  value: string | null;
+  value: WarframeName | null;
   invalidGuesses: WarframeName[];
   status: "correct" | "incorrect" | "empty";
+  rarity?: number;
   // a grid is only correct or empty, if its empty then its automatically incorrect
   //  rarity probably
 };
@@ -31,11 +32,13 @@ export const useGridGameStore = defineStore(
       config: null,
     });
 
-    const daily = ref<GridGameState>({
+    const _daily = shallowRef<GridGameState>({
       grid: {},
       attempts: MAX_GRID_ATTEMPTS,
       config: null,
     });
+
+    const daily = readonly(_daily);
 
     const { gameVariant } = useGameMode();
 
@@ -57,24 +60,32 @@ export const useGridGameStore = defineStore(
     ) {
       const key = `${rowIndex}-${colIndex}`;
 
-      if (!currentGame.value.grid[key]) {
-        currentGame.value.grid[key] = {
-          rowId: currentGame.value.config!.rows[rowIndex]!.id,
-          colId: currentGame.value.config!.cols[colIndex]!.id,
+      if (!unlimited.value.grid[key]) {
+        unlimited.value.grid[key] = {
+          rowId: unlimited.value.config!.rows[rowIndex]!.id,
+          colId: unlimited.value.config!.cols[colIndex]!.id,
           value: null,
           invalidGuesses: [],
           status: isCorrect ? "correct" : "incorrect",
         };
       }
 
-      const cell = currentGame.value.grid[key];
+      const cell = unlimited.value.grid[key];
 
       if (isCorrect) {
         cell.value = guess;
       } else {
         cell.invalidGuesses.push(guess);
       }
-      currentGame.value.attempts = Math.max(0, currentGame.value.attempts - 1);
+      unlimited.value.attempts = Math.max(0, unlimited.value.attempts - 1);
+    }
+
+    function syncGridData(gridData: FullGridData) {
+      _daily.value = {
+        grid: gridData.gridState,
+        attempts: gridData.attempts,
+        config: gridData.puzzle,
+      };
     }
 
     const isLoading = ref(false);
@@ -92,7 +103,6 @@ export const useGridGameStore = defineStore(
       isLoading.value = true;
       try {
         const response = await $fetch("/api/grid/generate");
-        console.log("response", response);
         if (response.status === 200) {
           unlimited.value = {
             grid: {},
@@ -114,13 +124,30 @@ export const useGridGameStore = defineStore(
       initializeUnlimitedGridGame({ forceReset: true });
     }
 
+    const rarityScore = computed(() => {
+      const BASE_RARITY_SCORE = 900;
+      const usedRarityScores = Object.values(daily.value.grid)
+        .filter((cell) => cell.rarity)
+        .reduce((acc, cell) => acc + (100 - (cell.rarity || 0)), 0);
+      return (BASE_RARITY_SCORE - usedRarityScores).toFixed(2);
+    });
+
+    const gameScore = computed(() => {
+      return Object.values(currentGame.value.grid).filter((cell) => cell.value)
+        .length;
+    });
+
     return {
       unlimited,
       usedGuesses,
       daily,
       isLoading,
       currentGame,
+      rarityScore,
+      gameScore,
+      MAX_GRID_ATTEMPTS,
       registerGuess,
+      syncGridData,
       initializeUnlimitedGridGame,
       resetGridGame,
     };

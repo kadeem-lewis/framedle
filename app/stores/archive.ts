@@ -1,8 +1,6 @@
 export const useArchiveStore = defineStore("archive", () => {
   const route = useRoute("archive");
-  const selectedArchiveMode = ref(
-    (route.query.mode as "classic" | "ability") || "classic",
-  );
+  const selectedArchiveMode = ref((route.query.mode as GameType) || "classic");
   const order = ref<"OLDEST" | "NEWEST">("NEWEST");
   const { mode } = useGameMode();
 

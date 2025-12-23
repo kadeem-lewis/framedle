@@ -13,7 +13,8 @@ const selectedRowIndex = ref<number>();
 
 const isOpen = ref(false);
 
-const { usedGuesses } = storeToRefs(useGridGameStore());
+const { usedGuesses, currentGame, rarityScore, gameScore } =
+  storeToRefs(useGridGameStore());
 const { isGameOver } = storeToRefs(useGameStateStore());
 
 function updateSelectedCell(rowIndex: number, columnIndex: number) {
@@ -57,7 +58,7 @@ async function handleGuess(selectedWarframe: WarframeName) {
     );
     if (response) {
       isOpen.value = false;
-    } else {
+    } else if (currentGame.value.attempts <= 1) {
       toast.add({
         title: "Incorrect Guess",
         color: "error",
@@ -68,24 +69,24 @@ async function handleGuess(selectedWarframe: WarframeName) {
   }
 }
 
-const { mode } = useGameMode();
+const { mode, isDaily } = useGameMode();
 const { resetGridGame } = useGridGameStore();
 
-const pairExcludedItems = computed(() => {
+const pairDisabledItems = computed(() => {
   const currentCell =
     gameState.grid[`${selectedRowIndex.value}-${selectedColumnIndex.value}`];
   return currentCell?.invalidGuesses || [];
 });
 
-const allExcludedItems = computed(() => [
+const allDisabledItems = computed(() => [
   ...usedGuesses.value,
-  ...pairExcludedItems.value,
+  ...pairDisabledItems.value,
 ]);
 </script>
 <template>
-  <div>
-    <div class="grid grid-cols-4 gap-1">
-      <div>Hello {{ gameState.attempts }}</div>
+  <div class="flex flex-col gap-2">
+    <div class="grid grid-cols-4 gap-1.5">
+      <div />
       <GridLabel v-for="column in cols" :key="column.label" :category="column">
         {{ column.label }}
       </GridLabel>
@@ -98,6 +99,7 @@ const allExcludedItems = computed(() => [
           :id="`cell-${i}-${j}`"
           :key="col.label"
           :is-revealed="!!gameState.grid[`${i}-${j}`]"
+          :data="gameState.grid[`${i}-${j}`]"
           :warframe-name="gameState.grid[`${i}-${j}`]?.value || ''"
           @click="updateSelectedCell(i, j)"
         />
@@ -106,21 +108,51 @@ const allExcludedItems = computed(() => [
     <div class="mt-2 w-full text-center">
       <small class="text-muted">Tap on a category for help</small>
     </div>
-    <div
-      v-if="mode === 'gridUnlimited'"
-      class="flex w-full items-center justify-center"
-    >
-      <UButton icon="i-mdi-refresh" @click="resetGridGame">Generate</UButton>
+    <div class="flex justify-between">
+      <div class="flex flex-col items-center gap-1">
+        <span class="font-semibold uppercase">Attempts:</span>
+        <span> {{ gameState.attempts }}</span>
+      </div>
+      <div v-if="isDaily" class="flex flex-col items-center gap-1">
+        <span class="font-semibold uppercase">Uniqueness:</span>
+        <span>
+          {{ rarityScore }}
+        </span>
+      </div>
+      <div class="flex flex-col items-center gap-1">
+        <span class="font-semibold uppercase">Score:</span>
+        <span> {{ gameScore }}/{{ rows.length * cols.length }}</span>
+      </div>
+    </div>
+    <div class="flex w-full items-center justify-center">
+      <UiConfirmPopup
+        v-if="mode === 'gridUnlimited'"
+        title="Are you sure you generate a new grid?"
+        success-label="Give Up"
+        cancel-label="Cancel"
+        @confirm="resetGridGame"
+      >
+        <UButton icon="i-mdi-refresh">Generate</UButton>
+      </UiConfirmPopup>
+      <UiConfirmPopup
+        v-else-if="!isGameOver"
+        title="Are you sure you want to give up?"
+        success-label="Give Up"
+        cancel-label="Cancel"
+      >
+        <UButton variant="subtle" color="error" class="font-medium uppercase">
+          Abort Mission
+        </UButton>
+      </UiConfirmPopup>
     </div>
     <UModal v-model:open="isOpen" title="Make your guess">
       <template #description>
         <p>{{ selectedRow?.label }}/{{ selectedColumn?.label }}</p>
       </template>
       <template #body>
-        <!-- This fails because a lot of my app relies on the arrays from the game store which are currently only available for the classic games -->
         <WarframeSearch
           :items="warframeNames"
-          :excluded-items="allExcludedItems"
+          :disabled-items="allDisabledItems"
           @submit="handleGuess"
         />
       </template>

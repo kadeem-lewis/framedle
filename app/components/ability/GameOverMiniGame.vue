@@ -8,7 +8,7 @@ const { correctWarframe, correctAbility } = defineProps<{
 }>();
 
 const { selectedMinigameAbility } = storeToRefs(useGameStore());
-const { currentDay } = storeToRefs(useDailiesStore());
+const { activeDays } = storeToRefs(useDailiesStore());
 const { mode } = useGameMode();
 const { proxy } = useScriptUmamiAnalytics();
 
@@ -22,8 +22,8 @@ function handleAbilityClick(ability: string) {
     db.progress
       .where({
         mode: "ability",
-        ...(currentDay.value
-          ? { day: currentDay.value }
+        ...(activeDays.value.ability
+          ? { day: activeDays.value.ability }
           : { date: format(new Date(), "yyyy-MM-dd") }),
       })
       .modify({

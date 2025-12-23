@@ -32,17 +32,21 @@ export const useGameStore = defineStore(
     });
 
     function updateDailyData(data: {
-      ability: FullAbilityData;
-      classic: FullClassicData;
+      ability?: FullAbilityData;
+      classic?: FullClassicData;
     }) {
-      itemToGuess.value.classic = data.classic.itemToGuess;
-      itemToGuess.value.ability = data.ability.itemToGuess;
-      attempts.value.classic = data.classic.attempts;
-      attempts.value.ability = data.ability.attempts;
-      guessedItems.value.classic = data.classic.guessedItems;
-      guessedItems.value.ability = data.ability.guessedItems;
-      selectedMinigameAbility.value.ability =
-        data.ability.selectedMinigameAbility;
+      if (data.classic) {
+        itemToGuess.value.classic = data.classic.itemToGuess;
+        attempts.value.classic = data.classic.attempts;
+        guessedItems.value.classic = data.classic.guessedItems;
+      }
+      if (data.ability) {
+        itemToGuess.value.ability = data.ability.itemToGuess;
+        attempts.value.ability = data.ability.attempts;
+        guessedItems.value.ability = data.ability.guessedItems;
+        selectedMinigameAbility.value.ability =
+          data.ability.selectedMinigameAbility;
+      }
     }
 
     const { decode } = useEncoder();

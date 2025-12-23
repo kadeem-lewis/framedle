@@ -2,7 +2,16 @@
 definePageMeta({
   layout: "game",
 });
+
+useSeoMeta({
+  title: "Grid Daily",
+  description:
+    "Play the daily grid mode of Framedle, where you can guess warframes on a grid with limited attempts.",
+});
+
+const { daily } = storeToRefs(useGridGameStore());
 </script>
 <template>
-  <div>Hi</div>
+  <UiAppSpinner v-if="!daily.config" />
+  <GridGameShell v-else :game-state="daily" />
 </template>

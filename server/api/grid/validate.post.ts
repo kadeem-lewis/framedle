@@ -9,7 +9,21 @@ const validateGridGuessSchema = z.object({
   isCurrentDaily: z.boolean().optional(),
 });
 
-export default defineEventHandler(async (event) => {
+export default defineEventHandler<
+  Promise<
+    | {
+        status: number;
+        correct: true;
+        rarity: number;
+        message: string;
+      }
+    | {
+        status: number;
+        correct: false;
+        message: string;
+      }
+  >
+>(async (event) => {
   const body = await readValidatedBody(event, (body) =>
     validateGridGuessSchema.safeParse(body),
   );
@@ -55,8 +69,8 @@ export default defineEventHandler(async (event) => {
         warframe.name.toLowerCase() === guessedWarframe.toLowerCase(),
     );
     if (match) {
-      const total = categoryPair.totalGuesses || 1;
-      const rarityScore = Math.round((match.guessCount / total) * 100);
+      // const total = categoryPair.totalGuesses || 1;
+      const rarityScore = Number((Math.random() * 100).toFixed(2)); // Placeholder for actual rarity calculation
       if (!isUnlimited && isCurrentDaily) {
         // Redis call to update guess count for the guessed warframe
       }

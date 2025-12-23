@@ -107,13 +107,29 @@ const allDisabledItems = computed(() => [
       <small class="text-muted">Tap on a category for help</small>
     </div>
     <div class="flex w-full items-center justify-center">
-      <UButton
+      <UiConfirmPopup
         v-if="mode === 'gridUnlimited'"
-        icon="i-mdi-refresh"
-        @click="resetGridGame"
-        >Generate</UButton
+        title="Are you sure you generate a new grid?"
+        success-label="Give Up"
+        cancel-label="Cancel"
+        @confirm="resetGridGame"
       >
-      <UButton v-else color="error" class="mt-4"> Give Up </UButton>
+        <UButton icon="i-mdi-refresh">Generate</UButton>
+      </UiConfirmPopup>
+      <UiConfirmPopup
+        v-else
+        title="Are you sure you want to give up?"
+        success-label="Give Up"
+        cancel-label="Cancel"
+      >
+        <UButton
+          variant="subtle"
+          color="error"
+          class="mt-4 font-medium uppercase"
+        >
+          Abort Mission
+        </UButton>
+      </UiConfirmPopup>
     </div>
     <UModal v-model:open="isOpen" title="Make your guess">
       <template #description>

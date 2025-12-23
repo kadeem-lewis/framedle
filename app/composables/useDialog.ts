@@ -6,6 +6,7 @@ export const dialogOptions = {
   INSTRUCTIONS: "instructions",
   SUPPORT: "support",
   SETTINGS: "settings",
+  SUMMARY: "summary",
 } as const;
 
 export type DialogOption = (typeof dialogOptions)[keyof typeof dialogOptions];

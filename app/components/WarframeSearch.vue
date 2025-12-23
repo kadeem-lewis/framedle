@@ -27,8 +27,9 @@ const query = ref("");
 const fuse = computed(
   () =>
     new Fuse(searchItems.value, {
-      threshold: 0.4,
+      threshold: 0.3,
       keys: ["label"],
+      minMatchCharLength: 2,
     }),
 );
 

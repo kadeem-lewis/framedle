@@ -15,7 +15,7 @@ const { isDaily } = useGameMode();
 </script>
 <template>
   <div
-    class="bg-elevated min-h-26"
+    class="bg-elevated border-accented min-h-26 border-dashed p-1"
     :class="{
       'cursor-not-allowed': warframe || isGameOver,
       'hover:brightness-90 dark:hover:brightness-125': !warframe && !isGameOver,
@@ -27,7 +27,7 @@ const { isDaily } = useGameMode();
     >
       <UBadge
         v-if="isDaily && data.rarity"
-        class="absolute top-0 left-0 rounded-none px-1 py-0.5"
+        class="absolute top-0 left-0 rounded-none px-1 py-0.5 opacity-90"
       >
         {{ data.rarity }}%
       </UBadge>
@@ -38,7 +38,10 @@ const { isDaily } = useGameMode();
         height="96"
         class="object-cover object-top pt-2"
       />
-      <UBadge :label="warframe.name" class="absolute bottom-0 rounded-none" />
+      <UBadge
+        :label="warframe.name"
+        class="absolute bottom-0 rounded-none opacity-90"
+      />
     </div>
   </div>
 </template>

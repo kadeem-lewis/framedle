@@ -14,7 +14,7 @@ const { itemToGuess, guessedItems, attempts } = storeToRefs(useGameStore());
 const { DEFAULT_ATTEMPTS, initializeUnlimitedGame } = useGameStore();
 const { isLoadingDailies } = storeToRefs(useDailiesStore());
 
-const { mode } = useGameMode();
+const { mode, isDaily } = useGameMode();
 const { isGameOver } = storeToRefs(useGameStateStore());
 const route = useRoute("classic-path");
 
@@ -88,6 +88,7 @@ const { makeGuess } = useGuess();
             @submit="makeGuess($event, mode)"
           />
         </UCard>
+        <GlobalStats v-if="isDaily" />
         <template v-if="guessedItems[mode].length">
           <div class="space-y-4 overflow-x-auto md:overflow-x-visible">
             <div

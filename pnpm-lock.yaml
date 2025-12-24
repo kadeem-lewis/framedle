@@ -50,6 +50,9 @@ importers:
       import-in-the-middle:
         specifier: ^1.15.0
         version: 1.15.0
+      ioredis:
+        specifier: ^5.8.2
+        version: 5.8.2
       luaparse:
         specifier: ^0.3.1
         version: 0.3.1

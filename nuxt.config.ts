@@ -21,6 +21,9 @@ export default defineNuxtConfig({
 
   runtimeConfig: {
     databaseUrl: "",
+    redis: {
+      url: "",
+    },
     public: {
       scripts: {
         umamiAnalytics: {

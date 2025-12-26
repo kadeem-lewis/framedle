@@ -42,6 +42,13 @@ const { submitGridGuess } = useGuess();
 
 const toast = useToast();
 
+const { openDialog } = useDialog();
+
+const openSummaryDialog = () => {
+  isOpen.value = false;
+  openDialog(dialogOptions.SUMMARY);
+};
+
 async function handleGuess(selectedWarframe: WarframeName) {
   if (
     !selectedRow.value ||
@@ -65,6 +72,9 @@ async function handleGuess(selectedWarframe: WarframeName) {
         title: "Incorrect Guess",
         color: "error",
       });
+    }
+    if (isGameOver.value) {
+      openSummaryDialog();
     }
   } catch (error) {
     console.error("Error handling guess:", error);
@@ -98,12 +108,6 @@ const puzzleHeading = computed(() => {
   }
   return null;
 });
-
-const { openDialog } = useDialog();
-
-const openSummaryDialog = () => {
-  openDialog(dialogOptions.SUMMARY);
-};
 </script>
 <template>
   <div class="flex flex-col gap-2">

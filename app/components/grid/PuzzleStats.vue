@@ -1,5 +1,25 @@
 <script setup lang="ts">
+import { format } from "date-fns";
+
 const { isGameOver } = storeToRefs(useGameStateStore());
+const { activeDays } = storeToRefs(useDailiesStore());
+const { mode, isDailyMode } = useGameMode();
+
+const statsQuery = computed(() => {
+  if (!mode.value || !isDailyMode(mode.value))
+    throw createError("Mode is undefined");
+
+  const date = activeDays.value[mode.value] ?? format(new Date(), "yyyy-MM-dd");
+  return {
+    date,
+  };
+});
+
+const { data } = useFetch("/api/stats", {
+  query: statsQuery.value,
+  key: `puzzle-stats-${statsQuery.value.date}`,
+  lazy: true,
+});
 </script>
 <template>
   <section class="flex flex-col items-center gap-4">
@@ -9,11 +29,11 @@ const { isGameOver } = storeToRefs(useGameStateStore());
         <div class="flex justify-around">
           <div class="flex flex-col items-center justify-center">
             <span class="font-semibold uppercase">Games</span>
-            <span>{{ 0 }}</span>
+            <span>{{ data?.grid.gamesPlayed }}</span>
           </div>
           <div class="flex flex-col items-center justify-center">
-            <span class="font-semibold uppercase">Average Guesses</span>
-            <span>{{ 0.0 }}</span>
+            <span class="font-semibold uppercase">Average Score</span>
+            <span>{{ data?.grid.averageScore }}</span>
           </div>
         </div>
       </UCard>

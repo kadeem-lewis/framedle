@@ -41,7 +41,7 @@ useIntervalFn(async () => {
 <template>
   <div class="text-toned flex items-center justify-center gap-1">
     <small class="flex items-center justify-center text-sm">
-      <div v-if="pending && !data" class="bg-accented size-4 animate-pulse" />
+      <div v-if="pending && !data" class="bg-accented h-5 w-4 animate-pulse" />
       <span v-else class="text-primary font-medium">
         {{ currentData ? currentData.gamesWon : 0 }}
       </span>
@@ -49,7 +49,7 @@ useIntervalFn(async () => {
     </small>
     <span class="px-0.5 font-bold">|</span>
     <small class="flex items-center justify-center text-sm">
-      <span v-if="pending && !data" class="bg-accented size-4 animate-pulse" />
+      <span v-if="pending && !data" class="bg-accented h-5 w-4 animate-pulse" />
       <span v-else class="text-primary font-medium">
         {{ currentData ? currentData.averageAttempts : 0 }}
       </span>

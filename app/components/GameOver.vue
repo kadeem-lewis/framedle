@@ -30,8 +30,9 @@ watchEffect(() => {
 });
 
 const { updateStatsOnGameOver } = useStatsStore();
+const { currentDailyDate } = storeToRefs(useDailiesStore());
 const { proxy } = useScriptUmamiAnalytics();
-watchEffect(() => {
+watchEffect(async () => {
   if (
     mode.value &&
     (currentGameState.value === GameStatus.WON ||
@@ -39,6 +40,17 @@ watchEffect(() => {
   ) {
     updateStatsOnGameOver();
     proxy.track("completed game", { mode: mode.value });
+    if (isLegacyDailyMode(mode.value)) {
+      await $fetch("/api/submissions", {
+        method: "POST",
+        body: {
+          mode: mode.value,
+          won: hasWon.value,
+          date: currentDailyDate.value,
+          guessCount: DEFAULT_ATTEMPTS - attempts.value[mode.value],
+        },
+      });
+    }
   }
 });
 

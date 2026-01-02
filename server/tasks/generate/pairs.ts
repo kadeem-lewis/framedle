@@ -52,7 +52,8 @@ export default defineTask({
         );
 
         // Rule: Filter out pairs with less than 2 valid answers
-        if (intersection.length < 2) {
+        //! two is a bad number to use because the other columns are based off categories that pair with the first category and 2 can soft lock the game
+        if (intersection.length < 3) {
           continue;
         }
 

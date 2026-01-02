@@ -1,18 +1,18 @@
 <script setup lang="ts"></script>
 <template>
-  <div class="flex items-center justify-center gap-1">
-    <p>
-      <span class="text-primary text-lg font-medium">
+  <div class="text-toned flex items-center justify-center gap-1">
+    <small>
+      <span class="text-primary font-medium">
         {{ 0 }}
       </span>
       people already won
-    </p>
+    </small>
     <span class="px-1 font-bold">|</span>
-    <p>
-      <span class="text-primary text-lg font-medium">
+    <small>
+      <span class="text-primary font-medium">
         {{ 0 }}
       </span>
       avg attempts
-    </p>
+    </small>
   </div>
 </template>

@@ -16,15 +16,87 @@ export default defineEventHandler(async (event) => {
     });
   }
   const { date } = result.data;
-  const redis = useRedis();
+  const redis = await useRedis();
 
-  const stats = await redis.hgetall(`daily:stats:${date}`);
+  const stats = await redis.hGetAll(`daily:stats:${date}`);
 
   function getAverage(attempts: string | undefined, wins: string | undefined) {
     if (!attempts || !wins) return null;
     const attemptsNum = parseInt(attempts, 10);
     const winsNum = parseInt(wins, 10);
     return Math.round(attemptsNum / winsNum);
+  }
+
+  function getInt(key: string) {
+    return parseInt((stats[key] as string) || "0", 10);
+  }
+
+  const rarityPromises = [];
+  const rarityKeys: string[] = [];
+
+  for (let r = 0; r < 3; r++) {
+    for (let c = 0; c < 3; c++) {
+      rarityKeys.push(`${r}-${c}`);
+      rarityPromises.push(redis.hGetAll(`daily:rarity:${date}:${r}-${c}`));
+    }
+  }
+
+  const rarityResults = await Promise.all(rarityPromises);
+
+  const guessStats: Record<string, unknown> = {};
+
+  rarityResults.forEach((cellData, index) => {
+    const coord = rarityKeys[index];
+
+    const totalRaw = cellData["total"];
+    const total = totalRaw ? parseInt(totalRaw, 10) : 0;
+
+    const guesses = Object.entries(cellData)
+      .filter(([key]) => key !== "total")
+      .map(([name, countStr]) => ({
+        name,
+        count: parseInt(countStr, 10),
+      }));
+
+    guesses.sort((a, b) => b.count - a.count);
+
+    const mostPopular = guesses.length > 0 ? guesses[0] : null;
+    const leastPopular =
+      guesses.length > 0 ? guesses[guesses.length - 1] : null;
+
+    guessStats[coord] = {
+      total,
+      mostPopular,
+      leastPopular,
+    };
+  });
+
+  // 4. Calculate Grid Score Distribution & Average
+  const gridDistribution: Record<string, number> = {};
+  let totalScoreProduct = 0;
+  let totalGamesForAvg = 0;
+
+  for (let i = 0; i <= 9; i++) {
+    const count = getInt(`grid_score_${i}`);
+    gridDistribution[i.toString()] = count;
+
+    // Accumulate for average: (Score Value * How many people got it)
+    totalScoreProduct += i * count;
+    totalGamesForAvg += count;
+  }
+
+  const gridAverageScore =
+    totalGamesForAvg > 0
+      ? (totalScoreProduct / totalGamesForAvg).toFixed(2)
+      : "0.00";
+
+  // 5. Grid Heatmap
+  const gridHeatmap: Record<string, number> = {};
+  for (let r = 0; r < 3; r++) {
+    for (let c = 0; c < 3; c++) {
+      const coord = `${r}-${c}`;
+      gridHeatmap[coord] = getInt(`grid_cell_${coord}_solved`);
+    }
   }
 
   const classicGamesWon = parseInt(stats["games_won:classic"], 10) || null;
@@ -49,6 +121,11 @@ export default defineEventHandler(async (event) => {
     },
     grid: {
       gamesPlayed: gridGamesPlayed,
+      mostUnique: getInt("most_unique:grid") || null,
+      averageScore: parseFloat(gridAverageScore),
+      scoreDistribution: gridDistribution,
+      solvedHeatmap: gridHeatmap,
+      guessStats,
     },
   };
 });

@@ -4,10 +4,11 @@ const submissionsPostSchema = z.object({
   date: z.iso.date(),
   mode: z.enum(["classic", "ability", "grid"]),
   won: z.boolean(),
-  guessCount: z.number().int().positive(),
+  guessCount: z.number().int().nonnegative(),
   gridStats: z
     .object({
-      mostUnique: z.number().int().positive(),
+      mostUnique: z.number().int().nonnegative(),
+      solvedSlots: z.array(z.string().regex(/^\d-\d$/)),
     })
     .optional(),
 });
@@ -26,28 +27,45 @@ export default defineEventHandler(async (event) => {
 
   const { date, mode, won, guessCount, gridStats } = body.data;
 
-  const redis = useRedis();
+  const redis = await useRedis();
   const dailyStatsKey = `daily:stats:${date}`;
 
-  const pipeline = redis.pipeline();
+  const multi = redis.multi();
 
-  pipeline.hincrby(dailyStatsKey, `games_played:${mode}`, 1);
+  multi.hIncrBy(dailyStatsKey, `games_played:${mode}`, 1);
 
   if (mode === "classic" || mode === "ability") {
     if (won) {
-      pipeline.hincrby(dailyStatsKey, `games_won:${mode}`, 1);
-      pipeline.hincrby(dailyStatsKey, `total_attempts:${mode}`, guessCount);
+      multi.hIncrBy(dailyStatsKey, `games_won:${mode}`, 1);
+      multi.hIncrBy(dailyStatsKey, `total_attempts:${mode}`, guessCount);
     }
   }
 
+  await multi.exec();
+
   if (mode === "grid" && gridStats) {
-    // I need a way to find the current value of most unique and only update it if the new value is lower
-    pipeline.hset(dailyStatsKey, `most_unique:grid`, gridStats.mostUnique);
+    const { mostUnique, solvedSlots } = gridStats;
+    const field = `most_unique:grid`;
+    const currentUniqueStr = await redis.hGet(dailyStatsKey, field);
+    const currentUnique = currentUniqueStr
+      ? parseInt(currentUniqueStr)
+      : Infinity;
+
+    const gridMulti = redis.multi();
+    if (mostUnique < currentUnique) {
+      gridMulti.hSet(dailyStatsKey, field, mostUnique);
+    }
+    const score = solvedSlots.length;
+    gridMulti.hIncrBy(dailyStatsKey, `grid_score_${score}`, 1);
+
+    for (const coord of solvedSlots) {
+      gridMulti.hIncrBy(dailyStatsKey, `grid_cell_${coord}_solved`, 1);
+    }
+    await gridMulti.exec();
   }
 
-  await pipeline.exec();
-
   return {
-    daily: null,
+    status: 200,
+    message: "Submission recorded successfully",
   };
 });

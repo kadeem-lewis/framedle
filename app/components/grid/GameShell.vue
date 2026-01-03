@@ -181,7 +181,7 @@ const puzzleHeading = computed(() => {
         <UButton v-else @click="openSummaryDialog">Summary</UButton>
       </template>
     </div>
-    <GridPuzzleStats />
+    <GridPuzzleStats v-if="isDaily" />
     <UModal v-model:open="isOpen" title="Make your guess">
       <template #description>
         <p>{{ selectedRow?.label }}/{{ selectedColumn?.label }}</p>

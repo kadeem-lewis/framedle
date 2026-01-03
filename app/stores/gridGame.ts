@@ -12,7 +12,6 @@ export type GridCell = {
   status: "correct" | "incorrect" | "empty";
   rarity?: number;
   // a grid is only correct or empty, if its empty then its automatically incorrect
-  //  rarity probably
 };
 
 export type GridGameState = {

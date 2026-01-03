@@ -1,12 +1,21 @@
-import Redis from "ioredis";
+import { createClient } from "redis";
 
-let _client: Redis | null = null;
+let _client: ReturnType<typeof createClient> | null = null;
 
-export const useRedis = () => {
+export const useRedis = async () => {
   const runtimeConfig = useRuntimeConfig();
+
+  if (_client && _client.isOpen) {
+    return _client;
+  }
   if (!_client) {
-    // This creates a NEW, separate connection
-    _client = new Redis(runtimeConfig.redis.url);
+    _client = createClient({
+      url: runtimeConfig.redis.url,
+    });
+
+    _client.on("error", (err) => console.error("Redis Client Error", err));
+
+    await _client.connect();
   }
   return _client;
 };

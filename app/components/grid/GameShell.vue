@@ -108,6 +108,8 @@ const puzzleHeading = computed(() => {
   }
   return null;
 });
+
+useSubmission();
 </script>
 <template>
   <div class="flex flex-col gap-2">

@@ -25,34 +25,75 @@ const { data } = useFetch("/api/stats", {
 const items = ref<TabsItem[]>([
   {
     label: "Most Popular",
+    value: "mostPopular",
   },
   {
     label: "Least Popular",
+    value: "leastPopular",
   },
 ]);
+
+const active = ref(items.value[0]?.value);
+
+const tabContent = computed(() => {
+  if (!data.value) return [];
+  const content = Array.from({ length: 3 }, () => Array(3).fill(null));
+  for (const [key, value] of Object.entries(data.value?.grid.guessStats)) {
+    const [row, col] = key.split("-").map(Number);
+    const statEntry = value[active.value];
+    content[row][col] = statEntry?.name ?? null;
+  }
+  return content;
+});
 </script>
 <template>
   <section class="flex flex-col items-center gap-4">
     <h2 class="text-xl font-semibold uppercase">Puzzle Stats</h2>
-    <div class="flex flex-col gap-4">
+    <div v-if="data" class="flex flex-col gap-4">
       <UCard class="w-full">
         <div class="flex w-full items-center justify-around gap-4">
           <div class="flex flex-col items-center justify-center">
             <span class="font-semibold uppercase">Games</span>
             <span>{{ data?.grid.gamesPlayed }}</span>
           </div>
-          <div class="flex flex-col items-center justify-center">
-            <span class="font-semibold uppercase">Average Score</span>
-            <span>{{ data?.grid.averageScore }}</span>
-          </div>
+          <UPopover
+            :arrow="true"
+            :ui="{
+              content: 'rounded-none',
+            }"
+          >
+            <UButton
+              variant="ghost"
+              class="flex flex-col items-center justify-center text-base"
+            >
+              <span class="font-semibold uppercase">Average Score</span>
+              <span>{{ data?.grid.averageScore }}</span>
+            </UButton>
+            <template #content>
+              <GridAverageScoresChart
+                :average-scores="data?.grid.scoreDistribution"
+              />
+            </template>
+          </UPopover>
           <div class="flex flex-col items-center justify-center">
             <span class="font-semibold uppercase">Most Unique</span>
             <span>{{ data?.grid.mostUnique }}</span>
           </div>
         </div>
       </UCard>
-      <div v-if="isGameOver">
-        <UTabs :items="items" :content="false" />
+      <div v-if="isGameOver" class="flex flex-col gap-2">
+        <UTabs v-model="active" :items="items" :content="false" />
+        <div class="grid grid-cols-3">
+          <template v-for="(row, i) in tabContent" :key="i">
+            <div
+              v-for="(cell, j) in row"
+              :key="j"
+              class="bg-elevated border-accented min-h-28 border-dashed p-1 text-center"
+            >
+              {{ cell }}
+            </div>
+          </template>
+        </div>
       </div>
       <div v-else>Complete game to see stats.</div>
     </div>

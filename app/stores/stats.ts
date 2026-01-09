@@ -54,7 +54,7 @@ export const useStatsStore = defineStore(
       const today = format(startOfDay(new Date()), "yyyy-MM-dd");
 
       if (
-        currentDailyDate.value !== today ||
+        currentDailyDate.value[gameMode] !== today ||
         !isGameOver.value ||
         stats.value[gameMode].lastPlayedDate === today
       ) {

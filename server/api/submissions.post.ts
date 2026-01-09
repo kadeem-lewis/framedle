@@ -1,17 +1,4 @@
-import z from "zod";
-
-const submissionsPostSchema = z.object({
-  date: z.iso.date(),
-  mode: z.enum(["classic", "ability", "grid"]),
-  won: z.boolean(),
-  guessCount: z.number().int().nonnegative(),
-  gridStats: z
-    .object({
-      mostUnique: z.number().int().nonnegative(),
-      solvedSlots: z.array(z.string().regex(/^\d-\d$/)),
-    })
-    .optional(),
-});
+import { submissionsPostSchema } from "#shared/schemas/submissions";
 
 export default defineEventHandler(async (event) => {
   const body = await readValidatedBody(event, (body) =>
@@ -34,7 +21,7 @@ export default defineEventHandler(async (event) => {
 
   multi.hIncrBy(dailyStatsKey, `games_played:${mode}`, 1);
 
-  if (mode === "classic" || mode === "ability") {
+  if ((mode === "classic" || mode === "ability") && guessCount) {
     if (won) {
       multi.hIncrBy(dailyStatsKey, `games_won:${mode}`, 1);
       multi.hIncrBy(dailyStatsKey, `total_attempts:${mode}`, guessCount);
@@ -44,7 +31,7 @@ export default defineEventHandler(async (event) => {
   await multi.exec();
 
   if (mode === "grid" && gridStats) {
-    const { mostUnique, solvedSlots } = gridStats;
+    const { uniquenessScore, solvedSlots } = gridStats;
     const field = `most_unique:grid`;
     const currentUniqueStr = await redis.hGet(dailyStatsKey, field);
     const currentUnique = currentUniqueStr
@@ -52,8 +39,8 @@ export default defineEventHandler(async (event) => {
       : Infinity;
 
     const gridMulti = redis.multi();
-    if (mostUnique < currentUnique) {
-      gridMulti.hSet(dailyStatsKey, field, mostUnique);
+    if (uniquenessScore < currentUnique) {
+      gridMulti.hSet(dailyStatsKey, field, uniquenessScore);
     }
     const score = solvedSlots.length;
     gridMulti.hIncrBy(dailyStatsKey, `grid_score_${score}`, 1);

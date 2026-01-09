@@ -43,7 +43,7 @@ useIntervalFn(async () => {
     <small class="flex items-center justify-center text-sm">
       <div v-if="pending && !data" class="bg-accented h-5 w-4 animate-pulse" />
       <span v-else class="text-primary font-medium">
-        {{ currentData ? currentData.gamesWon : 0 }}
+        {{ currentData?.gamesWon ?? 0 }}
       </span>
       &nbsp;tenno already won
     </small>
@@ -51,7 +51,7 @@ useIntervalFn(async () => {
     <small class="flex items-center justify-center text-sm">
       <span v-if="pending && !data" class="bg-accented h-5 w-4 animate-pulse" />
       <span v-else class="text-primary font-medium">
-        {{ currentData ? currentData.averageAttempts : 0 }}
+        {{ currentData?.averageAttempts ?? 0 }}
       </span>
       &nbsp;average attempts
     </small>

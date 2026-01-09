@@ -35,6 +35,8 @@ onBeforeMount(() => {
   resetStreak("classic");
 });
 
+useSubmission();
+
 const feedbackLabels = [
   t("classic.feedback.name"),
   t("classic.feedback.sex"),

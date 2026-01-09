@@ -33,6 +33,8 @@ onBeforeMount(() => {
   resetStreak("ability");
 });
 
+useSubmission();
+
 // Loading state for the image
 const isImageLoading = ref(false);
 const showLoadingSpinner = ref(false);

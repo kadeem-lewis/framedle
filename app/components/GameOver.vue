@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { format, startOfTomorrow } from "date-fns";
+import { startOfTomorrow } from "date-fns";
 import party from "party-js";
 import type { Ability } from "#shared/schemas/warframe";
 
@@ -7,12 +7,11 @@ const { itemToGuess, guessedItems, attempts, correctWarframe, answer } =
   storeToRefs(useGameStore());
 const { resetCurrentGame, DEFAULT_ATTEMPTS } = useGameStore();
 
-const { mode, isDaily, isLegacyMode, isLegacyDailyMode } = useGameMode();
+const { mode, isDaily, isLegacyMode } = useGameMode();
 
 const showGuesses = ref(false);
 
-const { hasWon, isGameOver, currentGameState } =
-  storeToRefs(useGameStateStore());
+const { hasWon, currentGameState } = storeToRefs(useGameStateStore());
 
 const { openDialog } = useDialog();
 
@@ -22,74 +21,13 @@ function handleStatsClick() {
 
 const gameOverCard = useTemplateRef("gameOverCard");
 
-watchEffect(() => {
-  if (mode.value && isGameOver.value && gameOverCard.value) {
-    gameOverCard.value.scrollIntoView({ behavior: "smooth", block: "center" });
-    gameOverCard.value.focus();
-  }
-});
-
-const { updateStatsOnGameOver } = useStatsStore();
-const { currentDailyDate } = storeToRefs(useDailiesStore());
-const { proxy } = useScriptUmamiAnalytics();
-watchEffect(async () => {
-  if (
-    mode.value &&
-    (currentGameState.value === GameStatus.WON ||
-      currentGameState.value === GameStatus.LOST)
-  ) {
-    updateStatsOnGameOver();
-    proxy.track("completed game", { mode: mode.value });
-    if (isLegacyDailyMode(mode.value)) {
-      await $fetch("/api/submissions", {
-        method: "POST",
-        body: {
-          mode: mode.value,
-          won: hasWon.value,
-          date: currentDailyDate.value,
-          guessCount: DEFAULT_ATTEMPTS - attempts.value[mode.value],
-        },
-      });
+onMounted(() => {
+  nextTick(() => {
+    gameOverCard.value?.scrollIntoView({ behavior: "smooth", block: "center" });
+    if (currentGameState.value === GameStatus.WON) {
+      party.confetti(gameOverCard.value!);
     }
-  }
-});
-
-watchEffect(() => {
-  if (!mode.value || !gameOverCard.value) return;
-  // guessed items check is here to make sure confetti doesn't trigger prematurely
-  if (
-    currentGameState.value === GameStatus.WON &&
-    isLegacyMode(mode.value) &&
-    guessedItems.value[mode.value].length > 0
-  ) {
-    party.confetti(gameOverCard.value);
-  }
-});
-
-const { activeDays } = storeToRefs(useDailiesStore());
-
-watchEffect(async () => {
-  if (!mode.value || !isLegacyDailyMode(mode.value)) return;
-
-  // Only when state changes to WON or LOST (not ACTIVE or *_PREVIOUS)
-  if (
-    currentGameState.value === GameStatus.WON ||
-    currentGameState.value === GameStatus.LOST
-  ) {
-    await db.progress
-      .where({
-        mode: mode.value,
-        ...(activeDays.value[mode.value]
-          ? { day: activeDays.value[mode.value] }
-          : { date: format(new Date(), "yyyy-MM-dd") }),
-      })
-      .modify({
-        state: currentGameState.value,
-      })
-      .catch((e) => {
-        console.error("Failed to update daily state", e);
-      });
-  }
+  });
 });
 
 const route = useRoute();

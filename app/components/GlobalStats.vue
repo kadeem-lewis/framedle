@@ -3,6 +3,7 @@ import { format } from "date-fns";
 
 const { activeDays } = storeToRefs(useDailiesStore());
 const { mode, isDailyMode, isLegacyDailyMode } = useGameMode();
+const { isGameOver } = storeToRefs(useGameStateStore());
 
 const statsQuery = computed(() => {
   if (!mode.value || !isDailyMode(mode.value))
@@ -30,6 +31,12 @@ const visibility = useDocumentVisibility();
 
 watch(visibility, (newVisibility, previousVisibility) => {
   if (newVisibility === "visible" && previousVisibility === "hidden") {
+    execute();
+  }
+});
+
+watch(isGameOver, (newIsGameOver) => {
+  if (newIsGameOver) {
     execute();
   }
 });

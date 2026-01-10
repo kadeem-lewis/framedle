@@ -1,7 +1,7 @@
 <script setup lang="ts">
 const { label, value } = defineProps<{
   label: string;
-  value: string | number;
+  value: number | null;
 }>();
 
 const open = ref(false);
@@ -20,7 +20,7 @@ const open = ref(false);
       class="flex flex-col items-center justify-center rounded-none text-base"
     >
       <span class="font-semibold uppercase">{{ label }}</span>
-      <span>{{ value }}</span>
+      <span>{{ value ?? "—" }}</span>
     </UButton>
     <template #content>
       <div>

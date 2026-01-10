@@ -130,7 +130,7 @@ useSubmission();
           :id="`cell-${i}-${j}`"
           :key="col.label"
           :is-revealed="!!gameState.grid[`${i}-${j}`]"
-          :data="gameState.grid[`${i}-${j}`]"
+          :rarity="gameState.grid[`${i}-${j}`]?.rarity"
           :warframe-name="gameState.grid[`${i}-${j}`]?.value || ''"
           :class="{
             'border-r': j < cols.length - 1,

@@ -1,7 +1,7 @@
 <script setup lang="ts">
-const { warframeName, isRevealed, data } = defineProps<{
+const { warframeName, isRevealed, rarity } = defineProps<{
   warframeName: WarframeName | string;
-  data: GridCell;
+  rarity: number | undefined;
   isRevealed?: boolean;
 }>();
 
@@ -26,10 +26,10 @@ const { isDaily } = useGameMode();
       class="relative flex items-center justify-center"
     >
       <UBadge
-        v-if="isDaily && data.rarity"
+        v-if="isDaily && rarity"
         class="absolute top-0 left-0 rounded-none px-1 py-0.5 opacity-90"
       >
-        {{ data.rarity }}%
+        {{ rarity }}%
       </UBadge>
       <NuxtImg
         :src="`https://cdn.warframestat.us/img/${warframe.imageName}`"

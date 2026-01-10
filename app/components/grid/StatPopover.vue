@@ -17,7 +17,7 @@ const open = ref(false);
     <UButton
       variant="ghost"
       color="neutral"
-      class="flex flex-col items-center justify-center text-base"
+      class="flex flex-col items-center justify-center rounded-none text-base"
     >
       <span class="font-semibold uppercase">{{ label }}</span>
       <span>{{ value }}</span>
@@ -30,6 +30,7 @@ const open = ref(false);
             variant="ghost"
             color="neutral"
             icon="i-heroicons-x-mark-solid"
+            class="rounded-none"
             @click="open = false"
           />
         </div>

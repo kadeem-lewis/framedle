@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import type { ApexOptions } from "apexcharts";
 import { defu } from "defu";
-const { averageScores } = defineProps<{
-  averageScores: {
+const { scores } = defineProps<{
+  scores: {
     [key: string]: number;
   };
 }>();
@@ -14,7 +14,7 @@ const chartOptions = computed<ApexOptions>(() => {
   return defu(
     {
       xaxis: {
-        categories: Object.keys(averageScores),
+        categories: Object.keys(scores),
         labels: {
           show: true,
         },
@@ -46,29 +46,13 @@ const chartOptions = computed<ApexOptions>(() => {
   );
 });
 
-const series = [
+const series = computed(() => [
   {
-    name: "Average Scores",
-    data: Object.values(averageScores),
+    name: "Frequency",
+    data: Object.values(scores),
   },
-];
+]);
 </script>
 <template>
-  <div>
-    <div class="flex items-center justify-between px-2 py-1">
-      <p class="font-semibold uppercase">Scores</p>
-      <UButton
-        variant="ghost"
-        color="neutral"
-        icon="i-heroicons-x-mark-solid"
-      />
-    </div>
-    <USeparator />
-    <apexchart
-      ref="chart"
-      type="bar"
-      :options="chartOptions"
-      :series="series"
-    />
-  </div>
+  <apexchart ref="chart" type="bar" :options="chartOptions" :series="series" />
 </template>

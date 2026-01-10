@@ -51,30 +51,17 @@ const tabContent = computed(() => {
     <h2 class="text-xl font-semibold uppercase">Puzzle Stats</h2>
     <div v-if="data" class="flex flex-col gap-4">
       <UCard class="w-full">
-        <div class="flex w-full items-center justify-around gap-4">
+        <div class="flex w-full items-center justify-around gap-2 text-center">
           <div class="flex flex-col items-center justify-center">
             <span class="font-semibold uppercase">Games</span>
             <span>{{ data?.grid.gamesPlayed }}</span>
           </div>
-          <UPopover
-            :arrow="true"
-            :ui="{
-              content: 'rounded-none',
-            }"
+          <GridStatPopover
+            label="Average Score"
+            :value="data.grid.averageScore"
           >
-            <UButton
-              variant="ghost"
-              class="flex flex-col items-center justify-center text-base"
-            >
-              <span class="font-semibold uppercase">Average Score</span>
-              <span>{{ data?.grid.averageScore }}</span>
-            </UButton>
-            <template #content>
-              <GridAverageScoresChart
-                :average-scores="data?.grid.scoreDistribution"
-              />
-            </template>
-          </UPopover>
+            <ScoresDistributionChart :scores="data.grid.scoreDistribution" />
+          </GridStatPopover>
           <div class="flex flex-col items-center justify-center">
             <span class="font-semibold uppercase">Most Unique</span>
             <span>{{ data?.grid.mostUnique }}</span>

@@ -1,51 +1,50 @@
 <script setup lang="ts">
 import type { ApexOptions } from "apexcharts";
+import { defu } from "defu";
 const { averageScores } = defineProps<{
   averageScores: {
     [key: string]: number;
   };
 }>();
 
-const colorMode = useColorMode();
+const chart = useTemplateRef("chart");
+const { baseOptions } = useChartConfig(chart);
 
-const chartOptions: ApexOptions = {
-  chart: {
-    toolbar: {
-      show: false,
-    },
-  },
-  xaxis: {
-    categories: Object.keys(averageScores),
-    labels: {
-      show: true,
-    },
-    axisTicks: {
-      show: false,
-    },
-  },
-  plotOptions: {
-    bar: {
-      dataLabels: {
-        position: "top",
+const chartOptions = computed<ApexOptions>(() => {
+  return defu(
+    {
+      xaxis: {
+        categories: Object.keys(averageScores),
+        labels: {
+          show: true,
+        },
       },
-      borderRadius: 3,
-      borderRadiusApplication: "end",
+      yaxis: {
+        labels: {
+          show: false,
+        },
+      },
+      plotOptions: {
+        bar: {
+          dataLabels: {
+            position: "top",
+          },
+          borderRadius: 3,
+          borderRadiusApplication: "end",
+        },
+      },
+      dataLabels: {
+        offsetY: -16,
+        formatter: (value: number) => {
+          if (value === 0) return "";
+          if (value > 1000) return Math.floor(value / 1000).toFixed(1) + "k";
+          return value;
+        },
+      },
     },
-  },
-  tooltip: {
-    enabled: false,
-  },
-  grid: {
-    show: false,
-  },
-  dataLabels: {
-    enabled: true,
-    style: {
-      colors: [colorMode.value === "dark" ? "#fff" : "#000"],
-    },
-  },
-  colors: [colorMode.value === "dark" ? "#fbbf24" : "#f59e0b"],
-};
+    baseOptions.value,
+  );
+});
 
 const series = [
   {
@@ -56,6 +55,20 @@ const series = [
 </script>
 <template>
   <div>
-    <apexchart type="bar" :options="chartOptions" :series="series" />
+    <div class="flex items-center justify-between px-2 py-1">
+      <p class="font-semibold uppercase">Scores</p>
+      <UButton
+        variant="ghost"
+        color="neutral"
+        icon="i-heroicons-x-mark-solid"
+      />
+    </div>
+    <USeparator />
+    <apexchart
+      ref="chart"
+      type="bar"
+      :options="chartOptions"
+      :series="series"
+    />
   </div>
 </template>

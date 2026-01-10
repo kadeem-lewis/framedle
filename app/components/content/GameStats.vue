@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import type { ApexOptions } from "apexcharts";
+import { defu } from "defu";
 
 const route = useRoute();
 const { stats } = storeToRefs(useStatsStore());
@@ -27,48 +28,34 @@ const winPercentage = computed(() => {
     : 0;
 });
 
-const colorMode = useColorMode();
+const chart = useTemplateRef("chart");
+const { baseOptions } = useChartConfig(chart);
 
-const chartOptions: ApexOptions = {
-  chart: {
-    toolbar: {
-      show: false,
-    },
-  },
-  xaxis: {
-    categories: Array.from({ length: DEFAULT_ATTEMPTS }, (_, i) => i + 1),
-    labels: {
-      show: false,
-    },
-    axisTicks: {
-      show: false,
-    },
-  },
-  plotOptions: {
-    bar: {
-      horizontal: true,
-      dataLabels: {
-        position: "top",
+const chartOptions = computed<ApexOptions>(() => {
+  return defu(
+    {
+      xaxis: {
+        categories: Array.from({ length: DEFAULT_ATTEMPTS }, (_, i) => i + 1),
+        labels: {
+          show: false,
+        },
       },
-      borderRadius: 3,
-      borderRadiusApplication: "end",
+      plotOptions: {
+        bar: {
+          horizontal: true,
+          dataLabels: {
+            position: "top",
+          },
+        },
+      },
+      dataLabels: {
+        textAnchor: "start",
+        offsetX: -10,
+      },
     },
-  },
-  dataLabels: {
-    enabled: true,
-    offsetX: -10,
-    style: {
-      colors: [colorMode.value === "dark" ? "#fff" : "#000"],
-    },
-  },
-  tooltip: {
-    enabled: false,
-  },
-  grid: {
-    show: false,
-  },
-  colors: [colorMode.value === "dark" ? "#fbbf24" : "#f59e0b"],
-};
+    baseOptions.value,
+  );
+});
 
 const series = [
   {
@@ -141,7 +128,12 @@ function handleMigrationClick() {
     </div>
     <div class="space-y-4">
       <p class="font-semibold uppercase">Guess Distribution</p>
-      <apexchart type="bar" :options="chartOptions" :series="series" />
+      <apexchart
+        ref="chart"
+        type="bar"
+        :options="chartOptions"
+        :series="series"
+      />
     </div>
     <div class="flex justify-center gap-4">
       <UButton

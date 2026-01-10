@@ -64,6 +64,7 @@
     "pinia": "^3.0.4",
     "pinia-plugin-persistedstate": "^4.7.1",
     "postgres": "^3.4.7",
+    "redis": "^5.10.0",
     "rxjs": "^7.8.2",
     "tailwindcss": "^4.1.17",
     "vue3-apexcharts": "^1.10.0",

@@ -108,7 +108,11 @@ export const useDailiesStore = defineStore("dailies", () => {
 
   const currentDailyDate = computed(() => {
     //! this is a temporary change to allow the app to still work, eventually I think this tracker should be individual for each daily game
-    return currentDailyClassicData.value?.date || null;
+    return {
+      classic: currentDailyClassicData.value?.date || null,
+      ability: currentDailyAbilityData.value?.date || null,
+      grid: currentDailyGridData.value?.date || null,
+    };
   });
 
   const isLoadingDailies = ref(false);

@@ -12,7 +12,7 @@ const { t } = useI18n();
 
 const { itemToGuess, guessedItems } = storeToRefs(useGameStore());
 const { initializeUnlimitedGame } = useGameStore();
-const { mode } = useGameMode();
+const { mode, isDaily } = useGameMode();
 const route = useRoute("ability-path");
 const { isGameOver } = storeToRefs(useGameStateStore());
 const { resetStreak } = useStatsStore();
@@ -32,6 +32,8 @@ await callOnce(
 onBeforeMount(() => {
   resetStreak("ability");
 });
+
+useSubmission();
 
 // Loading state for the image
 const isImageLoading = ref(false);
@@ -101,7 +103,7 @@ const { makeGuess } = useGuess();
               />
             </template>
           </UCard>
-
+          <GlobalStats v-if="isDaily" />
           <AbilityFeedbackArea v-if="!isGameOver" />
           <template v-else>
             <GameOverNavigation v-if="!mode.includes('Unlimited')" />

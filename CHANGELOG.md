@@ -1,5 +1,11 @@
 # Changelog
 
+## v1.0.0 - January 6th, 2026
+
+### Bug fixes
+
+- Fixed Excalibur Umbra being missing from game
+
 ## v0.3.5 - December 19th, 2025
 
 ### Bug Fixes

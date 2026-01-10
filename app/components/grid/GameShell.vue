@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { format } from "date-fns";
+
 const { gameState } = defineProps<{
   gameState: GridGameState;
 }>();
@@ -40,6 +42,13 @@ const { submitGridGuess } = useGuess();
 
 const toast = useToast();
 
+const { openDialog } = useDialog();
+
+const openSummaryDialog = () => {
+  isOpen.value = false;
+  openDialog(dialogOptions.SUMMARY);
+};
+
 async function handleGuess(selectedWarframe: WarframeName) {
   if (
     !selectedRow.value ||
@@ -64,6 +73,9 @@ async function handleGuess(selectedWarframe: WarframeName) {
         color: "error",
       });
     }
+    if (isGameOver.value) {
+      openSummaryDialog();
+    }
   } catch (error) {
     console.error("Error handling guess:", error);
   }
@@ -82,10 +94,29 @@ const allDisabledItems = computed(() => [
   ...usedGuesses.value,
   ...pairDisabledItems.value,
 ]);
+
+const { currentDailyGridData } = storeToRefs(useDailiesStore());
+
+const puzzleHeading = computed(() => {
+  if (mode.value === "grid" && currentDailyGridData.value) {
+    return currentDailyGridData.value.date === format(new Date(), "yyyy-MM-dd")
+      ? "Today's Puzzle"
+      : `Archive #${currentDailyGridData.value.day} Puzzle`;
+  }
+  if (mode.value === "gridUnlimited") {
+    return "Unlimited Mode";
+  }
+  return null;
+});
+
+useSubmission();
 </script>
 <template>
   <div class="flex flex-col gap-2">
-    <div class="grid grid-cols-4 gap-1.5">
+    <h2 class="text-center text-xl font-semibold uppercase">
+      {{ puzzleHeading }}
+    </h2>
+    <div class="grid grid-cols-4">
       <div />
       <GridLabel v-for="column in cols" :key="column.label" :category="column">
         {{ column.label }}
@@ -99,8 +130,12 @@ const allDisabledItems = computed(() => [
           :id="`cell-${i}-${j}`"
           :key="col.label"
           :is-revealed="!!gameState.grid[`${i}-${j}`]"
-          :data="gameState.grid[`${i}-${j}`]"
+          :rarity="gameState.grid[`${i}-${j}`]?.rarity"
           :warframe-name="gameState.grid[`${i}-${j}`]?.value || ''"
+          :class="{
+            'border-r': j < cols.length - 1,
+            'border-b': i < rows.length - 1,
+          }"
           @click="updateSelectedCell(i, j)"
         />
       </template>
@@ -108,7 +143,7 @@ const allDisabledItems = computed(() => [
     <div class="mt-2 w-full text-center">
       <small class="text-muted">Tap on a category for help</small>
     </div>
-    <div class="flex justify-between">
+    <div class="flex" :class="[isDaily ? 'justify-between' : 'justify-around']">
       <div class="flex flex-col items-center gap-1">
         <span class="font-semibold uppercase">Attempts:</span>
         <span> {{ gameState.attempts }}</span>
@@ -134,17 +169,21 @@ const allDisabledItems = computed(() => [
       >
         <UButton icon="i-mdi-refresh">Generate</UButton>
       </UiConfirmPopup>
-      <UiConfirmPopup
-        v-else-if="!isGameOver"
-        title="Are you sure you want to give up?"
-        success-label="Give Up"
-        cancel-label="Cancel"
-      >
-        <UButton variant="subtle" color="error" class="font-medium uppercase">
-          Abort Mission
-        </UButton>
-      </UiConfirmPopup>
+      <template v-else>
+        <UiConfirmPopup
+          v-if="!isGameOver"
+          title="Are you sure you want to give up?"
+          success-label="Give Up"
+          cancel-label="Cancel"
+        >
+          <UButton variant="subtle" color="error" class="font-medium uppercase">
+            Abort Mission
+          </UButton>
+        </UiConfirmPopup>
+        <UButton v-else @click="openSummaryDialog">Summary</UButton>
+      </template>
     </div>
+    <GridPuzzleStats v-if="isDaily" />
     <UModal v-model:open="isOpen" title="Make your guess">
       <template #description>
         <p>{{ selectedRow?.label }}/{{ selectedColumn?.label }}</p>

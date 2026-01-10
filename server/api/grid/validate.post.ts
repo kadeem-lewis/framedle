@@ -3,10 +3,11 @@ import z from "zod";
 const validateGridGuessSchema = z.object({
   rowCategoryId: z.string(),
   columnCategoryId: z.string(),
+  rowIndex: z.number().int().nonnegative().max(2),
+  colIndex: z.number().int().nonnegative().max(2),
   guessedWarframe: z.string(),
   puzzleDate: z.string().optional(),
   isUnlimited: z.boolean().default(false),
-  isCurrentDaily: z.boolean().optional(),
 });
 
 export default defineEventHandler<
@@ -27,7 +28,9 @@ export default defineEventHandler<
   const body = await readValidatedBody(event, (body) =>
     validateGridGuessSchema.safeParse(body),
   );
+  console.log("validateGridGuess body", body);
   if (!body.success) {
+    console.log("Invalid body:", body.error);
     throw createError({
       statusCode: 400,
       message: "Invalid request body",
@@ -37,9 +40,11 @@ export default defineEventHandler<
   const {
     rowCategoryId,
     columnCategoryId,
+    rowIndex,
+    colIndex,
     guessedWarframe,
+    puzzleDate,
     isUnlimited,
-    isCurrentDaily,
   } = body.data;
 
   const [idA, idB] = [rowCategoryId, columnCategoryId].sort();
@@ -69,10 +74,26 @@ export default defineEventHandler<
         warframe.name.toLowerCase() === guessedWarframe.toLowerCase(),
     );
     if (match) {
-      // const total = categoryPair.totalGuesses || 1;
-      const rarityScore = Number((Math.random() * 100).toFixed(2)); // Placeholder for actual rarity calculation
-      if (!isUnlimited && isCurrentDaily) {
-        // Redis call to update guess count for the guessed warframe
+      let rarityScore = 0;
+      if (!isUnlimited) {
+        const redis = await useRedis();
+        const rarityKey = `daily:rarity:${puzzleDate}:${rowIndex}-${colIndex}`;
+        const normalizedGuess = match.name;
+
+        const multi = redis.multi();
+
+        multi.hIncrBy(rarityKey, "total", 1);
+        multi.hIncrBy(rarityKey, normalizedGuess, 1);
+
+        const results = await multi.exec();
+        const totalGuesses = Number(results[0]);
+        const specificCount = Number(results[1]);
+
+        if (totalGuesses > 0) {
+          rarityScore = (specificCount / totalGuesses) * 100;
+        }
+
+        console.log(totalGuesses, specificCount);
       }
       return {
         status: 200,

@@ -93,10 +93,13 @@ export function useGuess() {
     const response = await $fetch("/api/grid/validate", {
       method: "POST",
       body: {
+        rowIndex: toValue(rowIndex),
+        colIndex: toValue(colIndex),
         rowCategoryId: toValue(row).id,
         columnCategoryId: toValue(col).id,
         guessedWarframe: guess,
         isUnlimited: isUnlimited.value,
+        puzzleDate: currentDailyGridData.value?.date,
       },
     });
 

@@ -5,6 +5,7 @@ import {
   ContentGameStats,
   ContentSupport,
   ContentGameSettings,
+  GridSummary,
 } from "#components";
 
 const props = defineProps<{
@@ -22,6 +23,7 @@ const optionComponents = {
   [dialogOptions.INSTRUCTIONS]: ContentGameInstructions,
   [dialogOptions.SUPPORT]: ContentSupport,
   [dialogOptions.SETTINGS]: ContentGameSettings,
+  [dialogOptions.SUMMARY]: GridSummary,
 };
 </script>
 <template>

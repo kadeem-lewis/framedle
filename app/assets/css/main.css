@@ -78,7 +78,7 @@
 
   html,
   body {
-    @apply bg-default;
+    @apply bg-neutral-100 dark:bg-neutral-950;
   }
 
   body {

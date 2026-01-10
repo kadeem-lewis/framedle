@@ -1,7 +1,7 @@
 <script setup lang="ts">
-const { warframeName, isRevealed, data } = defineProps<{
+const { warframeName, isRevealed, rarity } = defineProps<{
   warframeName: WarframeName | string;
-  data: GridCell;
+  rarity: number | undefined;
   isRevealed?: boolean;
 }>();
 
@@ -15,7 +15,7 @@ const { isDaily } = useGameMode();
 </script>
 <template>
   <div
-    class="bg-elevated min-h-26"
+    class="bg-elevated border-accented min-h-28 border-dashed p-1"
     :class="{
       'cursor-not-allowed': warframe || isGameOver,
       'hover:brightness-90 dark:hover:brightness-125': !warframe && !isGameOver,
@@ -26,19 +26,22 @@ const { isDaily } = useGameMode();
       class="relative flex items-center justify-center"
     >
       <UBadge
-        v-if="isDaily && data.rarity"
-        class="absolute top-0 left-0 rounded-none px-1 py-0.5"
+        v-if="isDaily && rarity"
+        class="absolute top-0 left-0 rounded-none px-1 py-0.5 opacity-90"
       >
-        {{ data.rarity }}%
+        {{ rarity }}%
       </UBadge>
       <NuxtImg
         :src="`https://cdn.warframestat.us/img/${warframe.imageName}`"
         :alt="`Image of ${warframe.name}`"
         format="avif"
-        height="96"
-        class="object-cover object-top pt-2"
+        height="108"
+        class="h-27 object-cover object-top pt-3"
       />
-      <UBadge :label="warframe.name" class="absolute bottom-0 rounded-none" />
+      <UBadge
+        :label="warframe.name"
+        class="absolute bottom-0 rounded-none opacity-90"
+      />
     </div>
   </div>
 </template>

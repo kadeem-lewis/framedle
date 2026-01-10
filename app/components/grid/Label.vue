@@ -9,7 +9,7 @@ const { category } = defineProps<{
       content: 'rounded-none',
     }"
   >
-    <UButton variant="soft" class="min-h-20 rounded-none">{{
+    <UButton variant="ghost" class="min-h-20 rounded-none">{{
       category.label
     }}</UButton>
     <template #content>

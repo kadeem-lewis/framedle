@@ -22,6 +22,12 @@ function useDialogBase() {
   const isUpdatingRoute = ref(false);
 
   const openDialog = (option: DialogOption, title: string | null = null) => {
+    isUpdatingRoute.value = true;
+
+    if (currentInstance.value) {
+      modal.close(currentInstance.value.id);
+    }
+
     if (title === null) {
       title = option;
     }
@@ -32,7 +38,7 @@ function useDialogBase() {
     });
 
     currentInstance.value = instance;
-    isUpdatingRoute.value = true;
+
     router
       .replace({
         query: {
@@ -44,9 +50,10 @@ function useDialogBase() {
         isUpdatingRoute.value = false;
       });
 
-    // Handle when the modal closes
     instance.result.finally(() => {
-      currentInstance.value = null;
+      if (currentInstance.value === instance) {
+        currentInstance.value = null;
+      }
 
       // Remove dialog parameter from URL if modal was closed via UI
       if (route.query.dialog && !isUpdatingRoute.value) {
@@ -91,15 +98,12 @@ function useDialogBase() {
         if (!Object.values(dialogOptions).includes(dialogParam as DialogOption))
           return;
 
-        // Simple check: if we have an instance, the modal is open
-        if (!currentInstance.value) {
-          const title =
-            dialogParam === dialogOptions.STATS
-              ? `${route.name} ${dialogParam}`
-              : dialogParam;
+        const title =
+          dialogParam === dialogOptions.STATS
+            ? `${route.name} ${dialogParam}`
+            : dialogParam;
 
-          openDialog(dialogParam as DialogOption, title);
-        }
+        openDialog(dialogParam as DialogOption, title);
       } else {
         // Close if we have an instance
         if (currentInstance.value) {

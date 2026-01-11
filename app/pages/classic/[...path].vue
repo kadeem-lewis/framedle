@@ -29,10 +29,10 @@ await callOnce(
   },
 );
 
-const { resetStreak } = useStatsStore();
+const { validateStreak } = useStatsStore();
 
 onBeforeMount(() => {
-  resetStreak("classic");
+  validateStreak("classic");
 });
 
 useSubmission();

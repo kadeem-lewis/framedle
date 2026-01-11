@@ -1,5 +1,5 @@
 export function useShare() {
-  const emojis: {
+  const EMOJIS: {
     incorrect: string;
     correct: string;
     partial: string;
@@ -13,9 +13,7 @@ export function useShare() {
     lower: "🔽",
     higher: "🔼",
     unused: "⬜",
-  };
-
-  const emojiFeedback = ref<string[]>([]);
+  } as const;
 
   const { guessedItems, itemToGuess, attempts } = storeToRefs(useGameStore());
   const { DEFAULT_ATTEMPTS } = useGameStore();
@@ -25,7 +23,7 @@ export function useShare() {
     currentDailyAbilityData,
   } = storeToRefs(useDailiesStore());
 
-  const { mode, gameVariant, gameType } = useGameMode();
+  const { mode, gameVariant, gameType, isLegacyMode } = useGameMode();
   const { hasWon } = storeToRefs(useGameStateStore());
 
   const { encode } = useEncoder();
@@ -34,35 +32,28 @@ export function useShare() {
   const { copy, copied } = useClipboard();
   const { checkGuess } = useGuess();
 
-  function generateClassicEmojiFeedback(
-    correctItem: Warframe,
-    guessedItem: Warframe,
-  ) {
-    const gridRow: string[] = [];
-
-    gridRow.push(
-      emojis[checkGuess(correctItem.sex, guessedItem.sex)],
-      emojis[checkGuess(correctItem.variant, guessedItem.variant)],
-      emojis[
+  function getClassicRow(correctItem: Warframe, guessedItem: Warframe) {
+    return [
+      EMOJIS[checkGuess(correctItem.sex, guessedItem.sex)],
+      EMOJIS[checkGuess(correctItem.variant, guessedItem.variant)],
+      EMOJIS[
         checkGuess([...correctItem.playstyle], [...guessedItem.playstyle])
       ],
-      emojis[checkGuess(correctItem.health, guessedItem.health)],
-      emojis[checkGuess(correctItem.shield, guessedItem.shield)],
-      emojis[checkGuess(correctItem.progenitor, guessedItem.progenitor)],
-      emojis[
+      EMOJIS[checkGuess(correctItem.health, guessedItem.health)],
+      EMOJIS[checkGuess(correctItem.shield, guessedItem.shield)],
+      EMOJIS[checkGuess(correctItem.progenitor, guessedItem.progenitor)],
+      EMOJIS[
         checkGuess(
           parseReleaseDate(correctItem.releaseDate),
           parseReleaseDate(guessedItem.releaseDate),
         )
       ],
-    );
-
-    return gridRow.join("");
+    ].join("");
   }
 
   const { daily, gameScore, rarityScore } = storeToRefs(useGridGameStore());
 
-  function generateGridGameFeedback() {
+  function generateGridGameMatrix() {
     const SIZE = 3;
     const shareGrid: number[][] = Array.from({ length: SIZE }, () =>
       Array(SIZE).fill(0),
@@ -84,104 +75,112 @@ export function useShare() {
     return shareGrid;
   }
 
-  const modeActionMap = computed(() => ({
-    classic: emojiFeedback.value.join("\n"),
-    ability: emojiFeedback.value.join(" "),
-    grid: emojiFeedback.value.join("\n"),
-  }));
-
-  function handleShareClick() {
+  const headerText = computed(() => {
     const currentMode = mode.value;
-    if (!currentMode) throw createError("Mode is not set or not a legacy mode");
-    let attemptsUsed: number = 0;
+    if (!currentMode) return "";
 
-    if (currentMode === "ability" || currentMode === "abilityUnlimited") {
-      guessedItems.value[currentMode].forEach((guessedItem) => {
-        if (!itemToGuess.value[currentMode]?.belongsTo) return;
-        emojiFeedback.value.push(
-          emojis[
-            checkGuess(itemToGuess.value[currentMode]?.belongsTo, guessedItem)
-          ],
-        );
-      });
-      emojiFeedback.value = emojiFeedback.value.concat(
-        new Array(attempts.value[currentMode]).fill(emojis.unused),
-      );
-      attemptsUsed = DEFAULT_ATTEMPTS - attempts.value[currentMode];
-    }
-    if (currentMode === "classic" || currentMode === "classicUnlimited") {
-      const correctItem = itemToGuess.value[currentMode];
-      guessedItems.value[currentMode].forEach((guessedItem) => {
-        if (correctItem) {
-          emojiFeedback.value.push(
-            generateClassicEmojiFeedback(
-              getWarframe(correctItem),
-              getWarframe(guessedItem),
-            ),
-          );
-        }
-      });
-      attemptsUsed = DEFAULT_ATTEMPTS - attempts.value[currentMode];
-    }
-    if (currentMode === "grid") {
-      const shareGrid = generateGridGameFeedback();
-      shareGrid.forEach((row) => {
-        const rowEmojis = row
-          .map((cell) => (cell === 1 ? emojis.correct : emojis.unused))
-          .join("");
-        emojiFeedback.value.push(rowEmojis);
-      });
+    if (gameType.value === "grid") {
+      return `Framedle Grid #${currentDailyGridData.value?.day} ${gameScore.value}/9\nUniqueness: ${rarityScore.value}`;
     }
 
-    //! As more game modes are added, this will need to be updated
-    const emojiGrid = modeActionMap.value[gameType.value!];
+    if (isLegacyMode(currentMode)) {
+      const attemptsLeft = attempts.value[currentMode];
+      const attemptsUsed = DEFAULT_ATTEMPTS - attemptsLeft;
 
-    let topText = "";
+      if (
+        currentMode === "classicUnlimited" ||
+        currentMode === "abilityUnlimited"
+      ) {
+        return hasWon.value
+          ? `I solved a Framedle in ${attemptsUsed} out of ${DEFAULT_ATTEMPTS} turns.`
+          : `I couldn't solve this Framedle in ${DEFAULT_ATTEMPTS} turns.`;
+      }
 
-    if (gameVariant.value === "unlimited") {
-      topText = hasWon.value
-        ? `I solved a Framedle in ${attemptsUsed} out of ${DEFAULT_ATTEMPTS} turns.`
-        : `I couldn't solve this Framedle in ${DEFAULT_ATTEMPTS} turns.`;
-    } else {
-      if (gameType.value === "grid") {
-        topText = `Framedle Grid #${currentDailyGridData.value?.day} ${gameScore.value}/${9}\nUniqueness: ${rarityScore.value}`;
-      } else {
-        topText = `Framedle ${currentMode} #${gameType.value === "classic" ? currentDailyClassicData.value?.day : currentDailyAbilityData.value?.day} ${hasWon.value ? attemptsUsed : "X"}/${DEFAULT_ATTEMPTS}`;
+      if (currentMode === "classic" || currentMode === "ability") {
+        const dayNum =
+          currentMode === "classic"
+            ? currentDailyClassicData.value?.day
+            : currentDailyAbilityData.value?.day;
+
+        const scoreDisplay = hasWon.value ? attemptsUsed : "X";
+
+        return `Framedle ${currentMode} #${dayNum} ${scoreDisplay}/${DEFAULT_ATTEMPTS}`;
       }
     }
 
-    const encodedAnswer = computed(() => {
+    return "";
+  });
+
+  const emojiBlock = computed(() => {
+    const currentMode = mode.value;
+    if (!currentMode) return "";
+
+    if (currentMode === "grid") {
+      const rawGrid = generateGridGameMatrix();
+      return rawGrid
+        .map((row) =>
+          row
+            .map((cell) => (cell === 1 ? EMOJIS.correct : EMOJIS.unused))
+            .join(""),
+        )
+        .join("\n");
+    }
+
+    if (currentMode === "ability" || currentMode === "abilityUnlimited") {
+      const target = itemToGuess.value[currentMode]?.belongsTo;
+
+      if (!target) return "";
+
+      const currentAttempts = attempts.value[currentMode];
+
+      const playedEmojis = guessedItems.value[currentMode].map(
+        (guessed) => EMOJIS[checkGuess(target, guessed)],
+      );
+
+      const emptyEmojis = Array(currentAttempts).fill(EMOJIS.unused);
+      return [...playedEmojis, ...emptyEmojis].join(" ");
+    }
+
+    if (currentMode === "classic" || currentMode === "classicUnlimited") {
+      const target = itemToGuess.value[currentMode];
+      if (!target) return "";
+
+      return guessedItems.value[currentMode]
+        .map((guessed) =>
+          getClassicRow(getWarframe(target), getWarframe(guessed)),
+        )
+        .join("\n");
+    }
+
+    return "";
+  });
+
+  const bottomText = computed(() => {
+    const baseUrl = window.location.origin + window.location.pathname;
+
+    if (gameVariant.value === "unlimited") {
+      let encodedAnswer = "";
+      // Explicit checks to ensure we only access valid keys
       if (
         mode.value === "classicUnlimited" &&
         itemToGuess.value["classicUnlimited"]
       ) {
-        return encode(itemToGuess.value["classicUnlimited"]);
-      }
-      if (
+        encodedAnswer = encode(itemToGuess.value["classicUnlimited"]);
+      } else if (
         mode.value === "abilityUnlimited" &&
         itemToGuess.value["abilityUnlimited"]
       ) {
-        return encode(itemToGuess.value["abilityUnlimited"].name);
+        encodedAnswer = encode(itemToGuess.value["abilityUnlimited"].name);
       }
-      return;
-    });
+      return `See how you do on the same challenge I played:\n${baseUrl}?x=${encodedAnswer}`;
+    }
 
-    const shareUrl = window.location.origin + window.location.pathname;
+    return baseUrl;
+  });
 
-    const grid = `
-${topText}
-      
-${emojiGrid}
-${
-  gameVariant.value === "unlimited"
-    ? `See how you do on the same challenge I played:
-${shareUrl}?x=${encodedAnswer.value}`
-    : shareUrl
-}
-        `;
-    copy(grid);
-    emojiFeedback.value = [];
-  }
+  const shareText = computed(() => {
+    return [headerText.value, emojiBlock.value, bottomText.value].join("\n\n");
+  });
 
   const { stats } = storeToRefs(useStatsStore());
 
@@ -223,9 +222,9 @@ ${shareUrl}?x=${encodedAnswer.value}`
   }
 
   return {
-    handleShareClick,
-    copied,
+    statsCopied: copied,
+    shareText,
     handleStatsShare,
-    generateGridGameFeedback,
+    generateGridGameMatrix,
   };
 }

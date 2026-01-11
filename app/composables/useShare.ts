@@ -12,16 +12,20 @@ export function useShare() {
     partial: "🟨",
     lower: "🔽",
     higher: "🔼",
-    unused: "◻️",
+    unused: "⬜",
   };
 
   const emojiFeedback = ref<string[]>([]);
 
   const { guessedItems, itemToGuess, attempts } = storeToRefs(useGameStore());
   const { DEFAULT_ATTEMPTS } = useGameStore();
-  const { currentDailyClassicData } = storeToRefs(useDailiesStore()); //! Temporary change to allow day to be available
+  const {
+    currentDailyClassicData,
+    currentDailyGridData,
+    currentDailyAbilityData,
+  } = storeToRefs(useDailiesStore());
 
-  const { mode, gameVariant, isLegacyMode } = useGameMode();
+  const { mode, gameVariant, gameType } = useGameMode();
   const { hasWon } = storeToRefs(useGameStateStore());
 
   const { encode } = useEncoder();
@@ -53,10 +57,41 @@ export function useShare() {
     return gridRow.join("");
   }
 
+  const { daily, gameScore } = storeToRefs(useGridGameStore());
+
+  function generateGridGameFeedback() {
+    const SIZE = 3;
+    const shareGrid: number[][] = Array.from({ length: SIZE }, () =>
+      Array(SIZE).fill(0),
+    );
+
+    const grid = daily.value.grid;
+    if (!grid) return shareGrid;
+
+    for (const [key, cell] of Object.entries(grid)) {
+      const [rowIndexStr, colIndexStr] = key.split("-");
+      if (!rowIndexStr || !colIndexStr) continue;
+      const rowIndex = Number(rowIndexStr);
+      const colIndex = Number(colIndexStr);
+
+      if (cell.value) {
+        shareGrid[rowIndex]![colIndex] = 1;
+      }
+    }
+    return shareGrid;
+  }
+
+  const modeActionMap = computed(() => ({
+    classic: emojiFeedback.value.join("\n"),
+    ability: emojiFeedback.value.join(" "),
+    grid: emojiFeedback.value.join("\n"),
+  }));
+
   function handleShareClick() {
     const currentMode = mode.value;
-    if (!currentMode || !isLegacyMode(currentMode))
-      throw createError("Mode is not set or not a legacy mode");
+    if (!currentMode) throw createError("Mode is not set or not a legacy mode");
+    let attemptsUsed: number = 0;
+
     if (currentMode === "ability" || currentMode === "abilityUnlimited") {
       guessedItems.value[currentMode].forEach((guessedItem) => {
         if (!itemToGuess.value[currentMode]?.belongsTo) return;
@@ -69,6 +104,7 @@ export function useShare() {
       emojiFeedback.value = emojiFeedback.value.concat(
         new Array(attempts.value[currentMode]).fill(emojis.unused),
       );
+      attemptsUsed = DEFAULT_ATTEMPTS - attempts.value[currentMode];
     }
     if (currentMode === "classic" || currentMode === "classicUnlimited") {
       const correctItem = itemToGuess.value[currentMode];
@@ -82,21 +118,34 @@ export function useShare() {
           );
         }
       });
+      attemptsUsed = DEFAULT_ATTEMPTS - attempts.value[currentMode];
+    }
+    if (currentMode === "grid") {
+      const shareGrid = generateGridGameFeedback();
+      shareGrid.forEach((row) => {
+        const rowEmojis = row
+          .map((cell) => (cell === 1 ? emojis.correct : emojis.unused))
+          .join("");
+        emojiFeedback.value.push(rowEmojis);
+      });
     }
 
     //! As more game modes are added, this will need to be updated
-    const emojiGrid =
-      route.name === "classic-path"
-        ? emojiFeedback.value.join("\n")
-        : emojiFeedback.value.join(" ");
+    const emojiGrid = modeActionMap.value[gameType.value!];
 
-    const attemptsUsed = DEFAULT_ATTEMPTS - attempts.value[currentMode];
+    let topText = "";
 
-    const topText = route.path.includes("unlimited")
-      ? hasWon.value
+    if (gameVariant.value === "unlimited") {
+      topText = hasWon.value
         ? `I solved a Framedle in ${attemptsUsed} out of ${DEFAULT_ATTEMPTS} turns.`
-        : `I couldn't solve this Framedle in ${DEFAULT_ATTEMPTS} turns.`
-      : `Framedle ${currentMode} #${currentDailyClassicData.value?.day} ${hasWon.value ? attemptsUsed : "X"}/${DEFAULT_ATTEMPTS}`;
+        : `I couldn't solve this Framedle in ${DEFAULT_ATTEMPTS} turns.`;
+    } else {
+      if (gameType.value === "grid") {
+        topText = `Framedle Grid #${currentDailyGridData.value?.day} ${gameScore.value}/${9}`;
+      } else {
+        topText = `Framedle ${currentMode} #${gameType.value === "classic" ? currentDailyClassicData.value?.day : currentDailyAbilityData.value?.day} ${hasWon.value ? attemptsUsed : "X"}/${DEFAULT_ATTEMPTS}`;
+      }
+    }
 
     const encodedAnswer = computed(() => {
       if (
@@ -168,5 +217,10 @@ ${window.location.href}?x=${encodedAnswer.value}`
     copy(shareMessage);
   }
 
-  return { handleShareClick, copied, handleStatsShare };
+  return {
+    handleShareClick,
+    copied,
+    handleStatsShare,
+    generateGridGameFeedback,
+  };
 }

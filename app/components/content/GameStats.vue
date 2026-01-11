@@ -47,6 +47,7 @@ const chartOptions = computed<ApexOptions>(() => {
       },
       dataLabels: {
         textAnchor: "start",
+        formatter: (val: number) => (val === 0 ? "" : val),
         offsetX: -10,
       },
     },

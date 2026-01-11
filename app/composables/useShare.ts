@@ -60,7 +60,7 @@ export function useShare() {
     return gridRow.join("");
   }
 
-  const { daily, gameScore } = storeToRefs(useGridGameStore());
+  const { daily, gameScore, rarityScore } = storeToRefs(useGridGameStore());
 
   function generateGridGameFeedback() {
     const SIZE = 3;
@@ -144,7 +144,7 @@ export function useShare() {
         : `I couldn't solve this Framedle in ${DEFAULT_ATTEMPTS} turns.`;
     } else {
       if (gameType.value === "grid") {
-        topText = `Framedle Grid #${currentDailyGridData.value?.day} ${gameScore.value}/${9}`;
+        topText = `Framedle Grid #${currentDailyGridData.value?.day} ${gameScore.value}/${9}\nUniqueness: ${rarityScore.value}`;
       } else {
         topText = `Framedle ${currentMode} #${gameType.value === "classic" ? currentDailyClassicData.value?.day : currentDailyAbilityData.value?.day} ${hasWon.value ? attemptsUsed : "X"}/${DEFAULT_ATTEMPTS}`;
       }
@@ -166,6 +166,8 @@ export function useShare() {
       return;
     });
 
+    const shareUrl = window.location.origin + window.location.pathname;
+
     const grid = `
 ${topText}
       
@@ -173,8 +175,8 @@ ${emojiGrid}
 ${
   gameVariant.value === "unlimited"
     ? `See how you do on the same challenge I played:
-${window.location.href}?x=${encodedAnswer.value}`
-    : window.location.href
+${shareUrl}?x=${encodedAnswer.value}`
+    : shareUrl
 }
         `;
     copy(grid);

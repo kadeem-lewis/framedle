@@ -15,7 +15,7 @@ const { initializeUnlimitedGame } = useGameStore();
 const { mode, isDaily } = useGameMode();
 const route = useRoute("ability-path");
 const { isGameOver } = storeToRefs(useGameStateStore());
-const { resetStreak } = useStatsStore();
+const { validateStreak } = useStatsStore();
 const { isLoadingDailies } = storeToRefs(useDailiesStore());
 
 await callOnce(
@@ -30,7 +30,7 @@ await callOnce(
 );
 
 onBeforeMount(() => {
-  resetStreak("ability");
+  validateStreak("ability");
 });
 
 useSubmission();

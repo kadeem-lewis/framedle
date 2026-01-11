@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { format } from "date-fns";
 
-const { activeDays } = storeToRefs(useDailiesStore());
+const { currentDailyDate } = storeToRefs(useDailiesStore());
 const { mode, isDailyMode, isLegacyDailyMode } = useGameMode();
 const { isGameOver } = storeToRefs(useGameStateStore());
 
@@ -9,14 +9,15 @@ const statsQuery = computed(() => {
   if (!mode.value || !isDailyMode(mode.value))
     throw createError("Mode is undefined");
 
-  const date = activeDays.value[mode.value] ?? format(new Date(), "yyyy-MM-dd");
+  const date =
+    currentDailyDate.value[mode.value] ?? format(new Date(), "yyyy-MM-dd");
   return {
     date,
   };
 });
 
 const { data, pending, execute } = useFetch("/api/stats", {
-  query: statsQuery,
+  query: statsQuery.value,
   key: `puzzle-stats-${statsQuery.value.date}`,
   lazy: true,
 });

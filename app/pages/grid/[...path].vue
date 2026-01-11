@@ -10,6 +10,12 @@ useSeoMeta({
 });
 
 const { daily } = storeToRefs(useGridGameStore());
+
+const { validateStreak } = useStatsStore();
+
+onBeforeMount(() => {
+  validateStreak("grid");
+});
 </script>
 <template>
   <UiAppSpinner v-if="!daily.config" />

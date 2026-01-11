@@ -110,7 +110,10 @@ const differentMode = computed(() => {
           @click="resetCurrentGame"
           >New Game</UButton
         >
-        <ShareButton />
+        <div class="my-2 flex flex-col gap-2">
+          <p class="font-semibold uppercase">Share your Results</p>
+          <ShareOptions />
+        </div>
         <div v-if="mode === 'ability' || mode === 'abilityUnlimited'">
           <UButton variant="link" @click="showGuesses = !showGuesses"
             >{{ showGuesses ? "Hide" : "Show" }} guesses</UButton

@@ -27,7 +27,7 @@ export function useModeCards() {
       source: "/BuildIcon.png",
       background: img("/backgrounds/orbiter.jpg", { format: "webp" }),
       description: "Complete the Logic Grid",
-      streak: 0,
+      streak: stats.value.grid.streak,
     },
   ]);
 

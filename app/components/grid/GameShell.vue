@@ -49,6 +49,8 @@ const openSummaryDialog = () => {
   openDialog(dialogOptions.SUMMARY);
 };
 
+useGameOverDialog();
+
 async function handleGuess(selectedWarframe: WarframeName) {
   if (
     !selectedRow.value ||
@@ -72,9 +74,6 @@ async function handleGuess(selectedWarframe: WarframeName) {
         title: "Incorrect Guess",
         color: "error",
       });
-    }
-    if (isGameOver.value) {
-      openSummaryDialog();
     }
   } catch (error) {
     console.error("Error handling guess:", error);

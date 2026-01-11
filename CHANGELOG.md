@@ -5,6 +5,7 @@
 ### Bug fixes
 
 - Fixed Excalibur Umbra being missing from game
+- Fixed shared classic game results not including playstyle category
 
 ## v0.3.5 - December 19th, 2025
 

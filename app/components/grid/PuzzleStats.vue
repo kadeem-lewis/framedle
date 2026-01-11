@@ -3,14 +3,15 @@ import { format } from "date-fns";
 import type { TabsItem } from "@nuxt/ui";
 
 const { isGameOver } = storeToRefs(useGameStateStore());
-const { activeDays } = storeToRefs(useDailiesStore());
+const { currentDailyDate } = storeToRefs(useDailiesStore());
 const { mode, isDailyMode } = useGameMode();
 
 const statsQuery = computed(() => {
   if (!mode.value || !isDailyMode(mode.value))
     throw createError("Mode is undefined");
 
-  const date = activeDays.value[mode.value] ?? format(new Date(), "yyyy-MM-dd");
+  const date =
+    currentDailyDate.value[mode.value] ?? format(new Date(), "yyyy-MM-dd");
   return {
     date,
   };

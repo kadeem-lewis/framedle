@@ -1,4 +1,4 @@
-export function useShare() {
+export function useShareText() {
   const EMOJIS: {
     incorrect: string;
     correct: string;

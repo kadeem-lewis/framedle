@@ -95,6 +95,7 @@ export const useDailiesStore = defineStore("dailies", () => {
         attempts: progress?.attempts ?? MAX_GRID_ATTEMPTS,
         state: progress?.state,
         gridState: progress?.gridState || {},
+        hasSeenPopup: progress?.hasSeenPopup ?? false,
       };
     });
   }, [toRef(activeDays.value, "grid"), isDaily]);

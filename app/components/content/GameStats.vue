@@ -124,6 +124,7 @@ function handleMigrationClick() {
         <UiStatsCard label="Win %" :value="winPercentage" class="col-span-2" />
       </template>
       <UiStatsCard
+        v-if="gameType === 'grid'"
         label="Average Score"
         :value="gridStats.averageScore"
         class="col-span-3"

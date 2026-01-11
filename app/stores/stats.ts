@@ -1,5 +1,6 @@
 import { format, startOfDay, startOfYesterday } from "date-fns";
 
+// I could make this an object right and then I wouldn't have as much type issues
 export type FixedGuessArray = [number, number, number, number, number, number];
 
 export const useStatsStore = defineStore(
@@ -24,10 +25,18 @@ export const useStatsStore = defineStore(
         lastCorrectDate: null as string | null,
         lastPlayedDate: null as string | null,
       },
+      grid: {
+        plays: 0,
+        streak: 0,
+        maxStreak: 0,
+        lastPlayedDate: null as string | null,
+        averageScore: null as number | null,
+        scoreDistribution: {} as Record<number, number>,
+      },
     });
     const stats = ref(getDefaultStats());
 
-    type Stats = (typeof stats.value)[keyof typeof stats.value];
+    type LegacyStats = typeof stats.value.classic | typeof stats.value.ability;
 
     const { attempts } = storeToRefs(useGameStore());
     const { DEFAULT_ATTEMPTS } = useGameStore();
@@ -35,6 +44,7 @@ export const useStatsStore = defineStore(
     const { hasWon, isGameOver } = storeToRefs(useGameStateStore());
     const { currentDailyDate } = storeToRefs(useDailiesStore());
     const { mode, isLegacyDailyMode } = useGameMode();
+    const { gameScore } = storeToRefs(useGridGameStore());
 
     function resetStreak(mode: "classic" | "ability") {
       const lastPlayedDate = stats.value[mode].lastPlayedDate;
@@ -60,25 +70,41 @@ export const useStatsStore = defineStore(
       ) {
         return;
       }
-      const currentStats = stats.value[gameMode];
+      if (gameMode === "grid") {
+        const currentStats = stats.value.grid;
+        currentStats.plays++;
+        currentStats.streak =
+          currentStats.lastPlayedDate ===
+          format(startOfYesterday(), "yyyy-MM-dd")
+            ? currentStats.streak + 1
+            : 1;
 
-      currentStats.plays++;
-      currentStats.lastPlayedDate = today;
+        currentStats.lastPlayedDate = today;
+        currentStats.scoreDistribution[gameScore.value] =
+          (currentStats.scoreDistribution[gameScore.value] || 0) + 1;
+        currentStats.maxStreak = Math.max(
+          currentStats.maxStreak,
+          currentStats.streak,
+        );
+      } else if (isLegacyDailyMode(gameMode)) {
+        const currentStats = stats.value[gameMode];
 
-      if (!hasWon.value) {
-        currentStats.streak = 0;
-        return;
+        currentStats.plays++;
+        currentStats.lastPlayedDate = today;
+
+        if (!hasWon.value) {
+          currentStats.streak = 0;
+          return;
+        }
+        currentStats.wins++;
+        const attemptsUsed = DEFAULT_ATTEMPTS - attempts.value[mode.value];
+        // @ts-expect-error I need to figure out how to properly type this fixed length array to prevent such as error
+        currentStats.guesses[attemptsUsed - 1]++;
+        updateStreak(currentStats, today);
       }
-
-      currentStats.wins++;
-      const attemptsUsed = DEFAULT_ATTEMPTS - attempts.value[mode.value];
-      // @ts-expect-error I need to figure out how to properly type this fixed length array to prevent such as error
-      currentStats.guesses[attemptsUsed - 1]++;
-
-      updateStreak(currentStats, today);
     }
 
-    function updateStreak(stats: Stats, today: string) {
+    function updateStreak(stats: LegacyStats, today: string) {
       if (!stats.lastCorrectDate) {
         stats.streak = 1;
       } else {

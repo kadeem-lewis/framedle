@@ -5,6 +5,7 @@ import { defu } from "defu";
 const route = useRoute();
 const { stats } = storeToRefs(useStatsStore());
 const { DEFAULT_ATTEMPTS } = useGameStore();
+const { MAX_GRID_ATTEMPTS } = useGridGameStore();
 const { isDaily, gameType } = useGameMode();
 
 const legacyStats = computed<LegacyModeStats | null>(() => {
@@ -14,6 +15,13 @@ const legacyStats = computed<LegacyModeStats | null>(() => {
 });
 
 const gridStats = computed(() => stats.value.grid);
+
+const scoresDistribution = computed(() => {
+  const base = Object.fromEntries(
+    Array.from({ length: MAX_GRID_ATTEMPTS }, (_, i) => [i, 0]),
+  );
+  return { ...base, ...gridStats.value.scoreDistribution };
+});
 
 const activeStats = computed(() => {
   if (gameType.value === "grid") return gridStats.value;
@@ -153,7 +161,7 @@ function handleMigrationClick() {
       <p class="font-semibold uppercase">Scores Distribution</p>
       <ScoresDistributionChart
         v-if="gameType === 'grid'"
-        :scores="gridStats.scoreDistribution"
+        :scores="scoresDistribution"
       />
     </div>
     <div class="flex justify-center gap-4">

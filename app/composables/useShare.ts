@@ -43,6 +43,9 @@ export function useShare() {
     gridRow.push(
       emojis[checkGuess(correctItem.sex, guessedItem.sex)],
       emojis[checkGuess(correctItem.variant, guessedItem.variant)],
+      emojis[
+        checkGuess([...correctItem.playstyle], [...guessedItem.playstyle])
+      ],
       emojis[checkGuess(correctItem.health, guessedItem.health)],
       emojis[checkGuess(correctItem.shield, guessedItem.shield)],
       emojis[checkGuess(correctItem.progenitor, guessedItem.progenitor)],

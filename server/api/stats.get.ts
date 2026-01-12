@@ -1,132 +1,171 @@
 import { z } from "zod";
-import type { StatsResponse, GuessStatEntry } from "#shared/types/stats";
+import { eq } from "drizzle-orm";
+import type { ClassicStatsData, GridStatsData } from "#shared/schemas/db";
 
 const statsSchema = z.object({
   date: z.iso.date(),
 });
 
-export default defineEventHandler<Promise<StatsResponse>>(async (event) => {
-  const result = await getValidatedQuery(event, (query) =>
-    statsSchema.safeParse(query),
+export default defineEventHandler(async (event) => {
+  const query = await getValidatedQuery(event, (body) =>
+    statsSchema.safeParse(body),
   );
+  if (!query.success)
+    throw createError({ statusCode: 400, message: "Invalid date" });
 
-  if (!result.success) {
-    throw createError({
-      statusCode: 400,
-      message: "Invalid query parameters",
-    });
-  }
-  const { date } = result.data;
+  const { date } = query.data;
   const redis = await useRedis();
+  const db = useDrizzle();
 
-  const stats = await redis.hGetAll(`daily:stats:${date}`);
+  // --- 1. Fetch from Redis (Live / Unsynced data) ---
+  const redisStats = await redis.hGetAll(`daily:stats:${date}`);
+  const getRedisInt = (k: string) => parseInt(redisStats[k] || "0", 10);
 
-  function getAverage(attempts: string | undefined, wins: string | undefined) {
-    if (!attempts || !wins) return null;
-    const attemptsNum = parseInt(attempts, 10);
-    const winsNum = parseInt(wins, 10);
-    return Math.round(attemptsNum / winsNum);
-  }
+  // --- 2. Fetch from DB (Archived data) ---
+  const dbRecords = await db
+    .select()
+    .from(tables.stats)
+    .where(eq(tables.stats.date, date));
 
-  function getInt(key: string) {
-    return parseInt((stats[key] as string) || "0", 10);
-  }
+  const getDbRecord = (mode: string) => dbRecords.find((r) => r.mode === mode);
 
-  const rarityPromises = [];
-  const rarityKeys: string[] = [];
-
-  for (let r = 0; r < 3; r++) {
-    for (let c = 0; c < 3; c++) {
-      rarityKeys.push(`${r}-${c}`);
-      rarityPromises.push(redis.hGetAll(`daily:rarity:${date}:${r}-${c}`));
-    }
-  }
-
-  const rarityResults = await Promise.all(rarityPromises);
-
-  const guessStats: Record<string, GuessStatEntry> = {};
-
-  rarityResults.forEach((cellData, index) => {
-    const coord = rarityKeys[index];
-
-    const totalRaw = cellData["total"];
-    const total = totalRaw ? parseInt(totalRaw, 10) : 0;
-
-    const guesses = Object.entries(cellData)
-      .filter(([key]) => key !== "total")
-      .map(([name, countStr]) => ({
-        name,
-        count: parseInt(countStr, 10),
-      }));
-
-    guesses.sort((a, b) => b.count - a.count);
-
-    const mostPopular = guesses.length > 0 ? guesses[0] : null;
-    const leastPopular =
-      guesses.length > 0 ? guesses[guesses.length - 1] : null;
-
-    guessStats[coord] = {
-      total,
-      mostPopular,
-      leastPopular,
+  // --- 3. Helper: Merge Classic/Ability ---
+  const mergeStandardMode = (mode: "classic" | "ability") => {
+    const dbRow = getDbRecord(mode);
+    const dbData = (dbRow?.data as ClassicStatsData) || {
+      gamesWon: 0,
+      totalAttempts: 0,
     };
-  });
 
-  // 4. Calculate Grid Score Distribution & Average
-  const gridDistribution: Record<string, number> = {};
-  let totalScoreProduct = 0;
-  let totalGamesForAvg = 0;
+    // Redis Values
+    const rWon = getRedisInt(`games_won:${mode}`);
+    const rAttempts = getRedisInt(`total_attempts:${mode}`);
 
-  for (let i = 0; i <= 9; i++) {
-    const count = getInt(`grid_score_${i}`);
-    gridDistribution[i.toString()] = count;
+    // Merged Values
+    // Note: totalPlayed is not needed for the response in these modes, so we don't calculate it.
+    const totalWon = dbData.gamesWon + rWon;
+    const totalAttempts = dbData.totalAttempts + rAttempts;
 
-    // Accumulate for average: (Score Value * How many people got it)
-    totalScoreProduct += i * count;
-    totalGamesForAvg += count;
-  }
+    return {
+      gamesWon: totalWon,
+      averageAttempts: totalWon > 0 ? Math.round(totalAttempts / totalWon) : 0,
+    };
+  };
 
-  const gridAverageScore =
-    totalGamesForAvg > 0
-      ? Number((totalScoreProduct / totalGamesForAvg).toFixed(2))
-      : null;
+  // --- 4. Helper: Merge Grid ---
+  const mergeGridMode = async () => {
+    const dbRow = getDbRecord("grid");
+    const dbData = (dbRow?.data as GridStatsData) || {
+      totalScoreSum: 0,
+      scoreDistribution: {},
+      solvedHeatmap: {},
+      rarity: {},
+    };
 
-  // 5. Grid Heatmap
-  const gridHeatmap: Record<string, number> = {};
-  for (let r = 0; r < 3; r++) {
-    for (let c = 0; c < 3; c++) {
-      const coord = `${r}-${c}`;
-      gridHeatmap[coord] = getInt(`grid_cell_${coord}_solved`);
+    const rPlayed = getRedisInt("games_played:grid");
+    // We use totalPlayed here for the average score calculation
+    const totalPlayed = (dbRow?.gamesPlayed || 0) + rPlayed;
+
+    // Merge Distribution
+    const finalDist: Record<string, number> = { ...dbData.scoreDistribution };
+    let redisScoreSum = 0;
+    for (let i = 0; i <= 9; i++) {
+      const count = getRedisInt(`grid_score_${i}`);
+      if (count > 0) {
+        finalDist[i] = (finalDist[i] || 0) + count;
+        redisScoreSum += i * count;
+      }
     }
-  }
 
-  const classicGamesWon = parseInt(stats["games_won:classic"], 10) || 0;
-  const classicAverageAttempts = stats["total_attempts:classic"]
-    ? getAverage(stats["total_attempts:classic"], stats["games_won:classic"])
-    : null;
+    // Merge Average
+    const combinedScoreSum = (dbData.totalScoreSum || 0) + redisScoreSum;
+    const averageScore =
+      totalPlayed > 0 ? Number((combinedScoreSum / totalPlayed).toFixed(2)) : 0;
 
-  const abilityGamesWon = parseInt(stats["games_won:ability"], 10) || 0;
-  const abilityAverageAttempts = stats["total_attempts:ability"]
-    ? getAverage(stats["total_attempts:ability"], stats["games_won:ability"])
-    : null;
-  const gridGamesPlayed = parseInt(stats["games_played:grid"], 10) || 0;
+    // Merge Heatmap
+    const finalHeatmap: Record<string, number> = { ...dbData.solvedHeatmap };
+    for (let r = 0; r < 3; r++) {
+      for (let c = 0; c < 3; c++) {
+        const coord = `${r}-${c}`;
+        const count = getRedisInt(`grid_cell_${coord}_solved`);
+        if (count > 0) finalHeatmap[coord] = (finalHeatmap[coord] || 0) + count;
+      }
+    }
+
+    // Process Rarity
+    // Correctly typed as Record<string, GuessStatEntry> to avoid 'any'
+    const finalGuessStats: Record<string, GuessStatEntry> = {};
+
+    for (let r = 0; r < 3; r++) {
+      for (let c = 0; c < 3; c++) {
+        const coord = `${r}-${c}`;
+
+        // 1. Get DB Rarity for this cell
+        const dbRarity = dbData.rarity?.[coord] || {};
+
+        // 2. Get Redis Rarity for this cell
+        const rKey = `daily:rarity:${date}:${coord}`;
+        const rData = await redis.hGetAll(rKey);
+
+        // 3. Merge
+        const combinedCounts: Record<string, number> = { ...dbRarity };
+        let cellTotal = 0;
+
+        // Add DB totals
+        Object.values(dbRarity).forEach((v) => (cellTotal += v));
+
+        // Add Redis totals
+        Object.entries(rData).forEach(([name, countStr]) => {
+          if (name !== "total") {
+            const val = parseInt(countStr);
+            combinedCounts[name] = (combinedCounts[name] || 0) + val;
+            cellTotal += val;
+          }
+        });
+
+        // 4. Sort for Most/Least Popular
+        const sorted = Object.entries(combinedCounts)
+          .map(([name, count]) => ({ name, count }))
+          .sort((a, b) => b.count - a.count);
+
+        finalGuessStats[coord] = {
+          total: cellTotal,
+          mostPopular: sorted[0] || null,
+          leastPopular: sorted.length > 0 ? sorted[sorted.length - 1] : null,
+        };
+      }
+    }
+
+    // Merge Unique Score
+    const rUnique = redisStats["most_unique:grid"]
+      ? parseFloat(redisStats["most_unique:grid"])
+      : null;
+    let finalUnique = dbData.mostUniqueScore;
+
+    // Logic: If redis has a score, and it's lower (better) than DB, or DB is null, take Redis.
+    if (rUnique !== null) {
+      if (
+        finalUnique === null ||
+        finalUnique === undefined ||
+        rUnique < finalUnique
+      ) {
+        finalUnique = rUnique;
+      }
+    }
+
+    return {
+      gamesPlayed: totalPlayed,
+      mostUnique: finalUnique,
+      averageScore,
+      scoreDistribution: finalDist,
+      solvedHeatmap: finalHeatmap,
+      guessStats: finalGuessStats,
+    };
+  };
 
   return {
-    classic: {
-      gamesWon: classicGamesWon,
-      averageAttempts: classicAverageAttempts,
-    },
-    ability: {
-      gamesWon: abilityGamesWon,
-      averageAttempts: abilityAverageAttempts,
-    },
-    grid: {
-      gamesPlayed: gridGamesPlayed,
-      mostUnique: getInt("most_unique:grid") || null,
-      averageScore: gridAverageScore,
-      scoreDistribution: gridDistribution,
-      solvedHeatmap: gridHeatmap,
-      guessStats,
-    },
+    classic: mergeStandardMode("classic"),
+    ability: mergeStandardMode("ability"),
+    grid: await mergeGridMode(),
   };
 });

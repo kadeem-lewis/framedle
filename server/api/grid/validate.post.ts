@@ -1,4 +1,6 @@
 import z from "zod";
+import { eq, and } from "drizzle-orm";
+import type { GridStatsData } from "#shared/schemas/db";
 
 const validateGridGuessSchema = z.object({
   rowCategoryId: z.string(),
@@ -28,9 +30,8 @@ export default defineEventHandler<
   const body = await readValidatedBody(event, (body) =>
     validateGridGuessSchema.safeParse(body),
   );
-  console.log("validateGridGuess body", body);
+
   if (!body.success) {
-    console.log("Invalid body:", body.error);
     throw createError({
       statusCode: 400,
       message: "Invalid request body",
@@ -47,10 +48,13 @@ export default defineEventHandler<
     isUnlimited,
   } = body.data;
 
+  // Sort IDs to match the composite primary key order in DB
   const [idA, idB] = [rowCategoryId, columnCategoryId].sort();
+  const db = useDrizzle();
 
   try {
-    const result = await useDrizzle()
+    // 1. Validate if the guess is legally correct for this category pair
+    const result = await db
       .select()
       .from(tables.categoryPairs)
       .where(
@@ -61,40 +65,76 @@ export default defineEventHandler<
       )
       .limit(1);
 
-    if (result.length === 0)
+    if (result.length === 0) {
       throw createError({
         statusCode: 404,
         message: "Category pair not found",
       });
+    }
 
     const categoryPair = result[0];
-
     const match = categoryPair.validWarframes.find(
       (warframe) =>
         warframe.name.toLowerCase() === guessedWarframe.toLowerCase(),
     );
+
     if (match) {
       let rarityScore = 0;
-      if (!isUnlimited) {
+
+      // Only calculate Daily Rarity for Daily Mode
+      if (!isUnlimited && puzzleDate) {
         const redis = await useRedis();
         const rarityKey = `daily:rarity:${puzzleDate}:${rowIndex}-${colIndex}`;
         const normalizedGuess = match.name;
 
+        // A. Increment & Fetch Live Stats (Redis)
         const multi = redis.multi();
-
         multi.hIncrBy(rarityKey, "total", 1);
         multi.hIncrBy(rarityKey, normalizedGuess, 1);
+        const [redisTotalStr, redisSpecificStr] = await multi.exec();
 
-        const results = await multi.exec();
-        const totalGuesses = Number(results[0]);
-        const specificCount = Number(results[1]);
+        // These values *include* the increment we just made
+        const redisTotal = Number(redisTotalStr);
+        const redisSpecific = Number(redisSpecificStr);
 
-        if (totalGuesses > 0) {
-          rarityScore = (specificCount / totalGuesses) * 100;
+        // B. Fetch Archived Stats (Postgres)
+        let dbTotal = 0;
+        let dbSpecific = 0;
+
+        const dbStatResult = await db
+          .select()
+          .from(tables.stats)
+          .where(
+            and(
+              eq(tables.stats.date, puzzleDate),
+              eq(tables.stats.mode, "grid"),
+            ),
+          )
+          .limit(1);
+
+        if (dbStatResult.length > 0) {
+          const gridData = dbStatResult[0].data as GridStatsData;
+          const cellRarity = gridData.rarity?.[`${rowIndex}-${colIndex}`];
+
+          if (cellRarity) {
+            // Sum all values in the object to get the cell total
+            dbTotal = Object.values(cellRarity).reduce(
+              (sum, val) => sum + val,
+              0,
+            );
+            dbSpecific = cellRarity[normalizedGuess] || 0;
+          }
         }
 
-        console.log(totalGuesses, specificCount);
+        // C. Combine & Calculate
+        const finalTotal = redisTotal + dbTotal;
+        const finalSpecific = redisSpecific + dbSpecific;
+
+        if (finalTotal > 0) {
+          rarityScore = (finalSpecific / finalTotal) * 100;
+        }
       }
+
       return {
         status: 200,
         correct: true,
@@ -102,6 +142,7 @@ export default defineEventHandler<
         message: "Correct guess!",
       };
     }
+
     return {
       status: 200,
       correct: false,

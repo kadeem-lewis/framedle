@@ -97,3 +97,29 @@ export const categoryPairsRelations = relations(categoryPairs, ({ one }) => ({
     relationName: "catB",
   }),
 }));
+
+export type ClassicStatsData = {
+  gamesWon: number;
+  totalAttempts: number;
+};
+
+export type GridStatsData = {
+  mostUniqueScore?: number;
+  totalScoreSum: number;
+  scoreDistribution: Record<string, number>;
+  solvedHeatmap: Record<string, number>;
+  rarity: Record<string, Record<string, number>>;
+};
+
+export type ModeStatsData = ClassicStatsData | GridStatsData;
+
+export const stats = pgTable(
+  "stats",
+  {
+    date: date("date").notNull(),
+    mode: modeEnum("mode").notNull(),
+    gamesPlayed: integer("gamesPlayed").default(0).notNull(),
+    data: jsonb("data").$type<ModeStatsData>().notNull(),
+  },
+  (table) => [primaryKey({ columns: [table.date, table.mode] })],
+);

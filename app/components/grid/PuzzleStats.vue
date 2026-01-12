@@ -85,7 +85,7 @@ const tabContent = computed<TabCell[][]>(() => {
     if (!statEntry || !statEntry.name || !value.total) continue;
     content[row]![col] = {
       warframeName: statEntry.name,
-      rarity: Number(((statEntry.count / value.total) * 100).toFixed(2)),
+      rarity: Number(formatFloat((statEntry.count / value.total) * 100)),
     };
   }
   return content;
@@ -110,7 +110,7 @@ const accuracyMap = computed(() => {
 
     if (!value) continue;
     content[row]![col] =
-      totalGames > 0 ? `${((value / totalGames) * 100).toFixed(2)}%` : "0%";
+      totalGames > 0 ? `${formatFloat((value / totalGames) * 100)}%` : "0%";
   }
   return content;
 });

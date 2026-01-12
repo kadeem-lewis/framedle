@@ -29,7 +29,7 @@ const { isDaily } = useGameMode();
         v-if="isDaily && rarity"
         class="absolute top-0 left-0 rounded-none px-1 py-0.5 opacity-90"
       >
-        {{ rarity }}%
+        {{ formatFloat(rarity) }}%
       </UBadge>
       <NuxtImg
         :src="`https://cdn.warframestat.us/img/${warframe.imageName}`"

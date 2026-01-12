@@ -1,17 +1,9 @@
 <script setup lang="ts">
 import { startOfTomorrow } from "date-fns";
-const { mode } = useGameMode();
-const { isGameOver } = storeToRefs(useGameStateStore());
 const { generateGridGameMatrix } = useShareText();
 const { currentDailyGridData } = storeToRefs(useDailiesStore());
 const { rarityScore } = storeToRefs(useGridGameStore());
 const { stats } = storeToRefs(useStatsStore());
-
-watchEffect(() => {
-  if (mode.value && isGameOver.value) {
-    console.log("You did stuff!");
-  }
-});
 
 const { openDialog } = useDialog();
 

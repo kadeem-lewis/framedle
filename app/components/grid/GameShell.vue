@@ -40,8 +40,6 @@ function updateSelectedCell(rowIndex: number, columnIndex: number) {
 
 const { submitGridGuess } = useGuess();
 
-const toast = useToast();
-
 const { openDialog } = useDialog();
 
 const openSummaryDialog = () => {
@@ -50,6 +48,8 @@ const openSummaryDialog = () => {
 };
 
 useGameOverDialog();
+
+const isIncorrect = refAutoReset(false, 1000);
 
 async function handleGuess(selectedWarframe: WarframeName) {
   if (
@@ -67,13 +67,9 @@ async function handleGuess(selectedWarframe: WarframeName) {
       selectedColumnIndex.value,
       selectedWarframe,
     );
-    if (response) {
-      isOpen.value = false;
-    } else if (currentGame.value.attempts <= 1) {
-      toast.add({
-        title: "Incorrect Guess",
-        color: "error",
-      });
+    isOpen.value = false;
+    if (!response && currentGame.value.attempts > 0) {
+      isIncorrect.value = true;
     }
   } catch (error) {
     console.error("Error handling guess:", error);
@@ -134,6 +130,10 @@ useSubmission();
           :class="{
             'border-r': j < cols.length - 1,
             'border-b': i < rows.length - 1,
+            'bg-error/50 transition-colors ease-in-out':
+              selectedRowIndex === i &&
+              selectedColumnIndex === j &&
+              isIncorrect,
           }"
           @click="updateSelectedCell(i, j)"
         />
@@ -145,7 +145,14 @@ useSubmission();
     <div class="flex" :class="[isDaily ? 'justify-between' : 'justify-around']">
       <div class="flex flex-col items-center gap-1">
         <span class="font-semibold uppercase">Attempts:</span>
-        <span> {{ gameState.attempts }}</span>
+        <span
+          :class="{
+            'text-error scale-150 transition-transform ease-in-out':
+              isIncorrect,
+          }"
+        >
+          {{ gameState.attempts }}</span
+        >
       </div>
       <div v-if="isDaily" class="flex flex-col items-center gap-1">
         <span class="font-semibold uppercase">Uniqueness:</span>

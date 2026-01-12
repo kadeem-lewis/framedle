@@ -6,7 +6,6 @@ const route = useRoute<"classic-path" | "ability-path" | "grid-path">();
 watch(
   [() => route.params, gameType],
   ([params]) => {
-    console.log(activeDays.value);
     if (!isDaily.value || !gameType.value) return;
     const pathParam = params.path;
     const potentialDay = Array.isArray(pathParam)

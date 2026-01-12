@@ -26,7 +26,9 @@ export function useSubmission() {
         ...body,
         gridStats: {
           uniquenessScore: Number(rarityScore.value),
-          solvedSlots: Object.keys(daily.value.grid),
+          solvedSlots: Object.keys(daily.value.grid).filter(
+            (key) => daily.value.grid[key]?.value,
+          ),
         },
       };
     } else if (isLegacyDailyMode(mode.value)) {
@@ -58,6 +60,7 @@ export function useSubmission() {
         updateStatsOnGameOver();
 
         const body = generateSubmissionBody();
+        console.log("Submitting game result", body);
         // Fire and forget (or await if you need to block)
         $fetch("/api/submissions", {
           method: "POST",

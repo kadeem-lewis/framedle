@@ -67,10 +67,6 @@ export const useDailiesStore = defineStore("dailies", () => {
   watch(
     [currentDailyClassicData, currentDailyAbilityData],
     ([newClassicVal, newAbilityVal]) => {
-      console.log("Updating daily data in game store", {
-        newClassicVal,
-        newAbilityVal,
-      });
       // this technically works but it needs a lot of improvements
       if (newClassicVal || newAbilityVal) {
         updateDailyData({
@@ -101,7 +97,6 @@ export const useDailiesStore = defineStore("dailies", () => {
   }, [toRef(activeDays.value, "grid"), isDaily]);
 
   watch(currentDailyGridData, (newGridVal) => {
-    console.log("newGridVal", newGridVal);
     if (newGridVal) {
       syncGridData(newGridVal);
     }

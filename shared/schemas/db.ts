@@ -12,7 +12,7 @@ import { relations, sql } from "drizzle-orm";
 
 export const modeEnum = pgEnum("mode_enum", ["classic", "ability", "grid"]);
 
-export type ClassicPuzzle = {
+export type LegacyPuzzle = {
   answer: string;
 };
 

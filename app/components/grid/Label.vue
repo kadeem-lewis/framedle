@@ -10,8 +10,6 @@ const { key, value } = getKeyValueFromId(category);
 
 const categoryInfo = computed(() => getCategoryDisplay(key, value));
 
-console.log(key, value, categoryInfo.value, category);
-
 getCategoryDisplay(key, value);
 </script>
 <template>

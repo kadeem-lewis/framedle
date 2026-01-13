@@ -19,18 +19,51 @@ function useDialogBase() {
   const modal = overlay.create(AppModal);
 
   const currentInstance = ref<ReturnType<typeof modal.open> | null>(null);
+  const activeDialog = ref<DialogOption | null>(null);
   const isUpdatingRoute = ref(false);
 
-  const openDialog = (option: DialogOption, title: string | null = null) => {
-    isUpdatingRoute.value = true;
-
+  const closeDialog = () => {
+    // Close the modal if it's open
     if (currentInstance.value) {
       modal.close(currentInstance.value.id);
+      currentInstance.value = null;
+    }
+
+    activeDialog.value = null;
+
+    // Remove dialog parameter from URL
+    if (!isUpdatingRoute.value && route.query.dialog) {
+      isUpdatingRoute.value = true;
+      const { dialog, ...query } = route.query;
+      router
+        .replace({
+          query,
+        })
+        .finally(() => {
+          isUpdatingRoute.value = false;
+        });
+    }
+  };
+
+  const openDialog = (option: DialogOption, title: string | null = null) => {
+    // This prevents the watcher from re-opening the dialog after the URL updates.
+    if (activeDialog.value === option) {
+      return;
+    }
+
+    isUpdatingRoute.value = true;
+
+    // Close any existing dialog before opening the new one
+    if (currentInstance.value) {
+      modal.close(currentInstance.value.id);
+      // We do not nullify currentInstance here; it will be overwritten below.
     }
 
     if (title === null) {
       title = option;
     }
+
+    activeDialog.value = option;
 
     const instance = modal.open({
       dialogOption: option,
@@ -51,43 +84,25 @@ function useDialogBase() {
       });
 
     instance.result.finally(() => {
+      // Only clean up if THIS instance is still the current one.
       if (currentInstance.value === instance) {
         currentInstance.value = null;
-      }
+        activeDialog.value = null;
 
-      // Remove dialog parameter from URL if modal was closed via UI
-      if (route.query.dialog && !isUpdatingRoute.value) {
-        closeDialog();
+        // Sync URL: If the URL still says this dialog is open, close it.
+        // We check !isUpdatingRoute to ensure we don't fight the router during a transition.
+        if (route.query.dialog === option && !isUpdatingRoute.value) {
+          closeDialog();
+        }
       }
     });
-  };
-
-  const closeDialog = () => {
-    // Close the modal if it's open
-    if (currentInstance.value) {
-      modal.close(currentInstance.value.id);
-      currentInstance.value = null;
-    }
-
-    // Remove dialog parameter from URL
-    if (!isUpdatingRoute.value && route.query.dialog) {
-      isUpdatingRoute.value = true;
-      const { dialog, ...query } = route.query;
-      router
-        .replace({
-          query,
-        })
-        .finally(() => {
-          isUpdatingRoute.value = false;
-        });
-    }
   };
 
   // Watch for route changes to open/close modal based on URL
   watch(
     () => route.query.dialog,
     (dialogParam) => {
-      // Skip if we're updating the route programmatically
+      // Skip if we are currently performing a route update ourselves
       if (isUpdatingRoute.value) return;
 
       if (Array.isArray(dialogParam)) {
@@ -98,6 +113,9 @@ function useDialogBase() {
         if (!Object.values(dialogOptions).includes(dialogParam as DialogOption))
           return;
 
+        // CRITICAL FIX: If the URL matches the active dialog, stop.
+        if (activeDialog.value === dialogParam) return;
+
         const title =
           dialogParam === dialogOptions.STATS
             ? `${route.name} ${dialogParam}`
@@ -105,8 +123,8 @@ function useDialogBase() {
 
         openDialog(dialogParam as DialogOption, title);
       } else {
-        // Close if we have an instance
-        if (currentInstance.value) {
+        // If URL has no dialog, but we have an active one, close it.
+        if (currentInstance.value || activeDialog.value) {
           closeDialog();
         }
       }

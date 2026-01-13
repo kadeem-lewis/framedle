@@ -103,8 +103,6 @@ export function useGuess() {
       },
     });
 
-    console.log("submitGridGuess response", response);
-
     if (mode.value === "grid" && currentDailyGridData.value) {
       const dailyData = currentDailyGridData.value;
 

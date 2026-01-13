@@ -104,6 +104,7 @@ const allDisabledItems = computed(() => [
 ]);
 
 const { currentDailyGridData } = storeToRefs(useDailiesStore());
+const { giveUpGridDaily } = useDailiesStore();
 
 const puzzleHeading = computed(() => {
   if (mode.value === "grid" && currentDailyGridData.value) {
@@ -194,8 +195,13 @@ useSubmission();
           title="Are you sure you want to give up?"
           success-label="Give Up"
           cancel-label="Cancel"
+          @confirm="giveUpGridDaily"
         >
-          <UButton variant="subtle" color="error" class="font-medium uppercase">
+          <UButton
+            variant="subtle"
+            color="error"
+            class="rounded-none font-medium uppercase"
+          >
             Abort Mission
           </UButton>
         </UiConfirmPopup>

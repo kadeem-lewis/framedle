@@ -46,11 +46,14 @@ export const categoryMetadata = {
     value,
     description: `Warframes with ${value} aura polarity`,
     imgSrc: value === "None" ? undefined : `/polarities/${value}.svg`,
+    extra: [
+      "If a Warframe has multiple auras, they can be used for either polarity.",
+    ],
   }),
   playstyle: (value: string) => ({
     header: "Playstyle",
     value,
-    description: `Warframes with ${value} playstyle`,
+    description: `Warframes where one of their playstyles is ${value}`,
     imgSrc: `/playstyles/${value.replace(/\s+/g, "")}.png`,
   }),
   releaseDate: (value: string) => ({

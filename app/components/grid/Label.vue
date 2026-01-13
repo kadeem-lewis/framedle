@@ -1,62 +1,19 @@
 <script setup lang="ts">
-import { getCategoryDisplay } from "#shared/data/categoryMetadata";
-import { getKeyValueFromId } from "#shared/utils/grid";
-
 const { category } = defineProps<{
-  category: string;
+  category: CategoryItem;
 }>();
-
-const { key, value } = getKeyValueFromId(category);
-
-const categoryInfo = computed(() => getCategoryDisplay(key, value));
-
-console.log(key, value, categoryInfo.value, category);
-
-getCategoryDisplay(key, value);
 </script>
 <template>
   <UPopover
     :ui="{
-      content: 'rounded-none max-w-96',
+      content: 'rounded-none',
     }"
   >
-    <UButton variant="ghost" class="flex min-h-28 rounded-none">
-      <div class="flex w-full flex-col items-center gap-0.5">
-        <p class="text-toned text-xs font-semibold uppercase">
-          {{ categoryInfo?.header }}
-        </p>
-        <NuxtImg
-          v-if="categoryInfo?.imgSrc"
-          format="avif"
-          :src="categoryInfo.imgSrc"
-          :alt="categoryInfo?.value"
-          class="size-8"
-          :class="{
-            'dark:invert': categoryInfo.header === 'Aura',
-            'invert dark:invert-0': categoryInfo.header === 'Playstyle',
-          }"
-        />
-        <p :class="[categoryInfo?.cssClass]">
-          {{ categoryInfo?.value }}
-        </p>
-      </div>
-    </UButton>
+    <UButton variant="ghost" class="min-h-20 rounded-none">{{
+      category.label
+    }}</UButton>
     <template #content>
-      <div class="p-2">
-        <p class="p-2">{{ categoryInfo?.description }}</p>
-        <ul v-if="categoryInfo?.extra">
-          <li
-            v-for="(item, index) in categoryInfo.extra"
-            :key="index"
-            class="flex items-center gap-1 break-keep"
-          >
-            <span>■</span>
-            <span>
-              {{ item }}
-            </span>
-          </li>
-        </ul>
-      </div>
+      <p class="p-2">{{ category.description }}</p>
     </template>
   </UPopover>
 </template>

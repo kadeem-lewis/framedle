@@ -1,8 +1,10 @@
 export const manualCategories = [
   {
     id: "leverian:true",
+    label: "Has Leverian Entry",
     key: "leverian",
     type: "boolean",
+    description: "Warframes that have a Leverian Entry",
     lastUsed: null,
     warframes: new Set([
       "Ash",
@@ -20,9 +22,11 @@ export const manualCategories = [
   },
   {
     id: "protoframe:true",
+    label: "Has Protoframe",
     type: "boolean",
     key: "protoframe",
     lastUsed: null,
+    description: "Warframes with a Protoframe that possess their traits",
     warframes: new Set([
       "Excalibur",
       "Nyx",
@@ -45,6 +49,8 @@ export const manualCategories = [
     type: "boolean",
     key: "questframe",
     lastUsed: null,
+    description:
+      "Warframes not obtainable until completing a specific quest ( Based on Warframe Unlock Quests on the Wiki )",
     warframes: new Set([
       "Mirage",
       "Limbo",
@@ -84,8 +90,10 @@ export const manualCategories = [
   },
   {
     id: "circuit:true",
+    label: "Obtainable Through the Circuit",
     type: "boolean",
     key: "circuit",
+    description: "Warframes that can obtained through the Circuit",
     lastUsed: null,
     warframes: new Set([
       "Excalibur",

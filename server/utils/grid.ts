@@ -9,10 +9,8 @@ export type CategoryKey = Omit<
   string;
 
 export type Category = {
-  description: string;
   type: string;
   key: CategoryKey;
-  label: string;
   id: string;
   warframes: Set<string>;
   lastUsed: string | null;
@@ -150,8 +148,8 @@ export async function generateGridPuzzle(options: GridPuzzleOptions = {}) {
       const row3 = row3Candidates[0];
 
       const grid = {
-        rowIds: [row1.id, row2.id, row3.id] as [string, string, string],
-        colIds: [columns[0].id, columns[1].id, columns[2].id] as [
+        rows: [row1.id, row2.id, row3.id] as [string, string, string],
+        columns: [columns[0].id, columns[1].id, columns[2].id] as [
           string,
           string,
           string,
@@ -159,7 +157,7 @@ export async function generateGridPuzzle(options: GridPuzzleOptions = {}) {
       };
 
       if (!isUnlimited) {
-        const usedIds = [...grid.rowIds, ...grid.colIds];
+        const usedIds = [...grid.rows, ...grid.columns];
         await db
           .update(tables.categories)
           .set({ lastUsed: sql`NOW()` })

@@ -50,11 +50,8 @@ export type DatabaseQueue = typeof queue.$inferSelect;
 
 export const categories = pgTable("categories", {
   id: text("id").primaryKey(),
-  label: text("label").notNull(),
   lastUsed: date("lastUsed").default(sql`NULL`),
-  description: text("description").notNull(),
   key: text("key").notNull(),
-  type: text("type").notNull(),
   warframes: text("warframes").array().notNull(),
 });
 

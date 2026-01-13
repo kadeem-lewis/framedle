@@ -30,12 +30,14 @@ export default defineTask({
         const rawValue = warframe[config.key as keyof typeof warframe];
         if (rawValue === null || rawValue === undefined) continue;
 
-        if (config.key === "vaulted" && rawValue === false) continue; // Skip non-vaulted frames
+        if (config.key === "vaulted" && rawValue === false) continue;
 
         let valuesToProcess: (string | boolean | number)[] = [];
 
         if (config.key === "exalted") {
-          valuesToProcess = [true]; // Only warframes with Exalteds have the exalted field
+          valuesToProcess = [
+            Array.isArray(rawValue) && rawValue.length > 0 ? true : false,
+          ];
         } else if (Array.isArray(rawValue)) {
           valuesToProcess = rawValue;
         } else if (config.key === "releaseDate") {
@@ -50,14 +52,34 @@ export default defineTask({
           if (!tempCategoryMap.has(id)) {
             const existing = existingMap.get(id);
 
+            // Type-safe description generation
+            let description = "";
+            let label = "";
+            if (config.type === "string") {
+              description = config.template(value as string);
+              label = config.label(value as string);
+            } else if (config.type === "boolean") {
+              description = config.template(value as boolean);
+              label = config.label(value as boolean);
+            } else if (config.type === "numeric_top_2") {
+              description = config.template(value as number);
+              label = config.label(value as number);
+            } else if (config.type === "array") {
+              description = config.template(value as unknown as string[]);
+              label = config.label(value as unknown as string[]);
+            }
+
+            // Initialize with existing DB warframes if available (Merging logic)
             const initialWarframes = existing
-              ? new Set(existing.warframes) // existing.warframes is the list of valid warframes from DB
+              ? new Set(existing.warframes)
               : new Set<string>();
 
             tempCategoryMap.set(id, {
               id: id,
               key: config.key,
+              label,
               type: config.type,
+              description,
               warframes: initialWarframes,
               lastUsed: existing?.lastUsed ?? null, // Preserve lastUsed
             });
@@ -98,10 +120,8 @@ export default defineTask({
         processedGroup = categories;
       }
 
-      const MINIMUM_CATEGORY_SIZE = 4;
-
       const filteredGroup = processedGroup.filter(
-        (category) => category.warframes.size >= MINIMUM_CATEGORY_SIZE,
+        (category) => category.warframes.size >= 4,
       );
 
       finalAutomatedCategories.push(...filteredGroup);
@@ -115,6 +135,9 @@ export default defineTask({
     const valuesToInsert = combinedCategories.map((cat) => ({
       id: cat.id,
       key: cat.key,
+      type: cat.type,
+      label: cat.label,
+      description: cat.description,
       warframes: Array.isArray(cat.warframes)
         ? cat.warframes
         : Array.from(cat.warframes),
@@ -129,6 +152,9 @@ export default defineTask({
           target: tables.categories.id,
           set: {
             warframes: sql.raw(`excluded.warframes`),
+            label: sql.raw(`excluded.label`),
+            description: sql.raw(`excluded.description`),
+            type: sql.raw(`excluded.type`),
             key: sql.raw(`excluded.key`),
           },
         });

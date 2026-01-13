@@ -52,7 +52,7 @@ export const useGameStateStore = defineStore(
 
       const totalCells =
         currentGame.value.config.rows.length *
-        currentGame.value.config.columns.length;
+        currentGame.value.config.cols.length;
 
       const correctCells = Object.values(currentGame.value.grid).filter(
         (cell) => cell.status === "correct",

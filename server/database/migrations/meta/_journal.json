@@ -36,13 +36,6 @@
       "when": 1765460701021,
       "tag": "0004_powerful_shriek",
       "breakpoints": true
-    },
-    {
-      "idx": 5,
-      "version": "7",
-      "when": 1768293027556,
-      "tag": "0005_bumpy_echo",
-      "breakpoints": true
     }
   ]
 }

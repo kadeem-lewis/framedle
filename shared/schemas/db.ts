@@ -12,13 +12,13 @@ import { relations, sql } from "drizzle-orm";
 
 export const modeEnum = pgEnum("mode_enum", ["classic", "ability", "grid"]);
 
-export type LegacyPuzzle = {
+export type ClassicPuzzle = {
   answer: string;
 };
 
 export type GridPuzzle = {
-  rows: [string, string, string];
-  columns: [string, string, string];
+  rowIds: [string, string, string];
+  colIds: [string, string, string];
 };
 
 export const daily = pgTable(
@@ -50,8 +50,11 @@ export type DatabaseQueue = typeof queue.$inferSelect;
 
 export const categories = pgTable("categories", {
   id: text("id").primaryKey(),
+  label: text("label").notNull(),
   lastUsed: date("lastUsed").default(sql`NULL`),
+  description: text("description").notNull(),
   key: text("key").notNull(),
+  type: text("type").notNull(),
   warframes: text("warframes").array().notNull(),
 });
 

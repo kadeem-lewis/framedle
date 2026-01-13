@@ -84,8 +84,8 @@ export function useGuess() {
   const { registerGuess } = useGridGameStore();
 
   async function submitGridGuess(
-    row: MaybeRef<string>,
-    column: MaybeRef<string>,
+    row: MaybeRef<CategoryItem>,
+    col: MaybeRef<CategoryItem>,
     rowIndex: MaybeRef<number>,
     colIndex: MaybeRef<number>,
     guess: WarframeName,
@@ -95,8 +95,8 @@ export function useGuess() {
       body: {
         rowIndex: toValue(rowIndex),
         colIndex: toValue(colIndex),
-        rowCategoryId: toValue(row),
-        columnCategoryId: toValue(column),
+        rowCategoryId: toValue(row).id,
+        columnCategoryId: toValue(col).id,
         guessedWarframe: guess,
         isUnlimited: isUnlimited.value,
         puzzleDate: currentDailyGridData.value?.date,
@@ -115,8 +115,8 @@ export function useGuess() {
 
       if (!cell) {
         cell = {
-          rowId: toValue(row),
-          colId: toValue(column),
+          rowId: toValue(row).id,
+          colId: toValue(col).id,
           value: null,
           invalidGuesses: [],
           status: response.correct ? "correct" : "incorrect",

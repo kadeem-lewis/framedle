@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { format } from "date-fns";
+import { getCategoryDisplay } from "#shared/data/categoryMetadata";
 
 const { gameState } = defineProps<{
   gameState: GridGameState;
@@ -12,6 +13,18 @@ const selectedColumn = ref<string>();
 const selectedColumnIndex = ref<number>();
 const selectedRow = ref<string>();
 const selectedRowIndex = ref<number>();
+
+const rowLabel = computed(() => {
+  const { key, value } = getKeyValueFromId(selectedRow.value || "");
+  const category = getCategoryDisplay(key, value);
+  return `${category?.header}:${category?.value}`;
+});
+
+const columnLabel = computed(() => {
+  const { key, value } = getKeyValueFromId(selectedColumn.value || "");
+  const category = getCategoryDisplay(key, value);
+  return `${category?.header}:${category?.value}`;
+});
 
 const isOpen = ref(false);
 
@@ -193,7 +206,9 @@ useSubmission();
     <UModal v-model:open="isOpen" title="Make your guess">
       <!-- TODO: I'm gonna need to handle this part because I don't want it showing the ids -->
       <template #description>
-        <p>{{ selectedRow }}/{{ selectedColumn }}</p>
+        <div>
+          <p>{{ rowLabel }}&nbsp;/&nbsp;{{ columnLabel }}</p>
+        </div>
       </template>
       <template #body>
         <WarframeSearch

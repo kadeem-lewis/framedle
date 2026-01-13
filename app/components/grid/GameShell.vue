@@ -205,11 +205,13 @@ useSubmission();
             Abort Mission
           </UButton>
         </UiConfirmPopup>
-        <UButton v-else @click="openSummaryDialog">Summary</UButton>
+        <UButton v-else class="rounded-none" @click="openSummaryDialog"
+          >Summary</UButton
+        >
       </template>
     </div>
     <GridPuzzleStats v-if="isDaily" />
-    <UModal v-model:open="isOpen" title="Make your guess">
+    <UModal v-model:open="isOpen" title="Make your guess" class="rounded-none">
       <template #description>
         <div>
           <p>{{ rowLabel }}&nbsp;/&nbsp;{{ columnLabel }}</p>

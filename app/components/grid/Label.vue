@@ -42,16 +42,13 @@ getCategoryDisplay(key, value);
     <template #content>
       <div class="p-2">
         <p class="p-2">{{ categoryInfo?.description }}</p>
-        <ul v-if="categoryInfo?.extra">
+        <ul v-if="categoryInfo?.extra" class="list-[square] pl-5">
           <li
             v-for="(item, index) in categoryInfo.extra"
             :key="index"
-            class="flex items-center gap-1 break-keep"
+            class="break-keep"
           >
-            <span>■</span>
-            <span>
-              {{ item }}
-            </span>
+            {{ item }}
           </li>
         </ul>
       </div>

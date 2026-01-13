@@ -1,5 +1,5 @@
 import { format } from "date-fns";
-import type { ClassicPuzzle, Daily } from "#shared/schemas/db";
+import type { Daily, GridPuzzle, LegacyPuzzle } from "#shared/schemas/db";
 import Dexie from "dexie";
 
 export const useDailiesStore = defineStore("dailies", () => {
@@ -151,7 +151,7 @@ export const useDailiesStore = defineStore("dailies", () => {
     for (const daily of dailyData) {
       const { puzzle, mode, ...rest } = daily;
       if (mode === "ability") {
-        const abilityPuzzle = puzzle as ClassicPuzzle;
+        const abilityPuzzle = puzzle as LegacyPuzzle;
         const ability = abilities.find(
           (ab) => ab.name === abilityPuzzle.answer,
         ) as Ability;
@@ -162,7 +162,7 @@ export const useDailiesStore = defineStore("dailies", () => {
         });
       }
       if (mode === "classic") {
-        const classicPuzzle = puzzle as ClassicPuzzle;
+        const classicPuzzle = puzzle as LegacyPuzzle;
         entries.push({
           itemToGuess: classicPuzzle.answer as WarframeName,
           mode,
@@ -170,10 +170,11 @@ export const useDailiesStore = defineStore("dailies", () => {
         });
       }
       if (mode === "grid") {
+        const gridPuzzle = puzzle as GridPuzzle;
         entries.push({
           ...rest,
           mode,
-          puzzle,
+          puzzle: gridPuzzle,
         });
       }
     }

@@ -28,9 +28,7 @@ export default defineEventHandler<
   const body = await readValidatedBody(event, (body) =>
     validateGridGuessSchema.safeParse(body),
   );
-  console.log("validateGridGuess body", body);
   if (!body.success) {
-    console.log("Invalid body:", body.error);
     throw createError({
       statusCode: 400,
       message: "Invalid request body",

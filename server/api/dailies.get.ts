@@ -1,6 +1,5 @@
 import { gt, lte } from "drizzle-orm";
 import { z } from "zod";
-import type { Daily, GridPuzzle } from "#shared/schemas/db";
 
 const dailiesQuerySchema = z.object({
   since: z.iso.date().optional(),
@@ -42,47 +41,9 @@ export default defineEventHandler<{
       });
     }
 
-    // Hydrate grid puzzles with category data
-
-    const gridResults = result.filter((entry) => entry.mode === "grid");
-
-    const categoryIds = [
-      ...new Set(
-        gridResults.flatMap((entry) => Object.values(entry.puzzle)).flat(),
-      ),
-    ];
-
-    const categoryMap = await hydrateCategoryIds(categoryIds);
-
-    type GridDaily = Daily & {
-      mode: "grid";
-      puzzle: GridPuzzle;
-    };
-
-    const isGridDaily = (entry: (typeof result)[number]): entry is GridDaily =>
-      entry.mode === "grid" &&
-      "rowIds" in entry.puzzle &&
-      "colIds" in entry.puzzle;
-
-    const hydratedDailies = result.map((entry) => {
-      if (!isGridDaily(entry)) return entry;
-
-      return {
-        ...entry,
-        puzzle: {
-          rows: entry.puzzle.rowIds.map((id) =>
-            getCategoryData(categoryMap, id),
-          ),
-          cols: entry.puzzle.colIds.map((id) =>
-            getCategoryData(categoryMap, id),
-          ),
-        },
-      };
-    });
-
     return {
       status: 200,
-      dailies: hydratedDailies,
+      dailies: result,
     };
   } catch (error) {
     throw createError({

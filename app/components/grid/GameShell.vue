@@ -1,17 +1,30 @@
 <script setup lang="ts">
 import { format } from "date-fns";
+import { getCategoryDisplay } from "#shared/data/categoryMetadata";
 
 const { gameState } = defineProps<{
   gameState: GridGameState;
 }>();
 
-const cols = computed(() => gameState.config?.cols || []);
+const columns = computed(() => gameState.config?.columns || []);
 const rows = computed(() => gameState.config?.rows || []);
 
-const selectedColumn = ref<CategoryItem>();
+const selectedColumn = ref<string>();
 const selectedColumnIndex = ref<number>();
-const selectedRow = ref<CategoryItem>();
+const selectedRow = ref<string>();
 const selectedRowIndex = ref<number>();
+
+const rowLabel = computed(() => {
+  const { key, value } = getKeyValueFromId(selectedRow.value || "");
+  const category = getCategoryDisplay(key, value);
+  return `${category?.header}:${category?.value}`;
+});
+
+const columnLabel = computed(() => {
+  const { key, value } = getKeyValueFromId(selectedColumn.value || "");
+  const category = getCategoryDisplay(key, value);
+  return `${category?.header}:${category?.value}`;
+});
 
 const isOpen = ref(false);
 
@@ -21,7 +34,7 @@ const { isGameOver } = storeToRefs(useGameStateStore());
 
 function updateSelectedCell(rowIndex: number, columnIndex: number) {
   if (
-    !cols.value[columnIndex] ||
+    !columns.value[columnIndex] ||
     !rows.value[rowIndex] ||
     gameState.grid[`${rowIndex}-${columnIndex}`]?.value ||
     isGameOver.value
@@ -32,7 +45,7 @@ function updateSelectedCell(rowIndex: number, columnIndex: number) {
   selectedColumnIndex.value = columnIndex;
   selectedRowIndex.value = rowIndex;
 
-  selectedColumn.value = cols.value[columnIndex];
+  selectedColumn.value = columns.value[columnIndex];
   selectedRow.value = rows.value[rowIndex];
 
   isOpen.value = true;
@@ -113,22 +126,22 @@ useSubmission();
     </h2>
     <div class="grid grid-cols-4">
       <div />
-      <GridLabel v-for="column in cols" :key="column.label" :category="column">
-        {{ column.label }}
+      <GridLabel v-for="column in columns" :key="column" :category="column">
+        {{ column }}
       </GridLabel>
-      <template v-for="(row, i) in rows" :key="row.label">
+      <template v-for="(row, i) in rows" :key="row">
         <GridLabel :category="row" class="flex items-center justify-center">
-          {{ row.label }}
+          {{ row }}
         </GridLabel>
         <GridCell
-          v-for="(col, j) in cols"
+          v-for="(col, j) in columns"
           :id="`cell-${i}-${j}`"
-          :key="col.label"
+          :key="`${row}-${col}`"
           :is-revealed="!!gameState.grid[`${i}-${j}`]"
           :rarity="gameState.grid[`${i}-${j}`]?.rarity"
           :warframe-name="gameState.grid[`${i}-${j}`]?.value || ''"
           :class="{
-            'border-r': j < cols.length - 1,
+            'border-r': j < columns.length - 1,
             'border-b': i < rows.length - 1,
             'bg-error/50 transition-colors ease-in-out':
               selectedRowIndex === i &&
@@ -162,7 +175,7 @@ useSubmission();
       </div>
       <div class="flex flex-col items-center gap-1">
         <span class="font-semibold uppercase">Score:</span>
-        <span> {{ gameScore }}/{{ rows.length * cols.length }}</span>
+        <span> {{ gameScore }}/{{ rows.length * columns.length }}</span>
       </div>
     </div>
     <div class="flex w-full items-center justify-center">
@@ -192,7 +205,9 @@ useSubmission();
     <GridPuzzleStats v-if="isDaily" />
     <UModal v-model:open="isOpen" title="Make your guess">
       <template #description>
-        <p>{{ selectedRow?.label }}/{{ selectedColumn?.label }}</p>
+        <div>
+          <p>{{ rowLabel }}&nbsp;/&nbsp;{{ columnLabel }}</p>
+        </div>
       </template>
       <template #body>
         <WarframeSearch

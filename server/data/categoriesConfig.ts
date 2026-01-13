@@ -1,4 +1,6 @@
-export const categoryConfig = [
+import type { CategoryName } from "#shared/data/categoryMetadata";
+
+export const categoryConfig: { key: CategoryName; type: string }[] = [
   {
     key: "sex",
     type: "string",

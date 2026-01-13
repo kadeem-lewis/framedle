@@ -182,11 +182,11 @@ useSubmission();
       <UiConfirmPopup
         v-if="mode === 'gridUnlimited'"
         title="Are you sure you generate a new grid?"
-        success-label="Give Up"
+        :success-label="isGameOver ? 'Restart' : 'Give Up'"
         cancel-label="Cancel"
         @confirm="resetGridGame"
       >
-        <UButton icon="i-mdi-refresh">Generate</UButton>
+        <UButton variant="outline" icon="i-mdi-refresh">Generate</UButton>
       </UiConfirmPopup>
       <template v-else>
         <UiConfirmPopup

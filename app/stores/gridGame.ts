@@ -154,6 +154,7 @@ export const useGridGameStore = defineStore(
   },
   {
     persist: {
+      storage: piniaPluginPersistedstate.localStorage(),
       pick: ["unlimited"],
     },
   },

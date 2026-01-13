@@ -17,7 +17,6 @@ const statsQuery = computed(() => {
   };
 });
 
-// This data is stale by the time it is shown, its fetched on load and then the display is conditional on game over but the data isn't refetched
 const { data, execute } = useFetch("/api/stats", {
   query: statsQuery.value,
   key: `puzzle-stats-${statsQuery.value.date}`,
@@ -116,7 +115,7 @@ const accuracyMap = computed(() => {
 });
 </script>
 <template>
-  <section class="flex flex-col items-center gap-4">
+  <section class="mt-2 flex flex-col items-center gap-4">
     <h2 class="text-xl font-semibold uppercase">Puzzle Stats</h2>
     <div v-if="data" class="flex flex-col gap-4">
       <UCard class="w-full">
@@ -157,7 +156,7 @@ const accuracyMap = computed(() => {
           </template>
         </div>
         <div class="space-y-2">
-          <h3 class="font-semibold uppercase">Accuracy</h3>
+          <h3 class="text-center font-semibold uppercase">Accuracy</h3>
           <div class="grid grid-cols-3">
             <template v-for="(row, i) in accuracyMap" :key="i">
               <div
@@ -175,7 +174,10 @@ const accuracyMap = computed(() => {
           </div>
         </div>
       </div>
-      <div v-else>Complete game to see stats.</div>
+      <div v-else>
+        <!-- TODO: Style all of this -->
+        Complete game to see stats.
+      </div>
     </div>
   </section>
 </template>

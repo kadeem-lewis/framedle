@@ -41,10 +41,14 @@ const feedbackGrid = computed(() => generateGridGameMatrix());
     <div class="flex flex-col items-center gap-2">
       <p class="text-center font-semibold uppercase">Your Stats</p>
       <div class="flex justify-center gap-2">
-        <UBadge size="xl" variant="outline"
+        <UBadge size="xl" variant="outline" class="rounded-none"
           >Games Played:{{ stats.grid.plays }}</UBadge
         >
-        <UBadge size="xl" variant="outline" icon="my-icon-flame"
+        <UBadge
+          size="xl"
+          variant="outline"
+          icon="my-icon-flame"
+          class="rounded-none"
           >Streak:{{ stats.grid.streak }}</UBadge
         >
       </div>

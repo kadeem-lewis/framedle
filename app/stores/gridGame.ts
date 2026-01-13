@@ -16,7 +16,10 @@ export type GridCell = {
 
 export type GridGameState = {
   grid: { [key: string]: GridCell };
-  config: { rows: CategoryItem[]; cols: CategoryItem[] } | null;
+  config: {
+    rows: [string, string, string];
+    columns: [string, string, string];
+  } | null;
   attempts: number;
 };
 
@@ -59,8 +62,8 @@ export const useGridGameStore = defineStore(
 
       if (!unlimited.value.grid[key]) {
         unlimited.value.grid[key] = {
-          rowId: unlimited.value.config!.rows[rowIndex]!.id,
-          colId: unlimited.value.config!.cols[colIndex]!.id,
+          rowId: unlimited.value.config!.rows[rowIndex]!,
+          colId: unlimited.value.config!.columns[colIndex]!,
           value: null,
           invalidGuesses: [],
           status: isCorrect ? "correct" : "incorrect",
@@ -105,7 +108,7 @@ export const useGridGameStore = defineStore(
             grid: {},
             config: {
               rows: response.grid.rows,
-              cols: response.grid.columns,
+              columns: response.grid.columns,
             },
             attempts: MAX_GRID_ATTEMPTS,
           };

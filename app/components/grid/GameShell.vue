@@ -204,7 +204,6 @@ useSubmission();
     </div>
     <GridPuzzleStats v-if="isDaily" />
     <UModal v-model:open="isOpen" title="Make your guess">
-      <!-- TODO: I'm gonna need to handle this part because I don't want it showing the ids -->
       <template #description>
         <div>
           <p>{{ rowLabel }}&nbsp;/&nbsp;{{ columnLabel }}</p>

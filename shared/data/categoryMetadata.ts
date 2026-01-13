@@ -12,13 +12,13 @@ export const categoryMetadata = {
     header: "Base Health",
     value,
     description: `Warframes with ${value} health at rank 0`,
-    cssClass: "",
+    cssClass: "text-error font-bold",
   }),
   shield: (value: number) => ({
     header: "Base Shields",
     value,
     description: `Warframes with ${value} shields at rank 0`,
-    cssClass: "",
+    cssClass: "text-secondary font-bold",
   }),
   armor: (value: number) => ({
     header: "Armor",
@@ -33,25 +33,25 @@ export const categoryMetadata = {
   sprint: (value: number) => ({
     header: "Sprint Speed",
     value,
-    description: `Warframes with ${value} sprint speed`,
+    description: `Warframes with a sprint speed of ${value}`,
   }),
   progenitor: (value: string) => ({
     header: "Progenitor",
     value,
     description: `Warframes with ${value} progenitor element`,
-    imgSrc: `/elements/${value.toLowerCase()}.png`,
+    imgSrc: `/elements/${value}.png`,
   }),
   aura: (value: string) => ({
     header: "Aura",
     value,
     description: `Warframes with ${value} aura polarity`,
-    imgSrc: `/polarities/${value.toLowerCase()}.png`,
+    imgSrc: value === "None" ? undefined : `/polarities/${value}.svg`,
   }),
   playstyle: (value: string) => ({
     header: "Playstyle",
     value,
     description: `Warframes with ${value} playstyle`,
-    imgSrc: `/playstyles/${value.toLowerCase()}.png`,
+    imgSrc: `/playstyles/${value.replace(/\s+/g, "")}.png`,
   }),
   releaseDate: (value: string) => ({
     header: "Release Year",
@@ -63,55 +63,55 @@ export const categoryMetadata = {
     value,
     description: `Warframes that are ${value}`,
   }),
-  isPrime: (value: boolean) => ({
+  isPrime: (value: string) => ({
     header: "Variant",
-    value: value ? "Prime" : "Original",
-    description: value
-      ? "Prime Warframes"
-      : "Original Warframes ( Standard/Non-Prime )",
+    value: value === "true" ? "Prime" : "Original",
+    description:
+      value === "true"
+        ? "Prime Warframes"
+        : "Original Warframes ( Standard/Non-Prime )",
   }),
-  conclave: (value: boolean) => ({
+  conclave: (value: string) => ({
     header: "Conclave",
-    value: value ? "Allowed" : "Disabled",
-    description: value
-      ? "Warframes that can be used in Conclave"
-      : "Warframes that cannot be used in Conclave",
+    value: value === "true" ? "Allowed" : "Disabled",
+    description:
+      value === "true"
+        ? "Warframes that can be used in Conclave"
+        : "Warframes that cannot be used in Conclave",
     extra: [
       "Lunaro and Faceoff are not considered Conclave modes for this category.",
     ],
   }),
-  vaulted: (_: boolean) => ({
-    //TODO: Label needs to be updated
-    header: "Vaulted",
+  vaulted: (_: unknown) => ({
+    header: "Status",
     value: "Vaulted",
     description: "Warframes that have entered the Prime Vault",
   }),
-  exalted: (_: boolean) => ({
-    // non exalted is just too broad
+  exalted: (_: unknown) => ({
     //TODO: Label needs to be updated
     header: "Exalted Weapon",
     value: "Has Exalted Weapon",
     description: "Warframes that have exalted weapons",
     extra: ["Pseudo-Exalted weapons count towards this category"],
   }),
-  leverian: (_: boolean) => ({
+  leverian: (_: unknown) => ({
     header: "Leverian",
     value: "Has Entry",
     description: "Warframes that have a Leverian Entry",
   }),
-  protoframe: (_: boolean) => ({
+  protoframe: (_: unknown) => ({
     //TODO: Label needs to be updated
     header: "Protoframe",
     value: "Protoframe",
     description: "Warframes with a Protoframe that possess their traits",
   }),
-  questframe: (_: boolean) => ({
+  questframe: (_: unknown) => ({
     header: "Acquisition",
     value: "Quest Locked",
     description: "Warframes not obtainable until completing a specific quest.",
     extra: ["Based on Warframe Unlock Quests on the Wiki"],
   }),
-  circuit: (_: boolean) => ({
+  circuit: (_: unknown) => ({
     header: "Acquisition",
     value: "The Circuit",
     description: "Warframes that can obtained through the Circuit",

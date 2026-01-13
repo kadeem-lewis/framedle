@@ -172,39 +172,3 @@ export async function generateGridPuzzle(options: GridPuzzleOptions = {}) {
 
   throw new Error("Failed to generate grid.");
 }
-
-export async function hydrateCategoryIds(catIds: string[]) {
-  const { categories } = tables;
-
-  try {
-    const result = await useDrizzle()
-      .select({
-        id: categories.id,
-        description: categories.description,
-        label: categories.label,
-      })
-      .from(categories)
-      .where(inArray(categories.id, catIds));
-
-    const categoryMap = new Map<
-      string,
-      { label: string; description: string; id: string }
-    >(result.map((cat) => [cat.id, cat]));
-    return categoryMap;
-  } catch (error) {
-    console.error("Error fetching categories:", error);
-    throw createError({
-      statusCode: 500,
-      message: typeof error === "string" ? error : (error as Error).message,
-    });
-  }
-}
-
-export function getCategoryData(
-  map: Map<string, { label: string; description: string; id: string }>,
-  id: string,
-) {
-  const cat = map.get(id);
-  if (!cat) throw createError(`Category ${id} not found`);
-  return cat;
-}

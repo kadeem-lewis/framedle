@@ -88,8 +88,7 @@ export const categoryMetadata = {
     description: "Warframes that have entered the Prime Vault",
   }),
   exalted: (_: unknown) => ({
-    //TODO: Label needs to be updated
-    header: "Exalted Weapon",
+    header: "Exalted",
     value: "Has Exalted Weapon",
     description: "Warframes that have exalted weapons",
     extra: ["Pseudo-Exalted weapons count towards this category"],
@@ -100,9 +99,8 @@ export const categoryMetadata = {
     description: "Warframes that have a Leverian Entry",
   }),
   protoframe: (_: unknown) => ({
-    //TODO: Label needs to be updated
     header: "Protoframe",
-    value: "Protoframe",
+    value: "Has Protoframe",
     description: "Warframes with a Protoframe that possess their traits",
   }),
   questframe: (_: unknown) => ({

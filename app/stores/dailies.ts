@@ -194,6 +194,7 @@ export const useDailiesStore = defineStore("dailies", () => {
 
   return {
     activeDays,
+    query,
     currentDailyClassicData,
     currentDailyAbilityData,
     currentDailyGridData,

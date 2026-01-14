@@ -8,7 +8,7 @@ export function useSubmission() {
   const { currentGameState, hasWon } = storeToRefs(useGameStateStore());
   const { DEFAULT_ATTEMPTS } = useGameStore();
   const { attempts } = storeToRefs(useGameStore());
-  const { currentDailyDate } = storeToRefs(useDailiesStore());
+  const { currentDailyDate, query } = storeToRefs(useDailiesStore());
   const { activeDays } = storeToRefs(useDailiesStore());
   const { daily, rarityScore } = storeToRefs(useGridGameStore());
 
@@ -53,10 +53,32 @@ export function useSubmission() {
           `[Game Submission] Processing end of game for ${mode.value}...`,
         );
 
-        proxy.track("completed game", { mode: mode.value, won: hasWon.value });
+        if (isUnlimitedMode(mode.value)) {
+          proxy.track("completed unlimited game", {
+            mode: mode.value,
+            won: hasWon.value,
+          });
+          return;
+        }
 
-        if (isUnlimitedMode(mode.value)) return;
+        try {
+          const existingRecord = await db.progress.get(query.value);
+          if (
+            existingRecord &&
+            (existingRecord.state === GameStatus.WON ||
+              existingRecord.state === GameStatus.LOST)
+          ) {
+            // Already have a completed record, do not resubmit
+            return;
+          }
+        } catch (e) {
+          console.error("Failed to get existing progress from DB", e);
+        }
 
+        proxy.track("completed game", {
+          mode: mode.value,
+          won: hasWon.value,
+        });
         updateStatsOnGameOver();
 
         const body = generateSubmissionBody();

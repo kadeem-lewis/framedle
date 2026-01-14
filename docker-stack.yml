@@ -62,7 +62,7 @@ services:
       timeout: 5s
       retries: 3
   app-prod:
-    image: ghcr.io/kadeem-lewis/framedle:4deec973c06dbcafb50e567ce1d22207c04b7312
+    image: ghcr.io/kadeem-lewis/framedle:64066570633c6b19818792edc0ed03084e4be40f
     networks:
       - web
     secrets:

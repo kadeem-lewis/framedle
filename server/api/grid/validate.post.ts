@@ -6,7 +6,7 @@ const validateGridGuessSchema = z.object({
   rowIndex: z.number().int().nonnegative().max(2),
   colIndex: z.number().int().nonnegative().max(2),
   guessedWarframe: z.string(),
-  puzzleDate: z.string().optional(),
+  puzzleDate: z.iso.date().optional(),
   isUnlimited: z.boolean().default(false),
 });
 

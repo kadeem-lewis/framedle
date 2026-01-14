@@ -1,4 +1,4 @@
-import { Dexie } from "dexie";
+import Dexie from "dexie";
 const { liveQuery } = Dexie;
 
 interface UseObservableOptions {

@@ -38,7 +38,7 @@ FROM base AS production
 
 # Create a non-root user to run the application
 RUN groupadd --system --gid 1001 nodejs && \
-    useradd --system --uid 1001 --gid nodejs nuxtjs
+    useradd --system -m --uid 1001 --gid nodejs nuxtjs
 
 USER nuxtjs
 

@@ -1,45 +1,8 @@
 <script setup lang="ts">
-import { format } from "date-fns";
 import type { TabsItem } from "@nuxt/ui";
 
 const { isGameOver } = storeToRefs(useGameStateStore());
-const { currentDailyDate } = storeToRefs(useDailiesStore());
-const { mode, isDailyMode } = useGameMode();
-
-const statsQuery = computed(() => {
-  if (!mode.value || !isDailyMode(mode.value))
-    throw createError("Mode is undefined");
-
-  const date =
-    currentDailyDate.value[mode.value] ?? format(new Date(), "yyyy-MM-dd");
-  return {
-    date,
-  };
-});
-
-const { data, execute } = useFetch("/api/stats", {
-  query: statsQuery.value,
-  key: `puzzle-stats-${statsQuery.value.date}`,
-  lazy: true,
-});
-
-watch(isGameOver, (newIsGameOver) => {
-  if (newIsGameOver) {
-    execute();
-  }
-});
-
-const visibility = useDocumentVisibility();
-
-watch(visibility, (newVisibility, previousVisibility) => {
-  if (newVisibility === "visible" && previousVisibility === "hidden") {
-    execute();
-  }
-});
-
-useIntervalFn(async () => {
-  execute();
-}, 1000 * 60);
+const { stats } = storeToRefs(useGlobalStatsStore());
 
 const items = ref<TabsItem[]>([
   {
@@ -64,14 +27,14 @@ type TabCell = {
 const GRID_SIZE = 3;
 
 const tabContent = computed<TabCell[][]>(() => {
-  if (!data.value) return [];
+  if (!stats.value) return [];
   const content: TabCell[][] = Array.from({ length: GRID_SIZE }, () =>
     Array(GRID_SIZE).fill(null),
   );
 
-  const stats = data.value.grid.guessStats;
+  const guessStats = stats.value.grid.guessStats;
 
-  for (const [key, value] of Object.entries(stats)) {
+  for (const [key, value] of Object.entries(guessStats)) {
     const [rowStr, colStr] = key.split("-");
     const row = Number(rowStr);
     const col = Number(colStr);
@@ -91,13 +54,13 @@ const tabContent = computed<TabCell[][]>(() => {
 });
 
 const accuracyMap = computed(() => {
-  if (!data.value) return [];
+  if (!stats.value) return [];
   const content: string[][] = Array.from({ length: GRID_SIZE }, () =>
     Array(GRID_SIZE).fill("0%"),
   );
 
-  const map = data.value.grid.solvedHeatmap;
-  const totalGames = data.value.grid.gamesPlayed;
+  const map = stats.value.grid.solvedHeatmap;
+  const totalGames = stats.value.grid.gamesPlayed;
 
   for (const [key, value] of Object.entries(map)) {
     const [rowStr, colStr] = key.split("-");
@@ -117,22 +80,22 @@ const accuracyMap = computed(() => {
 <template>
   <section class="mt-2 flex flex-col items-center gap-4">
     <h2 class="text-xl font-semibold uppercase">Puzzle Stats</h2>
-    <div v-if="data" class="flex flex-col gap-4">
+    <div v-if="stats" class="flex flex-col gap-4">
       <UCard class="w-full">
         <div class="flex w-full items-center justify-around gap-2 text-center">
           <div class="flex flex-col items-center justify-center">
             <span class="font-semibold uppercase">Games</span>
-            <span>{{ data?.grid.gamesPlayed }}</span>
+            <span>{{ stats?.grid.gamesPlayed }}</span>
           </div>
           <GridStatPopover
             label="Average Score"
-            :value="data.grid.averageScore"
+            :value="stats?.grid.averageScore"
           >
-            <ScoresDistributionChart :scores="data.grid.scoreDistribution" />
+            <ScoresDistributionChart :scores="stats?.grid.scoreDistribution" />
           </GridStatPopover>
           <div class="flex flex-col items-center justify-center">
             <span class="font-semibold uppercase">Most Unique</span>
-            <span>{{ data?.grid.mostUnique }}</span>
+            <span>{{ stats?.grid.mostUnique }}</span>
           </div>
         </div>
       </UCard>

@@ -1,15 +1,21 @@
 <script setup lang="ts">
-const { currentDay } = storeToRefs(useDailiesStore());
-const route = useRoute();
+const { activeDays } = storeToRefs(useDailiesStore());
+const { gameType, isDaily } = useGameMode();
+const route = useRoute<"classic-path" | "ability-path" | "grid-path">();
 
 watch(
-  () => route.params,
-  () => {
-    if (route.name === "ability-path" || route.name === "classic-path") {
-      const day = Number(route.params.path?.at(-1));
-      if (!route.params.path || isValidDayNumber(day)) {
-        currentDay.value = day;
-      }
+  [() => route.params, gameType],
+  ([params]) => {
+    if (!isDaily.value || !gameType.value) return;
+    const pathParam = params.path;
+    const potentialDay = Array.isArray(pathParam)
+      ? pathParam.at(-1)
+      : pathParam;
+    const day = Number(potentialDay);
+    if (isValidDayNumber(day)) {
+      activeDays.value[gameType.value] = day;
+    } else {
+      activeDays.value[gameType.value] = undefined;
     }
   },
   { immediate: true },

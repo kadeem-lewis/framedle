@@ -22,12 +22,12 @@ export function useModeCards() {
       streak: stats.value.ability.streak,
     },
     {
-      label: "Primed Soon™",
-      route: "",
+      label: "Grid",
+      route: "/grid",
       source: "/BuildIcon.png",
       background: img("/backgrounds/orbiter.jpg", { format: "webp" }),
-      description: "Coming January 17th",
-      streak: 0,
+      description: "Complete the Logic Grid",
+      streak: stats.value.grid.streak,
     },
   ]);
 

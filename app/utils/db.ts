@@ -1,6 +1,5 @@
 import Dexie from "dexie";
 import type { EntityTable } from "dexie";
-import type { GameStatusType } from "#imports";
 import type { Daily } from "#shared/schemas/db";
 
 export type DailyDataBase = Omit<Daily, "puzzle">;
@@ -15,17 +14,38 @@ export type AbilityDailyData = DailyDataBase & {
   itemToGuess: Ability;
 };
 
-export type DailyData = ClassicDailyData | AbilityDailyData;
+export type GridDailyData = DailyDataBase & {
+  mode: "grid";
+  puzzle: {
+    rows: [string, string, string];
+    columns: [string, string, string];
+  };
+};
+
+export type DailyData = ClassicDailyData | AbilityDailyData | GridDailyData;
 
 export type ProgressData = {
   date: string;
   day: number;
-  mode: "classic" | "ability";
   attempts: number;
-  guessedItems: WarframeName[];
   state?: GameStatusType;
+  guessedItems?: WarframeName[];
   selectedMinigameAbility?: string;
-};
+  gridState?: Record<string, GridCell>;
+  hasSeenPopup?: boolean;
+} & (
+  | { mode: "classic"; guessedItems: WarframeName[] }
+  | {
+      mode: "ability";
+      selectedMinigameAbility: string;
+      guessedItems: WarframeName[];
+    }
+  | {
+      mode: "grid";
+      gridState: Record<string, GridCell>;
+      hasSeenPopup?: boolean;
+    }
+);
 
 export type FullClassicData = ClassicDailyData &
   Omit<ProgressData, "date" | "day" | "mode">;
@@ -33,6 +53,11 @@ export type FullClassicData = ClassicDailyData &
 export type FullAbilityData = AbilityDailyData &
   Omit<ProgressData, "date" | "day" | "mode"> & {
     selectedMinigameAbility: string;
+  };
+
+export type FullGridData = GridDailyData &
+  Omit<ProgressData, "date" | "day" | "mode"> & {
+    gridState: Record<string, GridCell>;
   };
 
 export const db = new Dexie("framedle") as Dexie & {

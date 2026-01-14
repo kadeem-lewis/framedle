@@ -2,61 +2,50 @@ export type Result = "correct" | "incorrect" | "partial" | "higher" | "lower";
 
 export function useGuess() {
   const { attempts, guessedItems } = storeToRefs(useGameStore());
-  const { currentDay, currentDailyClassicData, currentDailyAbilityData } =
-    storeToRefs(useDailiesStore());
+  const {
+    currentDailyClassicData,
+    currentDailyAbilityData,
+    currentDailyGridData,
+  } = storeToRefs(useDailiesStore());
   const { gameState } = storeToRefs(useGameStateStore());
-  const { isUnlimited } = useGameMode();
+  const { isUnlimited, mode } = useGameMode();
 
   async function makeGuess(
     selectedWarframe: MaybeRef<WarframeName>,
     mode: MaybeRef<GameMode>,
   ) {
-    //!!! Extremely temporary fix
     const currentMode = toValue(mode);
     const warframe = toValue(selectedWarframe);
-    if (isUnlimited.value) {
+    if (
+      currentMode === "abilityUnlimited" ||
+      currentMode === "classicUnlimited"
+    ) {
       attempts.value[currentMode] -= 1;
       guessedItems.value[currentMode].push(warframe);
-    } else if (currentMode === "classic") {
+    } else if (currentMode === "classic" && currentDailyClassicData.value) {
       await db.progress
         .put({
           mode: currentMode,
-          date: currentDailyClassicData.value!.date,
-          day: currentDay.value || currentDailyClassicData.value?.day, //TODO: Please fix
+          date: currentDailyClassicData.value.date,
+          day: currentDailyClassicData.value.day,
           guessedItems: [...guessedItems.value[currentMode], warframe],
           attempts: attempts.value[currentMode] - 1,
           state: gameState.value[currentMode],
         })
         .catch((e) => {
-          console.log({
-            mode: currentMode,
-            day: currentDay.value,
-            guessedItems: [...guessedItems.value[currentMode], warframe],
-            attempts: attempts.value[currentMode] - 1,
-            state: gameState.value[currentMode],
-          });
-
           console.error("Failed to add new guess", e);
         });
-    } else if (currentMode === "ability") {
+    } else if (currentMode === "ability" && currentDailyAbilityData.value) {
       await db.progress
         .put({
-          day: currentDay.value || currentDailyAbilityData.value?.day,
-          date: currentDailyAbilityData.value!.date,
+          day: currentDailyAbilityData.value.day,
+          date: currentDailyAbilityData.value.date,
           mode: currentMode,
           guessedItems: [...guessedItems.value[currentMode], warframe],
           attempts: attempts.value[currentMode] - 1,
           state: gameState.value[currentMode],
         })
         .catch((e) => {
-          console.log({
-            mode: currentMode,
-            day: currentDay.value,
-            guessedItems: [...guessedItems.value[currentMode], warframe],
-            attempts: attempts.value[currentMode] - 1,
-            state: gameState.value[currentMode],
-          });
-
           console.error("Failed to add new guess", e);
         });
     }
@@ -92,8 +81,84 @@ export function useGuess() {
     return "correct";
   }
 
+  const { registerGuess } = useGridGameStore();
+
+  async function submitGridGuess(
+    row: MaybeRef<string>,
+    column: MaybeRef<string>,
+    rowIndex: MaybeRef<number>,
+    colIndex: MaybeRef<number>,
+    guess: WarframeName,
+  ) {
+    const response = await $fetch("/api/grid/validate", {
+      method: "POST",
+      body: {
+        rowIndex: toValue(rowIndex),
+        colIndex: toValue(colIndex),
+        rowCategoryId: toValue(row),
+        columnCategoryId: toValue(column),
+        guessedWarframe: guess,
+        isUnlimited: isUnlimited.value,
+        puzzleDate: currentDailyGridData.value?.date,
+      },
+    });
+
+    if (mode.value === "grid" && currentDailyGridData.value) {
+      const dailyData = currentDailyGridData.value;
+
+      const nextGridState = structuredClone(toRaw(dailyData.gridState));
+      const key = `${toValue(rowIndex)}-${toValue(colIndex)}`;
+
+      let cell = nextGridState[key] ? { ...nextGridState[key] } : undefined;
+
+      if (!cell) {
+        cell = {
+          rowId: toValue(row),
+          colId: toValue(column),
+          value: null,
+          invalidGuesses: [],
+        };
+      }
+
+      if (response.correct) {
+        cell.value = guess;
+        cell.rarity = response.rarity;
+      } else {
+        cell.invalidGuesses.push(guess);
+      }
+
+      nextGridState[key] = cell;
+
+      await db.progress
+        .put({
+          mode: "grid",
+          date: dailyData.date,
+          day: dailyData.day,
+          attempts: Math.max(0, dailyData.attempts - 1),
+          gridState: nextGridState,
+          state: gameState.value["grid"],
+        })
+        .catch((e) => {
+          console.error("Failed to update grid guess", e);
+        });
+    } else {
+      //! Register guess should ideally be handling both unlimited and daily states but I can't call grid data in the grid store because of circular dependencies
+      registerGuess(
+        toValue(rowIndex),
+        toValue(colIndex),
+        guess,
+        response.correct,
+      );
+    }
+    if (response.correct) {
+      return true;
+    }
+    return false;
+  }
+
   return {
     makeGuess,
     checkGuess,
+    submitGridGuess,
   };
 }

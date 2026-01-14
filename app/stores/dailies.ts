@@ -1,93 +1,74 @@
 import { format } from "date-fns";
-import type { ClassicPuzzle, Daily } from "#shared/schemas/db";
-import { switchMap } from "rxjs";
+import type { Daily, GridPuzzle, LegacyPuzzle } from "#shared/schemas/db";
 import Dexie from "dexie";
-const { liveQuery } = Dexie;
 
 export const useDailiesStore = defineStore("dailies", () => {
-  const currentDay = ref();
+  const activeDays = ref<{
+    classic: number | undefined;
+    ability: number | undefined;
+    grid: number | undefined;
+  }>({
+    classic: undefined,
+    ability: undefined,
+    grid: undefined,
+  });
 
   const { DEFAULT_ATTEMPTS } = useGameStore();
 
-  const currentDailyClassicData = useObservable(
-    from(currentDay).pipe(
-      switchMap((day) =>
-        from(
-          liveQuery(async () => {
-            const query = {
-              mode: "classic" as const,
-              ...(day ? { day } : { date: format(new Date(), "yyyy-MM-dd") }),
-            };
-            return await db.transaction(
-              "r",
-              "dailies",
-              "progress",
-              async () => {
-                const puzzle = await db.dailies.where(query).first();
-                if (!puzzle) return undefined;
-
-                const progress = await db.progress.get([puzzle.day, "classic"]);
-
-                return {
-                  ...puzzle,
-                  attempts: progress?.attempts ?? DEFAULT_ATTEMPTS,
-                  guessedItems: progress?.guessedItems || [],
-                  state: progress?.state,
-                };
-              },
-            );
-          }),
-        ),
-      ),
-    ),
-    { initialValue: undefined },
-  ) as Ref<FullClassicData | undefined>;
-
   const { updateDailyData } = useGameStore();
 
-  const currentDailyAbilityData = useObservable(
-    from(currentDay).pipe(
-      switchMap((day) =>
-        from(
-          liveQuery(async () => {
-            const query = {
-              mode: "ability" as const,
-              ...(day ? { day } : { date: format(new Date(), "yyyy-MM-dd") }),
-            };
-            return await db.transaction(
-              "r",
-              "dailies",
-              "progress",
-              async () => {
-                const puzzle = await db.dailies.where(query).first();
-                if (!puzzle) return undefined;
+  const { mode, isDailyMode, isDaily } = useGameMode();
 
-                const progress = await db.progress.get([puzzle.day, "ability"]);
+  const query = computed(() => {
+    if (!mode.value || !isDailyMode(mode.value))
+      throw createError("Invalid mode for daily query");
+    return {
+      mode: mode.value,
+      ...(activeDays.value[mode.value]
+        ? { day: activeDays.value[mode.value] }
+        : { date: format(new Date(), "yyyy-MM-dd") }),
+    };
+  });
 
-                return {
-                  ...puzzle,
-                  attempts: progress?.attempts ?? DEFAULT_ATTEMPTS,
-                  guessedItems: progress?.guessedItems || [],
-                  state: progress?.state,
-                  selectedMinigameAbility:
-                    progress?.selectedMinigameAbility || "",
-                };
-              },
-            );
-          }),
-        ),
-      ),
-    ),
-    {
-      initialValue: undefined,
-    },
-  ) as Ref<FullAbilityData | undefined>;
+  const currentDailyClassicData = useLiveQuery(async () => {
+    return await db.transaction("r", "dailies", "progress", async () => {
+      const puzzle = await db.dailies.where(query.value).first();
+      if (!puzzle) return undefined;
+
+      const progress = await db.progress.get([puzzle.day, "classic"]);
+
+      return {
+        ...puzzle,
+        attempts: progress?.attempts ?? DEFAULT_ATTEMPTS,
+        guessedItems: progress?.guessedItems || [],
+        state: progress?.state,
+      };
+    });
+  }, [toRef(activeDays.value, "classic"), isDaily]);
+
+  const currentDailyAbilityData = useLiveQuery(async () => {
+    return await db.transaction("r", "dailies", "progress", async () => {
+      const puzzle = await db.dailies.where(query.value).first();
+      if (!puzzle) return undefined;
+
+      const progress = await db.progress.get([puzzle.day, "ability"]);
+
+      return {
+        ...puzzle,
+        attempts: progress?.attempts ?? DEFAULT_ATTEMPTS,
+        guessedItems: progress?.guessedItems || [],
+        state: progress?.state,
+        selectedMinigameAbility: progress?.selectedMinigameAbility || "",
+      };
+    });
+  }, [toRef(activeDays.value, "ability"), isDaily]);
+  // isDaily is included in the deps to ensure game loads when switching from unlimited to daily
 
   watch(
     [currentDailyClassicData, currentDailyAbilityData],
     ([newClassicVal, newAbilityVal]) => {
       // this technically works but it needs a lot of improvements
-      if (newClassicVal && newAbilityVal) {
+      if (newClassicVal || newAbilityVal) {
         updateDailyData({
           ability: newAbilityVal,
           classic: newClassicVal,
@@ -96,10 +77,49 @@ export const useDailiesStore = defineStore("dailies", () => {
     },
   );
 
-  const currentDailyDate = computed(() => {
-    //! this is a temporary change to allow the app to still work, eventually I think this tracker should be individual for each daily game
-    return currentDailyClassicData.value?.date || null;
+  const { syncGridData, MAX_GRID_ATTEMPTS } = useGridGameStore();
+
+  const currentDailyGridData = useLiveQuery(async () => {
+    return await db.transaction("r", "dailies", "progress", async () => {
+      const puzzle = await db.dailies.where(query.value).first();
+      if (!puzzle) return undefined;
+
+      const progress = await db.progress.get([puzzle.day, "grid"]);
+
+      return {
+        ...puzzle,
+        attempts: progress?.attempts ?? MAX_GRID_ATTEMPTS,
+        state: progress?.state,
+        gridState: progress?.gridState || {},
+        hasSeenPopup: progress?.hasSeenPopup ?? false,
+      };
+    });
+  }, [toRef(activeDays.value, "grid"), isDaily]);
+
+  watch(currentDailyGridData, (newGridVal) => {
+    if (newGridVal) {
+      syncGridData(newGridVal);
+    }
   });
+
+  const currentDailyDate = computed(() => {
+    return {
+      classic: currentDailyClassicData.value?.date || null,
+      ability: currentDailyAbilityData.value?.date || null,
+      grid: currentDailyGridData.value?.date || null,
+    };
+  });
+
+  async function giveUpGridDaily() {
+    await db.progress
+      .where({
+        mode: "grid",
+        day: currentDailyGridData.value?.day,
+      })
+      .modify({
+        attempts: 0,
+      });
+  }
 
   const isLoadingDailies = ref(false);
 
@@ -142,7 +162,7 @@ export const useDailiesStore = defineStore("dailies", () => {
     for (const daily of dailyData) {
       const { puzzle, mode, ...rest } = daily;
       if (mode === "ability") {
-        const abilityPuzzle = puzzle as ClassicPuzzle;
+        const abilityPuzzle = puzzle as LegacyPuzzle;
         const ability = abilities.find(
           (ab) => ab.name === abilityPuzzle.answer,
         ) as Ability;
@@ -153,11 +173,19 @@ export const useDailiesStore = defineStore("dailies", () => {
         });
       }
       if (mode === "classic") {
-        const classicPuzzle = puzzle as ClassicPuzzle;
+        const classicPuzzle = puzzle as LegacyPuzzle;
         entries.push({
           itemToGuess: classicPuzzle.answer as WarframeName,
           mode,
           ...rest,
+        });
+      }
+      if (mode === "grid") {
+        const gridPuzzle = puzzle as GridPuzzle;
+        entries.push({
+          ...rest,
+          mode,
+          puzzle: gridPuzzle,
         });
       }
     }
@@ -165,12 +193,15 @@ export const useDailiesStore = defineStore("dailies", () => {
   }
 
   return {
-    currentDay,
+    activeDays,
+    query,
     currentDailyClassicData,
     currentDailyAbilityData,
+    currentDailyGridData,
     currentDailyDate,
     isLoadingDailies,
     getDailies,
+    giveUpGridDaily,
   };
 });
 

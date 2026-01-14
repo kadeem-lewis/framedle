@@ -10,12 +10,12 @@ useSeoMeta({
 
 const { t } = useI18n();
 
-const { itemToGuess } = storeToRefs(useGameStore());
+const { itemToGuess, guessedItems } = storeToRefs(useGameStore());
 const { initializeUnlimitedGame } = useGameStore();
-const { mode } = useGameMode();
+const { mode, isDaily } = useGameMode();
 const route = useRoute("ability-path");
 const { isGameOver } = storeToRefs(useGameStateStore());
-const { resetStreak } = useStatsStore();
+const { validateStreak } = useStatsStore();
 const { isLoadingDailies } = storeToRefs(useDailiesStore());
 
 await callOnce(
@@ -30,8 +30,10 @@ await callOnce(
 );
 
 onBeforeMount(() => {
-  resetStreak("ability");
+  validateStreak("ability");
 });
+
+useSubmission();
 
 // Loading state for the image
 const isImageLoading = ref(false);
@@ -66,12 +68,17 @@ onUnmounted(() => {
 const isLoading = computed(() => {
   return showLoadingSpinner.value || isLoadingDailies.value;
 });
+
+const { makeGuess } = useGuess();
 </script>
 <template>
   <div>
     <UiAppSpinner v-if="isLoading" />
     <div v-show="!isLoading">
-      <div v-if="mode" class="flex flex-col gap-4">
+      <div
+        v-if="mode === 'ability' || mode === 'abilityUnlimited'"
+        class="flex flex-col gap-4"
+      >
         <div v-if="itemToGuess[mode]" class="space-y-4">
           <RemainingGuesses />
           <UCard class="divide-y-0">
@@ -88,10 +95,15 @@ const isLoading = computed(() => {
               @loaded="handleImageLoaded"
             />
             <template #footer>
-              <WarframeSearch v-if="!isGameOver" :items="vanillaWarframes" />
+              <WarframeSearch
+                v-if="!isGameOver"
+                :items="vanillaWarframes"
+                :disabled-items="guessedItems[mode]"
+                @submit="makeGuess($event, mode)"
+              />
             </template>
           </UCard>
-
+          <GlobalStats v-if="isDaily" />
           <AbilityFeedbackArea v-if="!isGameOver" />
           <template v-else>
             <GameOverNavigation v-if="!mode.includes('Unlimited')" />

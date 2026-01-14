@@ -3,13 +3,28 @@ import z from "zod";
 const validateGridGuessSchema = z.object({
   rowCategoryId: z.string(),
   columnCategoryId: z.string(),
+  rowIndex: z.number().int().nonnegative().max(2),
+  colIndex: z.number().int().nonnegative().max(2),
   guessedWarframe: z.string(),
-  puzzleDate: z.string().optional(),
+  puzzleDate: z.iso.date().optional(),
   isUnlimited: z.boolean().default(false),
-  isCurrentDaily: z.boolean().optional(),
 });
 
-export default defineEventHandler(async (event) => {
+export default defineEventHandler<
+  Promise<
+    | {
+        status: number;
+        correct: true;
+        rarity: number;
+        message: string;
+      }
+    | {
+        status: number;
+        correct: false;
+        message: string;
+      }
+  >
+>(async (event) => {
   const body = await readValidatedBody(event, (body) =>
     validateGridGuessSchema.safeParse(body),
   );
@@ -23,9 +38,11 @@ export default defineEventHandler(async (event) => {
   const {
     rowCategoryId,
     columnCategoryId,
+    rowIndex,
+    colIndex,
     guessedWarframe,
+    puzzleDate,
     isUnlimited,
-    isCurrentDaily,
   } = body.data;
 
   const [idA, idB] = [rowCategoryId, columnCategoryId].sort();
@@ -55,10 +72,26 @@ export default defineEventHandler(async (event) => {
         warframe.name.toLowerCase() === guessedWarframe.toLowerCase(),
     );
     if (match) {
-      const total = categoryPair.totalGuesses || 1;
-      const rarityScore = Math.round((match.guessCount / total) * 100);
-      if (!isUnlimited && isCurrentDaily) {
-        // Redis call to update guess count for the guessed warframe
+      let rarityScore = 0;
+      if (!isUnlimited) {
+        const redis = await useRedis();
+        const rarityKey = `daily:rarity:${puzzleDate}:${rowIndex}-${colIndex}`;
+        const normalizedGuess = match.name;
+
+        const multi = redis.multi();
+
+        multi.hIncrBy(rarityKey, "total", 1);
+        multi.hIncrBy(rarityKey, normalizedGuess, 1);
+
+        const results = await multi.exec();
+        const totalGuesses = Number(results[0]);
+        const specificCount = Number(results[1]);
+
+        if (totalGuesses > 0) {
+          rarityScore = (specificCount / totalGuesses) * 100;
+        }
+
+        console.log(totalGuesses, specificCount);
       }
       return {
         status: 200,
@@ -78,7 +111,5 @@ export default defineEventHandler(async (event) => {
       statusCode: 500,
       statusMessage: "Failed to validate grid guess",
     });
-  } finally {
-    await useDrizzle().$client.end();
   }
 });

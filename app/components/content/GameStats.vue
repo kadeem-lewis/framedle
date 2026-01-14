@@ -1,85 +1,78 @@
 <script setup lang="ts">
 import type { ApexOptions } from "apexcharts";
+import { defu } from "defu";
 
 const route = useRoute();
 const { stats } = storeToRefs(useStatsStore());
 const { DEFAULT_ATTEMPTS } = useGameStore();
+const { MAX_GRID_ATTEMPTS } = useGridGameStore();
+const { isDaily, gameType } = useGameMode();
 
-const modeStats = computed(() => {
-  if (route.name === "ability-path") {
-    return stats.value.ability;
-  }
-  if (route.name === "classic-path") {
-    return stats.value.classic;
-  }
-  return {
-    plays: 0,
-    wins: 0,
-    streak: 0,
-    guesses: [0, 0, 0, 0, 0, 0],
-    maxStreak: 0,
-  };
+const legacyStats = computed<LegacyModeStats | null>(() => {
+  if (route.name === "ability-path") return stats.value.ability;
+  if (route.name === "classic-path") return stats.value.classic;
+  return null;
+});
+
+const gridStats = computed(() => stats.value.grid);
+
+const scoresDistribution = computed(() => {
+  const base = Object.fromEntries(
+    Array.from({ length: MAX_GRID_ATTEMPTS }, (_, i) => [i, 0]),
+  );
+  return { ...base, ...gridStats.value.scoreDistribution };
+});
+
+const activeStats = computed(() => {
+  if (gameType.value === "grid") return gridStats.value;
+  return legacyStats.value || { plays: 0, streak: 0, maxStreak: 0 };
 });
 
 const winPercentage = computed(() => {
-  return modeStats.value.plays
-    ? ((modeStats.value.wins / modeStats.value.plays) * 100).toFixed(2)
-    : 0;
+  if (!legacyStats.value || !legacyStats.value.plays) return 0;
+  return ((legacyStats.value.wins / legacyStats.value.plays) * 100).toFixed(2);
 });
 
-const colorMode = useColorMode();
+const chart = useTemplateRef("chart");
+const { baseOptions } = useChartConfig(chart);
 
-const chartOptions: ApexOptions = {
-  chart: {
-    toolbar: {
-      show: false,
-    },
-  },
-  xaxis: {
-    categories: Array.from({ length: DEFAULT_ATTEMPTS }, (_, i) => i + 1),
-    labels: {
-      show: false,
-    },
-    axisTicks: {
-      show: false,
-    },
-  },
-  plotOptions: {
-    bar: {
-      horizontal: true,
-      dataLabels: {
-        position: "top",
+const chartOptions = computed<ApexOptions>(() => {
+  return defu(
+    {
+      xaxis: {
+        categories: Array.from({ length: DEFAULT_ATTEMPTS }, (_, i) => i + 1),
+        labels: {
+          show: false,
+        },
       },
-      borderRadius: 3,
-      borderRadiusApplication: "end",
+      plotOptions: {
+        bar: {
+          horizontal: true,
+          dataLabels: {
+            position: "top",
+          },
+        },
+      },
+      dataLabels: {
+        textAnchor: "start",
+        formatter: (val: number) => (val === 0 ? "" : val),
+        offsetX: -10,
+      },
     },
-  },
-  dataLabels: {
-    enabled: true,
-    offsetX: -10,
-    style: {
-      colors: [colorMode.value === "dark" ? "#fff" : "#000"],
-    },
-  },
-  tooltip: {
-    enabled: false,
-  },
-  grid: {
-    show: false,
-  },
-  colors: [colorMode.value === "dark" ? "#fbbf24" : "#f59e0b"],
-};
+    baseOptions.value,
+  );
+});
 
-const series = [
+const series = computed(() => [
   {
     name: "Guesses",
-    data: modeStats.value.guesses,
+    data: legacyStats.value?.guesses || [],
   },
-];
+]);
 
 const isOpen = ref(false);
 
-const { handleStatsShare, copied } = useShare();
+const { handleStatsShare, statsCopied } = useShareText();
 const { resetStats } = useStatsStore();
 
 function handleResetStats() {
@@ -125,23 +118,51 @@ function handleMigrationClick() {
       </template>
     </UBanner>
     <div class="grid grid-cols-6 gap-4">
-      <UiStatsCard label="Played" :value="modeStats.plays" class="col-span-2" />
-      <UiStatsCard label="Wins" :value="modeStats.wins" class="col-span-2" />
-      <UiStatsCard label="Win %" :value="winPercentage" class="col-span-2" />
+      <UiStatsCard
+        label="Played"
+        :value="activeStats.plays"
+        :class="[gameType === 'grid' ? 'col-span-3' : 'col-span-2']"
+      />
+      <template v-if="legacyStats && isDaily">
+        <UiStatsCard
+          label="Wins"
+          :value="legacyStats.wins"
+          class="col-span-2"
+        />
+        <UiStatsCard label="Win %" :value="winPercentage" class="col-span-2" />
+      </template>
+      <UiStatsCard
+        v-if="gameType === 'grid'"
+        label="Average Score"
+        :value="gridStats.averageScore"
+        class="col-span-3"
+      />
       <UiStatsCard
         label="Current Streak"
-        :value="modeStats.streak"
+        :value="activeStats.streak"
         class="col-span-3"
       />
       <UiStatsCard
         label="Longest Streak"
-        :value="modeStats.maxStreak"
+        :value="activeStats.maxStreak"
         class="col-span-3"
       />
     </div>
     <div class="space-y-4">
-      <p class="font-semibold uppercase">Guess Distribution</p>
-      <apexchart type="bar" :options="chartOptions" :series="series" />
+      <template v-if="gameType === 'ability' || gameType === 'classic'">
+        <p class="font-semibold uppercase">Guess Distribution</p>
+        <apexchart
+          ref="chart"
+          type="bar"
+          :options="chartOptions"
+          :series="series"
+        />
+      </template>
+      <p class="font-semibold uppercase">Scores Distribution</p>
+      <ScoresDistributionChart
+        v-if="gameType === 'grid'"
+        :scores="scoresDistribution"
+      />
     </div>
     <div class="flex justify-center gap-4">
       <UButton
@@ -150,35 +171,20 @@ function handleMigrationClick() {
         class="uppercase"
         @click="handleStatsShare"
       >
-        <span v-if="!copied" class="flex items-center gap-1">
+        <span v-if="!statsCopied" class="flex items-center gap-1">
           <UIcon name="i-heroicons-share-solid" class="size-5" />
           Share
         </span>
         <span v-else>Copied</span>
       </UButton>
-      <UPopover
-        v-model:open="isOpen"
-        :content="{ side: 'top' }"
-        arrow
-        class="rounded-none"
+      <UiConfirmPopup
+        title="Are you sure you want to clear your stats?"
+        success-label="Delete"
+        cancel-label="Cancel"
+        @confirm="handleResetStats"
       >
         <UButton variant="outline" size="lg" class="uppercase">Reset</UButton>
-        <template #content>
-          <div class="flex flex-col gap-1 px-3 py-2">
-            <p class="font-semibold">
-              Are you sure you want to clear your stats?
-            </p>
-            <div class="flex justify-end gap-2">
-              <UButton class="uppercase" @click="isOpen = false"
-                >Cancel</UButton
-              >
-              <UButton color="error" class="uppercase" @click="handleResetStats"
-                >Delete</UButton
-              >
-            </div>
-          </div>
-        </template>
-      </UPopover>
+      </UiConfirmPopup>
     </div>
   </div>
 </template>

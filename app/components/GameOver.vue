@@ -1,35 +1,17 @@
 <script setup lang="ts">
-import { format, startOfTomorrow } from "date-fns";
+import { startOfTomorrow } from "date-fns";
 import party from "party-js";
 import type { Ability } from "#shared/schemas/warframe";
 
-const { itemToGuess, guessedItems, attempts } = storeToRefs(useGameStore());
+const { itemToGuess, guessedItems, attempts, correctWarframe, answer } =
+  storeToRefs(useGameStore());
 const { resetCurrentGame, DEFAULT_ATTEMPTS } = useGameStore();
 
-const { mode, isDaily } = useGameMode();
-
-const correctWarframe = computed(() => {
-  const gameMode = mode.value as keyof typeof itemToGuess.value;
-  if (!gameMode) throw createError("Mode is not set");
-  if (gameMode === "ability" || gameMode === "abilityUnlimited") {
-    return getWarframe(itemToGuess.value[gameMode]!.belongsTo);
-  }
-  return getWarframe(itemToGuess.value[gameMode]!);
-});
+const { mode, isDaily, isLegacyMode } = useGameMode();
 
 const showGuesses = ref(false);
 
-const { hasWon, isGameOver, currentGameState } =
-  storeToRefs(useGameStateStore());
-
-const answer = computed(() => {
-  if (!mode.value) throw createError("Mode is not set");
-  if (mode.value === "ability" || mode.value === "abilityUnlimited") {
-    return itemToGuess.value[mode.value]?.belongsTo;
-  } else {
-    return itemToGuess.value[mode.value];
-  }
-});
+const { hasWon, currentGameState } = storeToRefs(useGameStateStore());
 
 const { openDialog } = useDialog();
 
@@ -39,64 +21,13 @@ function handleStatsClick() {
 
 const gameOverCard = useTemplateRef("gameOverCard");
 
-watchEffect(() => {
-  if (mode.value && isGameOver.value && gameOverCard.value) {
-    gameOverCard.value.scrollIntoView({ behavior: "smooth", block: "center" });
-    gameOverCard.value.focus();
-  }
-});
-
-const { updateStatsOnGameOver } = useStatsStore();
-const { proxy } = useScriptUmamiAnalytics();
-watchEffect(() => {
-  if (
-    mode.value &&
-    (currentGameState.value === GameStatus.WON ||
-      currentGameState.value === GameStatus.LOST)
-  ) {
-    updateStatsOnGameOver();
-    proxy.track("completed game", { mode: mode.value });
-  }
-});
-
-watchEffect(() => {
-  if (!mode.value || !gameOverCard.value) return;
-  // guessed items check is here to make sure confetti doesn't trigger prematurely
-  if (
-    currentGameState.value === GameStatus.WON &&
-    guessedItems.value[mode.value].length > 0
-  ) {
-    party.confetti(gameOverCard.value);
-  }
-});
-
-const { currentDay } = storeToRefs(useDailiesStore());
-
-watchEffect(async () => {
-  if (!mode.value) return;
-
-  // Only for daily modes
-  if (!isDaily.value) return;
-
-  // Only when state changes to WON or LOST (not ACTIVE or *_PREVIOUS)
-  if (
-    currentGameState.value === GameStatus.WON ||
-    currentGameState.value === GameStatus.LOST
-  ) {
-    await db.progress
-      .where({
-        mode: mode.value,
-        ...(currentDay.value
-          ? { day: currentDay.value }
-          : { date: format(new Date(), "yyyy-MM-dd") }),
-      })
-      .modify({
-        state: currentGameState.value,
-      })
-      .catch((e) => {
-        console.error("Failed to update daily state", e);
-      });
-  }
+onMounted(() => {
+  nextTick(() => {
+    gameOverCard.value?.scrollIntoView({ behavior: "smooth", block: "center" });
+    if (currentGameState.value === GameStatus.WON) {
+      party.confetti(gameOverCard.value!);
+    }
+  });
 });
 
 const route = useRoute();
@@ -119,7 +50,7 @@ const differentMode = computed(() => {
 <template>
   <div ref="gameOverCard">
     <UCard
-      v-if="mode"
+      v-if="mode && isLegacyMode(mode)"
       :class="[
         'border-2',
         { 'border-success': hasWon, 'border-error': !hasWon },
@@ -179,7 +110,10 @@ const differentMode = computed(() => {
           @click="resetCurrentGame"
           >New Game</UButton
         >
-        <ShareButton />
+        <div class="my-2 flex flex-col gap-2">
+          <p class="font-semibold uppercase">Share your Results</p>
+          <ShareOptions />
+        </div>
         <div v-if="mode === 'ability' || mode === 'abilityUnlimited'">
           <UButton variant="link" @click="showGuesses = !showGuesses"
             >{{ showGuesses ? "Hide" : "Show" }} guesses</UButton

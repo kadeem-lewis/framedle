@@ -1,5 +1,13 @@
 # Changelog
 
+## v1.0.0 - January 16th, 2026
+
+### Bug fixes
+
+- Fixed Excalibur Umbra being missing from game
+- Fixed shared classic game results not including playstyle category
+- Fixed games registering as won multiple times when reloading or switching modes after completion
+
 ## v0.3.5 - December 19th, 2025
 
 ### Bug Fixes

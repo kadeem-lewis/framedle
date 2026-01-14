@@ -56,7 +56,7 @@ export const warframeSchema = z.object({
   progenitor: z.enum(progenitorElements),
   isPrime: z.boolean(),
   conclave: z.boolean(),
-  vaulted: z.boolean().optional(),
+  vaulted: z.union([z.boolean(), z.string()]).optional(),
   playstyle: z.array(z.enum(playstyles)),
   exalted: z.array(z.string()).optional(),
 });

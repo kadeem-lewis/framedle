@@ -53,7 +53,7 @@ const tooltipStyles = computed(() => {
     <div
       tabindex="0"
       :class="[
-        'relative z-0 min-h-12 w-full border-2 font-medium break-words text-white shadow-inner transition-colors',
+        'relative z-0 min-h-12 w-full border-2 font-medium wrap-break-word text-white shadow-inner transition-colors',
         {
           'border-neutral-500 bg-white/75 dark:border-neutral-700 dark:bg-neutral-900/75':
             variant === 'neutral',

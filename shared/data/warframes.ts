@@ -1116,6 +1116,60 @@ export const warframes = {
     playstyle: ["Damage"],
     exalted: ["/Lotus/Powersuits/Excalibur/DoomSwordPrime"],
   },
+  "Excalibur Umbra": {
+    name: "Excalibur Umbra",
+    category: "Warframes",
+    type: "Warframe",
+    health: 270,
+    shield: 270,
+    armor: 315,
+    energy: 175,
+    sprint: 1,
+    aura: "Madurai",
+    releaseDate: "2018-06-15",
+    imageName: "excalibur-umbra-d421af56c1.png",
+    abilities: [
+      {
+        uniqueName:
+          "/Lotus/Powersuits/PowersuitAbilities/UmbraSlashDashNewAbility",
+        name: "Slash Dash",
+        description:
+          "Slash and dash through enemies alongside a radial specter. The powerful Exalted Blade’s slashes inflict <DT_SLASH_COLOR>Slash Status.",
+        imageName: "slash-dash-4fd80938ec.png",
+      },
+      {
+        uniqueName:
+          "/Lotus/Powersuits/PowersuitAbilities/UmbraRadialRoarAbility",
+        name: "Radial Howl",
+        description:
+          "Let out ferocious howl that stuns nearby enemies and causes Sentients to shed any built up resistances.",
+        imageName: "radial-howl-1671e5fdcb.png",
+      },
+      {
+        uniqueName:
+          "/Lotus/Powersuits/PowersuitAbilities/UmbraRadialJavelinAbility",
+        name: "Radial Javelin",
+        description:
+          "Radial javelins impale nearby enemies, inflicting <DT_SLASH_COLOR>Slash Status.",
+        imageName: "radial-javelin-f78f565ba0.png",
+      },
+      {
+        uniqueName:
+          "/Lotus/Powersuits/PowersuitAbilities/UmbraSwordOfDoomAbility",
+        name: "Exalted Blade",
+        description: "Summon a sword of pure light and immense power.",
+        imageName: "exalted-blade-1cccdc8d7b.png",
+      },
+    ],
+    sex: "Male",
+    variant: "Umbra",
+    progenitor: "Electricity",
+    isPrime: false,
+    conclave: true,
+    vaulted: "N/A",
+    playstyle: ["Damage"],
+    exalted: ["/Lotus/Powersuits/Excalibur/DoomSwordUmbra"],
+  },
   Frost: {
     name: "Frost",
     category: "Warframes",

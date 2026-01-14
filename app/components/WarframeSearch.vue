@@ -1,23 +1,24 @@
 <script setup lang="ts">
 import Fuse from "fuse.js";
 
-const props = defineProps<{
+const { items, disabledItems = [] } = defineProps<{
   items: WarframeName[];
+  disabledItems?: WarframeName[];
+}>();
+
+const emit = defineEmits<{
+  (e: "submit", selectedWarframe: WarframeName): void;
 }>();
 
 const MAX_VISIBLE_ITEMS = 6 as const;
 
-const { guessedItems } = storeToRefs(useGameStore());
-
-const { mode } = useGameMode();
-
-const items = computed(() => {
-  return props.items.filter(
-    (item) =>
-      !guessedItems.value[mode.value!].some(
-        (guessedItem) => guessedItem === item,
-      ),
-  );
+const searchItems = computed(() => {
+  const disabledSet = new Set(disabledItems);
+  return items.map((item) => ({
+    label: item,
+    value: item,
+    disabled: disabledSet.has(item),
+  }));
 });
 
 const selectedWarframe = ref<WarframeName>();
@@ -25,8 +26,10 @@ const query = ref("");
 
 const fuse = computed(
   () =>
-    new Fuse(items.value, {
-      threshold: 0.4,
+    new Fuse(searchItems.value, {
+      threshold: 0.3,
+      keys: ["label"],
+      minMatchCharLength: 2,
     }),
 );
 
@@ -55,22 +58,20 @@ watch(query, (newQuery) => {
   isOpen.value = newQuery.length > 0 && fullSearchResults.value.length > 0;
 
   if (isOpen.value) {
-    const exactMatch = items.value.find(
-      (item) => item.toLowerCase() === newQuery.toLowerCase(),
+    const exactMatch = searchItems.value.find(
+      (item) =>
+        item.label.toLowerCase() === newQuery.toLowerCase() && !item.disabled,
     );
     if (exactMatch) {
-      selectedWarframe.value = exactMatch;
+      selectedWarframe.value = exactMatch.value;
     }
   }
 });
 
-const { makeGuess } = useGuess();
-
 const handleSubmit = async () => {
-  if (!mode.value) throw createError("Mode is not set");
   if (!selectedWarframe.value) return;
 
-  await makeGuess(selectedWarframe.value, mode.value);
+  emit("submit", selectedWarframe.value);
   selectedWarframe.value = undefined;
 };
 </script>
@@ -80,6 +81,8 @@ const handleSubmit = async () => {
       v-model="selectedWarframe"
       v-model:search-term="query"
       v-model:open="isOpen"
+      value-key="value"
+      label-key="label"
       name="warframe-search"
       :reset-search-term-on-blur="false"
       :items="filteredItems"
@@ -88,6 +91,7 @@ const handleSubmit = async () => {
       size="lg"
       required
       ignore-filter
+      autofocus
       :ui="{
         base: 'rounded-none',
         content:
@@ -98,12 +102,12 @@ const handleSubmit = async () => {
       <template #item="{ item }">
         <div class="flex w-full items-center justify-between gap-2">
           <p class="font-semibold uppercase">
-            {{ getWarframe(item as WarframeName).name }}
+            {{ item.label }}
           </p>
           <NuxtImg
             format="webp"
-            :src="`https://cdn.warframestat.us/img/${getWarframe(item as WarframeName).imageName}`"
-            :alt="getWarframe(item as WarframeName).name"
+            :src="`https://cdn.warframestat.us/img/${getWarframe(item.value).imageName}`"
+            :alt="item.label"
             placeholder
             height="64"
             class="h-16"

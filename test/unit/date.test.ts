@@ -1,5 +1,5 @@
 import { expect, describe, it } from "vitest";
-import { parseReleaseDate } from "../../app/utils/date.ts";
+import { parseReleaseDate } from "../../shared/utils/date.ts";
 
 describe("parseReleaseDate", () => {
   it("should return only the year", () => {

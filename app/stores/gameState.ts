@@ -1,5 +1,3 @@
-import type { GameMode } from "@/composables/useGameMode";
-
 export const GameStatus = {
   ACTIVE: "active",
   WON: "won",
@@ -14,6 +12,7 @@ export const useGameStateStore = defineStore(
   "gameState",
   () => {
     const { itemToGuess, guessedItems, attempts } = storeToRefs(useGameStore());
+    const { currentGame } = storeToRefs(useGridGameStore());
 
     const { mode } = useGameMode();
 
@@ -22,13 +21,54 @@ export const useGameStateStore = defineStore(
       classicUnlimited: GameStatus.ACTIVE,
       ability: GameStatus.ACTIVE,
       abilityUnlimited: GameStatus.ACTIVE,
+      grid: GameStatus.ACTIVE,
+      gridUnlimited: GameStatus.ACTIVE,
     });
 
+    function updateStatus(mode: GameMode, won: boolean, lost: boolean) {
+      const current = gameState.value[mode];
+
+      if (won) {
+        if (current === GameStatus.ACTIVE)
+          gameState.value[mode] = GameStatus.WON;
+        else if (current === GameStatus.WON)
+          gameState.value[mode] = GameStatus.WON_PREVIOUS;
+      } else if (lost) {
+        if (current === GameStatus.ACTIVE)
+          gameState.value[mode] = GameStatus.LOST;
+        else if (current === GameStatus.LOST)
+          gameState.value[mode] = GameStatus.LOST_PREVIOUS;
+      } else {
+        if (current !== GameStatus.ACTIVE) {
+          gameState.value[mode] = GameStatus.ACTIVE;
+        }
+      }
+    }
+
+    function updateGridState(mode: GameMode) {
+      if (!currentGame.value.config) return;
+
+      const totalCells =
+        currentGame.value.config.rows.length *
+        currentGame.value.config.columns.length;
+
+      const correctCells = Object.values(currentGame.value.grid).filter(
+        (cell) => cell,
+      );
+
+      const isWin = totalCells > 0 && correctCells.length === totalCells;
+      const isLoss = currentGame.value.attempts <= 0 && !isWin;
+
+      updateStatus(mode, isWin, isLoss);
+    }
+
     function updateGameState(
-      gameMode: GameMode,
+      gameMode: LegacyMode,
       currentAttempts: number,
       currentGuessedItems: WarframeName[],
     ) {
+      if (!itemToGuess.value[gameMode]) return;
+
       let won = false;
       if (gameMode === "classic" || gameMode === "classicUnlimited") {
         won = currentGuessedItems.some(
@@ -42,35 +82,25 @@ export const useGameStateStore = defineStore(
         );
       }
 
-      if (won) {
-        if (gameState.value[gameMode] === GameStatus.ACTIVE) {
-          gameState.value[gameMode] = GameStatus.WON;
-        } else if (gameState.value[gameMode] === GameStatus.WON) {
-          gameState.value[gameMode] = GameStatus.WON_PREVIOUS;
-        }
-        return;
-      }
+      const isLoss = currentAttempts === 0 && !won;
 
-      if (currentAttempts === 0) {
-        if (gameState.value[gameMode] === GameStatus.ACTIVE) {
-          gameState.value[gameMode] = GameStatus.LOST;
-        } else if (gameState.value[gameMode] === GameStatus.LOST) {
-          gameState.value[gameMode] = GameStatus.LOST_PREVIOUS;
-        }
-        return;
-      }
-
-      gameState.value[gameMode] = GameStatus.ACTIVE;
+      updateStatus(gameMode, won, isLoss);
     }
+
+    const { isLegacyMode } = useGameMode();
 
     watchEffect(() => {
       const gameMode = mode.value;
       if (!gameMode) return;
-      updateGameState(
-        gameMode,
-        attempts.value[gameMode],
-        guessedItems.value[gameMode],
-      );
+      if (isLegacyMode(gameMode)) {
+        updateGameState(
+          gameMode,
+          attempts.value[gameMode],
+          guessedItems.value[gameMode],
+        );
+      } else {
+        updateGridState(gameMode);
+      }
     });
 
     const hasWon = computed(() => {

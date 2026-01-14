@@ -21,6 +21,9 @@ export default defineNuxtConfig({
 
   runtimeConfig: {
     databaseUrl: "",
+    redis: {
+      url: "",
+    },
     public: {
       scripts: {
         umamiAnalytics: {
@@ -39,6 +42,7 @@ export default defineNuxtConfig({
     "/classic/**": { ssr: false },
     "/ability/**": { ssr: false },
     "/archive/**": { ssr: false },
+    "/grid/**": { ssr: false },
   },
 
   app: {
@@ -72,6 +76,7 @@ export default defineNuxtConfig({
         "success",
         "warning",
         "error",
+        "reddit",
       ],
     },
   },

@@ -32,17 +32,12 @@ services:
     networks:
       - web
     secrets:
-      - database_url_staging
-      - sentry_auth_token
+      - doppler_token
     environment:
-      - DATABASE_URL_FILE=/run/secrets/database_url_staging
-      - SENTRY_AUTH_TOKEN_FILE=/run/secrets/sentry_auth_token
-      - NUXT_PUBLIC_SCRIPTS_UMAMI_ANALYTICS_WEBSITE_ID=28866016-a151-4d95-bc2e-c31779a8aaad
-      - NUXT_PUBLIC_SCRIPTS_UMAMI_ANALYTICS_SCRIPT_INPUT_SRC=https://analytics.kadeemlewis.com/script.js
+      - DOPPLER_TOKEN_FILE=/run/secrets/doppler_token
     entrypoint: > # make secrets available to the app
-      sh -c 'export NUXT_DATABASE_URL="$$(cat $$DATABASE_URL_FILE)"
-      && export SENTRY_AUTH_TOKEN="$$(cat $$SENTRY_AUTH_TOKEN_FILE)"
-      && exec node --import ./.output/server/sentry.server.config.mjs ./.output/server/index.mjs'
+      sh -c 'export DOPPLER_TOKEN="$$(cat $$DOPPLER_TOKEN_FILE)"
+      && exec doppler run -- node --import ./.output/server/sentry.server.config.mjs ./.output/server/index.mjs'
     deploy:
       replicas: 2
       restart_policy:
@@ -126,5 +121,5 @@ secrets:
     external: true
   sentry_auth_token:
     external: true
-  database_url_staging:
+  doppler_token:
     external: true

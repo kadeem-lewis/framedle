@@ -20,7 +20,6 @@ const { cards } = useModeCards();
         :key="card.label"
         :card="card"
         :show-stats="true"
-        class="last:pointer-events-none"
       />
     </div>
   </div>

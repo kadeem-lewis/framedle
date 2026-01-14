@@ -31,22 +31,45 @@ export const useGameStore = defineStore(
       abilityUnlimited: "",
     });
 
+    const correctWarframe = computed(() => {
+      const gameMode = mode.value as keyof typeof itemToGuess.value;
+      if (!gameMode) throw createError("Mode is not set");
+      if (gameMode === "ability" || gameMode === "abilityUnlimited") {
+        return getWarframe(itemToGuess.value[gameMode]!.belongsTo);
+      }
+      return getWarframe(itemToGuess.value[gameMode]!);
+    });
+
+    const answer = computed(() => {
+      if (!mode.value) throw createError("Mode is not set");
+      if (!isLegacyMode(mode.value)) throw createError("Not a legacy mode");
+      if (mode.value === "ability" || mode.value === "abilityUnlimited") {
+        return itemToGuess.value[mode.value]?.belongsTo;
+      } else {
+        return itemToGuess.value[mode.value];
+      }
+    });
+
     function updateDailyData(data: {
-      ability: FullAbilityData;
-      classic: FullClassicData;
+      ability?: FullAbilityData;
+      classic?: FullClassicData;
     }) {
-      itemToGuess.value.classic = data.classic.itemToGuess;
-      itemToGuess.value.ability = data.ability.itemToGuess;
-      attempts.value.classic = data.classic.attempts;
-      attempts.value.ability = data.ability.attempts;
-      guessedItems.value.classic = data.classic.guessedItems;
-      guessedItems.value.ability = data.ability.guessedItems;
-      selectedMinigameAbility.value.ability =
-        data.ability.selectedMinigameAbility;
+      if (data.classic) {
+        itemToGuess.value.classic = data.classic.itemToGuess;
+        attempts.value.classic = data.classic.attempts;
+        guessedItems.value.classic = data.classic.guessedItems;
+      }
+      if (data.ability) {
+        itemToGuess.value.ability = data.ability.itemToGuess;
+        attempts.value.ability = data.ability.attempts;
+        guessedItems.value.ability = data.ability.guessedItems;
+        selectedMinigameAbility.value.ability =
+          data.ability.selectedMinigameAbility;
+      }
     }
 
     const { decode } = useEncoder();
-    const { mode, gameType, gameVariant } = useGameMode();
+    const { mode, gameType, gameVariant, isLegacyMode } = useGameMode();
 
     function initializeUnlimitedGame(
       mode: MaybeRef<GameMode>,
@@ -57,6 +80,12 @@ export const useGameStore = defineStore(
       let newItem: WarframeName | Ability | null = null;
       let needsReset = false;
       const { forceReset = false } = options;
+
+      if (!isLegacyMode(currentMode)) {
+        console.error("Can only initialize legacy unlimited modes");
+        return;
+      }
+
       if (queryValue) {
         if (currentMode === "classicUnlimited") {
           const decoded = decode(queryValue) as WarframeName;
@@ -120,6 +149,8 @@ export const useGameStore = defineStore(
       guessedItems,
       DEFAULT_ATTEMPTS,
       selectedMinigameAbility,
+      correctWarframe,
+      answer,
       updateDailyData,
       initializeUnlimitedGame,
       resetCurrentGame,

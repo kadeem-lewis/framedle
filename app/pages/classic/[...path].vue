@@ -14,7 +14,7 @@ const { itemToGuess, guessedItems, attempts } = storeToRefs(useGameStore());
 const { DEFAULT_ATTEMPTS, initializeUnlimitedGame } = useGameStore();
 const { isLoadingDailies } = storeToRefs(useDailiesStore());
 
-const { mode } = useGameMode();
+const { mode, isDaily } = useGameMode();
 const { isGameOver } = storeToRefs(useGameStateStore());
 const route = useRoute("classic-path");
 
@@ -29,11 +29,13 @@ await callOnce(
   },
 );
 
-const { resetStreak } = useStatsStore();
+const { validateStreak } = useStatsStore();
 
 onBeforeMount(() => {
-  resetStreak("classic");
+  validateStreak("classic");
 });
+
+useSubmission();
 
 const feedbackLabels = [
   t("classic.feedback.name"),
@@ -55,6 +57,8 @@ const tooltipMap = {
   playstyle: "Damage, Stealth, Support, Survival, etc...",
   variant: "Standard, Prime or Umbra",
 };
+
+const { makeGuess } = useGuess();
 </script>
 <template>
   <div
@@ -79,9 +83,15 @@ const tooltipMap = {
               {{ t("classic.subtitle") }}
             </p>
           </template>
-          <WarframeSearch v-if="!isGameOver" :items="warframeNames" />
+          <WarframeSearch
+            v-if="!isGameOver"
+            :items="warframeNames"
+            :disabled-items="guessedItems[mode]"
+            @submit="makeGuess($event, mode)"
+          />
         </UCard>
-        <template v-if="guessedItems[mode].length">
+        <GlobalStats v-if="isDaily" />
+        <template v-if="guessedItems[mode].length && itemToGuess[mode]">
           <div class="space-y-4 overflow-x-auto md:overflow-x-visible">
             <div
               class="grid w-[190%] grid-cols-8 gap-1 border border-neutral-200 bg-white/75 py-0.5 text-sm uppercase md:-ml-[45%] md:text-base dark:border-neutral-800 dark:bg-neutral-900/75"

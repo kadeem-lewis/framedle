@@ -56,16 +56,22 @@ const items = [
   },
 ];
 
-const firstTimePlaying = useStorage("firstTimePlaying", {
-  classic: true,
-  ability: true,
-});
+const firstTimePlaying = useStorage(
+  "firstTimePlaying",
+  {
+    classic: true,
+    ability: true,
+    grid: true,
+  },
+  localStorage,
+  { mergeDefaults: true },
+);
 
 watchEffect(() => {
-  const currentRoute = route.name as "ability" | "classic";
-  if (firstTimePlaying.value[currentRoute]) {
+  if (!gameType.value) return;
+  if (firstTimePlaying.value[gameType.value]) {
     openDialog(dialogOptions.INSTRUCTIONS);
-    firstTimePlaying.value[currentRoute] = false;
+    firstTimePlaying.value[gameType.value] = false;
   }
 });
 </script>

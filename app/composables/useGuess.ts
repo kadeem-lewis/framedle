@@ -117,7 +117,6 @@ export function useGuess() {
           colId: toValue(column),
           value: null,
           invalidGuesses: [],
-          status: response.correct ? "correct" : "incorrect",
         };
       }
 

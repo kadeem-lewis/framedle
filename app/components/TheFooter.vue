@@ -9,6 +9,13 @@ const year = ref(new Date().getFullYear());
 
 const items = [
   {
+    srText: "About Game",
+    icon: "i-mdi-information-variant",
+    color: "neutral" as const,
+    class: "",
+    command: () => openDialog(dialogOptions.ABOUT),
+  },
+  {
     srText: "discord invite link",
     icon: "my-icon-discord",
     color: "discord" as const,
@@ -29,13 +36,6 @@ const items = [
     command: () => {
       proxy.track("clicked footer button", { name: "Bluesky" });
     },
-  },
-  {
-    srText: "About Game",
-    icon: "i-mdi-information-variant",
-    color: "neutral" as const,
-    class: "",
-    command: () => openDialog(dialogOptions.ABOUT),
   },
   {
     srText: "framedle subreddit",

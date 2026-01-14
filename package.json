@@ -5,7 +5,7 @@
   "version": "0.3.5",
   "scripts": {
     "build": "NODE_OPTIONS=--max_old_space_size=8192 nuxt build",
-    "dev": "nuxt dev",
+    "dev": "doppler run -- nuxt dev",
     "generate": "nuxt generate",
     "start": "node --import ./.output/server/sentry.server.config.mjs .output/server/index.mjs",
     "preview": "nuxt preview",

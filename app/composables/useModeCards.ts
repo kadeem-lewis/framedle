@@ -26,7 +26,7 @@ export function useModeCards() {
       route: "",
       source: "/BuildIcon.png",
       background: img("/backgrounds/orbiter.jpg", { format: "webp" }),
-      description: "Coming January 12th",
+      description: "Coming January 17th",
       streak: 0,
     },
   ]);

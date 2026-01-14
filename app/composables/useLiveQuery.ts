@@ -1,4 +1,5 @@
-import { liveQuery } from "dexie";
+import { Dexie } from "dexie";
+const { liveQuery } = Dexie;
 
 interface UseObservableOptions {
   onError?: (err: unknown) => void;

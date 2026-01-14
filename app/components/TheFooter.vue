@@ -60,14 +60,14 @@ const items = [
         @click="proxy.track('clicked footer button', { name: 'Ko-fi' })"
         ><NuxtImg
           height="40"
-          class="h-10 border-0 hover:brightness-75"
+          class="h-10 border-0 hover:brightness-110 dark:hover:brightness-75"
           src="/KofiBadge.png"
           alt="Buy Me a Coffee at ko-fi.com"
       /></NuxtLink>
       <NuxtLink href="/android"
         ><NuxtImg
           height="40"
-          class="h-10 border-0 hover:brightness-75"
+          class="h-10 border-0 hover:brightness-110 dark:hover:brightness-75"
           src="/PreRegisterOnGooglePlayBadge.png"
           alt="Pre-register on Google Play"
           @click="

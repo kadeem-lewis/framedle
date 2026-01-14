@@ -162,7 +162,7 @@ const accuracyMap = computed(() => {
               <div
                 v-for="(cell, j) in row"
                 :key="j"
-                class="bg-elevated border-accented flex min-h-28 items-center justify-center border-dashed p-1 text-center text-lg font-semibold"
+                class="dark:bg-elevated bg-default border-accented flex min-h-28 items-center justify-center border-dashed p-1 text-center text-lg font-semibold"
                 :class="{
                   'border-r': j < GRID_SIZE - 1,
                   'border-b': i < GRID_SIZE - 1,

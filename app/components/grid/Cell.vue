@@ -15,7 +15,7 @@ const { isDaily } = useGameMode();
 </script>
 <template>
   <div
-    class="bg-elevated border-accented min-h-28 border-dashed p-1"
+    class="dark:bg-elevated bg-default border-accented min-h-28 border-dashed p-1"
     :class="{
       'cursor-not-allowed': warframe || isGameOver,
       'hover:brightness-90 dark:hover:brightness-125': !warframe && !isGameOver,

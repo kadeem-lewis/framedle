@@ -104,6 +104,7 @@ const allDisabledItems = computed(() => [
 ]);
 
 const { currentDailyGridData } = storeToRefs(useDailiesStore());
+const { giveUpGridDaily } = useDailiesStore();
 
 const puzzleHeading = computed(() => {
   if (mode.value === "grid" && currentDailyGridData.value) {
@@ -182,11 +183,11 @@ useSubmission();
       <UiConfirmPopup
         v-if="mode === 'gridUnlimited'"
         title="Are you sure you generate a new grid?"
-        success-label="Give Up"
+        :success-label="isGameOver ? 'Restart' : 'Give Up'"
         cancel-label="Cancel"
         @confirm="resetGridGame"
       >
-        <UButton icon="i-mdi-refresh">Generate</UButton>
+        <UButton variant="outline" icon="i-mdi-refresh">Generate</UButton>
       </UiConfirmPopup>
       <template v-else>
         <UiConfirmPopup
@@ -194,16 +195,23 @@ useSubmission();
           title="Are you sure you want to give up?"
           success-label="Give Up"
           cancel-label="Cancel"
+          @confirm="giveUpGridDaily"
         >
-          <UButton variant="subtle" color="error" class="font-medium uppercase">
+          <UButton
+            variant="subtle"
+            color="error"
+            class="rounded-none font-medium uppercase"
+          >
             Abort Mission
           </UButton>
         </UiConfirmPopup>
-        <UButton v-else @click="openSummaryDialog">Summary</UButton>
+        <UButton v-else class="rounded-none" @click="openSummaryDialog"
+          >Summary</UButton
+        >
       </template>
     </div>
     <GridPuzzleStats v-if="isDaily" />
-    <UModal v-model:open="isOpen" title="Make your guess">
+    <UModal v-model:open="isOpen" title="Make your guess" class="rounded-none">
       <template #description>
         <div>
           <p>{{ rowLabel }}&nbsp;/&nbsp;{{ columnLabel }}</p>

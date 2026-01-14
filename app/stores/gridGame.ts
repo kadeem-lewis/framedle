@@ -1,15 +1,8 @@
-export type CategoryItem = {
-  label: string;
-  id: string;
-  description: string;
-};
-
 export type GridCell = {
   rowId: string;
   colId: string;
   value: WarframeName | null;
   invalidGuesses: WarframeName[];
-  status: "correct" | "incorrect" | "empty";
   rarity?: number;
   // a grid is only correct or empty, if its empty then its automatically incorrect
 };
@@ -66,7 +59,6 @@ export const useGridGameStore = defineStore(
           colId: unlimited.value.config!.columns[colIndex]!,
           value: null,
           invalidGuesses: [],
-          status: isCorrect ? "correct" : "incorrect",
         };
       }
 
@@ -154,6 +146,7 @@ export const useGridGameStore = defineStore(
   },
   {
     persist: {
+      storage: piniaPluginPersistedstate.localStorage(),
       pick: ["unlimited"],
     },
   },

@@ -1,5 +1,3 @@
-import type { GameMode } from "@/composables/useGameMode";
-
 export const GameStatus = {
   ACTIVE: "active",
   WON: "won",
@@ -55,7 +53,7 @@ export const useGameStateStore = defineStore(
         currentGame.value.config.columns.length;
 
       const correctCells = Object.values(currentGame.value.grid).filter(
-        (cell) => cell.status === "correct",
+        (cell) => cell,
       );
 
       const isWin = totalCells > 0 && correctCells.length === totalCells;
@@ -65,10 +63,12 @@ export const useGameStateStore = defineStore(
     }
 
     function updateGameState(
-      gameMode: GameMode,
+      gameMode: LegacyMode,
       currentAttempts: number,
       currentGuessedItems: WarframeName[],
     ) {
+      if (!itemToGuess.value[gameMode]) return;
+
       let won = false;
       if (gameMode === "classic" || gameMode === "classicUnlimited") {
         won = currentGuessedItems.some(
@@ -140,6 +140,7 @@ export const useGameStateStore = defineStore(
   },
   {
     persist: {
+      storage: piniaPluginPersistedstate.localStorage(),
       pick: ["gameState"],
     },
   },

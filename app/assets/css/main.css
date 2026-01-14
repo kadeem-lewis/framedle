@@ -13,6 +13,7 @@
   --border-partial: hsl(49 51% 30%); /* 50% darker */
   --ui-discord: hsl(235 86% 65%); /* blurple */
   --ui-bluesky: hsl(209 100% 50%); /* #0085ff */
+  --ui-reddit: hsl(16, 100%, 50%); /* Reddit Orange */
 }
 
 .dark {
@@ -24,6 +25,7 @@
   --border-partial: hsl(49 32% 30%); /* 50% darker yellow */
   --ui-discord: hsl(235 69% 65%); /* 25% desaturated blurple */
   --ui-bluesky: hsl(209 80% 50%); /* 25% desaturated #0085ff */
+  --ui-reddit: hsl(16, 80%, 50%); /* 25% desaturated Reddit Orange */
 }
 
 .colorblind {

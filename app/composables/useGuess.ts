@@ -103,8 +103,6 @@ export function useGuess() {
       },
     });
 
-    console.log("submitGridGuess response", response);
-
     if (mode.value === "grid" && currentDailyGridData.value) {
       const dailyData = currentDailyGridData.value;
 
@@ -119,7 +117,6 @@ export function useGuess() {
           colId: toValue(column),
           value: null,
           invalidGuesses: [],
-          status: response.correct ? "correct" : "incorrect",
         };
       }
 

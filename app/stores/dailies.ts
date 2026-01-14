@@ -110,6 +110,17 @@ export const useDailiesStore = defineStore("dailies", () => {
     };
   });
 
+  async function giveUpGridDaily() {
+    await db.progress
+      .where({
+        mode: "grid",
+        day: currentDailyGridData.value?.day,
+      })
+      .modify({
+        attempts: 0,
+      });
+  }
+
   const isLoadingDailies = ref(false);
 
   async function getDailies() {
@@ -183,12 +194,14 @@ export const useDailiesStore = defineStore("dailies", () => {
 
   return {
     activeDays,
+    query,
     currentDailyClassicData,
     currentDailyAbilityData,
     currentDailyGridData,
     currentDailyDate,
     isLoadingDailies,
     getDailies,
+    giveUpGridDaily,
   };
 });
 

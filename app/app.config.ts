@@ -5,6 +5,7 @@ export default defineAppConfig({
       neutral: "slate",
       discord: "discord",
       bluesky: "bluesky",
+      reddit: "reddit",
     },
     icons: {
       light: "i-heroicons-sun-solid",

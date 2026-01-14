@@ -137,7 +137,16 @@ const accuracyMap = computed(() => {
         </div>
       </UCard>
       <div v-if="isGameOver" class="flex flex-col gap-2">
-        <UTabs v-model="active" :items="items" :content="false" />
+        <UTabs
+          v-model="active"
+          :items="items"
+          :content="false"
+          class="rounded-none"
+          :ui="{
+            list: 'rounded-none',
+            indicator: 'rounded-none',
+          }"
+        />
         <div class="grid grid-cols-3">
           <template v-for="(row, i) in tabContent" :key="i">
             <GridCell

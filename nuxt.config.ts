@@ -76,6 +76,7 @@ export default defineNuxtConfig({
         "success",
         "warning",
         "error",
+        "reddit",
       ],
     },
   },

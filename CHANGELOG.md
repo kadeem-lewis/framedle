@@ -1,6 +1,11 @@
 # Changelog
 
-## v1.0.0 - January 16th, 2026
+## v1.0.0 - January 17th, 2026
+
+### Features
+
+- Added Grid Game Mode
+- Add ability to see how many people won legacy games and their average score
 
 ### Bug fixes
 

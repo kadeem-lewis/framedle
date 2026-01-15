@@ -40,7 +40,10 @@ const { isDaily } = useGameMode();
       />
       <UBadge
         :label="warframe.name"
-        class="absolute bottom-0 rounded-none opacity-90"
+        :ui="{
+          label: 'whitespace-normal',
+        }"
+        class="absolute bottom-0 flex w-full justify-center rounded-none px-1 py-0.5 text-center break-normal opacity-90"
       />
     </div>
   </div>

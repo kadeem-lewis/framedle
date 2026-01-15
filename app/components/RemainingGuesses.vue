@@ -10,7 +10,7 @@ const { mode, isLegacyMode } = useGameMode();
       <NuxtImg
         v-for="index of DEFAULT_ATTEMPTS"
         :key="index"
-        format="webp"
+        format="avif"
         src="/warframe.png"
         alt="Warframe Icon"
         placeholder

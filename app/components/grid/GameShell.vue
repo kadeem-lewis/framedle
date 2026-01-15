@@ -144,7 +144,7 @@ useSubmission();
           :class="{
             'border-r': j < columns.length - 1,
             'border-b': i < rows.length - 1,
-            'bg-error/50 transition-colors ease-in-out':
+            'dark:bg-error/50 bg-error/50 transition-colors ease-in-out':
               selectedRowIndex === i &&
               selectedColumnIndex === j &&
               isIncorrect,

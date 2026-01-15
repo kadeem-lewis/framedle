@@ -79,23 +79,33 @@ const accuracyMap = computed(() => {
 </script>
 <template>
   <section class="mt-2 flex flex-col items-center gap-4">
-    <h2 class="text-xl font-semibold uppercase">Puzzle Stats</h2>
-    <div v-if="stats" class="flex flex-col gap-4">
+    <div class="flex flex-col items-center justify-center gap-1">
+      <h2 class="text-xl font-semibold uppercase">Puzzle Stats</h2>
+      <p class="text-muted text-center text-sm">
+        See how other Tenno have performed on this puzzle
+      </p>
+    </div>
+    <div class="flex flex-col gap-4">
       <UCard class="w-full">
-        <div class="flex w-full items-center justify-around gap-2 text-center">
-          <div class="flex flex-col items-center justify-center">
+        <div
+          class="flex w-full items-center justify-around gap-1.5 text-center"
+        >
+          <div class="flex flex-col items-center justify-center gap-y-1.5">
             <span class="font-semibold uppercase">Games</span>
-            <span>{{ stats?.grid.gamesPlayed }}</span>
+            <span>{{ stats?.grid.gamesPlayed ?? 0 }}</span>
           </div>
           <GridStatPopover
             label="Average Score"
             :value="stats?.grid.averageScore"
           >
-            <ScoresDistributionChart :scores="stats?.grid.scoreDistribution" />
+            <ScoresDistributionChart
+              v-if="stats"
+              :scores="stats.grid.scoreDistribution"
+            />
           </GridStatPopover>
-          <div class="flex flex-col items-center justify-center">
+          <div class="flex flex-col items-center justify-center gap-y-1.5">
             <span class="font-semibold uppercase">Most Unique</span>
-            <span>{{ stats?.grid.mostUnique }}</span>
+            <span>{{ stats?.grid.mostUnique ?? "—" }}</span>
           </div>
         </div>
       </UCard>
@@ -146,9 +156,17 @@ const accuracyMap = computed(() => {
           </div>
         </div>
       </div>
-      <div v-else>
-        <!-- TODO: Style all of this -->
-        Complete game to see stats.
+      <div
+        v-else
+        class="border-muted bg-default/70 flex h-44 flex-col items-center justify-center gap-2 border border-dashed"
+      >
+        <UIcon
+          name="i-heroicons-lock-closed-solid"
+          class="text-muted size-28"
+        />
+        <p class="text-lg font-semibold uppercase">
+          Complete game to see global stats
+        </p>
       </div>
     </div>
   </section>

@@ -1,7 +1,7 @@
 <script setup lang="ts">
 const { label, value } = defineProps<{
   label: string;
-  value: number | null;
+  value: number | null | undefined;
 }>();
 
 const open = ref(false);
@@ -17,10 +17,16 @@ const open = ref(false);
     <UButton
       variant="ghost"
       color="neutral"
+      :disabled="!value"
       class="flex flex-col items-center justify-center rounded-none text-base"
     >
       <span class="font-semibold uppercase">{{ label }}</span>
-      <span>{{ value ?? "—" }}</span>
+      <div class="flex items-center justify-center gap-2">
+        <UIcon name="i-heroicons-chart-bar-solid" class="size-4" />
+        <span>
+          {{ value ?? "—" }}
+        </span>
+      </div>
     </UButton>
     <template #content>
       <div>

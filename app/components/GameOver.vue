@@ -74,7 +74,7 @@ const differentMode = computed(() => {
             <NuxtImg
               :src="`https://cdn.warframestat.us/img/${correctWarframe?.imageName}`"
               :alt="`${correctWarframe}`"
-              format="webp"
+              format="avif"
               height="64"
             />
           </UiFeedbackTile>

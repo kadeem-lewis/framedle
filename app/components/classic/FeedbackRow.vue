@@ -13,7 +13,7 @@ const { checkGuess } = useGuess();
       :show-visual-assist="true"
     >
       <NuxtImg
-        format="webp"
+        format="avif"
         :src="`https://cdn.warframestat.us/img/${guessedWarframe.imageName}`"
         :alt="guessedWarframe.name"
         preload
@@ -77,7 +77,7 @@ const { checkGuess } = useGuess();
     >
       <div class="flex flex-col items-center gap-1">
         <NuxtImg
-          format="webp"
+          format="avif"
           :src="`/elements/${guessedWarframe.progenitor}.png`"
           :alt="guessedWarframe.progenitor"
           class="h-10"

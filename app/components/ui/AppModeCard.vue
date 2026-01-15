@@ -22,7 +22,7 @@ const { card, showStats = false } = defineProps<{
     />
     <div class="relative z-10 flex flex-row items-center gap-8 text-white">
       <NuxtImg
-        format="webp"
+        format="avif"
         :src="card.source"
         :alt="card.label"
         height="48"

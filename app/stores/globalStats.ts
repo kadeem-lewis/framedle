@@ -1,15 +1,11 @@
-import { format } from "date-fns";
-
 export const useGlobalStatsStore = defineStore("global-stats", () => {
   const { mode, isDailyMode } = useGameMode();
   const { currentDailyDate, currentDailyGridData } =
     storeToRefs(useDailiesStore());
   const statsQuery = computed(() => {
-    if (!mode.value || !isDailyMode(mode.value))
-      throw createError("Mode is undefined");
+    if (!mode.value || !isDailyMode(mode.value)) return;
 
-    const date =
-      currentDailyDate.value[mode.value] ?? format(new Date(), "yyyy-MM-dd");
+    const date = currentDailyDate.value[mode.value];
     return {
       date,
     };
@@ -18,64 +14,96 @@ export const useGlobalStatsStore = defineStore("global-stats", () => {
   async function syncRarities() {
     const validGuesses = Object.fromEntries(
       Object.entries(currentDailyGridData.value?.gridState || {})
-        .filter(([_, value]) => value)
+        .filter(([_, cell]) => cell && cell.value)
         .map(([key, value]) => [key, value.value]),
     );
 
     const rarities = await $fetch("/api/grid/rarity", {
       method: "POST",
       body: {
-        date: statsQuery.value.date,
+        date: statsQuery.value?.date,
         gridSubmissions: validGuesses,
       },
     });
 
     await db.transaction("rw", "progress", async () => {
       const progress = await db.progress.get({
-        date: statsQuery.value.date,
+        date: statsQuery.value?.date,
         mode: "grid",
       });
       if (progress && progress.gridState) {
         const nextGridState = { ...progress.gridState };
+        let hasChanges = false;
         for (const [coord, rarity] of Object.entries(rarities.results)) {
-          if (nextGridState[coord]) {
+          if (nextGridState[coord] && nextGridState[coord].rarity !== rarity) {
             nextGridState[coord].rarity = rarity;
+            hasChanges = true;
           }
         }
-        await db.progress.put({
-          ...progress,
-          gridState: nextGridState,
-        });
+        if (hasChanges) {
+          await db.progress.put({
+            ...progress,
+            gridState: nextGridState,
+          });
+        }
       }
     });
   }
 
+  const userHasMadeGuess = computed(() => {
+    if (!currentDailyGridData.value?.gridState) return false;
+    return Object.values(currentDailyGridData.value.gridState).some(
+      (cell) => cell && cell.value,
+    );
+  });
+
   const { data, status, refresh, pending } = useFetch("/api/stats", {
-    query: statsQuery.value,
-    key: `puzzle-stats-${statsQuery.value.date}`,
+    query: statsQuery,
+    key: computed(() => `puzzle-stats-${statsQuery.value?.date}`),
     lazy: true,
+    immediate: !!statsQuery.value,
   });
 
   const { isGameOver } = storeToRefs(useGameStateStore());
 
   watch(isGameOver, (newIsGameOver) => {
-    if (newIsGameOver) {
+    if (newIsGameOver && statsQuery.value) {
       refresh();
-      syncRarities();
+    }
+  });
+
+  watch(statsQuery, (newQuery) => {
+    if (newQuery) {
+      console.log("Stats query changed, refreshing stats,", newQuery);
     }
   });
 
   const visibility = useDocumentVisibility();
 
-  watch(visibility, (newVisibility, previousVisibility) => {
-    if (newVisibility === "visible" && previousVisibility === "hidden") {
+  const { pause, resume } = useIntervalFn(
+    async () => {
       refresh();
+    },
+    1000 * 60 * 2,
+  ); // every 2 minutes
+
+  watch(visibility, (newVisibility) => {
+    if (newVisibility === "visible" && statsQuery.value) {
+      resume();
+    } else {
+      pause();
     }
   });
 
-  useIntervalFn(async () => {
-    refresh();
-  }, 1000 * 60); // every minute
+  watch(data, (newData, oldData) => {
+    if (
+      newData?.grid.guessStats.totalGuesses !==
+        oldData?.grid.guessStats.totalGuesses &&
+      userHasMadeGuess.value
+    ) {
+      syncRarities();
+    }
+  });
 
   return {
     stats: data,

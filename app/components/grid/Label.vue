@@ -19,7 +19,9 @@ getCategoryDisplay(key, value);
     }"
   >
     <UButton variant="ghost" class="flex min-h-28 rounded-none">
-      <div class="flex w-full flex-col items-center gap-0.5">
+      <div
+        class="flex h-full w-full flex-col items-center justify-center gap-0.5"
+      >
         <p class="text-toned text-xs font-semibold uppercase">
           {{ categoryInfo?.header }}
         </p>

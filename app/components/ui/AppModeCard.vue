@@ -18,7 +18,7 @@ const { card, showStats = false } = defineProps<{
   >
     <div
       :style="{ backgroundImage: `url(${card.background})` }"
-      class="absolute inset-0 z-0 bg-cover contrast-[.85] group-hover:contrast-100 dark:brightness-50 dark:contrast-100 group-hover:dark:brightness-75"
+      class="absolute inset-0 z-0 bg-cover contrast-90 group-hover:contrast-100 dark:brightness-50 dark:contrast-100 group-hover:dark:brightness-75"
     />
     <span
       v-if="card.label === 'Grid'"

@@ -71,12 +71,6 @@ export const useGlobalStatsStore = defineStore("global-stats", () => {
     watch: false,
   });
 
-  watch(isGameOver, (newIsGameOver) => {
-    if (newIsGameOver && statsQuery.value) {
-      refresh();
-    }
-  });
-
   watchDebounced(
     statsQuery,
     (newQuery) => {

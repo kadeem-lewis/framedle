@@ -120,8 +120,6 @@ export default defineEventHandler<
       if (totalGuesses > 0) {
         rarityScore = (specificCount / totalGuesses) * 100;
       }
-
-      console.log(totalGuesses, specificCount);
     }
     return {
       status: 200,

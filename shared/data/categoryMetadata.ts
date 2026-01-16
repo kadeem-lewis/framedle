@@ -91,7 +91,7 @@ export const categoryMetadata = {
     description: "Warframes that have entered the Prime Vault",
   }),
   exalted: (_: unknown) => ({
-    header: "Exalted",
+    header: "Ability",
     value: "Has Exalted Weapon",
     description: "Warframes that have exalted weapons",
     extra: ["Pseudo-Exalted weapons count towards this category"],

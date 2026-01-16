@@ -30,6 +30,8 @@ export function useGameMode() {
     },
   } as const;
 
+  const gameTypes = Object.keys(modeLookup);
+
   const gameType = computed<GameType | undefined>(() => {
     const type = route.path.split("/")[1] as GameType;
     return modeLookup[type] ? type : undefined;
@@ -81,6 +83,7 @@ export function useGameMode() {
 
   return {
     mode,
+    gameTypes,
     gameType,
     gameVariant,
     isDaily,

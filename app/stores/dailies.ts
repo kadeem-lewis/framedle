@@ -1,4 +1,4 @@
-import { format } from "date-fns";
+import { format, parseISO, subDays } from "date-fns";
 import type { Daily, GridPuzzle, LegacyPuzzle } from "#shared/schemas/db";
 import Dexie from "dexie";
 
@@ -111,29 +111,57 @@ export const useDailiesStore = defineStore("dailies", () => {
   });
 
   async function giveUpGridDaily() {
-    await db.progress
-      .where({
+    if (!currentDailyGridData.value) {
+      console.error("No current daily grid data found when giving up.");
+      return;
+    }
+    try {
+      const { date, day, gridState } = structuredClone(
+        toRaw(currentDailyGridData.value),
+      );
+      await db.progress.put({
+        date,
+        day,
         mode: "grid",
-        day: currentDailyGridData.value?.day,
-      })
-      .modify({
+        gridState,
         attempts: 0,
       });
+    } catch (error) {
+      console.error("Error giving up grid daily:", error);
+    }
   }
 
   const isLoadingDailies = ref(false);
 
+  const { gameTypes } = useGameMode();
+
   async function getDailies() {
     const currentDate = format(new Date(), "yyyy-MM-dd");
-    const latestDailyDate = await db.dailies.orderBy("date").last();
-    if (latestDailyDate?.date === currentDate) return;
+
+    const latestEntries = await Promise.all(
+      gameTypes.map((mode) => db.dailies.where("mode").equals(mode).last()),
+    );
+
+    const isFullySynced = latestEntries.every(
+      (entry) => entry?.date === currentDate,
+    );
+
+    if (isFullySynced) return;
+
     isLoadingDailies.value = true;
+
+    const latestDailyEntry = await db.dailies.orderBy("date").last();
+    let since = latestDailyEntry?.date;
+
+    if (since === currentDate) {
+      since = format(subDays(parseISO(currentDate), 1), "yyyy-MM-dd");
+    }
     const params: {
       since?: string;
       until: string;
     } = {
       until: currentDate,
-      since: latestDailyDate?.date,
+      since,
     };
 
     try {

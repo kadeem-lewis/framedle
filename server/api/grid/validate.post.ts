@@ -1,4 +1,5 @@
 import z from "zod";
+import type { ValidWarframeData } from "#shared/schemas/db";
 
 const validateGridGuessSchema = z.object({
   rowCategoryId: z.string(),
@@ -45,65 +46,88 @@ export default defineEventHandler<
     isUnlimited,
   } = body.data;
 
+  const WARFRAME_DATA_VERSION = "v1";
+
   const [idA, idB] = [rowCategoryId, columnCategoryId].sort();
 
   try {
-    const result = await useDrizzle()
-      .select()
-      .from(tables.categoryPairs)
-      .where(
-        and(
-          eq(tables.categoryPairs.categoryA, idA),
-          eq(tables.categoryPairs.categoryB, idB),
-        ),
-      )
-      .limit(1);
+    const redis = await useRedis();
 
-    if (result.length === 0)
-      throw createError({
-        statusCode: 404,
-        message: "Category pair not found",
-      });
+    const pairKey = `validWarframes:${WARFRAME_DATA_VERSION}:${idA}:${idB}`;
 
-    const categoryPair = result[0];
+    let validWarframes: ValidWarframeData[];
 
-    const match = categoryPair.validWarframes.find(
+    const cached = await redis.json.get(pairKey);
+    if (cached) {
+      validWarframes = cached as ValidWarframeData[];
+      console.log("Fetched valid warframes from cache");
+    } else {
+      const result = await useDrizzle()
+        .select({
+          validWarframes: tables.categoryPairs.validWarframes,
+        })
+        .from(tables.categoryPairs)
+        .where(
+          and(
+            eq(tables.categoryPairs.categoryA, idA),
+            eq(tables.categoryPairs.categoryB, idB),
+          ),
+        )
+        .limit(1);
+
+      if (result.length === 0)
+        throw createError({
+          statusCode: 404,
+          message: "Category pair not found",
+        });
+
+      validWarframes = result[0].validWarframes;
+      await redis
+        .multi()
+        .json.set(pairKey, "$", validWarframes)
+        .expire(pairKey, 60 * 60) // 1 hour
+        .exec();
+    }
+
+    const match = validWarframes.find(
       (warframe) =>
         warframe.name.toLowerCase() === guessedWarframe.toLowerCase(),
     );
-    if (match) {
-      let rarityScore = 0;
-      if (!isUnlimited) {
-        const redis = await useRedis();
-        const rarityKey = `daily:rarity:${puzzleDate}:${rowIndex}-${colIndex}`;
-        const normalizedGuess = match.name;
 
-        const multi = redis.multi();
-
-        multi.hIncrBy(rarityKey, "total", 1);
-        multi.hIncrBy(rarityKey, normalizedGuess, 1);
-
-        const results = await multi.exec();
-        const totalGuesses = Number(results[0]);
-        const specificCount = Number(results[1]);
-
-        if (totalGuesses > 0) {
-          rarityScore = (specificCount / totalGuesses) * 100;
-        }
-
-        console.log(totalGuesses, specificCount);
-      }
+    if (!match) {
       return {
         status: 200,
-        correct: true,
-        rarity: rarityScore,
-        message: "Correct guess!",
+        correct: false,
+        message: "Incorrect guess.",
       };
+    }
+
+    let rarityScore = 0;
+
+    if (!isUnlimited) {
+      const rarityKey = `daily:rarity:${puzzleDate}:${rowIndex}-${colIndex}`;
+      const normalizedGuess = match.name;
+
+      const multi = redis.multi();
+
+      multi.hIncrBy(rarityKey, "total", 1);
+      multi.hIncrBy(rarityKey, normalizedGuess, 1);
+
+      const results = await multi.exec();
+      const totalGuesses = Number(results[0]);
+      const specificCount = Number(results[1]);
+
+      if (totalGuesses > 0) {
+        rarityScore = (specificCount / totalGuesses) * 100;
+      }
+
+      console.log(totalGuesses, specificCount);
     }
     return {
       status: 200,
-      correct: false,
-      message: "Incorrect guess.",
+      correct: true,
+      rarity: rarityScore,
+      message: "Correct guess!",
     };
   } catch (error) {
     console.error("Error validating grid guess:", error);

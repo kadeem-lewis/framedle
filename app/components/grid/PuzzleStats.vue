@@ -116,7 +116,7 @@ const accuracyMap = computed(() => {
           :content="false"
           class="rounded-none"
           :ui="{
-            list: 'rounded-none',
+            list: 'rounded-none bg-default dark:bg-elevated',
             indicator: 'rounded-none',
           }"
         />
@@ -164,7 +164,7 @@ const accuracyMap = computed(() => {
           name="i-heroicons-lock-closed-solid"
           class="text-muted size-28"
         />
-        <p class="text-lg font-semibold uppercase">
+        <p class="text-center text-lg font-semibold uppercase">
           Complete game to see global stats
         </p>
       </div>

@@ -2,12 +2,15 @@ export const useGlobalStatsStore = defineStore("global-stats", () => {
   const { mode, isDailyMode } = useGameMode();
   const { currentDailyDate, currentDailyGridData } =
     storeToRefs(useDailiesStore());
+  const { isGameOver } = storeToRefs(useGameStateStore());
+
   const statsQuery = computed(() => {
     if (!mode.value || !isDailyMode(mode.value)) return;
 
     const date = currentDailyDate.value[mode.value];
     return {
       date,
+      showAnswers: !!(mode.value === "grid" && isGameOver.value),
     };
   });
 
@@ -59,12 +62,14 @@ export const useGlobalStatsStore = defineStore("global-stats", () => {
 
   const { data, status, refresh, pending } = useFetch("/api/stats", {
     query: statsQuery,
-    key: computed(() => `puzzle-stats-${statsQuery.value?.date}`),
+    key: computed(
+      () =>
+        `puzzle-stats-${statsQuery.value?.date}-${statsQuery.value?.showAnswers}`,
+    ),
     lazy: true,
-    immediate: !!statsQuery.value,
+    immediate: false,
+    watch: false,
   });
-
-  const { isGameOver } = storeToRefs(useGameStateStore());
 
   watch(isGameOver, (newIsGameOver) => {
     if (newIsGameOver && statsQuery.value) {
@@ -72,11 +77,16 @@ export const useGlobalStatsStore = defineStore("global-stats", () => {
     }
   });
 
-  watch(statsQuery, (newQuery) => {
-    if (newQuery) {
-      console.log("Stats query changed, refreshing stats,", newQuery);
-    }
-  });
+  watchDebounced(
+    statsQuery,
+    (newQuery) => {
+      if (newQuery) {
+        // using a debounced to prevent multiple fetch requests since statsQuery can change rapidly
+        refresh();
+      }
+    },
+    { immediate: true, deep: true, debounce: 50 },
+  );
 
   const visibility = useDocumentVisibility();
 
@@ -84,8 +94,8 @@ export const useGlobalStatsStore = defineStore("global-stats", () => {
     async () => {
       refresh();
     },
-    1000 * 60 * 2,
-  ); // every 2 minutes
+    1000 * 60 * 5,
+  ); // every 5 minutes
 
   watch(visibility, (newVisibility) => {
     if (newVisibility === "visible" && statsQuery.value) {

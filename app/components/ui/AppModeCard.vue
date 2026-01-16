@@ -13,13 +13,18 @@ const { card, showStats = false } = defineProps<{
 </script>
 <template>
   <UCard
-    class="group hover:bg-opacity-100 border-primary relative cursor-pointer border uppercase transition-all"
+    class="group hover:bg-opacity-100 border-primary relative cursor-pointer border uppercase shadow shadow-black transition-all"
     @click="navigateTo(card.route)"
   >
     <div
       :style="{ backgroundImage: `url(${card.background})` }"
-      class="absolute inset-0 z-0 bg-cover contrast-[.85] group-hover:contrast-100 dark:brightness-50 dark:contrast-100 group-hover:dark:brightness-75"
+      class="absolute inset-0 z-0 bg-cover contrast-90 group-hover:contrast-100 dark:brightness-50 dark:contrast-100 group-hover:dark:brightness-75"
     />
+    <span
+      v-if="card.label === 'Grid'"
+      class="absolute top-0 left-0 bg-red-700 px-2 py-1 text-xs font-bold text-white uppercase dark:bg-red-600"
+      >new!</span
+    >
     <div class="relative z-10 flex flex-row items-center gap-8 text-white">
       <NuxtImg
         format="avif"

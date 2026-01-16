@@ -106,6 +106,10 @@ services:
       - redis-data:/data
     networks:
       - web
+    secrets:
+      - redis_password
+    command: >
+      sh -c 'redis-server --save 60 1 --loglevel warning --databases 2 --appendonly yes --requirepass \"$(cat /run/secrets/redis_password)\"'
     deploy:
       replicas: 1
       restart_policy:
@@ -122,4 +126,6 @@ secrets:
   sentry_auth_token:
     external: true
   doppler_token:
+    external: true
+  redis_password:
     external: true

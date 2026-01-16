@@ -60,7 +60,6 @@ export const useGlobalStatsStore = defineStore("global-stats", () => {
     );
   });
 
-  //TODO: i need to prevent the code from running in unlimited mode
   const { data, status, refresh, pending } = useFetch("/api/stats", {
     query: statsQuery,
     key: computed(
@@ -95,8 +94,8 @@ export const useGlobalStatsStore = defineStore("global-stats", () => {
     async () => {
       refresh();
     },
-    1000 * 60 * 2,
-  ); // every 2 minutes
+    1000 * 60 * 5,
+  ); // every 5 minutes
 
   watch(visibility, (newVisibility) => {
     if (newVisibility === "visible" && statsQuery.value) {

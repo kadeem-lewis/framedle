@@ -16,7 +16,10 @@ type WarframeWikiData = {
     [key: string]: {
       auraPolarity: (typeof polarityMap)[keyof typeof polarityMap];
       introduced: string;
+      vaulted?: boolean;
       playstyle: string | string[];
+      progenitor: string;
+      energy: number;
       [key: string]: unknown;
     };
   };
@@ -32,6 +35,7 @@ type WarframeWikiVersionData = {
 type WarframeApiData = {
   name: string;
   type: string;
+  abilities: Record<string, string>[];
   productCategory: string;
   aura: string | string[];
   releaseDate: string | null;
@@ -77,9 +81,24 @@ export default defineTask({
         const wikiItem = pascalCaseToCamelCase(
           parsedWikiData.Warframes[item.name],
         );
+
+        const {
+          playstyle,
+          auraPolarity,
+          vaulted,
+          progenitor,
+          introduced,
+          energy,
+        } = wikiItem;
+
         const mergedItem = {
-          ...wikiItem,
           ...item,
+          playstyle,
+          auraPolarity,
+          progenitor,
+          introduced,
+          energy,
+          ...(vaulted !== undefined ? { vaulted } : {}),
         };
 
         if (typeof mergedItem.playstyle === "string") {

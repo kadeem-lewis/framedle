@@ -116,7 +116,7 @@ const accuracyMap = computed(() => {
           :content="false"
           class="rounded-none"
           :ui="{
-            list: 'rounded-none',
+            list: 'rounded-none bg-default dark:bg-elevated',
             indicator: 'rounded-none',
           }"
         />

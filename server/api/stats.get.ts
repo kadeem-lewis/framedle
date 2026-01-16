@@ -3,6 +3,7 @@ import type { StatsResponse, GuessStatEntry } from "#shared/types/stats";
 
 const statsSchema = z.object({
   date: z.iso.date(),
+  showAnswers: z.enum(["true", "false"]).transform((value) => value === "true"),
 });
 
 export default defineEventHandler<Promise<StatsResponse>>(async (event) => {
@@ -16,7 +17,8 @@ export default defineEventHandler<Promise<StatsResponse>>(async (event) => {
       message: "Invalid query parameters",
     });
   }
-  const { date } = result.data;
+  const { date, showAnswers } = result.data;
+
   const redis = await useRedis();
 
   const stats = await redis.hGetAll(`daily:stats:${date}`);
@@ -52,18 +54,22 @@ export default defineEventHandler<Promise<StatsResponse>>(async (event) => {
     const totalRaw = cellData["total"];
     const total = totalRaw ? parseInt(totalRaw, 10) : 0;
 
-    const guesses = Object.entries(cellData)
-      .filter(([key]) => key !== "total")
-      .map(([name, countStr]) => ({
-        name,
-        count: parseInt(countStr, 10),
-      }));
+    let mostPopular: GuessStatEntry["mostPopular"] = null;
+    let leastPopular: GuessStatEntry["leastPopular"] = null;
+    if (showAnswers === true) {
+      console.log("This isn't running right?");
+      const guesses = Object.entries(cellData)
+        .filter(([key]) => key !== "total")
+        .map(([name, countStr]) => ({
+          name,
+          count: parseInt(countStr, 10),
+        }));
 
-    guesses.sort((a, b) => b.count - a.count);
+      guesses.sort((a, b) => b.count - a.count || a.name.localeCompare(b.name)); // Sort by highest count, then alphabetically
 
-    const mostPopular = guesses.length > 0 ? guesses[0] : null;
-    const leastPopular =
-      guesses.length > 0 ? guesses[guesses.length - 1] : null;
+      mostPopular = guesses.length > 0 ? guesses[0] : null;
+      leastPopular = guesses.length > 0 ? guesses[guesses.length - 1] : null;
+    }
 
     guessStats[coord] = {
       total,

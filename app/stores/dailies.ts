@@ -111,14 +111,24 @@ export const useDailiesStore = defineStore("dailies", () => {
   });
 
   async function giveUpGridDaily() {
-    await db.progress
-      .where({
+    if (!currentDailyGridData.value) {
+      console.error("No current daily grid data found when giving up.");
+      return;
+    }
+    try {
+      const { date, day, gridState } = structuredClone(
+        toRaw(currentDailyGridData.value),
+      );
+      await db.progress.put({
+        date,
+        day,
         mode: "grid",
-        day: currentDailyGridData.value?.day,
-      })
-      .modify({
+        gridState,
         attempts: 0,
       });
+    } catch (error) {
+      console.error("Error giving up grid daily:", error);
+    }
   }
 
   const isLoadingDailies = ref(false);

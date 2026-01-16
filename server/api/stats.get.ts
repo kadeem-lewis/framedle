@@ -57,7 +57,6 @@ export default defineEventHandler<Promise<StatsResponse>>(async (event) => {
     let mostPopular: GuessStatEntry["mostPopular"] = null;
     let leastPopular: GuessStatEntry["leastPopular"] = null;
     if (showAnswers === true) {
-      console.log("This isn't running right?");
       const guesses = Object.entries(cellData)
         .filter(([key]) => key !== "total")
         .map(([name, countStr]) => ({

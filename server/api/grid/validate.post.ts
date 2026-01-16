@@ -57,9 +57,9 @@ export default defineEventHandler<
 
     let validWarframes: ValidWarframeData[];
 
-    const cached = await redis.json.get(pairKey);
+    const cached = await redis.get(pairKey);
     if (cached) {
-      validWarframes = cached as ValidWarframeData[];
+      validWarframes = JSON.parse(cached) as ValidWarframeData[];
       console.log("Fetched valid warframes from cache");
     } else {
       const result = await useDrizzle()
@@ -82,11 +82,7 @@ export default defineEventHandler<
         });
 
       validWarframes = result[0].validWarframes;
-      await redis
-        .multi()
-        .json.set(pairKey, "$", validWarframes)
-        .expire(pairKey, 60 * 60) // 1 hour
-        .exec();
+      await redis.setEx(pairKey, 60 * 60, JSON.stringify(validWarframes));
     }
 
     const match = validWarframes.find(

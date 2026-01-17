@@ -1,18 +1,30 @@
 <script setup lang="ts">
-const { mode, isDailyMode } = useGameMode();
+const { mode, isLegacyDailyMode } = useGameMode();
 
 const { getAdjacentArchiveDays } = useArchiveStore();
-const { currentDailyClassicData } = storeToRefs(useDailiesStore());
+const { currentDailyClassicData, currentDailyAbilityData } =
+  storeToRefs(useDailiesStore());
 
-const adjacentDays = computedAsync(async () => {
-  if (!currentDailyClassicData.value || !isDailyMode(mode.value!)) {
-    return { previous: null, next: null };
-  }
-  return await getAdjacentArchiveDays(
-    currentDailyClassicData.value.day,
-    mode.value,
-  );
+const currentDayNumber = computed(() => {
+  if (mode.value === "classic") return currentDailyClassicData.value?.day;
+  if (mode.value === "ability") return currentDailyAbilityData.value?.day;
+  return null;
 });
+
+const adjacentDays = computedAsync(
+  async () => {
+    if (
+      !mode.value ||
+      !currentDayNumber.value ||
+      !isLegacyDailyMode(mode.value)
+    ) {
+      return { previous: null, next: null };
+    }
+
+    return await getAdjacentArchiveDays(currentDayNumber.value, mode.value);
+  },
+  { previous: null, next: null },
+);
 
 const { proxy } = useScriptUmamiAnalytics();
 </script>

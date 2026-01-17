@@ -50,22 +50,17 @@ export const useGameStore = defineStore(
       }
     });
 
-    function updateDailyData(data: {
-      ability?: FullAbilityData;
-      classic?: FullClassicData;
-    }) {
-      if (data.classic) {
-        itemToGuess.value.classic = data.classic.itemToGuess;
-        attempts.value.classic = data.classic.attempts;
-        guessedItems.value.classic = data.classic.guessedItems;
-      }
-      if (data.ability) {
-        itemToGuess.value.ability = data.ability.itemToGuess;
-        attempts.value.ability = data.ability.attempts;
-        guessedItems.value.ability = data.ability.guessedItems;
-        selectedMinigameAbility.value.ability =
-          data.ability.selectedMinigameAbility;
-      }
+    function setClassicGameData(data: FullClassicData) {
+      itemToGuess.value.classic = data.itemToGuess;
+      attempts.value.classic = data.attempts;
+      guessedItems.value.classic = data.guessedItems;
+    }
+
+    function setAbilityGameData(data: FullAbilityData) {
+      itemToGuess.value.ability = data.itemToGuess;
+      attempts.value.ability = data.attempts;
+      guessedItems.value.ability = data.guessedItems;
+      selectedMinigameAbility.value.ability = data.selectedMinigameAbility;
     }
 
     const { decode } = useEncoder();
@@ -151,7 +146,8 @@ export const useGameStore = defineStore(
       selectedMinigameAbility,
       correctWarframe,
       answer,
-      updateDailyData,
+      setClassicGameData,
+      setAbilityGameData,
       initializeUnlimitedGame,
       resetCurrentGame,
     };

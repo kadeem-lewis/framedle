@@ -15,8 +15,6 @@ export const useDailiesStore = defineStore("dailies", () => {
 
   const { DEFAULT_ATTEMPTS } = useGameStore();
 
-  const { updateDailyData } = useGameStore();
-
   const { mode, isDailyMode, isDaily } = useGameMode();
 
   const query = computed(() => {
@@ -72,20 +70,7 @@ export const useDailiesStore = defineStore("dailies", () => {
   }, [toRef(activeDays.value, "ability"), isDaily]);
   // isDaily is included in the deps to ensure game loads when switching from unlimited to daily
 
-  watch(
-    [currentDailyClassicData, currentDailyAbilityData],
-    ([newClassicVal, newAbilityVal]) => {
-      // this technically works but it needs a lot of improvements
-      if (newClassicVal || newAbilityVal) {
-        updateDailyData({
-          ability: newAbilityVal,
-          classic: newClassicVal,
-        });
-      }
-    },
-  );
-
-  const { syncGridData, MAX_GRID_ATTEMPTS } = useGridGameStore();
+  const { MAX_GRID_ATTEMPTS } = useGridGameStore();
 
   const currentDailyGridData = useLiveQuery(async () => {
     return await db.transaction("r", "dailies", "progress", async () => {
@@ -107,12 +92,6 @@ export const useDailiesStore = defineStore("dailies", () => {
       };
     });
   }, [toRef(activeDays.value, "grid"), isDaily]);
-
-  watch(currentDailyGridData, (newGridVal) => {
-    if (newGridVal) {
-      syncGridData(newGridVal);
-    }
-  });
 
   const currentDailyDate = computed(() => {
     return {

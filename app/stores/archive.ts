@@ -70,13 +70,13 @@ export const useArchiveStore = defineStore("archive", () => {
     return notStarted > 0 ? notStarted : 0;
   });
 
-  async function getAdjacentArchiveDays(day: number) {
+  async function getAdjacentArchiveDays(day: number, mode: GameType) {
     const previousDay = day - 1;
     const nextDay = day + 1;
 
     const [prevData, nextData] = await Promise.all([
-      db.dailies.where({ day: previousDay }).first(),
-      db.dailies.where({ day: nextDay }).first(),
+      db.dailies.where({ day: previousDay, mode }).first(),
+      db.dailies.where({ day: nextDay, mode }).first(),
     ]);
 
     return {

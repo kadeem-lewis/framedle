@@ -18,13 +18,16 @@ const totalCells = GRID_COLS * GRID_ROWS;
 const img = useImage();
 
 const imageUrl = computed(() => {
-  if (mode.value === "ability") {
+  if (mode.value === "ability" && itemToGuess.value.ability) {
     return img(
       `https://cdn.warframestat.us/img/${itemToGuess.value.ability?.imageName}`,
       { format: "webp", width: CANVAS_SIZE, height: CANVAS_SIZE },
       { modifiers: { enlarge: true } }, // scale smaller images up to CANVAS_SIZE
     );
-  } else if (mode.value === "abilityUnlimited") {
+  } else if (
+    mode.value === "abilityUnlimited" &&
+    itemToGuess.value.abilityUnlimited
+  ) {
     return img(
       `https://cdn.warframestat.us/img/${itemToGuess.value.abilityUnlimited?.imageName}`,
       { format: "webp", width: CANVAS_SIZE, height: CANVAS_SIZE },

@@ -31,13 +31,16 @@ export const useGameStore = defineStore(
       abilityUnlimited: "",
     });
 
+    const { mode, gameType, gameVariant, isLegacyMode } = useGameMode();
+
     const correctWarframe = computed(() => {
-      const gameMode = mode.value as keyof typeof itemToGuess.value;
-      if (!gameMode) throw createError("Mode is not set");
+      const gameMode = mode.value;
+      if (!gameMode || !isLegacyMode(gameMode) || !itemToGuess.value[gameMode])
+        return;
       if (gameMode === "ability" || gameMode === "abilityUnlimited") {
-        return getWarframe(itemToGuess.value[gameMode]!.belongsTo);
+        return getWarframe(itemToGuess.value[gameMode].belongsTo);
       }
-      return getWarframe(itemToGuess.value[gameMode]!);
+      return getWarframe(itemToGuess.value[gameMode]);
     });
 
     const answer = computed(() => {
@@ -64,7 +67,6 @@ export const useGameStore = defineStore(
     }
 
     const { decode } = useEncoder();
-    const { mode, gameType, gameVariant, isLegacyMode } = useGameMode();
 
     function initializeUnlimitedGame(
       mode: MaybeRef<GameMode>,

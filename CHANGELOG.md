@@ -2,8 +2,6 @@
 
 ## v1.0.1 - January 17th, 2026
 
-### Features
-
 ### Bug fixes
 
 - Fixed game over navigation not working for legacy daily modes

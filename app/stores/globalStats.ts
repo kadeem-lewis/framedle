@@ -4,7 +4,7 @@ export const useGlobalStatsStore = defineStore("global-stats", () => {
     storeToRefs(useDailiesStore());
   const { isGameOver, currentGameState } = storeToRefs(useGameStateStore());
 
-  const isFresh = refAutoReset(false, 5 * 1000); // 5 seconds
+  const isFresh = refAutoReset(false, 10 * 1000); // 5 seconds
 
   watch(currentGameState, (newState) => {
     if (newState === GameStatus.WON || newState === GameStatus.LOST) {

@@ -4,7 +4,7 @@ export const useGlobalStatsStore = defineStore("global-stats", () => {
     storeToRefs(useDailiesStore());
   const { isGameOver, currentGameState } = storeToRefs(useGameStateStore());
 
-  const isFresh = refAutoReset(false, 10 * 1000); // 5 seconds
+  const isFresh = refAutoReset(false, 10 * 1000); // 10 seconds
 
   watch(currentGameState, (newState) => {
     if (newState === GameStatus.WON || newState === GameStatus.LOST) {
@@ -111,8 +111,7 @@ export const useGlobalStatsStore = defineStore("global-stats", () => {
 
   watch(data, (newData, oldData) => {
     if (
-      newData?.grid.guessStats.totalGuesses !==
-        oldData?.grid.guessStats.totalGuesses &&
+      newData?.grid.gamesPlayed !== oldData?.grid.gamesPlayed &&
       userHasMadeGuess.value
     ) {
       syncRarities();

@@ -6,7 +6,7 @@ definePageMeta({
 useSeoMeta({
   title: "Grid Unlimited",
   description:
-    "Play the unlimited grid mode of Framedle, where you can guess warframes on a grid with no restrictions.",
+    "Play the unlimited grid mode of Framedle Grid, where you can guess warframes on a grid with no daily limits.",
 });
 
 const { initializeUnlimitedGridGame } = useGridGameStore();

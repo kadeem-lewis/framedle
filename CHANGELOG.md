@@ -6,6 +6,9 @@
 
 - Added Grid Game Mode
 - Add ability to see how many people won legacy games and their average score
+- Added community stats to grid game mode of how many people have played each day, the average score and a breakdown of the most and least guessed warframes
+- Add web share support for supported browsers when sharing game results
+- Add links to quick share game results to popular social media platforms such as Twitter, Bluesky and Whatsapp
 
 ### Bug fixes
 

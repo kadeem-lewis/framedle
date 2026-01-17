@@ -2,7 +2,15 @@ export const useGlobalStatsStore = defineStore("global-stats", () => {
   const { mode, isDailyMode } = useGameMode();
   const { currentDailyDate, currentDailyGridData } =
     storeToRefs(useDailiesStore());
-  const { isGameOver } = storeToRefs(useGameStateStore());
+  const { isGameOver, currentGameState } = storeToRefs(useGameStateStore());
+
+  const isFresh = refAutoReset(false, 5 * 1000); // 5 seconds
+
+  watch(currentGameState, (newState) => {
+    if (newState === GameStatus.WON || newState === GameStatus.LOST) {
+      isFresh.value = true;
+    }
+  });
 
   const statsQuery = computed(() => {
     if (!mode.value || !isDailyMode(mode.value)) return;
@@ -11,6 +19,7 @@ export const useGlobalStatsStore = defineStore("global-stats", () => {
     return {
       date,
       showAnswers: !!(mode.value === "grid" && isGameOver.value),
+      fresh: isFresh.value,
     };
   });
 

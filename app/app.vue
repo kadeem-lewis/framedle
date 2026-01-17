@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { startOfTomorrow } from "date-fns";
-import { useGameSync } from "./composables/useGameSync";
 
 useSeoMeta({
   title: "Framedle",
@@ -19,8 +18,6 @@ const visibility = useDocumentVisibility();
 const { isFinished } = useTimeUntil(startOfTomorrow());
 
 onMounted(() => {
-  useGameSync();
-
   getDailies();
 });
 

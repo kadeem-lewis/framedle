@@ -19,7 +19,7 @@ export function useGameOverDialog() {
           try {
             await db.progress.where({ day: newData.day, mode: "grid" }).modify({
               hasSeenPopup: true,
-            });
+            } as Partial<GridProgressData>);
           } catch (e) {
             console.error("Failed to update popup state", e);
           }

@@ -24,41 +24,43 @@ export type GridDailyData = DailyDataBase & {
 
 export type DailyData = ClassicDailyData | AbilityDailyData | GridDailyData;
 
-export type ProgressData = {
+export type ProgressDataBase = {
   date: string;
   day: number;
   attempts: number;
   state?: GameStatusType;
-  guessedItems?: WarframeName[];
-  selectedMinigameAbility?: string;
-  gridState?: Record<string, GridCell>;
+};
+
+export type ClassicProgressData = ProgressDataBase & {
+  mode: "classic";
+  guessedItems: WarframeName[];
+};
+
+export type AbilityProgressData = ProgressDataBase & {
+  mode: "ability";
+  guessedItems: WarframeName[];
+  selectedMinigameAbility: string;
+};
+
+export type GridProgressData = ProgressDataBase & {
+  mode: "grid";
+  gridState: Record<string, GridCell>;
   hasSeenPopup?: boolean;
-} & (
-  | { mode: "classic"; guessedItems: WarframeName[] }
-  | {
-      mode: "ability";
-      selectedMinigameAbility: string;
-      guessedItems: WarframeName[];
-    }
-  | {
-      mode: "grid";
-      gridState: Record<string, GridCell>;
-      hasSeenPopup?: boolean;
-    }
-);
+};
+
+export type ProgressData =
+  | ClassicProgressData
+  | AbilityProgressData
+  | GridProgressData;
 
 export type FullClassicData = ClassicDailyData &
-  Omit<ProgressData, "date" | "day" | "mode">;
+  Omit<ClassicProgressData, "date" | "day" | "mode">;
 
 export type FullAbilityData = AbilityDailyData &
-  Omit<ProgressData, "date" | "day" | "mode"> & {
-    selectedMinigameAbility: string;
-  };
+  Omit<AbilityProgressData, "date" | "day" | "mode">;
 
 export type FullGridData = GridDailyData &
-  Omit<ProgressData, "date" | "day" | "mode"> & {
-    gridState: Record<string, GridCell>;
-  };
+  Omit<GridProgressData, "date" | "day" | "mode">;
 
 export const db = new Dexie("framedle") as Dexie & {
   dailies: EntityTable<DailyData>;

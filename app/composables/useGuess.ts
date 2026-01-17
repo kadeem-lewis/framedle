@@ -23,31 +23,31 @@ export function useGuess() {
       attempts.value[currentMode] -= 1;
       guessedItems.value[currentMode].push(warframe);
     } else if (currentMode === "classic" && currentDailyClassicData.value) {
-      await db.progress
-        .put({
-          mode: currentMode,
-          date: currentDailyClassicData.value.date,
-          day: currentDailyClassicData.value.day,
-          guessedItems: [...guessedItems.value[currentMode], warframe],
-          attempts: attempts.value[currentMode] - 1,
-          state: gameState.value[currentMode],
-        })
-        .catch((e) => {
-          console.error("Failed to add new guess", e);
-        });
+      const entry: ClassicProgressData = {
+        mode: currentMode,
+        date: currentDailyClassicData.value.date,
+        day: currentDailyClassicData.value.day,
+        guessedItems: [...guessedItems.value[currentMode], warframe],
+        attempts: attempts.value[currentMode] - 1,
+        state: gameState.value[currentMode],
+      };
+      await db.progress.put(entry).catch((e) => {
+        console.error("Failed to add new guess", e);
+      });
     } else if (currentMode === "ability" && currentDailyAbilityData.value) {
-      await db.progress
-        .put({
-          day: currentDailyAbilityData.value.day,
-          date: currentDailyAbilityData.value.date,
-          mode: currentMode,
-          guessedItems: [...guessedItems.value[currentMode], warframe],
-          attempts: attempts.value[currentMode] - 1,
-          state: gameState.value[currentMode],
-        })
-        .catch((e) => {
-          console.error("Failed to add new guess", e);
-        });
+      const entry: AbilityProgressData = {
+        mode: currentMode,
+        date: currentDailyAbilityData.value.date,
+        day: currentDailyAbilityData.value.day,
+        guessedItems: [...guessedItems.value[currentMode], warframe],
+        attempts: attempts.value[currentMode] - 1,
+        state: gameState.value[currentMode],
+        selectedMinigameAbility:
+          currentDailyAbilityData.value.selectedMinigameAbility,
+      };
+      await db.progress.put(entry).catch((e) => {
+        console.error("Failed to add new guess", e);
+      });
     }
   }
 
@@ -129,18 +129,18 @@ export function useGuess() {
 
       nextGridState[key] = cell;
 
-      await db.progress
-        .put({
-          mode: "grid",
-          date: dailyData.date,
-          day: dailyData.day,
-          attempts: Math.max(0, dailyData.attempts - 1),
-          gridState: nextGridState,
-          state: gameState.value["grid"],
-        })
-        .catch((e) => {
-          console.error("Failed to update grid guess", e);
-        });
+      const entry: GridProgressData = {
+        mode: "grid",
+        date: dailyData.date,
+        day: dailyData.day,
+        gridState: nextGridState,
+        attempts: Math.max(0, dailyData.attempts - 1),
+        state: gameState.value["grid"],
+      };
+
+      await db.progress.put(entry).catch((e) => {
+        console.error("Failed to update grid guess", e);
+      });
     } else {
       //! Register guess should ideally be handling both unlimited and daily states but I can't call grid data in the grid store because of circular dependencies
       registerGuess(

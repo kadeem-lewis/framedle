@@ -19,6 +19,7 @@ function handleAbilityClick(ability: string) {
   });
   if (mode.value === "ability") {
     if (selectedMinigameAbility.value.ability) return;
+
     db.progress
       .where({
         mode: "ability",
@@ -28,7 +29,7 @@ function handleAbilityClick(ability: string) {
       })
       .modify({
         selectedMinigameAbility: ability,
-      })
+      } as Partial<AbilityProgressData>)
       .catch((e) => {
         console.error("Failed to update daily state", e);
       });

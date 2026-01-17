@@ -8,7 +8,7 @@ export function useSubmission() {
   const { currentGameState, hasWon } = storeToRefs(useGameStateStore());
   const { DEFAULT_ATTEMPTS } = useGameStore();
   const { attempts } = storeToRefs(useGameStore());
-  const { currentDailyDate, query } = storeToRefs(useDailiesStore());
+  const { currentDailyDate } = storeToRefs(useDailiesStore());
   const { activeDays } = storeToRefs(useDailiesStore());
   const { daily, rarityScore } = storeToRefs(useGridGameStore());
 
@@ -62,7 +62,12 @@ export function useSubmission() {
         }
 
         try {
-          const existingRecord = await db.progress.get(query.value);
+          const existingRecord = await db.progress.get({
+            mode: mode.value,
+            ...(activeDays.value[mode.value]
+              ? { day: activeDays.value[mode.value] }
+              : { date: format(new Date(), "yyyy-MM-dd") }),
+          });
           if (
             existingRecord &&
             (existingRecord.state === GameStatus.WON ||

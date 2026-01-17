@@ -2,7 +2,15 @@ export const useGlobalStatsStore = defineStore("global-stats", () => {
   const { mode, isDailyMode } = useGameMode();
   const { currentDailyDate, currentDailyGridData } =
     storeToRefs(useDailiesStore());
-  const { isGameOver } = storeToRefs(useGameStateStore());
+  const { isGameOver, currentGameState } = storeToRefs(useGameStateStore());
+
+  const isFresh = refAutoReset(false, 5 * 1000); // 5 seconds
+
+  watch(currentGameState, (newState) => {
+    if (newState === GameStatus.WON || newState === GameStatus.LOST) {
+      isFresh.value = true;
+    }
+  });
 
   const statsQuery = computed(() => {
     if (!mode.value || !isDailyMode(mode.value)) return;
@@ -11,6 +19,7 @@ export const useGlobalStatsStore = defineStore("global-stats", () => {
     return {
       date,
       showAnswers: !!(mode.value === "grid" && isGameOver.value),
+      fresh: isFresh.value,
     };
   });
 
@@ -30,10 +39,10 @@ export const useGlobalStatsStore = defineStore("global-stats", () => {
     });
 
     await db.transaction("rw", "progress", async () => {
-      const progress = await db.progress.get({
+      const progress = (await db.progress.get({
         date: statsQuery.value?.date,
         mode: "grid",
-      });
+      })) as GridProgressData | undefined;
       if (progress && progress.gridState) {
         const nextGridState = { ...progress.gridState };
         let hasChanges = false;
@@ -44,10 +53,11 @@ export const useGlobalStatsStore = defineStore("global-stats", () => {
           }
         }
         if (hasChanges) {
-          await db.progress.put({
+          const entry: GridProgressData = {
             ...progress,
             gridState: nextGridState,
-          });
+          };
+          await db.progress.put(entry);
         }
       }
     });

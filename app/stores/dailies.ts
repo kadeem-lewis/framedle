@@ -32,10 +32,14 @@ export const useDailiesStore = defineStore("dailies", () => {
 
   const currentDailyClassicData = useLiveQuery(async () => {
     return await db.transaction("r", "dailies", "progress", async () => {
-      const puzzle = await db.dailies.where(query.value).first();
+      const puzzle = (await db.dailies.where(query.value).first()) as
+        | ClassicDailyData
+        | undefined;
       if (!puzzle) return undefined;
 
-      const progress = await db.progress.get([puzzle.day, "classic"]);
+      const progress = (await db.progress.get([puzzle.day, "classic"])) as
+        | ClassicProgressData
+        | undefined;
 
       return {
         ...puzzle,
@@ -48,10 +52,14 @@ export const useDailiesStore = defineStore("dailies", () => {
 
   const currentDailyAbilityData = useLiveQuery(async () => {
     return await db.transaction("r", "dailies", "progress", async () => {
-      const puzzle = await db.dailies.where(query.value).first();
+      const puzzle = (await db.dailies.where(query.value).first()) as
+        | AbilityDailyData
+        | undefined;
       if (!puzzle) return undefined;
 
-      const progress = await db.progress.get([puzzle.day, "ability"]);
+      const progress = (await db.progress.get([puzzle.day, "ability"])) as
+        | AbilityProgressData
+        | undefined;
 
       return {
         ...puzzle,
@@ -81,10 +89,14 @@ export const useDailiesStore = defineStore("dailies", () => {
 
   const currentDailyGridData = useLiveQuery(async () => {
     return await db.transaction("r", "dailies", "progress", async () => {
-      const puzzle = await db.dailies.where(query.value).first();
+      const puzzle = (await db.dailies.where(query.value).first()) as
+        | GridDailyData
+        | undefined;
       if (!puzzle) return undefined;
 
-      const progress = await db.progress.get([puzzle.day, "grid"]);
+      const progress = (await db.progress.get([puzzle.day, "grid"])) as
+        | GridProgressData
+        | undefined;
 
       return {
         ...puzzle,
@@ -119,13 +131,14 @@ export const useDailiesStore = defineStore("dailies", () => {
       const { date, day, gridState } = structuredClone(
         toRaw(currentDailyGridData.value),
       );
-      await db.progress.put({
+      const gridProgress: GridProgressData = {
         date,
         day,
         mode: "grid",
         gridState,
         attempts: 0,
-      });
+      };
+      await db.progress.put(gridProgress);
     } catch (error) {
       console.error("Error giving up grid daily:", error);
     }

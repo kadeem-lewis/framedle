@@ -30,10 +30,10 @@ export const useGlobalStatsStore = defineStore("global-stats", () => {
     });
 
     await db.transaction("rw", "progress", async () => {
-      const progress = await db.progress.get({
+      const progress = (await db.progress.get({
         date: statsQuery.value?.date,
         mode: "grid",
-      });
+      })) as GridProgressData | undefined;
       if (progress && progress.gridState) {
         const nextGridState = { ...progress.gridState };
         let hasChanges = false;
@@ -44,10 +44,11 @@ export const useGlobalStatsStore = defineStore("global-stats", () => {
           }
         }
         if (hasChanges) {
-          await db.progress.put({
+          const entry: GridProgressData = {
             ...progress,
             gridState: nextGridState,
-          });
+          };
+          await db.progress.put(entry);
         }
       }
     });

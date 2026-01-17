@@ -118,6 +118,16 @@ const puzzleHeading = computed(() => {
   return null;
 });
 
+const { getAdjacentArchiveDays } = useArchiveStore();
+const { proxy } = useScriptUmamiAnalytics();
+
+const adjacentDays = computedAsync(async () => {
+  if (!currentDailyGridData.value) {
+    return { previous: null, next: null };
+  }
+  return await getAdjacentArchiveDays(currentDailyGridData.value.day, "grid");
+});
+
 useSubmission();
 </script>
 <template>
@@ -179,36 +189,60 @@ useSubmission();
         <span> {{ gameScore }}/{{ rows.length * columns.length }}</span>
       </div>
     </div>
-    <div class="flex w-full items-center justify-center">
+    <div
+      v-if="mode === 'gridUnlimited'"
+      class="mt-2 flex w-full items-center justify-center"
+    >
       <UiConfirmPopup
-        v-if="mode === 'gridUnlimited'"
         title="Are you sure you generate a new grid?"
         :success-label="isGameOver ? 'Restart' : 'Give Up'"
         cancel-label="Cancel"
         @confirm="resetGridGame"
       >
-        <UButton variant="outline" icon="i-mdi-refresh">Generate</UButton>
+        <UButton variant="outline" icon="i-mdi-refresh" class="col-start-2"
+          >Generate</UButton
+        >
       </UiConfirmPopup>
-      <template v-else>
-        <UiConfirmPopup
-          v-if="!isGameOver"
-          title="Are you sure you want to give up?"
-          success-label="Give Up"
-          cancel-label="Cancel"
-          @confirm="giveUpGridDaily"
+    </div>
+    <div v-else class="mt-2 grid grid-cols-3 place-items-center gap-2">
+      <UButton
+        v-if="adjacentDays?.previous"
+        :to="`/grid/${adjacentDays?.previous}`"
+        variant="outline"
+        icon="i-heroicons-arrow-left"
+        @click="proxy.track('Visited Previous Day', { mode: 'grid' })"
+        >Prev</UButton
+      >
+      <UiConfirmPopup
+        v-if="!isGameOver"
+        title="Are you sure you want to give up?"
+        success-label="Give Up"
+        cancel-label="Cancel"
+        @confirm="giveUpGridDaily"
+      >
+        <UButton
+          variant="subtle"
+          color="error"
+          class="col-start-2 w-fit rounded-none font-medium uppercase"
         >
-          <UButton
-            variant="subtle"
-            color="error"
-            class="rounded-none font-medium uppercase"
-          >
-            Abort Mission
-          </UButton>
-        </UiConfirmPopup>
-        <UButton v-else class="rounded-none" @click="openSummaryDialog"
-          >Summary</UButton
-        >
-      </template>
+          Abort Mission
+        </UButton>
+      </UiConfirmPopup>
+      <UButton
+        v-else
+        class="col-start-2 w-fit rounded-none"
+        @click="openSummaryDialog"
+        >Summary</UButton
+      >
+      <UButton
+        v-if="adjacentDays?.next"
+        :to="`/${mode}/${adjacentDays?.next}`"
+        variant="outline"
+        trailing
+        icon="i-heroicons-arrow-right"
+        @click="proxy.track('Visited Next Day', { mode })"
+        >Next</UButton
+      >
     </div>
     <GridPuzzleStats v-if="isDaily" />
     <UModal v-model:open="isOpen" title="Make your guess" class="rounded-none">

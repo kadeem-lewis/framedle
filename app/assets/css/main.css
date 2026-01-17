@@ -33,6 +33,7 @@
   --border-success: hsl(210 64% 36%); /* 50% darker dodger blue */
   --error: hsl(32 100% 50%); /* orange ( #FFA500 ) */
   --border-error: hsl(32 52% 32%); /* 50% darker orange */
+  /* I need to remember to change the color blind color since pink doesn't work in a lot of cases */
   --partial: hsl(344 95% 77%); /* flamingo pink ( #fc8eac ) */
   --border-partial: hsl(344 52% 32%); /* 50% darker orange */
 }

@@ -14,7 +14,7 @@
     "lint:fix": "eslint . --fix",
     "typecheck": "nuxt typecheck",
     "db:generate": "drizzle-kit generate",
-    "db:push": "drizzle-kit push",
+    "db:push": "doppler run -- drizzle-kit push",
     "test": "vitest",
     "generate-pwa-assets": "pwa-assets-generator --preset minimal-2023 public/logo.svg"
   },

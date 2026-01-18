@@ -2,12 +2,23 @@
 const { mode, isLegacyDailyMode } = useGameMode();
 
 const { getAdjacentArchiveDays } = useArchiveStore();
-const { currentDailyClassicData, currentDailyAbilityData } =
-  storeToRefs(useDailiesStore());
+const {
+  currentDailyClassicData,
+  currentDailyAbilityData,
+  classicActiveDay,
+  abilityActiveDay,
+} = storeToRefs(useDailiesStore());
 
 const currentDayNumber = computed(() => {
-  if (mode.value === "classic") return currentDailyClassicData.value?.day;
-  if (mode.value === "ability") return currentDailyAbilityData.value?.day;
+  if (!mode.value) return null;
+
+  if (mode.value === "classic") {
+    return classicActiveDay.value ?? currentDailyClassicData.value?.day;
+  }
+  if (mode.value === "ability") {
+    return abilityActiveDay.value ?? currentDailyAbilityData.value?.day;
+  }
+
   return null;
 });
 

@@ -17,13 +17,15 @@ export const useDailiesStore = defineStore("dailies", () => {
 
   const { isDaily } = useGameMode();
 
+  const classicActiveDay = computed(() => activeDays.value.classic);
+
   const currentDailyClassicData = useLiveQuery(async () => {
     return await db.transaction("r", "dailies", "progress", async () => {
       const puzzle = (await db.dailies
         .where({
           mode: "classic" as const,
-          ...(activeDays.value.classic
-            ? { day: activeDays.value.classic }
+          ...(classicActiveDay.value
+            ? { day: classicActiveDay.value }
             : { date: format(new Date(), "yyyy-MM-dd") }),
         })
         .first()) as ClassicDailyData | undefined;
@@ -40,15 +42,17 @@ export const useDailiesStore = defineStore("dailies", () => {
         state: progress?.state,
       };
     });
-  }, [toRef(activeDays.value, "classic"), isDaily]);
+  }, [classicActiveDay, isDaily]);
+
+  const abilityActiveDay = computed(() => activeDays.value.ability);
 
   const currentDailyAbilityData = useLiveQuery(async () => {
     return await db.transaction("r", "dailies", "progress", async () => {
       const puzzle = (await db.dailies
         .where({
           mode: "ability" as const,
-          ...(activeDays.value.ability
-            ? { day: activeDays.value.ability }
+          ...(abilityActiveDay.value
+            ? { day: abilityActiveDay.value }
             : { date: format(new Date(), "yyyy-MM-dd") }),
         })
         .first()) as AbilityDailyData | undefined;
@@ -66,18 +70,20 @@ export const useDailiesStore = defineStore("dailies", () => {
         selectedMinigameAbility: progress?.selectedMinigameAbility || "",
       };
     });
-  }, [toRef(activeDays.value, "ability"), isDaily]);
+  }, [abilityActiveDay, isDaily]);
   // isDaily is included in the deps to ensure game loads when switching from unlimited to daily
 
   const { MAX_GRID_ATTEMPTS } = useGridGameStore();
+
+  const gridActiveDay = computed(() => activeDays.value.grid);
 
   const currentDailyGridData = useLiveQuery(async () => {
     return await db.transaction("r", "dailies", "progress", async () => {
       const puzzle = (await db.dailies
         .where({
           mode: "grid" as const,
-          ...(activeDays.value.grid
-            ? { day: activeDays.value.grid }
+          ...(gridActiveDay.value
+            ? { day: gridActiveDay.value }
             : { date: format(new Date(), "yyyy-MM-dd") }),
         })
         .first()) as GridDailyData | undefined;
@@ -95,7 +101,7 @@ export const useDailiesStore = defineStore("dailies", () => {
         hasSeenPopup: progress?.hasSeenPopup ?? false,
       };
     });
-  }, [toRef(activeDays.value, "grid"), isDaily]);
+  }, [gridActiveDay, isDaily]);
 
   const { setClassicGameData, setAbilityGameData } = useGameStore();
   const { syncGridData } = useGridGameStore();
@@ -251,6 +257,9 @@ export const useDailiesStore = defineStore("dailies", () => {
 
   return {
     activeDays,
+    classicActiveDay,
+    abilityActiveDay,
+    gridActiveDay,
     currentDailyClassicData,
     currentDailyAbilityData,
     currentDailyGridData,

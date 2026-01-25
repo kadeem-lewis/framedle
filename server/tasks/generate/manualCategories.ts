@@ -488,7 +488,10 @@ export default defineTask({
 
     const questframeWarframeNames = $questframeValues
       .filter((_, el) => {
-        const name = $questframe(el).text().trim();
+        const name = $questframe(el)
+          .text()
+          .trim()
+          .replace(/[\s\u00A0\n\t]+/g, " ");
         return warframeNames.some(
           (wf) => wf.toLowerCase() === name.toLowerCase(),
         );

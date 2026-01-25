@@ -11,21 +11,44 @@ export default defineTask({
 
     const categories: Record<string, unknown>[] = [];
 
-    const [buffsResponse, skinsResponse, arcaneHelmetResponse] =
-      await Promise.all([
-        $fetch<string>("/Buff_%26_Debuff/Buffs#Healing_", {
-          baseURL,
-          parseResponse: (text) => text,
-        }),
-        $fetch<string>("/Deluxe_Skins", {
-          baseURL,
-          parseResponse: (text) => text,
-        }),
-        $fetch<string>("/Arcane_Helmet", {
-          baseURL,
-          parseResponse: (text) => text,
-        }),
-      ]);
+    const [
+      buffsResponse,
+      skinsResponse,
+      arcaneHelmetResponse,
+      leverianResponse,
+      circuitResponse,
+      protoframeResponse,
+      questframeResponse,
+    ] = await Promise.all([
+      $fetch<string>("/Buff_%26_Debuff/Buffs#Healing_", {
+        baseURL,
+        parseResponse: (text) => text,
+      }),
+      $fetch<string>("/Deluxe_Skins", {
+        baseURL,
+        parseResponse: (text) => text,
+      }),
+      $fetch<string>("/Arcane_Helmet", {
+        baseURL,
+        parseResponse: (text) => text,
+      }),
+      $fetch<string>("/Leverian", {
+        baseURL,
+        parseResponse: (text) => text,
+      }),
+      $fetch<string>("/The_Circuit", {
+        baseURL,
+        parseResponse: (text) => text,
+      }),
+      $fetch<string>("/Protoframe", {
+        baseURL,
+        parseResponse: (text) => text,
+      }),
+      $fetch<string>("/Quest", {
+        baseURL,
+        parseResponse: (text) => text,
+      }),
+    ]);
 
     const $ = cheerio.load(buffsResponse);
     /*================================================
@@ -349,6 +372,141 @@ export default defineTask({
       type: "boolean",
       lastUsed: null,
       warframes: Array.from(arcaneHelmetWarframesAndVariants),
+    });
+
+    /*================================================
+      Leverian Warframes
+    ====================================================*/
+    const $leverian = cheerio.load(leverianResponse);
+    const $leverianValues = $leverian("#Leverian_Galleries")
+      .closest("h2")
+      .nextAll("h3")
+      .children("span")
+      .children("a");
+
+    const leverianWarframeNames = $leverianValues
+      .filter((_, el) => {
+        const name = $leverian(el).text().trim();
+        return warframeNames.some(
+          (wf) => wf.toLowerCase() === name.toLowerCase(),
+        );
+      })
+      .map((_, el) => $leverian(el).text().trim())
+      .toArray();
+
+    const leverianWarframesAndVariants = new Set<string>(leverianWarframeNames);
+
+    categories.push({
+      id: "leverian:true",
+      key: "leverian",
+      type: "boolean",
+      lastUsed: null,
+      warframes: Array.from(leverianWarframesAndVariants),
+    });
+
+    /*================================================
+      Acquisition Circuit
+    ====================================================*/
+    const $circuit = cheerio.load(circuitResponse);
+
+    const $circuitValues = $circuit(
+      "caption:contains('Normal Circuit Warframe Rotation')",
+    )
+      .next("tbody")
+      .children("tr")
+      .children("td")
+      .children("span")
+      .children("a");
+
+    const circuitWarframeNames = $circuitValues
+      .filter((_, el) => {
+        const name = $circuit(el).text().trim();
+        return warframeNames.some(
+          (wf) => wf.toLowerCase() === name.toLowerCase(),
+        );
+      })
+      .map((_, el) => $circuit(el).text().trim())
+      .toArray();
+
+    const circuitWarframesAndVariants = new Set<string>(circuitWarframeNames);
+
+    categories.push({
+      id: "acquisitionCircuit:true",
+      key: "acquisitionCircuit",
+      type: "boolean",
+      lastUsed: null,
+      warframes: Array.from(circuitWarframesAndVariants),
+    });
+
+    /*================================================
+      Protoframe Warframes
+    ====================================================*/
+    const $protoframe = cheerio.load(protoframeResponse);
+
+    const $protoframeValues = $protoframe("#Known_Protoframes")
+      .closest("h2")
+      .nextAll("ul")
+      .children("li")
+      .children("span")
+      .children("a");
+
+    const protoframeWarframeNames = $protoframeValues
+      .filter((_, el) => {
+        const name = $protoframe(el).text().trim();
+        return warframeNames.some(
+          (wf) => wf.toLowerCase() === name.toLowerCase(),
+        );
+      })
+      .map((_, el) => $protoframe(el).text().trim())
+      .toArray();
+
+    const protoframeWarframesAndVariants = new Set<string>(
+      protoframeWarframeNames,
+    );
+
+    categories.push({
+      id: "protoframe:true",
+      key: "protoframe",
+      type: "boolean",
+      lastUsed: null,
+      warframes: Array.from(protoframeWarframesAndVariants),
+    });
+
+    /*================================================
+      Quest Frame Warframes
+    ====================================================*/
+
+    const $questframe = cheerio.load(questframeResponse);
+
+    const $questframeValues = $questframe(
+      "td:contains('Warframe Unlock Quests')",
+    )
+      .parent()
+      .children("td")
+      .children("span")
+      .children("a");
+
+    const questframeWarframeNames = $questframeValues
+      .filter((_, el) => {
+        const name = $questframe(el).text().trim();
+        return warframeNames.some(
+          (wf) => wf.toLowerCase() === name.toLowerCase(),
+        );
+      })
+      .map((_, el) => $questframe(el).text().trim())
+      .toArray();
+
+    const questframeWarframesAndVariants = new Set<string>(
+      questframeWarframeNames,
+    );
+
+    categories.push({
+      id: "questframe:true",
+      label: "Is Quest Frame",
+      type: "boolean",
+      key: "questframe",
+      lastUsed: null,
+      warframes: Array.from(questframeWarframesAndVariants),
     });
 
     console.log(categories);

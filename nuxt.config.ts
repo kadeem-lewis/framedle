@@ -43,6 +43,8 @@ export default defineNuxtConfig({
     "/ability/**": { ssr: false },
     "/archive/**": { ssr: false },
     "/grid/**": { ssr: false },
+    "/privacy": { prerender: true },
+    "/android": { prerender: true },
   },
 
   app: {

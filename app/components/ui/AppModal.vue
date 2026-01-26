@@ -8,7 +8,7 @@ import {
   GridSummary,
 } from "#components";
 
-const props = defineProps<{
+const { title, dialogOption } = defineProps<{
   title: string;
   dialogOption: DialogOption;
 }>();
@@ -33,7 +33,7 @@ const optionComponents = {
         emit('close');
       },
     }"
-    :title="props.title"
+    :title
     :ui="{
       content: 'rounded-none',
       title: 'font-roboto text-center text-xl uppercase',
@@ -41,10 +41,10 @@ const optionComponents = {
     @update:open="(isOpen) => !isOpen && closeDialog()"
   >
     <template #description>
-      <p class="sr-only">{{ props.title }} dialog</p>
+      <p class="sr-only">{{ title }} dialog</p>
     </template>
     <template #body>
-      <component :is="optionComponents[props.dialogOption]" />
+      <component :is="optionComponents[dialogOption]" />
     </template>
   </UModal>
 </template>

@@ -3,6 +3,11 @@ const { targetDate } = defineProps<{
   targetDate: Date;
 }>();
 
+defineSlots<{
+  title: () => VNode[];
+  icon: () => VNode[];
+}>();
+
 const router = useRouter();
 
 const { timeUntil, isFinished } = useTimeUntil(() => targetDate);

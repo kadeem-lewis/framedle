@@ -4,6 +4,10 @@ const { label, value } = defineProps<{
   value: number | null | undefined;
 }>();
 
+defineSlots<{
+  default: () => VNode[];
+}>();
+
 const open = ref(false);
 </script>
 <template>

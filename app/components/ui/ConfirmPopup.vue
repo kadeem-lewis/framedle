@@ -9,6 +9,10 @@ const emit = defineEmits<{
   (e: "confirm"): void;
 }>();
 
+defineSlots<{
+  default: () => VNode[];
+}>();
+
 const isOpen = ref(false);
 </script>
 <template>

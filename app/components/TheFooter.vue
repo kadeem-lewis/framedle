@@ -5,7 +5,7 @@ const { openDialog } = useDialog();
 const { proxy } = useScriptUmamiAnalytics();
 
 const START_YEAR = 2024 as const;
-const year = ref(new Date().getFullYear());
+const year = new Date().getFullYear();
 
 const items = [
   {

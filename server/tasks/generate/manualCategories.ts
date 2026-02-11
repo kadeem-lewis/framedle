@@ -250,7 +250,8 @@ export default defineTask({
     }
     console.log(`Generated ${categories.length} categories.`);
 
-    const categoriesContent = `export const manualCategories = ${JSON.stringify(categories, null, 2)} as const;`;
+    const categoriesContent = `// Auto-generated manual grid categories
+    export const manualCategories = ${JSON.stringify(categories, null, 2)} as const;`;
     await fs.writeFile("./server/data/manualCategories.ts", categoriesContent);
 
     return {

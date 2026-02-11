@@ -115,7 +115,52 @@ export const categoryMetadata = {
   circuit: (_: unknown) => ({
     header: "Acquisition",
     value: "The Circuit",
-    description: "Warframes that can obtained through the Circuit",
+    description: "Warframes that can obtained through the Circuit.",
+  }),
+  energyRestore: (_: unknown) => ({
+    header: "Ability",
+    value: "Restores Energy",
+    description:
+      "Warframes with at least one ability or augment that restores energy.",
+    extra: [
+      "Abilities that generate energy orbs are not considered energy restoring for this category.",
+    ],
+  }),
+  healthRestore: (_: unknown) => ({
+    header: "Ability",
+    value: "Restores Health",
+    description:
+      "Warframes with at least one ability or augment that restores health.",
+    extra: [
+      "Abilities that generate health orbs are not considered health restoring for this category.",
+    ],
+  }),
+  shieldRestore: (_: unknown) => ({
+    header: "Ability",
+    value: "Restores Shield",
+    description:
+      "Warframes with at least one ability or augment that restores shield.",
+  }),
+  lootReroll: (_: unknown) => ({
+    header: "Ability",
+    value: "Rerolls Loot",
+    description:
+      "Warframes with at least one ability or augment that has a chance of rerolling the loot Drop Table for an enemy.",
+  }),
+  deluxeSkin: (_: unknown) => ({
+    header: "Cosmetic",
+    value: "Has Deluxe Skin",
+    description: "Warframes that have a deluxe skin ",
+  }),
+  heirloomSkin: (_: unknown) => ({
+    header: "Cosmetic",
+    value: "Has Heirloom Skin",
+    description: "Warframes that have an heirloom skin",
+  }),
+  arcaneHelmet: (_: unknown) => ({
+    header: "Cosmetic",
+    value: "Has Arcane Helmet",
+    description: "Warframes that can equip an Arcane Helmet",
   }),
 };
 

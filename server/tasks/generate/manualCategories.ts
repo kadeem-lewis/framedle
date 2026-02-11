@@ -256,7 +256,6 @@ export default defineTask({
 
     return {
       result: "success",
-      data: categories,
     };
   },
 });

@@ -11,8 +11,8 @@ export function resolveVariants(scrapedNames: string[]) {
   return [...resolved];
 }
 
+const validNamesSet = new Set(warframeNames.map((n) => n.toLowerCase()));
+
 export function filterStrict(scrapedNames: string[]) {
-  return scrapedNames.filter((name) => {
-    return warframeNames.some((wf) => wf.toLowerCase() === name.toLowerCase());
-  });
+  return scrapedNames.filter((name) => validNamesSet.has(name.toLowerCase()));
 }

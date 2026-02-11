@@ -149,7 +149,7 @@ export default defineCachedEventHandler<Promise<StatsResponse>>(
       const query = getQuery(event);
       return `stats-${query.date}-${query.showAnswers}`;
     },
-    shouldBypassCache(event) {
+    shouldInvalidateCache(event) {
       return getQuery(event).fresh === "true";
     },
   },

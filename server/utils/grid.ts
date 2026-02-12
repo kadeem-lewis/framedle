@@ -1,6 +1,7 @@
 import type { warframes } from "#shared/data/warframes";
 import { inArray, isNull } from "drizzle-orm";
 import type { Category as DBCategory } from "#shared/schemas/db";
+import type { DrizzleDB } from "../types/db";
 
 export type CategoryKey = Omit<
   keyof (typeof warframes)[keyof typeof warframes],
@@ -39,22 +40,21 @@ export type GridPuzzleOptions = {
   isUnlimited?: boolean;
 };
 
-export async function generateGridPuzzle(options: GridPuzzleOptions = {}) {
+export async function generateGridPuzzle(
+  options: GridPuzzleOptions = {},
+  db: DrizzleDB = useDrizzle(),
+) {
   const { isUnlimited = false } = options;
   console.log(
     `Generating 3x3 Grid (Mode: ${isUnlimited ? "Unlimited" : "Daily"})...`,
   );
 
-  // 1. Fetch Candidates
-  // Unlimited Mode: Fetch ALL categories.
-  // Daily Mode: Fetch only categories not used recently.
   let validCategories;
-
-  const db = useDrizzle();
 
   if (isUnlimited) {
     validCategories = await db.select().from(tables.categories);
   } else {
+    // I need to make sure that lastUsed validation is actually working as intended and I also need to add a lastUsed check for the categoryPairs table
     validCategories = await db
       .select()
       .from(tables.categories)
@@ -170,5 +170,5 @@ export async function generateGridPuzzle(options: GridPuzzleOptions = {}) {
     }
   }
 
-  throw new Error("Failed to generate grid.");
+  throw createError("Failed to generate a valid grid after multiple attempts.");
 }

@@ -26,7 +26,7 @@
     "@nuxt/image": "^2.0.0",
     "@nuxt/scripts": "^0.13.2",
     "@nuxt/test-utils": "^4.0.0",
-    "@nuxt/ui": "4.0.1",
+    "@nuxt/ui": "4.4.0",
     "@nuxtjs/i18n": "^10.2.3",
     "@nuxtjs/seo": "3.4.0",
     "@types/luaparse": "^0.2.13",

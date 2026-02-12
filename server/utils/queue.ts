@@ -1,4 +1,5 @@
 import { format } from "date-fns";
+import type { DrizzleDB } from "../types/db";
 
 type QueueItem = {
   key: string;
@@ -132,8 +133,9 @@ export async function processQueue(
 
 export async function getNextFromQueue(
   name: "warframe" | "ability",
+  db: DrizzleDB = useDrizzle(),
 ): Promise<string> {
-  return await useDrizzle().transaction(async (tx) => {
+  return await db.transaction(async (tx) => {
     const result = await tx
       .select()
       .from(tables.queue)
@@ -144,23 +146,26 @@ export async function getNextFromQueue(
       throw createError(`No queue found for name: ${name}`);
     }
 
-    const queueData = result[0].data;
+    let queueData = result[0].data;
 
-    // 2. FIND NEXT
     const nextItemIndex = queueData.queue.findIndex((item) => !item.used);
+    let nextItem: QueueItem;
 
     if (nextItemIndex === -1) {
-      throw createError(
-        `CRITICAL: No available items in the '${name}' queue. Please run the data generation task.`,
-      );
+      const items = createNewQueue(warframeNames);
+      queueData = {
+        length: items.length,
+        cycleNumber: queueData.cycleNumber + 1,
+        queue: items,
+      };
+      nextItem = queueData.queue[0];
+    } else {
+      nextItem = queueData.queue[nextItemIndex];
     }
 
-    // 3. MODIFY
-    const nextItem = queueData.queue[nextItemIndex];
     nextItem.used = true;
     nextItem.usedAt = new Date().toISOString();
 
-    // 4. WRITE
     await tx
       .update(tables.queue)
       .set({ data: queueData, updatedAt: format(new Date(), "yyyy-MM-dd") })

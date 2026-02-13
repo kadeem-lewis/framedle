@@ -8,7 +8,7 @@
     "dev": "doppler run -- nuxt dev",
     "generate": "nuxt generate",
     "start": "node --import ./.output/server/sentry.server.config.mjs .output/server/index.mjs",
-    "preview": "nuxt preview",
+    "preview": "doppler run -- nuxt preview",
     "postinstall": "nuxt prepare",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",

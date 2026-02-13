@@ -13,35 +13,41 @@ watch(selectedLocale, (newValue) => {
 //data transfer
 </script>
 <template>
-  <div class="flex items-center justify-between py-2">
-    <p class="text-lg font-medium">Colorblind Mode</p>
-    <USwitch v-model="$colorblindMode" @click="$toggleColorblindMode" />
-  </div>
-  <USeparator />
-  <div class="flex items-center justify-between py-2">
-    <p class="text-lg font-medium">Theme</p>
-    <UColorModeSelect
-      size="lg"
-      class="min-w-fit rounded-none"
-      :ui="{
-        content: 'rounded-none',
-      }"
-    />
-  </div>
-  <USeparator />
-  <div class="flex flex-col gap-1 py-2">
-    <div class="flex items-center justify-between pb-1">
-      <p class="text-lg font-medium">Language</p>
-      <USelect
-        v-model="selectedLocale"
-        :items="locales"
-        label-key="name"
-        value-key="code"
+  <div>
+    <div class="flex items-center justify-between py-2">
+      <p class="text-lg font-medium">Colorblind Mode</p>
+      <USwitch v-model="$colorblindMode" @click="$toggleColorblindMode" />
+    </div>
+    <USeparator />
+    <div class="flex items-center justify-between py-2">
+      <p class="text-lg font-medium">Theme</p>
+      <UColorModeSelect
         size="lg"
-        :ui="{ base: 'rounded-none ', content: 'rounded-none', value: 'px-2' }"
+        class="min-w-fit rounded-none"
+        :ui="{
+          content: 'rounded-none',
+        }"
       />
     </div>
-    <p class="text-muted text-sm">More languages coming soon</p>
+    <USeparator />
+    <div class="flex flex-col gap-1 py-2">
+      <div class="flex items-center justify-between pb-1">
+        <p class="text-lg font-medium">Language</p>
+        <USelect
+          v-model="selectedLocale"
+          :items="locales"
+          label-key="name"
+          value-key="code"
+          size="lg"
+          :ui="{
+            base: 'rounded-none ',
+            content: 'rounded-none',
+            value: 'px-2',
+          }"
+        />
+      </div>
+      <p class="text-muted text-sm">More languages coming soon</p>
+    </div>
+    <USeparator />
   </div>
-  <USeparator />
 </template>

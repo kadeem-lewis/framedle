@@ -81,6 +81,9 @@ export default defineNuxtConfig({
         "reddit",
       ],
     },
+    experimental: {
+      componentDetection: true,
+    },
   },
 
   scripts: {

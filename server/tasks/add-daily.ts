@@ -20,7 +20,7 @@ export default defineTask({
           sql`SELECT pg_try_advisory_xact_lock(${LOCK_ID}) as acquired`,
         ); // prevents concurrency issues when multiple instances of this task run at the same time
 
-        if (!lockResult.acquired) {
+        if (!lockResult?.acquired) {
           console.log(
             `Another instance is already adding the daily entry for ${readableDate}. Skipping...`,
           );

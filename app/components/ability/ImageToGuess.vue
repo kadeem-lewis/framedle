@@ -146,28 +146,28 @@ watch(
 );
 </script>
 <template>
-  <template v-if="mode === 'ability' || mode === 'abilityUnlimited'">
-    <div class="flex items-center justify-center p-4">
-      <div class="grid h-60 w-60 grid-cols-3 grid-rows-2">
-        <canvas
-          v-for="index of revealedCells"
-          :key="index"
-          :ref="canvasRefs.set"
-          class="col-span-1 invert dark:invert-0"
-          :class="{
-            'rotate-180':
-              index === revealedCells && revealedCells !== totalCells,
-            'transition-transform duration-500': !isGameOver,
-          }"
-        />
-        <div
-          v-for="index of remainingCells"
-          :key="index"
-          class="col-span-1 flex h-full items-center justify-center border bg-red-500 dark:bg-red-600"
-        >
-          <UIcon name="i-mdi-help" class="text-4xl" />
-        </div>
+  <div
+    v-if="mode === 'ability' || mode === 'abilityUnlimited'"
+    class="flex items-center justify-center p-4"
+  >
+    <div class="grid h-60 w-60 grid-cols-3 grid-rows-2">
+      <canvas
+        v-for="index of revealedCells"
+        :key="index"
+        :ref="canvasRefs.set"
+        class="col-span-1 invert dark:invert-0"
+        :class="{
+          'rotate-180': index === revealedCells && revealedCells !== totalCells,
+          'transition-transform duration-500': !isGameOver,
+        }"
+      />
+      <div
+        v-for="index of remainingCells"
+        :key="index"
+        class="col-span-1 flex h-full items-center justify-center border bg-red-500 dark:bg-red-600"
+      >
+        <UIcon name="i-mdi-help" class="text-4xl" />
       </div>
     </div>
-  </template>
+  </div>
 </template>

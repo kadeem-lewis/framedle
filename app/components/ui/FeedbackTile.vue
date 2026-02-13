@@ -13,6 +13,10 @@ const {
   variant?: Result;
 }>();
 
+defineSlots<{
+  default: () => VNode[];
+}>();
+
 const tooltipText = computed(() => {
   if (fieldLabel === "Warframe") return `${fieldValue}`;
   if (variant === "correct") {

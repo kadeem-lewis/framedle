@@ -8,7 +8,7 @@ export function useModeCards() {
     {
       label: t("home.classic_card.title"),
       route: "/classic",
-      source: "/warframe.png",
+      source: "/icons/warframe.png",
       background: img("/backgrounds/fortuna.jpg", { format: "webp" }),
       description: t("home.classic_card.description"),
       streak: stats.value.classic.streak,
@@ -16,7 +16,7 @@ export function useModeCards() {
     {
       label: t("home.ability_card.title"),
       route: "/ability",
-      source: "/PassiveAbilityIcon.png",
+      source: "/icons/PassiveAbilityIcon.png",
       background: img("/backgrounds/helminth.jpg", { format: "webp" }),
       description: t("home.ability_card.description"),
       streak: stats.value.ability.streak,
@@ -24,7 +24,7 @@ export function useModeCards() {
     {
       label: "Grid",
       route: "/grid",
-      source: "/BuildIcon.png",
+      source: "/icons/BuildIcon.png",
       background: img("/backgrounds/orbiter.jpg", { format: "webp" }),
       description: "Fill the 3x3 board",
       streak: stats.value.grid.streak,

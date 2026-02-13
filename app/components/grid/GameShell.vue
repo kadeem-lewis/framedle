@@ -245,7 +245,13 @@ useSubmission();
       >
     </div>
     <GridPuzzleStats v-if="isDaily" />
-    <UModal v-model:open="isOpen" title="Make your guess" class="rounded-none">
+    <UModal
+      v-model:open="isOpen"
+      title="Make your guess"
+      :ui="{
+        content: 'rounded-none',
+      }"
+    >
       <template #description>
         <div>
           <p>{{ rowLabel }}&nbsp;/&nbsp;{{ columnLabel }}</p>

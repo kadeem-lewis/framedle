@@ -36,9 +36,9 @@ export default defineTask({
         // --- CONSTRAINT CHECKS ---
 
         // Rule: Categories with the same key cannot be a pair...
-        if (catA.key === catB.key) {
+        if (catA?.key === catB?.key) {
           // ...UNLESS the key is 'playstyle'
-          if (catA.key !== "playstyle") {
+          if (catA?.key !== "playstyle") {
             continue;
           }
         }
@@ -46,13 +46,12 @@ export default defineTask({
         // --- INTERSECTION LOGIC ---
 
         // Convert Array to Set for O(1) lookups
-        const warframesA = new Set(catA.warframes);
-        const intersection = catB.warframes.filter((warframe) =>
+        const warframesA = new Set(catA?.warframes);
+        const intersection = catB?.warframes.filter((warframe) =>
           warframesA.has(warframe),
         );
 
-        // Rule: Filter out pairs with less than 2 valid answers
-        //! two is a bad number to use because the other columns are based off categories that pair with the first category and 2 can soft lock the game
+        // Rule: Filter out pairs with less than 3 valid answers
         if (intersection.length < 3) {
           continue;
         }
@@ -102,7 +101,6 @@ export default defineTask({
     }
 
     console.log(`Generated ${pairsToInsert.length} valid pairs.`);
-    console.log("Pairs", pairsToInsert);
 
     if (pairsToInsert.length > 0) {
       await db

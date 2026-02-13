@@ -1,6 +1,7 @@
 import { differenceInSeconds } from "date-fns";
 
-export function useTimeUntil(targetTime: Date) {
+export function useTimeUntil(time: MaybeRefOrGetter<Date>) {
+  const targetTime = toValue(time);
   const timeLeft = ref(calculateTimeLeft(targetTime));
 
   const isFinished = computed(() => timeLeft.value <= 0);

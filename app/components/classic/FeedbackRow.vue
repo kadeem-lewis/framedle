@@ -1,5 +1,5 @@
 <script setup lang="ts">
-defineProps<{
+const { guessedWarframe, correctWarframe } = defineProps<{
   guessedWarframe: Warframe;
   correctWarframe: Warframe;
 }>();

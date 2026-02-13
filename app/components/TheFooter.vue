@@ -5,7 +5,7 @@ const { openDialog } = useDialog();
 const { proxy } = useScriptUmamiAnalytics();
 
 const START_YEAR = 2024 as const;
-const year = ref(new Date().getFullYear());
+const year = new Date().getFullYear();
 
 const items = [
   {
@@ -61,14 +61,14 @@ const items = [
         ><NuxtImg
           height="40"
           class="h-10 border-0 hover:brightness-110 dark:hover:brightness-75"
-          src="/KofiBadge.png"
+          src="/badges/KofiBadge.png"
           alt="Buy Me a Coffee at ko-fi.com"
       /></NuxtLink>
       <NuxtLink href="/android"
         ><NuxtImg
           height="40"
           class="h-10 border-0 hover:brightness-110 dark:hover:brightness-75"
-          src="/PreRegisterOnGooglePlayBadge.png"
+          src="/badges/PreRegisterOnGooglePlayBadge.png"
           alt="Pre-register on Google Play"
           @click="
             proxy.track('clicked footer button', { name: 'Google Play' })

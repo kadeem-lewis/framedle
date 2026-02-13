@@ -43,6 +43,8 @@ export default defineNuxtConfig({
     "/ability/**": { ssr: false },
     "/archive/**": { ssr: false },
     "/grid/**": { ssr: false },
+    "/privacy": { prerender: true },
+    "/android": { prerender: true },
   },
 
   app: {
@@ -78,6 +80,9 @@ export default defineNuxtConfig({
         "error",
         "reddit",
       ],
+    },
+    experimental: {
+      componentDetection: true,
     },
   },
 
@@ -168,6 +173,7 @@ export default defineNuxtConfig({
 
   image: {
     domains: ["cdn.warframestat.us"],
+    dir: "assets/images",
   },
 
   nitro: {

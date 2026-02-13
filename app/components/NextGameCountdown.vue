@@ -1,11 +1,16 @@
 <script setup lang="ts">
-const props = defineProps<{
+const { targetDate } = defineProps<{
   targetDate: Date;
+}>();
+
+defineSlots<{
+  title: () => VNode[];
+  icon: () => VNode[];
 }>();
 
 const router = useRouter();
 
-const { timeUntil, isFinished } = useTimeUntil(props.targetDate);
+const { timeUntil, isFinished } = useTimeUntil(() => targetDate);
 </script>
 <template>
   <div>

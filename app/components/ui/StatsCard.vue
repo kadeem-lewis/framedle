@@ -1,5 +1,5 @@
 <script setup lang="ts">
-const props = defineProps<{
+const { label, value } = defineProps<{
   label: string;
   value: number | string | null;
 }>();
@@ -8,7 +8,7 @@ const props = defineProps<{
   <div
     class="ring-primary flex flex-col items-center text-center font-semibold uppercase ring-1"
   >
-    <p class="py-0.5">{{ props.value ?? "—" }}</p>
-    <p class="bg-primary w-full py-0.5">{{ props.label }}</p>
+    <p class="py-0.5">{{ value ?? "—" }}</p>
+    <p class="bg-primary w-full py-0.5">{{ label }}</p>
   </div>
 </template>

@@ -1,5 +1,17 @@
 # Changelog
 
+## v1.1.0 - February 13th, 2026
+
+### Changes
+
+- Add new categories to grid game mode such as "Warframes that restore energy" and "Warframes with Deluxe skins"
+
+### Bug Fixes
+
+- Fixed daily schedule function skipping certain entries in the warframe queue if the function runs multiple times in a day
+- Fixed queues not resetting after all entries have been used
+- Fixed stats resetting to previous values after completing a game
+
 ## v1.0.1 - January 17th, 2026
 
 ### Bug fixes

@@ -1,5 +1,16 @@
 # Changelog
 
+## v1.1.1 - February 15th, 2026
+
+### Changes
+
+- Increased length of time images are cached by the browser to improve performance
+- Added various SEO improvements such as better titles and descriptions and more detailed sitemaps
+
+### Bug Fixes
+
+- Fixed queue only being able to generate new warframes when reset
+
 ## v1.1.0 - February 13th, 2026
 
 ### Changes

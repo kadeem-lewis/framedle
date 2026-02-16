@@ -5,8 +5,11 @@ definePageMeta({
 
 useSeoMeta({
   title: "Grid Unlimited",
+  ogTitle: "Grid Unlimited",
   description:
-    "Play the unlimited grid mode of Framedle Grid, where you can guess warframes on a grid with no daily limits.",
+    "Fill the 3x3 grid with warframes that match the column and row clues. Play as many times as you like!",
+  ogDescription:
+    "Fill the 3x3 grid with warframes that match the column and row clues. Play as many times as you like!",
 });
 
 const { initializeUnlimitedGridGame } = useGridGameStore();

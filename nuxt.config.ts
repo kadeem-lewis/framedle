@@ -45,6 +45,9 @@ export default defineNuxtConfig({
     "/grid/**": { ssr: false },
     "/privacy": { prerender: true },
     "/android": { prerender: true },
+    "/_ipx/**": {
+      headers: { "Cache-Control": "public, max-age=31536000, immutable" },
+    },
   },
 
   app: {
@@ -116,6 +119,17 @@ export default defineNuxtConfig({
     },
   },
 
+  sitemap: {
+    zeroRuntime: true,
+    urls: [
+      "/classic",
+      "/classic/unlimited",
+      "/ability",
+      "/ability/unlimited",
+      "/grid",
+    ],
+  },
+
   i18n: {
     strategy: "no_prefix",
     vueI18n: "./i18n.config.ts",
@@ -146,7 +160,8 @@ export default defineNuxtConfig({
 
   fonts: {
     defaults: {
-      weights: ["400", "500", "600", "700"],
+      weights: ["400 700"],
+      styles: ["normal"],
       subsets: ["latin", "latin-ext"],
     },
     families: [
@@ -160,8 +175,6 @@ export default defineNuxtConfig({
       },
     ],
   },
-
-  sourcemap: { client: "hidden" },
 
   experimental: {
     typedPages: true,
@@ -183,6 +196,13 @@ export default defineNuxtConfig({
     scheduledTasks: {
       "0 0 * * *": ["add-daily"],
     },
+  },
+
+  sourcemap: { client: "hidden" },
+
+  sentry: {
+    org: "framedle",
+    project: "framedle",
   },
 
   pwa: {
@@ -233,6 +253,12 @@ export default defineNuxtConfig({
             "Guess the warframe using a concealed image of one of it's abilities.",
         },
         {
+          name: "Grid",
+          url: "/grid",
+          description:
+            "Fill the 3x3 grid with warframes that match the column and row clues.",
+        },
+        {
           name: "Archive",
           url: "/archive",
           description: "View a list of all past games.",
@@ -281,12 +307,6 @@ export default defineNuxtConfig({
       suppressWarnings: true,
       navigateFallback: "/",
       navigateFallbackAllowlist: [/^\/$/],
-    },
-  },
-  sentry: {
-    sourceMapsUploadOptions: {
-      org: "framedle",
-      project: "framedle",
     },
   },
 });

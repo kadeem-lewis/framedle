@@ -152,7 +152,8 @@ export async function getNextFromQueue(
     let nextItem: QueueItem;
 
     if (nextItemIndex === -1) {
-      const items = createNewQueue(warframeNames);
+      const values = name === "warframe" ? warframeNames : abilityNames;
+      const items = createNewQueue(values);
       queueData = {
         length: items.length,
         cycleNumber: queueData.cycleNumber + 1,

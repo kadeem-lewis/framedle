@@ -4,14 +4,19 @@ definePageMeta({
   validate: validateRoute,
 });
 
+const { isUnlimited } = useGameMode();
+
+const { DEFAULT_ATTEMPTS, initializeUnlimitedGame } = useGameStore();
+
 useSeoMeta({
-  title: "Classic",
+  title: () => (isUnlimited.value ? "Classic Unlimited" : "Classic Daily"),
+  description: () =>
+    `Guess the Warframe in ${DEFAULT_ATTEMPTS} tries. Each try reveals more information about the Warframe.`,
 });
 
 const { t } = useI18n();
 
 const { itemToGuess, guessedItems, attempts } = storeToRefs(useGameStore());
-const { DEFAULT_ATTEMPTS, initializeUnlimitedGame } = useGameStore();
 const { isLoadingDailies } = storeToRefs(useDailiesStore());
 
 const { mode, isDaily } = useGameMode();

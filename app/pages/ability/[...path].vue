@@ -4,14 +4,18 @@ definePageMeta({
   validate: validateRoute,
 });
 
+const { isUnlimited } = useGameMode();
+const { initializeUnlimitedGame, DEFAULT_ATTEMPTS } = useGameStore();
+
 useSeoMeta({
-  title: "Ability",
+  title: () => (isUnlimited.value ? "Ability Unlimited" : "Ability Daily"),
+  description: () =>
+    `Guess the Warframe ability in ${DEFAULT_ATTEMPTS} tries. Each try reveals a tile.`,
 });
 
 const { t } = useI18n();
 
 const { itemToGuess, guessedItems } = storeToRefs(useGameStore());
-const { initializeUnlimitedGame } = useGameStore();
 const { mode, isDaily } = useGameMode();
 const route = useRoute("ability-path");
 const { isGameOver } = storeToRefs(useGameStateStore());

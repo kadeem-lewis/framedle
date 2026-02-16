@@ -64,7 +64,7 @@ const items = [
           src="/badges/KofiBadge.png"
           alt="Buy Me a Coffee at ko-fi.com"
       /></NuxtLink>
-      <NuxtLink href="/android"
+      <NuxtLink href="/android" aria-label="Android pre-registration page"
         ><NuxtImg
           height="40"
           class="h-10 border-0 hover:brightness-110 dark:hover:brightness-75"

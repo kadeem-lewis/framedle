@@ -253,6 +253,12 @@ export default defineNuxtConfig({
             "Guess the warframe using a concealed image of one of it's abilities.",
         },
         {
+          name: "Grid",
+          url: "/grid",
+          description:
+            "Fill the 3x3 grid with warframes that match the column and row clues.",
+        },
+        {
           name: "Archive",
           url: "/archive",
           description: "View a list of all past games.",

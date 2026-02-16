@@ -119,6 +119,10 @@ export default defineNuxtConfig({
     },
   },
 
+  sitemap: {
+    zeroRuntime: true,
+  },
+
   i18n: {
     strategy: "no_prefix",
     vueI18n: "./i18n.config.ts",

@@ -7,9 +7,9 @@ useSeoMeta({
   title: "Grid Daily",
   ogTitle: "Grid Daily",
   description:
-    "Play the daily grid mode of Framedle, where you can guess warframes on a grid with limited attempts.",
+    "Fill the 3x3 grid with warframes that match the column and row clues. A new puzzle is available every day!",
   ogDescription:
-    "Play the daily grid mode of Framedle, where you can guess warframes on a grid with limited attempts.",
+    "Fill the 3x3 grid with warframes that match the column and row clues. A new puzzle is available every day!",
 });
 
 const { daily } = storeToRefs(useGridGameStore());

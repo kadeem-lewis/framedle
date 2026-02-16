@@ -121,6 +121,13 @@ export default defineNuxtConfig({
 
   sitemap: {
     zeroRuntime: true,
+    urls: [
+      "/classic",
+      "/classic/unlimited",
+      "/ability",
+      "/ability/unlimited",
+      "/grid",
+    ],
   },
 
   i18n: {

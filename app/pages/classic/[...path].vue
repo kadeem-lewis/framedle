@@ -10,7 +10,10 @@ const { DEFAULT_ATTEMPTS, initializeUnlimitedGame } = useGameStore();
 
 useSeoMeta({
   title: () => (isUnlimited.value ? "Classic Unlimited" : "Classic Daily"),
+  ogTitle: () => (isUnlimited.value ? "Classic Unlimited" : "Classic Daily"),
   description: () =>
+    `Guess the Warframe in ${DEFAULT_ATTEMPTS} tries. Each try reveals more information about the Warframe.`,
+  ogDescription: () =>
     `Guess the Warframe in ${DEFAULT_ATTEMPTS} tries. Each try reveals more information about the Warframe.`,
 });
 

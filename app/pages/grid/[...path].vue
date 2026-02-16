@@ -5,7 +5,10 @@ definePageMeta({
 
 useSeoMeta({
   title: "Grid Daily",
+  ogTitle: "Grid Daily",
   description:
+    "Play the daily grid mode of Framedle, where you can guess warframes on a grid with limited attempts.",
+  ogDescription:
     "Play the daily grid mode of Framedle, where you can guess warframes on a grid with limited attempts.",
 });
 

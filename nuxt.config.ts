@@ -165,8 +165,6 @@ export default defineNuxtConfig({
     ],
   },
 
-  sourcemap: { client: "hidden" },
-
   experimental: {
     typedPages: true,
   },
@@ -187,6 +185,13 @@ export default defineNuxtConfig({
     scheduledTasks: {
       "0 0 * * *": ["add-daily"],
     },
+  },
+
+  sourcemap: { client: "hidden" },
+
+  sentry: {
+    org: "framedle",
+    project: "framedle",
   },
 
   pwa: {
@@ -285,12 +290,6 @@ export default defineNuxtConfig({
       suppressWarnings: true,
       navigateFallback: "/",
       navigateFallbackAllowlist: [/^\/$/],
-    },
-  },
-  sentry: {
-    sourceMapsUploadOptions: {
-      org: "framedle",
-      project: "framedle",
     },
   },
 });

@@ -133,6 +133,21 @@ export default defineTask({
             .children("a"),
       },
       {
+        id: "invisibility:true",
+        key: "invisibility",
+        mode: "expand",
+        $: $buffs,
+        getPath: ($: CheerioAPI) =>
+          $("td:contains('Invisibility')")
+            .closest("tr")
+            .children("td")
+            .last()
+            .children("ul")
+            .children("li")
+            .children("span")
+            .children("a"),
+      },
+      {
         id: "deluxeSkin:true",
         key: "deluxeSkin",
         mode: "expand",

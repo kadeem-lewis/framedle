@@ -1,5 +1,15 @@
 # Changelog
 
+## v1.2.0 - February 17th, 2026
+
+### Changes
+
+- Added Invisibility as new category to grid game mode
+
+### Bug Fixes
+
+- Fixed multiple warframes being missing from newly generated categories
+
 ## v1.1.1 - February 15th, 2026
 
 ### Changes

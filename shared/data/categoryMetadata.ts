@@ -147,6 +147,12 @@ export const categoryMetadata = {
     description:
       "Warframes with at least one ability or augment that has a chance of rerolling the loot Drop Table for an enemy.",
   }),
+  invisibility: (_: unknown) => ({
+    header: "Ability",
+    value: "Invisibility",
+    description:
+      "Warframes with at least one ability or augment that grants invisibility.",
+  }),
   deluxeSkin: (_: unknown) => ({
     header: "Cosmetic",
     value: "Has Deluxe Skin",

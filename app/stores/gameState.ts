@@ -53,7 +53,7 @@ export const useGameStateStore = defineStore(
         currentGame.value.config.columns.length;
 
       const correctCells = Object.values(currentGame.value.grid).filter(
-        (cell) => cell,
+        (cell) => cell.value,
       );
 
       const isWin = totalCells > 0 && correctCells.length === totalCells;

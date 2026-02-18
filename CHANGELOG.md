@@ -1,5 +1,12 @@
 # Changelog
 
+## v1.2.1 - February 18th, 2026
+
+### Bug Fixes
+
+- Fixed game ending prematurely if incorrect guess was made on the last cell in the grid even if attempts were remaining
+- Fixed average score in grid game not being rounded to 2 decimal places
+
 ## v1.2.0 - February 17th, 2026
 
 ### Changes

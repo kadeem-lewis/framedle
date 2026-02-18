@@ -111,7 +111,9 @@ export const useStatsStore = defineStore(
         (sum, [score, count]) => sum + Number(score) * count,
         0,
       );
-      currentStats.averageScore = totalPlays ? totalScore / totalPlays : null;
+      currentStats.averageScore = totalPlays
+        ? Math.round((totalScore / totalPlays) * 100) / 100
+        : null;
 
       currentStats.lastPlayedDate = today;
     }

@@ -1,5 +1,12 @@
 # Changelog
 
+## v1.2.2 - February 20th, 2026
+
+### Bug Fixes
+
+- Fixed share stats button not working in grid game mode
+- Properly fixed average score in grid game not being rounded to 2 decimal places
+
 ## v1.2.1 - February 18th, 2026
 
 ### Bug Fixes

@@ -187,37 +187,45 @@ export function useShareText() {
   function handleStatsShare() {
     if (!mode.value) return;
     const currentMode = mode.value;
-    let currentStats: (typeof stats.value)[keyof typeof stats.value];
     let modeName = "";
-    if (currentMode === "classic" || currentMode === "classicUnlimited") {
-      currentStats = stats.value.classic;
-      modeName = "Classic";
-    } else if (
-      currentMode === "ability" ||
-      currentMode === "abilityUnlimited"
-    ) {
-      currentStats = stats.value.ability;
-      modeName = "Ability";
+    let modeMessages: string[] = [];
+    if (isLegacyMode(currentMode) && gameType.value) {
+      const { plays, wins, guesses, streak, maxStreak } =
+        stats.value[gameType.value as "classic" | "ability"];
+      modeName = capitalize(gameType.value);
+      const totalWeightedGuesses = guesses.reduce((acc, curr, index) => {
+        return acc + curr * (index + 1);
+      }, 0);
+      const averageGuesses = wins > 0 ? totalWeightedGuesses / wins : 0;
+
+      modeMessages = [
+        `⚔️ Games Played: ${plays}`,
+        `👑 Games Won: ${wins}`,
+        `🎯 Average Guesses: ${averageGuesses.toFixed(2)}`,
+        `🔥 Current Streak: ${streak}`,
+        `🚀 Max Streak: ${maxStreak}`,
+      ];
+    } else if (currentMode === "grid" || currentMode === "gridUnlimited") {
+      const { plays, averageScore, streak, maxStreak } = stats.value.grid;
+      modeName = "Grid";
+      modeMessages = [
+        `⚔️ Games Played: ${plays}`,
+        `🎯 Average Score: ${averageScore?.toFixed(2) ?? "0.00"}`,
+        `🔥 Current Streak: ${streak}`,
+        `🚀 Max Streak: ${maxStreak}`,
+      ];
     } else {
       throw createError("Invalid mode");
     }
-    const { plays, wins, guesses, streak, maxStreak } = currentStats;
 
-    const totalWeightedGuesses = guesses.reduce((acc, curr, index) => {
-      return acc + curr * (index + 1);
-    }, 0);
+    const shareMessage = [
+      `My #Framedle statistics for ${modeName}:`,
+      "",
+      ...modeMessages,
+      "",
+      `https://framedle.com${route.path}`,
+    ].join("\n");
 
-    const averageGuesses = wins > 0 ? totalWeightedGuesses / wins : 0;
-
-    const shareMessage = `My #Framedle statistics for ${modeName}:
-    ⚔️ Games Played: ${plays}
-    👑 Games Won: ${wins}
-    🎯 Average Guesses: ${averageGuesses.toFixed(2)}
-    🔥 Current Streak: ${streak}
-    🚀 Max Streak: ${maxStreak}
-
-    https://framedle.com${route.path}
-    `;
     copy(shareMessage);
   }
 

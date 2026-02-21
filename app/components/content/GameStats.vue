@@ -33,6 +33,10 @@ const winPercentage = computed(() => {
   return ((legacyStats.value.wins / legacyStats.value.plays) * 100).toFixed(2);
 });
 
+const gridAverageScore = computed(
+  () => gridStats.value.averageScore?.toFixed(2) ?? null,
+);
+
 const chart = useTemplateRef("chart");
 const { baseOptions } = useChartConfig(chart);
 
@@ -134,7 +138,7 @@ function handleMigrationClick() {
       <UiStatsCard
         v-if="gameType === 'grid'"
         label="Average Score"
-        :value="gridStats.averageScore"
+        :value="gridAverageScore"
         class="col-span-3"
       />
       <UiStatsCard

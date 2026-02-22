@@ -1,5 +1,11 @@
 # Changelog
 
+## v1.2.3 - February 21th, 2026
+
+### Bug Fixes
+
+- Fixed ability and classic total stats share not working because of incorrect import
+
 ## v1.2.2 - February 20th, 2026
 
 ### Bug Fixes

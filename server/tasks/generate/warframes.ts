@@ -1,7 +1,7 @@
 import type { Warframe } from "#shared/schemas/warframe";
 import { warframeSchema } from "#shared/schemas/warframe";
 import { promises as fs } from "fs";
-import { capitalize, pascalCaseToCamelCase } from "~~/server/utils/transform";
+import { pascalCaseToCamelCase } from "~~/server/utils/transform";
 import type { Warframe as ConstWarframe } from "#shared/utils/warframe";
 
 const polarityMap = {

@@ -8,7 +8,3 @@ export function pascalCaseToCamelCase<T extends Record<string, unknown>>(
   }
   return transformedObject as T;
 }
-
-export function capitalize(string: string) {
-  return string.charAt(0).toUpperCase() + string.slice(1);
-}

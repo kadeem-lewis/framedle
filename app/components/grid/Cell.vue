@@ -36,7 +36,8 @@ const { isDaily } = useGameMode();
         :alt="`Image of ${warframe.name}`"
         format="avif"
         height="108"
-        class="h-27 object-cover object-top pt-3"
+        width="87"
+        class="h-27 w-21.75 object-top pt-3"
       />
       <UBadge
         :label="warframe.name"

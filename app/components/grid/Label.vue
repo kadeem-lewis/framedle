@@ -30,7 +30,8 @@ getCategoryDisplay(key, value);
           format="avif"
           :src="categoryInfo.imgSrc"
           :alt="categoryInfo?.value"
-          class="size-8"
+          height="32"
+          width="32"
           :class="{
             'dark:invert': categoryInfo.header === 'Aura',
             'invert dark:invert-0': categoryInfo.header === 'Playstyle',

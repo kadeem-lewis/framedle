@@ -35,7 +35,7 @@ const { card, showStats = false } = defineProps<{
         preload
         loading="eager"
         fetch-priority="high"
-        class="h-12 group-hover:scale-110"
+        class="group-hover:scale-110"
       />
       <div class="font-roboto brightness-90 group-hover:brightness-100">
         <p class="text-xl font-bold">

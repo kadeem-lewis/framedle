@@ -110,7 +110,7 @@ const handleSubmit = async () => {
             :alt="item.label"
             placeholder
             height="64"
-            class="h-16"
+            width="64"
           />
         </div>
       </template>

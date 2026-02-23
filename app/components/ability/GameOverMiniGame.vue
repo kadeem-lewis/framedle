@@ -78,7 +78,8 @@ const abilityNames = computed(() =>
       alt="ability image"
       format="avif"
       height="96"
-      class="mx-auto mb-2 h-24 w-24 object-cover ring invert dark:invert-0"
+      width="96"
+      class="mx-auto mb-2 object-cover ring invert dark:invert-0"
     />
     <div class="flex flex-col gap-2">
       <ul class="flex flex-col gap-2">

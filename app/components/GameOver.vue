@@ -76,6 +76,7 @@ const differentMode = computed(() => {
               :alt="`${correctWarframe}`"
               format="avif"
               height="64"
+              width="64"
             />
           </UiFeedbackTile>
         </div>

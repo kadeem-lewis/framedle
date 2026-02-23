@@ -80,7 +80,8 @@ const { checkGuess } = useGuess();
           format="avif"
           :src="`/elements/${guessedWarframe.progenitor}.png`"
           :alt="guessedWarframe.progenitor"
-          class="h-10"
+          height="40"
+          width="40"
           preload
         />
       </div>

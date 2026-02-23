@@ -26,7 +26,7 @@ const { checkGuess } = useGuess();
           :alt="warframe"
           placeholder
           height="64"
-          class="h-16"
+          width="64"
         />
       </div>
     </UiFeedbackTile>

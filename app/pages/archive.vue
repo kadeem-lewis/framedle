@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import Fuse from "fuse.js";
+import type { TabsItem } from "@nuxt/ui";
 
 useSeoMeta({
   title: "Archive",
@@ -25,6 +26,21 @@ watch(
   },
   { immediate: true },
 );
+
+const { gameTypes } = useGameMode();
+
+const tabs = computed<TabsItem[]>(() =>
+  gameTypes.map((type) => ({ label: type, value: type })),
+);
+
+const activeTab = computed({
+  get() {
+    return selectedArchiveMode.value;
+  },
+  set(value: GameType) {
+    selectedArchiveMode.value = value;
+  },
+});
 
 const searchQuery = ref("");
 
@@ -55,41 +71,15 @@ const randomPastDay = computed(() => getRandomPastDay());
 <template>
   <div class="flex flex-col gap-4">
     <p class="font-roboto text-xl font-bold uppercase">Archive</p>
-    <div class="font-roboto flex gap-2">
-      <UButton
-        variant="outline"
-        class="hover:border-primary uppercase ring-neutral-800"
-        :class="{
-          'dark:border-primary border-b-2 border-neutral-800':
-            selectedArchiveMode === 'classic',
-        }"
-        @click="selectedArchiveMode = 'classic'"
-      >
-        Classic
-      </UButton>
-      <UButton
-        variant="outline"
-        class="hover:border-primary uppercase ring-neutral-800"
-        :class="{
-          'dark:border-primary border-b-2 border-neutral-800':
-            selectedArchiveMode === 'ability',
-        }"
-        @click="selectedArchiveMode = 'ability'"
-      >
-        Ability
-      </UButton>
-      <UButton
-        variant="outline"
-        class="hover:border-primary uppercase ring-neutral-800"
-        :class="{
-          'dark:border-primary border-b-2 border-neutral-800':
-            selectedArchiveMode === 'grid',
-        }"
-        @click="selectedArchiveMode = 'grid'"
-      >
-        Grid
-      </UButton>
-    </div>
+    <UTabs
+      v-model="activeTab"
+      :content="false"
+      :items="tabs"
+      :ui="{
+        list: 'rounded-none bg-default dark:bg-elevated',
+        indicator: 'rounded-none',
+      }"
+    />
     <ArchiveGameStats />
     <div class="flex items-center justify-end gap-4">
       <USelect

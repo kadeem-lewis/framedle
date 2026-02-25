@@ -94,13 +94,31 @@ const items = [
     </div>
 
     <div class="flex flex-col gap-2 text-sm">
-      <p>&copy; {{ START_YEAR }} - {{ year }} Framedle.com</p>
-      <p>Warframe does not endorse or sponsor this product</p>
-      <ULink
-        to="/privacy"
-        class="text-primary hover:text-primary/70 text-sm underline"
-        >Privacy Policy</ULink
-      >
+      <div class="flex flex-col items-center gap-1">
+        <p class="text-muted text-sm">
+          Warframe does not endorse or sponsor this product
+        </p>
+        <p class="text-muted text-sm">
+          &copy; {{ START_YEAR }} - {{ year }} Framedle.com
+        </p>
+      </div>
+      <div class="flex items-center justify-center gap-4">
+        <ULink
+          to="/changelog"
+          class="text-primary hover:text-primary/70 text-sm underline"
+          >Patch Notes
+        </ULink>
+        <ULink
+          to="/faqs"
+          class="text-primary hover:text-primary/70 text-sm underline"
+          >FAQs
+        </ULink>
+        <ULink
+          to="/privacy"
+          class="text-primary hover:text-primary/70 text-sm underline"
+          >Privacy</ULink
+        >
+      </div>
     </div>
   </footer>
 </template>

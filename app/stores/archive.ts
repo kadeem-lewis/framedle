@@ -1,3 +1,7 @@
+export type PastDay = DailyData & {
+  state?: GameStatusType;
+};
+
 export const useArchiveStore = defineStore("archive", () => {
   const route = useRoute("archive");
   const selectedArchiveMode = ref((route.query.mode as GameType) || "classic");

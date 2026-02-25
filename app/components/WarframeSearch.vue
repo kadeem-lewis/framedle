@@ -87,6 +87,7 @@ const handleSubmit = async () => {
       :reset-search-term-on-blur="false"
       :items="filteredItems"
       trailing-icon=""
+      aria-label="Search for a Warframe"
       placeholder="SEARCH..."
       size="lg"
       required

@@ -1,5 +1,7 @@
 <script setup lang="ts">
 import Fuse from "fuse.js";
+import type { TableColumn, TableRow, TabsItem } from "@nuxt/ui";
+import { h, resolveComponent } from "vue";
 
 useSeoMeta({
   title: "Archive",
@@ -15,16 +17,31 @@ const { getRandomPastDay } = useArchiveStore();
 selectedArchiveMode.value = (route.query.mode as GameType) || "classic";
 
 watch(
-  () => selectedArchiveMode.value,
-  () => {
+  selectedArchiveMode,
+  (newMode) => {
     router.replace({
       query: {
-        mode: selectedArchiveMode.value,
+        mode: newMode,
       },
     });
   },
   { immediate: true },
 );
+
+const { gameTypes } = useGameMode();
+
+const tabs = computed<TabsItem[]>(() =>
+  gameTypes.map((type) => ({ label: type, value: type })),
+);
+
+const activeTab = computed({
+  get() {
+    return selectedArchiveMode.value;
+  },
+  set(value: GameType) {
+    selectedArchiveMode.value = value;
+  },
+});
 
 const searchQuery = ref("");
 
@@ -50,51 +67,68 @@ const filteredDailies = computed(() => {
   return fuse.value.search(searchQuery.value).map((result) => result.item);
 });
 
+const UIcon = resolveComponent("UIcon");
+
+function getIconStyle(state: GameStatusType | undefined) {
+  if (!state) return "";
+  if (state === GameStatus.ACTIVE) {
+    return "text-partial";
+  }
+  return "text-success";
+}
+
+const columns: TableColumn<PastDay>[] = [
+  {
+    accessorKey: "state",
+    header: "",
+    cell: ({ row }) => {
+      const state = row.getValue("state") as GameStatusType | undefined;
+      const iconName =
+        state === GameStatus.ACTIVE
+          ? "i-mdi-play-circle"
+          : "i-mdi-check-circle";
+      return h(UIcon, {
+        name: iconName,
+        class: `size-6 ${getIconStyle(state)}`,
+      });
+    },
+  },
+  {
+    accessorKey: "day",
+    header: "Name",
+    cell: ({ row }) => `Framedle #${row.getValue("day")}`,
+  },
+  {
+    accessorKey: "readableDate",
+    header: "Date",
+  },
+];
+
+function onSelect(e: Event, row: TableRow<PastDay>) {
+  const daily = row.original;
+  proxy.track("started archive game", { date: daily.date });
+  navigateTo(`/${selectedArchiveMode.value}/${daily.day}`);
+}
+
 const randomPastDay = computed(() => getRandomPastDay());
 </script>
 <template>
   <div class="flex flex-col gap-4">
     <p class="font-roboto text-xl font-bold uppercase">Archive</p>
-    <div class="font-roboto flex gap-2">
-      <UButton
-        variant="outline"
-        class="hover:border-primary uppercase ring-neutral-800"
-        :class="{
-          'dark:border-primary border-b-2 border-neutral-800':
-            selectedArchiveMode === 'classic',
-        }"
-        @click="selectedArchiveMode = 'classic'"
-      >
-        Classic
-      </UButton>
-      <UButton
-        variant="outline"
-        class="hover:border-primary uppercase ring-neutral-800"
-        :class="{
-          'dark:border-primary border-b-2 border-neutral-800':
-            selectedArchiveMode === 'ability',
-        }"
-        @click="selectedArchiveMode = 'ability'"
-      >
-        Ability
-      </UButton>
-      <UButton
-        variant="outline"
-        class="hover:border-primary uppercase ring-neutral-800"
-        :class="{
-          'dark:border-primary border-b-2 border-neutral-800':
-            selectedArchiveMode === 'grid',
-        }"
-        @click="selectedArchiveMode = 'grid'"
-      >
-        Grid
-      </UButton>
-    </div>
+    <UTabs
+      v-model="activeTab"
+      :content="false"
+      :items="tabs"
+      :ui="{
+        list: 'rounded-none bg-default dark:bg-elevated',
+        indicator: 'rounded-none',
+      }"
+    />
     <ArchiveGameStats />
     <div class="flex items-center justify-end gap-4">
       <USelect
         v-model="order"
-        aria-label="order-filter"
+        aria-label="Order filter"
         :items="['OLDEST', 'NEWEST']"
         class="rounded-none uppercase"
       >
@@ -112,44 +146,13 @@ const randomPastDay = computed(() => getRandomPastDay());
         placeholder="SEARCH..."
       />
     </div>
-    <div
-      class="flex flex-col gap-4 border border-neutral-200 bg-white/75 p-2 dark:border-neutral-800 dark:bg-neutral-900/75"
-    >
-      <div v-if="filteredDailies" class="grid grid-cols-12 gap-2">
-        <p class="col-span-5 col-start-3 font-semibold">Name</p>
-        <p class="col-span-5 font-semibold">Date</p>
-      </div>
-      <div
-        class="grid h-full max-h-96 grid-cols-12 items-center gap-2 overflow-y-auto"
-      >
-        <div
-          v-for="daily of filteredDailies"
-          :key="daily.day"
-          class="contents cursor-pointer odd:bg-neutral-700"
-          @click="
-            proxy.track('started archive game', { date: daily.date });
-            navigateTo(`/${selectedArchiveMode}/${daily.day}`);
-          "
-        >
-          <UIcon
-            v-if="daily.state === GameStatus.ACTIVE"
-            name="i-mdi-play-circle"
-            class="text-partial col-span-2 size-6"
-          />
-          <UIcon
-            v-else
-            name="i-mdi-check-circle"
-            class="col-span-2 size-6"
-            :class="{
-              'text-success': daily.state,
-            }"
-          />
-          <p class="col-span-5">Framedle #{{ daily.day }}</p>
-          <p class="col-span-5">{{ daily.readableDate }}</p>
-          <USeparator class="col-span-12" />
-        </div>
-      </div>
-    </div>
+    <UTable
+      :data="filteredDailies"
+      :columns="columns"
+      sticky
+      class="max-h-96"
+      @select="onSelect"
+    />
     <UBadge
       v-if="!randomPastDay"
       variant="outline"

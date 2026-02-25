@@ -44,6 +44,8 @@ export default defineNuxtConfig({
     "/archive/**": { ssr: false },
     "/grid/**": { ssr: false },
     "/privacy": { prerender: true },
+    "/faqs": { prerender: true },
+    "/changelog": { prerender: true },
     "/android": { prerender: true },
     "/_ipx/**": {
       headers: { "Cache-Control": "public, max-age=31536000, immutable" },

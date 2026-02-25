@@ -204,10 +204,10 @@ useSubmission();
         >
       </UiConfirmPopup>
     </div>
-    <div v-else class="mt-2 grid grid-cols-3 place-items-center gap-2">
+    <div v-else class="mt-2 flex items-center justify-around">
       <UButton
-        v-if="adjacentDays?.previous"
         :to="`/grid/${adjacentDays?.previous}`"
+        :disabled="!adjacentDays?.previous"
         variant="outline"
         icon="i-heroicons-arrow-left"
         @click="proxy.track('Visited Previous Day', { mode: 'grid' })"
@@ -235,8 +235,8 @@ useSubmission();
         >Summary</UButton
       >
       <UButton
-        v-if="adjacentDays?.next"
         :to="`/${mode}/${adjacentDays?.next}`"
+        :disabled="!adjacentDays?.next"
         variant="outline"
         trailing
         icon="i-heroicons-arrow-right"
@@ -258,11 +258,19 @@ useSubmission();
         </div>
       </template>
       <template #body>
-        <WarframeSearch
-          :items="warframeNames"
-          :disabled-items="allDisabledItems"
-          @submit="handleGuess"
-        />
+        <div class="flex flex-col gap-4">
+          <WarframeSearch
+            :items="warframeNames"
+            :disabled-items="allDisabledItems"
+            @submit="handleGuess"
+          />
+          <small class="text-muted"
+            >Warframe missing from answers?&nbsp;<ULink
+              class="text-primary hover:underline"
+              >Submit a bug report</ULink
+            ></small
+          >
+        </div>
       </template>
     </UModal>
   </div>

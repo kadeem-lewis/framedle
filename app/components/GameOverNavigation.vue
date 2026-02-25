@@ -42,8 +42,8 @@ const { proxy } = useScriptUmamiAnalytics();
 <template>
   <div class="flex items-center justify-center gap-2">
     <UButton
-      v-if="adjacentDays?.previous"
       :to="`/${mode}/${adjacentDays?.previous}`"
+      :disabled="!adjacentDays.previous"
       variant="outline"
       icon="i-heroicons-arrow-left"
       @click="proxy.track('Visited Previous Day', { mode })"
@@ -59,8 +59,8 @@ const { proxy } = useScriptUmamiAnalytics();
       >Past Days</UButton
     >
     <UButton
-      v-if="adjacentDays?.next"
       :to="`/${mode}/${adjacentDays?.next}`"
+      :disabled="!adjacentDays.next"
       variant="outline"
       trailing
       icon="i-heroicons-arrow-right"

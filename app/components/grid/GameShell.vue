@@ -258,11 +258,19 @@ useSubmission();
         </div>
       </template>
       <template #body>
-        <WarframeSearch
-          :items="warframeNames"
-          :disabled-items="allDisabledItems"
-          @submit="handleGuess"
-        />
+        <div class="flex flex-col gap-4">
+          <WarframeSearch
+            :items="warframeNames"
+            :disabled-items="allDisabledItems"
+            @submit="handleGuess"
+          />
+          <small class="text-muted"
+            >Warframe missing from answers?&nbsp;<ULink
+              class="text-primary hover:underline"
+              >Submit a bug report</ULink
+            ></small
+          >
+        </div>
       </template>
     </UModal>
   </div>

@@ -206,8 +206,8 @@ useSubmission();
     </div>
     <div v-else class="mt-2 grid grid-cols-3 place-items-center gap-2">
       <UButton
-        v-if="adjacentDays?.previous"
         :to="`/grid/${adjacentDays?.previous}`"
+        :disabled="!adjacentDays?.previous"
         variant="outline"
         icon="i-heroicons-arrow-left"
         @click="proxy.track('Visited Previous Day', { mode: 'grid' })"
@@ -235,8 +235,8 @@ useSubmission();
         >Summary</UButton
       >
       <UButton
-        v-if="adjacentDays?.next"
         :to="`/${mode}/${adjacentDays?.next}`"
+        :disabled="!adjacentDays?.next"
         variant="outline"
         trailing
         icon="i-heroicons-arrow-right"

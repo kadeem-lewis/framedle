@@ -204,7 +204,7 @@ useSubmission();
         >
       </UiConfirmPopup>
     </div>
-    <div v-else class="mt-2 grid grid-cols-3 place-items-center gap-2">
+    <div v-else class="mt-2 flex items-center justify-around">
       <UButton
         :to="`/grid/${adjacentDays?.previous}`"
         :disabled="!adjacentDays?.previous"

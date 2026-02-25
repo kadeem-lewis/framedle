@@ -95,11 +95,11 @@ const items = [
 
     <div class="flex flex-col gap-2 text-sm">
       <div class="flex flex-col items-center gap-1">
-        <p class="text-muted">
+        <p class="text-muted text-sm">
           Warframe does not endorse or sponsor this product
         </p>
-        <p class="text-muted">
-          &copy; {{ START_YEAR }} - {{ year }} Framedle.com.
+        <p class="text-muted text-sm">
+          &copy; {{ START_YEAR }} - {{ year }} Framedle.com
         </p>
       </div>
       <div class="flex items-center justify-center gap-4">

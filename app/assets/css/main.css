@@ -5,48 +5,57 @@
 
 :root {
   --ui-container: var(--container-md);
-  --success: hsl(120 61% 50%); /* green ( #32cd32 ) */
-  --border-success: hsl(120 39% 32%); /* 50% darker green */
-  --error: hsl(0 100% 50%); /* red ( #FF0000 ) */
-  --border-error: hsl(0 64% 32%); /* 50% darker red */
-  --partial: hsl(49 79% 47%); /* 50% saturated version of dark */
-  --border-partial: hsl(49 51% 30%); /* 50% darker */
-  --ui-discord: hsl(235 86% 65%); /* blurple */
-  --ui-bluesky: hsl(209 100% 50%); /* #0085ff */
-  --ui-reddit: hsl(16, 100%, 50%); /* Reddit Orange */
+  --success: oklch(0.7419 0.2286 142.83); /* green ( #32cd32 ) */
+  --border-success: oklch(0.4941 0.1171 143.55); /* 50% darker green */
+  --error: oklch(0.628 0.2577 29.23); /* red ( #FF0000 ) */
+  --border-error: oklch(0.4092 0.1405 26.02); /* 50% darker red */
+  --partial: oklch(0.7773 0.1548 94.41); /* 50% saturated version of dark */
+  --border-partial: oklch(0.5079 0.084729 96.5611); /* 50% darker */
+  --ui-discord: oklch(0.5798 0.2086 273.97); /* blurple */
+  --ui-bluesky: oklch(0.623 0.206557 255.1921); /* #0085ff */
+  --ui-reddit: oklch(0.6593 0.230058 35.2202); /* Reddit Orange */
 }
 
 .dark {
-  --success: hsl(120 49% 50%); /* 25% desaturated green */
-  --border-success: hsl(120 31% 32%); /* 50% darker 25% desaturated green */
-  --error: hsl(0 80% 50%); /* 25% desaturated red  */
-  --border-error: hsl(0 52% 32%); /* 50% darker 25% desaturated red */
-  --partial: hsl(49 51% 47%); /* (#b59f3b) wordle partial color */
-  --border-partial: hsl(49 32% 30%); /* 50% darker yellow */
-  --ui-discord: hsl(235 69% 65%); /* 25% desaturated blurple */
-  --ui-bluesky: hsl(209 80% 50%); /* 25% desaturated #0085ff */
-  --ui-reddit: hsl(16, 80%, 50%); /* 25% desaturated Reddit Orange */
+  --success: oklch(0.707 0.198 143.12); /* 25% desaturated green */
+  --border-success: oklch(
+    0.4784 0.0961 143.89
+  ); /* 50% darker 25% desaturated green */
+  --error: oklch(
+    0.5875 0.23028198786691845 28.262177188593004
+  ); /* 25% desaturated red  */
+  --border-error: oklch(
+    0.4034 0.1181 24.08
+  ); /* 50% darker 25% desaturated red */
+  --partial: oklch(0.7022 0.1206 96.42); /* (#b59f3b) wordle partial color */
+  --border-partial: oklch(0.4734 0.0589 97.04); /* 50% darker yellow */
 }
 
 .colorblind {
-  --success: hsl(210 100% 56%); /* dodger blue ( #1e90ff ) */
-  --border-success: hsl(210 64% 36%); /* 50% darker dodger blue */
-  --error: hsl(32 100% 50%); /* orange ( #FFA500 ) */
-  --border-error: hsl(32 52% 32%); /* 50% darker orange */
+  --success: oklch(0.6495 0.1913 253.63); /* dodger blue ( #1e90ff ) */
+  --border-success: oklch(0.4668 0.1129 251.61); /* 50% darker dodger blue */
+  --error: oklch(0.7442 0.181171 56.4585); /* orange ( #FFA500 ) */
+  --border-error: oklch(0.4811 0.0805 67.36); /* 50% darker orange */
   /* I need to remember to change the color blind color since pink doesn't work in a lot of cases */
-  --partial: hsl(344 95% 77%); /* flamingo pink ( #fc8eac ) */
-  --border-partial: hsl(344 52% 32%); /* 50% darker orange */
+  --partial: oklch(0.7699 0.1378 3.77); /* flamingo pink ( #fc8eac ) */
+  --border-partial: oklch(0.4088 0.1185 7.87); /* 50% darker orange */
 }
 
 .dark.colorblind {
-  --success: hsl(210 80% 56%); /* 25% desaturated dodger blue */
-  --border-success: hsl(
-    210 52% 36%
+  --success: oklch(0.6402 0.1587 251.8); /* 25% desaturated dodger blue */
+  --border-success: oklch(
+    0.4641 0.0938 250.54
   ); /* 50% darker 25% desaturated dodger blue */
-  --error: hsl(32 80% 50%); /* 25% desaturated orange */
-  --border-error: hsl(39 52% 32%); /* 50% darker 25% desaturated orange */
-  --partial: hsl(344 76% 77%); /* 25% desaturated orange */
-  --border-partial: hsl(344 52% 32%); /* 50% darker 25% desaturated orange */
+  --error: oklch(
+    0.7085 0.15751444810927523 61.3026009422698
+  ); /* 25% desaturated orange */
+  --border-error: oklch(
+    0.5021 0.0818 80.39
+  ); /* 50% darker 25% desaturated orange */
+  --partial: oklch(0.7758 0.1102 2.68); /* 25% desaturated orange */
+  --border-partial: oklch(
+    0.4088 0.1185 7.87
+  ); /* 50% darker 25% desaturated orange */
 }
 
 @theme static {

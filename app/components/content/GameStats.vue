@@ -113,7 +113,7 @@ function handleMigrationClick() {
     >
       <template #actions>
         <UButton
-          class="uppercase"
+          class="rounded-none uppercase"
           color="neutral"
           @click="handleMigrationClick"
         >
@@ -162,11 +162,10 @@ function handleMigrationClick() {
           :series="series"
         />
       </template>
-      <p class="font-semibold uppercase">Scores Distribution</p>
-      <ScoresDistributionChart
-        v-if="gameType === 'grid'"
-        :scores="scoresDistribution"
-      />
+      <template v-else-if="gameType === 'grid'">
+        <p class="font-semibold uppercase">Scores Distribution</p>
+        <ScoresDistributionChart :scores="scoresDistribution" />
+      </template>
     </div>
     <div class="flex justify-center gap-4">
       <UButton

@@ -6,6 +6,8 @@
         <NuxtPage />
       </main>
     </UContainer>
-    <TheFooter />
+    <UContainer>
+      <TheFooter />
+    </UContainer>
   </div>
 </template>

@@ -64,7 +64,7 @@ const differentMode = computed(() => {
           {{ hasWon ? "You Win!" : "You Lost!" }}
         </p>
 
-        <div class="space-y-2 text-center">
+        <div class="flex flex-col items-center gap-2">
           <p class="uppercase">The answer was:</p>
           <span class="text-xl font-bold uppercase">
             {{ answer }}
@@ -139,7 +139,7 @@ const differentMode = computed(() => {
           <NextGameCountdown :target-date="startOfTomorrow()" />
           <template v-if="isPastDay && differentMode">
             <USeparator />
-            <div class="space-y-4">
+            <div class="flex flex-col gap-4">
               <p
                 class="font-roboto text-center text-xl font-semibold uppercase"
               >

@@ -1,5 +1,5 @@
 <template>
-  <div class="space-y-4">
+  <div class="flex flex-col gap-4">
     <div>
       Framedle is a Warframe guessing game, inspired by
       <ULink class="text-primary underline" to="https://loldle.net/" external
@@ -14,7 +14,7 @@
     </div>
     <p>Digital Extremes does not endorse or sponsor this project.</p>
     <USeparator />
-    <section class="space-y-4">
+    <section class="flex flex-col gap-4">
       <p>
         Framedle was created by Redeemr. Source code on
         <ULink
@@ -26,9 +26,9 @@
       </p>
     </section>
     <USeparator />
-    <section class="space-y-4">
+    <section class="flex flex-col gap-4">
       <p class="font-semibold">Special Thanks To:</p>
-      <ul class="list-[square] space-y-2">
+      <ul class="flex list-[square] flex-col gap-2">
         <li>
           <ULink
             to="https://github.com/WFCD"

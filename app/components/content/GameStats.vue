@@ -106,7 +106,7 @@ function handleMigrationClick() {
 }
 </script>
 <template>
-  <div class="space-y-4">
+  <div class="flex flex-col gap-4">
     <UBanner
       v-if="shouldShowMigrationBanner && !hasMigrationBeenPerformed"
       title="Game stats have been reset"
@@ -152,7 +152,7 @@ function handleMigrationClick() {
         class="col-span-3"
       />
     </div>
-    <div class="space-y-4">
+    <div class="flex flex-col gap-4">
       <template v-if="gameType === 'ability' || gameType === 'classic'">
         <p class="font-semibold uppercase">Guess Distribution</p>
         <apexchart

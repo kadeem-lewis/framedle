@@ -137,7 +137,7 @@ const accuracyMap = computed(() => {
             </GridCell>
           </template>
         </div>
-        <div class="space-y-2">
+        <div class="flex flex-col gap-2">
           <h3 class="text-center font-semibold uppercase">Accuracy</h3>
           <div class="grid grid-cols-3">
             <template v-for="(row, i) in accuracyMap" :key="i">

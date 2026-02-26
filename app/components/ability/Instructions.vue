@@ -4,7 +4,7 @@ const { t } = useI18n();
 const { DEFAULT_ATTEMPTS } = useGameStore();
 </script>
 <template>
-  <div class="space-y-4">
+  <div class="flex flex-col gap-4">
     <p>
       Guess the Warframe the ability belongs to in {{ DEFAULT_ATTEMPTS }} tries
     </p>

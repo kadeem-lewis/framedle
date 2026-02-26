@@ -10,11 +10,11 @@ useSeoMeta({
 });
 </script>
 <template>
-  <div class="space-y-6">
+  <div class="flex flex-col gap-6">
     <h2 class="text-center text-xl font-semibold uppercase">
       Help Test Framedle!
     </h2>
-    <div class="space-y-4">
+    <div class="flex flex-col gap-4">
       <p>
         If you would like to download the Framedle Android app then you can do
         so by following the steps below.
@@ -25,7 +25,7 @@ useSeoMeta({
         test.
       </p>
       <p class="text-center text-lg font-semibold">Directions to Join</p>
-      <ol class="list-decimal space-y-2 pl-5">
+      <ol class="flex list-decimal flex-col gap-2 pl-5">
         <li>
           <span>Join the Framedle Testing Google Group</span>
           <ul class="list-[square] pl-5">

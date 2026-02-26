@@ -2,7 +2,7 @@
 const runtimeConfig = useRuntimeConfig();
 </script>
 <template>
-  <div class="space-y-2">
+  <div class="flex flex-col gap-2">
     <p>
       If you would like to support me and the game's development, You can do so
       in any of the following ways

@@ -75,7 +75,7 @@ const { makeGuess } = useGuess();
   >
     <UiAppSpinner v-if="isLoadingDailies" />
     <div v-else>
-      <div v-if="itemToGuess[mode]" class="space-y-4">
+      <div v-if="itemToGuess[mode]" class="flex flex-col gap-4">
         <RemainingGuesses />
         <UCard class="divide-y-0">
           <template #header>
@@ -100,7 +100,9 @@ const { makeGuess } = useGuess();
         </UCard>
         <GlobalStats v-if="isDaily" />
         <template v-if="guessedItems[mode].length && itemToGuess[mode]">
-          <div class="space-y-4 overflow-x-auto md:overflow-x-visible">
+          <div
+            class="flex flex-col gap-4 overflow-x-auto md:overflow-x-visible"
+          >
             <div
               class="grid w-[190%] grid-cols-8 gap-1 border border-neutral-200 bg-white py-0.5 text-sm uppercase md:-ml-[45%] md:text-base dark:border-neutral-800 dark:bg-neutral-900"
             >

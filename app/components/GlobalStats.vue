@@ -10,15 +10,18 @@ const currentData = computed(() => {
 </script>
 <template>
   <div class="text-toned flex items-center justify-center gap-1">
-    <small class="flex items-center justify-center text-sm">
-      <div v-if="pending && !stats" class="bg-accented h-5 w-4 animate-pulse" />
+    <p class="flex items-center justify-center text-sm">
+      <span
+        v-if="pending && !stats"
+        class="bg-accented h-5 w-4 animate-pulse"
+      />
       <span v-else class="text-primary font-medium">
         {{ currentData?.gamesWon }}
       </span>
       &nbsp;tenno already won
-    </small>
+    </p>
     <span class="px-0.5 font-bold">|</span>
-    <small class="flex items-center justify-center text-sm">
+    <p class="flex items-center justify-center text-sm">
       <span
         v-if="pending && !stats"
         class="bg-accented h-5 w-4 animate-pulse"
@@ -27,6 +30,6 @@ const currentData = computed(() => {
         {{ currentData?.averageAttempts ?? "—" }}
       </span>
       &nbsp;average attempts
-    </small>
+    </p>
   </div>
 </template>

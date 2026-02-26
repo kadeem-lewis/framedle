@@ -29,6 +29,14 @@ const items = [
     },
   },
   {
+    text: "About",
+    icon: "i-mdi-information-variant",
+    command: () => {
+      proxy.track("Opened Options Dialog", { modal: dialogOptions.ABOUT });
+      openDialog(dialogOptions.ABOUT);
+    },
+  },
+  {
     text: "Support",
     icon: "i-heroicons-heart",
     command: () => {
@@ -69,7 +77,7 @@ watchEffect(() => {
 </script>
 <template>
   <menu class="flex w-full items-center justify-center">
-    <UFieldGroup class="grid grid-cols-4">
+    <UFieldGroup class="grid grid-cols-5">
       <UButton
         v-for="item of items"
         :key="item.text"
@@ -80,7 +88,7 @@ watchEffect(() => {
         class="flex flex-col gap-px"
         @click="item.command"
       >
-        <span class="text-sm uppercase">
+        <span class="text-xs uppercase">
           {{ item.text }}
         </span>
       </UButton>

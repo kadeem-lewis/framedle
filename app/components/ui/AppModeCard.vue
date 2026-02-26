@@ -13,7 +13,7 @@ const { card, showStats = false } = defineProps<{
 </script>
 <template>
   <UCard
-    class="group hover:bg-opacity-100 border-primary relative cursor-pointer border uppercase shadow shadow-black transition-all"
+    class="group hover:bg-opacity-100 border-primary relative cursor-pointer border shadow shadow-black transition-all dark:shadow-none"
     :ui="{
       body: 'p-3 sm:p-3',
     }"
@@ -21,7 +21,7 @@ const { card, showStats = false } = defineProps<{
   >
     <div
       :style="{ backgroundImage: `url(${card.background})` }"
-      class="absolute inset-0 z-0 bg-cover contrast-90 group-hover:contrast-100 dark:brightness-50 dark:contrast-100 group-hover:dark:brightness-75"
+      class="absolute inset-0 z-0 bg-cover dark:brightness-50 group-hover:dark:brightness-75"
     />
     <div class="relative z-10 flex flex-row items-center gap-8 text-white">
       <NuxtImg
@@ -35,11 +35,11 @@ const { card, showStats = false } = defineProps<{
         fetch-priority="high"
         class="group-hover:scale-110"
       />
-      <div class="font-roboto brightness-90 group-hover:brightness-100">
-        <p class="text-xl font-bold">
+      <div class="brightness-90 group-hover:brightness-100">
+        <p class="text-primary font-roboto text-xl font-bold uppercase">
           {{ card.label }}
         </p>
-        <p class="font-medium">{{ card.description }}</p>
+        <p class="font-medium capitalize">{{ card.description }}</p>
       </div>
     </div>
     <ClientOnly>

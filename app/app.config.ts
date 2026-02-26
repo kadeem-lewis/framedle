@@ -2,7 +2,7 @@ export default defineAppConfig({
   ui: {
     colors: {
       primary: "amber",
-      neutral: "slate",
+      neutral: "stone",
       discord: "discord",
       bluesky: "bluesky",
       reddit: "reddit",

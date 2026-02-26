@@ -52,8 +52,11 @@ const differentMode = computed(() => {
     <UCard
       v-if="mode && isLegacyMode(mode)"
       :class="[
-        'border-2',
-        { 'border-success': hasWon, 'border-error': !hasWon },
+        'border',
+        {
+          'border-border-success bg-success-base': hasWon,
+          'border-border-error bg-error-base': !hasWon,
+        },
       ]"
     >
       <div class="flex flex-col items-center gap-2">

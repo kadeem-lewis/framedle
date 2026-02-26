@@ -29,14 +29,6 @@ const items = [
     },
   },
   {
-    text: "About",
-    icon: "i-mdi-information-variant",
-    command: () => {
-      proxy.track("Opened Options Dialog", { modal: dialogOptions.ABOUT });
-      openDialog(dialogOptions.ABOUT);
-    },
-  },
-  {
     text: "Support",
     icon: "i-heroicons-heart",
     command: () => {
@@ -76,26 +68,22 @@ watchEffect(() => {
 });
 </script>
 <template>
-  <div class="flex w-full items-center">
-    <menu class="flex w-full items-center justify-center gap-3">
-      <div
+  <menu class="flex w-full items-center justify-center">
+    <UFieldGroup class="grid grid-cols-4">
+      <UButton
         v-for="item of items"
         :key="item.text"
-        class="flex flex-col items-center gap-1"
+        :icon="item.icon"
+        :aria-label="item.text"
+        variant="outline"
+        type="button"
+        class="flex flex-col gap-px"
+        @click="item.command"
       >
-        <UButton
-          :aria-label="item.text"
-          :icon="item.icon"
-          variant="outline"
-          size="lg"
-          square
-          type="button"
-          @click="item.command"
-        />
-        <p class="text-sm font-semibold uppercase">
+        <span class="text-sm uppercase">
           {{ item.text }}
-        </p>
-      </div>
-    </menu>
-  </div>
+        </span>
+      </UButton>
+    </UFieldGroup>
+  </menu>
 </template>

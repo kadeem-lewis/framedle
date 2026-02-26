@@ -13,18 +13,16 @@ const { card, showStats = false } = defineProps<{
 </script>
 <template>
   <UCard
-    class="group hover:bg-opacity-100 border-primary relative cursor-pointer border uppercase shadow shadow-black transition-all"
+    class="group hover:bg-opacity-100 border-primary relative cursor-pointer border shadow shadow-black transition-all dark:shadow-none"
+    :ui="{
+      body: 'p-3 sm:p-3',
+    }"
     @click="navigateTo(card.route)"
   >
     <div
       :style="{ backgroundImage: `url(${card.background})` }"
-      class="absolute inset-0 z-0 bg-cover contrast-90 group-hover:contrast-100 dark:brightness-50 dark:contrast-100 group-hover:dark:brightness-75"
+      class="absolute inset-0 z-0 bg-cover dark:brightness-50 group-hover:dark:brightness-75"
     />
-    <span
-      v-if="card.label === 'Grid'"
-      class="absolute top-0 left-0 bg-red-700 px-2 py-1 text-xs font-bold text-white uppercase dark:bg-red-600"
-      >new!</span
-    >
     <div class="relative z-10 flex flex-row items-center gap-8 text-white">
       <NuxtImg
         format="avif"
@@ -37,11 +35,11 @@ const { card, showStats = false } = defineProps<{
         fetch-priority="high"
         class="group-hover:scale-110"
       />
-      <div class="font-roboto brightness-90 group-hover:brightness-100">
-        <p class="text-xl font-bold">
+      <div class="brightness-90 group-hover:brightness-100">
+        <p class="text-primary font-roboto text-xl font-bold uppercase">
           {{ card.label }}
         </p>
-        <p class="font-semibold">{{ card.description }}</p>
+        <p class="font-medium capitalize">{{ card.description }}</p>
       </div>
     </div>
     <ClientOnly>

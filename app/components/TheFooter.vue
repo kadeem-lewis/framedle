@@ -61,7 +61,7 @@ const items = [
         ><NuxtImg
           height="40"
           width="159"
-          class="border-0 hover:brightness-110 dark:hover:brightness-75"
+          class="border-0 transition-transform hover:scale-105 hover:brightness-105 dark:hover:brightness-75"
           src="/badges/KofiBadge.png"
           alt="Buy Me a Coffee at ko-fi.com"
       /></NuxtLink>
@@ -69,7 +69,7 @@ const items = [
         ><NuxtImg
           height="40"
           width="135"
-          class="border-0 hover:brightness-110 dark:hover:brightness-75"
+          class="border-0 transition-transform hover:scale-105 hover:brightness-105 dark:hover:brightness-75"
           src="/badges/PreRegisterOnGooglePlayBadge.png"
           alt="Pre-register on Google Play"
           @click="

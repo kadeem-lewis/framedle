@@ -22,15 +22,19 @@ watch(
 );
 </script>
 <template>
-  <UContainer
-    class="flex min-h-dvh flex-col items-center justify-between gap-y-2"
-  >
+  <div class="flex min-h-dvh flex-col items-center justify-between gap-4">
     <TheNavbar />
-    <OptionsBar />
-    <main class="flex w-full grow flex-col gap-4">
-      <ModeSwitch />
-      <NuxtPage />
-    </main>
-    <TheFooter />
-  </UContainer>
+    <UContainer>
+      <OptionsBar />
+    </UContainer>
+    <UContainer class="grow">
+      <main class="flex flex-col gap-4">
+        <ModeSwitch />
+        <NuxtPage />
+      </main>
+    </UContainer>
+    <UContainer>
+      <TheFooter />
+    </UContainer>
+  </div>
 </template>

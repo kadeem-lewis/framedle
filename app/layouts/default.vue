@@ -1,11 +1,13 @@
 <template>
-  <UContainer
-    class="flex min-h-dvh flex-col items-center justify-between gap-y-2"
-  >
+  <div class="flex min-h-dvh flex-col items-center justify-between gap-4">
     <TheNavbar />
-    <main class="w-full grow">
-      <NuxtPage />
-    </main>
-    <TheFooter />
-  </UContainer>
+    <UContainer class="w-full grow">
+      <main>
+        <NuxtPage />
+      </main>
+    </UContainer>
+    <UContainer>
+      <TheFooter />
+    </UContainer>
+  </div>
 </template>

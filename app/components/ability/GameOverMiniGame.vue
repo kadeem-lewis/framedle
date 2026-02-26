@@ -79,14 +79,14 @@ const abilityNames = computed(() =>
       format="avif"
       height="96"
       width="96"
-      class="mx-auto mb-2 object-cover ring invert dark:invert-0"
+      class="bg-elevated mx-auto mb-2 object-cover ring invert dark:invert-0"
     />
     <div class="flex flex-col gap-2">
       <ul class="flex flex-col gap-2">
         <li
           v-for="ability in abilityNames"
           :key="ability"
-          class="cursor-pointer border px-2 py-1"
+          class="bg-elevated cursor-pointer border px-2 py-1"
           :class="{
             'bg-success':
               hasSelected &&

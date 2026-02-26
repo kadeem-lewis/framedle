@@ -106,14 +106,14 @@ function handleMigrationClick() {
 }
 </script>
 <template>
-  <div class="space-y-4">
+  <div class="flex flex-col gap-4">
     <UBanner
       v-if="shouldShowMigrationBanner && !hasMigrationBeenPerformed"
       title="Game stats have been reset"
     >
       <template #actions>
         <UButton
-          class="uppercase"
+          class="rounded-none uppercase"
           color="neutral"
           @click="handleMigrationClick"
         >
@@ -152,7 +152,7 @@ function handleMigrationClick() {
         class="col-span-3"
       />
     </div>
-    <div class="space-y-4">
+    <div class="flex flex-col gap-4">
       <template v-if="gameType === 'ability' || gameType === 'classic'">
         <p class="font-semibold uppercase">Guess Distribution</p>
         <apexchart
@@ -162,11 +162,10 @@ function handleMigrationClick() {
           :series="series"
         />
       </template>
-      <p class="font-semibold uppercase">Scores Distribution</p>
-      <ScoresDistributionChart
-        v-if="gameType === 'grid'"
-        :scores="scoresDistribution"
-      />
+      <template v-else-if="gameType === 'grid'">
+        <p class="font-semibold uppercase">Scores Distribution</p>
+        <ScoresDistributionChart :scores="scoresDistribution" />
+      </template>
     </div>
     <div class="flex justify-center gap-4">
       <UButton

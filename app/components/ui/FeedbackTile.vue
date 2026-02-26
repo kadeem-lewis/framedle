@@ -59,7 +59,7 @@ const tooltipStyles = computed(() => {
       :class="[
         'relative z-0 min-h-12 w-full border-2 font-medium wrap-break-word text-white shadow-inner transition-colors',
         {
-          'border-neutral-500 bg-white/75 dark:border-neutral-700 dark:bg-neutral-900/75':
+          'border-neutral-500 bg-white dark:border-neutral-700 dark:bg-neutral-900':
             variant === 'neutral',
           'border-border-success bg-success hover:shadow-inner hover:brightness-110':
             variant === 'correct',

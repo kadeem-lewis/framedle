@@ -9,6 +9,6 @@ const { label, value } = defineProps<{
     class="ring-primary flex flex-col items-center text-center font-semibold uppercase ring-1"
   >
     <p class="py-0.5">{{ value ?? "—" }}</p>
-    <p class="bg-primary w-full py-0.5">{{ label }}</p>
+    <p class="bg-primary w-full py-0.5 text-black">{{ label }}</p>
   </div>
 </template>

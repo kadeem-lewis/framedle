@@ -2,7 +2,7 @@
 const { MAX_GRID_ATTEMPTS } = useGridGameStore();
 </script>
 <template>
-  <ul class="list-[square] space-y-2 pl-5">
+  <ul class="flex list-[square] flex-col gap-2 pl-5">
     <li>
       Your goal is to fill the entire grid with valid Warframes while aiming for
       the lowest possible uniqueness score.

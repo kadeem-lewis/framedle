@@ -132,7 +132,7 @@ useSubmission();
 </script>
 <template>
   <div class="flex flex-col gap-2">
-    <h2 class="text-center text-xl font-semibold uppercase">
+    <h2 class="font-roboto text-center text-xl font-semibold uppercase">
       {{ puzzleHeading }}
     </h2>
     <div class="grid grid-cols-4">

@@ -86,7 +86,7 @@ const { makeGuess } = useGuess();
         v-if="mode === 'ability' || mode === 'abilityUnlimited'"
         class="flex flex-col gap-4"
       >
-        <div v-if="itemToGuess[mode]" class="space-y-4">
+        <div v-if="itemToGuess[mode]" class="flex flex-col gap-4">
           <RemainingGuesses />
           <UCard class="divide-y-0">
             <template #header>

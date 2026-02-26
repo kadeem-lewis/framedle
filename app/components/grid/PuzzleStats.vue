@@ -80,7 +80,7 @@ const accuracyMap = computed(() => {
 <template>
   <section class="mt-2 flex flex-col items-center gap-4">
     <div class="flex flex-col items-center justify-center gap-1">
-      <h2 class="text-xl font-semibold uppercase">Puzzle Stats</h2>
+      <h2 class="font-roboto text-xl font-semibold uppercase">Puzzle Stats</h2>
       <p class="text-muted text-center text-sm">
         See how other Tenno have performed on this puzzle
       </p>
@@ -137,7 +137,7 @@ const accuracyMap = computed(() => {
             </GridCell>
           </template>
         </div>
-        <div class="space-y-2">
+        <div class="flex flex-col gap-2">
           <h3 class="text-center font-semibold uppercase">Accuracy</h3>
           <div class="grid grid-cols-3">
             <template v-for="(row, i) in accuracyMap" :key="i">

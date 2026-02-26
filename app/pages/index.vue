@@ -8,7 +8,7 @@ defineOgImageComponent("Framedle");
 const { cards } = useModeCards();
 </script>
 <template>
-  <div class="space-y-4">
+  <div class="flex flex-col gap-4">
     <p
       class="font-roboto p-1 text-center text-lg font-semibold uppercase md:text-xl"
     >

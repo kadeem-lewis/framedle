@@ -29,7 +29,7 @@ const isOpen = ref(false);
       <div>
         <div class="p-4">
           <h3 class="mb-4 font-medium">{{ title }}</h3>
-          <div class="flex justify-end space-x-2">
+          <div class="flex justify-end gap-2">
             <UButton
               variant="soft"
               color="neutral"

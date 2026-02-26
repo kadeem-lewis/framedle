@@ -14,7 +14,7 @@ function handleStatsClick() {
 const feedbackGrid = computed(() => generateGridGameMatrix());
 </script>
 <template>
-  <div class="space-y-2">
+  <div class="flex flex-col gap-2">
     <p class="text-center text-lg font-semibold uppercase">
       Framedle Grid #{{ currentDailyGridData?.day }}
     </p>

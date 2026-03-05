@@ -123,7 +123,7 @@ const randomPastDay = computed(() => getRandomPastDay());
     <UTabs
       v-model="activeTab"
       :content="false"
-      variant="outline"
+      variant="tenno"
       color="primary"
       :items="tabs"
     />

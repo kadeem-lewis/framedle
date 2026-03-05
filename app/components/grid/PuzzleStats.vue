@@ -113,7 +113,7 @@ const accuracyMap = computed(() => {
         <UTabs
           v-model="active"
           :items="items"
-          variant="outline"
+          variant="tenno"
           :content="false"
           class="rounded-none"
         />

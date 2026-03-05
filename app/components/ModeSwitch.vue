@@ -18,7 +18,7 @@ const modes = computed(() => {
 });
 </script>
 <template>
-  <div class="font-roboto flex justify-center gap-2">
+  <div class="font-roboto flex justify-center gap-0.5">
     <UButton
       v-for="mode of modes"
       :key="mode.label"

@@ -35,10 +35,42 @@ export default defineAppConfig({
         },
       ],
     },
+    fieldGroup: {
+      base: "p-1 bg-default dark:bg-elevated",
+    },
     card: {
       slots: {
         root: "rounded-none",
       },
+    },
+    tabs: {
+      variants: {
+        variant: {
+          tenno: {
+            list: "rounded-none bg-default p-0 border-default uppercase dark:bg-elevated",
+            trigger:
+              "grow  rounded-none flex items-start data-[state=active]:bg-default data-[state=active]:border-b-4",
+            indicator: "rounded-none",
+            label: "uppercase font-semibold",
+          },
+        },
+        size: {
+          md: {
+            trigger: "px-4 py-2",
+          },
+        },
+      },
+      compoundVariants: [
+        {
+          color: "primary",
+          variant: "tenno",
+          class: {
+            label: "dark:text-primary",
+            trigger:
+              "dark:border-primary dark:hover:data-[state=active]:border-primary-300 dark:hover:text-primary-300",
+          },
+        },
+      ],
     },
   },
 });

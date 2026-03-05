@@ -113,12 +113,9 @@ const accuracyMap = computed(() => {
         <UTabs
           v-model="active"
           :items="items"
+          variant="outline"
           :content="false"
           class="rounded-none"
-          :ui="{
-            list: 'rounded-none bg-default dark:bg-elevated',
-            indicator: 'rounded-none',
-          }"
         />
         <div class="grid grid-cols-3">
           <template v-for="(row, i) in tabContent" :key="i">

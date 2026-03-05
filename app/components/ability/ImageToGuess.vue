@@ -151,7 +151,7 @@ watch(
         <AnimatePresence>
           <motion.div
             v-if="index <= revealedCells"
-            :initial="{ opacity: 0, rotateY: 90 }"
+            :initial="!isGameOver ? { opacity: 0, rotateY: 90 } : false"
             :animate="{ opacity: 1, rotateY: 0 }"
             :transition="{ duration: 0.3, ease: 'easeIn' }"
             class="absolute inset-0"

@@ -1,5 +1,21 @@
+<script setup lang="ts">
+import { motion } from "motion-v";
+</script>
 <template>
-  <div class="paper h-full scale-98 rounded-md bg-yellow-100 p-1">
+  <motion.div
+    class="paper h-full scale-98 rounded-md bg-yellow-100 p-1"
+    :style="{
+      transformStyle: 'preserve-3d',
+      perspective: '1000px',
+    }"
+    :exit="{
+      rotateY: 90,
+    }"
+    :transition="{
+      duration: 0.3,
+      ease: 'easeOut',
+    }"
+  >
     <div class="relative h-full rounded-sm bg-stone-900 p-0.5">
       <div
         class="absolute top-0.5 left-0.5 size-1 rounded-full bg-yellow-400"
@@ -23,7 +39,7 @@
         </div>
       </div>
     </div>
-  </div>
+  </motion.div>
 </template>
 <style scoped>
 .paper {

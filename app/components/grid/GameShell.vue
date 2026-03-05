@@ -199,7 +199,7 @@ useSubmission();
         cancel-label="Cancel"
         @confirm="resetGridGame"
       >
-        <UButton variant="outline" icon="i-mdi-refresh" class="col-start-2"
+        <UButton variant="tenno" icon="i-mdi-refresh" class="col-start-2"
           >Generate</UButton
         >
       </UiConfirmPopup>

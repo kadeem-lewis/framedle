@@ -101,15 +101,15 @@ const differentMode = computed(() => {
         <UButton
           v-if="!$route.path.includes('unlimited')"
           icon="i-heroicons-chart-bar-solid"
-          variant="outline"
-          class="font-semibold uppercase"
+          variant="tenno"
+          class="font-semibold"
           @click="handleStatsClick"
           >Stats</UButton
         >
         <UButton
           v-if="$route.path.includes('unlimited')"
-          variant="outline"
-          class="font-semibold uppercase"
+          variant="tenno"
+          class="font-semibold"
           size="xl"
           @click="resetCurrentGame"
           >New Game</UButton

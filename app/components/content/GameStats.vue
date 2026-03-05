@@ -168,12 +168,7 @@ function handleMigrationClick() {
       </template>
     </div>
     <div class="flex justify-center gap-4">
-      <UButton
-        variant="outline"
-        size="lg"
-        class="uppercase"
-        @click="handleStatsShare"
-      >
+      <UButton variant="tenno" size="lg" @click="handleStatsShare">
         <span v-if="!statsCopied" class="flex items-center gap-1">
           <UIcon name="i-heroicons-share-solid" class="size-5" />
           Share
@@ -186,7 +181,7 @@ function handleMigrationClick() {
         cancel-label="Cancel"
         @confirm="handleResetStats"
       >
-        <UButton variant="outline" size="lg" class="uppercase">Reset</UButton>
+        <UButton variant="tenno" size="lg" class="uppercase">Reset</UButton>
       </UiConfirmPopup>
     </div>
   </div>

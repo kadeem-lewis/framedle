@@ -19,7 +19,7 @@ const { timeUntil, isFinished } = useTimeUntil(() => targetDate);
       class="flex flex-col items-center justify-center gap-2"
     >
       <p class="text-lg">A new game is available!</p>
-      <UButton variant="outline" @click="router.go(0)">Reload</UButton>
+      <UButton variant="tenno" @click="router.go(0)">Reload</UButton>
     </div>
     <div v-else class="flex flex-col items-center justify-center gap-2 text-xl">
       <p class="font-semibold">

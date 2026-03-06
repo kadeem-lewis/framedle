@@ -141,11 +141,13 @@ const differentMode = computed(() => {
             <USeparator />
             <div class="flex flex-col gap-4">
               <p
-                class="font-roboto text-center text-xl font-semibold uppercase"
+                class="text-center font-roboto text-xl font-semibold uppercase"
               >
                 Next Mode:
               </p>
-              <UiAppModeCard :card="differentMode" />
+              <NuxtLink :to="differentMode.route">
+                <UiAppModeCard :card="differentMode" />
+              </NuxtLink>
             </div>
           </template>
         </template>

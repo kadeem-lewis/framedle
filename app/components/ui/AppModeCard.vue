@@ -13,11 +13,10 @@ const { card, showStats = false } = defineProps<{
 </script>
 <template>
   <UCard
-    class="group hover:bg-opacity-100 relative cursor-pointer border border-primary shadow shadow-black transition-all dark:shadow-none"
+    class="group hover:bg-opacity-100 relative border border-primary shadow shadow-black transition-all dark:shadow-none"
     :ui="{
       body: 'p-3 sm:p-3',
     }"
-    @click="navigateTo(card.route)"
   >
     <div
       :style="{ backgroundImage: `url(${card.background})` }"

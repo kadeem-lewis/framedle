@@ -139,7 +139,7 @@ const differentMode = computed(() => {
           <NextGameCountdown :target-date="startOfTomorrow()" />
           <template v-if="isPastDay && differentMode">
             <USeparator />
-            <div class="flex flex-col gap-4">
+            <div class="flex w-full flex-col gap-4">
               <p
                 class="text-center font-roboto text-xl font-semibold uppercase"
               >

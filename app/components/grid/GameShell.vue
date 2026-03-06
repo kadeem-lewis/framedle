@@ -132,9 +132,9 @@ useSubmission();
 </script>
 <template>
   <div class="flex flex-col gap-2">
-    <h2 class="font-roboto text-center text-xl font-semibold uppercase">
+    <h1 class="text-center font-roboto text-xl font-semibold uppercase">
       {{ puzzleHeading }}
-    </h2>
+    </h1>
     <div class="grid grid-cols-4">
       <div />
       <GridLabel v-for="column in columns" :key="column" :category="column">
@@ -154,7 +154,7 @@ useSubmission();
           :class="{
             'border-r': j < columns.length - 1,
             'border-b': i < rows.length - 1,
-            'dark:bg-error/50 bg-error/50 transition-colors ease-in-out':
+            'bg-error/50 transition-colors ease-in-out dark:bg-error/50':
               selectedRowIndex === i &&
               selectedColumnIndex === j &&
               isIncorrect,
@@ -171,7 +171,7 @@ useSubmission();
         <span class="font-semibold uppercase">Attempts:</span>
         <span
           :class="{
-            'text-error scale-150 transition-transform ease-in-out':
+            'scale-150 text-error transition-transform ease-in-out':
               isIncorrect,
           }"
         >

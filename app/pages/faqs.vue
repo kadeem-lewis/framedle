@@ -1,5 +1,8 @@
 <script setup lang="ts">
 import type { AccordionItem } from "@nuxt/ui";
+
+useSeoMeta({});
+
 const items = shallowRef<AccordionItem[]>([
   {
     label: "Q: When do new puzzles come out?",
@@ -9,7 +12,7 @@ const items = shallowRef<AccordionItem[]>([
 </script>
 <template>
   <section class="flex flex-col gap-4">
-    <h2 class="text-xl font-semibold">Frequently Asked Questions</h2>
+    <h1 class="text-xl font-semibold">Frequently Asked Questions</h1>
     <UAccordion :items />
   </section>
 </template>

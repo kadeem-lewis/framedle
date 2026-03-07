@@ -113,3 +113,7 @@
     @apply font-noto-sans;
   }
 }
+
+@utility hover-gradient {
+  @apply to-90% transition-all duration-100 ease-in-out hover:bg-radial-[at_50%_bottom] hover:from-primary-300/40 hover:to-neutral-100/70 dark:hover:from-primary/40 dark:hover:to-neutral-950/70;
+}

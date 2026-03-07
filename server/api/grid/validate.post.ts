@@ -48,7 +48,10 @@ export default defineEventHandler<
 
   const WARFRAME_DATA_VERSION = "v1";
 
-  const [idA, idB] = [rowCategoryId, columnCategoryId].sort();
+  const [idA, idB] = [rowCategoryId, columnCategoryId].sort() as [
+    string,
+    string,
+  ];
 
   try {
     const redis = await useRedis();
@@ -101,6 +104,7 @@ export default defineEventHandler<
     let rarityScore = 0;
 
     if (!isUnlimited) {
+      //TODO: I can just avoid doing this calculation if it's additional guesses
       const rarityKey = `daily:rarity:${puzzleDate}:${rowIndex}-${colIndex}`;
       const normalizedGuess = match.name;
 

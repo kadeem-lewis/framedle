@@ -6,7 +6,7 @@ const route = useRoute();
 const { stats } = storeToRefs(useStatsStore());
 const { DEFAULT_ATTEMPTS } = useGameStore();
 const { MAX_GRID_ATTEMPTS } = useGridGameStore();
-const { isDaily, gameType } = useGameMode();
+const { gameType } = useGameMode();
 
 const legacyStats = computed<LegacyModeStats | null>(() => {
   if (route.name === "ability-path") return stats.value.ability;
@@ -127,7 +127,7 @@ function handleMigrationClick() {
         :value="activeStats.plays"
         :class="[gameType === 'grid' ? 'col-span-3' : 'col-span-2']"
       />
-      <template v-if="legacyStats && isDaily">
+      <template v-if="legacyStats">
         <UiStatsCard
           label="Wins"
           :value="legacyStats.wins"

@@ -15,14 +15,14 @@ getCategoryDisplay(key, value);
 <template>
   <UPopover
     :ui="{
-      content: 'rounded-none max-w-96',
+      content: 'max-w-96 rounded-none',
     }"
   >
     <UButton variant="ghost" class="flex min-h-28 rounded-none">
       <div
         class="flex h-full w-full flex-col items-center justify-center gap-0.5"
       >
-        <p class="text-toned text-xs font-semibold uppercase">
+        <p class="text-xs font-semibold text-toned uppercase">
           {{ categoryInfo?.header }}
         </p>
         <NuxtImg

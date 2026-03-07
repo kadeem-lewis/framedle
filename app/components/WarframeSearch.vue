@@ -96,7 +96,7 @@ const handleSubmit = async () => {
       :ui="{
         base: 'rounded-none',
         content:
-          'rounded-none bg-white/75 dark:bg-neutral-800/75 backdrop-blur',
+          'rounded-none bg-white/75 backdrop-blur dark:bg-neutral-800/75',
       }"
       class="grow rounded-none"
     >

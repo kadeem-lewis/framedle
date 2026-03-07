@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { motion } from "motion-v";
 const emit = defineEmits(["loading", "loaded"]);
 
 const { itemToGuess, attempts } = storeToRefs(useGameStore());
@@ -52,8 +53,6 @@ const revealedCells = computed(() => {
   return Math.min(totalCells, calculatedRevealedCells);
 });
 
-const remainingCells = computed(() => totalCells - revealedCells.value);
-
 function loadImage() {
   if (!imageUrl.value) return;
 
@@ -84,7 +83,7 @@ watch(
   { immediate: true },
 );
 
-const canvasRefs = useTemplateRefsList<HTMLCanvasElement>();
+const canvasRefs = ref<(HTMLCanvasElement | null)[]>([]);
 
 /**
  * The actual rendering of the images is one guess behind so the new canvas is added but nothing is rendered on it the first time
@@ -146,27 +145,33 @@ watch(
 );
 </script>
 <template>
-  <div
-    v-if="mode === 'ability' || mode === 'abilityUnlimited'"
-    class="flex items-center justify-center p-4"
-  >
-    <div class="grid h-60 w-60 grid-cols-3 grid-rows-2">
-      <canvas
-        v-for="index of revealedCells"
-        :key="index"
-        :ref="canvasRefs.set"
-        class="col-span-1 invert dark:invert-0"
-        :class="{
-          'rotate-180': index === revealedCells && revealedCells !== totalCells,
-          'transition-transform duration-500': !isGameOver,
-        }"
-      />
-      <div
-        v-for="index of remainingCells"
-        :key="index"
-        class="col-span-1 flex h-full items-center justify-center border bg-red-500 dark:bg-red-600"
-      >
-        <UIcon name="i-mdi-help" class="text-4xl" />
+  <div class="flex items-center justify-center p-4">
+    <div class="grid h-60 w-60 grid-cols-3 grid-rows-2 transition-transform">
+      <div v-for="index in totalCells" :key="`cell-${index}`" class="relative">
+        <AnimatePresence>
+          <motion.div
+            v-if="index <= revealedCells"
+            :initial="!isGameOver ? { opacity: 0, rotateY: 90 } : false"
+            :animate="{ opacity: 1, rotateY: 0 }"
+            :transition="{ duration: 0.3, ease: 'easeIn' }"
+            class="absolute inset-0"
+          >
+            <canvas
+              :ref="
+                (el) => {
+                  canvasRefs[index - 1] = el as HTMLCanvasElement | null;
+                }
+              "
+              class="invert dark:invert-0"
+              :class="{
+                'rotate-180':
+                  index === revealedCells && revealedCells !== totalCells,
+                'transition-transform duration-300 ease-in': !isGameOver,
+              }"
+            />
+          </motion.div>
+          <UiPrexCard v-else class="absolute inset-0" />
+        </AnimatePresence>
       </div>
     </div>
   </div>

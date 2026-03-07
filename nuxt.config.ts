@@ -17,6 +17,7 @@ export default defineNuxtConfig({
     "@nuxt/scripts",
     "@vite-pwa/nuxt",
     "@sentry/nuxt/module",
+    "motion-v/nuxt",
   ],
 
   runtimeConfig: {

@@ -54,7 +54,7 @@ const feedbackGrid = computed(() => generateGridGameMatrix());
       </div>
       <UButton
         icon="i-heroicons-chart-bar-solid"
-        variant="outline"
+        variant="tenno"
         class="font-semibold uppercase"
         @click="handleStatsClick"
         >View All Stats</UButton

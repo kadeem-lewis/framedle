@@ -83,6 +83,7 @@ watchEffect(() => {
         :key="item.text"
         :aria-label="item.text"
         variant="outline"
+        color="neutral"
         type="button"
         class="group flex flex-col gap-px"
         @click="item.command"
@@ -90,7 +91,7 @@ watchEffect(() => {
         <template #leading>
           <UIcon
             :name="item.icon"
-            class="size-6 text-toned group-hover:text-primary dark:text-primary dark:contrast-90"
+            class="size-6 text-toned group-hover:text-primary dark:contrast-90"
           />
         </template>
         <span class="text-xs uppercase">

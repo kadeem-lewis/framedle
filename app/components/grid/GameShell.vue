@@ -209,6 +209,7 @@ useSubmission();
         :to="`/grid/${adjacentDays?.previous}`"
         :disabled="!adjacentDays?.previous"
         variant="outline"
+        color="neutral"
         icon="i-heroicons-arrow-left"
         @click="proxy.track('Visited Previous Day', { mode: 'grid' })"
         >Prev</UButton
@@ -238,6 +239,7 @@ useSubmission();
         :to="`/${mode}/${adjacentDays?.next}`"
         :disabled="!adjacentDays?.next"
         variant="outline"
+        color="neutral"
         trailing
         icon="i-heroicons-arrow-right"
         @click="proxy.track('Visited Next Day', { mode })"

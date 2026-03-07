@@ -69,10 +69,10 @@ const abilityNames = computed(() =>
     class="flex flex-col gap-2"
   >
     <div class="text-center font-semibold uppercase">
-      <p>Bonus</p>
+      <h3>Bonus</h3>
       <p>Guess the ability name</p>
     </div>
-    <div class="bg-muted ring">
+    <div class="border-2 bg-default/70">
       <NuxtImg
         v-if="correctAbility"
         :src="`https://cdn.warframestat.us/img/${correctAbility.imageName}`"
@@ -88,8 +88,9 @@ const abilityNames = computed(() =>
         <li
           v-for="ability in abilityNames"
           :key="ability"
-          class="bg-muted cursor-pointer border px-2 py-1"
+          class="cursor-pointer border bg-default/70 px-2 py-1"
           :class="{
+            'hover:bg-elevated': !hasSelected,
             'bg-success':
               hasSelected &&
               ((isUserSelection(ability) && isCorrectAnswer(ability)) || // User picked correct

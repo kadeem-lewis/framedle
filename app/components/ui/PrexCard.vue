@@ -3,7 +3,7 @@ import { motion } from "motion-v";
 </script>
 <template>
   <motion.div
-    class="paper h-full scale-98 rounded-md bg-yellow-100 p-1"
+    class="paper h-full scale-96 rounded-md bg-yellow-100 p-1 ring-1 ring-accented dark:ring-0"
     :style="{
       transformStyle: 'preserve-3d',
       perspective: '1000px',
@@ -18,22 +18,22 @@ import { motion } from "motion-v";
   >
     <div class="relative h-full rounded-sm bg-stone-900 p-0.5">
       <div
-        class="absolute top-0.5 left-0.5 size-1 rounded-full bg-yellow-400"
+        class="absolute top-0.5 left-0.5 size-1 rounded-full bg-yellow-800"
       />
       <div
-        class="absolute top-0.5 right-0.5 size-1 rounded-full bg-yellow-400"
+        class="absolute top-0.5 right-0.5 size-1 rounded-full bg-yellow-800"
       />
       <div
-        class="absolute bottom-0.5 left-0.5 size-1 rounded-full bg-yellow-400"
+        class="absolute bottom-0.5 left-0.5 size-1 rounded-full bg-yellow-800"
       />
       <div
-        class="absolute right-0.5 bottom-0.5 size-1 rounded-full bg-yellow-400"
+        class="absolute right-0.5 bottom-0.5 size-1 rounded-full bg-yellow-800"
       />
       <div
-        class="relative flex h-full items-center justify-center rounded-lg bg-amber-500"
+        class="relative flex h-full items-center justify-center rounded-lg bg-taupe-500"
       >
         <div
-          class="flex size-13 items-center justify-center rounded-full border-3 border-stone-700 bg-green-500"
+          class="flex size-13 items-center justify-center rounded-full border-3 border-stone-700 bg-amber-300"
         >
           <UIcon name="i-mdi-help" class="text-3xl text-stone-900" />
         </div>

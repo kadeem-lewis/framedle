@@ -15,8 +15,7 @@ export default defineAppConfig({
     button: {
       variants: {
         variant: {
-          outline:
-            "bg-white/75 dark:bg-neutral-900/75  dark:hover:bg-primary-800/50 dark:text-primary rounded-none",
+          outline: "rounded-none",
           tenno: "uppercase rounded-none",
         },
       },
@@ -25,18 +24,15 @@ export default defineAppConfig({
           color: "primary",
           variant: "outline",
           class:
-            "ring-neutral-800 dark:ring-primary text-black hover:ring-primary hover:text-primary",
+            "ring-neutral-800 dark:ring-primary bg-white/75 dark:bg-neutral-900/75 hover-gradient text-neutral-700 dark:text-primary hover:ring-primary hover:text-primary",
         },
         {
           color: "primary",
           variant: "tenno",
           class:
-            "font-bold dark:text-primary border-b-neutral-800 border border-accented dark:border-default border-b-3 dark:border-b-primary transition-all duration-200 bg-radial-[at_50%_bottom] dark:from-black/60 from-white/60 to-white/20 dark:to-black/20 ease-in hover:to-white/30 dark:hover:to-black/30 hover:border-primary-300/40 hover:border-b-primary-300 dark:hover:from-primary/70 hover:text-primary",
+            "font-bold dark:text-primary border border-accented dark:border-default border-b-2 border-b-neutral-400 dark:border-b-primary bg-neutral-100/70 dark:bg-neutral-950 hover:border-primary-400 dark:hover:border-accented hover:border-b-primary-500 dark:hover:border-b-primary-300 hover:text-primary hover-gradient",
         },
       ],
-    },
-    fieldGroup: {
-      base: "p-1 bg-default dark:bg-elevated",
     },
     card: {
       slots: {

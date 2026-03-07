@@ -81,13 +81,18 @@ watchEffect(() => {
       <UButton
         v-for="item of items"
         :key="item.text"
-        :icon="item.icon"
         :aria-label="item.text"
         variant="outline"
         type="button"
-        class="flex flex-col gap-px"
+        class="group flex flex-col gap-px"
         @click="item.command"
       >
+        <template #leading>
+          <UIcon
+            :name="item.icon"
+            class="size-6 text-toned group-hover:text-primary dark:text-primary dark:contrast-90"
+          />
+        </template>
         <span class="text-xs uppercase">
           {{ item.text }}
         </span>

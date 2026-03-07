@@ -79,11 +79,11 @@ const { makeGuess } = useGuess();
         <RemainingGuesses />
         <UCard class="divide-y-0">
           <template #header>
-            <p
-              class="text-primary-600 font-roboto dark:text-primary text-2xl font-bold uppercase"
+            <h1
+              class="font-roboto text-2xl font-bold text-primary-600 uppercase dark:text-primary"
             >
               {{ t("classic.title") }}
-            </p>
+            </h1>
             <p
               v-if="attempts[mode] === DEFAULT_ATTEMPTS"
               class="font-semibold uppercase"
@@ -120,7 +120,7 @@ const { makeGuess } = useGuess();
                 :text="tooltipMap[label as keyof typeof tooltipMap]"
               >
                 <p
-                  class="font-roboto self-center justify-self-center text-center font-medium"
+                  class="self-center justify-self-center text-center font-roboto font-medium"
                 >
                   {{ label }}
                 </p>

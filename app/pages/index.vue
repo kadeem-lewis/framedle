@@ -9,18 +9,17 @@ const { cards } = useModeCards();
 </script>
 <template>
   <div class="flex flex-col gap-4">
-    <p
-      class="font-roboto p-1 text-center text-lg font-semibold uppercase md:text-xl"
+    <h1
+      class="p-1 text-center font-roboto text-lg font-semibold uppercase md:text-xl"
     >
       Test your Warframe Knowledge
-    </p>
-    <div class="flex flex-col gap-4">
-      <UiAppModeCard
-        v-for="card of cards"
-        :key="card.label"
-        :card="card"
-        :show-stats="true"
-      />
-    </div>
+    </h1>
+    <ul class="flex flex-col gap-4">
+      <li v-for="card of cards" :key="card.label">
+        <NuxtLink :to="card.route">
+          <UiAppModeCard :card="card" :show-stats="true" />
+        </NuxtLink>
+      </li>
+    </ul>
   </div>
 </template>

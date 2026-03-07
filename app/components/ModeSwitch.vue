@@ -18,15 +18,15 @@ const modes = computed(() => {
 });
 </script>
 <template>
-  <div class="font-roboto flex justify-center gap-2">
+  <div class="flex justify-center gap-1 font-roboto">
     <UButton
       v-for="mode of modes"
       :key="mode.label"
       :to="mode.to"
       :class="{
-        'dark:border-primary border-b-4 border-neutral-800': mode.isActive,
+        'border-b-4 border-neutral-800 dark:border-primary': mode.isActive,
       }"
-      class="hover:border-primary font-semibold uppercase ring-neutral-800"
+      class="font-semibold uppercase ring-neutral-800 hover:border-primary"
       variant="outline"
       size="xl"
     >

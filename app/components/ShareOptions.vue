@@ -18,8 +18,8 @@ function handleShare() {
   <div class="flex flex-col gap-2">
     <div class="flex justify-center gap-2">
       <UButton
-        class="font-semibold uppercase"
-        variant="outline"
+        class="font-semibold"
+        variant="tenno"
         icon="i-mdi-content-copy"
         @click="handleCopy"
       >
@@ -28,7 +28,7 @@ function handleShare() {
       <UButton
         v-if="isSupported"
         class="font-semibold uppercase"
-        variant="outline"
+        variant="tenno"
         icon="i-mdi-share"
         @click="handleShare"
       >

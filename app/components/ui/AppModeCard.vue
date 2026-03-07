@@ -13,11 +13,10 @@ const { card, showStats = false } = defineProps<{
 </script>
 <template>
   <UCard
-    class="group hover:bg-opacity-100 border-primary relative cursor-pointer border shadow shadow-black transition-all dark:shadow-none"
+    class="group hover:bg-opacity-100 relative border border-primary shadow shadow-black transition-all dark:shadow-none"
     :ui="{
       body: 'p-3 sm:p-3',
     }"
-    @click="navigateTo(card.route)"
   >
     <div
       :style="{ backgroundImage: `url(${card.background})` }"
@@ -36,10 +35,10 @@ const { card, showStats = false } = defineProps<{
         class="group-hover:scale-110"
       />
       <div class="brightness-90 group-hover:brightness-100">
-        <p class="text-primary font-roboto text-xl font-bold uppercase">
+        <p class="font-roboto text-xl font-bold text-primary uppercase">
           {{ card.label }}
         </p>
-        <p class="font-medium capitalize">{{ card.description }}</p>
+        <p class="font-medium uppercase">{{ card.description }}</p>
       </div>
     </div>
     <ClientOnly>

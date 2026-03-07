@@ -30,9 +30,9 @@ export function useTimeUntil(time: MaybeRefOrGetter<Date>) {
     const minutes = Math.floor(remaining / 60);
     remaining = remaining % 60;
     const seconds = remaining;
-    return `${hours.toString().padStart(2, "0")}:${minutes
+    return `${hours.toString().padStart(2, "0")}h ${minutes
       .toString()
-      .padStart(2, "0")}:${seconds.toString().padStart(2, "0")}`;
+      .padStart(2, "0")}m ${seconds.toString().padStart(2, "0")}s`;
   }
 
   const timeUntil = computed(() => formatTimeLeft(timeLeft.value));

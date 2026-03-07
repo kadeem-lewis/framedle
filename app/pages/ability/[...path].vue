@@ -90,11 +90,11 @@ const { makeGuess } = useGuess();
           <RemainingGuesses />
           <UCard class="divide-y-0">
             <template #header>
-              <p
-                class="text-primary-600 font-roboto dark:text-primary text-xl font-bold uppercase"
+              <h1
+                class="font-roboto text-xl font-bold text-primary-600 uppercase dark:text-primary"
               >
                 {{ t("ability.title") }}
-              </p>
+              </h1>
               <p class="font-semibold uppercase">Each try reveals a tile</p>
             </template>
             <AbilityImageToGuess

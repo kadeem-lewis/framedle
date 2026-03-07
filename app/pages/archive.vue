@@ -5,6 +5,11 @@ import { h, resolveComponent } from "vue";
 
 useSeoMeta({
   title: "Archive",
+  ogTitle: "Framedle Archive",
+  description:
+    "Replay past daily Framedle puzzles for all modes starting from the very first day.",
+  ogDescription:
+    "Replay past daily Framedle puzzles for all modes starting from the very first day.",
 });
 
 const { proxy } = useScriptUmamiAnalytics();
@@ -114,15 +119,13 @@ const randomPastDay = computed(() => getRandomPastDay());
 </script>
 <template>
   <div class="flex flex-col gap-4">
-    <p class="font-roboto text-xl font-bold uppercase">Archive</p>
+    <h1 class="font-roboto text-xl font-bold uppercase">Archive</h1>
     <UTabs
       v-model="activeTab"
       :content="false"
+      variant="tenno"
+      color="primary"
       :items="tabs"
-      :ui="{
-        list: 'rounded-none bg-default dark:bg-elevated',
-        indicator: 'rounded-none',
-      }"
     />
     <ArchiveGameStats />
     <div class="flex items-center justify-end gap-4">
@@ -164,7 +167,7 @@ const randomPastDay = computed(() => getRandomPastDay());
     <UButton
       v-else
       :to="`/${selectedArchiveMode}/${randomPastDay}`"
-      variant="outline"
+      variant="tenno"
       icon="i-mdi-dice"
       class="flex items-center justify-center uppercase"
       @click="

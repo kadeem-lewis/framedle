@@ -1,6 +1,8 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+useSeoMeta({});
+</script>
 <template>
   <div>
-    <h2 class="text-xl font-semibold">Change log</h2>
+    <h1 class="text-xl font-semibold">Change log</h1>
   </div>
 </template>

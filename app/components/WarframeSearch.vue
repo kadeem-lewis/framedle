@@ -131,8 +131,8 @@ const handleSubmit = async () => {
     <UButton
       aria-label="submit-answer"
       type="submit"
-      variant="outline"
-      class="font-semibold uppercase"
+      variant="tenno"
+      class="font-semibold"
       >Submit</UButton
     >
   </form>

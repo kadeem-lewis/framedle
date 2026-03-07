@@ -119,7 +119,7 @@ const randomPastDay = computed(() => getRandomPastDay());
 </script>
 <template>
   <div class="flex flex-col gap-4">
-    <p class="font-roboto text-xl font-bold uppercase">Archive</p>
+    <h1 class="font-roboto text-xl font-bold uppercase">Archive</h1>
     <UTabs
       v-model="activeTab"
       :content="false"

@@ -68,6 +68,7 @@ const { card, showStats = false } = defineProps<{
   background: conic-gradient(
     var(--color-amber-500),
     var(--color-amber-200),
+    var(--color-stone-400),
     var(--color-amber-600),
     var(--color-amber-500)
   );

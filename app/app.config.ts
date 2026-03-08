@@ -24,11 +24,6 @@ export default defineAppConfig({
       compoundVariants: [
         {
           color: "primary",
-          variant: "outline",
-          class: tw`bg-white/75 hover-gradient text-neutral-700 ring-neutral-800 hover:text-primary hover:ring-primary dark:bg-neutral-900/75 dark:text-primary dark:ring-primary`,
-        },
-        {
-          color: "primary",
           variant: "tenno",
           class: tw`border border-b-2 border-accented border-b-neutral-400 bg-neutral-100/70 hover-gradient font-bold hover:border-primary-400 hover:border-b-primary-500 hover:text-primary dark:border-default dark:border-b-primary dark:bg-neutral-950 dark:text-primary dark:hover:border-accented dark:hover:border-b-primary-300`,
         },
@@ -42,7 +37,7 @@ export default defineAppConfig({
           variant: "tenno",
           leading: true,
           class: {
-            leadingIcon: tw`text-default group-hover:text-primary`,
+            leadingIcon: tw`text-default group-hover:text-primary-600 dark:group-hover:text-primary`,
           },
         },
       ],

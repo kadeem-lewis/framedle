@@ -37,7 +37,7 @@ const { card, showStats = false } = defineProps<{
           fetch-priority="high"
           class="group-hover:scale-110"
         />
-        <div class="brightness-90 group-hover:brightness-100">
+        <div class="text-shadow-xs">
           <p class="font-roboto text-xl font-bold text-primary uppercase">
             {{ card.label }}
           </p>

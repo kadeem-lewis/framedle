@@ -18,6 +18,7 @@ export default defineNuxtConfig({
     "@vite-pwa/nuxt",
     "@sentry/nuxt/module",
     "motion-v/nuxt",
+    "@nuxtjs/mdc",
   ],
 
   runtimeConfig: {
@@ -89,6 +90,12 @@ export default defineNuxtConfig({
     },
     experimental: {
       componentDetection: true,
+    },
+  },
+
+  mdc: {
+    headings: {
+      anchorLinks: false,
     },
   },
 

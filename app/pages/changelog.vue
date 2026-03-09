@@ -209,7 +209,7 @@ const versions = [
 - Changed daily mode refresh to trigger when navigating between game modes
 - Updated game instructions
 
-#Fixes
+### Fixes
 - Fixed game returning to the home page when reloading the page
 - Fixed error where clicking on the next mode button would cause the daily mode button to link to previous game mode
     `,
@@ -247,7 +247,7 @@ const versions = [
     title: "v0.1.1",
     date: "2025-04-10",
     content: `
-### Fixes",
+### Fixes
 - Fixed a bug where the share grid for the classic mode would show the wrong state for release date`,
     badge: "v0.1.1",
   },

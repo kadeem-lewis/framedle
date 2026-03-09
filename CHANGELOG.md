@@ -55,7 +55,7 @@
 
 ## v1.0.1 - January 17th, 2026
 
-### Bug fixes
+### Bug Fixes
 
 - Fixed game over navigation not working for legacy daily modes
 
@@ -69,7 +69,7 @@
 - Add web share support for supported browsers when sharing game results
 - Add links to quick share game results to popular social media platforms such as Twitter, Bluesky and Whatsapp
 
-### Bug fixes
+### Bug Fixes
 
 - Fixed Excalibur Umbra being missing from game
 - Fixed shared classic game results not including playstyle category

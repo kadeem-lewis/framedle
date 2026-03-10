@@ -54,6 +54,9 @@
   --correct-border: oklch(0.4674 0.0828 159.91); /* greenDark-7*/
   --incorrect-border: oklch(0.4506 0.1206 18.91); /* redDark-7 */
   --partial-border: oklch(0.4734 0.0589 97.04); /* 50% darker yellow */
+
+  --correct-border-subtle: oklch(0.4674 0.0828 159.91); /* greenDark-7*/
+  --incorrect-border-subtle: oklch(0.4506 0.1206 18.91); /* redDark-7 */
 }
 
 .colorblind {
@@ -65,6 +68,11 @@
   --incorrect-border: oklch(0.4811 0.0805 67.36); /* 50% darker orange */
   /* I need to remember to change the color blind color since pink doesn't work in a lot of cases */
   --partial-border: oklch(0.4088 0.1185 7.87); /* 50% darker orange */
+
+  --correct-border-subtle: oklch(
+    0.4668 0.1129 251.61
+  ); /* 50% darker dodger blue */
+  --incorrect-border-subtle: oklch(0.4811 0.0805 67.36); /* 50% darker orange */
 }
 
 .dark.colorblind {
@@ -82,6 +90,13 @@
   ); /* 50% darker 25% desaturated orange */
   --partial-border: oklch(
     0.4088 0.1185 7.87
+  ); /* 50% darker 25% desaturated orange */
+
+  --correct-border-subtle: oklch(
+    0.4641 0.0938 250.54
+  ); /* 50% darker 25% desaturated dodger blue */
+  --incorrect-border-subtle: oklch(
+    0.5021 0.0818 80.39
   ); /* 50% darker 25% desaturated orange */
 }
 

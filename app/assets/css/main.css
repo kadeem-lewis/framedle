@@ -14,14 +14,21 @@
   --ui-text-muted: oklch(0.49 0.01 var(--text-hue));
   --ui-text-dimmed: oklch(0.63 0.008 var(--text-hue));
   --ui-text-inverted: oklch(0.92 0.008 var(--text-hue));
-  --success-base: oklch(0.9816 0.0091 155.31); /* green-2 */
-  --success: oklch(0.7419 0.2286 142.83); /* green ( #32cd32 ) */
-  --border-success: oklch(0.7977 0.083883 159.0192); /* green-7 */
-  --error-base: oklch(0.9832 0.0083 16.02); /* red-2 */
-  --error: oklch(0.628 0.2577 29.23); /* red ( #FF0000 ) */
-  --border-error: oklch(0.4092 0.1405 26.02); /* 50% darker red */
+
+  --correct: oklch(0.7419 0.2286 142.83); /* green ( #32cd32 ) */
+  --incorrect: oklch(0.628 0.2577 29.23); /* red ( #FF0000 ) */
   --partial: oklch(0.7773 0.1548 94.41); /* 50% saturated version of dark */
-  --border-partial: oklch(0.5079 0.084729 96.5611); /* 50% darker */
+
+  --correct-base: oklch(0.9816 0.0091 155.31); /* green-2 */
+  --incorrect-base: oklch(0.9832 0.0083 16.02); /* red-2 */
+
+  --correct-border: oklch(0.7977 0.083883 159.0192);
+  --incorrect-border: oklch(0.4092 0.1405 26.02);
+  --partial-border: oklch(0.5079 0.084729 96.5611);
+
+  --correct-border-subtle: oklch(0.7977 0.083883 159.0192); /* green-7 */
+  --incorrect-border-subtle: oklch(0.4092 0.1405 26.02); /* 50% darker red */
+
   --ui-discord: oklch(0.5798 0.2086 273.97); /* blurple */
   --ui-bluesky: oklch(0.623 0.206557 255.1921); /* #0085ff */
   --ui-reddit: oklch(0.6593 0.230058 35.2202); /* Reddit Orange */
@@ -34,41 +41,46 @@
   --ui-text-muted: oklch(0.72 0.005 var(--text-hue));
   --ui-text-dimmed: oklch(0.63 0.004 var(--text-hue));
   --ui-text-inverted: oklch(0.35 0.015 var(--text-hue));
-  --success-base: oklch(0.2127 0.016 162.22); /* greenDark-2 */
-  --success: oklch(0.707 0.198 143.12); /* 25% desaturated green */
-  --border-success: oklch(0.4674 0.0828 159.91); /* greenDark-7*/
-  --error-base: oklch(0.2048 0.0215 14.74); /* redDark-2 */
-  --error: oklch(
+
+  --correct: oklch(0.707 0.198 143.12); /* 25% desaturated green */
+  --incorrect: oklch(
     0.5875 0.23028198786691845 28.262177188593004
   ); /* 25% desaturated red  */
-  --border-error: oklch(0.4506 0.1206 18.91); /* redDark-7 */
   --partial: oklch(0.7022 0.1206 96.42); /* (#b59f3b) wordle partial color */
-  --border-partial: oklch(0.4734 0.0589 97.04); /* 50% darker yellow */
+
+  --correct-base: oklch(0.2127 0.016 162.22); /* greenDark-2 */
+  --incorrect-base: oklch(0.2048 0.0215 14.74); /* redDark-2 */
+
+  --correct-border: oklch(0.4674 0.0828 159.91); /* greenDark-7*/
+  --incorrect-border: oklch(0.4506 0.1206 18.91); /* redDark-7 */
+  --partial-border: oklch(0.4734 0.0589 97.04); /* 50% darker yellow */
 }
 
 .colorblind {
-  --success: oklch(0.6495 0.1913 253.63); /* dodger blue ( #1e90ff ) */
-  --border-success: oklch(0.4668 0.1129 251.61); /* 50% darker dodger blue */
-  --error: oklch(0.7442 0.181171 56.4585); /* orange ( #FFA500 ) */
-  --border-error: oklch(0.4811 0.0805 67.36); /* 50% darker orange */
-  /* I need to remember to change the color blind color since pink doesn't work in a lot of cases */
+  --correct: oklch(0.6495 0.1913 253.63); /* dodger blue ( #1e90ff ) */
+  --incorrect: oklch(0.7442 0.181171 56.4585); /* orange ( #FFA500 ) */
   --partial: oklch(0.7699 0.1378 3.77); /* flamingo pink ( #fc8eac ) */
-  --border-partial: oklch(0.4088 0.1185 7.87); /* 50% darker orange */
+
+  --correct-border: oklch(0.4668 0.1129 251.61); /* 50% darker dodger blue */
+  --incorrect-border: oklch(0.4811 0.0805 67.36); /* 50% darker orange */
+  /* I need to remember to change the color blind color since pink doesn't work in a lot of cases */
+  --partial-border: oklch(0.4088 0.1185 7.87); /* 50% darker orange */
 }
 
 .dark.colorblind {
-  --success: oklch(0.6402 0.1587 251.8); /* 25% desaturated dodger blue */
-  --border-success: oklch(
-    0.4641 0.0938 250.54
-  ); /* 50% darker 25% desaturated dodger blue */
-  --error: oklch(
+  --correct: oklch(0.6402 0.1587 251.8); /* 25% desaturated dodger blue */
+  --incorrect: oklch(
     0.7085 0.15751444810927523 61.3026009422698
   ); /* 25% desaturated orange */
-  --border-error: oklch(
+  --partial: oklch(0.7758 0.1102 2.68); /* 25% desaturated orange */
+
+  --correct-border: oklch(
+    0.4641 0.0938 250.54
+  ); /* 50% darker 25% desaturated dodger blue */
+  --incorrect-border: oklch(
     0.5021 0.0818 80.39
   ); /* 50% darker 25% desaturated orange */
-  --partial: oklch(0.7758 0.1102 2.68); /* 25% desaturated orange */
-  --border-partial: oklch(
+  --partial-border: oklch(
     0.4088 0.1185 7.87
   ); /* 50% darker 25% desaturated orange */
 }
@@ -77,15 +89,16 @@
   --font-noto-sans: Noto Sans, sans-serif;
   --font-roboto: Roboto, sans-serif;
 
-  --color-success-base: var(--success-base);
-  --color-success: var(--success);
-  --color-error-base: var(--error-base);
-  --color-error: var(--error);
+  --color-correct: var(--correct);
+  --color-incorrect: var(--incorrect);
   --color-partial: var(--partial);
 
-  --color-border-success: var(--border-success);
-  --color-border-error: var(--border-error);
-  --color-border-partial: var(--border-partial);
+  --color-correct-base: var(--correct-base);
+  --color-incorrect-base: var(--incorrect-base);
+
+  --color-correct-border: var(--correct-border);
+  --color-incorrect-border: var(--incorrect-border);
+  --color-partial-border: var(--partial-border);
 }
 
 /*

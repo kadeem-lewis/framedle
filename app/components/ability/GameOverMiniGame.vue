@@ -114,11 +114,11 @@ const abilityNames = computed(() =>
       >
         <p
           v-if="selectedMinigameAbility[mode] === correctAbility.name"
-          class="text-success"
+          class="text-correct"
         >
           You got it!
         </p>
-        <p v-else class="text-error">Better Luck Next Time</p>
+        <p v-else class="text-incorrect">Better Luck Next Time</p>
       </div>
     </div>
   </div>

@@ -30,18 +30,18 @@ const tooltipText = computed(() => {
 
 // I might need to make some of these the default styles for all tooltips
 const tooltipStyles = computed(() => {
-  const baseStyles = "text-md text-white rounded-none py-2 px-3";
+  const baseStyles = "text-md rounded-none py-2 px-3";
 
   if (variant === "correct") {
     return {
-      content: `${baseStyles} bg-correct`,
+      content: `${baseStyles} bg-correct text-white`,
     };
   } else if (variant === "partial") {
-    return { content: `${baseStyles} bg-partial` };
+    return { content: `${baseStyles} bg-partial text-white` };
   } else if (variant === "neutral") {
-    return { content: `${baseStyles}` };
+    return { content: `${baseStyles} text-black dark:text-white` };
   }
-  return { content: `${baseStyles} bg-incorrect` };
+  return { content: `${baseStyles} bg-incorrect text-white` };
 });
 </script>
 <template>
@@ -57,7 +57,7 @@ const tooltipStyles = computed(() => {
     <div
       tabindex="0"
       :class="[
-        'relative z-0 min-h-12 w-full border-2 font-medium wrap-break-word text-white transition-colors',
+        'relative z-0 min-h-20 w-full border-2 font-medium wrap-break-word text-white transition-colors',
         {
           'border-accented bg-default': variant === 'neutral',
           'border-correct-border bg-correct hover:shadow-inner hover:brightness-110':

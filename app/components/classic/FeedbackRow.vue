@@ -18,7 +18,8 @@ const { checkGuess } = useGuess();
         :alt="guessedWarframe.name"
         preload
         placeholder
-        class="h-16"
+        height="76"
+        width="76"
       />
     </UiFeedbackTile>
 

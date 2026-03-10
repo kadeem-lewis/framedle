@@ -78,8 +78,8 @@ const differentMode = computed(() => {
               :src="`https://cdn.warframestat.us/img/${correctWarframe?.imageName}`"
               :alt="`${correctWarframe}`"
               format="avif"
-              height="64"
-              width="64"
+              height="76"
+              width="76"
             />
           </UiFeedbackTile>
         </div>

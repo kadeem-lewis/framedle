@@ -69,10 +69,11 @@
   /* I need to remember to change the color blind color since pink doesn't work in a lot of cases */
   --partial-border: oklch(0.4088 0.1185 7.87); /* 50% darker orange */
 
-  --correct-border-subtle: oklch(
-    0.4668 0.1129 251.61
-  ); /* 50% darker dodger blue */
-  --incorrect-border-subtle: oklch(0.4811 0.0805 67.36); /* 50% darker orange */
+  --correct-base: oklch(0.9815 0.0096 243.26); /* blue-2 */
+  --incorrect-base: oklch(0.9787 0.0154 70.83); /* orange-2 */
+
+  --correct-border-subtle: oklch(0.8092 0.0884 243.34); /* blue-7 */
+  --incorrect-border-subtle: oklch(0.8053 0.1126 59.88); /* orange-7 */
 }
 
 .dark.colorblind {
@@ -86,12 +87,11 @@
   --incorrect-border: var(--color-orange-400);
   --partial-border: var(--color-pink-300);
 
-  --correct-border-subtle: oklch(
-    0.4641 0.0938 250.54
-  ); /* 50% darker 25% desaturated dodger blue */
-  --incorrect-border-subtle: oklch(
-    0.5021 0.0818 80.39
-  ); /* 50% darker 25% desaturated orange */
+  --correct-base: oklch(0.213 0.0295 258.84); /* blueDark-2 */
+  --incorrect-base: oklch(0.2088 0.0192 67.38); /* orangeDark-2 */
+
+  --correct-border-subtle: oklch(0.4748 0.1211 252.84); /* bluedark-7 */
+  --incorrect-border-subtle: oklch(0.4534 0.0947 53.06); /* orangeDark-7 */
 }
 
 @theme static {

@@ -53,7 +53,7 @@
 
   --correct-border: var(--color-green-500);
   --incorrect-border: var(--color-red-500);
-  --partial-border: var(--color-yellow-400);
+  --partial-border: oklch(0.75 0.0589 96.42); /* 50% darker yellow */
 
   --correct-border-subtle: oklch(0.4674 0.0828 159.91); /* greenDark-7*/
   --incorrect-border-subtle: oklch(0.4506 0.1206 18.91); /* redDark-7 */

@@ -108,6 +108,9 @@
   --color-correct-border: var(--correct-border);
   --color-incorrect-border: var(--incorrect-border);
   --color-partial-border: var(--partial-border);
+
+  --color-correct-border-subtle: var(--correct-border-subtle);
+  --color-incorrect-border-subtle: var(--incorrect-border-subtle);
 }
 
 /*

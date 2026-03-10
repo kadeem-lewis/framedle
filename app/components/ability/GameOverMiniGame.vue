@@ -88,9 +88,10 @@ const abilityNames = computed(() =>
         <li
           v-for="ability in abilityNames"
           :key="ability"
-          class="cursor-pointer border bg-default/70 px-2 py-1"
+          class="border bg-default/70 px-2 py-1"
           :class="{
-            'hover:bg-elevated': !hasSelected,
+            'cursor-pointer hover:bg-elevated': !hasSelected,
+            'cursor-not-allowed': hasSelected,
             'bg-success':
               hasSelected &&
               ((isUserSelection(ability) && isCorrectAnswer(ability)) || // User picked correct

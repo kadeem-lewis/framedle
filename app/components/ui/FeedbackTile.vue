@@ -30,18 +30,18 @@ const tooltipText = computed(() => {
 
 // I might need to make some of these the default styles for all tooltips
 const tooltipStyles = computed(() => {
-  const baseStyles = "text-md rounded-none py-2 px-3";
+  const baseStyles = "text-md text-white rounded-none py-2 px-3";
 
   if (variant === "correct") {
     return {
-      content: `${baseStyles} bg-success`,
+      content: `${baseStyles} bg-correct`,
     };
   } else if (variant === "partial") {
     return { content: `${baseStyles} bg-partial` };
   } else if (variant === "neutral") {
     return { content: `${baseStyles}` };
   }
-  return { content: `${baseStyles} bg-error` };
+  return { content: `${baseStyles} bg-incorrect` };
 });
 </script>
 <template>
@@ -57,15 +57,14 @@ const tooltipStyles = computed(() => {
     <div
       tabindex="0"
       :class="[
-        'relative z-0 min-h-12 w-full border-2 font-medium wrap-break-word text-white shadow-inner transition-colors',
+        'relative z-0 min-h-12 w-full border-2 font-medium wrap-break-word text-white transition-colors',
         {
-          'border-neutral-500 bg-white dark:border-neutral-700 dark:bg-neutral-900':
-            variant === 'neutral',
-          'border-border-success bg-success hover:shadow-inner hover:brightness-110':
+          'border-accented bg-default': variant === 'neutral',
+          'border-correct-border bg-correct hover:shadow-inner hover:brightness-110':
             variant === 'correct',
-          'border-border-partial bg-partial hover:shadow-inner hover:brightness-110':
+          'border-partial-border bg-partial hover:shadow-inner hover:brightness-110':
             variant === 'partial',
-          'border-border-error bg-error hover:shadow-inner hover:brightness-110':
+          'border-incorrect-border bg-incorrect hover:shadow-inner hover:brightness-110':
             variant !== 'correct' && variant !== 'neutral',
           'arrow-up': variant === 'higher',
           'arrow-down': variant === 'lower',

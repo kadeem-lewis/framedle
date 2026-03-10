@@ -54,8 +54,8 @@ const differentMode = computed(() => {
       :class="[
         'border',
         {
-          'border-border-success bg-success-base': hasWon,
-          'border-border-error bg-error-base': !hasWon,
+          'border-correct-border bg-correct-base': hasWon,
+          'border-incorrect-border bg-incorrect-base': !hasWon,
         },
       ]"
     >

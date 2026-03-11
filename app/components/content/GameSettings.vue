@@ -40,13 +40,13 @@ watch(selectedLocale, (newValue) => {
           value-key="code"
           size="lg"
           :ui="{
-            base: 'rounded-none ',
+            base: 'rounded-none',
             content: 'rounded-none',
             value: 'px-2',
           }"
         />
       </div>
-      <p class="text-muted text-sm">More languages coming soon</p>
+      <p class="text-sm text-muted">More languages coming soon</p>
     </div>
     <USeparator />
   </div>

@@ -81,7 +81,7 @@ const accuracyMap = computed(() => {
   <section class="mt-2 flex flex-col items-center gap-4">
     <div class="flex flex-col items-center justify-center gap-1">
       <h2 class="font-roboto text-xl font-semibold uppercase">Puzzle Stats</h2>
-      <p class="text-muted text-center text-sm">
+      <p class="text-center text-sm text-muted">
         See how other Tenno have performed on this puzzle
       </p>
     </div>
@@ -141,7 +141,7 @@ const accuracyMap = computed(() => {
               <div
                 v-for="(cell, j) in row"
                 :key="j"
-                class="dark:bg-elevated bg-default border-accented flex min-h-28 items-center justify-center border-dashed p-1 text-center text-lg font-semibold"
+                class="flex min-h-28 items-center justify-center border-dashed border-accented bg-default p-1 text-center text-lg font-semibold dark:bg-elevated"
                 :class="{
                   'border-r': j < GRID_SIZE - 1,
                   'border-b': i < GRID_SIZE - 1,
@@ -155,11 +155,11 @@ const accuracyMap = computed(() => {
       </div>
       <div
         v-else
-        class="border-muted bg-default/70 flex h-44 flex-col items-center justify-center gap-2 border border-dashed"
+        class="flex h-44 flex-col items-center justify-center gap-2 border border-dashed border-muted bg-default"
       >
         <UIcon
           name="i-heroicons-lock-closed-solid"
-          class="text-muted size-28"
+          class="size-28 text-muted"
         />
         <p class="text-center text-lg font-semibold uppercase">
           Complete game to see global stats

@@ -25,8 +25,8 @@ const { checkGuess } = useGuess();
           :src="`https://cdn.warframestat.us/img/${getWarframe(warframe).imageName}`"
           :alt="warframe"
           placeholder
-          height="64"
-          width="64"
+          height="76"
+          width="76"
         />
       </div>
     </UiFeedbackTile>

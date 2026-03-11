@@ -22,68 +22,68 @@ const partial = computed(() => ($colorblindMode.value ? "Pink" : "Yellow"));
       {{ t("instructions.classic.feedback_explanation") }}
     </p>
     <p>
-      <span class="text-success font-semibold">{{ success }}</span>
+      <span class="font-semibold text-correct">{{ success }}</span>
       {{ t("instructions.classic.properties.green_explanation") }}
     </p>
     <p>
-      <span class="text-partial font-semibold">{{ partial }}</span>
+      <span class="font-semibold text-partial">{{ partial }}</span>
       indicates that some, but not all, aspects of that property are correct
     </p>
     <p>
-      <span class="text-error font-semibold">{{ error }}</span>
+      <span class="font-semibold text-incorrect">{{ error }}</span>
       {{ t("instructions.classic.properties.red_explanation") }}
     </p>
     <p><span>⬆️⬇️</span> {{ t("instructions.classic.properties.arrows") }}</p>
     <USeparator />
-    <p class="font-roboto text-center text-lg font-bold uppercase">
+    <p class="text-center font-roboto text-lg font-bold uppercase">
       Properties
     </p>
     <p>Here is the details of each of the properties columns:</p>
     <div class="flex flex-col gap-2">
       <div class="flex flex-col gap-1">
-        <p class="text-info font-medium">Gender:</p>
+        <p class="font-medium text-info">Gender:</p>
         <p><span>Possible values:&nbsp;</span> Male, Female or Non-binary</p>
       </div>
       <div class="flex flex-col gap-1">
-        <p class="text-info font-medium">Variant:</p>
+        <p class="font-medium text-info">Variant:</p>
         <p><span>Possible values:&nbsp;</span> Standard, Prime or Umbra</p>
       </div>
       <div class="flex flex-col gap-1">
-        <p class="text-info font-medium">Playstyle:</p>
+        <p class="font-medium text-info">Playstyle:</p>
         <p>
           <span>Possible values:&nbsp;</span> A combination of Crowd Control,
           Damage, Stealth, Support or Survival
         </p>
       </div>
       <div class="flex flex-col gap-1">
-        <p class="text-info font-medium">Health:</p>
+        <p class="font-medium text-info">Health:</p>
         <p>
           <span>Possible values:&nbsp;</span> Base shield values of Warframes
           e.g 180, 270, 365
         </p>
       </div>
       <div class="flex flex-col gap-1">
-        <p class="text-info font-medium">Shield:</p>
+        <p class="font-medium text-info">Shield:</p>
         <p>
           <span>Possible values:&nbsp;</span> Base shield values of Warframes
           e.g 0, 135, 180
         </p>
       </div>
       <div class="flex flex-col gap-1">
-        <p class="text-info font-medium">Progenitor Element:</p>
+        <p class="font-medium text-info">Progenitor Element:</p>
         <p>
           <span>Possible values:&nbsp;</span>Impact, Heat, Cold, Electricity,
           Toxin, Magnetic or Radiation
         </p>
       </div>
       <div class="flex flex-col gap-1">
-        <p class="text-info font-medium">Release Year:</p>
+        <p class="font-medium text-info">Release Year:</p>
         <p>
           <span>Possible values:&nbsp;</span>Any year between 2012 and today
         </p>
       </div>
     </div>
-    <p class="font-roboto text-center text-lg font-bold uppercase">
+    <p class="text-center font-roboto text-lg font-bold uppercase">
       {{ t("instructions.classic.example") }}
     </p>
     <USeparator />
@@ -91,11 +91,11 @@ const partial = computed(() => ($colorblindMode.value ? "Pink" : "Yellow"));
       <div class="flex flex-col gap-1">
         <p>
           Consider the correct answer is
-          <span class="text-primary font-medium">Nezha</span>
+          <span class="font-medium text-primary">Nezha</span>
         </p>
         <p>
           If you enter
-          <span class="text-primary font-medium">Inaros Prime</span>, these
+          <span class="font-medium text-primary">Inaros Prime</span>, these
           properties will appear:
         </p>
       </div>
@@ -110,14 +110,14 @@ const partial = computed(() => ($colorblindMode.value ? "Pink" : "Yellow"));
       <div class="flex flex-col gap-1">
         <p class="font-medium">
           {{ t("instructions.classic.sex.title") }}
-          <span class="text-success">{{ success }}</span>
+          <span class="text-correct">{{ success }}</span>
         </p>
         <p>{{ t("instructions.classic.sex.description") }}</p>
       </div>
       <div class="flex flex-col gap-1">
         <p class="font-medium">
           Variant:
-          <span class="text-error">{{ error }}</span>
+          <span class="text-incorrect">{{ error }}</span>
         </p>
         <p>Nezha is a Standard Warframe while Inaros Prime is not</p>
       </div>
@@ -134,28 +134,28 @@ const partial = computed(() => ($colorblindMode.value ? "Pink" : "Yellow"));
       <div class="flex flex-col gap-1">
         <p class="font-medium">
           {{ t("instructions.classic.health.title") }}
-          <span class="text-error">{{ error }} and a down arrow</span>
+          <span class="text-incorrect">{{ error }} and a down arrow</span>
         </p>
         <p>{{ t("instructions.classic.health.description") }}</p>
       </div>
       <div class="flex flex-col gap-1">
         <p class="font-medium">
           {{ t("instructions.classic.shield.title") }}
-          <span class="text-error">{{ error }} and an up arrow</span>
+          <span class="text-incorrect">{{ error }} and an up arrow</span>
         </p>
         <p>{{ t("instructions.classic.shield.description") }}</p>
       </div>
       <div class="flex flex-col gap-1">
         <p class="font-medium">
           {{ t("instructions.classic.progenitor.title") }}
-          <span class="text-success">{{ success }}</span>
+          <span class="text-correct">{{ success }}</span>
         </p>
         <p>{{ t("instructions.classic.progenitor.description") }}</p>
       </div>
       <div class="flex flex-col gap-1">
         <p class="font-medium">
           {{ t("instructions.classic.release_year.title") }}
-          <span class="text-error">{{ error }} and a down arrow</span>
+          <span class="text-incorrect">{{ error }} and a down arrow</span>
         </p>
         <p>{{ t("instructions.classic.release_year.description") }}</p>
       </div>

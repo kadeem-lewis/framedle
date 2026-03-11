@@ -95,29 +95,17 @@ const items = [
 
     <div class="flex flex-col gap-2 text-sm">
       <div class="flex flex-col items-center gap-1">
-        <p class="text-muted text-sm">
+        <p class="text-sm text-muted">
           Warframe does not endorse or sponsor this product
         </p>
-        <p class="text-muted text-sm">
+        <p class="text-sm text-muted">
           &copy; {{ START_YEAR }} - {{ year }} Framedle.com
         </p>
       </div>
       <div class="flex items-center justify-center gap-4">
-        <ULink
-          to="/changelog"
-          class="text-primary hover:text-primary/70 text-sm underline"
-          >Patch Notes
-        </ULink>
-        <ULink
-          to="/faqs"
-          class="text-primary hover:text-primary/70 text-sm underline"
-          >FAQs
-        </ULink>
-        <ULink
-          to="/privacy"
-          class="text-primary hover:text-primary/70 text-sm underline"
-          >Privacy</ULink
-        >
+        <UiAppLink to="/changelog" class="text-sm">Patch Notes </UiAppLink>
+        <UiAppLink to="/faqs" class="text-sm">FAQs </UiAppLink>
+        <UiAppLink to="/privacy" class="text-sm">Privacy</UiAppLink>
       </div>
     </div>
   </footer>

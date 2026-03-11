@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { useStorage } from "@vueuse/core";
 const { openDialog } = useDialog();
 
 const route = useRoute();
@@ -55,25 +54,6 @@ const items = [
     },
   },
 ];
-
-const firstTimePlaying = useStorage(
-  "firstTimePlaying",
-  {
-    classic: true,
-    ability: true,
-    grid: true,
-  },
-  localStorage,
-  { mergeDefaults: true },
-);
-
-watchEffect(() => {
-  if (!gameType.value) return;
-  if (firstTimePlaying.value[gameType.value]) {
-    openDialog(dialogOptions.INSTRUCTIONS);
-    firstTimePlaying.value[gameType.value] = false;
-  }
-});
 </script>
 <template>
   <menu class="flex w-full items-center justify-center">
@@ -83,6 +63,7 @@ watchEffect(() => {
         :key="item.text"
         :aria-label="item.text"
         variant="outline"
+        color="neutral"
         type="button"
         class="group flex flex-col gap-px"
         @click="item.command"
@@ -90,7 +71,7 @@ watchEffect(() => {
         <template #leading>
           <UIcon
             :name="item.icon"
-            class="size-6 text-toned group-hover:text-primary dark:text-primary dark:contrast-90"
+            class="size-6 text-toned group-hover:text-primary dark:contrast-90"
           />
         </template>
         <span class="text-xs uppercase">

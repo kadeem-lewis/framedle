@@ -54,8 +54,8 @@ const differentMode = computed(() => {
       :class="[
         'border',
         {
-          'border-border-success bg-success-base': hasWon,
-          'border-border-error bg-error-base': !hasWon,
+          'border-correct-border-subtle bg-correct-base': hasWon,
+          'border-incorrect-border-subtle bg-incorrect-base': !hasWon,
         },
       ]"
     >
@@ -78,8 +78,8 @@ const differentMode = computed(() => {
               :src="`https://cdn.warframestat.us/img/${correctWarframe?.imageName}`"
               :alt="`${correctWarframe}`"
               format="avif"
-              height="64"
-              width="64"
+              height="76"
+              width="76"
             />
           </UiFeedbackTile>
         </div>

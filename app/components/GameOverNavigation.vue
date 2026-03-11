@@ -45,6 +45,7 @@ const { proxy } = useScriptUmamiAnalytics();
       :to="`/${mode}/${adjacentDays?.previous}`"
       :disabled="!adjacentDays.previous"
       variant="outline"
+      color="neutral"
       icon="i-heroicons-arrow-left"
       @click="proxy.track('Visited Previous Day', { mode })"
       >Previous Day</UButton
@@ -52,6 +53,7 @@ const { proxy } = useScriptUmamiAnalytics();
     <UButton
       icon="i-heroicons-calendar-solid"
       variant="outline"
+      color="neutral"
       :to="{
         name: 'archive',
         query: { mode },
@@ -62,6 +64,7 @@ const { proxy } = useScriptUmamiAnalytics();
       :to="`/${mode}/${adjacentDays?.next}`"
       :disabled="!adjacentDays.next"
       variant="outline"
+      color="neutral"
       trailing
       icon="i-heroicons-arrow-right"
       @click="proxy.track('Visited Next Day', { mode })"

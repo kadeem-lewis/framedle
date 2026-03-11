@@ -10,32 +10,26 @@ const runtimeConfig = useRuntimeConfig();
     <ul class="list-[square] pl-6">
       <li>
         You can
-        <ULink
-          :to="runtimeConfig.public.kofiUrl"
-          class="text-primary underline"
-          external
-          target="blank"
-          >buy me a coffee</ULink
-        >
+        <UiAppLink :to="runtimeConfig.public.kofiUrl" external target="_blank"
+          >buy me a coffee
+        </UiAppLink>
       </li>
       <li>
         Check out
-        <ULink
+        <UiAppLink
           to="https://www.youtube.com/@redeemr"
-          class="text-primary underline"
           external
-          target="blank"
-          >my youtube channel</ULink
+          target="_blank"
+          >my youtube channel</UiAppLink
         >
       </li>
       <li>
         Join
-        <ULink
+        <UiAppLink
           :to="runtimeConfig.public.discordInvite"
-          class="text-primary underline"
           external
-          target="blank"
-          >my discord server</ULink
+          target="_blank"
+          >my discord server</UiAppLink
         >
       </li>
       <li>
@@ -55,32 +49,28 @@ const runtimeConfig = useRuntimeConfig();
     <ul class="list-[square] pl-6">
       <li>
         Open an Issue on
-        <ULink
+        <UiAppLink
           to="https://github.com/kadeem-lewis/framedle/issues"
-          class="text-primary underline"
+          target="_blank"
           external
-          >Github</ULink
+          >Github</UiAppLink
         >
       </li>
       <li>
         Join
-        <ULink
+        <UiAppLink
           :to="runtimeConfig.public.discordInvite"
-          class="text-primary underline"
           external
-          target="blank"
-          >my discord</ULink
+          target="_blank"
+          >my discord</UiAppLink
         >
         and leave a message in the framedle feedback channel
       </li>
       <li>
         send me an email at
-        <ULink
-          href="mailto:support@framedle.com"
-          external
-          class="text-primary underline"
-          >support@framedle.com</ULink
-        >
+        <UiAppLink href="mailto:support@framedle.com"
+          >support@framedle.com
+        </UiAppLink>
       </li>
     </ul>
   </div>

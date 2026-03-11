@@ -38,12 +38,7 @@ const items = [
       content: 'rounded-none hover:rounded-none',
     }"
   >
-    <UButton
-      variant="outline"
-      aria-label="theme-toggle"
-      square
-      class="hover:border-primary dark:border-primary border-b-4 border-neutral-800"
-    >
+    <UButton variant="tenno" color="neutral" aria-label="theme-toggle" square>
       <UIcon
         name="i-heroicons-sun-solid"
         class="size-5 scale-100 rotate-0 transition-all dark:scale-0 dark:-rotate-90"

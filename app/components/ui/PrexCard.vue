@@ -3,11 +3,7 @@ import { motion } from "motion-v";
 </script>
 <template>
   <motion.div
-    class="paper h-full scale-96 rounded-md bg-yellow-100 p-1 ring-1 ring-accented dark:ring-0"
-    :style="{
-      transformStyle: 'preserve-3d',
-      perspective: '1000px',
-    }"
+    class="paper h-full scale-96 rounded-md bg-yellow-100 p-1 ring-1 ring-accented perspective-[1000px] transform-3d dark:ring-0"
     :exit="{
       rotateY: 90,
     }"

@@ -2,13 +2,13 @@
   <div class="flex flex-col gap-4">
     <div>
       Framedle is a Warframe guessing game, inspired by
-      <ULink class="text-primary underline" to="https://loldle.net/" external
-        >Loldle</ULink
-      >,<ULink to="https://framed.wtf/" class="text-primary underline" external
-        >Framed</ULink
+      <UiAppLink to="https://loldle.net/" target="_blank" external
+        >Loldle</UiAppLink
+      >,<UiAppLink to="https://framed.wtf/" target="_blank" external
+        >Framed</UiAppLink
       >,
-      <ULink to="https://warmle.org/" class="text-primary underline" external
-        >Warmle</ULink
+      <UiAppLink to="https://warmle.org/" target="_blank" external
+        >Warmle</UiAppLink
       >
       and similar games.
     </div>
@@ -17,11 +17,11 @@
     <section class="flex flex-col gap-4">
       <p>
         Framedle was created by Redeemr. Source code on
-        <ULink
+        <UiAppLink
           to="https://github.com/kadeem-lewis/framedle"
-          class="text-primary underline"
+          target="_blank"
           external
-          >Github</ULink
+          >Github</UiAppLink
         >
       </p>
     </section>
@@ -30,26 +30,23 @@
       <p class="font-semibold">Special Thanks To:</p>
       <ul class="flex list-[square] flex-col gap-2">
         <li>
-          <ULink
-            to="https://github.com/WFCD"
-            class="text-primary underline"
-            external
-            >Warframe Community Developers</ULink
+          <UiAppLink to="https://github.com/WFCD" target="_blank" external
+            >Warframe Community Developers</UiAppLink
           >
           for providing the data that powers this app
         </li>
         <li>
-          <ULink to="https://browse.wf" class="text-primary underline" external
-            >browse.wf</ULink
+          <UiAppLink to="https://browse.wf" target="_blank" external
+            >browse.wf</UiAppLink
           >
           for providing the Warframe icons used in the app
         </li>
         <li>
-          <ULink
+          <UiAppLink
             to="https://www.behance.net/agonz#"
-            class="text-primary underline"
+            target="_blank"
             external
-            >Adilson Gonzales</ULink
+            >Adilson Gonzales</UiAppLink
           >
           for providing the font used in the title
         </li>

@@ -30,12 +30,11 @@ useSeoMeta({
           <span>Join the Framedle Testing Google Group</span>
           <ul class="list-[square] pl-5">
             <li>
-              <ULink
+              <UiAppLink
                 to="https://groups.google.com/g/framedle-testing"
                 external
                 target="_blank"
-                class="text-primary underline hover:text-primary/70"
-                >Framedle Testing Google Group</ULink
+                >Framedle Testing Google Group</UiAppLink
               >
             </li>
           </ul>
@@ -44,21 +43,19 @@ useSeoMeta({
           <span>Join the closed test using one of the following links:</span>
           <ul class="list-[square] pl-5">
             <li>
-              <ULink
+              <UiAppLink
                 to="https://play.google.com/apps/testing/com.framedle.twa"
                 external
                 target="_blank"
-                class="text-primary underline hover:text-primary/70"
-                >Join on the Web</ULink
+                >Join on the Web</UiAppLink
               >
             </li>
             <li>
-              <ULink
+              <UiAppLink
                 to="https://play.google.com/store/apps/details?id=com.framedle.twa"
                 external
                 target="_blank"
-                class="text-primary underline hover:text-primary/70"
-                >Join on Android</ULink
+                >Join on Android</UiAppLink
               >
             </li>
           </ul>
@@ -68,10 +65,8 @@ useSeoMeta({
     </div>
     <p>
       If you have any questions or feedback, you can send it to
-      <ULink
-        to="mailto:support@framedle.com"
-        class="text-primary underline hover:text-primary/70"
-        >support@framedle.com</ULink
+      <UiAppLink to="mailto:support@framedle.com"
+        >support@framedle.com</UiAppLink
       >.
     </p>
     <p>Your support is greatly appreciated!</p>

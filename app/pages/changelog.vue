@@ -1,4 +1,8 @@
 <script setup lang="ts">
+definePageMeta({
+  layout: "content",
+});
+
 useSeoMeta({
   title: "Changelog",
   ogTitle: "Framedle Changelog",
@@ -260,12 +264,22 @@ const versions = [
 ];
 </script>
 <template>
-  <div class="flex flex-col gap-4">
-    <h1 class="text-xl font-semibold">Change log</h1>
-    <UChangelogVersions :indicator="false" :versions="versions">
-      <template #body="{ version }">
-        <MDC :value="version.content" />
-      </template>
-    </UChangelogVersions>
+  <div class="flex h-full min-h-0 flex-col gap-4">
+    <h1 class="font-roboto text-xl font-semibold text-highlighted">
+      Change log
+    </h1>
+    <div class="h-full min-h-0 overflow-y-auto">
+      <UChangelogVersions
+        :indicator="false"
+        :versions="versions"
+        :ui="{
+          container: 'gap-y-6 sm:gap-y-6 lg:gap-y-6',
+        }"
+      >
+        <template #body="{ version }">
+          <MDC :value="version.content" />
+        </template>
+      </UChangelogVersions>
+    </div>
   </div>
 </template>

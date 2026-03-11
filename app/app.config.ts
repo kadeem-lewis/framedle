@@ -51,8 +51,8 @@ export default defineAppConfig({
       variants: {
         variant: {
           tenno: {
-            list: tw`rounded-none border-default bg-default p-0 uppercase dark:bg-elevated`,
-            trigger: tw`flex grow items-start rounded-none data-[state=active]:border-b-4 data-[state=active]:bg-default`,
+            list: tw`rounded-none border border-accented bg-default p-0 dark:bg-elevated`,
+            trigger: tw`flex grow items-start rounded-none data-[state=active]:border-b-4 data-[state=active]:dark:bg-default/40`,
             indicator: "rounded-none",
             label: "uppercase font-semibold",
           },
@@ -68,8 +68,7 @@ export default defineAppConfig({
           color: "primary",
           variant: "tenno",
           class: {
-            label: "dark:text-primary",
-            trigger: tw`dark:border-primary dark:hover:text-primary-300 dark:hover:data-[state=active]:border-primary-300`,
+            trigger: tw`data-[state=active]:bg-accented/40 hover:data-[state=inactive]:not-disabled:text-primary dark:border-primary data-[state=active]:dark:text-primary dark:hover:data-[state=active]:border-primary-300`,
           },
         },
       ],

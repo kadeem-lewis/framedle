@@ -120,13 +120,7 @@ const randomPastDay = computed(() => getRandomPastDay());
 <template>
   <div class="flex flex-col gap-4">
     <h1 class="font-roboto text-xl font-bold uppercase">Archive</h1>
-    <UTabs
-      v-model="activeTab"
-      :content="false"
-      variant="tenno"
-      color="primary"
-      :items="tabs"
-    />
+    <UTabs v-model="activeTab" :content="false" variant="tenno" :items="tabs" />
     <ArchiveGameStats />
     <div class="flex items-center justify-end gap-4">
       <USelect
@@ -153,7 +147,12 @@ const randomPastDay = computed(() => getRandomPastDay());
       :data="filteredDailies"
       :columns="columns"
       sticky
-      class="max-h-96"
+      class="max-h-104 border border-accented"
+      :ui="{
+        tbody: '[&>tr]:data-[selectable=true]:hover:bg-accented/50',
+        tr: 'odd:bg-default',
+        td: 'text-default',
+      }"
       @select="onSelect"
     />
     <UBadge

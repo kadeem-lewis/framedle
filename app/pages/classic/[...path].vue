@@ -115,7 +115,7 @@ const { makeGuess } = useGuess();
                 }"
                 :delay-duration="0"
                 :ui="{
-                  content: 'text-md rounded-none py-2 px-3',
+                  content: 'text-md rounded-none px-3 py-2',
                 }"
                 :text="tooltipMap[label as keyof typeof tooltipMap]"
               >

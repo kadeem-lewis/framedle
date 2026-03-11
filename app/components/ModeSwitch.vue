@@ -24,10 +24,12 @@ const modes = computed(() => {
       :key="mode.label"
       :to="mode.to"
       :class="{
-        'border-b-4 border-neutral-800 dark:border-primary': mode.isActive,
+        'border-accented border-b-primary-600 text-primary-600 dark:border-b-primary dark:text-primary':
+          mode.isActive,
       }"
-      class="font-semibold uppercase ring-neutral-800 hover:border-primary"
-      variant="outline"
+      class="font-semibold"
+      variant="tenno"
+      color="neutral"
       size="xl"
     >
       {{ mode.label }}

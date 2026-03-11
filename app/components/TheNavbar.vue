@@ -13,11 +13,12 @@ const { openDialog } = useDialog();
         <UButton
           aria-label="settings"
           icon="i-heroicons-cog-6-tooth-solid"
-          variant="outline"
+          variant="tenno"
+          color="neutral"
           square
-          class="group border-b-4 border-neutral-800 hover:border-primary dark:border-primary"
+          class="group"
           :ui="{
-            leadingIcon: 'group-hover:rotate-45 transition-transform',
+            leadingIcon: 'transition-transform group-hover:rotate-45',
           }"
           @click="openDialog(dialogOptions.SETTINGS)"
         />

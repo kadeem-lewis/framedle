@@ -36,7 +36,7 @@ const optionComponents = {
     :title
     :ui="{
       content: 'rounded-none',
-      title: 'font-roboto text-center text-xl uppercase',
+      title: 'text-center font-roboto text-xl uppercase',
     }"
     @update:open="(isOpen) => !isOpen && closeDialog()"
   >

@@ -267,10 +267,9 @@ useSubmission();
             @submit="handleGuess"
           />
           <small class="text-muted"
-            >Warframe missing from answers?&nbsp;<ULink
-              class="text-primary hover:underline"
-              >Submit a bug report</ULink
-            ></small
+            >Warframe missing from answers?&nbsp;<UiAppLink
+              >Submit a bug report
+            </UiAppLink></small
           >
         </div>
       </template>

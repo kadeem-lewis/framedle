@@ -103,6 +103,7 @@ const items = [
         </p>
       </div>
       <div class="flex items-center justify-center gap-4">
+        <UiAppLink to="/contact" class="text-sm">Contact </UiAppLink>
         <UiAppLink to="/changelog" class="text-sm">Patch Notes </UiAppLink>
         <UiAppLink to="/faqs" class="text-sm">FAQs </UiAppLink>
         <UiAppLink to="/privacy" class="text-sm">Privacy</UiAppLink>

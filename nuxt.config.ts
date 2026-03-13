@@ -19,12 +19,16 @@ export default defineNuxtConfig({
     "@sentry/nuxt/module",
     "motion-v/nuxt",
     "@nuxtjs/mdc",
+    "@nuxtjs/turnstile",
   ],
 
   runtimeConfig: {
     databaseUrl: "",
     redis: {
       url: "",
+    },
+    turnstile: {
+      secretKey: "",
     },
     public: {
       scripts: {
@@ -34,6 +38,9 @@ export default defineNuxtConfig({
           },
           websiteId: "",
         },
+      },
+      turnstile: {
+        siteKey: "",
       },
       discordInvite: "https://discord.gg/PwAJX7tbzR",
       kofiUrl: "https://ko-fi.com/framedle",

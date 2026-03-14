@@ -63,6 +63,11 @@ export default defineNuxtConfig({
     "/_ipx/**": {
       headers: { "Cache-Control": "public, max-age=31536000, immutable" },
     },
+    "/api/feedback": {
+      security: {
+        rateLimiter: { tokensPerInterval: 5, interval: 1000 * 60 * 60 },
+      },
+    },
   },
 
   app: {

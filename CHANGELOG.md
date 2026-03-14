@@ -1,5 +1,26 @@
 # Changelog
 
+## v1.3.0 - March 15th, 2026
+
+### Features
+
+- Add a contact form to the website for users to submit feedback and report bugs
+- Add a changelog page and an faq page to the game to answer user questions and keep them informed
+
+### Changes
+
+- Changed the colors used in app to be more consistent
+- Updated the look of different buttons and components in the app to be closer to Warframe's design style
+- Changed warframe search autofocus to only apply when the search is within an overlay
+- Added signature weapon and unique rolling animation as new grid game categories
+- Added icons to links to indicate if they go to an external site
+
+### Bug Fixes
+
+- Fixed images not having defined width and height attributes
+- Fixed some cards disappearing from legacy game stats when the game mode is unlimited
+- Fixed some colors changing when using colorblind mode that should be consistent across all modes
+
 ## v1.2.3 - February 21th, 2026
 
 ### Bug Fixes

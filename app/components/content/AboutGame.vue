@@ -21,7 +21,7 @@
           to="https://github.com/kadeem-lewis/framedle"
           target="_blank"
           external
-          >Github</UiAppLink
+          >GitHub</UiAppLink
         >
       </p>
     </section>

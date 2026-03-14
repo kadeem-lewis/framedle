@@ -1,9 +1,14 @@
 <script setup lang="ts">
 import Fuse from "fuse.js";
 
-const { items, disabledItems = [] } = defineProps<{
+const {
+  items,
+  disabledItems = [],
+  isModal = false,
+} = defineProps<{
   items: WarframeName[];
   disabledItems?: WarframeName[];
+  isModal?: boolean;
 }>();
 
 const emit = defineEmits<{
@@ -74,6 +79,8 @@ const handleSubmit = async () => {
   emit("submit", selectedWarframe.value);
   selectedWarframe.value = undefined;
 };
+
+//TODO: make autofocus a conditional that only applies for the search in modal
 </script>
 <template>
   <form class="flex gap-2" @submit.prevent="handleSubmit">
@@ -92,7 +99,7 @@ const handleSubmit = async () => {
       size="lg"
       required
       ignore-filter
-      autofocus
+      :autofocus="isModal"
       :ui="{
         base: 'rounded-none',
         content:

@@ -85,6 +85,7 @@ export default defineNuxtConfig({
           href: "/favicon.ico",
           sizes: "32x32",
         },
+        { rel: "me", href: "https://mastodon.social/@framedle" },
       ],
     },
   },

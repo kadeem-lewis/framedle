@@ -19,12 +19,20 @@ export default defineNuxtConfig({
     "@sentry/nuxt/module",
     "motion-v/nuxt",
     "@nuxtjs/mdc",
+    "@nuxtjs/turnstile",
   ],
 
   runtimeConfig: {
     databaseUrl: "",
     redis: {
       url: "",
+    },
+    turnstile: {
+      secretKey: "",
+    },
+    notion: {
+      key: "",
+      databaseId: "",
     },
     public: {
       scripts: {
@@ -34,6 +42,9 @@ export default defineNuxtConfig({
           },
           websiteId: "",
         },
+      },
+      turnstile: {
+        siteKey: "",
       },
       discordInvite: "https://discord.gg/PwAJX7tbzR",
       kofiUrl: "https://ko-fi.com/framedle",
@@ -51,6 +62,11 @@ export default defineNuxtConfig({
     "/android": { prerender: true },
     "/_ipx/**": {
       headers: { "Cache-Control": "public, max-age=31536000, immutable" },
+    },
+    "/api/feedback": {
+      security: {
+        rateLimiter: { tokensPerInterval: 5, interval: 1000 * 60 * 60 },
+      },
     },
   },
 

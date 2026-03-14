@@ -168,6 +168,17 @@ export const categoryMetadata = {
     value: "Has Arcane Helmet",
     description: "Warframes that can equip an Arcane Helmet",
   }),
+  signatureWeapon: (_: unknown) => ({
+    header: "Loadout",
+    value: "Has Signature Weapon",
+    description: "Warframes that have a signature weapon",
+  }),
+  uniqueRolling: (_: unknown) => ({
+    header: "Misc",
+    value: "Unique Rolling Animation",
+    description:
+      "Warframes that utilize different animations instead of the standard rolls",
+  }),
 };
 
 export type CategoryName = keyof typeof categoryMetadata;

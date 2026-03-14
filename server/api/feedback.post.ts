@@ -13,8 +13,6 @@ export default defineEventHandler(async (event) => {
     });
   }
 
-  console.log("Received feedback:", body.data);
-
   const { email, message, messageType, token } = body.data;
 
   await verifyTurnstileToken(token);

@@ -44,7 +44,7 @@ const runtimeConfig = useRuntimeConfig();
     </p>
     <USeparator />
     <p>
-      You can provide Feedback or ask Questions in any of the following ways:
+      You can provide feedback or ask questions in any of the following ways:
     </p>
     <ul class="list-[square] pl-6">
       <li>
@@ -71,6 +71,10 @@ const runtimeConfig = useRuntimeConfig();
         <UiAppLink href="mailto:support@framedle.com"
           >support@framedle.com
         </UiAppLink>
+      </li>
+      <li>
+        Use the <UiAppLink to="/contact">contact form</UiAppLink> to send
+        messages directly from the site
       </li>
     </ul>
   </div>

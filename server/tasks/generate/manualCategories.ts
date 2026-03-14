@@ -20,6 +20,8 @@ export default defineTask({
       circuitResponse,
       protoframeResponse,
       questframeResponse,
+      signatureWeaponResponse,
+      maneuversResponse,
     ] = await Promise.all([
       $fetch<string>("/Buff_%26_Debuff/Buffs#Healing_", {
         baseURL,
@@ -49,6 +51,14 @@ export default defineTask({
         baseURL,
         parseResponse: (text) => text,
       }),
+      $fetch<string>("/Signature_Weapon", {
+        baseURL,
+        parseResponse: (text) => text,
+      }),
+      $fetch<string>("/Maneuvers", {
+        baseURL,
+        parseResponse: (text) => text,
+      }),
     ]);
 
     const $buffs = cheerio.load(buffsResponse);
@@ -58,6 +68,8 @@ export default defineTask({
     const $circuit = cheerio.load(circuitResponse);
     const $protoframe = cheerio.load(protoframeResponse);
     const $questframe = cheerio.load(questframeResponse);
+    const $signatureWeapon = cheerio.load(signatureWeaponResponse);
+    const $maneuvers = cheerio.load(maneuversResponse);
 
     const configs = [
       {
@@ -232,6 +244,29 @@ export default defineTask({
             .children("td")
             .children("span")
             .children("a"),
+      },
+      {
+        id: "signatureWeapon:true",
+        key: "signatureWeapon",
+        mode: "strict",
+        $: $signatureWeapon,
+        getPath: ($: CheerioAPI) =>
+          $("h2#List_of_Signature_Weapons")
+            .parent()
+            .next("table")
+            .find("tr td:first-child span > a"),
+      },
+      {
+        id: "uniqueRolling:true",
+        key: "uniqueRolling",
+        mode: "expand",
+        $: $maneuvers,
+        getPath: ($: CheerioAPI) =>
+          $("h4#Rolling")
+            .parent()
+            .nextAll("ul")
+            .first()
+            .find("li span > a > span"),
       },
     ];
 

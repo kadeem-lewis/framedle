@@ -264,6 +264,7 @@ useSubmission();
           <WarframeSearch
             :items="warframeNames"
             :disabled-items="allDisabledItems"
+            is-modal
             @submit="handleGuess"
           />
           <small class="text-muted"

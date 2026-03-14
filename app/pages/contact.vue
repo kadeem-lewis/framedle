@@ -24,7 +24,6 @@ const loading = ref(false);
 const showSuccessMessage = refAutoReset(false, 3000);
 
 async function onSubmit(event: FormSubmitEvent<Feedback>) {
-  console.log("Submitting feedback:", event.data);
   loading.value = true;
   try {
     await $fetch("/api/feedback", {

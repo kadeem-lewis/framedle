@@ -216,7 +216,7 @@ export default defineNuxtConfig({
       display: "standalone",
       prefer_related_applications: false,
       start_url: "/",
-      background_color: "#1d293d",
+      background_color: "#0c0a09",
       theme_color: "#ffba00",
       launch_handler: {
         client_mode: ["navigate-existing", "auto"],

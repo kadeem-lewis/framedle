@@ -46,7 +46,7 @@ export default defineEventHandler<
     isUnlimited,
   } = body.data;
 
-  const WARFRAME_DATA_VERSION = "v1";
+  const WARFRAME_DATA_VERSION = "v2";
 
   const [idA, idB] = [rowCategoryId, columnCategoryId].sort() as [
     string,

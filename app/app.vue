@@ -2,8 +2,8 @@
 import { startOfTomorrow } from "date-fns";
 
 useSeoMeta({
-  title: "Framedle",
-  ogTitle: "Framedle",
+  title: "Framedle - Daily Warframe Puzzles",
+  ogTitle: "Framedle - Daily Warframe Puzzles",
   titleTemplate: (titleChunk) => {
     return titleChunk ? `${titleChunk} | Framedle` : "Framedle";
   },

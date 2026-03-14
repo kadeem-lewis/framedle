@@ -30,6 +30,10 @@ export default defineNuxtConfig({
     turnstile: {
       secretKey: "",
     },
+    notion: {
+      key: "",
+      databaseId: "",
+    },
     public: {
       scripts: {
         umamiAnalytics: {

@@ -267,7 +267,7 @@ useSubmission();
             @submit="handleGuess"
           />
           <small class="text-muted"
-            >Warframe missing from answers?&nbsp;<UiAppLink
+            >Warframe missing from answers?&nbsp;<UiAppLink to="/contact"
               >Submit a bug report
             </UiAppLink></small
           >

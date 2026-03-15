@@ -1,6 +1,6 @@
 <template>
   <ULink
-    class="inline-flex items-center text-primary hover:text-primary hover:underline dark:hover:text-primary"
+    class="inline-flex items-center text-primary-600 hover:text-primary-600 hover:underline dark:text-primary dark:hover:text-primary"
   >
     <slot />
     <UIcon

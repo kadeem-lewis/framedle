@@ -1,5 +1,15 @@
 # Changelog
 
+## v1.3.1 - March 15th, 2026
+
+### Changes
+
+- Changed the color of links on light mode to be more visible
+
+### Bug Fixes
+
+- Fixed mode card border clipping on certain screen sizes
+
 ## v1.3.0 - March 15th, 2026
 
 ### Features

@@ -53,7 +53,7 @@ const runtimeConfig = useRuntimeConfig();
           to="https://github.com/kadeem-lewis/framedle/issues"
           target="_blank"
           external
-          >Github</UiAppLink
+          >GitHub</UiAppLink
         >
       </li>
       <li>

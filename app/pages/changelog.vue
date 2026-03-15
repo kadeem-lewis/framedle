@@ -14,6 +14,20 @@ useSeoMeta({
 
 const versions = [
   {
+    title: "1.3.1",
+    date: "2026-03-15",
+    content: `
+### Changes
+
+- Changed the color of links on light mode to be more visible
+
+### Fixes
+
+- Fixed mode card border clipping on certain screen sizes
+`,
+    badge: "v1.3.1",
+  },
+  {
     title: "1.3.0",
     date: "2026-03-15",
     content: `

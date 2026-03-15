@@ -13,7 +13,7 @@ const { card, showStats = false } = defineProps<{
 </script>
 <template>
   <div
-    class="animate-border-rotate relative overflow-hidden p-0.5 shadow shadow-black before:absolute before:-inset-[200%] dark:shadow-none"
+    class="animate-border-rotate relative overflow-hidden p-0.5 shadow shadow-black before:absolute before:-inset-[250%] dark:shadow-none"
   >
     <UCard
       class="group relative z-0 ring-0"
@@ -77,7 +77,7 @@ const { card, showStats = false } = defineProps<{
   );
   will-change: transform;
   animation: border-rotate 2.5s linear infinite;
-  padding: 0.125rem;
+  padding: 0.25rem;
 }
 
 @keyframes border-rotate {

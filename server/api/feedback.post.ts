@@ -7,13 +7,11 @@ export default defineEventHandler(async (event) => {
   );
 
   if (!body.success) {
-    return createError({
+    throw createError({
       statusCode: 400,
       message: "Invalid feedback data",
     });
   }
-
-  console.log("Received feedback:", body.data);
 
   const { email, message, messageType, token } = body.data;
 
@@ -101,7 +99,7 @@ export default defineEventHandler(async (event) => {
     };
   } catch (error) {
     console.error("Error creating Notion page:", error);
-    return createError({
+    throw createError({
       statusCode: 500,
       message: "Failed to process feedback",
     });

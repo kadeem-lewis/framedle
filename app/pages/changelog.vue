@@ -48,16 +48,6 @@ const versions = [
     badge: "v1.2.3",
   },
   {
-    title: "1.2.3",
-    date: "2026-02-21",
-    content: `
-### Fixes
-
-- Fixed share stats button not working in classic and ability game modes
-`,
-    badge: "v1.2.3",
-  },
-  {
     title: "1.2.2",
     date: "2026-02-20",
     content: `
@@ -148,7 +138,7 @@ const versions = [
 ### Fixes
 - Fixed bug where new daily game would not load
 `,
-    badge: "v0.4.0",
+    badge: "v0.3.5",
   },
   {
     title: "v0.3.4",

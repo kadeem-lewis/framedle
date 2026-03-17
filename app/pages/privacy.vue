@@ -5,6 +5,11 @@ definePageMeta({
 
 useSeoMeta({
   title: "Privacy Policy",
+  ogTitle: "Framedle Privacy Policy",
+  description:
+    "Learn about how Framedle collects, uses, and protects your information when you use our website.",
+  ogDescription:
+    "Learn about how Framedle collects, uses, and protects your information when you use our website.",
 });
 </script>
 <template>

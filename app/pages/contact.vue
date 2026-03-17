@@ -6,6 +6,13 @@ import {
 } from "#shared/schemas/feedback";
 import type { FormSubmitEvent } from "@nuxt/ui";
 
+useSeoMeta({
+  title: "Contact",
+  ogTitle: "Framedle Contact",
+  description: "Send messages, feedback, or ask questions about Framedle",
+  ogDescription: "Send messages, feedback, or ask questions about Framedle.",
+});
+
 const items = [...messageTypes];
 
 const getInitialState = () => ({

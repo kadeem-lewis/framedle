@@ -65,13 +65,16 @@ const items = [
           src="/badges/KofiBadge.png"
           alt="Buy Me a Coffee at ko-fi.com"
       /></NuxtLink>
-      <NuxtLink href="/android" aria-label="Android pre-registration page"
+      <NuxtLink
+        :href="runtimeConfig.public.playStoreUrl"
+        target="_blank"
+        aria-label="Android pre-registration page"
         ><NuxtImg
           height="40"
           width="135"
           class="border-0 transition-transform hover:scale-105 hover:brightness-105 dark:hover:brightness-75"
-          src="/badges/PreRegisterOnGooglePlayBadge.png"
-          alt="Pre-register on Google Play"
+          src="/badges/GetItOnGooglePlayBadge.png"
+          alt="Get it on Google Play"
           @click="
             proxy.track('clicked footer button', { name: 'Google Play' })
           "

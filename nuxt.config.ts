@@ -48,6 +48,8 @@ export default defineNuxtConfig({
       },
       discordInvite: "https://discord.gg/PwAJX7tbzR",
       kofiUrl: "https://ko-fi.com/framedle",
+      playStoreUrl:
+        "https://play.google.com/store/apps/details?id=com.framedle.twa",
     },
   },
 

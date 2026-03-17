@@ -1,5 +1,11 @@
 # Changelog
 
+## v1.3.2 - March 16th, 2026
+
+### Changes
+
+- Replaced android instructions page with link to play store listing because the app is now publicly available!
+
 ## v1.3.1 - March 15th, 2026
 
 ### Changes

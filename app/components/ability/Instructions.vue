@@ -1,6 +1,4 @@
 <script setup lang="ts">
-const { t } = useI18n();
-
 const { DEFAULT_ATTEMPTS } = useGameStore();
 </script>
 <template>
@@ -8,7 +6,7 @@ const { DEFAULT_ATTEMPTS } = useGameStore();
     <p>
       Guess the Warframe the ability belongs to in {{ DEFAULT_ATTEMPTS }} tries
     </p>
-    <p>{{ t("instructions.ability.subtitle") }}</p>
+    <p>Which each guess, more of the ability icon will be revealed.</p>
     <p>
       Images begin rotated and are placed in the correct orientation as
       additional tiles are revealed

@@ -1,8 +1,6 @@
 <script setup lang="ts">
 import { warframes } from "#shared/data/warframes";
 
-const { t } = useI18n();
-
 const { DEFAULT_ATTEMPTS } = useGameStore();
 
 const { $colorblindMode } = useNuxtApp();
@@ -13,17 +11,18 @@ const partial = computed(() => ($colorblindMode.value ? "Pink" : "Yellow"));
 </script>
 <template>
   <div class="flex flex-col gap-2">
-    <p>Guess the Warframe in {{ DEFAULT_ATTEMPTS }} tries</p>
+    <p>Guess the Warframe in {{ DEFAULT_ATTEMPTS }} tries.</p>
     <p>
-      {{ t("instructions.classic.subtitle") }}
+      Simply type in the name of a Warframe and it will reveal its properties.
     </p>
     <USeparator />
     <p>
-      {{ t("instructions.classic.feedback_explanation") }}
+      The color of the tiles will change to show how close your guess was to the
+      Warframe to find.
     </p>
     <p>
       <span class="font-semibold text-correct">{{ success }}</span>
-      {{ t("instructions.classic.properties.green_explanation") }}
+      indicates the property is an exact match.
     </p>
     <p>
       <span class="font-semibold text-partial">{{ partial }}</span>
@@ -31,9 +30,12 @@ const partial = computed(() => ($colorblindMode.value ? "Pink" : "Yellow"));
     </p>
     <p>
       <span class="font-semibold text-incorrect">{{ error }}</span>
-      {{ t("instructions.classic.properties.red_explanation") }}
+      indicates there is no overlap between your guess and the property.
     </p>
-    <p><span>⬆️⬇️</span> {{ t("instructions.classic.properties.arrows") }}</p>
+    <p>
+      <span>⬆️⬇️</span> With arrows, it also indicates if the answer property is
+      above or below your guess.
+    </p>
     <USeparator />
     <p class="text-center font-roboto text-lg font-bold uppercase">
       Properties
@@ -83,9 +85,7 @@ const partial = computed(() => ($colorblindMode.value ? "Pink" : "Yellow"));
         </p>
       </div>
     </div>
-    <p class="text-center font-roboto text-lg font-bold uppercase">
-      {{ t("instructions.classic.example") }}
-    </p>
+    <p class="text-center font-roboto text-lg font-bold uppercase">Example</p>
     <USeparator />
     <div class="flex flex-col gap-4">
       <div class="flex flex-col gap-1">
@@ -109,17 +109,17 @@ const partial = computed(() => ($colorblindMode.value ? "Pink" : "Yellow"));
       </div>
       <div class="flex flex-col gap-1">
         <p class="font-medium">
-          {{ t("instructions.classic.sex.title") }}
+          Sex:
           <span class="text-correct">{{ success }}</span>
         </p>
-        <p>{{ t("instructions.classic.sex.description") }}</p>
+        <p>It is a match because both are the same sex.</p>
       </div>
       <div class="flex flex-col gap-1">
         <p class="font-medium">
           Variant:
           <span class="text-incorrect">{{ error }}</span>
         </p>
-        <p>Nezha is a Standard Warframe while Inaros Prime is not</p>
+        <p>Nezha is a Standard Warframe while Inaros Prime is not.</p>
       </div>
       <div class="flex flex-col gap-1">
         <p class="font-medium">
@@ -133,33 +133,33 @@ const partial = computed(() => ($colorblindMode.value ? "Pink" : "Yellow"));
       </div>
       <div class="flex flex-col gap-1">
         <p class="font-medium">
-          {{ t("instructions.classic.health.title") }}
+          Health:
           <span class="text-incorrect">{{ error }} and a down arrow</span>
         </p>
-        <p>{{ t("instructions.classic.health.description") }}</p>
+        <p>Nezha has less health than Inaros Prime.</p>
       </div>
       <div class="flex flex-col gap-1">
         <p class="font-medium">
-          {{ t("instructions.classic.shield.title") }}
+          Shield:
           <span class="text-incorrect">{{ error }} and an up arrow</span>
         </p>
-        <p>{{ t("instructions.classic.shield.description") }}</p>
+        <p>Nezha has more shields than Inaros Prime.</p>
       </div>
       <div class="flex flex-col gap-1">
         <p class="font-medium">
-          {{ t("instructions.classic.progenitor.title") }}
+          Progenitor:
           <span class="text-correct">{{ success }}</span>
         </p>
-        <p>{{ t("instructions.classic.progenitor.description") }}</p>
+        <p>It is a match because both have the same progenitor element.</p>
       </div>
       <div class="flex flex-col gap-1">
         <p class="font-medium">
-          {{ t("instructions.classic.release_year.title") }}
+          Release Year:
           <span class="text-incorrect">{{ error }} and a down arrow</span>
         </p>
-        <p>{{ t("instructions.classic.release_year.description") }}</p>
+        <p>Nezha was released before Inaros Prime.</p>
       </div>
-      <p>{{ t("instructions.classic.correct_guess") }}</p>
+      <p>If you entered Nezha, here is what would come up:</p>
       <div class="overflow-x-auto">
         <div class="grid w-[190%] grid-cols-8 gap-1">
           <ClassicFeedbackRow

@@ -16,8 +16,6 @@ useSeoMeta({
     `Guess the Warframe ability in ${DEFAULT_ATTEMPTS} tries. Each try reveals a tile.`,
 });
 
-const { t } = useI18n();
-
 const { itemToGuess, guessedItems } = storeToRefs(useGameStore());
 const { mode, isDaily } = useGameMode();
 const route = useRoute("ability-path");
@@ -93,7 +91,7 @@ const { makeGuess } = useGuess();
               <h1
                 class="font-roboto text-xl font-bold text-primary-600 uppercase dark:text-primary"
               >
-                {{ t("ability.title") }}
+                Which Warframe has this ability?
               </h1>
               <p class="font-semibold uppercase">Each try reveals a tile</p>
             </template>

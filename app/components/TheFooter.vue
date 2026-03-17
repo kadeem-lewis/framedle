@@ -31,7 +31,7 @@ const items = [
     icon: "my-icon-bluesky",
     color: "bluesky" as const,
     class: "text-white",
-    to: "https://bsky.app/profile/framedle.bsky.social",
+    to: "https://bsky.app/profile/framedle.com",
     external: true,
     command: () => {
       proxy.track("clicked footer button", { name: "Bluesky" });

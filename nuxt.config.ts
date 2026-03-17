@@ -11,7 +11,6 @@ export default defineNuxtConfig({
     "pinia-plugin-persistedstate/nuxt",
     "@vueuse/nuxt",
     "@nuxtjs/seo",
-    "@nuxtjs/i18n",
     "nuxt-security",
     "@nuxt/test-utils",
     "@nuxt/scripts",

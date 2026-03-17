@@ -49,6 +49,9 @@ const { checkGuess } = useGuess();
       field-label="Playstyle"
       :field-value="[...guessedWarframe.playstyle]"
       :show-visual-assist="true"
+      :class="{
+        'text-sm': guessedWarframe.playstyle.length >= 3,
+      }"
     >
       {{ [...guessedWarframe.playstyle].join(", ") }}
     </UiFeedbackTile>
@@ -81,10 +84,11 @@ const { checkGuess } = useGuess();
           format="avif"
           :src="`/elements/${guessedWarframe.progenitor}.png`"
           :alt="guessedWarframe.progenitor"
-          height="40"
-          width="40"
+          height="36"
+          width="36"
           preload
         />
+        <p class="text-sm">{{ guessedWarframe.progenitor }}</p>
       </div>
     </UiFeedbackTile>
     <UiFeedbackTile

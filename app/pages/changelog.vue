@@ -14,6 +14,16 @@ useSeoMeta({
 
 const versions = [
   {
+    title: "1.3.2",
+    date: "2026-03-16",
+    content: `
+### Changes
+
+- Replaced android instructions page with link to play store listing because the app is now publicly available!
+`,
+    badge: "v1.3.2",
+  },
+  {
     title: "1.3.1",
     date: "2026-03-15",
     content: `

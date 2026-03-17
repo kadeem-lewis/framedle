@@ -11,7 +11,6 @@ export default defineNuxtConfig({
     "pinia-plugin-persistedstate/nuxt",
     "@vueuse/nuxt",
     "@nuxtjs/seo",
-    "@nuxtjs/i18n",
     "nuxt-security",
     "@nuxt/test-utils",
     "@nuxt/scripts",
@@ -156,24 +155,6 @@ export default defineNuxtConfig({
       "/ability/unlimited",
       "/grid",
     ],
-  },
-
-  i18n: {
-    strategy: "no_prefix",
-    vueI18n: "./i18n.config.ts",
-    detectBrowserLanguage: {
-      useCookie: true,
-      cookieKey: "i18n_redirected",
-      fallbackLocale: "en",
-      alwaysRedirect: true,
-      redirectOn: "root",
-      cookieSecure: true,
-    },
-    locales: [
-      { code: "en", language: "en-US", name: "English", file: "en.json" },
-    ],
-    defaultLocale: "en",
-    baseUrl: "https://framedle.com",
   },
 
   icon: {

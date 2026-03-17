@@ -1,13 +1,11 @@
 <script setup lang="ts">
 import { startOfTomorrow } from "date-fns";
-
-const { t } = useI18n();
 </script>
 <template>
   <div>
     <div class="mb-4 flex flex-col items-center justify-center">
       <NextGameCountdown :target-date="startOfTomorrow()">
-        <template #title>{{ t("instructions.next_challenge_in") }}</template>
+        <template #title>Next Challenge in:</template>
       </NextGameCountdown>
     </div>
     <ClassicInstructions v-if="$route.name === 'classic-path'" />

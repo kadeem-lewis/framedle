@@ -1,24 +1,23 @@
 export function useModeCards() {
-  const { t } = useI18n();
   const img = useImage();
 
   const { stats } = storeToRefs(useStatsStore());
 
   const cards = shallowRef([
     {
-      label: t("home.classic_card.title"),
+      label: "Classic",
       route: "/classic",
       source: "/icons/warframe.png",
       background: img("/backgrounds/fortuna.jpg", { format: "webp" }),
-      description: t("home.classic_card.description"),
+      description: "Guess the Warframe",
       streak: stats.value.classic.streak,
     },
     {
-      label: t("home.ability_card.title"),
+      label: "Ability",
       route: "/ability",
       source: "/icons/PassiveAbilityIcon.png",
       background: img("/backgrounds/helminth.jpg", { format: "webp" }),
-      description: t("home.ability_card.description"),
+      description: "Guess the Ability",
       streak: stats.value.ability.streak,
     },
     {

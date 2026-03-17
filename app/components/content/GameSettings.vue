@@ -2,14 +2,6 @@
 //colorblind mode
 const { $colorblindMode } = useNuxtApp();
 
-// localizations
-const { locale, locales, setLocale } = useI18n();
-const selectedLocale = ref(locale.value);
-
-watch(selectedLocale, (newValue) => {
-  setLocale(newValue);
-});
-
 //data transfer
 </script>
 <template>
@@ -34,10 +26,10 @@ watch(selectedLocale, (newValue) => {
       <div class="flex items-center justify-between pb-1">
         <p class="text-lg font-medium">Language</p>
         <USelect
-          v-model="selectedLocale"
-          :items="locales"
+          default-value="English"
           label-key="name"
           value-key="code"
+          disabled
           size="lg"
           :ui="{
             base: 'rounded-none',

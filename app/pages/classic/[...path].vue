@@ -17,8 +17,6 @@ useSeoMeta({
     `Guess the Warframe in ${DEFAULT_ATTEMPTS} tries. Each try reveals more information about the Warframe.`,
 });
 
-const { t } = useI18n();
-
 const { itemToGuess, guessedItems, attempts } = storeToRefs(useGameStore());
 const { isLoadingDailies } = storeToRefs(useDailiesStore());
 
@@ -46,14 +44,14 @@ onBeforeMount(() => {
 useSubmission();
 
 const feedbackLabels = [
-  t("classic.feedback.name"),
-  t("classic.feedback.sex"),
+  "name",
+  "sex",
   "variant",
   "playstyle",
-  t("classic.feedback.base_health"),
-  t("classic.feedback.base_shield"),
-  t("classic.feedback.progenitor_element"),
-  t("classic.feedback.release_year"),
+  "base health",
+  "base shield",
+  "progenitor element",
+  "release year",
 ];
 
 const tooltipMap = {
@@ -82,13 +80,13 @@ const { makeGuess } = useGuess();
             <h1
               class="font-roboto text-2xl font-bold text-primary-600 uppercase dark:text-primary"
             >
-              {{ t("classic.title") }}
+              Guess the Warframe
             </h1>
             <p
               v-if="attempts[mode] === DEFAULT_ATTEMPTS"
               class="font-semibold uppercase"
             >
-              {{ t("classic.subtitle") }}
+              Take a guess to get started
             </p>
           </template>
           <WarframeSearch
@@ -141,7 +139,7 @@ const { makeGuess } = useGuess();
             class="flex items-center justify-center gap-1 font-semibold text-neutral-800 md:hidden dark:text-neutral-400"
           >
             <UIcon name="i-heroicons-arrow-long-left" class="size-5" />
-            {{ t("classic.scroll_hint") }}
+            Scroll horizontally to see more
             <UIcon name="i-heroicons-arrow-long-right" class="size-5" />
           </div>
         </template>

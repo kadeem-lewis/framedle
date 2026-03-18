@@ -40,6 +40,11 @@ export default defineAppConfig({
             leadingIcon: tw`text-default group-hover:text-primary-600 dark:group-hover:text-primary`,
           },
         },
+        {
+          color: "primary",
+          variant: "solid",
+          class: tw`text-neutral-800`,
+        },
       ],
     },
     card: {

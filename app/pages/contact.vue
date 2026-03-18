@@ -126,7 +126,7 @@ async function onSubmit(event: FormSubmitEvent<Feedback>) {
             type="submit"
             :disabled="!state.token"
             :loading="loading"
-            class="flex items-center justify-center text-white uppercase"
+            class="flex items-center justify-center uppercase"
             >Send</UButton
           >
         </UForm>

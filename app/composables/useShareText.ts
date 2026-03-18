@@ -1,3 +1,5 @@
+import { format } from "date-fns";
+
 export function useShareText() {
   const EMOJIS: {
     incorrect: string;
@@ -22,6 +24,7 @@ export function useShareText() {
     currentDailyGridData,
     currentDailyAbilityData,
   } = storeToRefs(useDailiesStore());
+  const { getTodaysDailies } = useDailiesStore();
 
   const { mode, gameVariant, gameType, isLegacyMode } = useGameMode();
   const { hasWon } = storeToRefs(useGameStateStore());
@@ -53,16 +56,17 @@ export function useShareText() {
 
   const { daily, gameScore, rarityScore } = storeToRefs(useGridGameStore());
 
-  function generateGridGameMatrix() {
+  function generateGridGameMatrix(
+    gridState: Record<string, GridCell> = daily.value.grid,
+  ) {
     const SIZE = 3;
     const shareGrid: number[][] = Array.from({ length: SIZE }, () =>
       Array(SIZE).fill(0),
     );
 
-    const grid = daily.value.grid;
-    if (!grid) return shareGrid;
+    if (!gridState) return shareGrid;
 
-    for (const [key, cell] of Object.entries(grid)) {
+    for (const [key, cell] of Object.entries(gridState)) {
       const [rowIndexStr, colIndexStr] = key.split("-");
       if (!rowIndexStr || !colIndexStr) continue;
       const rowIndex = Number(rowIndexStr);
@@ -111,19 +115,47 @@ export function useShareText() {
     return "";
   });
 
+  function generateClassicEmojiBlock(
+    targetWarframe: WarframeName,
+    guessedItems: WarframeName[],
+  ) {
+    return guessedItems
+      .map((guessed) =>
+        getClassicRow(getWarframe(targetWarframe), getWarframe(guessed)),
+      )
+      .join("\n");
+  }
+  function generateAbilityEmojiBlock(
+    targetWarframe: WarframeName,
+    guessedItems: WarframeName[],
+    attempts: number,
+  ) {
+    const playedEmojis = guessedItems.map(
+      (guessed) => EMOJIS[checkGuess(targetWarframe, guessed)],
+    );
+
+    const emptyEmojis = Array(attempts).fill(EMOJIS.unused);
+    return [...playedEmojis, ...emptyEmojis].join(" ");
+  }
+  function generateGridEmojiBlock(
+    gridState: Record<string, GridCell> = daily.value.grid,
+  ) {
+    const rawGrid = generateGridGameMatrix(gridState);
+    return rawGrid
+      .map((row) =>
+        row
+          .map((cell) => (cell === 1 ? EMOJIS.correct : EMOJIS.unused))
+          .join(""),
+      )
+      .join("\n");
+  }
+
   const emojiBlock = computed(() => {
     const currentMode = mode.value;
     if (!currentMode) return "";
 
     if (currentMode === "grid") {
-      const rawGrid = generateGridGameMatrix();
-      return rawGrid
-        .map((row) =>
-          row
-            .map((cell) => (cell === 1 ? EMOJIS.correct : EMOJIS.unused))
-            .join(""),
-        )
-        .join("\n");
+      return generateGridEmojiBlock();
     }
 
     if (currentMode === "ability" || currentMode === "abilityUnlimited") {
@@ -131,25 +163,17 @@ export function useShareText() {
 
       if (!target) return "";
 
-      const currentAttempts = attempts.value[currentMode];
-
-      const playedEmojis = guessedItems.value[currentMode].map(
-        (guessed) => EMOJIS[checkGuess(target, guessed)],
+      return generateAbilityEmojiBlock(
+        target,
+        guessedItems.value[currentMode],
+        attempts.value[currentMode],
       );
-
-      const emptyEmojis = Array(currentAttempts).fill(EMOJIS.unused);
-      return [...playedEmojis, ...emptyEmojis].join(" ");
     }
 
     if (currentMode === "classic" || currentMode === "classicUnlimited") {
       const target = itemToGuess.value[currentMode];
       if (!target) return "";
-
-      return guessedItems.value[currentMode]
-        .map((guessed) =>
-          getClassicRow(getWarframe(target), getWarframe(guessed)),
-        )
-        .join("\n");
+      return generateClassicEmojiBlock(target, guessedItems.value[currentMode]);
     }
 
     return "";
@@ -181,6 +205,50 @@ export function useShareText() {
   const shareText = computed(() => {
     return [headerText.value, emojiBlock.value, bottomText.value].join("\n\n");
   });
+
+  const shareAllText = async () => {
+    const { classic, ability, grid } = await getTodaysDailies();
+    const sections = [];
+
+    if (classic?.state) {
+      sections.push(
+        `Classic #${classic.day}: \n${generateClassicEmojiBlock(
+          classic.itemToGuess,
+          classic.guessedItems,
+        )}`,
+      );
+    }
+    if (ability?.state) {
+      sections.push(
+        `Ability #${ability.day}: \n${generateAbilityEmojiBlock(
+          ability.itemToGuess.belongsTo,
+          ability.guessedItems,
+          ability.attempts,
+        )}`,
+      );
+    }
+    if (grid?.state) {
+      //TODO: These two values use the same exact calculations as gridGame store so I need to refactor in the future
+      const score = Object.values(grid.gridState).filter(
+        (cell) => cell.value,
+      ).length;
+
+      const usedRarityScores = Object.values(grid.gridState)
+        .filter((cell) => cell.rarity)
+        .reduce((acc, cell) => acc + (100 - (cell.rarity || 0)), 0);
+
+      sections.push(
+        `Grid #${grid.day}:\n${generateGridEmojiBlock(grid.gridState)}\nScore: ${score}/9\nUniqueness: ${formatFloat(900 - usedRarityScores)}`,
+      );
+    }
+    const today = format(new Date(), "yyyy-MM-dd");
+
+    return [
+      `My Framedle Results for ${today}`,
+      ...sections,
+      window.location.origin,
+    ].join("\n\n");
+  };
 
   const { stats } = storeToRefs(useStatsStore());
 
@@ -232,6 +300,7 @@ export function useShareText() {
   return {
     statsCopied: copied,
     shareText,
+    shareAllText,
     handleStatsShare,
     generateGridGameMatrix,
   };

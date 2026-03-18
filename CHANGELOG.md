@@ -1,5 +1,21 @@
 # Changelog
 
+## v1.4.0 - March 17th, 2026
+
+### Features
+
+- Added a toggle to let users share all of their game results at once instead of just the current game
+
+### Changes
+
+- Removed nuxtjs/i18n module and all related code because it was not being used as the app currently only supports english
+- Added labels to progenitor elements in classic mode feedback rows
+- Reduced playstyle text when there are 3 playstyles being shown to prevent layout issues
+
+### Fixes
+
+- Fixed outdated bluesky link in the footer
+
 ## v1.3.2 - March 16th, 2026
 
 ### Changes

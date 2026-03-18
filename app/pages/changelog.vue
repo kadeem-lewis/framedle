@@ -14,6 +14,25 @@ useSeoMeta({
 
 const versions = [
   {
+    title: "1.4.0",
+    date: "2026-03-17",
+    content: `
+### Features
+
+- Added a toggle to let users share all of their game results at once instead of just the current game
+
+### Changes
+
+- Added labels to progenitor elements in classic mode feedback rows
+- Reduced playstyle text when there are 3 playstyles being shown to prevent layout issues
+
+### Fixes
+
+- Fixed outdated bluesky link in the footer
+`,
+    badge: "v1.4.0",
+  },
+  {
     title: "1.3.2",
     date: "2026-03-16",
     content: `

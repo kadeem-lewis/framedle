@@ -1,4 +1,6 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
+import { defineOrganization } from "nuxt-schema-org/schema";
+
 export default defineNuxtConfig({
   compatibilityDate: "2025-02-24",
   devtools: { enabled: true },
@@ -137,7 +139,15 @@ export default defineNuxtConfig({
   },
 
   schemaOrg: {
-    identity: "Organization",
+    identity: defineOrganization({
+      type: "Organization",
+      name: "Framedle",
+      logo: "/logo.svg",
+      sameAs: [
+        "https://x.com/framedle",
+        "https://bsky.app/profile/framedle.com",
+      ],
+    }),
   },
 
   security: {

@@ -61,6 +61,7 @@ const items = [
         ><NuxtImg
           height="40"
           width="159"
+          format="avif"
           class="border-0 transition-transform hover:scale-105 hover:brightness-105 dark:hover:brightness-75"
           src="/badges/KofiBadge.png"
           alt="Buy Me a Coffee at ko-fi.com"
@@ -72,6 +73,7 @@ const items = [
         ><NuxtImg
           height="40"
           width="135"
+          format="avif"
           class="border-0 transition-transform hover:scale-105 hover:brightness-105 dark:hover:brightness-75"
           src="/badges/GetItOnGooglePlayBadge.png"
           alt="Get it on Google Play"

@@ -5,6 +5,7 @@
 ### Changes
 
 - Added Follie to the game
+- Changed format of images used in the game footer to avif for better performance
 
 ## v1.4.0 - March 17th, 2026
 

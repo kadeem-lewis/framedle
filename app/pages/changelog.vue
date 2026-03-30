@@ -14,6 +14,16 @@ useSeoMeta({
 
 const versions = [
   {
+    title: "1.5.0",
+    date: "2026-03-29",
+    content: `
+### Changes
+
+- Added Follie to the game
+`,
+    badge: "v1.5.0",
+  },
+  {
     title: "1.4.0",
     date: "2026-03-17",
     content: `

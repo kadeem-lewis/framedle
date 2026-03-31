@@ -85,10 +85,6 @@ networks:
   web:
     driver: overlay
 secrets:
-  database_url:
-    external: true
-  sentry_auth_token:
-    external: true
   doppler_token:
     external: true
   redis_password:

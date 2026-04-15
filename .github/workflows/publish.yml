@@ -56,6 +56,14 @@ jobs:
             - name: Create env file
               run: |
                   echo "GIT_COMMIT_HASH=${{ github.sha }}" >> ./envfile
+
+            - name: Connect to Tailnet
+              uses: tailscale/github-action@v2
+              with:
+                  oauth-client-id: ${{ secrets.TS_OAUTH_CLIENT_ID }}
+                  oauth-secret: ${{ secrets.TS_OAUTH_CLIENT_SECRET }}
+                  tags: tag:cicd
+
             - name: Docker Stack Deploy
               uses: cssnr/stack-deploy-action@v1
 

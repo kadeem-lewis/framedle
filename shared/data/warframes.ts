@@ -1214,7 +1214,7 @@ export const warframes = {
     variant: "Standard",
     progenitor: "Electricity",
     isPrime: false,
-    conclave: true,
+    conclave: false,
     playstyle: ["Damage", "Crowd Control"],
   },
   Frost: {
@@ -4089,7 +4089,7 @@ export const warframes = {
     progenitor: "Heat",
     isPrime: true,
     conclave: false,
-    vaulted: false,
+    vaulted: true,
     playstyle: ["Damage", "Support"],
   },
   Qorvex: {
@@ -5260,6 +5260,57 @@ export const warframes = {
     progenitor: "Radiation",
     isPrime: false,
     conclave: false,
+    playstyle: ["Damage", "Stealth"],
+  },
+  "Voruna Prime": {
+    name: "Voruna Prime",
+    category: "Warframes",
+    type: "Warframe",
+    health: 455,
+    shield: 270,
+    armor: 265,
+    energy: 130,
+    sprint: 1.2,
+    aura: "Vazarin",
+    releaseDate: "2026-04-08",
+    imageName: "voruna-prime-ffc806f3a8.png",
+    abilities: [
+      {
+        uniqueName:
+          "/Lotus/Powersuits/Werewolf/Abilities/WerewolfShroudAbility",
+        name: "Shroud Of Dynar",
+        description:
+          "(TAP) Dynar shrouds Voruna with invisibility and accelerates her speed. Invisibility ends when Voruna attacks. For a short time after invisibility ends, melee attacks have increased Critical Damage, Status Chance, Critical Chance and inflict <DT_SLASH_COLOR>Slash Status Effects. Melee kill an enemy during this time to extend the melee buff once per cast.\n\n(HOLD) Dynar guards Voruna, increasing her Parkour Velocity.",
+        imageName: "shroud-of-dynar-ce2a7711bd.png",
+      },
+      {
+        uniqueName: "/Lotus/Powersuits/Werewolf/Abilities/WerewolfBiteAbility",
+        name: "Fangs Of Raksh",
+        description:
+          "(TAP) Raksh's fangs tear into your enemies. 5 random Status Effects are applied at 10 Stacks each on an enemy. On target's death, spread the Status Effects to other nearby enemies.\n\n(HOLD) Raksh guards Voruna with Status Effect resistance.",
+        imageName: "fangs-of-raksh-76fa14f541.png",
+      },
+      {
+        uniqueName: "/Lotus/Powersuits/Werewolf/Abilities/WerewolfLeapAbility",
+        name: "Lycath's Hunt",
+        description:
+          "(TAP) Lycath hunts to sustain the pack. Enemies killed by melee attacks drop health orbs and enemies killed by headshots drop energy orbs. Increase the duration of Lycath’s hunt by killing enemies affected by 5 or more Status Effects.\n\n(HOLD) Lycath guards Voruna with increased Heavy Attack efficiency.",
+        imageName: "lycath's-hunt-d38c12a8a0.png",
+      },
+      {
+        uniqueName: "/Lotus/Powersuits/Werewolf/Abilities/WerewolfHowlAbility",
+        name: "Ulfrun's Descent",
+        description:
+          "(TAP) Voruna drops to all fours and prepares 5 brutal charges that lock onto enemies. Ulfrun, the most powerful wolf, leads the attack as Voruna dashes toward her target. The pack deals increased damage to targets and nearby enemies that are inflicted by Status Effects. Lethal attacks double the damage of Voruna's remaining charges.\n\n(HOLD) Ulfrun guards Voruna. If Voruna falls during this time, Ulfrun dies in her place.",
+        imageName: "ulfrun's-descent-f517f81e19.png",
+      },
+    ],
+    sex: "Female",
+    variant: "Prime",
+    progenitor: "Radiation",
+    isPrime: true,
+    conclave: false,
+    vaulted: false,
     playstyle: ["Damage", "Stealth"],
   },
   Wisp: {

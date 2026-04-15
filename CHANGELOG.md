@@ -1,5 +1,11 @@
 # Changelog
 
+## v1.6.0 - April 14th, 2026
+
+### Changes
+
+- Added Voruna Prime to the game
+
 ## v1.5.0 - March 18th, 2026
 
 ### Changes

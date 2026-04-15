@@ -14,6 +14,16 @@ useSeoMeta({
 
 const versions = [
   {
+    title: "1.6.0",
+    date: "2026-04-14",
+    content: `
+### Changes
+
+- Added Voruna Prime to the game
+`,
+    badge: "v1.6.0",
+  },
+  {
     title: "1.5.0",
     date: "2026-03-29",
     content: `

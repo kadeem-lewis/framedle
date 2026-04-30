@@ -68,16 +68,6 @@ export default defineNuxtConfig({
     "/api/feedback": {
       security: {
         rateLimiter: { tokensPerInterval: 5, interval: 1000 * 60 * 60 },
-        headers: {
-          contentSecurityPolicy: {
-            "img-src": [
-              "'self'",
-              "data:",
-              "https://wiki.warframe.com",
-              "https://cdn.warframestat.us",
-            ],
-          },
-        },
       },
     },
   },
@@ -214,7 +204,6 @@ export default defineNuxtConfig({
   },
 
   image: {
-    provider: "none",
     domains: ["cdn.warframestat.us", "wiki.warframe.com"],
     dir: "assets/images",
   },

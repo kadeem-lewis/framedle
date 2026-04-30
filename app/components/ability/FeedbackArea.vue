@@ -22,7 +22,7 @@ const { checkGuess } = useGuess();
         </p>
         <NuxtImg
           format="avif"
-          :src="`https://wiki.warframe.com/images/${warframe.replace(' ', '')}_Thumb.png`"
+          :src="`https://cdn.warframestat.us/img/${getWarframe(warframe).imageName}`"
           :alt="warframe"
           placeholder
           height="76"

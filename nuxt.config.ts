@@ -204,7 +204,7 @@ export default defineNuxtConfig({
   },
 
   image: {
-    domains: ["cdn.warframestat.us"],
+    domains: ["cdn.warframestat.us", "wiki.warframe.com"],
     dir: "assets/images",
   },
 

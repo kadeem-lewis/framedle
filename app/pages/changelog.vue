@@ -14,6 +14,15 @@ useSeoMeta({
 
 const versions = [
   {
+    title: "1.6.1",
+    date: "2026-04-30",
+    content: `
+### Bug Fixes
+- Temporary fix to handle images not loading for all warframes and abilities. A permanent fix will be implemented in the future.
+    `,
+    badge: "v1.6.1",
+  },
+  {
     title: "1.6.0",
     date: "2026-04-14",
     content: `

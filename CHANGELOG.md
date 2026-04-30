@@ -1,5 +1,11 @@
 # Changelog
 
+## v1.6.1 - April 30th, 2026
+
+### Bug Fixes
+
+- Temporary fix to handle images not loading for all warframes and abilities. A permanent fix will be implemented in the future.
+
 ## v1.6.0 - April 14th, 2026
 
 ### Changes
@@ -25,7 +31,7 @@
 - Added labels to progenitor elements in classic mode feedback rows
 - Reduced playstyle text when there are 3 playstyles being shown to prevent layout issues
 
-### Fixes
+### Bug Fixes
 
 - Fixed outdated bluesky link in the footer
 

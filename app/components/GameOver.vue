@@ -75,7 +75,10 @@ const differentMode = computed(() => {
             tooltip-disabled
           >
             <NuxtImg
-              :src="`https://cdn.warframestat.us/img/${correctWarframe?.imageName}`"
+              :src="`https://wiki.warframe.com/images/${correctWarframe?.name.replace(
+                ' ',
+                '',
+              )}_Thumb.png`"
               :alt="`${correctWarframe}`"
               format="avif"
               height="76"

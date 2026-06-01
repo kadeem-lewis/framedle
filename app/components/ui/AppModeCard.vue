@@ -69,14 +69,20 @@ const { card, showStats = false } = defineProps<{
 .animate-border-rotate::before {
   content: "";
   background: conic-gradient(
-    var(--color-amber-500),
-    var(--color-amber-200),
-    var(--color-stone-400),
-    var(--color-amber-600),
-    var(--color-amber-500)
+    var(--color-white),
+    var(--color-pink-500),
+    var(--color-sky-500),
+    var(--color-amber-900),
+    var(--color-red-500),
+    var(--color-orange-500),
+    var(--color-yellow-500),
+    var(--color-green-500),
+    var(--color-blue-500),
+    var(--color-violet-500),
+    var(--color-white)
   );
   will-change: transform;
-  animation: border-rotate 2.5s linear infinite;
+  animation: border-rotate 5s linear infinite;
   padding: 0.25rem;
 }
 

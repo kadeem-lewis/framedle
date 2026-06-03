@@ -38,9 +38,7 @@ export default defineNuxtConfig({
     public: {
       scripts: {
         umamiAnalytics: {
-          scriptInput: {
-            src: "",
-          },
+          hostUrl: "",
           websiteId: "",
         },
       },
@@ -120,7 +118,9 @@ export default defineNuxtConfig({
 
   scripts: {
     registry: {
-      umamiAnalytics: true,
+      umamiAnalytics: {
+        trigger: "onNuxtReady",
+      },
     },
   },
 
@@ -154,6 +154,10 @@ export default defineNuxtConfig({
     rateLimiter: {
       tokensPerInterval: 300, // Doubled limit to prevent unexpected rate limiting
     },
+  },
+
+  ogImage: {
+    zeroRuntime: true,
   },
 
   sitemap: {

@@ -3,7 +3,7 @@ useSeoMeta({
   title: null,
 });
 
-defineOgImageComponent("Framedle");
+defineOgImage("Framedle");
 
 const { cards } = useModeCards();
 </script>

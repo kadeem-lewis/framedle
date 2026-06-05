@@ -155,8 +155,6 @@ export default defineTask({
         });
         const result = warframeSchema.safeParse(mergedItem);
         if (result.success) {
-          if (result.data.sex.includes("(Pluriform)"))
-            result.data.sex = "Non-binary";
           warframes.push(result.data);
         } else {
           console.error("Error parsing warframe", item.name, result.error);

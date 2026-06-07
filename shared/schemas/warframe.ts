@@ -7,6 +7,8 @@ export const abilitySchema = z.object({
   imageName: z.string(),
 });
 
+export type Ability = z.infer<typeof abilitySchema>;
+
 export const progenitorElements = [
   "Impact",
   "Toxin",
@@ -16,8 +18,6 @@ export const progenitorElements = [
   "Heat",
   "Cold",
 ] as const;
-
-export type Ability = z.infer<typeof abilitySchema>;
 
 export const polarities = [
   "Madurai",
@@ -38,6 +38,8 @@ export const playstyles = [
 
 export const variant = ["Standard", "Prime", "Umbra"] as const;
 
+export const sexes = ["Male", "Female", "Non-binary"] as const;
+
 export const warframeSchema = z.object({
   name: z.string(),
   category: z.literal("Warframes"),
@@ -51,7 +53,7 @@ export const warframeSchema = z.object({
   releaseDate: z.string(),
   imageName: z.string(),
   abilities: z.array(abilitySchema),
-  sex: z.enum(["Male", "Female", "Non-binary"]),
+  sex: z.enum(sexes),
   variant: z.enum(variant),
   progenitor: z.enum(progenitorElements),
   isPrime: z.boolean(),
@@ -61,4 +63,4 @@ export const warframeSchema = z.object({
   exalted: z.array(z.string()).optional(),
 });
 
-export type Warframe = z.infer<typeof warframeSchema>;
+export type WarframeShape = z.infer<typeof warframeSchema>;

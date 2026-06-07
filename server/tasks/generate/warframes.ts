@@ -1,4 +1,4 @@
-import type { Warframe } from "#shared/schemas/warframe";
+import type { WarframeShape } from "#shared/schemas/warframe";
 import { warframeSchema } from "#shared/schemas/warframe";
 import { promises as fs } from "fs";
 import { pascalCaseToCamelCase } from "~~/server/utils/transform";
@@ -48,7 +48,7 @@ export default defineTask({
     description: "Generate the warframe data used in app",
   },
   async run() {
-    const warframes: (Warframe | null)[] = [];
+    const warframes: (WarframeShape | null)[] = [];
 
     try {
       const [apiData, wikiWarframeData, wikiVersionData] = await Promise.all([

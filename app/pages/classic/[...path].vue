@@ -65,6 +65,8 @@ const tooltipMap = {
 };
 
 const { makeGuess } = useGuess();
+
+const { showClassicSummary } = storeToRefs(useSettingsStore());
 </script>
 <template>
   <div
@@ -97,12 +99,16 @@ const { makeGuess } = useGuess();
           />
         </UCard>
         <GlobalStats v-if="isDaily" />
+        <UCard>
+          <USwitch v-model="showClassicSummary" label="Show Summary" />
+        </UCard>
         <template v-if="guessedItems[mode].length && itemToGuess[mode]">
           <div
             class="flex flex-col gap-4 overflow-x-auto md:overflow-x-visible"
           >
+            <ClassicSummaryRow v-if="showClassicSummary" />
             <div
-              class="grid w-[190%] grid-cols-8 gap-1 border border-neutral-200 bg-white py-0.5 text-sm uppercase md:-ml-[45%] md:text-base dark:border-neutral-800 dark:bg-neutral-900"
+              class="grid w-[190%] grid-cols-8 gap-1 border border-neutral-200 bg-white py-0.5 text-sm uppercase md:ml-[-45%] md:text-base dark:border-neutral-800 dark:bg-neutral-900"
             >
               <UTooltip
                 v-for="label of feedbackLabels"
@@ -125,7 +131,7 @@ const { makeGuess } = useGuess();
               </UTooltip>
             </div>
             <div
-              class="grid w-[190%] grid-cols-8 gap-1 text-sm capitalize md:-ml-[45%] md:text-base"
+              class="grid w-[190%] grid-cols-8 gap-1 text-sm capitalize md:ml-[-45%] md:text-base"
             >
               <ClassicFeedbackRow
                 v-for="warframe of [...guessedItems[mode]].reverse()"

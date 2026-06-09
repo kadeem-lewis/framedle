@@ -78,5 +78,12 @@ export default defineAppConfig({
         },
       ],
     },
+    switch: {
+      slots: {
+        root: tw`flex-row-reverse justify-between`,
+        base: tw`rounded-none`,
+        thumb: tw`rounded-none`,
+      },
+    },
   },
 });

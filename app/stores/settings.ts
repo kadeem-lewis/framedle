@@ -3,9 +3,11 @@ export const useSettingsStore = defineStore(
   () => {
     const showClassicSummary = ref(true);
     const showBackground = ref(true);
+    const shouldHideCompletedGames = ref(false);
     return {
       showClassicSummary,
       showBackground,
+      shouldHideCompletedGames,
     };
   },
   {

@@ -2,8 +2,10 @@ export const useSettingsStore = defineStore(
   "settings",
   () => {
     const showClassicSummary = ref(true);
+    const showBackground = ref(true);
     return {
       showClassicSummary,
+      showBackground,
     };
   },
   {

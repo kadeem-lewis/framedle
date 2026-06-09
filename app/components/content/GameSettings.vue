@@ -2,6 +2,9 @@
 //colorblind mode
 const { $colorblindMode } = useNuxtApp();
 
+// theme
+const { showBackground } = storeToRefs(useSettingsStore());
+
 //data transfer
 </script>
 <template>
@@ -41,5 +44,9 @@ const { $colorblindMode } = useNuxtApp();
       <p class="text-sm text-muted">More languages coming soon</p>
     </div>
     <USeparator />
+    <div class="flex flex-col gap-1 py-2">
+      <p class="text-lg font-medium">UI</p>
+      <USwitch v-model="showBackground" label="Show Background" />
+    </div>
   </div>
 </template>

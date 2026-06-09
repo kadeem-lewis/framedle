@@ -65,8 +65,6 @@ const tooltipMap = {
 };
 
 const { makeGuess } = useGuess();
-
-const { showClassicSummary } = storeToRefs(useSettingsStore());
 </script>
 <template>
   <div
@@ -99,14 +97,10 @@ const { showClassicSummary } = storeToRefs(useSettingsStore());
           />
         </UCard>
         <GlobalStats v-if="isDaily" />
-        <UCard>
-          <USwitch v-model="showClassicSummary" label="Show Summary" />
-        </UCard>
         <template v-if="guessedItems[mode].length && itemToGuess[mode]">
           <div
             class="flex flex-col gap-4 overflow-x-auto md:overflow-x-visible"
           >
-            <ClassicSummaryRow v-if="showClassicSummary" />
             <div
               class="grid w-[190%] grid-cols-8 gap-1 border border-neutral-200 bg-white py-0.5 text-sm uppercase md:ml-[-45%] md:text-base dark:border-neutral-800 dark:bg-neutral-900"
             >

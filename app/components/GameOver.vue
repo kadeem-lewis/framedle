@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { startOfTomorrow } from "date-fns";
 import party from "party-js";
-import type { Ability } from "#shared/schemas/warframe";
+import type { AbilityShape } from "#shared/schemas/warframe";
 
 const { itemToGuess, guessedItems, attempts, correctWarframe, answer } =
   storeToRefs(useGameStore());
@@ -77,7 +77,7 @@ const runtimeConfig = useRuntimeConfig();
             tooltip-disabled
           >
             <NuxtImg
-              :src="`https://cdn.warframestat.us/img/${correctWarframe?.imageName}`"
+              :src="`https://wiki.warframe.com/images/${correctWarframe?.imageName}`"
               :alt="`${correctWarframe}`"
               format="avif"
               height="76"
@@ -92,7 +92,7 @@ const runtimeConfig = useRuntimeConfig();
             itemToGuess[mode]
           "
           :correct-warframe="correctWarframe"
-          :correct-ability="itemToGuess[mode] as Ability"
+          :correct-ability="itemToGuess[mode] as AbilityShape"
         />
         <p>
           Number of tries:

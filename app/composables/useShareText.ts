@@ -125,6 +125,7 @@ export function useShareText() {
       )
       .join("\n");
   }
+
   function generateAbilityEmojiBlock(
     targetWarframe: WarframeName,
     guessedItems: WarframeName[],
@@ -137,6 +138,8 @@ export function useShareText() {
     const emptyEmojis = Array(attempts).fill(EMOJIS.unused);
     return [...playedEmojis, ...emptyEmojis].join(" ");
   }
+
+  const { selectedMinigameAbility } = storeToRefs(useGameStore());
   function generateGridEmojiBlock(
     gridState: Record<string, GridCell> = daily.value.grid,
   ) {
@@ -163,11 +166,19 @@ export function useShareText() {
 
       if (!target) return "";
 
-      return generateAbilityEmojiBlock(
+      const abilityEmojiBlock = generateAbilityEmojiBlock(
         target,
         guessedItems.value[currentMode],
         attempts.value[currentMode],
       );
+
+      if (
+        itemToGuess.value[currentMode]?.name ===
+        selectedMinigameAbility.value[currentMode]
+      ) {
+        return `${abilityEmojiBlock}\n✨ Bonus solved!`;
+      }
+      return abilityEmojiBlock;
     }
 
     if (currentMode === "classic" || currentMode === "classicUnlimited") {

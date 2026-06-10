@@ -34,9 +34,7 @@ export default defineTask({
 
         let valuesToProcess: (string | boolean | number)[] = [];
 
-        if (config.key === "exalted") {
-          valuesToProcess = [true]; // Only warframes with Exalteds have the exalted field
-        } else if (Array.isArray(rawValue)) {
+        if (Array.isArray(rawValue)) {
           valuesToProcess = rawValue;
         } else if (config.key === "releaseDate") {
           valuesToProcess = [parseReleaseDate(String(rawValue))];

@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { startOfTomorrow } from "date-fns";
 import party from "party-js";
-import type { AbilityShape } from "#shared/schemas/warframe";
 
 const { itemToGuess, guessedItems, attempts, correctWarframe, answer } =
   storeToRefs(useGameStore());
@@ -92,7 +91,7 @@ const runtimeConfig = useRuntimeConfig();
             itemToGuess[mode]
           "
           :correct-warframe="correctWarframe"
-          :correct-ability="itemToGuess[mode] as AbilityShape"
+          :correct-ability="itemToGuess[mode] as AbilityName"
         />
         <p>
           Number of tries:

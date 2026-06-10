@@ -78,7 +78,7 @@ export const useGameStateStore = defineStore(
       if (gameMode === "ability" || gameMode === "abilityUnlimited") {
         won = currentGuessedItems.some(
           (guessedItem) =>
-            guessedItem === itemToGuess.value[gameMode]?.belongsTo,
+            guessedItem === getAbility(itemToGuess.value[gameMode]!).belongsTo,
         );
       }
 

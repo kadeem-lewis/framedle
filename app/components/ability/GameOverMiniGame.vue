@@ -1,10 +1,9 @@
 <script setup lang="ts">
-import type { Ability } from "#shared/schemas/warframe";
 import { format } from "date-fns";
 
 const { correctWarframe, correctAbility } = defineProps<{
   correctWarframe: Warframe;
-  correctAbility: Ability;
+  correctAbility: AbilityName;
 }>();
 
 const { selectedMinigameAbility } = storeToRefs(useGameStore());
@@ -44,7 +43,7 @@ const hasSelected = computed(() => {
   if (mode.value !== "ability" && mode.value !== "abilityUnlimited") return;
   return !!selectedMinigameAbility.value[mode.value];
 });
-const isCorrectAnswer = (ability: string) => ability === correctAbility.name;
+const isCorrectAnswer = (ability: string) => ability === correctAbility;
 const isUserSelection = (ability: string) => {
   if (mode.value !== "ability" && mode.value !== "abilityUnlimited")
     return false;
@@ -54,14 +53,12 @@ const userWasCorrect = computed(() => {
   if (mode.value !== "ability" && mode.value !== "abilityUnlimited") return;
   return (
     hasSelected.value &&
-    selectedMinigameAbility.value[mode.value] === correctAbility.name
+    selectedMinigameAbility.value[mode.value] === correctAbility
   );
 });
 
 // I save the selected item to the store and maybe some key for checking if it was previous completed if I don't want to show the animation again
-const abilityNames = computed(() =>
-  correctWarframe.abilities.map((ability) => ability.name),
-);
+const abilityNames = computed(() => correctWarframe.abilities);
 </script>
 <template>
   <div
@@ -75,7 +72,7 @@ const abilityNames = computed(() =>
     <div class="border-2 bg-default/70">
       <NuxtImg
         v-if="correctAbility"
-        :src="`https://cdn.warframestat.us/img/${correctAbility.imageName}`"
+        :src="`https://wiki.warframe.com/images/${getAbility(correctAbility).imageName}`"
         alt="ability image"
         format="avif"
         height="96"
@@ -113,7 +110,7 @@ const abilityNames = computed(() =>
         class="text-center font-medium uppercase"
       >
         <p
-          v-if="selectedMinigameAbility[mode] === correctAbility.name"
+          v-if="selectedMinigameAbility[mode] === correctAbility"
           class="text-correct"
         >
           You got it!

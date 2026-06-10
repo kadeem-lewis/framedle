@@ -161,8 +161,11 @@ export function useShareText() {
       return generateGridEmojiBlock();
     }
 
-    if (currentMode === "ability" || currentMode === "abilityUnlimited") {
-      const target = itemToGuess.value[currentMode]?.belongsTo;
+    if (
+      (currentMode === "ability" || currentMode === "abilityUnlimited") &&
+      itemToGuess.value[currentMode]
+    ) {
+      const target = getAbility(itemToGuess.value[currentMode]).belongsTo;
 
       if (!target) return "";
 
@@ -173,7 +176,7 @@ export function useShareText() {
       );
 
       if (
-        itemToGuess.value[currentMode]?.name ===
+        itemToGuess.value[currentMode] ===
         selectedMinigameAbility.value[currentMode]
       ) {
         return `${abilityEmojiBlock}\n✨ Bonus solved!`;
@@ -205,7 +208,7 @@ export function useShareText() {
         mode.value === "abilityUnlimited" &&
         itemToGuess.value["abilityUnlimited"]
       ) {
-        encodedAnswer = encode(itemToGuess.value["abilityUnlimited"].name);
+        encodedAnswer = encode(itemToGuess.value["abilityUnlimited"]);
       }
       return `See how you do on the same challenge I played:\n${baseUrl}?x=${encodedAnswer}`;
     }
@@ -232,7 +235,7 @@ export function useShareText() {
     if (ability?.state) {
       sections.push(
         `Ability #${ability.day}: \n${generateAbilityEmojiBlock(
-          ability.itemToGuess.belongsTo,
+          getAbility(ability.itemToGuess).belongsTo,
           ability.guessedItems,
           ability.attempts,
         )}`,

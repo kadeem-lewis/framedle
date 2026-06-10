@@ -11,7 +11,7 @@ const { checkGuess } = useGuess();
     <UiFeedbackTile
       v-for="warframe of [...guessedItems[mode]].reverse()"
       :key="warframe"
-      :variant="checkGuess(itemToGuess[mode]!.belongsTo, warframe)"
+      :variant="checkGuess(getAbility(itemToGuess[mode]!).belongsTo, warframe)"
       field-label="Warframe"
       :field-value="warframe"
       tooltip-disabled
@@ -22,7 +22,7 @@ const { checkGuess } = useGuess();
         </p>
         <NuxtImg
           format="avif"
-          :src="`https://cdn.warframestat.us/img/${getWarframe(warframe).imageName}`"
+          :src="`https://wiki.warframe.com/images/${getWarframe(warframe).imageName}`"
           :alt="warframe"
           placeholder
           height="76"

@@ -7,6 +7,16 @@ const { proxy } = useScriptUmamiAnalytics();
 
 const items = [
   {
+    text: "Rules",
+    icon: "i-mdi-help",
+    command: () => {
+      proxy.track("Opened Options Dialog", {
+        modal: dialogOptions.INSTRUCTIONS,
+      });
+      openDialog(dialogOptions.INSTRUCTIONS);
+    },
+  },
+  {
     text: "Archive",
     icon: "i-heroicons-calendar-solid",
     command: () => {
@@ -41,16 +51,6 @@ const items = [
     command: () => {
       proxy.track("Opened Options Dialog", { modal: dialogOptions.SUPPORT });
       openDialog(dialogOptions.SUPPORT);
-    },
-  },
-  {
-    text: "How To",
-    icon: "i-mdi-help",
-    command: () => {
-      proxy.track("Opened Options Dialog", {
-        modal: dialogOptions.INSTRUCTIONS,
-      });
-      openDialog(dialogOptions.INSTRUCTIONS);
     },
   },
 ];

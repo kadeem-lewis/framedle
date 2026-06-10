@@ -11,7 +11,7 @@ export type ClassicDailyData = DailyDataBase & {
 
 export type AbilityDailyData = DailyDataBase & {
   mode: "ability";
-  itemToGuess: Ability;
+  itemToGuess: AbilityName;
 };
 
 export type GridDailyData = DailyDataBase & {

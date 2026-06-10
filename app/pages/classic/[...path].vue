@@ -102,7 +102,7 @@ const { makeGuess } = useGuess();
             class="flex flex-col gap-4 overflow-x-auto md:overflow-x-visible"
           >
             <div
-              class="grid w-[190%] grid-cols-8 gap-1 border border-neutral-200 bg-white py-0.5 text-sm uppercase md:-ml-[45%] md:text-base dark:border-neutral-800 dark:bg-neutral-900"
+              class="grid w-[190%] grid-cols-8 gap-1 border border-neutral-200 bg-white py-0.5 text-sm uppercase md:ml-[-45%] md:text-base dark:border-neutral-800 dark:bg-neutral-900"
             >
               <UTooltip
                 v-for="label of feedbackLabels"
@@ -125,7 +125,7 @@ const { makeGuess } = useGuess();
               </UTooltip>
             </div>
             <div
-              class="grid w-[190%] grid-cols-8 gap-1 text-sm capitalize md:-ml-[45%] md:text-base"
+              class="grid w-[190%] grid-cols-8 gap-1 text-sm capitalize md:ml-[-45%] md:text-base"
             >
               <ClassicFeedbackRow
                 v-for="warframe of [...guessedItems[mode]].reverse()"

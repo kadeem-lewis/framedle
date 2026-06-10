@@ -46,6 +46,8 @@ const differentMode = computed(() => {
   if (!mode.value) return;
   return activeCards.value.find((card) => card.route !== route.path);
 });
+
+const runtimeConfig = useRuntimeConfig();
 </script>
 <template>
   <div ref="gameOverCard">
@@ -135,6 +137,26 @@ const differentMode = computed(() => {
             </li>
           </ul>
         </div>
+        <USeparator />
+        <div class="flex flex-col items-center gap-2">
+          <p class="text-center">
+            Your support helps keep the game running and goes to the development
+            of new features!
+          </p>
+          <NuxtLink
+            :href="runtimeConfig.public.kofiUrl"
+            target="_blank"
+            external
+            ><NuxtImg
+              height="40"
+              width="200"
+              format="avif"
+              class="border-0 transition-transform hover:scale-105 hover:brightness-105 dark:hover:brightness-75"
+              src="/badges/KofiSupportBadgeBlue.png"
+              alt="Support me on Ko-fi.com"
+          /></NuxtLink>
+        </div>
+        <USeparator />
         <template v-if="isDaily">
           <NextGameCountdown :target-date="startOfTomorrow()" />
           <template v-if="isPastDay && differentMode">

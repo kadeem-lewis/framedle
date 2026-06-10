@@ -32,9 +32,12 @@ watch(isFinished, (newIsFinished) => {
     getDailies();
   }
 });
+
+const { showBackground } = storeToRefs(useSettingsStore());
 </script>
 <template>
   <NuxtPwaManifest />
+  <TheBackground v-if="showBackground" />
   <UApp>
     <NuxtLayout>
       <NuxtPage />

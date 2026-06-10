@@ -17,7 +17,8 @@ const { proxy } = useScriptUmamiAnalytics();
 const router = useRouter();
 const route = useRoute("archive");
 
-const { pastDays, selectedArchiveMode, order } = storeToRefs(useArchiveStore());
+const { filteredPastDays, selectedArchiveMode, order } =
+  storeToRefs(useArchiveStore());
 const { getRandomPastDay } = useArchiveStore();
 selectedArchiveMode.value = (route.query.mode as GameType) || "classic";
 
@@ -52,14 +53,14 @@ const searchQuery = ref("");
 
 const fuse = computed(
   () =>
-    new Fuse(pastDays.value ?? [], {
+    new Fuse(filteredPastDays.value ?? [], {
       keys: ["readableDate", "day"],
       threshold: 0.4,
     }),
 );
 
 const filteredDailies = computed(() => {
-  const days = pastDays.value;
+  const days = filteredPastDays.value;
 
   if (!days || days.length === 0) {
     return [];
@@ -116,12 +117,21 @@ function onSelect(e: Event, row: TableRow<PastDay>) {
 }
 
 const randomPastDay = computed(() => getRandomPastDay());
+
+const { shouldHideCompletedGames } = storeToRefs(useSettingsStore());
 </script>
 <template>
   <div class="flex flex-col gap-4">
     <h1 class="font-roboto text-xl font-bold uppercase">Archive</h1>
     <UTabs v-model="activeTab" :content="false" variant="tenno" :items="tabs" />
     <ArchiveGameStats />
+    <UiItem>
+      <UiAppSwitch
+        v-model="shouldHideCompletedGames"
+        size="lg"
+        label="Hide Completed Games"
+      />
+    </UiItem>
     <div class="flex items-center justify-end gap-4">
       <USelect
         v-model="order"

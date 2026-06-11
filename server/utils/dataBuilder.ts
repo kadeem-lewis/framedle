@@ -8,6 +8,7 @@ import type {
 
 type WarframeWikiVersionData = {
   Aliases: string[];
+  Name: string;
   Date: string;
   [key: string]: unknown;
 }[];
@@ -137,9 +138,9 @@ export async function buildAbilityData(
     "https://wiki.warframe.com/w/Module:Ability/data?action=raw",
   );
 
-  const parsedData = parse(data) as Record<string, WikiAbilityData>;
+  const parsedData = parse(data) as WikiAbilityData;
 
-  const abilities = parsedData.Ability as WikiAbilityData["Ability"];
+  const abilities = parsedData.Ability;
 
   validAbilities.forEach((abilityName) => {
     const abilityData = abilities[abilityName];

@@ -19,13 +19,11 @@ export const abilities = {
     name: "Blade Storm",
     imageName: "BladeStormIcon(xWhite).png",
     belongsTo: "Ash",
-    weapon: "Shadow Clones",
   },
   Landslide: {
     name: "Landslide",
     imageName: "LandslideIcon(xWhite).png",
     belongsTo: "Atlas",
-    weapon: "Landslide Fists",
   },
   Tectonics: {
     name: "Tectonics",
@@ -81,7 +79,6 @@ export const abilities = {
     name: "Serene Storm",
     imageName: "SereneStormIcon(xWhite).png",
     belongsTo: "Baruuk",
-    weapon: "Desert Wind",
   },
   "Razor Gyre": {
     name: "Razor Gyre",
@@ -162,7 +159,6 @@ export const abilities = {
     name: "Neutralize",
     imageName: "NeutralizeIcon(xWhite).png",
     belongsTo: "Cyte-09",
-    weapon: "Neutralizer",
   },
   "Wyrd Scythes": {
     name: "Wyrd Scythes",
@@ -188,7 +184,6 @@ export const abilities = {
     name: "Noctua",
     imageName: "NoctuaIcon(xWhite).png",
     belongsTo: "Dante",
-    weapon: "Noctua (Weapon)",
   },
   "Light Verse": {
     name: "Light Verse",
@@ -249,7 +244,6 @@ export const abilities = {
     name: "Slash Dash",
     imageName: "SlashDashIcon(xWhite).png",
     belongsTo: "Excalibur",
-    weapon: "Exalted Blade",
   },
   "Radial Blind": {
     name: "Radial Blind",
@@ -265,7 +259,6 @@ export const abilities = {
     name: "Exalted Blade",
     imageName: "ExaltedBladeIcon(xWhite).png",
     belongsTo: "Excalibur",
-    weapon: "Exalted Blade",
   },
   "Radial Howl": {
     name: "Radial Howl",
@@ -316,7 +309,6 @@ export const abilities = {
     name: "Shattered Lash",
     imageName: "ShatteredLashIcon(xWhite).png",
     belongsTo: "Gara",
-    weapon: "Shattered Lash",
   },
   "Splinter Storm": {
     name: "Splinter Storm",
@@ -437,7 +429,6 @@ export const abilities = {
     name: "Balefire",
     imageName: "BalefireIcon(xWhite).png",
     belongsTo: "Hildryn",
-    weapon: "Balefire Charger",
   },
   Pillage: {
     name: "Pillage",
@@ -513,7 +504,6 @@ export const abilities = {
     name: "Artemis Bow",
     imageName: "ArtemisBowIcon(xWhite).png",
     belongsTo: "Ivara",
-    weapon: "Artemis Bow",
   },
   "Light's Judgment": {
     name: "Light's Judgment",
@@ -534,13 +524,11 @@ export const abilities = {
     name: "Glory on High",
     imageName: "GloryOnHighIcon(xWhite).png",
     belongsTo: "Jade",
-    weapon: "Glory",
   },
   Whipclaw: {
     name: "Whipclaw",
     imageName: "WhipclawIcon(xWhite).png",
     belongsTo: "Khora",
-    weapon: "Whipclaw",
   },
   Ensnare: {
     name: "Ensnare",
@@ -696,7 +684,6 @@ export const abilities = {
     name: "Peacemaker",
     imageName: "PeacemakerIcon(xWhite).png",
     belongsTo: "Mesa",
-    weapon: "Regulators",
   },
   "Hall of Mirrors": {
     name: "Hall of Mirrors",
@@ -1017,7 +1004,6 @@ export const abilities = {
     name: "Exalted Shadow",
     imageName: "ExaltedShadowIcon(xWhite).png",
     belongsTo: "Sevagoth",
-    weapon: "Shadow Claws",
   },
   "Axios Javelin": {
     name: "Axios Javelin",
@@ -1058,7 +1044,6 @@ export const abilities = {
     name: "Exalted Solo",
     imageName: "ExaltedSoloIcon(xWhite).png",
     belongsTo: "Temple",
-    weapon: "Lizzie",
   },
   Spellbind: {
     name: "Spellbind",
@@ -1079,7 +1064,6 @@ export const abilities = {
     name: "Razorwing",
     imageName: "RazorwingIcon(xWhite).png",
     belongsTo: "Titania",
-    weapon: ["Dex Pixia", "Diwata"],
   },
   "Well of Life": {
     name: "Well of Life",
@@ -1140,7 +1124,6 @@ export const abilities = {
     name: "Hysteria",
     imageName: "HysteriaIcon(xWhite).png",
     belongsTo: "Valkyr",
-    weapon: "Valkyr Talons",
   },
   "Tesla Nervos": {
     name: "Tesla Nervos",
@@ -1241,7 +1224,6 @@ export const abilities = {
     name: "Primal Fury",
     imageName: "PrimalFuryIcon(xWhite).png",
     belongsTo: "Wukong",
-    weapon: "Iron Staff",
   },
   "Xata's Whisper": {
     name: "Xata's Whisper",

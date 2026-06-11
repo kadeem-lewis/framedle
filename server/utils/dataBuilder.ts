@@ -195,8 +195,15 @@ export async function writeDataToFile(
 
   await fs.writeFile("./shared/data/warframes.ts", tsContent);
 
+  const publicAbilities = Object.fromEntries(
+    [...abilities.entries()].map(([key, ability]) => {
+      const { weapon, ...rest } = ability;
+      return [key, rest];
+    }),
+  );
+
   const abilityContent = `// Auto-generated abilities data
-    export const abilities = ${JSON.stringify(Object.fromEntries(abilities.entries()), null, 2)} as const;`;
+    export const abilities = ${JSON.stringify(publicAbilities, null, 2)} as const;`;
 
   await fs.writeFile("./shared/data/abilities.ts", abilityContent);
 }

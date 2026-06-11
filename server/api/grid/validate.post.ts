@@ -78,7 +78,7 @@ export default defineEventHandler<
         )
         .limit(1);
 
-      if (result.length === 0)
+      if (result[0] === undefined)
         throw createError({
           statusCode: 404,
           message: "Category pair not found",

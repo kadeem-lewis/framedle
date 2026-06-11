@@ -56,6 +56,8 @@ export default defineCachedEventHandler<Promise<StatsResponse>>(
     rarityResults.forEach((cellData, index) => {
       const coord = rarityKeys[index];
 
+      if (!coord) throw createError("Missing coordinate for rarity data");
+
       const totalRaw = cellData["total"];
       const total = totalRaw ? parseInt(totalRaw, 10) : 0;
 
@@ -73,8 +75,8 @@ export default defineCachedEventHandler<Promise<StatsResponse>>(
           (a, b) => b.count - a.count || a.name.localeCompare(b.name),
         ); // Sort by highest count, then alphabetically
 
-        mostPopular = guesses.length > 0 ? guesses[0] : null;
-        leastPopular = guesses.length > 0 ? guesses[guesses.length - 1] : null;
+        mostPopular = guesses[0] ?? null;
+        leastPopular = guesses[guesses.length - 1] ?? null;
       }
 
       guessStats[coord] = {
@@ -112,16 +114,19 @@ export default defineCachedEventHandler<Promise<StatsResponse>>(
       }
     }
 
-    const classicGamesWon = parseInt(stats["games_won:classic"], 10) || 0;
+    const classicGamesWon =
+      parseInt(stats["games_won:classic"] ?? "0", 10) || 0;
     const classicAverageAttempts = stats["total_attempts:classic"]
       ? getAverage(stats["total_attempts:classic"], stats["games_won:classic"])
       : null;
 
-    const abilityGamesWon = parseInt(stats["games_won:ability"], 10) || 0;
+    const abilityGamesWon =
+      parseInt(stats["games_won:ability"] ?? "0", 10) || 0;
     const abilityAverageAttempts = stats["total_attempts:ability"]
       ? getAverage(stats["total_attempts:ability"], stats["games_won:ability"])
       : null;
-    const gridGamesPlayed = parseInt(stats["games_played:grid"], 10) || 0;
+    const gridGamesPlayed =
+      parseInt(stats["games_played:grid"] ?? "0", 10) || 0;
 
     return {
       classic: {

@@ -103,14 +103,18 @@ function luaAstToJson(ast: Node): LuaJson {
   // top-level statements, only looking at the first statement, either return or local
   if (ast.type === "LocalStatement") {
     const values = (ast as LocalStatement).init.map(luaAstToJson);
-    return values.length === 1 ? values[0] : values;
+    return values[0] !== undefined ? values[0] : values;
   }
   if (ast.type === "ReturnStatement") {
     const values = (ast as ReturnStatement).arguments.map(luaAstToJson);
-    return values.length === 1 ? values[0] : values;
+    return values[0] !== undefined ? values[0] : values;
   }
   if (ast.type === "Chunk") {
-    return luaAstToJson((ast as Chunk).body[0]);
+    const statement = (ast as Chunk).body[0];
+    if (!statement) {
+      throw createError("can't parse empty chunk");
+    }
+    return luaAstToJson(statement);
   }
   throw createError(`can't parse ${ast.type}`);
 }

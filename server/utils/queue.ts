@@ -20,16 +20,17 @@ export function createNewQueue(
 ): QueueItem[] {
   const shuffledKeys = shuffle(sourceKeys);
 
-  // PREVENT BACK-TO-BACK REPEATS: If the first item of the new shuffle
-  // is the same as the last item of the previous cycle, we swap it.
+  // Simple swap to prevent last item from previous queue from being the first item in the new queue
+  const firstItem = shuffledKeys[0];
+  const lastItem = shuffledKeys[shuffledKeys.length - 1];
   if (
     lastUsedKey &&
     shuffledKeys.length > 1 &&
-    shuffledKeys[0] === lastUsedKey
+    firstItem === lastUsedKey &&
+    firstItem !== undefined &&
+    lastItem !== undefined
   ) {
-    // A simple and effective swap with the last element.
-    const firstItem = shuffledKeys[0];
-    shuffledKeys[0] = shuffledKeys[shuffledKeys.length - 1];
+    shuffledKeys[0] = lastItem;
     shuffledKeys[shuffledKeys.length - 1] = firstItem;
   }
 
@@ -56,7 +57,7 @@ export async function processQueue(
       return [];
     });
 
-  if (result.length > 0) {
+  if (result[0] !== undefined) {
     existingQueue = result[0].data as DailyQueue;
   }
 
@@ -142,7 +143,7 @@ export async function getNextFromQueue(
       .where(eq(tables.queue.name, name))
       .for("update");
 
-    if (result.length === 0) {
+    if (result[0] === undefined) {
       throw createError(`No queue found for name: ${name}`);
     }
 
@@ -154,14 +155,18 @@ export async function getNextFromQueue(
     if (nextItemIndex === -1) {
       const values = name === "warframe" ? warframeNames : abilityNames;
       const items = createNewQueue(values);
+      if (items[0] === undefined)
+        throw createError("Created queue is empty, cannot proceed.");
       queueData = {
         length: items.length,
         cycleNumber: queueData.cycleNumber + 1,
         queue: items,
       };
-      nextItem = queueData.queue[0];
+      nextItem = items[0];
     } else {
-      nextItem = queueData.queue[nextItemIndex];
+      const possibleNextItem = queueData.queue[nextItemIndex];
+      if (!possibleNextItem) throw createError("Next item not found.");
+      nextItem = possibleNextItem;
     }
 
     nextItem.used = true;

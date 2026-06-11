@@ -88,6 +88,7 @@ export const useGameStore = defineStore(
       }
 
       if (queryValue) {
+        //TODO: I need to do a stronger guard here for when decoded's value is not valid.
         if (currentMode === "classicUnlimited") {
           const decoded = decode(queryValue) as WarframeName;
           if (itemToGuess.value.classicUnlimited !== decoded) {
@@ -97,9 +98,8 @@ export const useGameStore = defineStore(
         }
         if (currentMode === "abilityUnlimited") {
           const decoded = decode(queryValue) as AbilityName;
-          const decodedAbility = getAbility(decoded);
-          if (itemToGuess.value.abilityUnlimited !== decodedAbility.name) {
-            newItem = decodedAbility.name;
+          if (itemToGuess.value.abilityUnlimited !== decoded) {
+            newItem = decoded;
             needsReset = true;
           }
         }

@@ -1,11 +1,10 @@
 import { warframes } from "#shared/data/warframes";
-import type { Ability as OriginalAbility } from "#shared/schemas/warframe";
+
+import { abilities } from "#shared/data/abilities";
 
 export type WarframeName = keyof typeof warframes;
 
 export type Warframe = (typeof warframes)[WarframeName];
-
-export type Ability = OriginalAbility & { belongsTo: WarframeName };
 
 export const warframeNames = Object.keys(warframes) as WarframeName[];
 
@@ -13,29 +12,28 @@ export const vanillaWarframes = warframeNames.filter(
   (name) => warframes[name].variant === "Standard",
 );
 
-export const abilities = Object.values(warframes)
-  .filter((warframe) => warframe.variant === "Standard")
-  .flatMap((warframe) =>
-    warframe.abilities.map((ability) => ({
-      ...ability,
-      belongsTo: warframe.name,
-    })),
-  );
+export type AbilityName = keyof typeof abilities;
 
-export const generateAbilityNames = (warframe: Warframe[]) => {
-  return warframe.flatMap((wf) => wf.abilities.map((ability) => ability.name));
-};
+export type Ability = (typeof abilities)[keyof typeof abilities];
 
-export const abilityNames = abilities.map((ability) => ability.name);
+export const abilityNames = Object.keys(
+  abilities,
+) as (keyof typeof abilities)[];
 
 export const getWarframe = (warframe: WarframeName) => {
   return warframes[warframe];
+};
+
+export const getAbility = (ability: AbilityName) => {
+  return abilities[ability];
 };
 
 export const getRandomWarframe = (): WarframeName => {
   return warframeNames[Math.floor(Math.random() * warframeNames.length)]!;
 };
 
-export const getRandomAbility = (): Ability => {
-  return abilities[Math.floor(Math.random() * abilities.length)]!;
+export const getRandomAbility = (): AbilityName => {
+  return abilityNames[Math.floor(Math.random() * abilityNames.length)]!;
 };
+
+//? Maybe I only need the strict typing for ability names but the actual ability data can be typed as AbilityShape

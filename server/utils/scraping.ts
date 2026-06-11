@@ -3,7 +3,8 @@ export function resolveVariants(scrapedNames: string[]) {
   const normalizedScraped = new Set(scrapedNames.map((n) => n.toLowerCase()));
 
   warframeNames.forEach((warframeName) => {
-    const warframeLine = warframeName.split(" ")[0].toLowerCase();
+    const warframeLine = warframeName.split(" ")[0]?.toLowerCase();
+    if (!warframeLine) return;
     if (normalizedScraped.has(warframeLine)) {
       resolved.add(warframeName);
     }

@@ -2,8 +2,6 @@
 export const warframes = {
   Ash: {
     name: "Ash",
-    category: "Warframes",
-    type: "Warframe",
     health: 455,
     shield: 270,
     armor: 105,
@@ -11,49 +9,18 @@ export const warframes = {
     sprint: 1.15,
     aura: "Madurai",
     releaseDate: "2012-10-25",
-    imageName: "Ash.png",
-    abilities: [
-      {
-        uniqueName: "/Lotus/Powersuits/Ninja/Abilities/GlaiveAbility",
-        name: "Shuriken",
-        description:
-          "Launches a spinning blade of pain, dealing high damage and impaling enemies to walls.",
-        imageName: "NinjaStar.png",
-      },
-      {
-        uniqueName: "/Lotus/Powersuits/Ninja/Abilities/SmokeScreenAbility",
-        name: "Smoke Screen",
-        description:
-          "Drops a smoke bomb that stuns enemies and obscures their vision, rendering Ash invisible for a short time.",
-        imageName: "NinjaSmokeScreen.png",
-      },
-      {
-        uniqueName: "/Lotus/Powersuits/Ninja/Abilities/TeleportToAbility",
-        name: "Teleport",
-        description:
-          "Teleport to a target and perform a Finisher. If the finisher kills the target, Ash regains a portion of the energy spent.",
-        imageName: "NinjaTeleport.png",
-      },
-      {
-        uniqueName: "/Lotus/Powersuits/Ninja/Abilities/NinjaStormAbility",
-        name: "Blade Storm",
-        description:
-          "Project fierce Shadow Clones of Ash upon groups of distant enemies. Join the fray using Teleport. The Shadow Clones can be upgraded with mods.",
-        imageName: "NinjaStorm.png",
-      },
-    ],
+    imageName: "Ash_Thumb.png",
+    abilities: ["Shuriken", "Smoke Screen", "Teleport", "Blade Storm"],
     sex: "Male",
     variant: "Standard",
     progenitor: "Radiation",
     isPrime: false,
     conclave: true,
     playstyle: ["Stealth", "Damage"],
-    exalted: ["/Lotus/Powersuits/Ninja/NinjaStormWeapon"],
+    exalted: true,
   },
   "Ash Prime": {
     name: "Ash Prime",
-    category: "Warframes",
-    type: "Warframe",
     health: 455,
     shield: 365,
     armor: 185,
@@ -61,37 +28,8 @@ export const warframes = {
     sprint: 1.2,
     aura: "Madurai",
     releaseDate: "2015-07-07",
-    imageName: "AshPrime.png",
-    abilities: [
-      {
-        uniqueName: "/Lotus/Powersuits/Ninja/Abilities/GlaiveAbility",
-        name: "Shuriken",
-        description:
-          "Launches a spinning blade of pain, dealing high damage and impaling enemies to walls.",
-        imageName: "NinjaStar.png",
-      },
-      {
-        uniqueName: "/Lotus/Powersuits/Ninja/Abilities/SmokeScreenAbility",
-        name: "Smoke Screen",
-        description:
-          "Drops a smoke bomb that stuns enemies and obscures their vision, rendering Ash invisible for a short time.",
-        imageName: "NinjaSmokeScreen.png",
-      },
-      {
-        uniqueName: "/Lotus/Powersuits/Ninja/Abilities/TeleportToAbility",
-        name: "Teleport",
-        description:
-          "Teleport to a target and perform a Finisher. If the finisher kills the target, Ash regains a portion of the energy spent.",
-        imageName: "NinjaTeleport.png",
-      },
-      {
-        uniqueName: "/Lotus/Powersuits/Ninja/Abilities/NinjaStormAbility",
-        name: "Blade Storm",
-        description:
-          "Project fierce Shadow Clones of Ash upon groups of distant enemies. Join the fray using Teleport. The Shadow Clones can be upgraded with mods.",
-        imageName: "NinjaStorm.png",
-      },
-    ],
+    imageName: "AshPrime_Thumb.png",
+    abilities: ["Shuriken", "Smoke Screen", "Teleport", "Blade Storm"],
     sex: "Male",
     variant: "Prime",
     progenitor: "Radiation",
@@ -99,12 +37,10 @@ export const warframes = {
     conclave: true,
     vaulted: true,
     playstyle: ["Stealth", "Damage"],
-    exalted: ["/Lotus/Powersuits/Ninja/NinjaStormWeaponPrime"],
+    exalted: true,
   },
   Atlas: {
     name: "Atlas",
-    category: "Warframes",
-    type: "Warframe",
     health: 270,
     shield: 270,
     armor: 475,
@@ -112,49 +48,18 @@ export const warframes = {
     sprint: 0.9,
     aura: "Madurai",
     releaseDate: "2015-10-01",
-    imageName: "Atlas.png",
-    abilities: [
-      {
-        uniqueName: "/Lotus/Powersuits/Brawler/Abilities/BrawlerPunchAbility",
-        name: "Landslide",
-        description:
-          "Bash enemies with an explosive sliding punch, repeat up to three times for a combo attack. Each hit in the three-punch combo increases the radius of the attack. Energy cost is reduced with each hit of Landslide. Install mods on the Landslide Fists to boost stats.",
-        imageName: "AtlasRockPunch.png",
-      },
-      {
-        uniqueName: "/Lotus/Powersuits/Brawler/Abilities/BrawlerBarrierAbility",
-        name: "Tectonics",
-        description:
-          "Summon a Bulwark rock-wall, activate again to send the rocks crashing toward the enemy. Bulwarks attacked by enemies release an area-of-effect Slash powered by the Health it has lost.",
-        imageName: "AtlasBarrier.png",
-      },
-      {
-        uniqueName: "/Lotus/Powersuits/Brawler/Abilities/BrawlerGazeAbility",
-        name: "Petrify",
-        description:
-          "Atlas' hardened gaze will fossilize foes increasing the damage they take, heal Rumblers, and create Petrified Bulwarks. When shattered, petrified enemies drop healing Rubble for Atlas.",
-        imageName: "AtlasStoneGaze.png",
-      },
-      {
-        uniqueName: "/Lotus/Powersuits/Brawler/Abilities/BrawlerSummonAbility",
-        name: "Rumblers",
-        description:
-          "Summon two elemental stone brawlers to the melee. Summoning petrifies enemies in close proximity to Atlas. When finished, Rumblers collapse into a pile of healing Rubble.",
-        imageName: "AtlasSummon.png",
-      },
-    ],
+    imageName: "Atlas_Thumb.png",
+    abilities: ["Landslide", "Tectonics", "Petrify", "Rumblers"],
     sex: "Male",
     variant: "Standard",
     progenitor: "Toxin",
     isPrime: false,
     conclave: true,
     playstyle: ["Damage", "Survival"],
-    exalted: ["/Lotus/Powersuits/Brawler/AtlasPunchWeapon"],
+    exalted: true,
   },
   "Atlas Prime": {
     name: "Atlas Prime",
-    category: "Warframes",
-    type: "Warframe",
     health: 550,
     shield: 455,
     armor: 500,
@@ -162,37 +67,8 @@ export const warframes = {
     sprint: 1,
     aura: "Madurai",
     releaseDate: "2019-10-01",
-    imageName: "AtlasPrime.png",
-    abilities: [
-      {
-        uniqueName: "/Lotus/Powersuits/Brawler/Abilities/BrawlerPunchAbility",
-        name: "Landslide",
-        description:
-          "Bash enemies with an explosive sliding punch, repeat up to three times for a combo attack. Each hit in the three-punch combo increases the radius of the attack. Energy cost is reduced with each hit of Landslide. Install mods on the Landslide Fists to boost stats.",
-        imageName: "AtlasRockPunch.png",
-      },
-      {
-        uniqueName: "/Lotus/Powersuits/Brawler/Abilities/BrawlerBarrierAbility",
-        name: "Tectonics",
-        description:
-          "Summon a Bulwark rock-wall, activate again to send the rocks crashing toward the enemy. Bulwarks attacked by enemies release an area-of-effect Slash powered by the Health it has lost.",
-        imageName: "AtlasBarrier.png",
-      },
-      {
-        uniqueName: "/Lotus/Powersuits/Brawler/Abilities/BrawlerGazeAbility",
-        name: "Petrify",
-        description:
-          "Atlas' hardened gaze will fossilize foes increasing the damage they take, heal Rumblers, and create Petrified Bulwarks. When shattered, petrified enemies drop healing Rubble for Atlas.",
-        imageName: "AtlasStoneGaze.png",
-      },
-      {
-        uniqueName: "/Lotus/Powersuits/Brawler/Abilities/BrawlerSummonAbility",
-        name: "Rumblers",
-        description:
-          "Summon two elemental stone brawlers to the melee. Summoning petrifies enemies in close proximity to Atlas. When finished, Rumblers collapse into a pile of healing Rubble.",
-        imageName: "AtlasSummon.png",
-      },
-    ],
+    imageName: "AtlasPrime_Thumb.png",
+    abilities: ["Landslide", "Tectonics", "Petrify", "Rumblers"],
     sex: "Male",
     variant: "Prime",
     progenitor: "Toxin",
@@ -200,12 +76,10 @@ export const warframes = {
     conclave: true,
     vaulted: true,
     playstyle: ["Damage", "Survival"],
-    exalted: ["/Lotus/Powersuits/Brawler/AtlasPunchWeaponPrime"],
+    exalted: true,
   },
   Banshee: {
     name: "Banshee",
-    category: "Warframes",
-    type: "Warframe",
     health: 270,
     shield: 270,
     armor: 105,
@@ -213,38 +87,8 @@ export const warframes = {
     sprint: 1.1,
     aura: "Madurai",
     releaseDate: "2013-03-18",
-    imageName: "Banshee.png",
-    abilities: [
-      {
-        uniqueName: "/Lotus/Powersuits/Banshee/Abilities/PushAbility",
-        name: "Sonic Boom",
-        description:
-          "Banshee emits a sonic shockwave that pushes targets in range with enough force to incapacitate or kill attackers.",
-        imageName: "BansheeSonicBoom.png",
-      },
-      {
-        uniqueName: "/Lotus/Powersuits/Banshee/Abilities/SonarAbility",
-        name: "Sonar",
-        description:
-          "Using acoustic location, Banshee's Sonar power finds and tracks enemies, and exposes critical weak spots to everyone in your squad.",
-        imageName: "BansheeSonar.png",
-      },
-      {
-        uniqueName: "/Lotus/Powersuits/Banshee/Abilities/SilenceAbility",
-        name: "Silence",
-        description:
-          "Using Silence surrounds Banshee in an aura that stuns enemies and will limit their perceptions and tactical response to gunfire and Warframe attacks.",
-        imageName: "BansheeSilence.png",
-      },
-      {
-        uniqueName:
-          "/Lotus/Powersuits/Banshee/Abilities/SonicEarthQuakeAbility",
-        name: "Sound Quake",
-        description:
-          "Channeling all of her acoustic energy into the environment, Banshee uses ultrasonic reverberations to violently shake the ground.",
-        imageName: "BansheeSoundQuake.png",
-      },
-    ],
+    imageName: "Banshee_Thumb.png",
+    abilities: ["Sonic Boom", "Sonar", "Silence", "Sound Quake"],
     sex: "Female",
     variant: "Standard",
     progenitor: "Electricity",
@@ -254,8 +98,6 @@ export const warframes = {
   },
   "Banshee Prime": {
     name: "Banshee Prime",
-    category: "Warframes",
-    type: "Warframe",
     health: 270,
     shield: 270,
     armor: 135,
@@ -263,38 +105,8 @@ export const warframes = {
     sprint: 1.15,
     aura: "Madurai",
     releaseDate: "2017-02-28",
-    imageName: "BansheePrime.png",
-    abilities: [
-      {
-        uniqueName: "/Lotus/Powersuits/Banshee/Abilities/PushAbility",
-        name: "Sonic Boom",
-        description:
-          "Banshee emits a sonic shockwave that pushes targets in range with enough force to incapacitate or kill attackers.",
-        imageName: "BansheeSonicBoom.png",
-      },
-      {
-        uniqueName: "/Lotus/Powersuits/Banshee/Abilities/SonarAbility",
-        name: "Sonar",
-        description:
-          "Using acoustic location, Banshee's Sonar power finds and tracks enemies, and exposes critical weak spots to everyone in your squad.",
-        imageName: "BansheeSonar.png",
-      },
-      {
-        uniqueName: "/Lotus/Powersuits/Banshee/Abilities/SilenceAbility",
-        name: "Silence",
-        description:
-          "Using Silence surrounds Banshee in an aura that stuns enemies and will limit their perceptions and tactical response to gunfire and Warframe attacks.",
-        imageName: "BansheeSilence.png",
-      },
-      {
-        uniqueName:
-          "/Lotus/Powersuits/Banshee/Abilities/SonicEarthQuakeAbility",
-        name: "Sound Quake",
-        description:
-          "Channeling all of her acoustic energy into the environment, Banshee uses ultrasonic reverberations to violently shake the ground.",
-        imageName: "BansheeSoundQuake.png",
-      },
-    ],
+    imageName: "BansheePrime_Thumb.png",
+    abilities: ["Sonic Boom", "Sonar", "Silence", "Sound Quake"],
     sex: "Female",
     variant: "Prime",
     progenitor: "Electricity",
@@ -305,8 +117,6 @@ export const warframes = {
   },
   Baruuk: {
     name: "Baruuk",
-    category: "Warframes",
-    type: "Warframe",
     health: 180,
     shield: 270,
     armor: 185,
@@ -314,50 +124,18 @@ export const warframes = {
     sprint: 1.2,
     aura: "Naramon",
     releaseDate: "2018-12-18",
-    imageName: "Pacifist.png",
-    abilities: [
-      {
-        uniqueName: "/Lotus/Powersuits/Pacifist/Abilities/PacifistDodgeAbility",
-        name: "Elude",
-        description:
-          "Dodge all incoming projectiles, but only while not attacking. Use again to deactivate this ability.",
-        imageName: "BaruukBulletDodger.png",
-      },
-      {
-        uniqueName: "/Lotus/Powersuits/Pacifist/Abilities/PacifistWaveAbility",
-        name: "Lull",
-        description:
-          "A calming wave slows enemies until they fall into a slumber. Enemies woken by damage will be confused and disoriented. Short-term amnesia means all waking enemies forget anything that happened before the lull.",
-        imageName: "BaruukCalmingWave.png",
-      },
-      {
-        uniqueName:
-          "/Lotus/Powersuits/Pacifist/Abilities/PacifistDisarmAbility",
-        name: "Desolate Hands",
-        description:
-          "Summon a bevy of orbiting daggers to seek out enemy guns, destroying them with a small explosion. Combine with Elude to double the range.",
-        imageName: "BaruukOrbitalDisarm.png",
-      },
-      {
-        uniqueName: "/Lotus/Powersuits/Pacifist/Abilities/PacifistFistAbility",
-        name: "Serene Storm",
-        description:
-          "With his Restraint eroded, Baruuk commands the Desert Wind to deliver powerful radial strikes with his fists and feet. Each moment commanding the storm restores his Restraint.",
-        imageName: "BaruukOverTheEdge.png",
-      },
-    ],
+    imageName: "Baruuk_Thumb.png",
+    abilities: ["Elude", "Lull", "Desolate Hands", "Serene Storm"],
     sex: "Male",
     variant: "Standard",
     progenitor: "Impact",
     isPrime: false,
     conclave: false,
     playstyle: ["Damage", "Crowd Control"],
-    exalted: ["/Lotus/Powersuits/Pacifist/PacifistFist"],
+    exalted: true,
   },
   "Baruuk Prime": {
     name: "Baruuk Prime",
-    category: "Warframes",
-    type: "Warframe",
     health: 180,
     shield: 365,
     armor: 240,
@@ -365,38 +143,8 @@ export const warframes = {
     sprint: 1.2,
     aura: "Naramon",
     releaseDate: "2022-12-14",
-    imageName: "BaruukPrime.png",
-    abilities: [
-      {
-        uniqueName: "/Lotus/Powersuits/Pacifist/Abilities/PacifistDodgeAbility",
-        name: "Elude",
-        description:
-          "Dodge all incoming projectiles, but only while not attacking. Use again to deactivate this ability.",
-        imageName: "BaruukBulletDodger.png",
-      },
-      {
-        uniqueName: "/Lotus/Powersuits/Pacifist/Abilities/PacifistWaveAbility",
-        name: "Lull",
-        description:
-          "A calming wave slows enemies until they fall into a slumber. Enemies woken by damage will be confused and disoriented. Short-term amnesia means all waking enemies forget anything that happened before the lull.",
-        imageName: "BaruukCalmingWave.png",
-      },
-      {
-        uniqueName:
-          "/Lotus/Powersuits/Pacifist/Abilities/PacifistDisarmAbility",
-        name: "Desolate Hands",
-        description:
-          "Summon a bevy of orbiting daggers to seek out enemy guns, destroying them with a small explosion. Combine with Elude to double the range.",
-        imageName: "BaruukOrbitalDisarm.png",
-      },
-      {
-        uniqueName: "/Lotus/Powersuits/Pacifist/Abilities/PacifistFistAbility",
-        name: "Serene Storm",
-        description:
-          "With his Restraint eroded, Baruuk commands the Desert Wind to deliver powerful radial strikes with his fists and feet. Each moment commanding the storm restores his Restraint.",
-        imageName: "BaruukOverTheEdge.png",
-      },
-    ],
+    imageName: "BaruukPrime_Thumb.png",
+    abilities: ["Elude", "Lull", "Desolate Hands", "Serene Storm"],
     sex: "Male",
     variant: "Prime",
     progenitor: "Impact",
@@ -404,12 +152,10 @@ export const warframes = {
     conclave: false,
     vaulted: true,
     playstyle: ["Damage", "Crowd Control"],
-    exalted: ["/Lotus/Powersuits/Pacifist/PacifistFistPrime"],
+    exalted: true,
   },
   Caliban: {
     name: "Caliban",
-    category: "Warframes",
-    type: "Warframe",
     health: 270,
     shield: 550,
     armor: 290,
@@ -417,38 +163,12 @@ export const warframes = {
     sprint: 1.1,
     aura: "Naramon",
     releaseDate: "2021-12-15",
-    imageName: "Caliban.png",
+    imageName: "Caliban_Thumb.png",
     abilities: [
-      {
-        uniqueName:
-          "/Lotus/Powersuits/Sentient/Abilities/SentientWhirlwindAbility",
-        name: "Razor Gyre",
-        description:
-          "Dash forward in a spinning vortex of death. Struck enemies are inflicted with <DT_SENTIENT_COLOR>Tau Status Effect, making them more vulnerable to all other status effects. For each enemy hit, recover a portion of the energy cost, as well as health and shields. Enemies lifted by Sentient Wrath take increased damage.",
-        imageName: "CalibanWhirlwind.png",
-      },
-      {
-        uniqueName: "/Lotus/Powersuits/Sentient/Abilities/SentientStompAbility",
-        name: "Sentient Wrath",
-        description:
-          "Smash the ground sending out a radial wave of destruction. Those not killed by the initial blast are helplessly raised into the air, where they take amplified damage for a short time.",
-        imageName: "CalibanShockwave.png",
-      },
-      {
-        uniqueName:
-          "/Lotus/Powersuits/Sentient/Abilities/SentientSummonAbility",
-        name: "Lethal Progeny",
-        description:
-          "Cycle through Sentient unit types, then summon them to Caliban's side. Conculysts focus on raw melee damage. Ortholysts specialize in ranged attacks and inflict <DT_SENTIENT_COLOR>Tau Status Effect. Summulysts summon their own Choralysts and provide shield protection for the squad.",
-        imageName: "CalibanSummonSentients.png",
-      },
-      {
-        uniqueName: "/Lotus/Powersuits/Sentient/Abilities/SentientBlastAbility",
-        name: "Fusion Strike",
-        description:
-          "Converge three streams of raw energy upon a single point, causing a massive explosion. The streams strip armor and shields, and each enemy struck detonates on stream convergence. Summoned Conculysts can wield their own mini Fusion Strikes. ",
-        imageName: "CalibanTriLaser.png",
-      },
+      "Razor Gyre",
+      "Sentient Wrath",
+      "Lethal Progeny",
+      "Fusion Strike",
     ],
     sex: "Male",
     variant: "Standard",
@@ -459,8 +179,6 @@ export const warframes = {
   },
   "Caliban Prime": {
     name: "Caliban Prime",
-    category: "Warframes",
-    type: "Warframe",
     health: 270,
     shield: 640,
     armor: 290,
@@ -468,38 +186,12 @@ export const warframes = {
     sprint: 1.1,
     aura: "Naramon",
     releaseDate: "2025-08-26",
-    imageName: "CalibanPrime.png",
+    imageName: "CalibanPrime_Thumb.png",
     abilities: [
-      {
-        uniqueName:
-          "/Lotus/Powersuits/Sentient/Abilities/SentientWhirlwindAbility",
-        name: "Razor Gyre",
-        description:
-          "Dash forward in a spinning vortex of death. Struck enemies are inflicted with <DT_SENTIENT_COLOR>Tau Status Effect, making them more vulnerable to all other status effects. For each enemy hit, recover a portion of the energy cost, as well as health and shields. Enemies lifted by Sentient Wrath take increased damage.",
-        imageName: "CalibanWhirlwind.png",
-      },
-      {
-        uniqueName: "/Lotus/Powersuits/Sentient/Abilities/SentientStompAbility",
-        name: "Sentient Wrath",
-        description:
-          "Smash the ground sending out a radial wave of destruction. Those not killed by the initial blast are helplessly raised into the air, where they take amplified damage for a short time.",
-        imageName: "CalibanShockwave.png",
-      },
-      {
-        uniqueName:
-          "/Lotus/Powersuits/Sentient/Abilities/SentientSummonAbility",
-        name: "Lethal Progeny",
-        description:
-          "Cycle through Sentient unit types, then summon them to Caliban's side. Conculysts focus on raw melee damage. Ortholysts specialize in ranged attacks and inflict <DT_SENTIENT_COLOR>Tau Status Effect. Summulysts summon their own Choralysts and provide shield protection for the squad.",
-        imageName: "CalibanSummonSentients.png",
-      },
-      {
-        uniqueName: "/Lotus/Powersuits/Sentient/Abilities/SentientBlastAbility",
-        name: "Fusion Strike",
-        description:
-          "Converge three streams of raw energy upon a single point, causing a massive explosion. The streams strip armor and shields, and each enemy struck detonates on stream convergence. Summoned Conculysts can wield their own mini Fusion Strikes. ",
-        imageName: "CalibanTriLaser.png",
-      },
+      "Razor Gyre",
+      "Sentient Wrath",
+      "Lethal Progeny",
+      "Fusion Strike",
     ],
     sex: "Male",
     variant: "Prime",
@@ -511,8 +203,6 @@ export const warframes = {
   },
   Chroma: {
     name: "Chroma",
-    category: "Warframes",
-    type: "Warframe",
     health: 270,
     shield: 270,
     armor: 370,
@@ -520,37 +210,8 @@ export const warframes = {
     sprint: 1,
     aura: "Madurai",
     releaseDate: "2015-03-19",
-    imageName: "Chroma.png",
-    abilities: [
-      {
-        uniqueName: "/Lotus/Powersuits/Dragon/Abilities/DragonBreathAbility",
-        name: "Spectral Scream",
-        description:
-          "Exhale a deep breath of elemental destruction. Tap to cycle through elements, hold to cast. The chosen element applies to all of Chroma's abilities.",
-        imageName: "DragonElementalAttack.png",
-      },
-      {
-        uniqueName: "/Lotus/Powersuits/Dragon/Abilities/DragonLuckAbility",
-        name: "Elemental Ward",
-        description:
-          "Depending on Chroma's elemental alignment, an offensive area-of-effect is created. Chroma and its nearby allies are imbued with defensive energy.",
-        imageName: "DragonLuckyDragon.png",
-      },
-      {
-        uniqueName: "/Lotus/Powersuits/Dragon/Abilities/DragonScalesAbility",
-        name: "Vex Armor",
-        description:
-          "Chroma fortifies squad Armor when his Shields are damaged or he kills an enemy with a melee weapon. He increases squad Weapon Damage when he loses Health or he kills an enemy with a ranged weapon, double the effect on weak point kills.",
-        imageName: "DragonDragonScales.png",
-      },
-      {
-        uniqueName: "/Lotus/Powersuits/Dragon/Abilities/DragonPeltAbility",
-        name: "Effigy",
-        description:
-          "Chroma turns his pelt into a massive sentry that strengthens nearby allies and engulfs enemies in elemental attacks.",
-        imageName: "DragonSentient.png",
-      },
-    ],
+    imageName: "Chroma_Thumb.png",
+    abilities: ["Spectral Scream", "Elemental Ward", "Vex Armor", "Effigy"],
     sex: "Male",
     variant: "Standard",
     progenitor: "Heat",
@@ -560,8 +221,6 @@ export const warframes = {
   },
   "Chroma Prime": {
     name: "Chroma Prime",
-    category: "Warframes",
-    type: "Warframe",
     health: 270,
     shield: 270,
     armor: 450,
@@ -569,37 +228,8 @@ export const warframes = {
     sprint: 1,
     aura: "Madurai",
     releaseDate: "2018-09-25",
-    imageName: "ChromaPrime.png",
-    abilities: [
-      {
-        uniqueName: "/Lotus/Powersuits/Dragon/Abilities/DragonBreathAbility",
-        name: "Spectral Scream",
-        description:
-          "Exhale a deep breath of elemental destruction. Tap to cycle through elements, hold to cast. The chosen element applies to all of Chroma's abilities.",
-        imageName: "DragonElementalAttack.png",
-      },
-      {
-        uniqueName: "/Lotus/Powersuits/Dragon/Abilities/DragonLuckAbility",
-        name: "Elemental Ward",
-        description:
-          "Depending on Chroma's elemental alignment, an offensive area-of-effect is created. Chroma and its nearby allies are imbued with defensive energy.",
-        imageName: "DragonLuckyDragon.png",
-      },
-      {
-        uniqueName: "/Lotus/Powersuits/Dragon/Abilities/DragonScalesAbility",
-        name: "Vex Armor",
-        description:
-          "Chroma fortifies squad Armor when his Shields are damaged or he kills an enemy with a melee weapon. He increases squad Weapon Damage when he loses Health or he kills an enemy with a ranged weapon, double the effect on weak point kills.",
-        imageName: "DragonDragonScales.png",
-      },
-      {
-        uniqueName: "/Lotus/Powersuits/Dragon/Abilities/DragonPeltAbility",
-        name: "Effigy",
-        description:
-          "Chroma turns his pelt into a massive sentry that strengthens nearby allies and engulfs enemies in elemental attacks.",
-        imageName: "DragonSentient.png",
-      },
-    ],
+    imageName: "ChromaPrime_Thumb.png",
+    abilities: ["Spectral Scream", "Elemental Ward", "Vex Armor", "Effigy"],
     sex: "Male",
     variant: "Prime",
     progenitor: "Heat",
@@ -610,8 +240,6 @@ export const warframes = {
   },
   Citrine: {
     name: "Citrine",
-    category: "Warframes",
-    type: "Warframe",
     health: 400,
     shield: 270,
     armor: 265,
@@ -619,36 +247,12 @@ export const warframes = {
     sprint: 1,
     aura: "Naramon",
     releaseDate: "2023-02-15",
-    imageName: "Citrine.png",
+    imageName: "Citrine_Thumb.png",
     abilities: [
-      {
-        uniqueName: "/Lotus/Powersuits/Geode/Abilities/GeodeShardsAbility",
-        name: "Fractured Blast",
-        description:
-          "Slash and stagger enemies with a crystal blast that inflicts <DT_SLASH_COLOR>Slash Status. Enemies afflicted with this Status Effect have an increased chance of dropping Health and Energy Orbs.",
-        imageName: "CitrineBleedingShards.png",
-      },
-      {
-        uniqueName: "/Lotus/Powersuits/Geode/Abilities/GeodeShellAbility",
-        name: "Preserving Shell",
-        description:
-          "Citrine guards herself and nearby allies with a crystalline shell that gradually decays. Kills and assists increase the defensive power of the shell.",
-        imageName: "CitrineProtectiveShell.png",
-      },
-      {
-        uniqueName: "/Lotus/Powersuits/Geode/Abilities/GeodeCrystalAbility",
-        name: "Prismatic Gem",
-        description:
-          "Deploy a gem that shoots prismatic beams. The gem targets enemies that are taking weapon damage from Citrine and her allies. Its beams inflict Heat, Cold, Toxin, and Electricity Status Effects. Status Chance and Status Duration increase for nearby allies.",
-        imageName: "CitrineChromaticGeode.png",
-      },
-      {
-        uniqueName: "/Lotus/Powersuits/Geode/Abilities/GeodeGrowthsAbility",
-        name: "Crystallize",
-        description:
-          "Citrine summons crystal fractals. The fractals rush forward, seeking enemies. Enemies touched by the fractals are paralyzed by crystalline growths. Hit the growths to deal Critical Damage.",
-        imageName: "CitrineCrystalGrowths.png",
-      },
+      "Fractured Blast",
+      "Preserving Shell",
+      "Prismatic Gem",
+      "Crystallize",
     ],
     sex: "Female",
     variant: "Standard",
@@ -659,8 +263,6 @@ export const warframes = {
   },
   "Cyte-09": {
     name: "Cyte-09",
-    category: "Warframes",
-    type: "Warframe",
     health: 225,
     shield: 135,
     armor: 150,
@@ -668,53 +270,18 @@ export const warframes = {
     sprint: 1.1,
     aura: "Madurai",
     releaseDate: "2024-12-13",
-    imageName: "Frumentarius.png",
-    abilities: [
-      {
-        uniqueName:
-          "/Lotus/Powersuits/Frumentarius/Abilities/FrumentariusScanAbility",
-        name: "Seek",
-        description:
-          "Plant an antenna that projects a forward wave scan. Detected enemies take increased Weak Point Damage, and become visible through walls. Weapons gain Punch through.",
-        imageName: "FrumentariusSeek.png",
-      },
-      {
-        uniqueName:
-          "/Lotus/Powersuits/Frumentarius/Abilities/FrumentariusAmmoAbility",
-        name: "Resupply",
-        description:
-          "Throw two Elemental Ammo Packs that instantly refill the active weapon’s magazine, while granting the weapon an additional instance of the selected Elemental Damage and Status Effect. Reload clears the effect. Sniper Rifles gain extra damage.\n\nHold the ability to select the Elemental Damage type.",
-        imageName: "FrumentariusResupply.png",
-      },
-      {
-        uniqueName:
-          "/Lotus/Powersuits/Frumentarius/Abilities/FrumentariusCloakAbility",
-        name: "Evade",
-        description:
-          "Jump backwards and become invisible for a short duration. Killing enemies on their Weak Points extends the duration and heals Cyte-09.",
-        imageName: "FrumentariusEvade.png",
-      },
-      {
-        uniqueName:
-          "/Lotus/Powersuits/Frumentarius/Abilities/FrumentariusSniperAbility",
-        name: "Neutralize",
-        description:
-          "Summon the Neutralizer, Cyte-09’s exalted Sniper Rifle. Bullets ricochet off Weak Points to seek out other nearby Weak Points. Alt fire lobs a <DT_FREEZE_COLOR>Cold grenade that completely freezes enemies.",
-        imageName: "FrumentariusNeutralize.png",
-      },
-    ],
+    imageName: "Cyte09_Thumb.png",
+    abilities: ["Seek", "Resupply", "Evade", "Neutralize"],
     sex: "Male",
     variant: "Standard",
     progenitor: "Magnetic",
     isPrime: false,
     conclave: false,
     playstyle: ["Damage", "Stealth"],
-    exalted: ["/Lotus/Powersuits/Frumentarius/ExaltedSniper"],
+    exalted: true,
   },
   Dagath: {
     name: "Dagath",
-    category: "Warframes",
-    type: "Warframe",
     health: 566,
     shield: 150,
     armor: 125,
@@ -722,38 +289,8 @@ export const warframes = {
     sprint: 1.1,
     aura: "Zenurik",
     releaseDate: "2023-10-18",
-    imageName: "Dagath.png",
-    abilities: [
-      {
-        uniqueName: "/Lotus/Powersuits/Dagath/Abilities/DagathVolleyAbility",
-        name: "Wyrd Scythes",
-        description:
-          "Wyrd Scythes surround Dagath and seek out nearby enemies. Those struck are slowed and suffer <DT_VIRAL_COLOR>Viral Damage with a guaranteed Status Effect. The scythes also spread Doom and extend its duration.",
-        imageName: "DagathImpiety.png",
-      },
-      {
-        uniqueName: "/Lotus/Powersuits/Dagath/Abilities/DagathCurseAbility",
-        name: "Doom",
-        description:
-          "Condemn nearby enemies to their doom. A portion of the damage Dagath deals is revisited upon them by a Wyrd Scythe. They also suffer <DT_VIRAL_COLOR>Viral Damage.",
-        imageName: "DagathUnhallowed.png",
-      },
-      {
-        uniqueName:
-          "/Lotus/Powersuits/Dagath/Abilities/DagathApparitionAbility",
-        name: "Grave Spirit",
-        description:
-          "Supercharge Dagath’s weapons with extra Critical Damage. The effects are doubled on Doomed enemies. Escape fatal blows by briefly assuming a spectral form.",
-        imageName: "DagathApparition.png",
-      },
-      {
-        uniqueName: "/Lotus/Powersuits/Dagath/Abilities/DagathHorseAbility",
-        name: "Rakhali's Cavalry",
-        description:
-          "Phantom Kaithes charge forth, inflicting <DT_VIRAL_COLOR>Viral Damage upon all in their path. Their attack strips the defenses of Doomed enemies.",
-        imageName: "DagathUndyingGallop.png",
-      },
-    ],
+    imageName: "Dagath_Thumb.png",
+    abilities: ["Wyrd Scythes", "Doom", "Grave Spirit", "Rakhali's Cavalry"],
     sex: "Female",
     variant: "Standard",
     progenitor: "Toxin",
@@ -763,8 +300,6 @@ export const warframes = {
   },
   Dante: {
     name: "Dante",
-    category: "Warframes",
-    type: "Warframe",
     health: 300,
     shield: 150,
     armor: 145,
@@ -772,53 +307,18 @@ export const warframes = {
     sprint: 1.15,
     aura: "Aura",
     releaseDate: "2024-03-27",
-    imageName: "Pagemaster.png",
-    abilities: [
-      {
-        uniqueName:
-          "/Lotus/Powersuits/Pagemaster/Abilities/PagemasterBookAbility",
-        name: "Noctua",
-        description:
-          "Open Noctua, Dante’s Exalted Tome, and unleash a tale of woe upon his enemies.",
-        imageName: "DanteNoctua.png",
-      },
-      {
-        uniqueName:
-          "/Lotus/Powersuits/Pagemaster/Abilities/PagemasterLifeAbility",
-        name: "Light Verse",
-        description:
-          "Dante's vitalizing composition grants him and his allies Overguard and increases their Health.",
-        imageName: "DanteLightVerse.png",
-      },
-      {
-        uniqueName:
-          "/Lotus/Powersuits/Pagemaster/Abilities/PagemasterDeathAbility",
-        name: "Dark Verse",
-        description:
-          "Dante's composition draws blood from nearby enemies, inflicting <DT_SLASH_COLOR>Slash Damage upon them.",
-        imageName: "DanteDarkVerse.png",
-      },
-      {
-        uniqueName:
-          "/Lotus/Powersuits/Pagemaster/Abilities/PagemasterFinalChapterAbility",
-        name: "Final Verse",
-        description:
-          "Dante must compose two other Verses before his Final Verse.\n\nTRIUMPH: Two Light Verses cast in succession invigorate allies with a buff that increases Health and grants Overguard. Kills and assists briefly regenerate Overguard.<br>Dante must compose two other Verses before his Final Verse.\n\nTRAGEDY: Two Dark Verses cast in succession attack enemies. Damage Over Time from <DT_SLASH_COLOR>Slash, <DT_FIRE_COLOR>Heat and <DT_POISON_COLOR>Toxin Status Effects accumulates in a single blast.<br>Dante must compose two other Verses before his Final Verse.\n\nWORDWARDEN: A Light Verse followed by a Dark Verse supports allies with copies of Noctua. Noctua copies synchronize their attacks with their designated ally’s attacks.<br>Dante must compose two other Verses before his Final Verse.\n\nPAGEFLIGHT: A Dark Verse followed by a Light Verse summons Paragrimms that swoop at enemies, making them vulnerable to Status Chance and Status Damage, as well as drawing enemy attacks away from allies.",
-        imageName: "DanteResolution.png",
-      },
-    ],
+    imageName: "Dante_Thumb.png",
+    abilities: ["Noctua", "Light Verse", "Dark Verse", "Final Verse"],
     sex: "Male",
     variant: "Standard",
     progenitor: "Impact",
     isPrime: false,
     conclave: false,
     playstyle: ["Damage", "Support", "Survival"],
-    exalted: ["/Lotus/Powersuits/Pagemaster/ExaltedBook"],
+    exalted: true,
   },
   Ember: {
     name: "Ember",
-    category: "Warframes",
-    type: "Warframe",
     health: 270,
     shield: 270,
     armor: 135,
@@ -826,37 +326,8 @@ export const warframes = {
     sprint: 1.1,
     aura: "Madurai",
     releaseDate: "2012-10-25",
-    imageName: "Ember.png",
-    abilities: [
-      {
-        uniqueName: "/Lotus/Powersuits/Ember/Abilities/FireBallAbility",
-        name: "Fireball",
-        description:
-          "Release a fiery projectile that ignites enemies on contact.",
-        imageName: "EmberFireBall.png",
-      },
-      {
-        uniqueName: "/Lotus/Powersuits/Ember/Abilities/EmberImmolationAbility",
-        name: "Immolation",
-        description:
-          "Protect Ember with flame armor that burns stronger over time, consuming energy once its meter is at full strength. Cast again to extinguish the flame.",
-        imageName: "EmberImmolation.png",
-      },
-      {
-        uniqueName: "/Lotus/Powersuits/Ember/Abilities/FireBlastAbility",
-        name: "Fire Blast",
-        description:
-          "Slam the ground to create a wave of incinerating plasma that knocks back enemies and strips their armor.",
-        imageName: "EmberFireBlast.png",
-      },
-      {
-        uniqueName: "/Lotus/Powersuits/Ember/Abilities/EmberInfernoAbility",
-        name: "Inferno",
-        description:
-          "Command a flaming comet to crash down in front of Ember, engulfing enemies with a fire that can spread through their ranks.",
-        imageName: "EmberInferno.png",
-      },
-    ],
+    imageName: "Ember_Thumb.png",
+    abilities: ["Fireball", "Immolation", "Fire Blast", "Inferno"],
     sex: "Female",
     variant: "Standard",
     progenitor: "Heat",
@@ -866,8 +337,6 @@ export const warframes = {
   },
   "Ember Prime": {
     name: "Ember Prime",
-    category: "Warframes",
-    type: "Warframe",
     health: 270,
     shield: 365,
     armor: 160,
@@ -875,37 +344,8 @@ export const warframes = {
     sprint: 1.1,
     aura: "Madurai",
     releaseDate: "2013-11-20",
-    imageName: "EmberPrime.png",
-    abilities: [
-      {
-        uniqueName: "/Lotus/Powersuits/Ember/Abilities/FireBallAbility",
-        name: "Fireball",
-        description:
-          "Release a fiery projectile that ignites enemies on contact.",
-        imageName: "EmberFireBall.png",
-      },
-      {
-        uniqueName: "/Lotus/Powersuits/Ember/Abilities/EmberImmolationAbility",
-        name: "Immolation",
-        description:
-          "Protect Ember with flame armor that burns stronger over time, consuming energy once its meter is at full strength. Cast again to extinguish the flame.",
-        imageName: "EmberImmolation.png",
-      },
-      {
-        uniqueName: "/Lotus/Powersuits/Ember/Abilities/FireBlastAbility",
-        name: "Fire Blast",
-        description:
-          "Slam the ground to create a wave of incinerating plasma that knocks back enemies and strips their armor.",
-        imageName: "EmberFireBlast.png",
-      },
-      {
-        uniqueName: "/Lotus/Powersuits/Ember/Abilities/EmberInfernoAbility",
-        name: "Inferno",
-        description:
-          "Command a flaming comet to crash down in front of Ember, engulfing enemies with a fire that can spread through their ranks.",
-        imageName: "EmberInferno.png",
-      },
-    ],
+    imageName: "EmberPrime_Thumb.png",
+    abilities: ["Fireball", "Immolation", "Fire Blast", "Inferno"],
     sex: "Female",
     variant: "Prime",
     progenitor: "Heat",
@@ -916,8 +356,6 @@ export const warframes = {
   },
   Equinox: {
     name: "Equinox",
-    category: "Warframes",
-    type: "Warframe",
     health: 270,
     shield: 270,
     armor: 135,
@@ -925,36 +363,12 @@ export const warframes = {
     sprint: 1.15,
     aura: "Naramon",
     releaseDate: "2015-07-31",
-    imageName: "Equinox.png",
+    imageName: "Equinox_Thumb.png",
     abilities: [
-      {
-        uniqueName: "/Lotus/Powersuits/YinYang/Abilities/YinYangSwitchAbility",
-        name: "Metamorphosis",
-        description:
-          "Switch forms, temporarily gaining bonus Shields and Armor in Night-Form, or bonus Damage and Speed in Day-Form.",
-        imageName: "YinYangSwitch.png",
-      },
-      {
-        uniqueName: "/Lotus/Powersuits/YinYang/Abilities/YinYangTargetAbility",
-        name: "Rest & Rage",
-        description:
-          "In Night-Form, targets are put to sleep. In Day-Form, targets become more vulnerable to damage.",
-        imageName: "YinYangTargetCalm.png",
-      },
-      {
-        uniqueName: "/Lotus/Powersuits/YinYang/Abilities/YinYangAuraAbility",
-        name: "Pacify & Provoke",
-        description:
-          "In Night-Form, reduces damage inflicted by nearby enemies. In Day-Form, increases Ability Strength of nearby allies.",
-        imageName: "YinYangAuraEnemyDamage.png",
-      },
-      {
-        uniqueName: "/Lotus/Powersuits/YinYang/Abilities/YinYangBurstAbility",
-        name: "Mend & Maim",
-        description:
-          "In Night-Form, allies' Shields are replenished with each nearby enemy killed. In Day-Form, enemies are inflicted with <DT_SLASH_COLOR>Slash Status Effect. Deactivate while in Night-Form to restore Health and Shields for Equinox and allies. Deactivate while in Day-Form to cast a wave of slashing force.",
-        imageName: "YinYangBlastHeal.png",
-      },
+      "Metamorphosis",
+      "Rest & Rage",
+      "Pacify & Provoke",
+      "Mend & Maim",
     ],
     sex: "Female",
     variant: "Standard",
@@ -965,8 +379,6 @@ export const warframes = {
   },
   "Equinox Prime": {
     name: "Equinox Prime",
-    category: "Warframes",
-    type: "Warframe",
     health: 365,
     shield: 270,
     armor: 160,
@@ -974,36 +386,12 @@ export const warframes = {
     sprint: 1.15,
     aura: "Naramon",
     releaseDate: "2019-04-02",
-    imageName: "EquinoxPrime.png",
+    imageName: "EquinoxPrime_Thumb.png",
     abilities: [
-      {
-        uniqueName: "/Lotus/Powersuits/YinYang/Abilities/YinYangSwitchAbility",
-        name: "Metamorphosis",
-        description:
-          "Switch forms, temporarily gaining bonus Shields and Armor in Night-Form, or bonus Damage and Speed in Day-Form.",
-        imageName: "YinYangSwitch.png",
-      },
-      {
-        uniqueName: "/Lotus/Powersuits/YinYang/Abilities/YinYangTargetAbility",
-        name: "Rest & Rage",
-        description:
-          "In Night-Form, targets are put to sleep. In Day-Form, targets become more vulnerable to damage.",
-        imageName: "YinYangTargetCalm.png",
-      },
-      {
-        uniqueName: "/Lotus/Powersuits/YinYang/Abilities/YinYangAuraAbility",
-        name: "Pacify & Provoke",
-        description:
-          "In Night-Form, reduces damage inflicted by nearby enemies. In Day-Form, increases Ability Strength of nearby allies.",
-        imageName: "YinYangAuraEnemyDamage.png",
-      },
-      {
-        uniqueName: "/Lotus/Powersuits/YinYang/Abilities/YinYangBurstAbility",
-        name: "Mend & Maim",
-        description:
-          "In Night-Form, allies' Shields are replenished with each nearby enemy killed. In Day-Form, enemies are inflicted with <DT_SLASH_COLOR>Slash Status Effect. Deactivate while in Night-Form to restore Health and Shields for Equinox and allies. Deactivate while in Day-Form to cast a wave of slashing force.",
-        imageName: "YinYangBlastHeal.png",
-      },
+      "Metamorphosis",
+      "Rest & Rage",
+      "Pacify & Provoke",
+      "Mend & Maim",
     ],
     sex: "Female",
     variant: "Prime",
@@ -1015,8 +403,6 @@ export const warframes = {
   },
   Excalibur: {
     name: "Excalibur",
-    category: "Warframes",
-    type: "Warframe",
     health: 270,
     shield: 270,
     armor: 240,
@@ -1024,36 +410,12 @@ export const warframes = {
     sprint: 1,
     aura: "None",
     releaseDate: "2012-10-25",
-    imageName: "Excalibur.png",
+    imageName: "Excalibur_Thumb.png",
     abilities: [
-      {
-        uniqueName: "/Lotus/Powersuits/Excalibur/Abilities/SlashDashNewAbility",
-        name: "Slash Dash",
-        description:
-          "Slash and dash through enemies alongside a radial specter. The powerful Exalted Blade’s slashes inflict <DT_SLASH_COLOR>Slash Status.",
-        imageName: "Power04.png",
-      },
-      {
-        uniqueName: "/Lotus/Powersuits/Excalibur/Abilities/RadialBlindAbility",
-        name: "Radial Blind",
-        description:
-          "Emit a bright flash of light, blinding all nearby enemies.",
-        imageName: "Power01.png",
-      },
-      {
-        uniqueName:
-          "/Lotus/Powersuits/Excalibur/Abilities/RadialJavelinAbility",
-        name: "Radial Javelin",
-        description:
-          "Radial javelins impale nearby enemies, inflicting <DT_SLASH_COLOR>Slash Status.",
-        imageName: "Power03.png",
-      },
-      {
-        uniqueName: "/Lotus/Powersuits/Excalibur/Abilities/SwordOfDoomAbility",
-        name: "Exalted Blade",
-        description: "Summon a sword of pure light and immense power.",
-        imageName: "ExcaliburSwordOfDoom.png",
-      },
+      "Slash Dash",
+      "Radial Blind",
+      "Radial Javelin",
+      "Exalted Blade",
     ],
     sex: "Male",
     variant: "Standard",
@@ -1061,12 +423,10 @@ export const warframes = {
     isPrime: false,
     conclave: true,
     playstyle: ["Damage"],
-    exalted: ["/Lotus/Powersuits/Excalibur/DoomSword"],
+    exalted: true,
   },
   "Excalibur Prime": {
     name: "Excalibur Prime",
-    category: "Warframes",
-    type: "Warframe",
     health: 270,
     shield: 270,
     armor: 315,
@@ -1074,36 +434,12 @@ export const warframes = {
     sprint: 1,
     aura: "Madurai",
     releaseDate: "2012-12-18",
-    imageName: "ExcaliburPrime.png",
+    imageName: "ExcaliburPrime_Thumb.png",
     abilities: [
-      {
-        uniqueName: "/Lotus/Powersuits/Excalibur/Abilities/SlashDashNewAbility",
-        name: "Slash Dash",
-        description:
-          "Slash and dash through enemies alongside a radial specter. The powerful Exalted Blade’s slashes inflict <DT_SLASH_COLOR>Slash Status.",
-        imageName: "Power04.png",
-      },
-      {
-        uniqueName: "/Lotus/Powersuits/Excalibur/Abilities/RadialBlindAbility",
-        name: "Radial Blind",
-        description:
-          "Emit a bright flash of light, blinding all nearby enemies.",
-        imageName: "Power01.png",
-      },
-      {
-        uniqueName:
-          "/Lotus/Powersuits/Excalibur/Abilities/RadialJavelinAbility",
-        name: "Radial Javelin",
-        description:
-          "Radial javelins impale nearby enemies, inflicting <DT_SLASH_COLOR>Slash Status.",
-        imageName: "Power03.png",
-      },
-      {
-        uniqueName: "/Lotus/Powersuits/Excalibur/Abilities/SwordOfDoomAbility",
-        name: "Exalted Blade",
-        description: "Summon a sword of pure light and immense power.",
-        imageName: "ExcaliburSwordOfDoom.png",
-      },
+      "Slash Dash",
+      "Radial Blind",
+      "Radial Javelin",
+      "Exalted Blade",
     ],
     sex: "Male",
     variant: "Prime",
@@ -1112,12 +448,10 @@ export const warframes = {
     conclave: true,
     vaulted: "N/A",
     playstyle: ["Damage"],
-    exalted: ["/Lotus/Powersuits/Excalibur/DoomSwordPrime"],
+    exalted: true,
   },
   "Excalibur Umbra": {
     name: "Excalibur Umbra",
-    category: "Warframes",
-    type: "Warframe",
     health: 270,
     shield: 270,
     armor: 315,
@@ -1125,40 +459,8 @@ export const warframes = {
     sprint: 1,
     aura: "Madurai",
     releaseDate: "2018-06-15",
-    imageName: "ExcaliburUmbra.png",
-    abilities: [
-      {
-        uniqueName:
-          "/Lotus/Powersuits/Excalibur/Abilities/UmbraSlashDashNewAbility",
-        name: "Slash Dash",
-        description:
-          "Slash and dash through enemies alongside a radial specter. The powerful Exalted Blade’s slashes inflict <DT_SLASH_COLOR>Slash Status.",
-        imageName: "Power04.png",
-      },
-      {
-        uniqueName:
-          "/Lotus/Powersuits/Excalibur/Abilities/UmbraRadialRoarAbility",
-        name: "Radial Howl",
-        description:
-          "Let out ferocious howl that stuns nearby enemies and causes Sentients to shed any built up resistances.",
-        imageName: "ExcaliburUmbraRoar.png",
-      },
-      {
-        uniqueName:
-          "/Lotus/Powersuits/Excalibur/Abilities/UmbraRadialJavelinAbility",
-        name: "Radial Javelin",
-        description:
-          "Radial javelins impale nearby enemies, inflicting <DT_SLASH_COLOR>Slash Status.",
-        imageName: "Power03.png",
-      },
-      {
-        uniqueName:
-          "/Lotus/Powersuits/Excalibur/Abilities/UmbraSwordOfDoomAbility",
-        name: "Exalted Blade",
-        description: "Summon a sword of pure light and immense power.",
-        imageName: "ExcaliburSwordOfDoom.png",
-      },
-    ],
+    imageName: "ExcaliburUmbra_Thumb.png",
+    abilities: ["Slash Dash", "Radial Howl", "Radial Javelin", "Exalted Blade"],
     sex: "Male",
     variant: "Umbra",
     progenitor: "Electricity",
@@ -1166,12 +468,10 @@ export const warframes = {
     conclave: true,
     vaulted: "N/A",
     playstyle: ["Damage"],
-    exalted: ["/Lotus/Powersuits/Excalibur/DoomSwordUmbra"],
+    exalted: true,
   },
   Follie: {
     name: "Follie",
-    category: "Warframes",
-    type: "Warframe",
     health: 485,
     shield: 225,
     armor: 325,
@@ -1179,36 +479,12 @@ export const warframes = {
     sprint: 0.95,
     aura: "Vazarin",
     releaseDate: "2026-03-25",
-    imageName: "Inkblot.png",
+    imageName: "Follie_Thumb.png",
     abilities: [
-      {
-        uniqueName: "/Lotus/Powersuits/Inkblot/Abilities/InkFieldAbility",
-        name: "Forced Perspective",
-        description:
-          "Drop through an inky frame and emerge invulnerable at the aimed location in a splash of ink that inflicts Inkblot on nearby enemies.",
-        imageName: "InkblotField.png",
-      },
-      {
-        uniqueName: "/Lotus/Powersuits/Inkblot/Abilities/InkSketchAbility",
-        name: "Shadowgraph",
-        description:
-          "Bring shadowgraphs from Follie's sketchbook to life as items that can be used for tactical advantage. Shadowgraphs splash Inkblot onto nearby enemies when created.\n\nHOLD to open the Shadowgraph gear wheel.",
-        imageName: "InkblotSketch.png",
-      },
-      {
-        uniqueName: "/Lotus/Powersuits/Inkblot/Abilities/InkCloneAbility",
-        name: "Self Portrait",
-        description:
-          "Draw an ink effigy to absorb the damage dealt to Follie and allies. Below, a pool of ink spreads Inkblot. Kill enemies inside the pool to grow Follie's effigy and its ink puddle.",
-        imageName: "InkblotClone.png",
-      },
-      {
-        uniqueName: "/Lotus/Powersuits/Inkblot/Abilities/InkBalloonAbility",
-        name: "Plein Air",
-        description:
-          "Tie nearby enemies to floating balloons that douse them with Inkblot. Pop the balloons to send them crashing to the ground, splashing damage on nearby enemies.",
-        imageName: "InkblotBalloon.png",
-      },
+      "Forced Perspective",
+      "Shadowgraph",
+      "Self Portrait",
+      "Plein Air",
     ],
     sex: "Female",
     variant: "Standard",
@@ -1219,8 +495,6 @@ export const warframes = {
   },
   Frost: {
     name: "Frost",
-    category: "Warframes",
-    type: "Warframe",
     health: 270,
     shield: 455,
     armor: 315,
@@ -1228,37 +502,8 @@ export const warframes = {
     sprint: 0.95,
     aura: "Vazarin",
     releaseDate: "2013-01-29",
-    imageName: "Frost.png",
-    abilities: [
-      {
-        uniqueName: "/Lotus/Powersuits/Frost/Abilities/IcicleAbility",
-        name: "Freeze",
-        description:
-          "A frigid energy blast that freezes targets in their tracks.",
-        imageName: "FrostFreeze.png",
-      },
-      {
-        uniqueName: "/Lotus/Powersuits/Frost/Abilities/IceSpikeAbility",
-        name: "Ice Wave",
-        description:
-          "Sends a wave of razor sharp, crystalized ice toward an enemy, dealing heavy damage.",
-        imageName: "FrostIceWave.png",
-      },
-      {
-        uniqueName: "/Lotus/Powersuits/Frost/Abilities/IceShieldAbility",
-        name: "Snow Globe",
-        description:
-          "Frost deep freezes any vapor and moisture in the area, creating a protective sphere with brief invulnerability to boost its strength.",
-        imageName: "FrostSnowGlobe.png",
-      },
-      {
-        uniqueName: "/Lotus/Powersuits/Frost/Abilities/AvalancheAbility",
-        name: "Avalanche",
-        description:
-          "Summons a treacherous landslide of ice that instantly freezes and shatters all enemies in its radius.",
-        imageName: "FrostAvalanche.png",
-      },
-    ],
+    imageName: "Frost_Thumb.png",
+    abilities: ["Freeze", "Ice Wave", "Snow Globe", "Avalanche"],
     sex: "Male",
     variant: "Standard",
     progenitor: "Cold",
@@ -1268,8 +513,6 @@ export const warframes = {
   },
   "Frost Prime": {
     name: "Frost Prime",
-    category: "Warframes",
-    type: "Warframe",
     health: 270,
     shield: 550,
     armor: 315,
@@ -1277,37 +520,8 @@ export const warframes = {
     sprint: 0.95,
     aura: "Vazarin",
     releaseDate: "2013-05-03",
-    imageName: "FrostPrime.png",
-    abilities: [
-      {
-        uniqueName: "/Lotus/Powersuits/Frost/Abilities/IcicleAbility",
-        name: "Freeze",
-        description:
-          "A frigid energy blast that freezes targets in their tracks.",
-        imageName: "FrostFreeze.png",
-      },
-      {
-        uniqueName: "/Lotus/Powersuits/Frost/Abilities/IceSpikeAbility",
-        name: "Ice Wave",
-        description:
-          "Sends a wave of razor sharp, crystalized ice toward an enemy, dealing heavy damage.",
-        imageName: "FrostIceWave.png",
-      },
-      {
-        uniqueName: "/Lotus/Powersuits/Frost/Abilities/IceShieldAbility",
-        name: "Snow Globe",
-        description:
-          "Frost deep freezes any vapor and moisture in the area, creating a protective sphere with brief invulnerability to boost its strength.",
-        imageName: "FrostSnowGlobe.png",
-      },
-      {
-        uniqueName: "/Lotus/Powersuits/Frost/Abilities/AvalancheAbility",
-        name: "Avalanche",
-        description:
-          "Summons a treacherous landslide of ice that instantly freezes and shatters all enemies in its radius.",
-        imageName: "FrostAvalanche.png",
-      },
-    ],
+    imageName: "FrostPrime_Thumb.png",
+    abilities: ["Freeze", "Ice Wave", "Snow Globe", "Avalanche"],
     sex: "Male",
     variant: "Prime",
     progenitor: "Cold",
@@ -1318,8 +532,6 @@ export const warframes = {
   },
   Gara: {
     name: "Gara",
-    category: "Warframes",
-    type: "Warframe",
     health: 270,
     shield: 270,
     armor: 160,
@@ -1327,36 +539,12 @@ export const warframes = {
     sprint: 1.15,
     aura: "Vazarin",
     releaseDate: "2017-10-12",
-    imageName: "Gara.png",
+    imageName: "Gara_Thumb.png",
     abilities: [
-      {
-        uniqueName: "/Lotus/Powersuits/Glass/Abilities/GlassShankAbility",
-        name: "Shattered Lash",
-        description:
-          "Lash out with stream of shattered glass, or hold for an arcing strike. Stats are boosted by the equipped mods on Shattered Lash.",
-        imageName: "GlassShank.png",
-      },
-      {
-        uniqueName: "/Lotus/Powersuits/Glass/Abilities/GlassShatterAbility",
-        name: "Splinter Storm",
-        description:
-          "Gara's armor splinters into a maelstrom of shattered glass. Allies who contact the cloud are fortified against damage.",
-        imageName: "GlassShatteredAura.png",
-      },
-      {
-        uniqueName: "/Lotus/Powersuits/Glass/Abilities/GlassFragmentAbility",
-        name: "Spectrorage",
-        description:
-          "Trap enemies in a carousel of mirrors, forcing them to attack visions of their true selves. Destroyed mirrors damage their attackers, as does the collapse of the carousel.",
-        imageName: "GlassFragmentedReality.png",
-      },
-      {
-        uniqueName: "/Lotus/Powersuits/Glass/Abilities/GlassRingAbility",
-        name: "Mass Vitrify",
-        description:
-          "Create an expanding ring of molten glass that slowly crystallizes enemies who enter. When the expansion is complete, the ring hardens to block weapons fire. The ring draws extra strength from the health and shields of crystallized enemies. Use Shattered Lash to smash the ring and send razor-sharp glass flying.",
-        imageName: "GlassRing.png",
-      },
+      "Shattered Lash",
+      "Splinter Storm",
+      "Spectrorage",
+      "Mass Vitrify",
     ],
     sex: "Female",
     variant: "Standard",
@@ -1364,12 +552,10 @@ export const warframes = {
     isPrime: false,
     conclave: true,
     playstyle: ["Damage", "Survival", "Crowd Control"],
-    exalted: ["/Lotus/Powersuits/Glass/GaraShankWeapon"],
+    exalted: true,
   },
   "Gara Prime": {
     name: "Gara Prime",
-    category: "Warframes",
-    type: "Warframe",
     health: 345,
     shield: 270,
     armor: 200,
@@ -1377,36 +563,12 @@ export const warframes = {
     sprint: 1.15,
     aura: "Vazarin",
     releaseDate: "2021-05-25",
-    imageName: "GaraPrime.png",
+    imageName: "GaraPrime_Thumb.png",
     abilities: [
-      {
-        uniqueName: "/Lotus/Powersuits/Glass/Abilities/GlassShankAbility",
-        name: "Shattered Lash",
-        description:
-          "Lash out with stream of shattered glass, or hold for an arcing strike. Stats are boosted by the equipped mods on Shattered Lash.",
-        imageName: "GlassShank.png",
-      },
-      {
-        uniqueName: "/Lotus/Powersuits/Glass/Abilities/GlassShatterAbility",
-        name: "Splinter Storm",
-        description:
-          "Gara's armor splinters into a maelstrom of shattered glass. Allies who contact the cloud are fortified against damage.",
-        imageName: "GlassShatteredAura.png",
-      },
-      {
-        uniqueName: "/Lotus/Powersuits/Glass/Abilities/GlassFragmentAbility",
-        name: "Spectrorage",
-        description:
-          "Trap enemies in a carousel of mirrors, forcing them to attack visions of their true selves. Destroyed mirrors damage their attackers, as does the collapse of the carousel.",
-        imageName: "GlassFragmentedReality.png",
-      },
-      {
-        uniqueName: "/Lotus/Powersuits/Glass/Abilities/GlassRingAbility",
-        name: "Mass Vitrify",
-        description:
-          "Create an expanding ring of molten glass that slowly crystallizes enemies who enter. When the expansion is complete, the ring hardens to block weapons fire. The ring draws extra strength from the health and shields of crystallized enemies. Use Shattered Lash to smash the ring and send razor-sharp glass flying.",
-        imageName: "GlassRing.png",
-      },
+      "Shattered Lash",
+      "Splinter Storm",
+      "Spectrorage",
+      "Mass Vitrify",
     ],
     sex: "Female",
     variant: "Prime",
@@ -1415,12 +577,10 @@ export const warframes = {
     conclave: true,
     vaulted: true,
     playstyle: ["Damage", "Survival", "Crowd Control"],
-    exalted: ["/Lotus/Powersuits/Glass/GaraShankWeaponPrime"],
+    exalted: true,
   },
   Garuda: {
     name: "Garuda",
-    category: "Warframes",
-    type: "Warframe",
     health: 270,
     shield: 270,
     armor: 315,
@@ -1428,37 +588,12 @@ export const warframes = {
     sprint: 1,
     aura: "Madurai",
     releaseDate: "2018-11-08",
-    imageName: "Garuda.png",
+    imageName: "Garuda_Thumb.png",
     abilities: [
-      {
-        uniqueName: "/Lotus/Powersuits/Garuda/Abilities/GarudaShieldAbility",
-        name: "Dread Mirror",
-        description:
-          "Rip the life force from an enemy and use it as a shield that captures damage, this kills significantly weakened enemies instantly. Charge to channel the captured damage into an explosive projectile.",
-        imageName: "GarudaMeatShield.png",
-      },
-      {
-        uniqueName: "/Lotus/Powersuits/Garuda/Abilities/GarudaSiphonAbility",
-        name: "Blood Altar",
-        description:
-          "Impale an enemy on an altar of talons and siphon health for Garuda and her allies.",
-        imageName: "GarudaSanguineSiphon.png",
-      },
-      {
-        uniqueName: "/Lotus/Powersuits/Garuda/Abilities/GarudaBloodAbility",
-        name: "Bloodletting",
-        description:
-          "Garuda sacrifices her health to generate energy and clear Status Effects.",
-        imageName: "GarudaBloodSunder.png",
-      },
-      {
-        uniqueName:
-          "/Lotus/Powersuits/Garuda/Abilities/GarudaUnstoppableAbility",
-        name: "Seeking Talons",
-        description:
-          "Charge to expand the targeting area, release to send Garuda's talons careening toward each target in area. Surviving enemies are prone to <DT_SLASH_COLOR>Slash Status.",
-        imageName: "GarudaBoneZone.png",
-      },
+      "Dread Mirror",
+      "Blood Altar",
+      "Bloodletting",
+      "Seeking Talons",
     ],
     sex: "Female",
     variant: "Standard",
@@ -1466,12 +601,9 @@ export const warframes = {
     isPrime: false,
     conclave: false,
     playstyle: ["Damage"],
-    exalted: ["/Lotus/Powersuits/Garuda/GarudaClaws"],
   },
   "Garuda Prime": {
     name: "Garuda Prime",
-    category: "Warframes",
-    type: "Warframe",
     health: 270,
     shield: 270,
     armor: 420,
@@ -1479,37 +611,12 @@ export const warframes = {
     sprint: 1,
     aura: "Madurai",
     releaseDate: "2022-03-28",
-    imageName: "GarudaPrime.png",
+    imageName: "GarudaPrime_Thumb.png",
     abilities: [
-      {
-        uniqueName: "/Lotus/Powersuits/Garuda/Abilities/GarudaShieldAbility",
-        name: "Dread Mirror",
-        description:
-          "Rip the life force from an enemy and use it as a shield that captures damage, this kills significantly weakened enemies instantly. Charge to channel the captured damage into an explosive projectile.",
-        imageName: "GarudaMeatShield.png",
-      },
-      {
-        uniqueName: "/Lotus/Powersuits/Garuda/Abilities/GarudaSiphonAbility",
-        name: "Blood Altar",
-        description:
-          "Impale an enemy on an altar of talons and siphon health for Garuda and her allies.",
-        imageName: "GarudaSanguineSiphon.png",
-      },
-      {
-        uniqueName: "/Lotus/Powersuits/Garuda/Abilities/GarudaBloodAbility",
-        name: "Bloodletting",
-        description:
-          "Garuda sacrifices her health to generate energy and clear Status Effects.",
-        imageName: "GarudaBloodSunder.png",
-      },
-      {
-        uniqueName:
-          "/Lotus/Powersuits/Garuda/Abilities/GarudaUnstoppableAbility",
-        name: "Seeking Talons",
-        description:
-          "Charge to expand the targeting area, release to send Garuda's talons careening toward each target in area. Surviving enemies are prone to <DT_SLASH_COLOR>Slash Status.",
-        imageName: "GarudaBoneZone.png",
-      },
+      "Dread Mirror",
+      "Blood Altar",
+      "Bloodletting",
+      "Seeking Talons",
     ],
     sex: "Female",
     variant: "Prime",
@@ -1518,12 +625,9 @@ export const warframes = {
     conclave: false,
     vaulted: true,
     playstyle: ["Damage"],
-    exalted: ["/Lotus/Powersuits/Garuda/GarudaPrimeClaws"],
   },
   Gauss: {
     name: "Gauss",
-    category: "Warframes",
-    type: "Warframe",
     health: 270,
     shield: 455,
     armor: 185,
@@ -1531,37 +635,8 @@ export const warframes = {
     sprint: 1.4,
     aura: "Naramon",
     releaseDate: "2019-08-29",
-    imageName: "Gauss.png",
-    abilities: [
-      {
-        uniqueName: "/Lotus/Powersuits/Runner/Abilities/RunnerRushAbility",
-        name: "Mach Rush",
-        description:
-          "Burst into a hyper-sprint bowling over enemies and charging the battery. Crashing into solid objects generates a powerful shockwave. Hold to rush continuously.",
-        imageName: "RunnerMachRush.png",
-      },
-      {
-        uniqueName: "/Lotus/Powersuits/Runner/Abilities/RunnerPlatingAbility",
-        name: "Kinetic Plating",
-        description:
-          "Generate armor plating that converts a portion of absorbed Kinetic Damage (Physical, <DT_FIRE_COLOR>Heat, <DT_FREEZE_COLOR>Cold, and <DT_EXPLOSION_COLOR>Blast) into Energy. Also protects Gauss from being staggered or knocked down. Damage Resistance is relative to the battery level.",
-        imageName: "RunnerKineticPlating.png",
-      },
-      {
-        uniqueName: "/Lotus/Powersuits/Runner/Abilities/RunnerTransferAbility",
-        name: "Thermal Sunder",
-        description:
-          "Siphon kinetic energy from the area, charging the battery and inflicting <DT_FREEZE_COLOR>Cold Status on nearby enemies. Hold reverses the process, draining the battery and inflicting <DT_FIRE_COLOR>Heat Status on nearby enemies.",
-        imageName: "RunnerEnergyTransfer.png",
-      },
-      {
-        uniqueName: "/Lotus/Powersuits/Runner/Abilities/RunnerRedlineAbility",
-        name: "Redline",
-        description:
-          "Push Gauss' battery beyond the redline, supercharging his Abilities and setting Fire Rate, Attack Speed, Reload Speed, and Casting Speed into overdrive. When past the redline, bolts of arcing electricity dance periodically from Gauss, exploding en masse when the ability is deactivated.",
-        imageName: "RunnerRedline.png",
-      },
-    ],
+    imageName: "Gauss_Thumb.png",
+    abilities: ["Mach Rush", "Kinetic Plating", "Thermal Sunder", "Redline"],
     sex: "Male",
     variant: "Standard",
     progenitor: "Impact",
@@ -1571,8 +646,6 @@ export const warframes = {
   },
   "Gauss Prime": {
     name: "Gauss Prime",
-    category: "Warframes",
-    type: "Warframe",
     health: 270,
     shield: 550,
     armor: 185,
@@ -1580,37 +653,8 @@ export const warframes = {
     sprint: 1.5,
     aura: "Naramon",
     releaseDate: "2024-01-17",
-    imageName: "GaussPrime.png",
-    abilities: [
-      {
-        uniqueName: "/Lotus/Powersuits/Runner/Abilities/RunnerRushAbility",
-        name: "Mach Rush",
-        description:
-          "Burst into a hyper-sprint bowling over enemies and charging the battery. Crashing into solid objects generates a powerful shockwave. Hold to rush continuously.",
-        imageName: "RunnerMachRush.png",
-      },
-      {
-        uniqueName: "/Lotus/Powersuits/Runner/Abilities/RunnerPlatingAbility",
-        name: "Kinetic Plating",
-        description:
-          "Generate armor plating that converts a portion of absorbed Kinetic Damage (Physical, <DT_FIRE_COLOR>Heat, <DT_FREEZE_COLOR>Cold, and <DT_EXPLOSION_COLOR>Blast) into Energy. Also protects Gauss from being staggered or knocked down. Damage Resistance is relative to the battery level.",
-        imageName: "RunnerKineticPlating.png",
-      },
-      {
-        uniqueName: "/Lotus/Powersuits/Runner/Abilities/RunnerTransferAbility",
-        name: "Thermal Sunder",
-        description:
-          "Siphon kinetic energy from the area, charging the battery and inflicting <DT_FREEZE_COLOR>Cold Status on nearby enemies. Hold reverses the process, draining the battery and inflicting <DT_FIRE_COLOR>Heat Status on nearby enemies.",
-        imageName: "RunnerEnergyTransfer.png",
-      },
-      {
-        uniqueName: "/Lotus/Powersuits/Runner/Abilities/RunnerRedlineAbility",
-        name: "Redline",
-        description:
-          "Push Gauss' battery beyond the redline, supercharging his Abilities and setting Fire Rate, Attack Speed, Reload Speed, and Casting Speed into overdrive. When past the redline, bolts of arcing electricity dance periodically from Gauss, exploding en masse when the ability is deactivated.",
-        imageName: "RunnerRedline.png",
-      },
-    ],
+    imageName: "GaussPrime_Thumb.png",
+    abilities: ["Mach Rush", "Kinetic Plating", "Thermal Sunder", "Redline"],
     sex: "Male",
     variant: "Prime",
     progenitor: "Impact",
@@ -1621,8 +665,6 @@ export const warframes = {
   },
   Grendel: {
     name: "Grendel",
-    category: "Warframes",
-    type: "Warframe",
     health: 1095,
     shield: 95,
     armor: 370,
@@ -1630,40 +672,8 @@ export const warframes = {
     sprint: 0.95,
     aura: "Naramon",
     releaseDate: "2019-10-31",
-    imageName: "Grendel.png",
-    abilities: [
-      {
-        uniqueName:
-          "/Lotus/Powersuits/Devourer/Abilities/DevourerDevourAbility",
-        name: "Feast",
-        description:
-          "Swallow enemies whole and store them in Grendel's gut. Hold to vomit out stored enemies, covering them in toxic bile.",
-        imageName: "GrendelDevour.png",
-      },
-      {
-        uniqueName:
-          "/Lotus/Powersuits/Devourer/Abilities/DevourerConsumeAbility",
-        name: "Nourish",
-        description:
-          "Regenerate health as Grendel absorbs nourishment from enemies in his gut. While he digests, enemies that attack or are attacked by Grendel suffer <DT_VIRAL_COLOR>Viral Damage and energy sources provide more energy. These buffs extend to squad mates.",
-        imageName: "GrendelConsume.png",
-      },
-      {
-        uniqueName: "/Lotus/Powersuits/Devourer/Abilities/DevourerBowlAbility",
-        name: "Pulverize",
-        description:
-          "Grendel curls into a ball. He heals over time as he rolls, knocking over anyone in his path. Jumping slams Grendel into the ground and generates a damaging shockwave.",
-        imageName: "GrendelBellyBowling.png",
-      },
-      {
-        uniqueName:
-          "/Lotus/Powersuits/Devourer/Abilities/DevourerRegurgitateAbility",
-        name: "Regurgitate",
-        description:
-          "Violently puke out a bile soaked enemy from Grendel's gut, turning the consumed into a toxic projectile. Nearby enemies are slowed and have their armor dissolved by the bile.",
-        imageName: "GrendelRegurgitate.png",
-      },
-    ],
+    imageName: "Grendel_Thumb.png",
+    abilities: ["Feast", "Nourish", "Pulverize", "Regurgitate"],
     sex: "Male",
     variant: "Standard",
     progenitor: "Impact",
@@ -1673,8 +683,6 @@ export const warframes = {
   },
   "Grendel Prime": {
     name: "Grendel Prime",
-    category: "Warframes",
-    type: "Warframe",
     health: 1095,
     shield: 95,
     armor: 400,
@@ -1682,40 +690,8 @@ export const warframes = {
     sprint: 0.95,
     aura: "Naramon",
     releaseDate: "2023-10-18",
-    imageName: "GrendelPrime.png",
-    abilities: [
-      {
-        uniqueName:
-          "/Lotus/Powersuits/Devourer/Abilities/DevourerDevourAbility",
-        name: "Feast",
-        description:
-          "Swallow enemies whole and store them in Grendel's gut. Hold to vomit out stored enemies, covering them in toxic bile.",
-        imageName: "GrendelDevour.png",
-      },
-      {
-        uniqueName:
-          "/Lotus/Powersuits/Devourer/Abilities/DevourerConsumeAbility",
-        name: "Nourish",
-        description:
-          "Regenerate health as Grendel absorbs nourishment from enemies in his gut. While he digests, enemies that attack or are attacked by Grendel suffer <DT_VIRAL_COLOR>Viral Damage and energy sources provide more energy. These buffs extend to squad mates.",
-        imageName: "GrendelConsume.png",
-      },
-      {
-        uniqueName: "/Lotus/Powersuits/Devourer/Abilities/DevourerBowlAbility",
-        name: "Pulverize",
-        description:
-          "Grendel curls into a ball. He heals over time as he rolls, knocking over anyone in his path. Jumping slams Grendel into the ground and generates a damaging shockwave.",
-        imageName: "GrendelBellyBowling.png",
-      },
-      {
-        uniqueName:
-          "/Lotus/Powersuits/Devourer/Abilities/DevourerRegurgitateAbility",
-        name: "Regurgitate",
-        description:
-          "Violently puke out a bile soaked enemy from Grendel's gut, turning the consumed into a toxic projectile. Nearby enemies are slowed and have their armor dissolved by the bile.",
-        imageName: "GrendelRegurgitate.png",
-      },
-    ],
+    imageName: "GrendelPrime_Thumb.png",
+    abilities: ["Feast", "Nourish", "Pulverize", "Regurgitate"],
     sex: "Male",
     variant: "Prime",
     progenitor: "Impact",
@@ -1726,8 +702,6 @@ export const warframes = {
   },
   Gyre: {
     name: "Gyre",
-    category: "Warframes",
-    type: "Warframe",
     health: 270,
     shield: 550,
     armor: 105,
@@ -1735,37 +709,8 @@ export const warframes = {
     sprint: 1,
     aura: "Naramon",
     releaseDate: "2022-04-27",
-    imageName: "Gyre.png",
-    abilities: [
-      {
-        uniqueName: "/Lotus/Powersuits/Gyre/Abilities/GyrePulseAbility",
-        name: "Arcsphere",
-        description:
-          "Launch a Gyratory Sphere that will deal high damage on impact and periodically deal electrical shocks to nearby enemies. Hit multiple enemies at once with the initial launch to enhance damage.",
-        imageName: "GyrePulse.png",
-      },
-      {
-        uniqueName: "/Lotus/Powersuits/Gyre/Abilities/GyreSphereAbility",
-        name: "Coil Horizon",
-        description:
-          "Throw forward a Gyratory Sphere that will implode after a few seconds or can be manually triggered.",
-        imageName: "GyreSphere.png",
-      },
-      {
-        uniqueName: "/Lotus/Powersuits/Gyre/Abilities/GyreEnergizedAbility",
-        name: "Cathode Grace",
-        description:
-          "Gain a brief burst of increased Critical Chance and Energy Regen, with each kill extending duration of Cathode Grace. Casting is on a cooldown. ",
-        imageName: "GyreEnergised.png",
-      },
-      {
-        uniqueName: "/Lotus/Powersuits/Gyre/Abilities/GyreOverchargedAbility",
-        name: "Rotorswell",
-        description:
-          "Gyre’s mechanisms spin at incredible speeds, generating an Electric Field that shocks nearby enemies. When Gyre gets a critical hit, a large electrical discharge will chain from the enemy that was hit to nearby enemies.",
-        imageName: "GyreOvercharged.png",
-      },
-    ],
+    imageName: "Gyre_Thumb.png",
+    abilities: ["Arcsphere", "Coil Horizon", "Cathode Grace", "Rotorswell"],
     sex: "Female",
     variant: "Standard",
     progenitor: "Electricity",
@@ -1775,8 +720,6 @@ export const warframes = {
   },
   "Gyre Prime": {
     name: "Gyre Prime",
-    category: "Warframes",
-    type: "Warframe",
     health: 345,
     shield: 640,
     armor: 105,
@@ -1784,49 +727,17 @@ export const warframes = {
     sprint: 1.05,
     aura: "Naramon",
     releaseDate: "2025-12-10",
-    imageName: "GyrePrime.png",
-    abilities: [
-      {
-        uniqueName: "/Lotus/Powersuits/Gyre/Abilities/GyrePulseAbility",
-        name: "Arcsphere",
-        description:
-          "Launch a Gyratory Sphere that will deal high damage on impact and periodically deal electrical shocks to nearby enemies. Hit multiple enemies at once with the initial launch to enhance damage.",
-        imageName: "GyrePulse.png",
-      },
-      {
-        uniqueName: "/Lotus/Powersuits/Gyre/Abilities/GyreSphereAbility",
-        name: "Coil Horizon",
-        description:
-          "Throw forward a Gyratory Sphere that will implode after a few seconds or can be manually triggered.",
-        imageName: "GyreSphere.png",
-      },
-      {
-        uniqueName: "/Lotus/Powersuits/Gyre/Abilities/GyreEnergizedAbility",
-        name: "Cathode Grace",
-        description:
-          "Gain a brief burst of increased Critical Chance and Energy Regen, with each kill extending duration of Cathode Grace. Casting is on a cooldown. ",
-        imageName: "GyreEnergised.png",
-      },
-      {
-        uniqueName: "/Lotus/Powersuits/Gyre/Abilities/GyreOverchargedAbility",
-        name: "Rotorswell",
-        description:
-          "Gyre’s mechanisms spin at incredible speeds, generating an Electric Field that shocks nearby enemies. When Gyre gets a critical hit, a large electrical discharge will chain from the enemy that was hit to nearby enemies.",
-        imageName: "GyreOvercharged.png",
-      },
-    ],
+    imageName: "GyrePrime_Thumb.png",
+    abilities: ["Arcsphere", "Coil Horizon", "Cathode Grace", "Rotorswell"],
     sex: "Female",
     variant: "Prime",
     progenitor: "Electricity",
     isPrime: true,
     conclave: false,
-    vaulted: false,
     playstyle: ["Damage", "Crowd Control"],
   },
   Harrow: {
     name: "Harrow",
-    category: "Warframes",
-    type: "Warframe",
     health: 270,
     shield: 455,
     armor: 185,
@@ -1834,37 +745,8 @@ export const warframes = {
     sprint: 1,
     aura: "Naramon",
     releaseDate: "2017-06-29",
-    imageName: "Harrow.png",
-    abilities: [
-      {
-        uniqueName: "/Lotus/Powersuits/Priest/Abilities/PriestCondemnAbility",
-        name: "Condemn",
-        description:
-          "Cast a wave of energy that chains them where they stand. Each enemy held reinforces Harrow's shields.",
-        imageName: "PriestCondemn.png",
-      },
-      {
-        uniqueName: "/Lotus/Powersuits/Priest/Abilities/PriestPenanceAbility",
-        name: "Penance",
-        description:
-          "Sacrifice Shields to boost Reload Speed, and Fire Rate while converting damage inflicted on enemies into health for Harrow and nearby allies.",
-        imageName: "PriestPenance.png",
-      },
-      {
-        uniqueName: "/Lotus/Powersuits/Priest/Abilities/PriestRavageAbility",
-        name: "Thurible",
-        description:
-          "Channel Harrow's energy into the Thurible to generate a buff. Once finished, kill enemies to bestow nearby allies with bursts of energy. The more energy channeled the greater the reward for each kill. Headshots produce extra energy.",
-        imageName: "PriestRavage.png",
-      },
-      {
-        uniqueName: "/Lotus/Powersuits/Priest/Abilities/PriestPactAbility",
-        name: "Covenant",
-        description:
-          "Protect nearby allies with an energy force that absorbs all damage and converts it to a Critical Chance bonus for all those under the Covenant. Headshots are amplified even further.",
-        imageName: "PriestPact.png",
-      },
-    ],
+    imageName: "Harrow_Thumb.png",
+    abilities: ["Condemn", "Penance", "Thurible", "Covenant"],
     sex: "Male",
     variant: "Standard",
     progenitor: "Magnetic",
@@ -1874,8 +756,6 @@ export const warframes = {
   },
   "Harrow Prime": {
     name: "Harrow Prime",
-    category: "Warframes",
-    type: "Warframe",
     health: 270,
     shield: 640,
     armor: 185,
@@ -1883,37 +763,8 @@ export const warframes = {
     sprint: 1,
     aura: "Naramon",
     releaseDate: "2021-12-15",
-    imageName: "HarrowPrime.png",
-    abilities: [
-      {
-        uniqueName: "/Lotus/Powersuits/Priest/Abilities/PriestCondemnAbility",
-        name: "Condemn",
-        description:
-          "Cast a wave of energy that chains them where they stand. Each enemy held reinforces Harrow's shields.",
-        imageName: "PriestCondemn.png",
-      },
-      {
-        uniqueName: "/Lotus/Powersuits/Priest/Abilities/PriestPenanceAbility",
-        name: "Penance",
-        description:
-          "Sacrifice Shields to boost Reload Speed, and Fire Rate while converting damage inflicted on enemies into health for Harrow and nearby allies.",
-        imageName: "PriestPenance.png",
-      },
-      {
-        uniqueName: "/Lotus/Powersuits/Priest/Abilities/PriestRavageAbility",
-        name: "Thurible",
-        description:
-          "Channel Harrow's energy into the Thurible to generate a buff. Once finished, kill enemies to bestow nearby allies with bursts of energy. The more energy channeled the greater the reward for each kill. Headshots produce extra energy.",
-        imageName: "PriestRavage.png",
-      },
-      {
-        uniqueName: "/Lotus/Powersuits/Priest/Abilities/PriestPactAbility",
-        name: "Covenant",
-        description:
-          "Protect nearby allies with an energy force that absorbs all damage and converts it to a Critical Chance bonus for all those under the Covenant. Headshots are amplified even further.",
-        imageName: "PriestPact.png",
-      },
-    ],
+    imageName: "HarrowPrime_Thumb.png",
+    abilities: ["Condemn", "Penance", "Thurible", "Covenant"],
     sex: "Male",
     variant: "Prime",
     progenitor: "Magnetic",
@@ -1924,8 +775,6 @@ export const warframes = {
   },
   Hildryn: {
     name: "Hildryn",
-    category: "Warframes",
-    type: "Warframe",
     health: 180,
     shield: 1280,
     armor: 315,
@@ -1933,52 +782,18 @@ export const warframes = {
     sprint: 1,
     aura: "Naramon",
     releaseDate: "2019-03-08",
-    imageName: "IronFrame.png",
-    abilities: [
-      {
-        uniqueName:
-          "/Lotus/Powersuits/IronFrame/Abilities/IronFrameBlastAbility",
-        name: "Balefire",
-        description: "Charge and launch devastating bolts of electricity.",
-        imageName: "HildrynBalefire.png",
-      },
-      {
-        uniqueName:
-          "/Lotus/Powersuits/IronFrame/Abilities/IronFrameStripAbility",
-        name: "Pillage",
-        description:
-          "Pillage a percentage of Shields and Armor of nearby enemies to replenish Hildryn's own Shields and Overshields. Also removes Status Effects from Hildryn and her allies.",
-        imageName: "HildrynShieldPillage.png",
-      },
-      {
-        uniqueName:
-          "/Lotus/Powersuits/IronFrame/Abilities/IronFrameAuraAbility",
-        name: "Haven",
-        description:
-          "Create a shield aura around allies. Enemies that approach Hildryn will take <DT_RADIATION_COLOR>Radiation Damage.",
-        imageName: "HildrynHaven.png",
-      },
-      {
-        uniqueName:
-          "/Lotus/Powersuits/IronFrame/Abilities/IronFrameEruptionAbility",
-        name: "Aegis Storm",
-        description:
-          "Take the skies and rain Balefire rockets down on the enemy. Nearby enemies are blasted into the air where they will create an Energy Orb every few seconds. When shields run out the enemies are smashed into the ground.",
-        imageName: "HildrynWingedDeath.png",
-      },
-    ],
+    imageName: "Hildryn_Thumb.png",
+    abilities: ["Balefire", "Pillage", "Haven", "Aegis Storm"],
     sex: "Female",
     variant: "Standard",
     progenitor: "Cold",
     isPrime: false,
     conclave: false,
     playstyle: ["Damage", "Survival"],
-    exalted: ["/Lotus/Powersuits/IronFrame/BlastWeapon"],
+    exalted: true,
   },
   "Hildryn Prime": {
     name: "Hildryn Prime",
-    category: "Warframes",
-    type: "Warframe",
     health: 270,
     shield: 1380,
     armor: 315,
@@ -1986,40 +801,8 @@ export const warframes = {
     sprint: 1.05,
     aura: "Naramon",
     releaseDate: "2023-03-15",
-    imageName: "HildrynPrime.png",
-    abilities: [
-      {
-        uniqueName:
-          "/Lotus/Powersuits/IronFrame/Abilities/IronFrameBlastAbility",
-        name: "Balefire",
-        description: "Charge and launch devastating bolts of electricity.",
-        imageName: "HildrynBalefire.png",
-      },
-      {
-        uniqueName:
-          "/Lotus/Powersuits/IronFrame/Abilities/IronFrameStripAbility",
-        name: "Pillage",
-        description:
-          "Pillage a percentage of Shields and Armor of nearby enemies to replenish Hildryn's own Shields and Overshields. Also removes Status Effects from Hildryn and her allies.",
-        imageName: "HildrynShieldPillage.png",
-      },
-      {
-        uniqueName:
-          "/Lotus/Powersuits/IronFrame/Abilities/IronFrameAuraAbility",
-        name: "Haven",
-        description:
-          "Create a shield aura around allies. Enemies that approach Hildryn will take <DT_RADIATION_COLOR>Radiation Damage.",
-        imageName: "HildrynHaven.png",
-      },
-      {
-        uniqueName:
-          "/Lotus/Powersuits/IronFrame/Abilities/IronFrameEruptionAbility",
-        name: "Aegis Storm",
-        description:
-          "Take the skies and rain Balefire rockets down on the enemy. Nearby enemies are blasted into the air where they will create an Energy Orb every few seconds. When shields run out the enemies are smashed into the ground.",
-        imageName: "HildrynWingedDeath.png",
-      },
-    ],
+    imageName: "HildrynPrime_Thumb.png",
+    abilities: ["Balefire", "Pillage", "Haven", "Aegis Storm"],
     sex: "Female",
     variant: "Prime",
     progenitor: "Cold",
@@ -2027,12 +810,10 @@ export const warframes = {
     conclave: false,
     vaulted: true,
     playstyle: ["Damage", "Survival"],
-    exalted: ["/Lotus/Powersuits/IronFrame/BlastWeaponPrime"],
+    exalted: true,
   },
   Hydroid: {
     name: "Hydroid",
-    category: "Warframes",
-    type: "Warframe",
     health: 270,
     shield: 365,
     armor: 240,
@@ -2040,35 +821,8 @@ export const warframes = {
     sprint: 1.05,
     aura: "Naramon",
     releaseDate: "2014-04-09",
-    imageName: "Hydroid.png",
-    abilities: [
-      {
-        uniqueName: "/Lotus/Powersuits/Pirate/Abilities/CannonBarrageAbility",
-        name: "Tempest Barrage",
-        description: "Summon a tempest to rain down upon a target area.",
-        imageName: "PirateCannonBarage.png",
-      },
-      {
-        uniqueName: "/Lotus/Powersuits/Pirate/Abilities/TidalWaveAbility",
-        name: "Tidal Surge",
-        description: "Crash through enemies in a ferocious wall of water.",
-        imageName: "PirateTidalWave.png",
-      },
-      {
-        uniqueName: "/Lotus/Powersuits/Pirate/Abilities/PirateArmourAbility",
-        name: "Plunder",
-        description:
-          "Plunder Armor from nearby enemies and increase <DT_CORROSIVE_COLOR>Corrosive Damage on your Abilities and weapons. Enemies affected by <DT_CORROSIVE_COLOR>Corrosive Status offer a greater increase.",
-        imageName: "PiratePlunderArmor.png",
-      },
-      {
-        uniqueName: "/Lotus/Powersuits/Pirate/Abilities/KrakenAbility",
-        name: "Tentacle Swarm",
-        description:
-          "Summon a creature from the depths. Its watery tentacles emerge from nearby surfaces to wreak havoc.",
-        imageName: "PirateKraken.png",
-      },
-    ],
+    imageName: "Hydroid_Thumb.png",
+    abilities: ["Tempest Barrage", "Tidal Surge", "Plunder", "Tentacle Swarm"],
     sex: "Male",
     variant: "Standard",
     progenitor: "Magnetic",
@@ -2078,8 +832,6 @@ export const warframes = {
   },
   "Hydroid Prime": {
     name: "Hydroid Prime",
-    category: "Warframes",
-    type: "Warframe",
     health: 270,
     shield: 550,
     armor: 290,
@@ -2087,35 +839,8 @@ export const warframes = {
     sprint: 1.05,
     aura: "Naramon",
     releaseDate: "2017-08-29",
-    imageName: "HydroidPrime.png",
-    abilities: [
-      {
-        uniqueName: "/Lotus/Powersuits/Pirate/Abilities/CannonBarrageAbility",
-        name: "Tempest Barrage",
-        description: "Summon a tempest to rain down upon a target area.",
-        imageName: "PirateCannonBarage.png",
-      },
-      {
-        uniqueName: "/Lotus/Powersuits/Pirate/Abilities/TidalWaveAbility",
-        name: "Tidal Surge",
-        description: "Crash through enemies in a ferocious wall of water.",
-        imageName: "PirateTidalWave.png",
-      },
-      {
-        uniqueName: "/Lotus/Powersuits/Pirate/Abilities/PirateArmourAbility",
-        name: "Plunder",
-        description:
-          "Plunder Armor from nearby enemies and increase <DT_CORROSIVE_COLOR>Corrosive Damage on your Abilities and weapons. Enemies affected by <DT_CORROSIVE_COLOR>Corrosive Status offer a greater increase.",
-        imageName: "PiratePlunderArmor.png",
-      },
-      {
-        uniqueName: "/Lotus/Powersuits/Pirate/Abilities/KrakenAbility",
-        name: "Tentacle Swarm",
-        description:
-          "Summon a creature from the depths. Its watery tentacles emerge from nearby surfaces to wreak havoc.",
-        imageName: "PirateKraken.png",
-      },
-    ],
+    imageName: "HydroidPrime_Thumb.png",
+    abilities: ["Tempest Barrage", "Tidal Surge", "Plunder", "Tentacle Swarm"],
     sex: "Male",
     variant: "Prime",
     progenitor: "Magnetic",
@@ -2126,8 +851,6 @@ export const warframes = {
   },
   Inaros: {
     name: "Inaros",
-    category: "Warframes",
-    type: "Warframe",
     health: 2110,
     shield: 0,
     armor: 240,
@@ -2135,37 +858,8 @@ export const warframes = {
     sprint: 1,
     aura: "Naramon",
     releaseDate: "2016-03-04",
-    imageName: "Inaros.png",
-    abilities: [
-      {
-        uniqueName: "/Lotus/Powersuits/Sandman/Abilities/SandmanBlastAbility",
-        name: "Desiccation",
-        description:
-          "Blast enemies with a wave of cursed sand that blinds them and steals their health.",
-        imageName: "SandmanBlast.png",
-      },
-      {
-        uniqueName: "/Lotus/Powersuits/Sandman/Abilities/SandmanStormAbility",
-        name: "Sandstorm",
-        description:
-          "Become a sandstorm. Inaros devours enemies pulled into his whirlwind, healing himself.",
-        imageName: "SandmanStorm.png",
-      },
-      {
-        uniqueName: "/Lotus/Powersuits/Sandman/Abilities/SandmanArmorAbility",
-        name: "Scarab Shell",
-        description:
-          "Activate to form Armor by draining Inaros' Health. Activate again to stop the formation early. The protective layer reduces incoming Damage and absorbs Status Effects.",
-        imageName: "SandmanSwarm.png",
-      },
-      {
-        uniqueName: "/Lotus/Powersuits/Sandman/Abilities/SandmanSwarmAbility",
-        name: "Scarab Swarm",
-        description:
-          "Summon a Scarab Swarm to attack enemies with guaranteed <DT_CORROSIVE_COLOR>Corrosive Status. Damage scales with Inaros' Health. Enemies killed while immersed in the swarm summon a Swarm Kavat that fights alongside Inaros and guides the scarabs to other enemies.",
-        imageName: "SandmanScarabArmor.png",
-      },
-    ],
+    imageName: "Inaros_Thumb.png",
+    abilities: ["Desiccation", "Sandstorm", "Scarab Shell", "Scarab Swarm"],
     sex: "Male",
     variant: "Standard",
     progenitor: "Heat",
@@ -2175,8 +869,6 @@ export const warframes = {
   },
   "Inaros Prime": {
     name: "Inaros Prime",
-    category: "Warframes",
-    type: "Warframe",
     health: 2215,
     shield: 0,
     armor: 240,
@@ -2184,37 +876,8 @@ export const warframes = {
     sprint: 1.05,
     aura: "Naramon",
     releaseDate: "2020-07-14",
-    imageName: "InarosPrime.png",
-    abilities: [
-      {
-        uniqueName: "/Lotus/Powersuits/Sandman/Abilities/SandmanBlastAbility",
-        name: "Desiccation",
-        description:
-          "Blast enemies with a wave of cursed sand that blinds them and steals their health.",
-        imageName: "SandmanBlast.png",
-      },
-      {
-        uniqueName: "/Lotus/Powersuits/Sandman/Abilities/SandmanStormAbility",
-        name: "Sandstorm",
-        description:
-          "Become a sandstorm. Inaros devours enemies pulled into his whirlwind, healing himself.",
-        imageName: "SandmanStorm.png",
-      },
-      {
-        uniqueName: "/Lotus/Powersuits/Sandman/Abilities/SandmanArmorAbility",
-        name: "Scarab Shell",
-        description:
-          "Activate to form Armor by draining Inaros' Health. Activate again to stop the formation early. The protective layer reduces incoming Damage and absorbs Status Effects.",
-        imageName: "SandmanSwarm.png",
-      },
-      {
-        uniqueName: "/Lotus/Powersuits/Sandman/Abilities/SandmanSwarmAbility",
-        name: "Scarab Swarm",
-        description:
-          "Summon a Scarab Swarm to attack enemies with guaranteed <DT_CORROSIVE_COLOR>Corrosive Status. Damage scales with Inaros' Health. Enemies killed while immersed in the swarm summon a Swarm Kavat that fights alongside Inaros and guides the scarabs to other enemies.",
-        imageName: "SandmanScarabArmor.png",
-      },
-    ],
+    imageName: "InarosPrime_Thumb.png",
+    abilities: ["Desiccation", "Sandstorm", "Scarab Shell", "Scarab Swarm"],
     sex: "Male",
     variant: "Prime",
     progenitor: "Heat",
@@ -2225,8 +888,6 @@ export const warframes = {
   },
   Ivara: {
     name: "Ivara",
-    category: "Warframes",
-    type: "Warframe",
     health: 180,
     shield: 270,
     armor: 105,
@@ -2234,49 +895,18 @@ export const warframes = {
     sprint: 1.15,
     aura: "Naramon",
     releaseDate: "2015-12-03",
-    imageName: "Ivara.png",
-    abilities: [
-      {
-        uniqueName: "/Lotus/Powersuits/Ranger/Abilities/RangerQuiverAbility",
-        name: "Quiver",
-        description:
-          "Cycle through and shoot one of four tactical arrows. Cloak creates a stationary bubble that cloaks Ivara and allies. Dashwire creates a traversable zipline. Noise emits a high-pitched sound that attracts enemies to it. Sleep temporarily puts nearby enemies into a deep slumber.",
-        imageName: "RangerVersatileQuiver.png",
-      },
-      {
-        uniqueName: "/Lotus/Powersuits/Ranger/Abilities/RangerControlAbility",
-        name: "Navigator",
-        description:
-          "Assume control of any projectile launched by Ivara and guide it to the target.",
-        imageName: "RangerAfterTouch.png",
-      },
-      {
-        uniqueName: "/Lotus/Powersuits/Ranger/Abilities/RangerStealAbility",
-        name: "Prowl",
-        description:
-          "Become invisible and steal loot from unsuspecting enemies or take out prey with deadly headshots.",
-        imageName: "RangerSteal.png",
-      },
-      {
-        uniqueName: "/Lotus/Powersuits/Ranger/Abilities/RangerBowAbility",
-        name: "Artemis Bow",
-        description:
-          "Summon a mighty bow and unleash a volley of devastating arrows.",
-        imageName: "RangerExaltedBow.png",
-      },
-    ],
+    imageName: "Ivara_Thumb.png",
+    abilities: ["Quiver", "Navigator", "Prowl", "Artemis Bow"],
     sex: "Female",
     variant: "Standard",
     progenitor: "Toxin",
     isPrime: false,
     conclave: true,
     playstyle: ["Stealth"],
-    exalted: ["/Lotus/Powersuits/Ranger/ExaltedBow"],
+    exalted: true,
   },
   "Ivara Prime": {
     name: "Ivara Prime",
-    category: "Warframes",
-    type: "Warframe",
     health: 180,
     shield: 455,
     armor: 135,
@@ -2284,37 +914,8 @@ export const warframes = {
     sprint: 1.2,
     aura: "Naramon",
     releaseDate: "2019-12-17",
-    imageName: "IvaraPrime.png",
-    abilities: [
-      {
-        uniqueName: "/Lotus/Powersuits/Ranger/Abilities/RangerQuiverAbility",
-        name: "Quiver",
-        description:
-          "Cycle through and shoot one of four tactical arrows. Cloak creates a stationary bubble that cloaks Ivara and allies. Dashwire creates a traversable zipline. Noise emits a high-pitched sound that attracts enemies to it. Sleep temporarily puts nearby enemies into a deep slumber.",
-        imageName: "RangerVersatileQuiver.png",
-      },
-      {
-        uniqueName: "/Lotus/Powersuits/Ranger/Abilities/RangerControlAbility",
-        name: "Navigator",
-        description:
-          "Assume control of any projectile launched by Ivara and guide it to the target.",
-        imageName: "RangerAfterTouch.png",
-      },
-      {
-        uniqueName: "/Lotus/Powersuits/Ranger/Abilities/RangerStealAbility",
-        name: "Prowl",
-        description:
-          "Become invisible and steal loot from unsuspecting enemies or take out prey with deadly headshots.",
-        imageName: "RangerSteal.png",
-      },
-      {
-        uniqueName: "/Lotus/Powersuits/Ranger/Abilities/RangerBowAbility",
-        name: "Artemis Bow",
-        description:
-          "Summon a mighty bow and unleash a volley of devastating arrows.",
-        imageName: "RangerExaltedBow.png",
-      },
-    ],
+    imageName: "IvaraPrime_Thumb.png",
+    abilities: ["Quiver", "Navigator", "Prowl", "Artemis Bow"],
     sex: "Female",
     variant: "Prime",
     progenitor: "Toxin",
@@ -2322,12 +923,10 @@ export const warframes = {
     conclave: true,
     vaulted: true,
     playstyle: ["Stealth"],
-    exalted: ["/Lotus/Powersuits/Ranger/PrimeExaltedBow"],
+    exalted: true,
   },
   Jade: {
     name: "Jade",
-    category: "Warframes",
-    type: "Warframe",
     health: 365,
     shield: 450,
     armor: 135,
@@ -2335,36 +934,12 @@ export const warframes = {
     sprint: 1,
     aura: ["Aura", "Vazarin"],
     releaseDate: "2024-06-18",
-    imageName: "Jade.png",
+    imageName: "Jade_Thumb.png",
     abilities: [
-      {
-        uniqueName: "/Lotus/Powersuits/Choir/Abilities/ChoirPoolAbility",
-        name: "Light's Judgment",
-        description:
-          "Create a well of light that heals allies and hurts enemies. Those who enter the well will be highlighted by Judgments.",
-        imageName: "ChoirAbsolution.png",
-      },
-      {
-        uniqueName: "/Lotus/Powersuits/Choir/Abilities/ChoirChorusAbility",
-        name: "Symphony Of Mercy",
-        description:
-          "Cycle through three songs that strengthen allies. Power of The Seven increases Ability Strength. Deathbringer increases Weapon Damage. Spirit of Resilience increases Shield Effectiveness. Extend the duration of each song by killing enemies surrounded by Judgments.",
-        imageName: "ChoirChorus.png",
-      },
-      {
-        uniqueName: "/Lotus/Powersuits/Choir/Abilities/ChoirEyesAbility",
-        name: "Ophanim Eyes",
-        description:
-          "Jade summons an accusatory gaze that slows nearby enemies and dissolves their Shields and Armor. When the gaze falls upon allies, they can be revived from a distance.",
-        imageName: "ChoirEyesOfLight.png",
-      },
-      {
-        uniqueName: "/Lotus/Powersuits/Choir/Abilities/ChoirEruptAbility",
-        name: "Glory On High",
-        description:
-          "Soar with destructive power. Use alternate-fire to detonate Judgments, causing an explosion of Jade Light. Enemies inside the Light's Judgment radius empower the explosion.",
-        imageName: "ChoirEruption.png",
-      },
+      "Light's Judgment",
+      "Symphony of Mercy",
+      "Ophanim Eyes",
+      "Glory on High",
     ],
     sex: "Female",
     variant: "Standard",
@@ -2372,12 +947,10 @@ export const warframes = {
     isPrime: false,
     conclave: false,
     playstyle: ["Support"],
-    exalted: ["/Lotus/Powersuits/Choir/ChoirEruptWeapon"],
+    exalted: true,
   },
   Khora: {
     name: "Khora",
-    category: "Warframes",
-    type: "Warframe",
     health: 365,
     shield: 270,
     armor: 290,
@@ -2385,52 +958,18 @@ export const warframes = {
     sprint: 1.05,
     aura: "Vazarin",
     releaseDate: "2018-04-20",
-    imageName: "Khora.png",
-    abilities: [
-      {
-        uniqueName: "/Lotus/Powersuits/Khora/Abilities/KhoraCrackAbility",
-        name: "Whipclaw",
-        description:
-          "Send enemies reeling with a deafening whipcrack. Stats are boosted by the equipped mods on Whipclaw.",
-        imageName: "KhoraCrack.png",
-      },
-      {
-        uniqueName: "/Lotus/Powersuits/Khora/Abilities/KhoraTwirlAbility",
-        name: "Ensnare",
-        description:
-          "Bind a hapless target in living metal, entangling others who stray too close. Whipclaw will refresh the trap allowing it to capture more enemies.",
-        imageName: "KhoraAllTiedUp.png",
-      },
-      {
-        uniqueName: "/Lotus/Powersuits/Khora/Abilities/KhoraKavatAbility",
-        name: "Venari",
-        description:
-          "Command Venari to focus on a target. Hold to cycle between Attack, Protect, and Heal postures. If Venari is killed, use this ability to revive her instantly.",
-        imageName: "KhoraSummon.png",
-      },
-      {
-        uniqueName: "/Lotus/Powersuits/Khora/Abilities/KhoraCageAbility",
-        name: "Strangledome",
-        description:
-          "Weave a dome of living chain that ensnares and strangles any enemy within, and any foolish enough to approach. Foes outside the trap will try to hasten their comrade's deaths by shooting them. Crack Whipclaw on the dome to further damage any trapped enemies.",
-        imageName: "KhoraStrangleDome.png",
-      },
-    ],
+    imageName: "Khora_Thumb.png",
+    abilities: ["Whipclaw", "Ensnare", "Venari", "Strangledome"],
     sex: "Female",
     variant: "Standard",
     progenitor: "Toxin",
     isPrime: false,
     conclave: true,
     playstyle: ["Crowd Control", "Damage"],
-    exalted: [
-      "/Lotus/Powersuits/Khora/Kavat/KhoraKavatPowerSuit",
-      "/Lotus/Powersuits/Khora/KhoraWhipclawWeapon",
-    ],
+    exalted: true,
   },
   "Khora Prime": {
     name: "Khora Prime",
-    category: "Warframes",
-    type: "Warframe",
     health: 365,
     shield: 365,
     armor: 345,
@@ -2438,37 +977,8 @@ export const warframes = {
     sprint: 1.05,
     aura: "Vazarin",
     releaseDate: "2022-07-16",
-    imageName: "KhoraPrime.png",
-    abilities: [
-      {
-        uniqueName: "/Lotus/Powersuits/Khora/Abilities/KhoraCrackAbility",
-        name: "Whipclaw",
-        description:
-          "Send enemies reeling with a deafening whipcrack. Stats are boosted by the equipped mods on Whipclaw.",
-        imageName: "KhoraCrack.png",
-      },
-      {
-        uniqueName: "/Lotus/Powersuits/Khora/Abilities/KhoraTwirlAbility",
-        name: "Ensnare",
-        description:
-          "Bind a hapless target in living metal, entangling others who stray too close. Whipclaw will refresh the trap allowing it to capture more enemies.",
-        imageName: "KhoraAllTiedUp.png",
-      },
-      {
-        uniqueName: "/Lotus/Powersuits/Khora/Abilities/KhoraKavatAbility",
-        name: "Venari",
-        description:
-          "Command Venari to focus on a target. Hold to cycle between Attack, Protect, and Heal postures. If Venari is killed, use this ability to revive her instantly.",
-        imageName: "KhoraSummon.png",
-      },
-      {
-        uniqueName: "/Lotus/Powersuits/Khora/Abilities/KhoraCageAbility",
-        name: "Strangledome",
-        description:
-          "Weave a dome of living chain that ensnares and strangles any enemy within, and any foolish enough to approach. Foes outside the trap will try to hasten their comrade's deaths by shooting them. Crack Whipclaw on the dome to further damage any trapped enemies.",
-        imageName: "KhoraStrangleDome.png",
-      },
-    ],
+    imageName: "KhoraPrime_Thumb.png",
+    abilities: ["Whipclaw", "Ensnare", "Venari", "Strangledome"],
     sex: "Female",
     variant: "Prime",
     progenitor: "Toxin",
@@ -2476,15 +986,10 @@ export const warframes = {
     conclave: false,
     vaulted: true,
     playstyle: ["Crowd Control", "Damage"],
-    exalted: [
-      "/Lotus/Powersuits/Khora/Kavat/KhoraPrimeKavatPowerSuit",
-      "/Lotus/Powersuits/Khora/KhoraWhipclawWeaponPrime",
-    ],
+    exalted: true,
   },
   Koumei: {
     name: "Koumei",
-    category: "Warframes",
-    type: "Warframe",
     health: 344,
     shield: 122,
     armor: 444,
@@ -2492,37 +997,8 @@ export const warframes = {
     sprint: 1,
     aura: "Madurai",
     releaseDate: "2024-10-02",
-    imageName: "Koumei.png",
-    abilities: [
-      {
-        uniqueName: "/Lotus/Powersuits/Koumei/Abilities/KoumeiStringsAbility",
-        name: "Kumihimo",
-        description:
-          "Weave the threads of destiny. Enemies who touch the threads suffer a random Elemental Status Effect.\n\nA roll of triple sixes creates threads that inflict one of every Elemental Status Effect.",
-        imageName: "KoumeiKumihimo.png",
-      },
-      {
-        uniqueName: "/Lotus/Powersuits/Koumei/Abilities/KoumeiFortuneAbility",
-        name: "Omikuji",
-        description:
-          "Koumei glimpses a favorable future and the precise steps needed to reach it. Complete the challenge to earn a Decree. Unlucky rolls add a debuff, but you can hold the ability to reject the Omikuji.\n\nA roll of triple sixes grants a Decree without a challenge.",
-        imageName: "KoumeiOmikuji.png",
-      },
-      {
-        uniqueName: "/Lotus/Powersuits/Koumei/Abilities/KoumeiBlockAbility",
-        name: "Omamori",
-        description:
-          "Surround yourself with Omamori Charms, each with a chance to have enemy attacks heal you instead of damage you. The number of charms is determined by Koumei’s dice roll.\n\nA roll of triple sixes grants invulnerability for the duration of your Omamori Charms.",
-        imageName: "KoumeiOmamori.png",
-      },
-      {
-        uniqueName: "/Lotus/Powersuits/Koumei/Abilities/KoumeiPuppetAbility",
-        name: "Bunraku",
-        description:
-          "Wield your foe’s fate threads like the strings of marionettes. Koumei’s dice determine how many Status Effects foes in front of Koumei will suffer.\n\nA roll of triple sixes causes further Status Effects over time and extends Bunraku to enemies behind Koumei.",
-        imageName: "KoumeiBunraku.png",
-      },
-    ],
+    imageName: "Koumei_Thumb.png",
+    abilities: ["Kumihimo", "Omikuji", "Omamori", "Bunraku"],
     sex: "Female",
     variant: "Standard",
     progenitor: "Cold",
@@ -2532,8 +1008,6 @@ export const warframes = {
   },
   Kullervo: {
     name: "Kullervo",
-    category: "Warframes",
-    type: "Warframe",
     health: 1005,
     shield: 0,
     armor: 550,
@@ -2541,37 +1015,12 @@ export const warframes = {
     sprint: 1.1,
     aura: "Naramon",
     releaseDate: "2023-06-21",
-    imageName: "PaxDuviricus.png",
+    imageName: "Kullervo_Thumb.png",
     abilities: [
-      {
-        uniqueName:
-          "/Lotus/Powersuits/PaxDuviricus/Abilities/PaxTeleportAbility",
-        name: "Wrathful Advance",
-        description:
-          "(TAP) Kullervo charges a Heavy Attack, then teleports to his target and strikes. His rage-filled focus temporarily increases his Melee Critical Chance.\n(HOLD) Teleport to any marked location.",
-        imageName: "KullervoExecute.png",
-      },
-      {
-        uniqueName: "/Lotus/Powersuits/PaxDuviricus/Abilities/PaxBladesAbility",
-        name: "Recompense",
-        description:
-          "Kullervo surrounds himself with daggers. Each dagger that strikes an enemy restores his health, but each dagger that misses an enemy strikes Kullervo, dealing a bit of damage. When Kullervo has max Health, he receives Overguard from struck enemies.",
-        imageName: "KullervoBackstab.png",
-      },
-      {
-        uniqueName: "/Lotus/Powersuits/PaxDuviricus/Abilities/PaxLinkAbility",
-        name: "Collective Curse",
-        description:
-          "Kullervo sends forth a curse that binds enemies. When a cursed enemy takes damage from him, every other cursed enemy also suffers a portion of that damage.",
-        imageName: "KullervoSharedFate.png",
-      },
-      {
-        uniqueName: "/Lotus/Powersuits/PaxDuviricus/Abilities/PaxFieldAbility",
-        name: "Storm Of Ukko",
-        description:
-          "The Void answers Kullervo's invocation with a storm of daggers that rain down upon his enemies.",
-        imageName: "KullervoRisingBlades.png",
-      },
+      "Wrathful Advance",
+      "Recompense",
+      "Collective Curse",
+      "Storm of Ukko",
     ],
     sex: "Male",
     variant: "Standard",
@@ -2582,8 +1031,6 @@ export const warframes = {
   },
   Lavos: {
     name: "Lavos",
-    category: "Warframes",
-    type: "Warframe",
     health: 540,
     shield: 270,
     armor: 575,
@@ -2591,40 +1038,12 @@ export const warframes = {
     sprint: 1.15,
     aura: "Naramon",
     releaseDate: "2020-12-18",
-    imageName: "Lavos.png",
+    imageName: "Lavos_Thumb.png",
     abilities: [
-      {
-        uniqueName:
-          "/Lotus/Powersuits/Alchemist/Abilities/AlchemistSerpentAbility",
-        name: "Ophidian Bite",
-        description:
-          "Lash out with a toxic serpentine strike, consuming the target to heal Lavos.\n\nHold to imbue all abilities with <DT_POISON_COLOR>Toxin.",
-        imageName: "AlchemistSerpent.png",
-      },
-      {
-        uniqueName:
-          "/Lotus/Powersuits/Alchemist/Abilities/AlchemistVialAbility",
-        name: "Vial Rush",
-        description:
-          "Dash forward, crashing through enemies and leaving an icy trail of broken vials.\n\nHold to imbue the next ability cast with <DT_FREEZE_COLOR>Cold.",
-        imageName: "AlchemistRush.png",
-      },
-      {
-        uniqueName:
-          "/Lotus/Powersuits/Alchemist/Abilities/AlchemistTransmuteAbility",
-        name: "Transmutation Probe",
-        description:
-          "Launch a probe that converts Health and Energy Orbs into Universal Orbs that provide both, and ammo pickups into Universal Ammo Pickups. The probe shocks enemies in close proximity. Each electrocuted foe reduces other ability cooldowns by 1.5s.\n\nHold to imbue the next ability cast with <DT_ELECTRICITY_COLOR>Electricity.",
-        imageName: "AlchemistTransmuter.png",
-      },
-      {
-        uniqueName:
-          "/Lotus/Powersuits/Alchemist/Abilities/AlchemistDistillAbility",
-        name: "Catalyze",
-        description:
-          "Catalyst Probes erupt from Lavos and douse combatants in a fiery gel. Damage is doubled for each element afflicting an enemy.\n\nHold to imbue the next ability cast with <DT_FIRE_COLOR>Heat.",
-        imageName: "AlchemistDistill.png",
-      },
+      "Ophidian Bite",
+      "Vial Rush",
+      "Transmutation Probe",
+      "Catalyze",
     ],
     sex: "Male",
     variant: "Standard",
@@ -2635,8 +1054,6 @@ export const warframes = {
   },
   "Lavos Prime": {
     name: "Lavos Prime",
-    category: "Warframes",
-    type: "Warframe",
     health: 600,
     shield: 310,
     armor: 575,
@@ -2644,40 +1061,12 @@ export const warframes = {
     sprint: 1.15,
     aura: "Naramon",
     releaseDate: "2025-02-12",
-    imageName: "LavosPrime.png",
+    imageName: "LavosPrime_Thumb.png",
     abilities: [
-      {
-        uniqueName:
-          "/Lotus/Powersuits/Alchemist/Abilities/AlchemistSerpentAbility",
-        name: "Ophidian Bite",
-        description:
-          "Lash out with a toxic serpentine strike, consuming the target to heal Lavos.\n\nHold to imbue all abilities with <DT_POISON_COLOR>Toxin.",
-        imageName: "AlchemistSerpent.png",
-      },
-      {
-        uniqueName:
-          "/Lotus/Powersuits/Alchemist/Abilities/AlchemistVialAbility",
-        name: "Vial Rush",
-        description:
-          "Dash forward, crashing through enemies and leaving an icy trail of broken vials.\n\nHold to imbue the next ability cast with <DT_FREEZE_COLOR>Cold.",
-        imageName: "AlchemistRush.png",
-      },
-      {
-        uniqueName:
-          "/Lotus/Powersuits/Alchemist/Abilities/AlchemistTransmuteAbility",
-        name: "Transmutation Probe",
-        description:
-          "Launch a probe that converts Health and Energy Orbs into Universal Orbs that provide both, and ammo pickups into Universal Ammo Pickups. The probe shocks enemies in close proximity. Each electrocuted foe reduces other ability cooldowns by 1.5s.\n\nHold to imbue the next ability cast with <DT_ELECTRICITY_COLOR>Electricity.",
-        imageName: "AlchemistTransmuter.png",
-      },
-      {
-        uniqueName:
-          "/Lotus/Powersuits/Alchemist/Abilities/AlchemistDistillAbility",
-        name: "Catalyze",
-        description:
-          "Catalyst Probes erupt from Lavos and douse combatants in a fiery gel. Damage is doubled for each element afflicting an enemy.\n\nHold to imbue the next ability cast with <DT_FIRE_COLOR>Heat.",
-        imageName: "AlchemistDistill.png",
-      },
+      "Ophidian Bite",
+      "Vial Rush",
+      "Transmutation Probe",
+      "Catalyze",
     ],
     sex: "Male",
     variant: "Prime",
@@ -2689,8 +1078,6 @@ export const warframes = {
   },
   Limbo: {
     name: "Limbo",
-    category: "Warframes",
-    type: "Warframe",
     health: 270,
     shield: 180,
     armor: 105,
@@ -2698,38 +1085,8 @@ export const warframes = {
     sprint: 1.15,
     aura: "Naramon",
     releaseDate: "2014-10-24",
-    imageName: "Limbo.png",
-    abilities: [
-      {
-        uniqueName: "/Lotus/Powersuits/Magician/Abilities/BanishAbility",
-        name: "Banish",
-        description:
-          "Casts a wave of Rift energy that damages hostiles while pushing enemies and allies out of Limbo's current plane of existence.",
-        imageName: "LimboBanish.png",
-      },
-      {
-        uniqueName:
-          "/Lotus/Powersuits/Magician/Abilities/MagicianStasisAbility",
-        name: "Stasis",
-        description:
-          "Freezes Rift-bound enemies. While active, enemy projectiles are arrested in mid-air, resuming its trajectory when stasis ends.",
-        imageName: "LimboRiftWalk.png",
-      },
-      {
-        uniqueName: "/Lotus/Powersuits/Magician/Abilities/VolatileAbility",
-        name: "Rift Surge",
-        description:
-          "Surges nearby Rift-bound enemies with Rift energy. When killed the Rift Surge is transferred to a nearby enemy outside the rift. Surged enemies that leave the Rift perform a radial Banish.",
-        imageName: "LimboVolatile.png",
-      },
-      {
-        uniqueName: "/Lotus/Powersuits/Magician/Abilities/TearInSpaceAbility",
-        name: "Cataclysm",
-        description:
-          "A violent blast of Void energy tears open a pocket of rift plane which can sustain itself for a short period before collapsing in another lethal blast.",
-        imageName: "LimboTearInSpace.png",
-      },
-    ],
+    imageName: "Limbo_Thumb.png",
+    abilities: ["Banish", "Stasis", "Rift Surge", "Cataclysm"],
     sex: "Male",
     variant: "Standard",
     progenitor: "Electricity",
@@ -2739,8 +1096,6 @@ export const warframes = {
   },
   "Limbo Prime": {
     name: "Limbo Prime",
-    category: "Warframes",
-    type: "Warframe",
     health: 270,
     shield: 270,
     armor: 135,
@@ -2748,38 +1103,8 @@ export const warframes = {
     sprint: 1.15,
     aura: "Naramon",
     releaseDate: "2018-06-19",
-    imageName: "LimboPrime.png",
-    abilities: [
-      {
-        uniqueName: "/Lotus/Powersuits/Magician/Abilities/BanishAbility",
-        name: "Banish",
-        description:
-          "Casts a wave of Rift energy that damages hostiles while pushing enemies and allies out of Limbo's current plane of existence.",
-        imageName: "LimboBanish.png",
-      },
-      {
-        uniqueName:
-          "/Lotus/Powersuits/Magician/Abilities/MagicianStasisAbility",
-        name: "Stasis",
-        description:
-          "Freezes Rift-bound enemies. While active, enemy projectiles are arrested in mid-air, resuming its trajectory when stasis ends.",
-        imageName: "LimboRiftWalk.png",
-      },
-      {
-        uniqueName: "/Lotus/Powersuits/Magician/Abilities/VolatileAbility",
-        name: "Rift Surge",
-        description:
-          "Surges nearby Rift-bound enemies with Rift energy. When killed the Rift Surge is transferred to a nearby enemy outside the rift. Surged enemies that leave the Rift perform a radial Banish.",
-        imageName: "LimboVolatile.png",
-      },
-      {
-        uniqueName: "/Lotus/Powersuits/Magician/Abilities/TearInSpaceAbility",
-        name: "Cataclysm",
-        description:
-          "A violent blast of Void energy tears open a pocket of rift plane which can sustain itself for a short period before collapsing in another lethal blast.",
-        imageName: "LimboTearInSpace.png",
-      },
-    ],
+    imageName: "LimboPrime_Thumb.png",
+    abilities: ["Banish", "Stasis", "Rift Surge", "Cataclysm"],
     sex: "Male",
     variant: "Prime",
     progenitor: "Electricity",
@@ -2790,8 +1115,6 @@ export const warframes = {
   },
   Loki: {
     name: "Loki",
-    category: "Warframes",
-    type: "Warframe",
     health: 180,
     shield: 180,
     armor: 105,
@@ -2799,36 +1122,8 @@ export const warframes = {
     sprint: 1.25,
     aura: "Naramon",
     releaseDate: "2012-10-25",
-    imageName: "Loki.png",
-    abilities: [
-      {
-        uniqueName: "/Lotus/Powersuits/Loki/Abilities/DecoyAbility",
-        name: "Decoy",
-        description:
-          "Loki deploys a holographic copy of himself that draws enemy fire and absorbs a portion of nearby enemy health and shields.",
-        imageName: "LokiDecoy.png",
-      },
-      {
-        uniqueName: "/Lotus/Powersuits/Loki/Abilities/InvisibilityAbility",
-        name: "Invisibility",
-        description: "Loki camouflages himself, becoming invisible to enemies.",
-        imageName: "LokiInvisibility.png",
-      },
-      {
-        uniqueName: "/Lotus/Powersuits/Loki/Abilities/SwitchTeleportAbility",
-        name: "Switch Teleport",
-        description:
-          "Loki instantaneously swaps positions with a target, confusing the enemy.",
-        imageName: "LokiSwitchTeleport.png",
-      },
-      {
-        uniqueName: "/Lotus/Powersuits/Loki/Abilities/RadialDisarmAbility",
-        name: "Radial Disarm",
-        description:
-          "Lets forth a wave of energy, disrupting the projectile weapons of enemies in range and forcing them to revert to melee combat.",
-        imageName: "LokiRadialDisarm.png",
-      },
-    ],
+    imageName: "Loki_Thumb.png",
+    abilities: ["Decoy", "Invisibility", "Switch Teleport", "Radial Disarm"],
     sex: "Male",
     variant: "Standard",
     progenitor: "Radiation",
@@ -2838,8 +1133,6 @@ export const warframes = {
   },
   "Loki Prime": {
     name: "Loki Prime",
-    category: "Warframes",
-    type: "Warframe",
     health: 180,
     shield: 180,
     armor: 135,
@@ -2847,36 +1140,8 @@ export const warframes = {
     sprint: 1.25,
     aura: "Naramon",
     releaseDate: "2014-06-11",
-    imageName: "LokiPrime.png",
-    abilities: [
-      {
-        uniqueName: "/Lotus/Powersuits/Loki/Abilities/DecoyAbility",
-        name: "Decoy",
-        description:
-          "Loki deploys a holographic copy of himself that draws enemy fire and absorbs a portion of nearby enemy health and shields.",
-        imageName: "LokiDecoy.png",
-      },
-      {
-        uniqueName: "/Lotus/Powersuits/Loki/Abilities/InvisibilityAbility",
-        name: "Invisibility",
-        description: "Loki camouflages himself, becoming invisible to enemies.",
-        imageName: "LokiInvisibility.png",
-      },
-      {
-        uniqueName: "/Lotus/Powersuits/Loki/Abilities/SwitchTeleportAbility",
-        name: "Switch Teleport",
-        description:
-          "Loki instantaneously swaps positions with a target, confusing the enemy.",
-        imageName: "LokiSwitchTeleport.png",
-      },
-      {
-        uniqueName: "/Lotus/Powersuits/Loki/Abilities/RadialDisarmAbility",
-        name: "Radial Disarm",
-        description:
-          "Lets forth a wave of energy, disrupting the projectile weapons of enemies in range and forcing them to revert to melee combat.",
-        imageName: "LokiRadialDisarm.png",
-      },
-    ],
+    imageName: "LokiPrime_Thumb.png",
+    abilities: ["Decoy", "Invisibility", "Switch Teleport", "Radial Disarm"],
     sex: "Male",
     variant: "Prime",
     progenitor: "Radiation",
@@ -2887,8 +1152,6 @@ export const warframes = {
   },
   Mag: {
     name: "Mag",
-    category: "Warframes",
-    type: "Warframe",
     health: 180,
     shield: 455,
     armor: 105,
@@ -2896,37 +1159,8 @@ export const warframes = {
     sprint: 1,
     aura: "Madurai",
     releaseDate: "2012-10-25",
-    imageName: "Mag.png",
-    abilities: [
-      {
-        uniqueName: "/Lotus/Powersuits/Mag/Abilities/PullAbility",
-        name: "Pull",
-        description:
-          "Mag stuns enemies as she manifests a magnetic vortex. The vortex pulls in Polarize Shards and stunned enemies to place them directly in front of her.",
-        imageName: "MagPull.png",
-      },
-      {
-        uniqueName: "/Lotus/Powersuits/Mag/Abilities/BulletAttractorAbility",
-        name: "Magnetize",
-        description:
-          "(TAP) Enclose a target in a magnetic field that ensnares nearby enemies and deals damage over time. The field pulls Polarize Shards that orbited Mag and shrapnel into the deadly mix.\n(HOLD) Mag surrounds herself in a magnetic field that absorbs ranged attacks and reflects damage back in a destructive cone.",
-        imageName: "MagMagnetize.png",
-      },
-      {
-        uniqueName: "/Lotus/Powersuits/Mag/Abilities/ShieldRegenAbility",
-        name: "Polarize",
-        description:
-          "Emit an energy pulse that depletes enemy shields and armor as it restores ally shields. Debris left over from the pulse becomes Polarize Shards. Nearby Polarize Shards orbit Mag and cut enemies, inflicting <DT_SLASH_COLOR>Slash Status Effect.",
-        imageName: "MagShieldRenew.png",
-      },
-      {
-        uniqueName: "/Lotus/Powersuits/Mag/Abilities/CrushAbility",
-        name: "Crush",
-        description:
-          "Magnetize the bones of nearby enemies, causing them to collapse upon themselves.",
-        imageName: "MagCrush.png",
-      },
-    ],
+    imageName: "Mag_Thumb.png",
+    abilities: ["Pull", "Magnetize", "Polarize", "Crush"],
     sex: "Female",
     variant: "Standard",
     progenitor: "Magnetic",
@@ -2936,8 +1170,6 @@ export const warframes = {
   },
   "Mag Prime": {
     name: "Mag Prime",
-    category: "Warframes",
-    type: "Warframe",
     health: 270,
     shield: 455,
     armor: 135,
@@ -2945,37 +1177,8 @@ export const warframes = {
     sprint: 1,
     aura: "Madurai",
     releaseDate: "2013-09-13",
-    imageName: "MagPrime.png",
-    abilities: [
-      {
-        uniqueName: "/Lotus/Powersuits/Mag/Abilities/PullAbility",
-        name: "Pull",
-        description:
-          "Mag stuns enemies as she manifests a magnetic vortex. The vortex pulls in Polarize Shards and stunned enemies to place them directly in front of her.",
-        imageName: "MagPull.png",
-      },
-      {
-        uniqueName: "/Lotus/Powersuits/Mag/Abilities/BulletAttractorAbility",
-        name: "Magnetize",
-        description:
-          "(TAP) Enclose a target in a magnetic field that ensnares nearby enemies and deals damage over time. The field pulls Polarize Shards that orbited Mag and shrapnel into the deadly mix.\n(HOLD) Mag surrounds herself in a magnetic field that absorbs ranged attacks and reflects damage back in a destructive cone.",
-        imageName: "MagMagnetize.png",
-      },
-      {
-        uniqueName: "/Lotus/Powersuits/Mag/Abilities/ShieldRegenAbility",
-        name: "Polarize",
-        description:
-          "Emit an energy pulse that depletes enemy shields and armor as it restores ally shields. Debris left over from the pulse becomes Polarize Shards. Nearby Polarize Shards orbit Mag and cut enemies, inflicting <DT_SLASH_COLOR>Slash Status Effect.",
-        imageName: "MagShieldRenew.png",
-      },
-      {
-        uniqueName: "/Lotus/Powersuits/Mag/Abilities/CrushAbility",
-        name: "Crush",
-        description:
-          "Magnetize the bones of nearby enemies, causing them to collapse upon themselves.",
-        imageName: "MagCrush.png",
-      },
-    ],
+    imageName: "MagPrime_Thumb.png",
+    abilities: ["Pull", "Magnetize", "Polarize", "Crush"],
     sex: "Female",
     variant: "Prime",
     progenitor: "Magnetic",
@@ -2986,8 +1189,6 @@ export const warframes = {
   },
   Mesa: {
     name: "Mesa",
-    category: "Warframes",
-    type: "Warframe",
     health: 365,
     shield: 180,
     armor: 105,
@@ -2995,38 +1196,12 @@ export const warframes = {
     sprint: 1.1,
     aura: "Madurai",
     releaseDate: "2014-11-27",
-    imageName: "Mesa.png",
+    imageName: "Mesa_Thumb.png",
     abilities: [
-      {
-        uniqueName:
-          "/Lotus/Powersuits/Cowgirl/Abilities/BallisticBatteryAbility",
-        name: "Ballistic Battery",
-        description:
-          "When activated, this power stores damage caused by guns. When triggered again, that damage is channelled through the next gunshot.",
-        imageName: "GunslingerBallisticBattery.png",
-      },
-      {
-        uniqueName:
-          "/Lotus/Powersuits/Cowgirl/Abilities/RussianRouletteAbility",
-        name: "Shooting Gallery",
-        description:
-          "Gives an ally Extra Damage while jamming the guns of nearby enemies. This power shifts between team members.",
-        imageName: "GunslingerRussianRoulette.png",
-      },
-      {
-        uniqueName: "/Lotus/Powersuits/Cowgirl/Abilities/RicochetArmorAbility",
-        name: "Shatter Shield",
-        description:
-          "Envelops Mesa in a barrier of energy, reflecting back incoming bullet damage.",
-        imageName: "GunslingerRicochetArmour.png",
-      },
-      {
-        uniqueName: "/Lotus/Powersuits/Cowgirl/Abilities/GunFuAbility",
-        name: "Peacemaker",
-        description:
-          "With intense focus, Mesa draws her Regulator pistols, shooting down her foes in rapid succession.",
-        imageName: "GunslingerGunFu.png",
-      },
+      "Ballistic Battery",
+      "Shooting Gallery",
+      "Shatter Shield",
+      "Peacemaker",
     ],
     sex: "Female",
     variant: "Standard",
@@ -3034,12 +1209,10 @@ export const warframes = {
     isPrime: false,
     conclave: true,
     playstyle: ["Damage"],
-    exalted: ["/Lotus/Powersuits/Cowgirl/SlingerPistols"],
+    exalted: true,
   },
   "Mesa Prime": {
     name: "Mesa Prime",
-    category: "Warframes",
-    type: "Warframe",
     health: 400,
     shield: 180,
     armor: 135,
@@ -3047,38 +1220,12 @@ export const warframes = {
     sprint: 1.1,
     aura: "Madurai",
     releaseDate: "2018-12-18",
-    imageName: "MesaPrime.png",
+    imageName: "MesaPrime_Thumb.png",
     abilities: [
-      {
-        uniqueName:
-          "/Lotus/Powersuits/Cowgirl/Abilities/BallisticBatteryAbility",
-        name: "Ballistic Battery",
-        description:
-          "When activated, this power stores damage caused by guns. When triggered again, that damage is channelled through the next gunshot.",
-        imageName: "GunslingerBallisticBattery.png",
-      },
-      {
-        uniqueName:
-          "/Lotus/Powersuits/Cowgirl/Abilities/RussianRouletteAbility",
-        name: "Shooting Gallery",
-        description:
-          "Gives an ally Extra Damage while jamming the guns of nearby enemies. This power shifts between team members.",
-        imageName: "GunslingerRussianRoulette.png",
-      },
-      {
-        uniqueName: "/Lotus/Powersuits/Cowgirl/Abilities/RicochetArmorAbility",
-        name: "Shatter Shield",
-        description:
-          "Envelops Mesa in a barrier of energy, reflecting back incoming bullet damage.",
-        imageName: "GunslingerRicochetArmour.png",
-      },
-      {
-        uniqueName: "/Lotus/Powersuits/Cowgirl/Abilities/GunFuAbility",
-        name: "Peacemaker",
-        description:
-          "With intense focus, Mesa draws her Regulator pistols, shooting down her foes in rapid succession.",
-        imageName: "GunslingerGunFu.png",
-      },
+      "Ballistic Battery",
+      "Shooting Gallery",
+      "Shatter Shield",
+      "Peacemaker",
     ],
     sex: "Female",
     variant: "Prime",
@@ -3087,12 +1234,10 @@ export const warframes = {
     conclave: true,
     vaulted: true,
     playstyle: ["Damage"],
-    exalted: ["/Lotus/Powersuits/Cowgirl/PrimeSlingerPistols"],
+    exalted: true,
   },
   Mirage: {
     name: "Mirage",
-    category: "Warframes",
-    type: "Warframe",
     health: 200,
     shield: 200,
     armor: 105,
@@ -3100,38 +1245,8 @@ export const warframes = {
     sprint: 1.2,
     aura: "Naramon",
     releaseDate: "2014-07-18",
-    imageName: "Mirage.png",
-    abilities: [
-      {
-        uniqueName: "/Lotus/Powersuits/Harlequin/Abilities/IllusionAbility",
-        name: "Hall Of Mirrors",
-        description:
-          "Mirage creates an entourage of doppelgangers to confuse and distract the enemy.",
-        imageName: "HarlequinReflection.png",
-      },
-      {
-        uniqueName:
-          "/Lotus/Powersuits/Harlequin/Abilities/HarlequinObjectChangeAbility",
-        name: "Sleight Of Hand",
-        description:
-          "Booby trap nearby objects while conjuring an irresistible jewel that bursts with radial blind when touched in darkness, or a radial explosion in light. Conjure multiple smaller jewels with the help of Hall of Mirrors.",
-        imageName: "HarlequinDeadlyTrap.png",
-      },
-      {
-        uniqueName: "/Lotus/Powersuits/Harlequin/Abilities/LightAbility",
-        name: "Eclipse",
-        description:
-          "(TAP) Temporarily reduce the damage Mirage takes from enemies.\n(HOLD) Temporarily increase Mirage's weapon damage.",
-        imageName: "HarlequinLightDark.png",
-      },
-      {
-        uniqueName: "/Lotus/Powersuits/Harlequin/Abilities/Prism",
-        name: "Prism",
-        description:
-          "Fires an energy prism that shoots lasers in all directions. Activating again detonates the prism, blinding nearby foes.",
-        imageName: "HarlequinPrism.png",
-      },
-    ],
+    imageName: "Mirage_Thumb.png",
+    abilities: ["Hall of Mirrors", "Sleight of Hand", "Eclipse", "Prism"],
     sex: "Female",
     variant: "Standard",
     progenitor: "Radiation",
@@ -3141,8 +1256,6 @@ export const warframes = {
   },
   "Mirage Prime": {
     name: "Mirage Prime",
-    category: "Warframes",
-    type: "Warframe",
     health: 200,
     shield: 310,
     armor: 185,
@@ -3150,38 +1263,8 @@ export const warframes = {
     sprint: 1.2,
     aura: "Naramon",
     releaseDate: "2017-12-12",
-    imageName: "MiragePrime.png",
-    abilities: [
-      {
-        uniqueName: "/Lotus/Powersuits/Harlequin/Abilities/IllusionAbility",
-        name: "Hall Of Mirrors",
-        description:
-          "Mirage creates an entourage of doppelgangers to confuse and distract the enemy.",
-        imageName: "HarlequinReflection.png",
-      },
-      {
-        uniqueName:
-          "/Lotus/Powersuits/Harlequin/Abilities/HarlequinObjectChangeAbility",
-        name: "Sleight Of Hand",
-        description:
-          "Booby trap nearby objects while conjuring an irresistible jewel that bursts with radial blind when touched in darkness, or a radial explosion in light. Conjure multiple smaller jewels with the help of Hall of Mirrors.",
-        imageName: "HarlequinDeadlyTrap.png",
-      },
-      {
-        uniqueName: "/Lotus/Powersuits/Harlequin/Abilities/LightAbility",
-        name: "Eclipse",
-        description:
-          "(TAP) Temporarily reduce the damage Mirage takes from enemies.\n(HOLD) Temporarily increase Mirage's weapon damage.",
-        imageName: "HarlequinLightDark.png",
-      },
-      {
-        uniqueName: "/Lotus/Powersuits/Harlequin/Abilities/Prism",
-        name: "Prism",
-        description:
-          "Fires an energy prism that shoots lasers in all directions. Activating again detonates the prism, blinding nearby foes.",
-        imageName: "HarlequinPrism.png",
-      },
-    ],
+    imageName: "MiragePrime_Thumb.png",
+    abilities: ["Hall of Mirrors", "Sleight of Hand", "Eclipse", "Prism"],
     sex: "Female",
     variant: "Prime",
     progenitor: "Radiation",
@@ -3192,8 +1275,6 @@ export const warframes = {
   },
   Nekros: {
     name: "Nekros",
-    category: "Warframes",
-    type: "Warframe",
     health: 270,
     shield: 235,
     armor: 105,
@@ -3201,37 +1282,8 @@ export const warframes = {
     sprint: 1.1,
     aura: "None",
     releaseDate: "2013-09-13",
-    imageName: "Nekros.png",
-    abilities: [
-      {
-        uniqueName: "/Lotus/Powersuits/Necro/Abilities/SoulPunchAbility",
-        name: "Soul Punch",
-        description:
-          "A blow so powerful, it turns the enemy's very soul into a deadly projectile, damaging all in its path. Enemies that survive the blow are Marked for Harvest and become one of Nekros' Shadows of the Dead if killed while marked.",
-        imageName: "NecroSoulPunch.png",
-      },
-      {
-        uniqueName: "/Lotus/Powersuits/Necro/Abilities/TerrorTotemAbility",
-        name: "Terrify",
-        description:
-          "Cast fear into the hearts of nearby enemies, causing them to run away in terror.",
-        imageName: "NecroTerrorTotem.png",
-      },
-      {
-        uniqueName: "/Lotus/Powersuits/Necro/Abilities/SearchTheDeadAbility",
-        name: "Desecrate",
-        description:
-          "Forces fallen enemies around you to drop additional loot.",
-        imageName: "NecroSearchTheDead.png",
-      },
-      {
-        uniqueName: "/Lotus/Powersuits/Necro/Abilities/CloneTheDeadAbility",
-        name: "Shadows Of The Dead",
-        description:
-          "Summon shadow versions of vanquished enemies to fight alongside you for a short period.",
-        imageName: "NecroCloneTheDead.png",
-      },
-    ],
+    imageName: "Nekros_Thumb.png",
+    abilities: ["Soul Punch", "Terrify", "Desecrate", "Shadows of the Dead"],
     sex: "Male",
     variant: "Standard",
     progenitor: "Toxin",
@@ -3241,8 +1293,6 @@ export const warframes = {
   },
   "Nekros Prime": {
     name: "Nekros Prime",
-    category: "Warframes",
-    type: "Warframe",
     health: 270,
     shield: 455,
     armor: 135,
@@ -3250,37 +1300,8 @@ export const warframes = {
     sprint: 1.1,
     aura: "None",
     releaseDate: "2016-08-23",
-    imageName: "NekrosPrime.png",
-    abilities: [
-      {
-        uniqueName: "/Lotus/Powersuits/Necro/Abilities/SoulPunchAbility",
-        name: "Soul Punch",
-        description:
-          "A blow so powerful, it turns the enemy's very soul into a deadly projectile, damaging all in its path. Enemies that survive the blow are Marked for Harvest and become one of Nekros' Shadows of the Dead if killed while marked.",
-        imageName: "NecroSoulPunch.png",
-      },
-      {
-        uniqueName: "/Lotus/Powersuits/Necro/Abilities/TerrorTotemAbility",
-        name: "Terrify",
-        description:
-          "Cast fear into the hearts of nearby enemies, causing them to run away in terror.",
-        imageName: "NecroTerrorTotem.png",
-      },
-      {
-        uniqueName: "/Lotus/Powersuits/Necro/Abilities/SearchTheDeadAbility",
-        name: "Desecrate",
-        description:
-          "Forces fallen enemies around you to drop additional loot.",
-        imageName: "NecroSearchTheDead.png",
-      },
-      {
-        uniqueName: "/Lotus/Powersuits/Necro/Abilities/CloneTheDeadAbility",
-        name: "Shadows Of The Dead",
-        description:
-          "Summon shadow versions of vanquished enemies to fight alongside you for a short period.",
-        imageName: "NecroCloneTheDead.png",
-      },
-    ],
+    imageName: "NekrosPrime_Thumb.png",
+    abilities: ["Soul Punch", "Terrify", "Desecrate", "Shadows of the Dead"],
     sex: "Male",
     variant: "Prime",
     progenitor: "Toxin",
@@ -3291,8 +1312,6 @@ export const warframes = {
   },
   Nezha: {
     name: "Nezha",
-    category: "Warframes",
-    type: "Warframe",
     health: 365,
     shield: 135,
     armor: 200,
@@ -3300,36 +1319,12 @@ export const warframes = {
     sprint: 1.15,
     aura: "Naramon",
     releaseDate: "2015-12-16",
-    imageName: "Nezha.png",
+    imageName: "Nezha_Thumb.png",
     abilities: [
-      {
-        uniqueName: "/Lotus/Powersuits/Nezha/Abilities/NezhaTrailAbility",
-        name: "Fire Walker",
-        description:
-          "Blaze a trail of flames, scorching enemies and cleansing allies. Teleporting blasts the landing area with a ring of fire.",
-        imageName: "NezhaTrail.png",
-      },
-      {
-        uniqueName: "/Lotus/Powersuits/Nezha/Abilities/NezhaRingAbility",
-        name: "Blazing Chakram",
-        description:
-          "Hurl a flaming ring that sets enemies ablaze making them vulnerable to any damage. Flaming enemies drop Restorative Orbs on death. Charge to amplify the power of the ring, and reactivate to instantly travel to the ring's location.",
-        imageName: "NezhaRing.png",
-      },
-      {
-        uniqueName: "/Lotus/Powersuits/Nezha/Abilities/NezhaSashAbility",
-        name: "Warding Halo",
-        description:
-          "Create a protective ring of fire, that also stuns and damages enemies who get too close.",
-        imageName: "NezhaSash.png",
-      },
-      {
-        uniqueName: "/Lotus/Powersuits/Nezha/Abilities/NezhaSpearAbility",
-        name: "Divine Spears",
-        description:
-          "Impale nearby enemies on spears that erupt from the below. Activate again to slam surviving enemies back into the ground.",
-        imageName: "NezhaSpear.png",
-      },
+      "Fire Walker",
+      "Blazing Chakram",
+      "Warding Halo",
+      "Divine Spears",
     ],
     sex: "Male",
     variant: "Standard",
@@ -3340,8 +1335,6 @@ export const warframes = {
   },
   "Nezha Prime": {
     name: "Nezha Prime",
-    category: "Warframes",
-    type: "Warframe",
     health: 365,
     shield: 135,
     armor: 265,
@@ -3349,36 +1342,12 @@ export const warframes = {
     sprint: 1.2,
     aura: "Naramon",
     releaseDate: "2020-10-27",
-    imageName: "NezhaPrime.png",
+    imageName: "NezhaPrime_Thumb.png",
     abilities: [
-      {
-        uniqueName: "/Lotus/Powersuits/Nezha/Abilities/NezhaTrailAbility",
-        name: "Fire Walker",
-        description:
-          "Blaze a trail of flames, scorching enemies and cleansing allies. Teleporting blasts the landing area with a ring of fire.",
-        imageName: "NezhaTrail.png",
-      },
-      {
-        uniqueName: "/Lotus/Powersuits/Nezha/Abilities/NezhaRingAbility",
-        name: "Blazing Chakram",
-        description:
-          "Hurl a flaming ring that sets enemies ablaze making them vulnerable to any damage. Flaming enemies drop Restorative Orbs on death. Charge to amplify the power of the ring, and reactivate to instantly travel to the ring's location.",
-        imageName: "NezhaRing.png",
-      },
-      {
-        uniqueName: "/Lotus/Powersuits/Nezha/Abilities/NezhaSashAbility",
-        name: "Warding Halo",
-        description:
-          "Create a protective ring of fire, that also stuns and damages enemies who get too close.",
-        imageName: "NezhaSash.png",
-      },
-      {
-        uniqueName: "/Lotus/Powersuits/Nezha/Abilities/NezhaSpearAbility",
-        name: "Divine Spears",
-        description:
-          "Impale nearby enemies on spears that erupt from the below. Activate again to slam surviving enemies back into the ground.",
-        imageName: "NezhaSpear.png",
-      },
+      "Fire Walker",
+      "Blazing Chakram",
+      "Warding Halo",
+      "Divine Spears",
     ],
     sex: "Male",
     variant: "Prime",
@@ -3390,8 +1359,6 @@ export const warframes = {
   },
   Nidus: {
     name: "Nidus",
-    category: "Warframes",
-    type: "Warframe",
     health: 455,
     shield: 0,
     armor: 350,
@@ -3399,39 +1366,8 @@ export const warframes = {
     sprint: 1,
     aura: "Madurai",
     releaseDate: "2016-12-22",
-    imageName: "Nidus.png",
-    abilities: [
-      {
-        uniqueName:
-          "/Lotus/Powersuits/Infestation/Abilities/InfestRuptureAbility",
-        name: "Virulence",
-        description:
-          "Rupture the ground with a damaging fungal growth that steals energy from each enemy it strikes. For every five enemies hit, the Infestation mutates, multiplying its destructive force.",
-        imageName: "InfestedRupture.png",
-      },
-      {
-        uniqueName:
-          "/Lotus/Powersuits/Infestation/Abilities/InfestTendrilsAbility",
-        name: "Larva",
-        description:
-          "Spawn an Infested pod that erupts with tendrils, latches onto nearby enemies and pulls them in. Enemies killed while held have a chance of generating a Mutation stack.",
-        imageName: "InfestedTendrils.png",
-      },
-      {
-        uniqueName: "/Lotus/Powersuits/Infestation/Abilities/InfestLinkAbility",
-        name: "Parasitic Link",
-        description:
-          "Bind to a target with parasitic link. When cast on an ally, both the host and Nidus have their Ability Strength increased. Linked enemies take some of the damage inflicted on Nidus.",
-        imageName: "InfestedSymboticLink.png",
-      },
-      {
-        uniqueName: "/Lotus/Powersuits/Infestation/Abilities/InfestPodsAbility",
-        name: "Ravenous",
-        description:
-          "Gluttonous maggots swarm nearby enemies, feasting until they are hit with Virulence and burst with Infestation. The maggots benefit from Mutation and each enemy hit adds to the Mutation stack.",
-        imageName: "InfestedInfest.png",
-      },
-    ],
+    imageName: "Nidus_Thumb.png",
+    abilities: ["Virulence", "Larva", "Parasitic Link", "Ravenous"],
     sex: "Male",
     variant: "Standard",
     progenitor: "Toxin",
@@ -3441,8 +1377,6 @@ export const warframes = {
   },
   "Nidus Prime": {
     name: "Nidus Prime",
-    category: "Warframes",
-    type: "Warframe",
     health: 550,
     shield: 0,
     armor: 425,
@@ -3450,39 +1384,8 @@ export const warframes = {
     sprint: 1,
     aura: "Madurai",
     releaseDate: "2021-09-08",
-    imageName: "NidusPrime.png",
-    abilities: [
-      {
-        uniqueName:
-          "/Lotus/Powersuits/Infestation/Abilities/InfestRuptureAbility",
-        name: "Virulence",
-        description:
-          "Rupture the ground with a damaging fungal growth that steals energy from each enemy it strikes. For every five enemies hit, the Infestation mutates, multiplying its destructive force.",
-        imageName: "InfestedRupture.png",
-      },
-      {
-        uniqueName:
-          "/Lotus/Powersuits/Infestation/Abilities/InfestTendrilsAbility",
-        name: "Larva",
-        description:
-          "Spawn an Infested pod that erupts with tendrils, latches onto nearby enemies and pulls them in. Enemies killed while held have a chance of generating a Mutation stack.",
-        imageName: "InfestedTendrils.png",
-      },
-      {
-        uniqueName: "/Lotus/Powersuits/Infestation/Abilities/InfestLinkAbility",
-        name: "Parasitic Link",
-        description:
-          "Bind to a target with parasitic link. When cast on an ally, both the host and Nidus have their Ability Strength increased. Linked enemies take some of the damage inflicted on Nidus.",
-        imageName: "InfestedSymboticLink.png",
-      },
-      {
-        uniqueName: "/Lotus/Powersuits/Infestation/Abilities/InfestPodsAbility",
-        name: "Ravenous",
-        description:
-          "Gluttonous maggots swarm nearby enemies, feasting until they are hit with Virulence and burst with Infestation. The maggots benefit from Mutation and each enemy hit adds to the Mutation stack.",
-        imageName: "InfestedInfest.png",
-      },
-    ],
+    imageName: "NidusPrime_Thumb.png",
+    abilities: ["Virulence", "Larva", "Parasitic Link", "Ravenous"],
     sex: "Male",
     variant: "Prime",
     progenitor: "Toxin",
@@ -3493,8 +1396,6 @@ export const warframes = {
   },
   Nokko: {
     name: "Nokko",
-    category: "Warframes",
-    type: "Warframe",
     health: 150,
     shield: 300,
     armor: 135,
@@ -3502,37 +1403,8 @@ export const warframes = {
     sprint: 1.25,
     aura: "Madurai",
     releaseDate: "2025-10-15",
-    imageName: "Nokko.png",
-    abilities: [
-      {
-        uniqueName: "/Lotus/Powersuits/Nokko/Abilities/NokkoToxicShroomAbility",
-        name: "Stinkbrain",
-        description:
-          "Throw a mushroom that periodically sheds poisonous spores, inflicting <DT_VIRAL_COLOR> Viral Damage and Status Effect upon nearby enemies while also lulling them to sleep.",
-        imageName: "NokkoToxic.png",
-      },
-      {
-        uniqueName: "/Lotus/Powersuits/Nokko/Abilities/NokkoPowerShroomAbility",
-        name: "Brightbonnet",
-        description:
-          "Release a rejuvenating mushroom that emits a radial pulse, giving Nokko and his allies’ <ENERGY> Energy and applying a buff to Ability Strength that lasts for a short time.",
-        imageName: "NokkoPower.png",
-      },
-      {
-        uniqueName: "/Lotus/Powersuits/Nokko/Abilities/NokkoShrinkAbility",
-        name: "Reroot",
-        description:
-          "Revert to Sprodling form, spawning orbs that heal Nokko and grant a speed boost. While in this state, Nokko is untargetable and heals gradually.",
-        imageName: "NokkoShrink.png",
-      },
-      {
-        uniqueName: "/Lotus/Powersuits/Nokko/Abilities/NokkoLaunchAbility",
-        name: "Sporespring",
-        description:
-          "Unleash a chaotic ballistic mushroom that seeks enemies and bounces explosively off whatever it touches. Contact with any of Nokko’s mushrooms invigorates them, doubling their pulse rate.",
-        imageName: "NokkoLaunch.png",
-      },
-    ],
+    imageName: "Nokko_Thumb.png",
+    abilities: ["Stinkbrain", "Brightbonnet", "Reroot", "Sporespring"],
     sex: "Male",
     variant: "Standard",
     progenitor: "Toxin",
@@ -3542,8 +1414,6 @@ export const warframes = {
   },
   Nova: {
     name: "Nova",
-    category: "Warframes",
-    type: "Warframe",
     health: 270,
     shield: 180,
     armor: 105,
@@ -3551,38 +1421,8 @@ export const warframes = {
     sprint: 1.2,
     aura: "Naramon",
     releaseDate: "2013-07-13",
-    imageName: "Nova.png",
-    abilities: [
-      {
-        uniqueName: "/Lotus/Powersuits/AntiMatter/Abilities/NullStarAbility",
-        name: "Null Star",
-        description:
-          "Creates antimatter particles that orbit Nova and attack nearby targets. Each active particle reduces damage to Nova's Health and Shields.",
-        imageName: "NovaNullStar.png",
-      },
-      {
-        uniqueName: "/Lotus/Powersuits/AntiMatter/Abilities/AntiMatterDrop",
-        name: "Antimatter Drop",
-        description:
-          "Launch a large particle of charged antimatter that will detonate on contact. Direct the particle by aiming, shoot it to charge it further. Deals <DT_EXPLOSION_COLOR>Blast Damage with a guaranteed Status Effect.",
-        imageName: "NovaAntimatterDrop.png",
-      },
-      {
-        uniqueName: "/Lotus/Powersuits/AntiMatter/Abilities/WormHoleAbility",
-        name: "Wormhole",
-        description:
-          "Creates a wormhole allowing instantaneous travel. Hold the ability to visualize placement.",
-        imageName: "NovaWormHole.png",
-      },
-      {
-        uniqueName:
-          "/Lotus/Powersuits/AntiMatter/Abilities/MolecularPrimeAbility",
-        name: "Molecular Prime",
-        description:
-          "Primes all enemies in an expanding radius with volatile antimatter. Press the ability to slow down enemy movement, hold the ability to speed them up.",
-        imageName: "NovaMolecularPrime.png",
-      },
-    ],
+    imageName: "Nova_Thumb.png",
+    abilities: ["Null Star", "Antimatter Drop", "Wormhole", "Molecular Prime"],
     sex: "Female",
     variant: "Standard",
     progenitor: "Electricity",
@@ -3592,8 +1432,6 @@ export const warframes = {
   },
   "Nova Prime": {
     name: "Nova Prime",
-    category: "Warframes",
-    type: "Warframe",
     health: 270,
     shield: 270,
     armor: 135,
@@ -3601,38 +1439,8 @@ export const warframes = {
     sprint: 1.2,
     aura: "Naramon",
     releaseDate: "2014-12-17",
-    imageName: "NovaPrime.png",
-    abilities: [
-      {
-        uniqueName: "/Lotus/Powersuits/AntiMatter/Abilities/NullStarAbility",
-        name: "Null Star",
-        description:
-          "Creates antimatter particles that orbit Nova and attack nearby targets. Each active particle reduces damage to Nova's Health and Shields.",
-        imageName: "NovaNullStar.png",
-      },
-      {
-        uniqueName: "/Lotus/Powersuits/AntiMatter/Abilities/AntiMatterDrop",
-        name: "Antimatter Drop",
-        description:
-          "Launch a large particle of charged antimatter that will detonate on contact. Direct the particle by aiming, shoot it to charge it further. Deals <DT_EXPLOSION_COLOR>Blast Damage with a guaranteed Status Effect.",
-        imageName: "NovaAntimatterDrop.png",
-      },
-      {
-        uniqueName: "/Lotus/Powersuits/AntiMatter/Abilities/WormHoleAbility",
-        name: "Wormhole",
-        description:
-          "Creates a wormhole allowing instantaneous travel. Hold the ability to visualize placement.",
-        imageName: "NovaWormHole.png",
-      },
-      {
-        uniqueName:
-          "/Lotus/Powersuits/AntiMatter/Abilities/MolecularPrimeAbility",
-        name: "Molecular Prime",
-        description:
-          "Primes all enemies in an expanding radius with volatile antimatter. Press the ability to slow down enemy movement, hold the ability to speed them up.",
-        imageName: "NovaMolecularPrime.png",
-      },
-    ],
+    imageName: "NovaPrime_Thumb.png",
+    abilities: ["Null Star", "Antimatter Drop", "Wormhole", "Molecular Prime"],
     sex: "Female",
     variant: "Prime",
     progenitor: "Electricity",
@@ -3643,8 +1451,6 @@ export const warframes = {
   },
   Nyx: {
     name: "Nyx",
-    category: "Warframes",
-    type: "Warframe",
     health: 270,
     shield: 270,
     armor: 105,
@@ -3652,38 +1458,8 @@ export const warframes = {
     sprint: 1.1,
     aura: "Naramon",
     releaseDate: "2013-01-29",
-    imageName: "Nyx.png",
-    abilities: [
-      {
-        uniqueName: "/Lotus/Powersuits/Jade/Abilities/MindControlAbility",
-        name: "Mind Control",
-        description:
-          "Nyx seizes control of a target's mind, compelling them to fight for the Tenno cause. Controlled enemies have increased <DT_RADIATION_COLOR>Radiation Status Chance. When Nyx shoots them, they also have an increased Damage Multiplier.",
-        imageName: "NyxMindControl.png",
-      },
-      {
-        uniqueName: "/Lotus/Powersuits/Jade/Abilities/DaggerAbility",
-        name: "Psychic Bolts",
-        description:
-          "Nyx unleashes a volley of psychic bolts that track and strike nearby enemies with telekinetic precision. When enemies are slain, additional bolts scatter to new targets. Striking foes weakens their defenses and transfers a portion to Nyx.",
-        imageName: "NyxPsychicBolts.png",
-      },
-      {
-        uniqueName: "/Lotus/Powersuits/Jade/Abilities/ChaosAbility",
-        name: "Chaos",
-        description:
-          "Nyx releases a devastating psychic pulse, disorienting enemies in a wide radius and forcing them to turn on each other. Confused foes lash out at random factions.",
-        imageName: "NyxChaos.png",
-      },
-      {
-        uniqueName:
-          "/Lotus/Powersuits/Jade/Abilities/SelfBulletAttractorAbility",
-        name: "Absorb",
-        description:
-          "Nyx draws in and contains the damage dealt to her and the damage confused enemies deal to each other then converts it into a devastating radial blast. Following the blast, she enters a brief invulnerable state and gains a Weapon Damage boost proportional to the absorbed damage.",
-        imageName: "NyxAbsorb.png",
-      },
-    ],
+    imageName: "Nyx_Thumb.png",
+    abilities: ["Mind Control", "Psychic Bolts", "Chaos", "Absorb"],
     sex: "Female",
     variant: "Standard",
     progenitor: "Radiation",
@@ -3693,8 +1469,6 @@ export const warframes = {
   },
   "Nyx Prime": {
     name: "Nyx Prime",
-    category: "Warframes",
-    type: "Warframe",
     health: 270,
     shield: 365,
     armor: 135,
@@ -3702,38 +1476,8 @@ export const warframes = {
     sprint: 1.125,
     aura: "Naramon",
     releaseDate: "2014-09-24",
-    imageName: "NyxPrime.png",
-    abilities: [
-      {
-        uniqueName: "/Lotus/Powersuits/Jade/Abilities/MindControlAbility",
-        name: "Mind Control",
-        description:
-          "Nyx seizes control of a target's mind, compelling them to fight for the Tenno cause. Controlled enemies have increased <DT_RADIATION_COLOR>Radiation Status Chance. When Nyx shoots them, they also have an increased Damage Multiplier.",
-        imageName: "NyxMindControl.png",
-      },
-      {
-        uniqueName: "/Lotus/Powersuits/Jade/Abilities/DaggerAbility",
-        name: "Psychic Bolts",
-        description:
-          "Nyx unleashes a volley of psychic bolts that track and strike nearby enemies with telekinetic precision. When enemies are slain, additional bolts scatter to new targets. Striking foes weakens their defenses and transfers a portion to Nyx.",
-        imageName: "NyxPsychicBolts.png",
-      },
-      {
-        uniqueName: "/Lotus/Powersuits/Jade/Abilities/ChaosAbility",
-        name: "Chaos",
-        description:
-          "Nyx releases a devastating psychic pulse, disorienting enemies in a wide radius and forcing them to turn on each other. Confused foes lash out at random factions.",
-        imageName: "NyxChaos.png",
-      },
-      {
-        uniqueName:
-          "/Lotus/Powersuits/Jade/Abilities/SelfBulletAttractorAbility",
-        name: "Absorb",
-        description:
-          "Nyx draws in and contains the damage dealt to her and the damage confused enemies deal to each other then converts it into a devastating radial blast. Following the blast, she enters a brief invulnerable state and gains a Weapon Damage boost proportional to the absorbed damage.",
-        imageName: "NyxAbsorb.png",
-      },
-    ],
+    imageName: "NyxPrime_Thumb.png",
+    abilities: ["Mind Control", "Psychic Bolts", "Chaos", "Absorb"],
     sex: "Female",
     variant: "Prime",
     progenitor: "Radiation",
@@ -3744,8 +1488,6 @@ export const warframes = {
   },
   Oberon: {
     name: "Oberon",
-    category: "Warframes",
-    type: "Warframe",
     health: 365,
     shield: 270,
     armor: 385,
@@ -3753,38 +1495,8 @@ export const warframes = {
     sprint: 1,
     aura: "Madurai",
     releaseDate: "2013-12-19",
-    imageName: "Oberon.png",
-    abilities: [
-      {
-        uniqueName: "/Lotus/Powersuits/Paladin/Abilities/SmiteAbility",
-        name: "Smite",
-        description:
-          "Focuses deadly energy within a target, dealing massive damage and removing all of its defenses, including Overguard. Enemies near the target also take a portion of the damage.",
-        imageName: "PaladinSmite.png",
-      },
-      {
-        uniqueName:
-          "/Lotus/Powersuits/Paladin/Abilities/StairwayToHeavenAbility",
-        name: "Hallowed Ground",
-        description:
-          "Sanctifies the ground around Oberon, inflicting <DT_RADIATION_COLOR>Radiation Damage to all enemies within the radius. Also grants protection against Status Effects for Oberon and his allies.",
-        imageName: "PaladinHallowedGround.png",
-      },
-      {
-        uniqueName: "/Lotus/Powersuits/Paladin/Abilities/RegenerationAbility",
-        name: "Renewal",
-        description:
-          "Generates a protective aura that grants bonus Armor to Oberon and his allies and restores allies’ Health over time. Healing is doubled while within the radius of Hallowed Ground.",
-        imageName: "PaladinRenewal.png",
-      },
-      {
-        uniqueName: "/Lotus/Powersuits/Paladin/Abilities/ReckoningAbility",
-        name: "Reckoning",
-        description:
-          "Lifts enemies into the air and then hurls them down with conviction, removing their Armor. Enemies hit by this ability will grant Oberon additional Armor and have a chance to spawn a <HEALTH>Health Orb when they die.",
-        imageName: "PaladinReckoning.png",
-      },
-    ],
+    imageName: "Oberon_Thumb.png",
+    abilities: ["Smite", "Hallowed Ground", "Renewal", "Reckoning"],
     sex: "Male",
     variant: "Standard",
     progenitor: "Toxin",
@@ -3794,8 +1506,6 @@ export const warframes = {
   },
   "Oberon Prime": {
     name: "Oberon Prime",
-    category: "Warframes",
-    type: "Warframe",
     health: 365,
     shield: 270,
     armor: 450,
@@ -3803,38 +1513,8 @@ export const warframes = {
     sprint: 1,
     aura: "Madurai",
     releaseDate: "2017-05-30",
-    imageName: "OberonPrime.png",
-    abilities: [
-      {
-        uniqueName: "/Lotus/Powersuits/Paladin/Abilities/SmiteAbility",
-        name: "Smite",
-        description:
-          "Focuses deadly energy within a target, dealing massive damage and removing all of its defenses, including Overguard. Enemies near the target also take a portion of the damage.",
-        imageName: "PaladinSmite.png",
-      },
-      {
-        uniqueName:
-          "/Lotus/Powersuits/Paladin/Abilities/StairwayToHeavenAbility",
-        name: "Hallowed Ground",
-        description:
-          "Sanctifies the ground around Oberon, inflicting <DT_RADIATION_COLOR>Radiation Damage to all enemies within the radius. Also grants protection against Status Effects for Oberon and his allies.",
-        imageName: "PaladinHallowedGround.png",
-      },
-      {
-        uniqueName: "/Lotus/Powersuits/Paladin/Abilities/RegenerationAbility",
-        name: "Renewal",
-        description:
-          "Generates a protective aura that grants bonus Armor to Oberon and his allies and restores allies’ Health over time. Healing is doubled while within the radius of Hallowed Ground.",
-        imageName: "PaladinRenewal.png",
-      },
-      {
-        uniqueName: "/Lotus/Powersuits/Paladin/Abilities/ReckoningAbility",
-        name: "Reckoning",
-        description:
-          "Lifts enemies into the air and then hurls them down with conviction, removing their Armor. Enemies hit by this ability will grant Oberon additional Armor and have a chance to spawn a <HEALTH>Health Orb when they die.",
-        imageName: "PaladinReckoning.png",
-      },
-    ],
+    imageName: "OberonPrime_Thumb.png",
+    abilities: ["Smite", "Hallowed Ground", "Renewal", "Reckoning"],
     sex: "Male",
     variant: "Prime",
     progenitor: "Toxin",
@@ -3845,8 +1525,6 @@ export const warframes = {
   },
   Octavia: {
     name: "Octavia",
-    category: "Warframes",
-    type: "Warframe",
     health: 270,
     shield: 180,
     armor: 160,
@@ -3854,37 +1532,8 @@ export const warframes = {
     sprint: 1.05,
     aura: "Naramon",
     releaseDate: "2017-03-24",
-    imageName: "Octavia.png",
-    abilities: [
-      {
-        uniqueName: "/Lotus/Powersuits/Bard/Abilities/BardMusicAbility",
-        name: "Mallet",
-        description:
-          "Rhythmically beats damage into nearby enemies and draws their fire. Damage inflicted on the Mallet increases its lethality.",
-        imageName: "BardMusicBox.png",
-      },
-      {
-        uniqueName: "/Lotus/Powersuits/Bard/Abilities/BardCharmAbility",
-        name: "Resonator",
-        description:
-          "Launches a rollerball that charms foes to follow it. Combines with the Mallet to create a roving ball of sonic destruction.",
-        imageName: "BardPiedPiper.png",
-      },
-      {
-        uniqueName: "/Lotus/Powersuits/Bard/Abilities/BardJamAbility",
-        name: "Metronome",
-        description:
-          "Grants buffs to those who consistently perform actions in time to Octavia's music. Timed jumps offer the Vivace speed buff. Crouching on the beat grants cloaking with the Nocturne buff. Firing rhythmically bestows Opera multishot buff. Timed melee swings give the Forte damage buff.",
-        imageName: "BardPumpJam.png",
-      },
-      {
-        uniqueName: "/Lotus/Powersuits/Bard/Abilities/BardAmplifyAbility",
-        name: "Amp",
-        description:
-          "Draws power from the decibel level of sound in the area and uses it to amplify a damage buff for Octavia and her allies. It also doubles the damage and range of nearby Mallets.",
-        imageName: "BardAmplifier.png",
-      },
-    ],
+    imageName: "Octavia_Thumb.png",
+    abilities: ["Mallet", "Resonator", "Metronome", "Amp"],
     sex: "Female",
     variant: "Standard",
     progenitor: "Radiation",
@@ -3894,8 +1543,6 @@ export const warframes = {
   },
   "Octavia Prime": {
     name: "Octavia Prime",
-    category: "Warframes",
-    type: "Warframe",
     health: 270,
     shield: 270,
     armor: 160,
@@ -3903,37 +1550,8 @@ export const warframes = {
     sprint: 1.05,
     aura: "Naramon",
     releaseDate: "2021-02-23",
-    imageName: "OctaviaPrime.png",
-    abilities: [
-      {
-        uniqueName: "/Lotus/Powersuits/Bard/Abilities/BardMusicAbility",
-        name: "Mallet",
-        description:
-          "Rhythmically beats damage into nearby enemies and draws their fire. Damage inflicted on the Mallet increases its lethality.",
-        imageName: "BardMusicBox.png",
-      },
-      {
-        uniqueName: "/Lotus/Powersuits/Bard/Abilities/BardCharmAbility",
-        name: "Resonator",
-        description:
-          "Launches a rollerball that charms foes to follow it. Combines with the Mallet to create a roving ball of sonic destruction.",
-        imageName: "BardPiedPiper.png",
-      },
-      {
-        uniqueName: "/Lotus/Powersuits/Bard/Abilities/BardJamAbility",
-        name: "Metronome",
-        description:
-          "Grants buffs to those who consistently perform actions in time to Octavia's music. Timed jumps offer the Vivace speed buff. Crouching on the beat grants cloaking with the Nocturne buff. Firing rhythmically bestows Opera multishot buff. Timed melee swings give the Forte damage buff.",
-        imageName: "BardPumpJam.png",
-      },
-      {
-        uniqueName: "/Lotus/Powersuits/Bard/Abilities/BardAmplifyAbility",
-        name: "Amp",
-        description:
-          "Draws power from the decibel level of sound in the area and uses it to amplify a damage buff for Octavia and her allies. It also doubles the damage and range of nearby Mallets.",
-        imageName: "BardAmplifier.png",
-      },
-    ],
+    imageName: "OctaviaPrime_Thumb.png",
+    abilities: ["Mallet", "Resonator", "Metronome", "Amp"],
     sex: "Female",
     variant: "Prime",
     progenitor: "Radiation",
@@ -3944,8 +1562,6 @@ export const warframes = {
   },
   Oraxia: {
     name: "Oraxia",
-    category: "Warframes",
-    type: "Warframe",
     health: 575,
     shield: 125,
     armor: 125,
@@ -3953,36 +1569,12 @@ export const warframes = {
     sprint: 1,
     aura: "Madurai",
     releaseDate: "2025-06-25",
-    imageName: "Oraxia.png",
+    imageName: "Oraxia_Thumb.png",
     abilities: [
-      {
-        uniqueName: "/Lotus/Powersuits/Oraxia/Abilities/OraxiaLungeAbility",
-        name: "Mercy's Kiss",
-        description:
-          "Leap onto an enemy and pierce them with Oraxia’s spider legs, dealing <DT_POISON_COLOR>Toxin Damage. Enemies defeated by this attack have a chance to drop Health or Energy Orbs.",
-        imageName: "OraxiaStrikeLeap.png",
-      },
-      {
-        uniqueName: "/Lotus/Powersuits/Oraxia/Abilities/OraxiaEntangleAbility",
-        name: "Webbed Embrace",
-        description:
-          "Oraxia throws a creeping web to ensnare her prey. Enemies caught within the widening radius are trapped inside a cocoon that increases their Damage Vulnerability.",
-        imageName: "OraxiaWebTangle.png",
-      },
-      {
-        uniqueName: "/Lotus/Powersuits/Oraxia/Abilities/OraxiaSpidersAbility",
-        name: "Widow's Brood",
-        description:
-          "Oraxia launches a barrage of stinging darts in front of her that applies <DT_POISON_COLOR> Toxin Status Effect. Poisoned enemies spawn Scuttlers when killed.",
-        imageName: "OraxiaSpiderlingBrood.png",
-      },
-      {
-        uniqueName: "/Lotus/Powersuits/Oraxia/Abilities/OraxiaClimbAbility",
-        name: "Silken Stride",
-        description:
-          "Unfurl Oraxia's spider legs and go on the prowl. Oraxia is immune to Status Effects and has increased Maximum Health. Ranged Weapons are imbued with <DT_POISON_COLOR> Toxin Damage. Killing enemies causes them to burst with <DT_POISON_COLOR>Toxin.\n\nSilken Thread: Tap Dodge to leap to a targeted surface.",
-        imageName: "OraxiaWallCling.png",
-      },
+      "Mercy's Kiss",
+      "Webbed Embrace",
+      "Widow's Brood",
+      "Silken Stride",
     ],
     sex: "Female",
     variant: "Standard",
@@ -3993,8 +1585,6 @@ export const warframes = {
   },
   Protea: {
     name: "Protea",
-    category: "Warframes",
-    type: "Warframe",
     health: 270,
     shield: 455,
     armor: 135,
@@ -4002,37 +1592,12 @@ export const warframes = {
     sprint: 1.2,
     aura: "Aura",
     releaseDate: "2020-06-11",
-    imageName: "Odalisk.png",
+    imageName: "Protea_Thumb.png",
     abilities: [
-      {
-        uniqueName: "/Lotus/Powersuits/Odalisk/Abilities/OdaliskFanAbility",
-        name: "Grenade Fan",
-        description:
-          "Throw out grenades in an arc.\n\n(TAP) SHRAPNEL VORTEX\nCreates a slashing, staggering swirl of shrapnel.\n\n(HOLD) SHIELD SATELLITES\nProtea reconfigures Grenades to work as overcharging shield generators, protecting her, her allies and companions. When Shields break, a Satellite is destroyed to double minimum Shield Gate invincibility time.",
-        imageName: "ProteaGrenadeFan.png",
-      },
-      {
-        uniqueName: "/Lotus/Powersuits/Odalisk/Abilities/OdaliskBFGAbility",
-        name: "Blaze Artillery",
-        description:
-          "Deploys an artillery unit to blast plasma charges at enemies it faces. Each enemy hit increases the power of subsequent plasma attacks.",
-        imageName: "ProteaBFG.png",
-      },
-      {
-        uniqueName:
-          "/Lotus/Powersuits/Odalisk/Abilities/OdaliskDispensaryAbility",
-        name: "Dispensary",
-        description:
-          "Deploys a device that generates 3 pickups after a short delay: empowered health orb, universal ammo pack and energy orb.",
-        imageName: "ProteaDispensary.png",
-      },
-      {
-        uniqueName: "/Lotus/Powersuits/Odalisk/Abilities/OdaliskAnchorAbility",
-        name: "Temporal Anchor",
-        description:
-          "Drops a Temporal Anchor which, after a short duration, Protea rewinds to trigger a temporal implosion. Implosion damage increases based on damage dealt between anchor drop and rewind. Everything lost or expended in that time is returned.\nDying while Anchor is active rewinds Protea to the anchor, saving her. Protea is knocked down and the anchor vanishes.",
-        imageName: "ProteaTemporalAnchor.png",
-      },
+      "Grenade Fan",
+      "Blaze Artillery",
+      "Dispensary",
+      "Temporal Anchor",
     ],
     sex: "Female",
     variant: "Standard",
@@ -4043,8 +1608,6 @@ export const warframes = {
   },
   "Protea Prime": {
     name: "Protea Prime",
-    category: "Warframes",
-    type: "Warframe",
     health: 270,
     shield: 455,
     armor: 185,
@@ -4052,37 +1615,12 @@ export const warframes = {
     sprint: 1.2,
     aura: "Aura",
     releaseDate: "2024-05-01",
-    imageName: "ProteaPrime.png",
+    imageName: "ProteaPrime_Thumb.png",
     abilities: [
-      {
-        uniqueName: "/Lotus/Powersuits/Odalisk/Abilities/OdaliskFanAbility",
-        name: "Grenade Fan",
-        description:
-          "Throw out grenades in an arc.\n\n(TAP) SHRAPNEL VORTEX\nCreates a slashing, staggering swirl of shrapnel.\n\n(HOLD) SHIELD SATELLITES\nProtea reconfigures Grenades to work as overcharging shield generators, protecting her, her allies and companions. When Shields break, a Satellite is destroyed to double minimum Shield Gate invincibility time.",
-        imageName: "ProteaGrenadeFan.png",
-      },
-      {
-        uniqueName: "/Lotus/Powersuits/Odalisk/Abilities/OdaliskBFGAbility",
-        name: "Blaze Artillery",
-        description:
-          "Deploys an artillery unit to blast plasma charges at enemies it faces. Each enemy hit increases the power of subsequent plasma attacks.",
-        imageName: "ProteaBFG.png",
-      },
-      {
-        uniqueName:
-          "/Lotus/Powersuits/Odalisk/Abilities/OdaliskDispensaryAbility",
-        name: "Dispensary",
-        description:
-          "Deploys a device that generates 3 pickups after a short delay: empowered health orb, universal ammo pack and energy orb.",
-        imageName: "ProteaDispensary.png",
-      },
-      {
-        uniqueName: "/Lotus/Powersuits/Odalisk/Abilities/OdaliskAnchorAbility",
-        name: "Temporal Anchor",
-        description:
-          "Drops a Temporal Anchor which, after a short duration, Protea rewinds to trigger a temporal implosion. Implosion damage increases based on damage dealt between anchor drop and rewind. Everything lost or expended in that time is returned.\nDying while Anchor is active rewinds Protea to the anchor, saving her. Protea is knocked down and the anchor vanishes.",
-        imageName: "ProteaTemporalAnchor.png",
-      },
+      "Grenade Fan",
+      "Blaze Artillery",
+      "Dispensary",
+      "Temporal Anchor",
     ],
     sex: "Female",
     variant: "Prime",
@@ -4094,8 +1632,6 @@ export const warframes = {
   },
   Qorvex: {
     name: "Qorvex",
-    category: "Warframes",
-    type: "Warframe",
     health: 600,
     shield: 200,
     armor: 875,
@@ -4103,40 +1639,12 @@ export const warframes = {
     sprint: 0.9,
     aura: "Vazarin",
     releaseDate: "2023-12-13",
-    imageName: "Qorvex.png",
+    imageName: "Qorvex_Thumb.png",
     abilities: [
-      {
-        uniqueName:
-          "/Lotus/Powersuits/ConcreteFrame/Abilities/ConcretePillarAbility",
-        name: "Chyrinka Pillar",
-        description:
-          "Summon a Chyrinka Pillar that slows enemies. It pulses <DT_RADIATION_COLOR>Radiation Damage with a guaranteed Status Effect.",
-        imageName: "QorvexChyrinkaPillar.png",
-      },
-      {
-        uniqueName:
-          "/Lotus/Powersuits/ConcreteFrame/Abilities/ConcreteWallAbility",
-        name: "Containment Wall",
-        description:
-          "Contain the threat. Qorvex summons walls that slam together, damaging all enemies caught between them and inflicting <DT_RADIATION_COLOR>Radiation Status.",
-        imageName: "QorvexContainmentWall.png",
-      },
-      {
-        uniqueName:
-          "/Lotus/Powersuits/ConcreteFrame/Abilities/ConcreteAuraAbility",
-        name: "Disometric Guard",
-        description:
-          "Guard yourself and nearby allies against Status Effects. Each time Qorvex kills or assists in killing an enemy affected by <DT_RADIATION_COLOR>Radiation Status, the number of Status Effects Disometric Guard can prevent increases.",
-        imageName: "QorvexDisometricGuard.png",
-      },
-      {
-        uniqueName:
-          "/Lotus/Powersuits/ConcreteFrame/Abilities/ConcreteLaserAbility",
-        name: "Crucible Blast",
-        description:
-          "Release a beam from Qorvex's Crucible Core. Each enemy struck suffers <DT_RADIATION_COLOR>Radiation Damage with a guaranteed Status Effect. Enemies affected by <DT_RADIATION_COLOR>Radiation Status explode in a chain reaction.",
-        imageName: "QorvexCrucibleBlast.png",
-      },
+      "Chyrinka Pillar",
+      "Containment Wall",
+      "Disometric Guard",
+      "Crucible Blast",
     ],
     sex: "Male",
     variant: "Standard",
@@ -4147,8 +1655,6 @@ export const warframes = {
   },
   Revenant: {
     name: "Revenant",
-    category: "Warframes",
-    type: "Warframe",
     health: 270,
     shield: 635,
     armor: 135,
@@ -4156,40 +1662,8 @@ export const warframes = {
     sprint: 1,
     aura: "Naramon",
     releaseDate: "2018-08-24",
-    imageName: "Revenant.png",
-    abilities: [
-      {
-        uniqueName: "/Lotus/Powersuits/Revenant/Abilities/RevenantMarkAbility",
-        name: "Enthrall",
-        description:
-          "Convert a target into a zealous thrall. Thralls turn on their allies and enthrall through damage. On death, they disintegrate into a damaging pillar of energy. The thrall horde remains under Revenants spell until this ability runs out.",
-        imageName: "RevenantEnthrall.png",
-      },
-      {
-        uniqueName:
-          "/Lotus/Powersuits/Revenant/Abilities/RevenantSentientAbility",
-        name: "Mesmer Skin",
-        description:
-          "Become enveloped in Sentient energy, redirecting damage and stunning all those who dare attack. Stunned enemies can be Enthralled at no energy cost.",
-        imageName: "RevenantMesmerSkin.png",
-      },
-      {
-        uniqueName:
-          "/Lotus/Powersuits/Revenant/Abilities/RevenantAfflictionAbility",
-        name: "Reave",
-        description:
-          "Dash through enemies as a wall of sentient energy, leeching shields and health from any encountered, enhanced for thralls.",
-        imageName: "RevenantReave.png",
-      },
-      {
-        uniqueName:
-          "/Lotus/Powersuits/Revenant/Abilities/RevenantRebornAbility",
-        name: "Danse Macabre",
-        description:
-          "Erupt with a multitude of Eidolon energy beams and sweep a circle of death around Revenant. The beams will modify their Damage Type to target select defenses, while incoming damage is redirected back into the beams. Hold fire to boost Status Effects and Damage, at the cost of increased energy consumption. Thralls killed by this ability leave overshield pickups.",
-        imageName: "RevenantDanseMacabre.png",
-      },
-    ],
+    imageName: "Revenant_Thumb.png",
+    abilities: ["Enthrall", "Mesmer Skin", "Reave", "Danse Macabre"],
     sex: "Male",
     variant: "Standard",
     progenitor: "Cold",
@@ -4199,8 +1673,6 @@ export const warframes = {
   },
   "Revenant Prime": {
     name: "Revenant Prime",
-    category: "Warframes",
-    type: "Warframe",
     health: 270,
     shield: 825,
     armor: 135,
@@ -4208,40 +1680,8 @@ export const warframes = {
     sprint: 1.1,
     aura: "Naramon",
     releaseDate: "2022-10-05",
-    imageName: "RevenantPrime.png",
-    abilities: [
-      {
-        uniqueName: "/Lotus/Powersuits/Revenant/Abilities/RevenantMarkAbility",
-        name: "Enthrall",
-        description:
-          "Convert a target into a zealous thrall. Thralls turn on their allies and enthrall through damage. On death, they disintegrate into a damaging pillar of energy. The thrall horde remains under Revenants spell until this ability runs out.",
-        imageName: "RevenantEnthrall.png",
-      },
-      {
-        uniqueName:
-          "/Lotus/Powersuits/Revenant/Abilities/RevenantSentientAbility",
-        name: "Mesmer Skin",
-        description:
-          "Become enveloped in Sentient energy, redirecting damage and stunning all those who dare attack. Stunned enemies can be Enthralled at no energy cost.",
-        imageName: "RevenantMesmerSkin.png",
-      },
-      {
-        uniqueName:
-          "/Lotus/Powersuits/Revenant/Abilities/RevenantAfflictionAbility",
-        name: "Reave",
-        description:
-          "Dash through enemies as a wall of sentient energy, leeching shields and health from any encountered, enhanced for thralls.",
-        imageName: "RevenantReave.png",
-      },
-      {
-        uniqueName:
-          "/Lotus/Powersuits/Revenant/Abilities/RevenantRebornAbility",
-        name: "Danse Macabre",
-        description:
-          "Erupt with a multitude of Eidolon energy beams and sweep a circle of death around Revenant. The beams will modify their Damage Type to target select defenses, while incoming damage is redirected back into the beams. Hold fire to boost Status Effects and Damage, at the cost of increased energy consumption. Thralls killed by this ability leave overshield pickups.",
-        imageName: "RevenantDanseMacabre.png",
-      },
-    ],
+    imageName: "RevenantPrime_Thumb.png",
+    abilities: ["Enthrall", "Mesmer Skin", "Reave", "Danse Macabre"],
     sex: "Male",
     variant: "Prime",
     progenitor: "Cold",
@@ -4252,8 +1692,6 @@ export const warframes = {
   },
   Rhino: {
     name: "Rhino",
-    category: "Warframes",
-    type: "Warframe",
     health: 270,
     shield: 455,
     armor: 240,
@@ -4261,37 +1699,8 @@ export const warframes = {
     sprint: 0.95,
     aura: "Madurai",
     releaseDate: "2012-10-25",
-    imageName: "Rhino.png",
-    abilities: [
-      {
-        uniqueName: "/Lotus/Powersuits/Rhino/Abilities/RhinoChargeAbility",
-        name: "Rhino Charge",
-        description:
-          "Rhino charges towards a target, clobbering any in his path and goring his victim.",
-        imageName: "RhinoDash.png",
-      },
-      {
-        uniqueName: "/Lotus/Powersuits/Rhino/Abilities/IronSkinAbility",
-        name: "Iron Skin",
-        description:
-          "Rhino hardens his skin, insulating himself from all damage and gaining Overguard.",
-        imageName: "RhinoIronSkin.png",
-      },
-      {
-        uniqueName: "/Lotus/Powersuits/Rhino/Abilities/RhinoRoarAbility",
-        name: "Roar",
-        description:
-          "Grants all nearby Warframes increased damage for a short duration.",
-        imageName: "RhinoRadialBlast.png",
-      },
-      {
-        uniqueName: "/Lotus/Powersuits/Rhino/Abilities/RhinoStompAbility",
-        name: "Rhino Stomp",
-        description:
-          "Rhino stomps with force sufficient to disrupt time, tumbling enemies around him in stasis.",
-        imageName: "RhinoStomp.png",
-      },
-    ],
+    imageName: "Rhino_Thumb.png",
+    abilities: ["Rhino Charge", "Iron Skin", "Roar", "Rhino Stomp"],
     sex: "Male",
     variant: "Standard",
     progenitor: "Impact",
@@ -4301,8 +1710,6 @@ export const warframes = {
   },
   "Rhino Prime": {
     name: "Rhino Prime",
-    category: "Warframes",
-    type: "Warframe",
     health: 270,
     shield: 455,
     armor: 290,
@@ -4310,37 +1717,8 @@ export const warframes = {
     sprint: 1,
     aura: "Madurai",
     releaseDate: "2014-03-05",
-    imageName: "RhinoPrime.png",
-    abilities: [
-      {
-        uniqueName: "/Lotus/Powersuits/Rhino/Abilities/RhinoChargeAbility",
-        name: "Rhino Charge",
-        description:
-          "Rhino charges towards a target, clobbering any in his path and goring his victim.",
-        imageName: "RhinoDash.png",
-      },
-      {
-        uniqueName: "/Lotus/Powersuits/Rhino/Abilities/IronSkinAbility",
-        name: "Iron Skin",
-        description:
-          "Rhino hardens his skin, insulating himself from all damage and gaining Overguard.",
-        imageName: "RhinoIronSkin.png",
-      },
-      {
-        uniqueName: "/Lotus/Powersuits/Rhino/Abilities/RhinoRoarAbility",
-        name: "Roar",
-        description:
-          "Grants all nearby Warframes increased damage for a short duration.",
-        imageName: "RhinoRadialBlast.png",
-      },
-      {
-        uniqueName: "/Lotus/Powersuits/Rhino/Abilities/RhinoStompAbility",
-        name: "Rhino Stomp",
-        description:
-          "Rhino stomps with force sufficient to disrupt time, tumbling enemies around him in stasis.",
-        imageName: "RhinoStomp.png",
-      },
-    ],
+    imageName: "RhinoPrime_Thumb.png",
+    abilities: ["Rhino Charge", "Iron Skin", "Roar", "Rhino Stomp"],
     sex: "Male",
     variant: "Prime",
     progenitor: "Impact",
@@ -4351,8 +1729,6 @@ export const warframes = {
   },
   Saryn: {
     name: "Saryn",
-    category: "Warframes",
-    type: "Warframe",
     health: 365,
     shield: 270,
     armor: 240,
@@ -4360,38 +1736,8 @@ export const warframes = {
     sprint: 0.95,
     aura: "Vazarin",
     releaseDate: "2013-03-18",
-    imageName: "Saryn.png",
-    abilities: [
-      {
-        uniqueName: "/Lotus/Powersuits/Saryn/Abilities/PoisonAbility",
-        name: "Spores",
-        description:
-          "Inflict a target with a pox of <DT_CORROSIVE_COLOR>Corrosive spores. Spread spores to nearby enemies by destroying them or killing their host. The longer the Spore spreads, its damage will increase.",
-        imageName: "SarynVenom.png",
-      },
-      {
-        uniqueName: "/Lotus/Powersuits/Saryn/Abilities/ShedAbility",
-        name: "Molt",
-        description:
-          "Shedding her skin like a snake, Saryn leaves a decoy behind to draw fire from enemies.",
-        imageName: "SarynMoult.png",
-      },
-      {
-        uniqueName: "/Lotus/Powersuits/Saryn/Abilities/WeaponPoisonAbility",
-        name: "Toxic Lash",
-        description:
-          "While active, attacks deal additional <DT_POISON_COLOR>Toxin Damage; this effect is doubled for Melee Strikes. Instantly burst spores when attacking afflicted enemies.",
-        imageName: "SarynContagion.png",
-      },
-      {
-        uniqueName:
-          "/Lotus/Powersuits/Saryn/Abilities/ExplosiveDissolveAbility",
-        name: "Miasma",
-        description:
-          "Release a poisonous miasma that deals <DT_VIRAL_COLOR>Viral Damage to enemies in range. Foes afflicted by spores are more susceptible to the mist.",
-        imageName: "SarynMiasma.png",
-      },
-    ],
+    imageName: "Saryn_Thumb.png",
+    abilities: ["Spores", "Molt", "Toxic Lash", "Miasma"],
     sex: "Female",
     variant: "Standard",
     progenitor: "Toxin",
@@ -4401,8 +1747,6 @@ export const warframes = {
   },
   "Saryn Prime": {
     name: "Saryn Prime",
-    category: "Warframes",
-    type: "Warframe",
     health: 365,
     shield: 270,
     armor: 315,
@@ -4410,38 +1754,8 @@ export const warframes = {
     sprint: 1,
     aura: "Vazarin",
     releaseDate: "2016-02-16",
-    imageName: "SarynPrime.png",
-    abilities: [
-      {
-        uniqueName: "/Lotus/Powersuits/Saryn/Abilities/PoisonAbility",
-        name: "Spores",
-        description:
-          "Inflict a target with a pox of <DT_CORROSIVE_COLOR>Corrosive spores. Spread spores to nearby enemies by destroying them or killing their host. The longer the Spore spreads, its damage will increase.",
-        imageName: "SarynVenom.png",
-      },
-      {
-        uniqueName: "/Lotus/Powersuits/Saryn/Abilities/ShedAbility",
-        name: "Molt",
-        description:
-          "Shedding her skin like a snake, Saryn leaves a decoy behind to draw fire from enemies.",
-        imageName: "SarynMoult.png",
-      },
-      {
-        uniqueName: "/Lotus/Powersuits/Saryn/Abilities/WeaponPoisonAbility",
-        name: "Toxic Lash",
-        description:
-          "While active, attacks deal additional <DT_POISON_COLOR>Toxin Damage; this effect is doubled for Melee Strikes. Instantly burst spores when attacking afflicted enemies.",
-        imageName: "SarynContagion.png",
-      },
-      {
-        uniqueName:
-          "/Lotus/Powersuits/Saryn/Abilities/ExplosiveDissolveAbility",
-        name: "Miasma",
-        description:
-          "Release a poisonous miasma that deals <DT_VIRAL_COLOR>Viral Damage to enemies in range. Foes afflicted by spores are more susceptible to the mist.",
-        imageName: "SarynMiasma.png",
-      },
-    ],
+    imageName: "SarynPrime_Thumb.png",
+    abilities: ["Spores", "Molt", "Toxic Lash", "Miasma"],
     sex: "Female",
     variant: "Prime",
     progenitor: "Toxin",
@@ -4452,8 +1766,6 @@ export const warframes = {
   },
   Sevagoth: {
     name: "Sevagoth",
-    category: "Warframes",
-    type: "Warframe",
     health: 270,
     shield: 235,
     armor: 160,
@@ -4461,49 +1773,18 @@ export const warframes = {
     sprint: 0.95,
     aura: "None",
     releaseDate: "2021-04-13",
-    imageName: "Wraith.png",
-    abilities: [
-      {
-        uniqueName: "/Lotus/Powersuits/Wraith/Abilities/WraithReapAbility",
-        name: "Reap",
-        description:
-          "Sevagoth's Shadow flies outward ravaging enemies in his path. Survivors are damaged by Death’s Harvest over time. The souls of the dead fill the Death Well.",
-        imageName: "WraithReap.png",
-      },
-      {
-        uniqueName: "/Lotus/Powersuits/Wraith/Abilities/WraithSowAbility",
-        name: "Sow",
-        description:
-          "Plant a death seed in nearby targets to drain their lifeforce. Reap what has been sown to detonate afflicted enemies, dealing a percentage of their health as radial damage. The souls of the dead fill the Death Well. ",
-        imageName: "WraithSow.png",
-      },
-      {
-        uniqueName: "/Lotus/Powersuits/Wraith/Abilities/WraithGloomAbility",
-        name: "Gloom",
-        description:
-          "Summon a radial pulse wave that ensnares and slows enemies, siphoning their lifeforce for the Death Well. Allies within the wave steal health with each attack. ",
-        imageName: "WraithGloom.png",
-      },
-      {
-        uniqueName: "/Lotus/Powersuits/Wraith/Abilities/WraithReaperAbility",
-        name: "Exalted Shadow",
-        description:
-          "When the Death Well fills, Sevagoth's Shadow form is ready to be released. Tear the enemy asunder with a collection of melee-focused abilities. ",
-        imageName: "WraithDontFearTheReaper.png",
-      },
-    ],
+    imageName: "Sevagoth_Thumb.png",
+    abilities: ["Reap", "Sow", "Gloom", "Exalted Shadow"],
     sex: "Male",
     variant: "Standard",
     progenitor: "Impact",
     isPrime: false,
     conclave: false,
     playstyle: ["Damage", "Survival"],
-    exalted: ["/Lotus/Powersuits/Wraith/ReaperMeleeWeapon"],
+    exalted: true,
   },
   "Sevagoth Prime": {
     name: "Sevagoth Prime",
-    category: "Warframes",
-    type: "Warframe",
     health: 270,
     shield: 270,
     armor: 185,
@@ -4511,37 +1792,8 @@ export const warframes = {
     sprint: 0.95,
     aura: "None",
     releaseDate: "2024-08-21",
-    imageName: "SevagothPrime.png",
-    abilities: [
-      {
-        uniqueName: "/Lotus/Powersuits/Wraith/Abilities/WraithReapAbility",
-        name: "Reap",
-        description:
-          "Sevagoth's Shadow flies outward ravaging enemies in his path. Survivors are damaged by Death’s Harvest over time. The souls of the dead fill the Death Well.",
-        imageName: "WraithReap.png",
-      },
-      {
-        uniqueName: "/Lotus/Powersuits/Wraith/Abilities/WraithSowAbility",
-        name: "Sow",
-        description:
-          "Plant a death seed in nearby targets to drain their lifeforce. Reap what has been sown to detonate afflicted enemies, dealing a percentage of their health as radial damage. The souls of the dead fill the Death Well. ",
-        imageName: "WraithSow.png",
-      },
-      {
-        uniqueName: "/Lotus/Powersuits/Wraith/Abilities/WraithGloomAbility",
-        name: "Gloom",
-        description:
-          "Summon a radial pulse wave that ensnares and slows enemies, siphoning their lifeforce for the Death Well. Allies within the wave steal health with each attack. ",
-        imageName: "WraithGloom.png",
-      },
-      {
-        uniqueName: "/Lotus/Powersuits/Wraith/Abilities/WraithReaperAbility",
-        name: "Exalted Shadow",
-        description:
-          "When the Death Well fills, Sevagoth's Shadow form is ready to be released. Tear the enemy asunder with a collection of melee-focused abilities. ",
-        imageName: "WraithDontFearTheReaper.png",
-      },
-    ],
+    imageName: "SevagothPrime_Thumb.png",
+    abilities: ["Reap", "Sow", "Gloom", "Exalted Shadow"],
     sex: "Male",
     variant: "Prime",
     progenitor: "Impact",
@@ -4549,12 +1801,10 @@ export const warframes = {
     conclave: false,
     vaulted: false,
     playstyle: ["Damage", "Survival"],
-    exalted: ["/Lotus/Powersuits/Wraith/SevagothShadowPrimeClawsWeapon"],
+    exalted: true,
   },
   Styanax: {
     name: "Styanax",
-    category: "Warframes",
-    type: "Warframe",
     health: 270,
     shield: 825,
     armor: 265,
@@ -4562,36 +1812,12 @@ export const warframes = {
     sprint: 1,
     aura: "Naramon",
     releaseDate: "2022-09-07",
-    imageName: "Styanax.png",
+    imageName: "Styanax_Thumb.png",
     abilities: [
-      {
-        uniqueName: "/Lotus/Powersuits/Hoplite/Abilities/HopliteImpaleAbility",
-        name: "Axios Javelin",
-        description:
-          "Throw an Axios Javelin. When the javelin impales an enemy against a wall, surrounding enemies are pulled into the area and suffer a burst of damage.",
-        imageName: "StyanaxImpale.png",
-      },
-      {
-        uniqueName: "/Lotus/Powersuits/Hoplite/Abilities/HopliteBashAbility",
-        name: "Tharros Strike",
-        description:
-          "Summon Tharros, the shield of Styanax. Swing Tharros to repel enemies and reduce their shields and armor. Styanax regenerates health for every enemy struck.",
-        imageName: "StyanaxShieldBash.png",
-      },
-      {
-        uniqueName: "/Lotus/Powersuits/Hoplite/Abilities/HopliteRallyAbility",
-        name: "Rally Point",
-        description:
-          "Draw enemy attention to Styanax. His resolve uplifts him and nearby allies, regenerating the squad's energy over time. Styanax and his allies also regenerate shields for every kill assist they contribute.",
-        imageName: "StyanaxRallyTroops.png",
-      },
-      {
-        uniqueName: "/Lotus/Powersuits/Hoplite/Abilities/HopliteArmyAbility",
-        name: "Final Stand",
-        description:
-          "Exude might and valor. Rise into the air and throw a barrage of Axios Javelins. The javelins deal damage to nearby enemies wherever they land. Direct hits to enemies deal greater damage.",
-        imageName: "StyanaxOneManArmy.png",
-      },
+      "Axios Javelin",
+      "Tharros Strike",
+      "Rally Point",
+      "Final Stand",
     ],
     sex: "Male",
     variant: "Standard",
@@ -4602,8 +1828,6 @@ export const warframes = {
   },
   Temple: {
     name: "Temple",
-    category: "Warframes",
-    type: "Warframe",
     health: 405,
     shield: 225,
     armor: 325,
@@ -4611,49 +1835,18 @@ export const warframes = {
     sprint: 1,
     aura: "Naramon",
     releaseDate: "2025-03-19",
-    imageName: "Temple.png",
-    abilities: [
-      {
-        uniqueName: "/Lotus/Powersuits/Temple/Abilities/TempleShredAbility",
-        name: "Pyrotechnics",
-        description:
-          "Blast targeted enemies with pillars of <DT_FIRE_COLOR>Heat Damage. \n\nBackbeat Timing: Ignite even more pillars. Increases the Duration and <DT_FIRE_COLOR>Heat Damage of Ripper's Wail when it deals damage.",
-        imageName: "TempleShred.png",
-      },
-      {
-        uniqueName: "/Lotus/Powersuits/Temple/Abilities/TempleSpeakersAbility",
-        name: "Overdrive",
-        description:
-          "Drive loudspeakers into epic distortion to create a damaging wave of <DT_FIRE_COLOR>Heat Damage while also increasing vulnerability to Critical Chance. \n\nBackbeat Timing: Doubles Critical Chance. Increases the Duration and <DT_FIRE_COLOR>Heat Damage of Ripper’s Wail when it deals damage.",
-        imageName: "TempleSpeakers.png",
-      },
-      {
-        uniqueName: "/Lotus/Powersuits/Temple/Abilities/TempleSoloAbility",
-        name: "Ripper's Wail",
-        description:
-          "Rip on the guitar to make Temple briefly invulnerable while healing them. Ally’s weapons in <AFFINITY_SHARE>Affinity Range are lit-up with extra <DT_FIRE_COLOR>Heat Damage each time an ability is used on the Backbeat and successfully hits enemies.\n\nBackbeat Timing: Invulnerability lasts longer.",
-        imageName: "TempleSolo.png",
-      },
-      {
-        uniqueName: "/Lotus/Powersuits/Temple/Abilities/TempleGuitarAbility",
-        name: "Exalted Solo",
-        description:
-          "Once a charge has been built up on the Backbeat metronome, set Lizzie aflame and torch enemies with <DT_FIRE_COLOR>Heat. While aimed, Lizzie blasts enemies with thunderous elemental sound waves, use ability controls to change the Elemental Damage type.\n\nBackbeat Timing: No Energy consumed.",
-        imageName: "TempleGuitar.png",
-      },
-    ],
+    imageName: "Temple_Thumb.png",
+    abilities: ["Pyrotechnics", "Overdrive", "Ripper's Wail", "Exalted Solo"],
     sex: "Non-binary",
     variant: "Standard",
     progenitor: "Heat",
     isPrime: false,
     conclave: false,
     playstyle: ["Damage", "Support"],
-    exalted: ["/Lotus/Powersuits/Temple/ExaltedGuitar"],
+    exalted: true,
   },
   Titania: {
     name: "Titania",
-    category: "Warframes",
-    type: "Warframe",
     health: 270,
     shield: 270,
     armor: 105,
@@ -4661,52 +1854,18 @@ export const warframes = {
     sprint: 1,
     aura: "Madurai",
     releaseDate: "2016-08-19",
-    imageName: "Titania.png",
-    abilities: [
-      {
-        uniqueName: "/Lotus/Powersuits/Fairy/Abilities/FairyDustAbility",
-        name: "Spellbind",
-        description:
-          "Enemies fumble their weapons as they are whisked into the air. Nearby allies become immune to Status Effects. Hold the ability to cast the immunity onto Titania.",
-        imageName: "FaerieDust.png",
-      },
-      {
-        uniqueName: "/Lotus/Powersuits/Fairy/Abilities/FairySoulAbility",
-        name: "Tribute",
-        description:
-          "Cycle through and extract one of the four Buffs when cast on an enemy. Thorns reduces incoming damage. Dust degrades enemy accuracy. Full Moon increases companion damage. Entangle slows enemies within range.",
-        imageName: "FaerieSoul.png",
-      },
-      {
-        uniqueName: "/Lotus/Powersuits/Fairy/Abilities/FairyLightAbility",
-        name: "Lantern",
-        description:
-          "Create a swarm of razorflies that transform an enemy into an irresistible floating beacon, attracting witless comrades before exploding on command.",
-        imageName: "FaerieLamp.png",
-      },
-      {
-        uniqueName: "/Lotus/Powersuits/Fairy/Abilities/FairyFlightAbility",
-        name: "Razorwing",
-        description:
-          "Shrink down and take flight, while razorflies attack nearby enemies and amplify the damage they take.",
-        imageName: "FaerieShrink.png",
-      },
-    ],
+    imageName: "Titania_Thumb.png",
+    abilities: ["Spellbind", "Tribute", "Lantern", "Razorwing"],
     sex: "Female",
     variant: "Standard",
     progenitor: "Cold",
     isPrime: false,
     conclave: true,
     playstyle: ["Damage", "Crowd Control"],
-    exalted: [
-      "/Lotus/Powersuits/Fairy/FlightPistols",
-      "/Lotus/Powersuits/Fairy/FlightSword",
-    ],
+    exalted: true,
   },
   "Titania Prime": {
     name: "Titania Prime",
-    category: "Warframes",
-    type: "Warframe",
     health: 365,
     shield: 270,
     armor: 135,
@@ -4714,37 +1873,8 @@ export const warframes = {
     sprint: 1,
     aura: "Madurai",
     releaseDate: "2020-03-31",
-    imageName: "TitaniaPrime.png",
-    abilities: [
-      {
-        uniqueName: "/Lotus/Powersuits/Fairy/Abilities/FairyDustAbility",
-        name: "Spellbind",
-        description:
-          "Enemies fumble their weapons as they are whisked into the air. Nearby allies become immune to Status Effects. Hold the ability to cast the immunity onto Titania.",
-        imageName: "FaerieDust.png",
-      },
-      {
-        uniqueName: "/Lotus/Powersuits/Fairy/Abilities/FairySoulAbility",
-        name: "Tribute",
-        description:
-          "Cycle through and extract one of the four Buffs when cast on an enemy. Thorns reduces incoming damage. Dust degrades enemy accuracy. Full Moon increases companion damage. Entangle slows enemies within range.",
-        imageName: "FaerieSoul.png",
-      },
-      {
-        uniqueName: "/Lotus/Powersuits/Fairy/Abilities/FairyLightAbility",
-        name: "Lantern",
-        description:
-          "Create a swarm of razorflies that transform an enemy into an irresistible floating beacon, attracting witless comrades before exploding on command.",
-        imageName: "FaerieLamp.png",
-      },
-      {
-        uniqueName: "/Lotus/Powersuits/Fairy/Abilities/FairyFlightAbility",
-        name: "Razorwing",
-        description:
-          "Shrink down and take flight, while razorflies attack nearby enemies and amplify the damage they take.",
-        imageName: "FaerieShrink.png",
-      },
-    ],
+    imageName: "TitaniaPrime_Thumb.png",
+    abilities: ["Spellbind", "Tribute", "Lantern", "Razorwing"],
     sex: "Female",
     variant: "Prime",
     progenitor: "Cold",
@@ -4752,15 +1882,10 @@ export const warframes = {
     conclave: false,
     vaulted: true,
     playstyle: ["Damage", "Crowd Control"],
-    exalted: [
-      "/Lotus/Powersuits/Fairy/PrimeFlightPistols",
-      "/Lotus/Powersuits/Fairy/PrimeFlightSword",
-    ],
+    exalted: true,
   },
   Trinity: {
     name: "Trinity",
-    category: "Warframes",
-    type: "Warframe",
     health: 270,
     shield: 270,
     armor: 105,
@@ -4768,37 +1893,8 @@ export const warframes = {
     sprint: 1,
     aura: "Vazarin",
     releaseDate: "2012-10-25",
-    imageName: "Trinity.png",
-    abilities: [
-      {
-        uniqueName: "/Lotus/Powersuits/Trinity/Abilities/WellOfLifeAbility",
-        name: "Well Of Life",
-        description:
-          "Create a well of life on an enemy who will absorb Status Effect damage intended for nearby allies. Allies gain additional Health when they attack the target. If allies die, enemies in the well of life die in their stead.",
-        imageName: "TrinityWellOfLife.png",
-      },
-      {
-        uniqueName: "/Lotus/Powersuits/Trinity/Abilities/EnergyVampireAbility",
-        name: "Energy Vampire",
-        description:
-          "Allies will gain energy over time when enemies are marked with Energy Vampire.",
-        imageName: "TrinityEnergyVampire.png",
-      },
-      {
-        uniqueName: "/Lotus/Powersuits/Trinity/Abilities/LinkAbility",
-        name: "Link",
-        description:
-          "Any damage taken while Link is active will be channeled to a nearby enemy.",
-        imageName: "TrinityLink.png",
-      },
-      {
-        uniqueName: "/Lotus/Powersuits/Trinity/Abilities/BlessingAbility",
-        name: "Blessing",
-        description:
-          "Restore the health and shields of allies within <AFFINITY_SHARE>Affinity Range while reducing the damage they take from enemies.",
-        imageName: "TrinityBlessing.png",
-      },
-    ],
+    imageName: "Trinity_Thumb.png",
+    abilities: ["Well of Life", "Energy Vampire", "Link", "Blessing"],
     sex: "Female",
     variant: "Standard",
     progenitor: "Cold",
@@ -4808,8 +1904,6 @@ export const warframes = {
   },
   "Trinity Prime": {
     name: "Trinity Prime",
-    category: "Warframes",
-    type: "Warframe",
     health: 270,
     shield: 455,
     armor: 135,
@@ -4817,37 +1911,8 @@ export const warframes = {
     sprint: 1.1,
     aura: "Vazarin",
     releaseDate: "2015-10-06",
-    imageName: "TrinityPrime.png",
-    abilities: [
-      {
-        uniqueName: "/Lotus/Powersuits/Trinity/Abilities/WellOfLifeAbility",
-        name: "Well Of Life",
-        description:
-          "Create a well of life on an enemy who will absorb Status Effect damage intended for nearby allies. Allies gain additional Health when they attack the target. If allies die, enemies in the well of life die in their stead.",
-        imageName: "TrinityWellOfLife.png",
-      },
-      {
-        uniqueName: "/Lotus/Powersuits/Trinity/Abilities/EnergyVampireAbility",
-        name: "Energy Vampire",
-        description:
-          "Allies will gain energy over time when enemies are marked with Energy Vampire.",
-        imageName: "TrinityEnergyVampire.png",
-      },
-      {
-        uniqueName: "/Lotus/Powersuits/Trinity/Abilities/LinkAbility",
-        name: "Link",
-        description:
-          "Any damage taken while Link is active will be channeled to a nearby enemy.",
-        imageName: "TrinityLink.png",
-      },
-      {
-        uniqueName: "/Lotus/Powersuits/Trinity/Abilities/BlessingAbility",
-        name: "Blessing",
-        description:
-          "Restore the health and shields of allies within <AFFINITY_SHARE>Affinity Range while reducing the damage they take from enemies.",
-        imageName: "TrinityBlessing.png",
-      },
-    ],
+    imageName: "TrinityPrime_Thumb.png",
+    abilities: ["Well of Life", "Energy Vampire", "Link", "Blessing"],
     sex: "Female",
     variant: "Prime",
     progenitor: "Cold",
@@ -4858,8 +1923,6 @@ export const warframes = {
   },
   Uriel: {
     name: "Uriel",
-    category: "Warframes",
-    type: "Warframe",
     health: 566,
     shield: 566,
     armor: 105,
@@ -4867,41 +1930,8 @@ export const warframes = {
     sprint: 1.1,
     aura: "Madurai",
     releaseDate: "2025-12-10",
-    imageName: "Demonframe.png",
-    abilities: [
-      {
-        uniqueName:
-          "/Lotus/Powersuits/DemonFrame/Abilities/DemonFrameFireBallAbility",
-        name: "Infernalis",
-        description:
-          "Manifest an aura of flames inflicting <DT_FIRE_COLOR>Heat Damage and Status Effect on nearby enemies.\n\nTap Dodge while airborne to take flight as a flaming meteor of destruction.",
-        imageName: "UrielInfernalis.png",
-      },
-      {
-        uniqueName:
-          "/Lotus/Powersuits/DemonFrame/Abilities/DemonFrameHealAbility",
-        name: "Remedium",
-        description:
-          "Uriel heals himself and his demons. If his demons are dead, they are resurrected.",
-        imageName: "UrielRemedium.png",
-      },
-      {
-        uniqueName:
-          "/Lotus/Powersuits/DemonFrame/Abilities/DemonFrameCloneAbility",
-        name: "Demonium",
-        description:
-          "Uriel rips out the souls of his demons, draining their health, and sends them in search of new victims. Souls explode on contact with an enemy, rendering it vulnerable to Damage.",
-        imageName: "UrielDemonium.png",
-      },
-      {
-        uniqueName:
-          "/Lotus/Powersuits/DemonFrame/Abilities/DemonFrameBrimstoneAbility",
-        name: "Brimstone",
-        description:
-          "Uriel and his demons create a growing ring of flaming brimstone. Charge the ability by utilizing demon abilities. Damage inflicted increases with each consecutive hit.",
-        imageName: "UrielBrimstone.png",
-      },
-    ],
+    imageName: "Uriel_Thumb.png",
+    abilities: ["Infernalis", "Remedium", "Demonium", "Brimstone"],
     sex: "Male",
     variant: "Standard",
     progenitor: "Heat",
@@ -4911,8 +1941,6 @@ export const warframes = {
   },
   Valkyr: {
     name: "Valkyr",
-    category: "Warframes",
-    type: "Warframe",
     health: 650,
     shield: 135,
     armor: 855,
@@ -4920,50 +1948,18 @@ export const warframes = {
     sprint: 1.1,
     aura: "Madurai",
     releaseDate: "2013-11-20",
-    imageName: "Valkyr.png",
-    abilities: [
-      {
-        uniqueName: "/Lotus/Powersuits/Berserker/Abilities/GrappleHookAbility",
-        name: "Rip Line",
-        description:
-          "Valkyr hurls forth a hook and pulls herself to whatever it hits. If it hits an enemy, nearby foes are pulled in as she unleashes a coordinated Melee attack.",
-        imageName: "BerserkerGrapplingHook.png",
-      },
-      {
-        uniqueName:
-          "/Lotus/Powersuits/Berserker/Abilities/BerserkerScreamAbility",
-        name: "Warcry",
-        description:
-          "Valkyr lets out a rallying cry that bolsters Armor and Attack Speed for allies while in <AFFINITY_SHARE>Affinity Range.",
-        imageName: "BerserkerScream.png",
-      },
-      {
-        uniqueName: "/Lotus/Powersuits/Berserker/Abilities/ShieldBashAbility",
-        name: "Paralysis",
-        description:
-          "Unleash a damaging blast, slowing its victims while increasing their Melee Damage Vulnerability.",
-        imageName: "BerserkerShieldBash.png",
-      },
-      {
-        uniqueName: "/Lotus/Powersuits/Berserker/Abilities/LastStandAbility",
-        name: "Hysteria",
-        description:
-          "Valkyr bares her deadly claws, unleashing devastating attacks that also heal her. Valkyr becomes immune to Status Effects and her Armor bonus from Warcry is multiplied while using the claws.",
-        imageName: "BerserkerLastStand.png",
-      },
-    ],
+    imageName: "Valkyr_Thumb.png",
+    abilities: ["Rip Line", "Warcry", "Paralysis", "Hysteria"],
     sex: "Female",
     variant: "Standard",
     progenitor: "Electricity",
     isPrime: false,
     conclave: true,
     playstyle: ["Damage", "Survival"],
-    exalted: ["/Lotus/Powersuits/Berserker/BerserkerMelee"],
+    exalted: true,
   },
   "Valkyr Prime": {
     name: "Valkyr Prime",
-    category: "Warframes",
-    type: "Warframe",
     health: 650,
     shield: 135,
     armor: 1000,
@@ -4971,38 +1967,8 @@ export const warframes = {
     sprint: 1.1,
     aura: "Madurai",
     releaseDate: "2016-11-22",
-    imageName: "ValkyrPrime.png",
-    abilities: [
-      {
-        uniqueName: "/Lotus/Powersuits/Berserker/Abilities/GrappleHookAbility",
-        name: "Rip Line",
-        description:
-          "Valkyr hurls forth a hook and pulls herself to whatever it hits. If it hits an enemy, nearby foes are pulled in as she unleashes a coordinated Melee attack.",
-        imageName: "BerserkerGrapplingHook.png",
-      },
-      {
-        uniqueName:
-          "/Lotus/Powersuits/Berserker/Abilities/BerserkerScreamAbility",
-        name: "Warcry",
-        description:
-          "Valkyr lets out a rallying cry that bolsters Armor and Attack Speed for allies while in <AFFINITY_SHARE>Affinity Range.",
-        imageName: "BerserkerScream.png",
-      },
-      {
-        uniqueName: "/Lotus/Powersuits/Berserker/Abilities/ShieldBashAbility",
-        name: "Paralysis",
-        description:
-          "Unleash a damaging blast, slowing its victims while increasing their Melee Damage Vulnerability.",
-        imageName: "BerserkerShieldBash.png",
-      },
-      {
-        uniqueName: "/Lotus/Powersuits/Berserker/Abilities/LastStandAbility",
-        name: "Hysteria",
-        description:
-          "Valkyr bares her deadly claws, unleashing devastating attacks that also heal her. Valkyr becomes immune to Status Effects and her Armor bonus from Warcry is multiplied while using the claws.",
-        imageName: "BerserkerLastStand.png",
-      },
-    ],
+    imageName: "ValkyrPrime_Thumb.png",
+    abilities: ["Rip Line", "Warcry", "Paralysis", "Hysteria"],
     sex: "Female",
     variant: "Prime",
     progenitor: "Electricity",
@@ -5010,12 +1976,10 @@ export const warframes = {
     conclave: true,
     vaulted: false,
     playstyle: ["Damage", "Survival"],
-    exalted: ["/Lotus/Powersuits/Berserker/BerserkerMeleePrime"],
+    exalted: true,
   },
   Vauban: {
     name: "Vauban",
-    category: "Warframes",
-    type: "Warframe",
     health: 270,
     shield: 180,
     armor: 160,
@@ -5023,38 +1987,8 @@ export const warframes = {
     sprint: 1,
     aura: "Naramon",
     releaseDate: "2013-05-17",
-    imageName: "Vauban.png",
-    abilities: [
-      {
-        uniqueName: "/Lotus/Powersuits/Trapper/Abilities/ZapTrapAbility",
-        name: "Tesla Nervos",
-        description:
-          "Deploy a roller drone that attaches itself to enemies and delivers bursts of arcing <DT_ELECTRICITY_COLOR> Electricity Damage to anything in the immediate area.",
-        imageName: "VaubanTeslaDrones.png",
-      },
-      {
-        uniqueName:
-          "/Lotus/Powersuits/Trapper/Abilities/TrapperMultinadeAbility",
-        name: "Minelayer",
-        description:
-          "Control the battlefield with masterful mines. Vauban's Tether-Flechette orb immobilizes and draws in enemies while launching deadly nails in all directions.\n\nHOLD to launch a Vector-Overdrive pad that accelerates foes and allies alike in the pad's direction, increasing ally Movement Speed and Weapon Damage.",
-        imageName: "VaubanMinelayer.png",
-      },
-      {
-        uniqueName: "/Lotus/Powersuits/Trapper/Abilities/TrapperStrikeAbility",
-        name: "Photon Strike",
-        description:
-          "Drop a targeting beacon that calls in a devastating laser artillery strike. Deals doubled damage to enemies with Overguard.",
-        imageName: "VaubanOrbitalStrike.png",
-      },
-      {
-        uniqueName: "/Lotus/Powersuits/Trapper/Abilities/LevTrapAbility",
-        name: "Bastille",
-        description:
-          "Erect a containment field to capture enemies and suspend them in stasis, stripping their armor and granting it to Vauban and any allies within Bastille's field.\n\nHOLD to collapse all Bastilles into a single damaging vortex.",
-        imageName: "VaubanBastille.png",
-      },
-    ],
+    imageName: "Vauban_Thumb.png",
+    abilities: ["Tesla Nervos", "Minelayer", "Photon Strike", "Bastille"],
     sex: "Male",
     variant: "Standard",
     progenitor: "Heat",
@@ -5064,8 +1998,6 @@ export const warframes = {
   },
   "Vauban Prime": {
     name: "Vauban Prime",
-    category: "Warframes",
-    type: "Warframe",
     health: 270,
     shield: 270,
     armor: 210,
@@ -5073,38 +2005,8 @@ export const warframes = {
     sprint: 1,
     aura: "Naramon",
     releaseDate: "2016-05-17",
-    imageName: "VaubanPrime.png",
-    abilities: [
-      {
-        uniqueName: "/Lotus/Powersuits/Trapper/Abilities/ZapTrapAbility",
-        name: "Tesla Nervos",
-        description:
-          "Deploy a roller drone that attaches itself to enemies and delivers bursts of arcing <DT_ELECTRICITY_COLOR> Electricity Damage to anything in the immediate area.",
-        imageName: "VaubanTeslaDrones.png",
-      },
-      {
-        uniqueName:
-          "/Lotus/Powersuits/Trapper/Abilities/TrapperMultinadeAbility",
-        name: "Minelayer",
-        description:
-          "Control the battlefield with masterful mines. Vauban's Tether-Flechette orb immobilizes and draws in enemies while launching deadly nails in all directions.\n\nHOLD to launch a Vector-Overdrive pad that accelerates foes and allies alike in the pad's direction, increasing ally Movement Speed and Weapon Damage.",
-        imageName: "VaubanMinelayer.png",
-      },
-      {
-        uniqueName: "/Lotus/Powersuits/Trapper/Abilities/TrapperStrikeAbility",
-        name: "Photon Strike",
-        description:
-          "Drop a targeting beacon that calls in a devastating laser artillery strike. Deals doubled damage to enemies with Overguard.",
-        imageName: "VaubanOrbitalStrike.png",
-      },
-      {
-        uniqueName: "/Lotus/Powersuits/Trapper/Abilities/LevTrapAbility",
-        name: "Bastille",
-        description:
-          "Erect a containment field to capture enemies and suspend them in stasis, stripping their armor and granting it to Vauban and any allies within Bastille's field.\n\nHOLD to collapse all Bastilles into a single damaging vortex.",
-        imageName: "VaubanBastille.png",
-      },
-    ],
+    imageName: "VaubanPrime_Thumb.png",
+    abilities: ["Tesla Nervos", "Minelayer", "Photon Strike", "Bastille"],
     sex: "Male",
     variant: "Prime",
     progenitor: "Heat",
@@ -5115,8 +2017,6 @@ export const warframes = {
   },
   Volt: {
     name: "Volt",
-    category: "Warframes",
-    type: "Warframe",
     health: 270,
     shield: 455,
     armor: 105,
@@ -5124,37 +2024,8 @@ export const warframes = {
     sprint: 1,
     aura: "Madurai",
     releaseDate: "2012-10-25",
-    imageName: "Volt.png",
-    abilities: [
-      {
-        uniqueName: "/Lotus/Powersuits/Volt/Abilities/ShockAbility",
-        name: "Shock",
-        description:
-          "Launch a voltaic projectile that stuns and damages its target. A chain of electricity extends from the target to shock nearby enemies.",
-        imageName: "VoltChainLightning.png",
-      },
-      {
-        uniqueName: "/Lotus/Powersuits/Volt/Abilities/SpeedAbility",
-        name: "Speed",
-        description:
-          "Embody an electric current. Volt and his allies receive a brief movement speed boost and a reload speed buff.",
-        imageName: "VoltSuperSpeed.png",
-      },
-      {
-        uniqueName: "/Lotus/Powersuits/Volt/Abilities/ShieldAbility",
-        name: "Electric Shield",
-        description:
-          "Volt deploys an electric shield that blocks enemy fire and adds <DT_ELECTRICITY_COLOR>Electricity Damage to projectiles.\n \nHOLD to equip the shield for mobile cover.",
-        imageName: "VoltShield.png",
-      },
-      {
-        uniqueName: "/Lotus/Powersuits/Volt/Abilities/OverLoadAbility",
-        name: "Discharge",
-        description:
-          "Volt discharges the electricity that courses through him. The shockwave paralyzes and damages nearby enemies. Enemies on the edge of the shockwave are stunned.",
-        imageName: "VoltOverLoad.png",
-      },
-    ],
+    imageName: "Volt_Thumb.png",
+    abilities: ["Shock", "Speed", "Electric Shield", "Discharge"],
     sex: "Male",
     variant: "Standard",
     progenitor: "Electricity",
@@ -5164,8 +2035,6 @@ export const warframes = {
   },
   "Volt Prime": {
     name: "Volt Prime",
-    category: "Warframes",
-    type: "Warframe",
     health: 270,
     shield: 455,
     armor: 135,
@@ -5173,37 +2042,8 @@ export const warframes = {
     sprint: 1,
     aura: "Madurai",
     releaseDate: "2015-03-25",
-    imageName: "VoltPrime.png",
-    abilities: [
-      {
-        uniqueName: "/Lotus/Powersuits/Volt/Abilities/ShockAbility",
-        name: "Shock",
-        description:
-          "Launch a voltaic projectile that stuns and damages its target. A chain of electricity extends from the target to shock nearby enemies.",
-        imageName: "VoltChainLightning.png",
-      },
-      {
-        uniqueName: "/Lotus/Powersuits/Volt/Abilities/SpeedAbility",
-        name: "Speed",
-        description:
-          "Embody an electric current. Volt and his allies receive a brief movement speed boost and a reload speed buff.",
-        imageName: "VoltSuperSpeed.png",
-      },
-      {
-        uniqueName: "/Lotus/Powersuits/Volt/Abilities/ShieldAbility",
-        name: "Electric Shield",
-        description:
-          "Volt deploys an electric shield that blocks enemy fire and adds <DT_ELECTRICITY_COLOR>Electricity Damage to projectiles.\n \nHOLD to equip the shield for mobile cover.",
-        imageName: "VoltShield.png",
-      },
-      {
-        uniqueName: "/Lotus/Powersuits/Volt/Abilities/OverLoadAbility",
-        name: "Discharge",
-        description:
-          "Volt discharges the electricity that courses through him. The shockwave paralyzes and damages nearby enemies. Enemies on the edge of the shockwave are stunned.",
-        imageName: "VoltOverLoad.png",
-      },
-    ],
+    imageName: "VoltPrime_Thumb.png",
+    abilities: ["Shock", "Speed", "Electric Shield", "Discharge"],
     sex: "Male",
     variant: "Prime",
     progenitor: "Electricity",
@@ -5214,8 +2054,6 @@ export const warframes = {
   },
   Voruna: {
     name: "Voruna",
-    category: "Warframes",
-    type: "Warframe",
     health: 455,
     shield: 270,
     armor: 200,
@@ -5223,37 +2061,12 @@ export const warframes = {
     sprint: 0.95,
     aura: "Vazarin",
     releaseDate: "2022-11-30",
-    imageName: "Voruna.png",
+    imageName: "Voruna_Thumb.png",
     abilities: [
-      {
-        uniqueName:
-          "/Lotus/Powersuits/Werewolf/Abilities/WerewolfShroudAbility",
-        name: "Shroud Of Dynar",
-        description:
-          "(TAP) Dynar shrouds Voruna with invisibility and accelerates her speed. Invisibility ends when Voruna attacks. For a short time after invisibility ends, melee attacks have increased Critical Damage, Status Chance, Critical Chance and inflict <DT_SLASH_COLOR>Slash Status Effects. Melee kill an enemy during this time to extend the melee buff once per cast.\n\n(HOLD) Dynar guards Voruna, increasing her Parkour Velocity.",
-        imageName: "WerewolfShroud.png",
-      },
-      {
-        uniqueName: "/Lotus/Powersuits/Werewolf/Abilities/WerewolfBiteAbility",
-        name: "Fangs Of Raksh",
-        description:
-          "(TAP) Raksh's fangs tear into your enemies. 5 random Status Effects are applied at 10 Stacks each on an enemy. On target's death, spread the Status Effects to other nearby enemies.\n\n(HOLD) Raksh guards Voruna with Status Effect resistance.",
-        imageName: "WerewolfBite.png",
-      },
-      {
-        uniqueName: "/Lotus/Powersuits/Werewolf/Abilities/WerewolfLeapAbility",
-        name: "Lycath's Hunt",
-        description:
-          "(TAP) Lycath hunts to sustain the pack. Enemies killed by melee attacks drop health orbs and enemies killed by headshots drop energy orbs. Increase the duration of Lycath’s hunt by killing enemies affected by 5 or more Status Effects.\n\n(HOLD) Lycath guards Voruna with increased Heavy Attack efficiency.",
-        imageName: "WerewolfLeap.png",
-      },
-      {
-        uniqueName: "/Lotus/Powersuits/Werewolf/Abilities/WerewolfHowlAbility",
-        name: "Ulfrun's Descent",
-        description:
-          "(TAP) Voruna drops to all fours and prepares 5 brutal charges that lock onto enemies. Ulfrun, the most powerful wolf, leads the attack as Voruna dashes toward her target. The pack deals increased damage to targets and nearby enemies that are inflicted by Status Effects. Lethal attacks double the damage of Voruna's remaining charges.\n\n(HOLD) Ulfrun guards Voruna. If Voruna falls during this time, Ulfrun dies in her place.",
-        imageName: "WerewolfHowl.png",
-      },
+      "Shroud of Dynar",
+      "Fangs of Raksh",
+      "Lycath's Hunt",
+      "Ulfrun's Descent",
     ],
     sex: "Female",
     variant: "Standard",
@@ -5264,8 +2077,6 @@ export const warframes = {
   },
   "Voruna Prime": {
     name: "Voruna Prime",
-    category: "Warframes",
-    type: "Warframe",
     health: 455,
     shield: 270,
     armor: 265,
@@ -5273,50 +2084,22 @@ export const warframes = {
     sprint: 1.2,
     aura: "Vazarin",
     releaseDate: "2026-04-08",
-    imageName: "VorunaPrime.png",
+    imageName: "VorunaPrime_Thumb.png",
     abilities: [
-      {
-        uniqueName:
-          "/Lotus/Powersuits/Werewolf/Abilities/WerewolfShroudAbility",
-        name: "Shroud Of Dynar",
-        description:
-          "(TAP) Dynar shrouds Voruna with invisibility and accelerates her speed. Invisibility ends when Voruna attacks. For a short time after invisibility ends, melee attacks have increased Critical Damage, Status Chance, Critical Chance and inflict <DT_SLASH_COLOR>Slash Status Effects. Melee kill an enemy during this time to extend the melee buff once per cast.\n\n(HOLD) Dynar guards Voruna, increasing her Parkour Velocity.",
-        imageName: "WerewolfShroud.png",
-      },
-      {
-        uniqueName: "/Lotus/Powersuits/Werewolf/Abilities/WerewolfBiteAbility",
-        name: "Fangs Of Raksh",
-        description:
-          "(TAP) Raksh's fangs tear into your enemies. 5 random Status Effects are applied at 10 Stacks each on an enemy. On target's death, spread the Status Effects to other nearby enemies.\n\n(HOLD) Raksh guards Voruna with Status Effect resistance.",
-        imageName: "WerewolfBite.png",
-      },
-      {
-        uniqueName: "/Lotus/Powersuits/Werewolf/Abilities/WerewolfLeapAbility",
-        name: "Lycath's Hunt",
-        description:
-          "(TAP) Lycath hunts to sustain the pack. Enemies killed by melee attacks drop health orbs and enemies killed by headshots drop energy orbs. Increase the duration of Lycath’s hunt by killing enemies affected by 5 or more Status Effects.\n\n(HOLD) Lycath guards Voruna with increased Heavy Attack efficiency.",
-        imageName: "WerewolfLeap.png",
-      },
-      {
-        uniqueName: "/Lotus/Powersuits/Werewolf/Abilities/WerewolfHowlAbility",
-        name: "Ulfrun's Descent",
-        description:
-          "(TAP) Voruna drops to all fours and prepares 5 brutal charges that lock onto enemies. Ulfrun, the most powerful wolf, leads the attack as Voruna dashes toward her target. The pack deals increased damage to targets and nearby enemies that are inflicted by Status Effects. Lethal attacks double the damage of Voruna's remaining charges.\n\n(HOLD) Ulfrun guards Voruna. If Voruna falls during this time, Ulfrun dies in her place.",
-        imageName: "WerewolfHowl.png",
-      },
+      "Shroud of Dynar",
+      "Fangs of Raksh",
+      "Lycath's Hunt",
+      "Ulfrun's Descent",
     ],
     sex: "Female",
     variant: "Prime",
     progenitor: "Radiation",
     isPrime: true,
     conclave: false,
-    vaulted: false,
     playstyle: ["Damage", "Stealth"],
   },
   Wisp: {
     name: "Wisp",
-    category: "Warframes",
-    type: "Warframe",
     health: 270,
     shield: 180,
     armor: 185,
@@ -5324,37 +2107,8 @@ export const warframes = {
     sprint: 1.2,
     aura: "Naramon",
     releaseDate: "2019-05-22",
-    imageName: "Wisp.png",
-    abilities: [
-      {
-        uniqueName: "/Lotus/Powersuits/Wisp/Abilities/WispReservoirAbility",
-        name: "Reservoirs",
-        description:
-          "Choose and summon a Reservoir filled with Motes that attach to and aid Wisp and her allies. Haste Mote grants increased movement and attack speed. Vitality Mote increases maximum health and heals over time. Shock Mote stuns nearby enemies.",
-        imageName: "WispReservoir.png",
-      },
-      {
-        uniqueName: "/Lotus/Powersuits/Wisp/Abilities/WispLightAbility",
-        name: "Wil-O-Wisp",
-        description:
-          "Cast forward a spectral image of Wisp to confuse and distract enemies. Reactivate to travel to its position. Hold to have the image travel faster and teleport to its position on release. ",
-        imageName: "WispLight.png",
-      },
-      {
-        uniqueName: "/Lotus/Powersuits/Wisp/Abilities/WispHarnessAbility",
-        name: "Breach Surge",
-        description:
-          "Open a dimensional breach to overwhelm nearby enemies and cause them to release aggressive Surge sparks when damaged.\nWisp may also target a Reservoir to teleport to it and double the range of the surge.",
-        imageName: "WispHarnessTheLight.png",
-      },
-      {
-        uniqueName: "/Lotus/Powersuits/Wisp/Abilities/WispSunAbility",
-        name: "Sol Gate",
-        description:
-          "Open a portal to the sun to irradiate enemies with a devastating beam of pure solar plasma. Hold fire to double Damage at the cost of increased energy consumption. For the duration of an attack enemies damaged by Sol Gate are increasingly more vulnerable to it.",
-        imageName: "WispSolGate.png",
-      },
-    ],
+    imageName: "Wisp_Thumb.png",
+    abilities: ["Reservoirs", "Wil-O-Wisp", "Breach Surge", "Sol Gate"],
     sex: "Female",
     variant: "Standard",
     progenitor: "Heat",
@@ -5364,8 +2118,6 @@ export const warframes = {
   },
   "Wisp Prime": {
     name: "Wisp Prime",
-    category: "Warframes",
-    type: "Warframe",
     health: 270,
     shield: 270,
     armor: 210,
@@ -5373,37 +2125,8 @@ export const warframes = {
     sprint: 1.25,
     aura: "Naramon",
     releaseDate: "2023-07-27",
-    imageName: "WispPrime.png",
-    abilities: [
-      {
-        uniqueName: "/Lotus/Powersuits/Wisp/Abilities/WispReservoirAbility",
-        name: "Reservoirs",
-        description:
-          "Choose and summon a Reservoir filled with Motes that attach to and aid Wisp and her allies. Haste Mote grants increased movement and attack speed. Vitality Mote increases maximum health and heals over time. Shock Mote stuns nearby enemies.",
-        imageName: "WispReservoir.png",
-      },
-      {
-        uniqueName: "/Lotus/Powersuits/Wisp/Abilities/WispLightAbility",
-        name: "Wil-O-Wisp",
-        description:
-          "Cast forward a spectral image of Wisp to confuse and distract enemies. Reactivate to travel to its position. Hold to have the image travel faster and teleport to its position on release. ",
-        imageName: "WispLight.png",
-      },
-      {
-        uniqueName: "/Lotus/Powersuits/Wisp/Abilities/WispHarnessAbility",
-        name: "Breach Surge",
-        description:
-          "Open a dimensional breach to overwhelm nearby enemies and cause them to release aggressive Surge sparks when damaged.\nWisp may also target a Reservoir to teleport to it and double the range of the surge.",
-        imageName: "WispHarnessTheLight.png",
-      },
-      {
-        uniqueName: "/Lotus/Powersuits/Wisp/Abilities/WispSunAbility",
-        name: "Sol Gate",
-        description:
-          "Open a portal to the sun to irradiate enemies with a devastating beam of pure solar plasma. Hold fire to double Damage at the cost of increased energy consumption. For the duration of an attack enemies damaged by Sol Gate are increasingly more vulnerable to it.",
-        imageName: "WispSolGate.png",
-      },
-    ],
+    imageName: "WispPrime_Thumb.png",
+    abilities: ["Reservoirs", "Wil-O-Wisp", "Breach Surge", "Sol Gate"],
     sex: "Female",
     variant: "Prime",
     progenitor: "Heat",
@@ -5414,8 +2137,6 @@ export const warframes = {
   },
   Wukong: {
     name: "Wukong",
-    category: "Warframes",
-    type: "Warframe",
     health: 455,
     shield: 270,
     armor: 265,
@@ -5423,49 +2144,18 @@ export const warframes = {
     sprint: 1,
     aura: "Madurai",
     releaseDate: "2015-11-25",
-    imageName: "Wukong.png",
-    abilities: [
-      {
-        uniqueName: "/Lotus/Powersuits/MonkeyKing/Abilities/MonkeyHairAbility",
-        name: "Celestial Twin",
-        description:
-          "Shedding part of himself, Wukong creates a twin to fight by his side. Attack at range and the twin will melee, pull a blade and the twin will lay down covering fire.\nUse again to command the twin to attack a target with increased damage.",
-        imageName: "WukongHairOfTheKing.png",
-      },
-      {
-        uniqueName: "/Lotus/Powersuits/MonkeyKing/Abilities/MonkeyCloudAbility",
-        name: "Cloud Walker",
-        description:
-          "Evaporate into a cloud of mist and float through the battlefield, dazing any enemies encountered, while healing Wukong and his twin.",
-        imageName: "WukongCloudWalker.png",
-      },
-      {
-        uniqueName:
-          "/Lotus/Powersuits/MonkeyKing/Abilities/MonkeyDeathNewAbility",
-        name: "Defy",
-        description:
-          "Wukong and his twin become invulnerable and defy enemies to attack. All damage is captured, stored, and dealt back in a single furious strike of Wukong's staff.\nBonus Armor is then granted relative to the damage captured.",
-        imageName: "WukongDefy.png",
-      },
-      {
-        uniqueName: "/Lotus/Powersuits/MonkeyKing/Abilities/MonkeyStaffAbility",
-        name: "Primal Fury",
-        description: "Summon the iron staff and unleash fury.",
-        imageName: "WukongPrimalFury.png",
-      },
-    ],
+    imageName: "Wukong_Thumb.png",
+    abilities: ["Celestial Twin", "Cloud Walker", "Defy", "Primal Fury"],
     sex: "Male",
     variant: "Standard",
     progenitor: "Impact",
     isPrime: false,
     conclave: false,
     playstyle: ["Damage", "Survival"],
-    exalted: ["/Lotus/Powersuits/MonkeyKing/MonkeyKingStaff"],
+    exalted: true,
   },
   "Wukong Prime": {
     name: "Wukong Prime",
-    category: "Warframes",
-    type: "Warframe",
     health: 455,
     shield: 345,
     armor: 290,
@@ -5473,37 +2163,8 @@ export const warframes = {
     sprint: 1.05,
     aura: "Madurai",
     releaseDate: "2019-07-06",
-    imageName: "WukongPrime.png",
-    abilities: [
-      {
-        uniqueName: "/Lotus/Powersuits/MonkeyKing/Abilities/MonkeyHairAbility",
-        name: "Celestial Twin",
-        description:
-          "Shedding part of himself, Wukong creates a twin to fight by his side. Attack at range and the twin will melee, pull a blade and the twin will lay down covering fire.\nUse again to command the twin to attack a target with increased damage.",
-        imageName: "WukongHairOfTheKing.png",
-      },
-      {
-        uniqueName: "/Lotus/Powersuits/MonkeyKing/Abilities/MonkeyCloudAbility",
-        name: "Cloud Walker",
-        description:
-          "Evaporate into a cloud of mist and float through the battlefield, dazing any enemies encountered, while healing Wukong and his twin.",
-        imageName: "WukongCloudWalker.png",
-      },
-      {
-        uniqueName:
-          "/Lotus/Powersuits/MonkeyKing/Abilities/MonkeyDeathNewAbility",
-        name: "Defy",
-        description:
-          "Wukong and his twin become invulnerable and defy enemies to attack. All damage is captured, stored, and dealt back in a single furious strike of Wukong's staff.\nBonus Armor is then granted relative to the damage captured.",
-        imageName: "WukongDefy.png",
-      },
-      {
-        uniqueName: "/Lotus/Powersuits/MonkeyKing/Abilities/MonkeyStaffAbility",
-        name: "Primal Fury",
-        description: "Summon the iron staff and unleash fury.",
-        imageName: "WukongPrimalFury.png",
-      },
-    ],
+    imageName: "WukongPrime_Thumb.png",
+    abilities: ["Celestial Twin", "Cloud Walker", "Defy", "Primal Fury"],
     sex: "Male",
     variant: "Prime",
     progenitor: "Impact",
@@ -5511,12 +2172,10 @@ export const warframes = {
     conclave: false,
     vaulted: true,
     playstyle: ["Damage", "Survival"],
-    exalted: ["/Lotus/Powersuits/MonkeyKing/WukongPrimeStaff"],
+    exalted: true,
   },
   Xaku: {
     name: "Xaku",
-    category: "Warframes",
-    type: "Warframe",
     health: 269,
     shield: 239,
     armor: 146,
@@ -5524,39 +2183,12 @@ export const warframes = {
     sprint: 1.02,
     aura: "Naramon",
     releaseDate: "2020-08-25",
-    imageName: "BrokenFrame.png",
+    imageName: "Xaku_Thumb.png",
     abilities: [
-      {
-        uniqueName: "/Lotus/Powersuits/BrokenFrame/Abilities/BrokenRotAbility",
-        name: "Xata's Whisper",
-        description:
-          "Wield <DT_RADIANT_COLOR>Void Damage for all attacks from equipped weapons when activated.",
-        imageName: "BrokenFrameVoidRot.png",
-      },
-      {
-        uniqueName:
-          "/Lotus/Powersuits/BrokenFrame/Abilities/BrokenGraspAbility",
-        name: "Grasp Of Lohk",
-        description:
-          "Void Tendrils steal weapons from nearby enemies to use as your own floating, auto-targeting armament. Damage output increases based on enemy level. The number of weapons grabbed also determines the damage multiplier for The Lost: Deny's Void beam.",
-        imageName: "BrokenFrameTendrilGrasp.png",
-      },
-      {
-        uniqueName:
-          "/Lotus/Powersuits/BrokenFrame/Abilities/BrokenEmbraceAbility",
-        name: "The Lost",
-        description:
-          "Cycle through a trio of lost Warframe powers. Accuse manifests a Void fissure to corrupt enemies into allies. Gaze grasps targets in Void tendrils that capture damage and inflict it when the target is released. Deny annihilates with a beam of Void energy, wiping Sentient resistances.",
-        imageName: "BrokenFrameEmbraceTheFallen.png",
-      },
-      {
-        uniqueName:
-          "/Lotus/Powersuits/BrokenFrame/Abilities/BrokenDestructAbility",
-        name: "The Vast Untime",
-        description:
-          "Temporarily shed the outer pieces of Xaku in a destructive blast, then stalk the battlefield in a new, swifter skeletal form. Enemies damaged by the body shrapnel are rendered weaker to <DT_RADIANT_COLOR>Void Damage. Xaku's other active abilities' duration is frozen in time and resumes once The Vast Untime expires.",
-        imageName: "BrokenFrameSelfDestruct.png",
-      },
+      "Xata's Whisper",
+      "Grasp of Lohk",
+      "The Lost",
+      "The Vast Untime",
     ],
     sex: "Non-binary",
     variant: "Standard",
@@ -5568,8 +2200,6 @@ export const warframes = {
   },
   "Xaku Prime": {
     name: "Xaku Prime",
-    category: "Warframes",
-    type: "Warframe",
     health: 269,
     shield: 263,
     armor: 167,
@@ -5577,39 +2207,12 @@ export const warframes = {
     sprint: 1.07,
     aura: "Naramon",
     releaseDate: "2024-11-13",
-    imageName: "XakuPrime.png",
+    imageName: "XakuPrime_Thumb.png",
     abilities: [
-      {
-        uniqueName: "/Lotus/Powersuits/BrokenFrame/Abilities/BrokenRotAbility",
-        name: "Xata's Whisper",
-        description:
-          "Wield <DT_RADIANT_COLOR>Void Damage for all attacks from equipped weapons when activated.",
-        imageName: "BrokenFrameVoidRot.png",
-      },
-      {
-        uniqueName:
-          "/Lotus/Powersuits/BrokenFrame/Abilities/BrokenGraspAbility",
-        name: "Grasp Of Lohk",
-        description:
-          "Void Tendrils steal weapons from nearby enemies to use as your own floating, auto-targeting armament. Damage output increases based on enemy level. The number of weapons grabbed also determines the damage multiplier for The Lost: Deny's Void beam.",
-        imageName: "BrokenFrameTendrilGrasp.png",
-      },
-      {
-        uniqueName:
-          "/Lotus/Powersuits/BrokenFrame/Abilities/BrokenEmbraceAbility",
-        name: "The Lost",
-        description:
-          "Cycle through a trio of lost Warframe powers. Accuse manifests a Void fissure to corrupt enemies into allies. Gaze grasps targets in Void tendrils that capture damage and inflict it when the target is released. Deny annihilates with a beam of Void energy, wiping Sentient resistances.",
-        imageName: "BrokenFrameEmbraceTheFallen.png",
-      },
-      {
-        uniqueName:
-          "/Lotus/Powersuits/BrokenFrame/Abilities/BrokenDestructAbility",
-        name: "The Vast Untime",
-        description:
-          "Temporarily shed the outer pieces of Xaku in a destructive blast, then stalk the battlefield in a new, swifter skeletal form. Enemies damaged by the body shrapnel are rendered weaker to <DT_RADIANT_COLOR>Void Damage. Xaku's other active abilities' duration is frozen in time and resumes once The Vast Untime expires.",
-        imageName: "BrokenFrameSelfDestruct.png",
-      },
+      "Xata's Whisper",
+      "Grasp of Lohk",
+      "The Lost",
+      "The Vast Untime",
     ],
     sex: "Non-binary",
     variant: "Prime",
@@ -5621,8 +2224,6 @@ export const warframes = {
   },
   Yareli: {
     name: "Yareli",
-    category: "Warframes",
-    type: "Warframe",
     health: 270,
     shield: 455,
     armor: 105,
@@ -5630,37 +2231,8 @@ export const warframes = {
     sprint: 1,
     aura: "Madurai",
     releaseDate: "2021-07-06",
-    imageName: "Yareli.png",
-    abilities: [
-      {
-        uniqueName: "/Lotus/Powersuits/Yareli/Abilities/YareliBubbleAbility",
-        name: "Sea Snares",
-        description:
-          "Form five water globules that seek out enemies and expand on contact, simultaneously damaging and immobilizing their victims.\nEnemies hit by the globules take increased damage from all sources.",
-        imageName: "YareliWaterTomb.png",
-      },
-      {
-        uniqueName: "/Lotus/Powersuits/Yareli/Abilities/YareliBoardAbility",
-        name: "Merulina",
-        description:
-          "Summon Merulina, a rideable creature of the waves, and the inspiration for K-Driving. Merulina protects Yareli by absorbing a large portion of incoming damage.",
-        imageName: "YareliAquaBoard.png",
-      },
-      {
-        uniqueName: "/Lotus/Powersuits/Yareli/Abilities/YareliDisksAbility",
-        name: "Aquablades",
-        description:
-          "Tear through foes with a trio of orbiting aquatic blades.",
-        imageName: "YareliAqueousDisks.png",
-      },
-      {
-        uniqueName: "/Lotus/Powersuits/Yareli/Abilities/YareliSpoutAbility",
-        name: "Riptide",
-        description:
-          "Drag enemies into a crushing maelstrom and then blow them away in a watery burst. Each enemy trapped in the vortex increases the burst's damage.",
-        imageName: "YareliCrushingWaters.png",
-      },
-    ],
+    imageName: "Yareli_Thumb.png",
+    abilities: ["Sea Snares", "Merulina", "Aquablades", "Riptide"],
     sex: "Female",
     variant: "Standard",
     progenitor: "Magnetic",
@@ -5670,8 +2242,6 @@ export const warframes = {
   },
   "Yareli Prime": {
     name: "Yareli Prime",
-    category: "Warframes",
-    type: "Warframe",
     health: 270,
     shield: 550,
     armor: 105,
@@ -5679,37 +2249,8 @@ export const warframes = {
     sprint: 1.1,
     aura: "Madurai",
     releaseDate: "2025-05-21",
-    imageName: "YareliPrime.png",
-    abilities: [
-      {
-        uniqueName: "/Lotus/Powersuits/Yareli/Abilities/YareliBubbleAbility",
-        name: "Sea Snares",
-        description:
-          "Form five water globules that seek out enemies and expand on contact, simultaneously damaging and immobilizing their victims.\nEnemies hit by the globules take increased damage from all sources.",
-        imageName: "YareliWaterTomb.png",
-      },
-      {
-        uniqueName: "/Lotus/Powersuits/Yareli/Abilities/YareliBoardAbility",
-        name: "Merulina",
-        description:
-          "Summon Merulina, a rideable creature of the waves, and the inspiration for K-Driving. Merulina protects Yareli by absorbing a large portion of incoming damage.",
-        imageName: "YareliAquaBoard.png",
-      },
-      {
-        uniqueName: "/Lotus/Powersuits/Yareli/Abilities/YareliDisksAbility",
-        name: "Aquablades",
-        description:
-          "Tear through foes with a trio of orbiting aquatic blades.",
-        imageName: "YareliAqueousDisks.png",
-      },
-      {
-        uniqueName: "/Lotus/Powersuits/Yareli/Abilities/YareliSpoutAbility",
-        name: "Riptide",
-        description:
-          "Drag enemies into a crushing maelstrom and then blow them away in a watery burst. Each enemy trapped in the vortex increases the burst's damage.",
-        imageName: "YareliCrushingWaters.png",
-      },
-    ],
+    imageName: "YareliPrime_Thumb.png",
+    abilities: ["Sea Snares", "Merulina", "Aquablades", "Riptide"],
     sex: "Female",
     variant: "Prime",
     progenitor: "Magnetic",
@@ -5720,8 +2261,6 @@ export const warframes = {
   },
   Zephyr: {
     name: "Zephyr",
-    category: "Warframes",
-    type: "Warframe",
     health: 455,
     shield: 455,
     armor: 105,
@@ -5729,37 +2268,8 @@ export const warframes = {
     sprint: 1.1,
     aura: "Vazarin",
     releaseDate: "2014-02-05",
-    imageName: "Zephyr.png",
-    abilities: [
-      {
-        uniqueName: "/Lotus/Powersuits/Tengu/Abilities/TailWindAbility",
-        name: "Tail Wind",
-        description:
-          "Hold while airborne to hover Zephyr with reduced movement. From the air, tap to dash forward, or aim down to dive bomb enemies below.",
-        imageName: "TenguTailWind.png",
-      },
-      {
-        uniqueName: "/Lotus/Powersuits/Tengu/Abilities/TenguBurstAbility",
-        name: "Airburst",
-        description:
-          "Launch a burst of massively dense air. Hold to send enemies flying, tap to pull them toward the burst. Damage increases per enemy hit.",
-        imageName: "TenguAirBurst.png",
-      },
-      {
-        uniqueName: "/Lotus/Powersuits/Tengu/Abilities/TurbulenceAbility",
-        name: "Turbulence",
-        description:
-          "Creates a wind shield around Zephyr, redirecting all incoming projectiles.",
-        imageName: "TenguTurbulance.png",
-      },
-      {
-        uniqueName: "/Lotus/Powersuits/Tengu/Abilities/TornadoAbility",
-        name: "Tornado",
-        description:
-          "Create deadly tornadoes that seek out and engulf enemies. Tornadoes deal the elemental Damage Type they absorb the most. Shoot engulfed enemies to inflict extra damage. Hold for stationary tornadoes or tap for wandering ones.",
-        imageName: "TenguTornado.png",
-      },
-    ],
+    imageName: "Zephyr_Thumb.png",
+    abilities: ["Tail Wind", "Airburst", "Turbulence", "Tornado"],
     sex: "Female",
     variant: "Standard",
     progenitor: "Impact",
@@ -5769,8 +2279,6 @@ export const warframes = {
   },
   "Zephyr Prime": {
     name: "Zephyr Prime",
-    category: "Warframes",
-    type: "Warframe",
     health: 455,
     shield: 455,
     armor: 135,
@@ -5778,37 +2286,8 @@ export const warframes = {
     sprint: 1.15,
     aura: "Vazarin",
     releaseDate: "2018-03-20",
-    imageName: "ZephyrPrime.png",
-    abilities: [
-      {
-        uniqueName: "/Lotus/Powersuits/Tengu/Abilities/TailWindAbility",
-        name: "Tail Wind",
-        description:
-          "Hold while airborne to hover Zephyr with reduced movement. From the air, tap to dash forward, or aim down to dive bomb enemies below.",
-        imageName: "TenguTailWind.png",
-      },
-      {
-        uniqueName: "/Lotus/Powersuits/Tengu/Abilities/TenguBurstAbility",
-        name: "Airburst",
-        description:
-          "Launch a burst of massively dense air. Hold to send enemies flying, tap to pull them toward the burst. Damage increases per enemy hit.",
-        imageName: "TenguAirBurst.png",
-      },
-      {
-        uniqueName: "/Lotus/Powersuits/Tengu/Abilities/TurbulenceAbility",
-        name: "Turbulence",
-        description:
-          "Creates a wind shield around Zephyr, redirecting all incoming projectiles.",
-        imageName: "TenguTurbulance.png",
-      },
-      {
-        uniqueName: "/Lotus/Powersuits/Tengu/Abilities/TornadoAbility",
-        name: "Tornado",
-        description:
-          "Create deadly tornadoes that seek out and engulf enemies. Tornadoes deal the elemental Damage Type they absorb the most. Shoot engulfed enemies to inflict extra damage. Hold for stationary tornadoes or tap for wandering ones.",
-        imageName: "TenguTornado.png",
-      },
-    ],
+    imageName: "ZephyrPrime_Thumb.png",
+    abilities: ["Tail Wind", "Airburst", "Turbulence", "Tornado"],
     sex: "Female",
     variant: "Prime",
     progenitor: "Impact",

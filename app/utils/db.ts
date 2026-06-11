@@ -11,7 +11,7 @@ export type ClassicDailyData = DailyDataBase & {
 
 export type AbilityDailyData = DailyDataBase & {
   mode: "ability";
-  itemToGuess: Ability;
+  itemToGuess: AbilityName;
 };
 
 export type GridDailyData = DailyDataBase & {
@@ -71,3 +71,24 @@ db.version(1).stores({
   dailies: "&[day+mode], &[date+mode], mode",
   progress: "&[day+mode], &[date+mode],[state+mode], mode",
 });
+
+db.version(2)
+  .stores({
+    dailies: "&[day+mode], &[date+mode], mode",
+    progress: "&[day+mode], &[date+mode],[state+mode], mode",
+  })
+  .upgrade((tx) => {
+    return tx
+      .table("dailies")
+      .where("mode")
+      .equals("ability")
+      .modify((daily) => {
+        if (
+          typeof daily.itemToGuess === "object" &&
+          daily.itemToGuess !== null &&
+          "name" in daily.itemToGuess
+        ) {
+          daily.itemToGuess = daily.itemToGuess.name;
+        }
+      });
+  });

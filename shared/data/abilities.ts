@@ -1,0 +1,1306 @@
+// Auto-generated abilities data
+export const abilities = {
+  Shuriken: {
+    name: "Shuriken",
+    imageName: "ShurikenIcon(xWhite).png",
+    belongsTo: "Ash",
+  },
+  "Smoke Screen": {
+    name: "Smoke Screen",
+    imageName: "SmokeScreenIcon(xWhite).png",
+    belongsTo: "Ash",
+  },
+  Teleport: {
+    name: "Teleport",
+    imageName: "TeleportIcon(xWhite).png",
+    belongsTo: "Ash",
+  },
+  "Blade Storm": {
+    name: "Blade Storm",
+    imageName: "BladeStormIcon(xWhite).png",
+    belongsTo: "Ash",
+    weapon: "Shadow Clones",
+  },
+  Landslide: {
+    name: "Landslide",
+    imageName: "LandslideIcon(xWhite).png",
+    belongsTo: "Atlas",
+    weapon: "Landslide Fists",
+  },
+  Tectonics: {
+    name: "Tectonics",
+    imageName: "TectonicsIcon(xWhite).png",
+    belongsTo: "Atlas",
+  },
+  Petrify: {
+    name: "Petrify",
+    imageName: "PetrifyIcon(xWhite).png",
+    belongsTo: "Atlas",
+  },
+  Rumblers: {
+    name: "Rumblers",
+    imageName: "RumblersIcon(xWhite).png",
+    belongsTo: "Atlas",
+  },
+  "Sonic Boom": {
+    name: "Sonic Boom",
+    imageName: "SonicBoomIcon(xWhite).png",
+    belongsTo: "Banshee",
+  },
+  Sonar: {
+    name: "Sonar",
+    imageName: "SonarIcon(xWhite).png",
+    belongsTo: "Banshee",
+  },
+  Silence: {
+    name: "Silence",
+    imageName: "SilenceIcon(xWhite).png",
+    belongsTo: "Banshee",
+  },
+  "Sound Quake": {
+    name: "Sound Quake",
+    imageName: "SoundQuakeIcon(xWhite).png",
+    belongsTo: "Banshee",
+  },
+  Elude: {
+    name: "Elude",
+    imageName: "EludeIcon(xWhite).png",
+    belongsTo: "Baruuk",
+  },
+  Lull: {
+    name: "Lull",
+    imageName: "LullIcon(xWhite).png",
+    belongsTo: "Baruuk",
+  },
+  "Desolate Hands": {
+    name: "Desolate Hands",
+    imageName: "DesolateHandsIcon(xWhite).png",
+    belongsTo: "Baruuk",
+  },
+  "Serene Storm": {
+    name: "Serene Storm",
+    imageName: "SereneStormIcon(xWhite).png",
+    belongsTo: "Baruuk",
+    weapon: "Desert Wind",
+  },
+  "Razor Gyre": {
+    name: "Razor Gyre",
+    imageName: "RazorGyreIcon(xWhite).png",
+    belongsTo: "Caliban",
+  },
+  "Sentient Wrath": {
+    name: "Sentient Wrath",
+    imageName: "SentientWrathIcon(xWhite).png",
+    belongsTo: "Caliban",
+  },
+  "Lethal Progeny": {
+    name: "Lethal Progeny",
+    imageName: "LethalProgenyIcon(xWhite).png",
+    belongsTo: "Caliban",
+  },
+  "Fusion Strike": {
+    name: "Fusion Strike",
+    imageName: "FusionStrikeIcon(xWhite).png",
+    belongsTo: "Caliban",
+  },
+  "Spectral Scream": {
+    name: "Spectral Scream",
+    imageName: "SpectralScreamIcon(xWhite).png",
+    belongsTo: "Chroma",
+  },
+  "Elemental Ward": {
+    name: "Elemental Ward",
+    imageName: "ElementalWardIcon(xWhite).png",
+    belongsTo: "Chroma",
+  },
+  "Vex Armor": {
+    name: "Vex Armor",
+    imageName: "VexArmorIcon(xWhite).png",
+    belongsTo: "Chroma",
+  },
+  Effigy: {
+    name: "Effigy",
+    imageName: "EffigyIcon(xWhite).png",
+    belongsTo: "Chroma",
+  },
+  "Fractured Blast": {
+    name: "Fractured Blast",
+    imageName: "FracturedBlastIcon(xWhite).png",
+    belongsTo: "Citrine",
+  },
+  "Preserving Shell": {
+    name: "Preserving Shell",
+    imageName: "PreservingShellIcon(xWhite).png",
+    belongsTo: "Citrine",
+  },
+  "Prismatic Gem": {
+    name: "Prismatic Gem",
+    imageName: "PrismaticGemIcon(xWhite).png",
+    belongsTo: "Citrine",
+  },
+  Crystallize: {
+    name: "Crystallize",
+    imageName: "CrystallizeIcon(xWhite).png",
+    belongsTo: "Citrine",
+  },
+  Seek: {
+    name: "Seek",
+    imageName: "SeekIcon(xWhite).png",
+    belongsTo: "Cyte-09",
+  },
+  Resupply: {
+    name: "Resupply",
+    imageName: "ResupplyIcon(xWhite).png",
+    belongsTo: "Cyte-09",
+  },
+  Evade: {
+    name: "Evade",
+    imageName: "EvadeIcon(xWhite).png",
+    belongsTo: "Cyte-09",
+  },
+  Neutralize: {
+    name: "Neutralize",
+    imageName: "NeutralizeIcon(xWhite).png",
+    belongsTo: "Cyte-09",
+    weapon: "Neutralizer",
+  },
+  "Wyrd Scythes": {
+    name: "Wyrd Scythes",
+    imageName: "WyrdScythesIcon(xWhite).png",
+    belongsTo: "Dagath",
+  },
+  Doom: {
+    name: "Doom",
+    imageName: "DoomIcon(xWhite).png",
+    belongsTo: "Dagath",
+  },
+  "Grave Spirit": {
+    name: "Grave Spirit",
+    imageName: "GraveSpiritIcon(xWhite).png",
+    belongsTo: "Dagath",
+  },
+  "Rakhali's Cavalry": {
+    name: "Rakhali's Cavalry",
+    imageName: "RakhalisCavalryIcon(xWhite).png",
+    belongsTo: "Dagath",
+  },
+  Noctua: {
+    name: "Noctua",
+    imageName: "NoctuaIcon(xWhite).png",
+    belongsTo: "Dante",
+    weapon: "Noctua (Weapon)",
+  },
+  "Light Verse": {
+    name: "Light Verse",
+    imageName: "LightVerseIcon(xWhite).png",
+    belongsTo: "Dante",
+  },
+  "Dark Verse": {
+    name: "Dark Verse",
+    imageName: "DarkVerseIcon(xWhite).png",
+    belongsTo: "Dante",
+  },
+  "Final Verse": {
+    name: "Final Verse",
+    imageName: "FinalVerseIcon(xWhite).png",
+    belongsTo: "Dante",
+  },
+  Fireball: {
+    name: "Fireball",
+    imageName: "FireballIcon(xWhite).png",
+    belongsTo: "Ember",
+  },
+  Immolation: {
+    name: "Immolation",
+    imageName: "ImmolationIcon(xWhite).png",
+    belongsTo: "Ember",
+  },
+  "Fire Blast": {
+    name: "Fire Blast",
+    imageName: "FireBlastIcon(xWhite).png",
+    belongsTo: "Ember",
+  },
+  Inferno: {
+    name: "Inferno",
+    imageName: "InfernoIcon(xWhite).png",
+    belongsTo: "Ember",
+  },
+  Metamorphosis: {
+    name: "Metamorphosis",
+    imageName: "MetamorphosisIcon(xWhite).png",
+    belongsTo: "Equinox",
+  },
+  "Rest & Rage": {
+    name: "Rest & Rage",
+    imageName: "RestRageIcon(xWhite).png",
+    belongsTo: "Equinox",
+  },
+  "Pacify & Provoke": {
+    name: "Pacify & Provoke",
+    imageName: "PacifyProvokeIcon(xWhite).png",
+    belongsTo: "Equinox",
+  },
+  "Mend & Maim": {
+    name: "Mend & Maim",
+    imageName: "MendMaimIcon(xWhite).png",
+    belongsTo: "Equinox",
+  },
+  "Slash Dash": {
+    name: "Slash Dash",
+    imageName: "SlashDashIcon(xWhite).png",
+    belongsTo: "Excalibur",
+    weapon: "Exalted Blade",
+  },
+  "Radial Blind": {
+    name: "Radial Blind",
+    imageName: "RadialBlindIcon(xWhite).png",
+    belongsTo: "Excalibur",
+  },
+  "Radial Javelin": {
+    name: "Radial Javelin",
+    imageName: "RadialJavelinIcon(xWhite).png",
+    belongsTo: "Excalibur",
+  },
+  "Exalted Blade": {
+    name: "Exalted Blade",
+    imageName: "ExaltedBladeIcon(xWhite).png",
+    belongsTo: "Excalibur",
+    weapon: "Exalted Blade",
+  },
+  "Radial Howl": {
+    name: "Radial Howl",
+    imageName: "RadialHowlIcon(xWhite).png",
+    belongsTo: "Excalibur Umbra",
+  },
+  "Forced Perspective": {
+    name: "Forced Perspective",
+    imageName: "ForcedPerspectiveIcon(xWhite).png",
+    belongsTo: "Follie",
+  },
+  Shadowgraph: {
+    name: "Shadowgraph",
+    imageName: "ShadowgraphIcon(xWhite).png",
+    belongsTo: "Follie",
+  },
+  "Self Portrait": {
+    name: "Self Portrait",
+    imageName: "SelfPortraitIcon(xWhite).png",
+    belongsTo: "Follie",
+  },
+  "Plein Air": {
+    name: "Plein Air",
+    imageName: "PleinAirIcon(xWhite).png",
+    belongsTo: "Follie",
+  },
+  Freeze: {
+    name: "Freeze",
+    imageName: "FreezeIcon(xWhite).png",
+    belongsTo: "Frost",
+  },
+  "Ice Wave": {
+    name: "Ice Wave",
+    imageName: "IceWaveIcon(xWhite).png",
+    belongsTo: "Frost",
+  },
+  "Snow Globe": {
+    name: "Snow Globe",
+    imageName: "SnowGlobeIcon(xWhite).png",
+    belongsTo: "Frost",
+  },
+  Avalanche: {
+    name: "Avalanche",
+    imageName: "AvalancheIcon(xWhite).png",
+    belongsTo: "Frost",
+  },
+  "Shattered Lash": {
+    name: "Shattered Lash",
+    imageName: "ShatteredLashIcon(xWhite).png",
+    belongsTo: "Gara",
+    weapon: "Shattered Lash",
+  },
+  "Splinter Storm": {
+    name: "Splinter Storm",
+    imageName: "SplinterStormIcon(xWhite).png",
+    belongsTo: "Gara",
+  },
+  Spectrorage: {
+    name: "Spectrorage",
+    imageName: "SpectrorageIcon(xWhite).png",
+    belongsTo: "Gara",
+  },
+  "Mass Vitrify": {
+    name: "Mass Vitrify",
+    imageName: "MassVitrifyIcon(xWhite).png",
+    belongsTo: "Gara",
+  },
+  "Dread Mirror": {
+    name: "Dread Mirror",
+    imageName: "DreadMirrorIcon(xWhite).png",
+    belongsTo: "Garuda",
+  },
+  "Blood Altar": {
+    name: "Blood Altar",
+    imageName: "BloodAltarIcon(xWhite).png",
+    belongsTo: "Garuda",
+  },
+  Bloodletting: {
+    name: "Bloodletting",
+    imageName: "BloodlettingIcon(xWhite).png",
+    belongsTo: "Garuda",
+  },
+  "Seeking Talons": {
+    name: "Seeking Talons",
+    imageName: "SeekingTalonsIcon(xWhite).png",
+    belongsTo: "Garuda",
+  },
+  "Mach Rush": {
+    name: "Mach Rush",
+    imageName: "MachRushIcon(xWhite).png",
+    belongsTo: "Gauss",
+  },
+  "Kinetic Plating": {
+    name: "Kinetic Plating",
+    imageName: "KineticPlatingIcon(xWhite).png",
+    belongsTo: "Gauss",
+  },
+  "Thermal Sunder": {
+    name: "Thermal Sunder",
+    imageName: "ThermalSunderIcon(xWhite).png",
+    belongsTo: "Gauss",
+  },
+  Redline: {
+    name: "Redline",
+    imageName: "RedlineIcon(xWhite).png",
+    belongsTo: "Gauss",
+  },
+  Feast: {
+    name: "Feast",
+    imageName: "FeastIcon(xWhite).png",
+    belongsTo: "Grendel",
+  },
+  Nourish: {
+    name: "Nourish",
+    imageName: "NourishIcon(xWhite).png",
+    belongsTo: "Grendel",
+  },
+  Pulverize: {
+    name: "Pulverize",
+    imageName: "PulverizeIcon(xWhite).png",
+    belongsTo: "Grendel",
+  },
+  Regurgitate: {
+    name: "Regurgitate",
+    imageName: "RegurgitateIcon(xWhite).png",
+    belongsTo: "Grendel",
+  },
+  Arcsphere: {
+    name: "Arcsphere",
+    imageName: "ArcsphereIcon(xWhite).png",
+    belongsTo: "Gyre",
+  },
+  "Coil Horizon": {
+    name: "Coil Horizon",
+    imageName: "CoilHorizonIcon(xWhite).png",
+    belongsTo: "Gyre",
+  },
+  "Cathode Grace": {
+    name: "Cathode Grace",
+    imageName: "CathodeGraceIcon(xWhite).png",
+    belongsTo: "Gyre",
+  },
+  Rotorswell: {
+    name: "Rotorswell",
+    imageName: "RotorswellIcon(xWhite).png",
+    belongsTo: "Gyre",
+  },
+  Condemn: {
+    name: "Condemn",
+    imageName: "CondemnIcon(xWhite).png",
+    belongsTo: "Harrow",
+  },
+  Penance: {
+    name: "Penance",
+    imageName: "PenanceIcon(xWhite).png",
+    belongsTo: "Harrow",
+  },
+  Thurible: {
+    name: "Thurible",
+    imageName: "ThuribleIcon(xWhite).png",
+    belongsTo: "Harrow",
+  },
+  Covenant: {
+    name: "Covenant",
+    imageName: "CovenantIcon(xWhite).png",
+    belongsTo: "Harrow",
+  },
+  Balefire: {
+    name: "Balefire",
+    imageName: "BalefireIcon(xWhite).png",
+    belongsTo: "Hildryn",
+    weapon: "Balefire Charger",
+  },
+  Pillage: {
+    name: "Pillage",
+    imageName: "PillageIcon(xWhite).png",
+    belongsTo: "Hildryn",
+  },
+  Haven: {
+    name: "Haven",
+    imageName: "HavenIcon(xWhite).png",
+    belongsTo: "Hildryn",
+  },
+  "Aegis Storm": {
+    name: "Aegis Storm",
+    imageName: "AegisStormIcon(xWhite).png",
+    belongsTo: "Hildryn",
+  },
+  "Tempest Barrage": {
+    name: "Tempest Barrage",
+    imageName: "TempestBarrageIcon(xWhite).png",
+    belongsTo: "Hydroid",
+  },
+  "Tidal Surge": {
+    name: "Tidal Surge",
+    imageName: "TidalSurgeIcon(xWhite).png",
+    belongsTo: "Hydroid",
+  },
+  Plunder: {
+    name: "Plunder",
+    imageName: "PlunderIcon(xWhite).png",
+    belongsTo: "Hydroid",
+  },
+  "Tentacle Swarm": {
+    name: "Tentacle Swarm",
+    imageName: "TentacleSwarmIcon(xWhite).png",
+    belongsTo: "Hydroid",
+  },
+  Desiccation: {
+    name: "Desiccation",
+    imageName: "DesiccationIcon(xWhite).png",
+    belongsTo: "Inaros",
+  },
+  Sandstorm: {
+    name: "Sandstorm",
+    imageName: "SandstormIcon(xWhite).png",
+    belongsTo: "Inaros",
+  },
+  "Scarab Shell": {
+    name: "Scarab Shell",
+    imageName: "ScarabShellIcon(xWhite).png",
+    belongsTo: "Inaros",
+  },
+  "Scarab Swarm": {
+    name: "Scarab Swarm",
+    imageName: "ScarabSwarmIcon(xWhite).png",
+    belongsTo: "Inaros",
+  },
+  Quiver: {
+    name: "Quiver",
+    imageName: "QuiverIcon(xWhite).png",
+    belongsTo: "Ivara",
+  },
+  Navigator: {
+    name: "Navigator",
+    imageName: "NavigatorIcon(xWhite).png",
+    belongsTo: "Ivara",
+  },
+  Prowl: {
+    name: "Prowl",
+    imageName: "ProwlIcon(xWhite).png",
+    belongsTo: "Ivara",
+  },
+  "Artemis Bow": {
+    name: "Artemis Bow",
+    imageName: "ArtemisBowIcon(xWhite).png",
+    belongsTo: "Ivara",
+    weapon: "Artemis Bow",
+  },
+  "Light's Judgment": {
+    name: "Light's Judgment",
+    imageName: "Light'sJudgmentIcon(xWhite).png",
+    belongsTo: "Jade",
+  },
+  "Symphony of Mercy": {
+    name: "Symphony of Mercy",
+    imageName: "SymphonyOfMercyIcon(xWhite).png",
+    belongsTo: "Jade",
+  },
+  "Ophanim Eyes": {
+    name: "Ophanim Eyes",
+    imageName: "OphanimEyesIcon(xWhite).png",
+    belongsTo: "Jade",
+  },
+  "Glory on High": {
+    name: "Glory on High",
+    imageName: "GloryOnHighIcon(xWhite).png",
+    belongsTo: "Jade",
+    weapon: "Glory",
+  },
+  Whipclaw: {
+    name: "Whipclaw",
+    imageName: "WhipclawIcon(xWhite).png",
+    belongsTo: "Khora",
+    weapon: "Whipclaw",
+  },
+  Ensnare: {
+    name: "Ensnare",
+    imageName: "EnsnareIcon(xWhite).png",
+    belongsTo: "Khora",
+  },
+  Venari: {
+    name: "Venari",
+    imageName: "VenariIcon(xWhite).png",
+    belongsTo: "Khora",
+  },
+  Strangledome: {
+    name: "Strangledome",
+    imageName: "StrangledomeIcon(xWhite).png",
+    belongsTo: "Khora",
+  },
+  Kumihimo: {
+    name: "Kumihimo",
+    imageName: "KumihimoIcon(xWhite).png",
+    belongsTo: "Koumei",
+  },
+  Omikuji: {
+    name: "Omikuji",
+    imageName: "OmikujiIcon(xWhite).png",
+    belongsTo: "Koumei",
+  },
+  Omamori: {
+    name: "Omamori",
+    imageName: "OmamoriIcon(xWhite).png",
+    belongsTo: "Koumei",
+  },
+  Bunraku: {
+    name: "Bunraku",
+    imageName: "BunrakuIcon(xWhite).png",
+    belongsTo: "Koumei",
+  },
+  "Wrathful Advance": {
+    name: "Wrathful Advance",
+    imageName: "WrathfulAdvanceIcon(xWhite).png",
+    belongsTo: "Kullervo",
+  },
+  Recompense: {
+    name: "Recompense",
+    imageName: "RecompenseIcon(xWhite).png",
+    belongsTo: "Kullervo",
+  },
+  "Collective Curse": {
+    name: "Collective Curse",
+    imageName: "CollectiveCurseIcon(xWhite).png",
+    belongsTo: "Kullervo",
+  },
+  "Storm of Ukko": {
+    name: "Storm of Ukko",
+    imageName: "StormOfUkkoIcon(xWhite).png",
+    belongsTo: "Kullervo",
+  },
+  "Ophidian Bite": {
+    name: "Ophidian Bite",
+    imageName: "OphidianBiteIcon(xWhite).png",
+    belongsTo: "Lavos",
+  },
+  "Vial Rush": {
+    name: "Vial Rush",
+    imageName: "VialRushIcon(xWhite).png",
+    belongsTo: "Lavos",
+  },
+  "Transmutation Probe": {
+    name: "Transmutation Probe",
+    imageName: "TransmutationProbeIcon(xWhite).png",
+    belongsTo: "Lavos",
+  },
+  Catalyze: {
+    name: "Catalyze",
+    imageName: "CatalyzeIcon(xWhite).png",
+    belongsTo: "Lavos",
+  },
+  Banish: {
+    name: "Banish",
+    imageName: "BanishIcon(xWhite).png",
+    belongsTo: "Limbo",
+  },
+  Stasis: {
+    name: "Stasis",
+    imageName: "StasisIcon(xWhite).png",
+    belongsTo: "Limbo",
+  },
+  "Rift Surge": {
+    name: "Rift Surge",
+    imageName: "RiftSurgeIcon(xWhite).png",
+    belongsTo: "Limbo",
+  },
+  Cataclysm: {
+    name: "Cataclysm",
+    imageName: "CataclysmIcon(xWhite).png",
+    belongsTo: "Limbo",
+  },
+  Decoy: {
+    name: "Decoy",
+    imageName: "DecoyIcon(xWhite).png",
+    belongsTo: "Loki",
+  },
+  Invisibility: {
+    name: "Invisibility",
+    imageName: "InvisibilityIcon(xWhite).png",
+    belongsTo: "Loki",
+  },
+  "Switch Teleport": {
+    name: "Switch Teleport",
+    imageName: "SwitchTeleportIcon(xWhite).png",
+    belongsTo: "Loki",
+  },
+  "Radial Disarm": {
+    name: "Radial Disarm",
+    imageName: "RadialDisarmIcon(xWhite).png",
+    belongsTo: "Loki",
+  },
+  Pull: {
+    name: "Pull",
+    imageName: "PullIcon(xWhite).png",
+    belongsTo: "Mag",
+  },
+  Magnetize: {
+    name: "Magnetize",
+    imageName: "MagnetizeIcon(xWhite).png",
+    belongsTo: "Mag",
+  },
+  Polarize: {
+    name: "Polarize",
+    imageName: "PolarizeIcon(xWhite).png",
+    belongsTo: "Mag",
+  },
+  Crush: {
+    name: "Crush",
+    imageName: "CrushIcon(xWhite).png",
+    belongsTo: "Mag",
+  },
+  "Ballistic Battery": {
+    name: "Ballistic Battery",
+    imageName: "BallisticBatteryIcon(xWhite).png",
+    belongsTo: "Mesa",
+  },
+  "Shooting Gallery": {
+    name: "Shooting Gallery",
+    imageName: "ShootingGalleryIcon(xWhite).png",
+    belongsTo: "Mesa",
+  },
+  "Shatter Shield": {
+    name: "Shatter Shield",
+    imageName: "ShatterShieldIcon(xWhite).png",
+    belongsTo: "Mesa",
+  },
+  Peacemaker: {
+    name: "Peacemaker",
+    imageName: "PeacemakerIcon(xWhite).png",
+    belongsTo: "Mesa",
+    weapon: "Regulators",
+  },
+  "Hall of Mirrors": {
+    name: "Hall of Mirrors",
+    imageName: "HallOfMirrorsIcon(xWhite).png",
+    belongsTo: "Mirage",
+  },
+  "Sleight of Hand": {
+    name: "Sleight of Hand",
+    imageName: "SleightOfHandIcon(xWhite).png",
+    belongsTo: "Mirage",
+  },
+  Eclipse: {
+    name: "Eclipse",
+    imageName: "EclipseIcon(xWhite).png",
+    belongsTo: "Mirage",
+  },
+  Prism: {
+    name: "Prism",
+    imageName: "PrismIcon(xWhite).png",
+    belongsTo: "Mirage",
+  },
+  "Soul Punch": {
+    name: "Soul Punch",
+    imageName: "SoulPunchIcon(xWhite).png",
+    belongsTo: "Nekros",
+  },
+  Terrify: {
+    name: "Terrify",
+    imageName: "TerrifyIcon(xWhite).png",
+    belongsTo: "Nekros",
+  },
+  Desecrate: {
+    name: "Desecrate",
+    imageName: "DesecrateIcon(xWhite).png",
+    belongsTo: "Nekros",
+  },
+  "Shadows of the Dead": {
+    name: "Shadows of the Dead",
+    imageName: "ShadowsOfTheDeadIcon(xWhite).png",
+    belongsTo: "Nekros",
+  },
+  "Fire Walker": {
+    name: "Fire Walker",
+    imageName: "FireWalkerIcon(xWhite).png",
+    belongsTo: "Nezha",
+  },
+  "Blazing Chakram": {
+    name: "Blazing Chakram",
+    imageName: "BlazingChakramIcon(xWhite).png",
+    belongsTo: "Nezha",
+  },
+  "Warding Halo": {
+    name: "Warding Halo",
+    imageName: "WardingHaloIcon(xWhite).png",
+    belongsTo: "Nezha",
+  },
+  "Divine Spears": {
+    name: "Divine Spears",
+    imageName: "DivineSpearsIcon(xWhite).png",
+    belongsTo: "Nezha",
+  },
+  Virulence: {
+    name: "Virulence",
+    imageName: "VirulenceIcon(xWhite).png",
+    belongsTo: "Nidus",
+  },
+  Larva: {
+    name: "Larva",
+    imageName: "LarvaIcon(xWhite).png",
+    belongsTo: "Nidus",
+  },
+  "Parasitic Link": {
+    name: "Parasitic Link",
+    imageName: "ParasiticLinkIcon(xWhite).png",
+    belongsTo: "Nidus",
+  },
+  Ravenous: {
+    name: "Ravenous",
+    imageName: "RavenousIcon(xWhite).png",
+    belongsTo: "Nidus",
+  },
+  Stinkbrain: {
+    name: "Stinkbrain",
+    imageName: "StinkbrainIcon(xWhite).png",
+    belongsTo: "Nokko",
+  },
+  Brightbonnet: {
+    name: "Brightbonnet",
+    imageName: "BrightbonnetIcon(xWhite).png",
+    belongsTo: "Nokko",
+  },
+  Reroot: {
+    name: "Reroot",
+    imageName: "RerootIcon(xWhite).png",
+    belongsTo: "Nokko",
+  },
+  Sporespring: {
+    name: "Sporespring",
+    imageName: "SporespringIcon(xWhite).png",
+    belongsTo: "Nokko",
+  },
+  "Null Star": {
+    name: "Null Star",
+    imageName: "NullStarIcon(xWhite).png",
+    belongsTo: "Nova",
+  },
+  "Antimatter Drop": {
+    name: "Antimatter Drop",
+    imageName: "AntimatterDropIcon(xWhite).png",
+    belongsTo: "Nova",
+  },
+  Wormhole: {
+    name: "Wormhole",
+    imageName: "WormholeIcon(xWhite).png",
+    belongsTo: "Nova",
+  },
+  "Molecular Prime": {
+    name: "Molecular Prime",
+    imageName: "MolecularPrimeIcon(xWhite).png",
+    belongsTo: "Nova",
+  },
+  "Mind Control": {
+    name: "Mind Control",
+    imageName: "MindControlIcon(xWhite).png",
+    belongsTo: "Nyx",
+  },
+  "Psychic Bolts": {
+    name: "Psychic Bolts",
+    imageName: "PsychicBoltsIcon(xWhite).png",
+    belongsTo: "Nyx",
+  },
+  Chaos: {
+    name: "Chaos",
+    imageName: "ChaosIcon(xWhite).png",
+    belongsTo: "Nyx",
+  },
+  Absorb: {
+    name: "Absorb",
+    imageName: "AbsorbIcon(xWhite).png",
+    belongsTo: "Nyx",
+  },
+  Smite: {
+    name: "Smite",
+    imageName: "SmiteIcon(xWhite).png",
+    belongsTo: "Oberon",
+  },
+  "Hallowed Ground": {
+    name: "Hallowed Ground",
+    imageName: "HallowedGroundIcon(xWhite).png",
+    belongsTo: "Oberon",
+  },
+  Renewal: {
+    name: "Renewal",
+    imageName: "RenewalIcon(xWhite).png",
+    belongsTo: "Oberon",
+  },
+  Reckoning: {
+    name: "Reckoning",
+    imageName: "ReckoningIcon(xWhite).png",
+    belongsTo: "Oberon",
+  },
+  Mallet: {
+    name: "Mallet",
+    imageName: "MalletIcon(xWhite).png",
+    belongsTo: "Octavia",
+  },
+  Resonator: {
+    name: "Resonator",
+    imageName: "ResonatorIcon(xWhite).png",
+    belongsTo: "Octavia",
+  },
+  Metronome: {
+    name: "Metronome",
+    imageName: "MetronomeIcon(xWhite).png",
+    belongsTo: "Octavia",
+  },
+  Amp: {
+    name: "Amp",
+    imageName: "AmpIcon(xWhite).png",
+    belongsTo: "Octavia",
+  },
+  "Mercy's Kiss": {
+    name: "Mercy's Kiss",
+    imageName: "Mercy'sKissIcon(xWhite).png",
+    belongsTo: "Oraxia",
+  },
+  "Webbed Embrace": {
+    name: "Webbed Embrace",
+    imageName: "WebbedEmbraceIcon(xWhite).png",
+    belongsTo: "Oraxia",
+  },
+  "Widow's Brood": {
+    name: "Widow's Brood",
+    imageName: "Widow'sBroodIcon(xWhite).png",
+    belongsTo: "Oraxia",
+  },
+  "Silken Stride": {
+    name: "Silken Stride",
+    imageName: "SilkenStrideIcon(xWhite).png",
+    belongsTo: "Oraxia",
+  },
+  "Grenade Fan": {
+    name: "Grenade Fan",
+    imageName: "GrenadeFanIcon(xWhite).png",
+    belongsTo: "Protea",
+  },
+  "Blaze Artillery": {
+    name: "Blaze Artillery",
+    imageName: "BlazeArtilleryIcon(xWhite).png",
+    belongsTo: "Protea",
+  },
+  Dispensary: {
+    name: "Dispensary",
+    imageName: "DispensaryIcon(xWhite).png",
+    belongsTo: "Protea",
+  },
+  "Temporal Anchor": {
+    name: "Temporal Anchor",
+    imageName: "TemporalAnchorIcon(xWhite).png",
+    belongsTo: "Protea",
+  },
+  "Chyrinka Pillar": {
+    name: "Chyrinka Pillar",
+    imageName: "ChyrinkaPillarIcon(xWhite).png",
+    belongsTo: "Qorvex",
+  },
+  "Containment Wall": {
+    name: "Containment Wall",
+    imageName: "ContainmentWallIcon(xWhite).png",
+    belongsTo: "Qorvex",
+  },
+  "Disometric Guard": {
+    name: "Disometric Guard",
+    imageName: "DisometricGuardIcon(xWhite).png",
+    belongsTo: "Qorvex",
+  },
+  "Crucible Blast": {
+    name: "Crucible Blast",
+    imageName: "CrucibleBlastIcon(xWhite).png",
+    belongsTo: "Qorvex",
+  },
+  Enthrall: {
+    name: "Enthrall",
+    imageName: "EnthrallIcon(xWhite).png",
+    belongsTo: "Revenant",
+  },
+  "Mesmer Skin": {
+    name: "Mesmer Skin",
+    imageName: "MesmerSkinIcon(xWhite).png",
+    belongsTo: "Revenant",
+  },
+  Reave: {
+    name: "Reave",
+    imageName: "ReaveIcon(xWhite).png",
+    belongsTo: "Revenant",
+  },
+  "Danse Macabre": {
+    name: "Danse Macabre",
+    imageName: "DanseMacabreIcon(xWhite).png",
+    belongsTo: "Revenant",
+  },
+  "Rhino Charge": {
+    name: "Rhino Charge",
+    imageName: "RhinoChargeIcon(xWhite).png",
+    belongsTo: "Rhino",
+  },
+  "Iron Skin": {
+    name: "Iron Skin",
+    imageName: "IronSkinIcon(xWhite).png",
+    belongsTo: "Rhino",
+  },
+  Roar: {
+    name: "Roar",
+    imageName: "RoarIcon(xWhite).png",
+    belongsTo: "Rhino",
+  },
+  "Rhino Stomp": {
+    name: "Rhino Stomp",
+    imageName: "RhinoStompIcon(xWhite).png",
+    belongsTo: "Rhino",
+  },
+  Spores: {
+    name: "Spores",
+    imageName: "SporesIcon(xWhite).png",
+    belongsTo: "Saryn",
+  },
+  Molt: {
+    name: "Molt",
+    imageName: "MoltIcon(xWhite).png",
+    belongsTo: "Saryn",
+  },
+  "Toxic Lash": {
+    name: "Toxic Lash",
+    imageName: "ToxicLashIcon(xWhite).png",
+    belongsTo: "Saryn",
+  },
+  Miasma: {
+    name: "Miasma",
+    imageName: "MiasmaIcon(xWhite).png",
+    belongsTo: "Saryn",
+  },
+  Reap: {
+    name: "Reap",
+    imageName: "ReapIcon(xWhite).png",
+    belongsTo: "Sevagoth",
+  },
+  Sow: {
+    name: "Sow",
+    imageName: "SowIcon(xWhite).png",
+    belongsTo: "Sevagoth",
+  },
+  Gloom: {
+    name: "Gloom",
+    imageName: "GloomIcon(xWhite).png",
+    belongsTo: "Sevagoth",
+  },
+  "Exalted Shadow": {
+    name: "Exalted Shadow",
+    imageName: "ExaltedShadowIcon(xWhite).png",
+    belongsTo: "Sevagoth",
+    weapon: "Shadow Claws",
+  },
+  "Axios Javelin": {
+    name: "Axios Javelin",
+    imageName: "AxiosJavelinIcon(xWhite).png",
+    belongsTo: "Styanax",
+  },
+  "Tharros Strike": {
+    name: "Tharros Strike",
+    imageName: "TharrosStrikeIcon(xWhite).png",
+    belongsTo: "Styanax",
+  },
+  "Rally Point": {
+    name: "Rally Point",
+    imageName: "RallyPointIcon(xWhite).png",
+    belongsTo: "Styanax",
+  },
+  "Final Stand": {
+    name: "Final Stand",
+    imageName: "FinalStandIcon(xWhite).png",
+    belongsTo: "Styanax",
+  },
+  Pyrotechnics: {
+    name: "Pyrotechnics",
+    imageName: "PyrotechnicsIcon(xWhite).png",
+    belongsTo: "Temple",
+  },
+  Overdrive: {
+    name: "Overdrive",
+    imageName: "OverdriveIcon(xWhite).png",
+    belongsTo: "Temple",
+  },
+  "Ripper's Wail": {
+    name: "Ripper's Wail",
+    imageName: "Ripper'sWailIcon(xWhite).png",
+    belongsTo: "Temple",
+  },
+  "Exalted Solo": {
+    name: "Exalted Solo",
+    imageName: "ExaltedSoloIcon(xWhite).png",
+    belongsTo: "Temple",
+    weapon: "Lizzie",
+  },
+  Spellbind: {
+    name: "Spellbind",
+    imageName: "SpellbindIcon(xWhite).png",
+    belongsTo: "Titania",
+  },
+  Tribute: {
+    name: "Tribute",
+    imageName: "TributeIcon(xWhite).png",
+    belongsTo: "Titania",
+  },
+  Lantern: {
+    name: "Lantern",
+    imageName: "LanternIcon(xWhite).png",
+    belongsTo: "Titania",
+  },
+  Razorwing: {
+    name: "Razorwing",
+    imageName: "RazorwingIcon(xWhite).png",
+    belongsTo: "Titania",
+    weapon: ["Dex Pixia", "Diwata"],
+  },
+  "Well of Life": {
+    name: "Well of Life",
+    imageName: "WellOfLifeIcon(xWhite).png",
+    belongsTo: "Trinity",
+  },
+  "Energy Vampire": {
+    name: "Energy Vampire",
+    imageName: "EnergyVampireIcon(xWhite).png",
+    belongsTo: "Trinity",
+  },
+  Link: {
+    name: "Link",
+    imageName: "LinkIcon(xWhite).png",
+    belongsTo: "Trinity",
+  },
+  Blessing: {
+    name: "Blessing",
+    imageName: "BlessingIcon(xWhite).png",
+    belongsTo: "Trinity",
+  },
+  Infernalis: {
+    name: "Infernalis",
+    imageName: "InfernalisIcon(xWhite).png",
+    belongsTo: "Uriel",
+  },
+  Remedium: {
+    name: "Remedium",
+    imageName: "RemediumIcon(xWhite).png",
+    belongsTo: "Uriel",
+  },
+  Demonium: {
+    name: "Demonium",
+    imageName: "DemoniumIcon(xWhite).png",
+    belongsTo: "Uriel",
+  },
+  Brimstone: {
+    name: "Brimstone",
+    imageName: "BrimstoneIcon(xWhite).png",
+    belongsTo: "Uriel",
+  },
+  "Rip Line": {
+    name: "Rip Line",
+    imageName: "RipLineIcon(xWhite).png",
+    belongsTo: "Valkyr",
+  },
+  Warcry: {
+    name: "Warcry",
+    imageName: "WarcryIcon(xWhite).png",
+    belongsTo: "Valkyr",
+  },
+  Paralysis: {
+    name: "Paralysis",
+    imageName: "ParalysisIcon(xWhite).png",
+    belongsTo: "Valkyr",
+  },
+  Hysteria: {
+    name: "Hysteria",
+    imageName: "HysteriaIcon(xWhite).png",
+    belongsTo: "Valkyr",
+    weapon: "Valkyr Talons",
+  },
+  "Tesla Nervos": {
+    name: "Tesla Nervos",
+    imageName: "TeslaNervosIcon(xWhite).png",
+    belongsTo: "Vauban",
+  },
+  Minelayer: {
+    name: "Minelayer",
+    imageName: "MinelayerIcon(xWhite).png",
+    belongsTo: "Vauban",
+  },
+  "Photon Strike": {
+    name: "Photon Strike",
+    imageName: "PhotonStrikeIcon(xWhite).png",
+    belongsTo: "Vauban",
+  },
+  Bastille: {
+    name: "Bastille",
+    imageName: "BastilleIcon(xWhite).png",
+    belongsTo: "Vauban",
+  },
+  Shock: {
+    name: "Shock",
+    imageName: "ShockIcon(xWhite).png",
+    belongsTo: "Volt",
+  },
+  Speed: {
+    name: "Speed",
+    imageName: "SpeedIcon(xWhite).png",
+    belongsTo: "Volt",
+  },
+  "Electric Shield": {
+    name: "Electric Shield",
+    imageName: "ElectricShieldIcon(xWhite).png",
+    belongsTo: "Volt",
+  },
+  Discharge: {
+    name: "Discharge",
+    imageName: "DischargeIcon(xWhite).png",
+    belongsTo: "Volt",
+  },
+  "Shroud of Dynar": {
+    name: "Shroud of Dynar",
+    imageName: "ShroudofDynarIcon(xWhite).png",
+    belongsTo: "Voruna",
+  },
+  "Fangs of Raksh": {
+    name: "Fangs of Raksh",
+    imageName: "FangsofRakshIcon(xWhite).png",
+    belongsTo: "Voruna",
+  },
+  "Lycath's Hunt": {
+    name: "Lycath's Hunt",
+    imageName: "Lycath'sHuntIcon(xWhite).png",
+    belongsTo: "Voruna",
+  },
+  "Ulfrun's Descent": {
+    name: "Ulfrun's Descent",
+    imageName: "Ulfrun'sDescentIcon(xWhite).png",
+    belongsTo: "Voruna",
+  },
+  Reservoirs: {
+    name: "Reservoirs",
+    imageName: "ReservoirsIcon(xWhite).png",
+    belongsTo: "Wisp",
+  },
+  "Wil-O-Wisp": {
+    name: "Wil-O-Wisp",
+    imageName: "Wil-O-WispIcon(xWhite).png",
+    belongsTo: "Wisp",
+  },
+  "Breach Surge": {
+    name: "Breach Surge",
+    imageName: "BreachSurgeIcon(xWhite).png",
+    belongsTo: "Wisp",
+  },
+  "Sol Gate": {
+    name: "Sol Gate",
+    imageName: "SolGateIcon(xWhite).png",
+    belongsTo: "Wisp",
+  },
+  "Celestial Twin": {
+    name: "Celestial Twin",
+    imageName: "CelestialTwinIcon(xWhite).png",
+    belongsTo: "Wukong",
+  },
+  "Cloud Walker": {
+    name: "Cloud Walker",
+    imageName: "CloudWalkerIcon(xWhite).png",
+    belongsTo: "Wukong",
+  },
+  Defy: {
+    name: "Defy",
+    imageName: "DefyIcon(xWhite).png",
+    belongsTo: "Wukong",
+  },
+  "Primal Fury": {
+    name: "Primal Fury",
+    imageName: "PrimalFuryIcon(xWhite).png",
+    belongsTo: "Wukong",
+    weapon: "Iron Staff",
+  },
+  "Xata's Whisper": {
+    name: "Xata's Whisper",
+    imageName: "Xata'sWhisperIcon(xWhite).png",
+    belongsTo: "Xaku",
+  },
+  "Grasp of Lohk": {
+    name: "Grasp of Lohk",
+    imageName: "GraspOfLohkIcon(xWhite).png",
+    belongsTo: "Xaku",
+  },
+  "The Lost": {
+    name: "The Lost",
+    imageName: "TheLostIcon(xWhite).png",
+    belongsTo: "Xaku",
+  },
+  "The Vast Untime": {
+    name: "The Vast Untime",
+    imageName: "TheVastUntimeIcon(xWhite).png",
+    belongsTo: "Xaku",
+  },
+  "Sea Snares": {
+    name: "Sea Snares",
+    imageName: "SeaSnaresIcon(xWhite).png",
+    belongsTo: "Yareli",
+  },
+  Merulina: {
+    name: "Merulina",
+    imageName: "MerulinaIcon(xWhite).png",
+    belongsTo: "Yareli",
+  },
+  Aquablades: {
+    name: "Aquablades",
+    imageName: "AquabladesIcon(xWhite).png",
+    belongsTo: "Yareli",
+  },
+  Riptide: {
+    name: "Riptide",
+    imageName: "RiptideIcon(xWhite).png",
+    belongsTo: "Yareli",
+  },
+  "Tail Wind": {
+    name: "Tail Wind",
+    imageName: "TailWindIcon(xWhite).png",
+    belongsTo: "Zephyr",
+  },
+  Airburst: {
+    name: "Airburst",
+    imageName: "AirburstIcon(xWhite).png",
+    belongsTo: "Zephyr",
+  },
+  Turbulence: {
+    name: "Turbulence",
+    imageName: "TurbulenceIcon(xWhite).png",
+    belongsTo: "Zephyr",
+  },
+  Tornado: {
+    name: "Tornado",
+    imageName: "TornadoIcon(xWhite).png",
+    belongsTo: "Zephyr",
+  },
+} as const;

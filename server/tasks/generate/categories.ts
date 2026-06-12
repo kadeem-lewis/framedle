@@ -83,6 +83,11 @@ export default defineTask({
 
     for (const key in groupedCategories) {
       const categories = groupedCategories[key];
+      if (categories === undefined || categories[0] === undefined) {
+        throw createError(
+          `Category group for key ${key} is empty or malformed`,
+        );
+      }
       const type = categories[0].type; // All categories in a group have the same type
 
       let processedGroup = [];

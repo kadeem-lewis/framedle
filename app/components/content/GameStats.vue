@@ -38,7 +38,7 @@ const gridAverageScore = computed(
 );
 
 const chart = useTemplateRef("chart");
-const { baseOptions } = useChartConfig(chart);
+const { baseOptions } = useChartConfig();
 
 const chartOptions = computed<ApexOptions>(() => {
   return defu(

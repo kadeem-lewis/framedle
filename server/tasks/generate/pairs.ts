@@ -33,12 +33,15 @@ export default defineTask({
         const catA = allCategories[i];
         const catB = allCategories[j];
 
+        if (!catA || !catB)
+          throw createError(`Category missing at indices ${i}, ${j}`);
+
         // --- CONSTRAINT CHECKS ---
 
         // Rule: Categories with the same key cannot be a pair...
-        if (catA?.key === catB?.key) {
+        if (catA.key === catB.key) {
           // ...UNLESS the key is 'playstyle'
-          if (catA?.key !== "playstyle") {
+          if (catA.key !== "playstyle") {
             continue;
           }
         }
@@ -46,8 +49,8 @@ export default defineTask({
         // --- INTERSECTION LOGIC ---
 
         // Convert Array to Set for O(1) lookups
-        const warframesA = new Set(catA?.warframes);
-        const intersection = catB?.warframes.filter((warframe) =>
+        const warframesA = new Set(catA.warframes);
+        const intersection = catB.warframes.filter((warframe) =>
           warframesA.has(warframe),
         );
 

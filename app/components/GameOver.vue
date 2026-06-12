@@ -155,8 +155,8 @@ const runtimeConfig = useRuntimeConfig();
               alt="Support me on Ko-fi.com"
           /></NuxtLink>
         </div>
-        <USeparator />
         <template v-if="isDaily">
+          <USeparator />
           <NextGameCountdown :target-date="startOfTomorrow()" />
           <template v-if="isPastDay && differentMode">
             <USeparator />

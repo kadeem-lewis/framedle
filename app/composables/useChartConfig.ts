@@ -1,9 +1,6 @@
 import type { ApexOptions } from "apexcharts";
 
-export function useChartConfig(chartRef: Ref<HTMLElement | null>) {
-  const primaryColor = useCssVar("--ui-primary", chartRef);
-  const textColor = useCssVar("--ui-text", chartRef);
-
+export function useChartConfig() {
   // These values can be undefined and it is causing ts errors for ApexOptions since colors can't be undefined there.
 
   const baseOptions = computed<ApexOptions>(() => ({
@@ -49,10 +46,10 @@ export function useChartConfig(chartRef: Ref<HTMLElement | null>) {
       enabled: true,
       style: {
         fontFamily: "Noto Sans, sans-serif",
-        colors: [textColor.value!],
+        colors: ["var(--ui-text)"],
       },
     },
-    colors: [primaryColor.value!],
+    colors: ["var(--ui-primary)"],
   }));
   return {
     baseOptions,

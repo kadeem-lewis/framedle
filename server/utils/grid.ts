@@ -1,5 +1,5 @@
 import type { warframes } from "#shared/data/warframes";
-import { inArray, isNull } from "drizzle-orm";
+import { inArray, isNull, lt } from "drizzle-orm";
 import type { Category as DBCategory } from "#shared/schemas/db";
 import type { DrizzleDB } from "../types/db";
 
@@ -34,6 +34,7 @@ export function getSortedPairIds(idA: string, idB: string) {
 }
 
 const CATEGORY_COOLDOWN_DAYS = 3 as const;
+const CATEGORY_PAIR_COOLDOWN_DAYS = 7 as const;
 const RETRY_ATTEMPTS = 50 as const;
 
 export type GridPuzzleOptions = {
@@ -49,22 +50,37 @@ export async function generateGridPuzzle(
     `Generating 3x3 Grid (Mode: ${isUnlimited ? "Unlimited" : "Daily"})...`,
   );
 
-  let validCategories;
-
-  if (isUnlimited) {
-    validCategories = await db.select().from(tables.categories);
-  } else {
-    // I need to make sure that lastUsed validation is actually working as intended and I also need to add a lastUsed check for the categoryPairs table
-    validCategories = await db
-      .select()
-      .from(tables.categories)
-      .where(
-        or(
-          isNull(tables.categories.lastUsed),
-          sql`age(now(), ${tables.categories.lastUsed}) > interval '${sql.raw(CATEGORY_COOLDOWN_DAYS + " days")}'`,
-        ),
-      );
-  }
+  const { validCategories, allPairs } = isUnlimited
+    ? {
+        validCategories: await db.select().from(tables.categories),
+        allPairs: await db.select().from(tables.categoryPairs),
+      }
+    : {
+        validCategories: await db
+          .select()
+          .from(tables.categories)
+          .where(
+            or(
+              isNull(tables.categories.lastUsed),
+              lt(
+                tables.categories.lastUsed,
+                sql`CURRENT_DATE - ${CATEGORY_COOLDOWN_DAYS}`,
+              ),
+            ),
+          ),
+        allPairs: await db
+          .select()
+          .from(tables.categoryPairs)
+          .where(
+            or(
+              isNull(tables.categoryPairs.lastUsed),
+              lt(
+                tables.categoryPairs.lastUsed,
+                sql`CURRENT_DATE - ${CATEGORY_PAIR_COOLDOWN_DAYS}`,
+              ),
+            ),
+          ),
+      };
 
   if (validCategories.length < 6)
     throw createError("Not enough valid categories!");
@@ -72,7 +88,6 @@ export async function generateGridPuzzle(
   // 2. Fetch Relationship Graph
   // Optimization: In a real app, you might cache this in memory (Redis/Global variable)
   // because it doesn't change often.
-  const allPairs = await db.select().from(tables.categoryPairs);
 
   const adjacencyMap = new Map<string, Set<string>>();
   for (const pair of allPairs) {
@@ -94,6 +109,7 @@ export async function generateGridPuzzle(
   for (let attempt = 0; attempt < RETRY_ATTEMPTS; attempt++) {
     try {
       const shuffledCats = shuffle(validCategories);
+      if (shuffledCats[0] === undefined) continue;
       const row1 = shuffledCats[0];
 
       // Find 3 valid columns
@@ -118,7 +134,22 @@ export async function generateGridPuzzle(
       }
 
       if (columns.length < 3) continue;
-      const colIds = columns.map((c) => c.id);
+
+      const column0 = columns[0];
+      const column1 = columns[1];
+      const column2 = columns[2];
+
+      if (
+        column0 === undefined ||
+        column1 === undefined ||
+        column2 === undefined
+      )
+        continue;
+      const colIds = [column0.id, column1.id, column2.id] as [
+        string,
+        string,
+        string,
+      ];
 
       // Find Row 2
       const row2Candidates = shuffledCats.filter(
@@ -130,7 +161,7 @@ export async function generateGridPuzzle(
           connectsToAll(c.id, colIds),
       );
 
-      if (row2Candidates.length === 0) continue;
+      if (row2Candidates[0] === undefined) continue;
       const row2 = row2Candidates[0];
 
       // Find Row 3
@@ -144,12 +175,12 @@ export async function generateGridPuzzle(
           connectsToAll(c.id, colIds),
       );
 
-      if (row3Candidates.length === 0) continue;
+      if (row3Candidates[0] === undefined) continue;
       const row3 = row3Candidates[0];
 
       const grid = {
         rows: [row1.id, row2.id, row3.id] as [string, string, string],
-        columns: [columns[0].id, columns[1].id, columns[2].id] as [
+        columns: [column0.id, column1.id, column2.id] as [
           string,
           string,
           string,
@@ -158,10 +189,32 @@ export async function generateGridPuzzle(
 
       if (!isUnlimited) {
         const usedIds = [...grid.rows, ...grid.columns];
-        await db
-          .update(tables.categories)
-          .set({ lastUsed: sql`NOW()` })
-          .where(inArray(tables.categories.id, usedIds));
+        const usedPairs = new Map<string, { a: string; b: string }>();
+        for (const row of grid.rows) {
+          for (const col of grid.columns) {
+            usedPairs.set(createPairKey(row, col), getSortedPairIds(row, col));
+          }
+        }
+
+        await db.transaction(async (tx) => {
+          await tx
+            .update(tables.categories)
+            .set({ lastUsed: sql`NOW()` })
+            .where(inArray(tables.categories.id, usedIds));
+          await tx
+            .update(tables.categoryPairs)
+            .set({ lastUsed: sql`NOW()` })
+            .where(
+              or(
+                ...[...usedPairs.values()].map((pair) =>
+                  and(
+                    eq(tables.categoryPairs.categoryA, pair.a),
+                    eq(tables.categoryPairs.categoryB, pair.b),
+                  ),
+                ),
+              ),
+            );
+        });
       }
 
       return grid;

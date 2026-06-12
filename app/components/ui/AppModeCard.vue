@@ -25,7 +25,7 @@ const { card, showStats = false } = defineProps<{
         format="avif"
         :src="card.background"
         :alt="`${card.label} background`"
-        class="absolute inset-0 z-0 bg-cover"
+        class="absolute inset-0 z-0 object-cover"
         preload
         loading="eager"
         fetchpriority="high"

@@ -48,15 +48,11 @@ export default defineTask({
           if (!tempCategoryMap.has(id)) {
             const existing = existingMap.get(id);
 
-            const initialWarframes = existing
-              ? new Set(existing.warframes) // existing.warframes is the list of valid warframes from DB
-              : new Set<string>();
-
             tempCategoryMap.set(id, {
               id: id,
               key: config.key,
               type: config.type,
-              warframes: initialWarframes,
+              warframes: new Set<string>(),
               lastUsed: existing?.lastUsed ?? null, // Preserve lastUsed
             });
           }

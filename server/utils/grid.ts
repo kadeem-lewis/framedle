@@ -64,7 +64,7 @@ export async function generateGridPuzzle(
               isNull(tables.categories.lastUsed),
               lt(
                 tables.categories.lastUsed,
-                sql`CURRENT_DATE - ${CATEGORY_COOLDOWN_DAYS}`,
+                sql`CURRENT_DATE - CAST(${CATEGORY_COOLDOWN_DAYS} AS INTEGER)`,
               ),
             ),
           ),
@@ -76,7 +76,7 @@ export async function generateGridPuzzle(
               isNull(tables.categoryPairs.lastUsed),
               lt(
                 tables.categoryPairs.lastUsed,
-                sql`CURRENT_DATE - ${CATEGORY_PAIR_COOLDOWN_DAYS}`,
+                sql`CURRENT_DATE - CAST(${CATEGORY_PAIR_COOLDOWN_DAYS} AS INTEGER)`,
               ),
             ),
           ),

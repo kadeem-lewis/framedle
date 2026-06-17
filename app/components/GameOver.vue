@@ -117,6 +117,7 @@ const runtimeConfig = useRuntimeConfig();
         >
         <div class="my-2 flex flex-col gap-2">
           <p class="font-semibold uppercase">Share your Results</p>
+          <GiveawayDetails v-if="isDaily" />
           <ShareOptions />
         </div>
         <div v-if="mode === 'ability' || mode === 'abilityUnlimited'">

@@ -63,6 +63,7 @@ const feedbackGrid = computed(() => generateGridGameMatrix());
     <USeparator />
     <div class="flex flex-col items-center gap-2">
       <p class="font-semibold uppercase">Share Your Grid</p>
+      <GiveawayDetails />
       <ShareOptions />
     </div>
     <USeparator />

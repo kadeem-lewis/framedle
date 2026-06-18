@@ -156,6 +156,7 @@ export async function buildAbilityData(
       weapon: abilityData.Weapon,
     });
     if (result.success) {
+      if (result.data.name === "Celestial Clash") return; //! Both Sirius and Orion have this as their 4th ability and I don't know if my game's logic is equipped to handle that
       finalAbilities.set(abilityName, result.data);
     } else {
       console.error("Error parsing ability", abilityName, result.error);
@@ -172,10 +173,11 @@ export function updateWarframeDataFromAbilities(
   const updatedWarframes: Map<string, WarframeShape> = new Map();
 
   for (const [key, warframe] of warframes.entries()) {
-    const hasExaltedAbility = warframe.abilities.some((abilityName) => {
-      const ability = abilities.get(abilityName);
-      return ability?.weapon;
-    });
+    const hasExaltedAbility =
+      warframe.abilities.some((abilityName) => {
+        const ability = abilities.get(abilityName);
+        return ability?.weapon;
+      }) || ["Titania", "Titania Prime"].includes(warframe.name); // Not sure the reasoning but currently the wiki comments out the field I use to prove titania has an exalted ability so I'm hardcoding this for now
 
     updatedWarframes.set(key, {
       ...warframe,

@@ -231,7 +231,7 @@ export default defineTask({
             .nextAll("ul")
             .children("li")
             .children("span")
-            .children("a"),
+            .children("a"), // This query now picks up Sirius and Orion because they meet all the conditions but are not protoframes. I would need to update the query to somehow filter these
       },
       {
         id: "questframe:true",

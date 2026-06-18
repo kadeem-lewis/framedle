@@ -885,6 +885,21 @@ export const abilities = {
     imageName: "SilkenStrideIcon(xWhite).png",
     belongsTo: "Oraxia",
   },
+  "Gravitic Slash": {
+    name: "Gravitic Slash",
+    imageName: "GraviticSlashIcon(xWhite).png",
+    belongsTo: "Orion",
+  },
+  "Astral Shell": {
+    name: "Astral Shell",
+    imageName: "AstralShellIcon(xWhite).png",
+    belongsTo: "Orion",
+  },
+  "Event Horizon": {
+    name: "Event Horizon",
+    imageName: "EventHorizonIcon(xWhite).png",
+    belongsTo: "Orion",
+  },
   "Grenade Fan": {
     name: "Grenade Fan",
     imageName: "GrenadeFanIcon(xWhite).png",
@@ -1004,6 +1019,21 @@ export const abilities = {
     name: "Exalted Shadow",
     imageName: "ExaltedShadowIcon(xWhite).png",
     belongsTo: "Sevagoth",
+  },
+  "Coronal Ejection": {
+    name: "Coronal Ejection",
+    imageName: "CoronalEjectionIcon(xWhite).png",
+    belongsTo: "Sirius",
+  },
+  "Jade Stars": {
+    name: "Jade Stars",
+    imageName: "JadeStarsIcon(xWhite).png",
+    belongsTo: "Sirius",
+  },
+  "Light's Sanctuary": {
+    name: "Light's Sanctuary",
+    imageName: "Light'sSanctuaryIcon(xWhite).png",
+    belongsTo: "Sirius",
   },
   "Axios Javelin": {
     name: "Axios Javelin",

@@ -37,26 +37,44 @@ type WarframeWikiData = {
   [key: string]: unknown;
 };
 
+type WarframeApiData = {
+  name: string;
+  type: string;
+  abilities: Record<string, string>[];
+  productCategory: string;
+  aura: string | string[];
+  releaseDate: string | null;
+  isPrime: boolean;
+  imageName: string;
+};
+
 export async function fetchWarframeData() {
-  const [wikiWarframeData, wikiVersionData] = await Promise.all([
+  const [wikiWarframeData, wikiVersionData, apiData] = await Promise.all([
     $fetch<string>(
       "https://wiki.warframe.com/w/Module:Warframes/data?action=raw",
     ),
     $fetch<string>(
       "https://wiki.warframe.com/w/Module:Version/data?action=raw",
     ),
+    $fetch<WarframeApiData[]>(
+      "https://raw.githubusercontent.com/WFCD/warframe-items/refs/heads/master/data/json/Warframes.json",
+      {
+        parseResponse: (text) => JSON.parse(text),
+      },
+    ),
   ]);
 
   return {
     wikiWarframeData: parse(wikiWarframeData) as WarframeWikiData,
     wikiVersionData: parse(wikiVersionData) as WarframeWikiVersionData,
+    apiData,
   };
 }
 
 export function buildWarframeData(
   data: Awaited<ReturnType<typeof fetchWarframeData>>,
 ) {
-  const { wikiWarframeData, wikiVersionData } = data;
+  const { wikiWarframeData, wikiVersionData, apiData } = data;
 
   const initialWarframes = wikiWarframeData.Warframes;
 
@@ -67,9 +85,11 @@ export function buildWarframeData(
 
     const formattedData = pascalCaseToCamelCase(value);
 
+    const apiWarframe = apiData.find((w) => w.name === formattedData.name);
+
     let finalData: Record<string, unknown> = {
       ...formattedData,
-      imageName: formattedData.image,
+      imageName: apiWarframe?.imageName || null,
       aura: formattedData.auraPolarity,
     };
 
@@ -127,10 +147,15 @@ type WikiAbilityData = {
 
 export async function buildAbilityData(
   warframes: ReturnType<typeof buildWarframeData>,
+  gameData: Awaited<ReturnType<typeof fetchWarframeData>>,
 ) {
   const validAbilities = [
     ...new Set(warframes.values().flatMap((warframe) => warframe.abilities)),
   ];
+
+  const apiAbilities = gameData.apiData.flatMap(
+    (warframe) => warframe.abilities,
+  );
 
   const finalAbilities = new Map<string, BuiltAbilityShape>();
 
@@ -144,6 +169,10 @@ export async function buildAbilityData(
 
   validAbilities.forEach((abilityName) => {
     const abilityData = abilities[abilityName];
+    const apiAbility = apiAbilities.find(
+      (a) => a.name?.toLowerCase() === abilityName.toLowerCase(),
+    );
+
     if (!abilityData) {
       console.warn(`Ability data not found for ${abilityName}`);
       return;
@@ -151,7 +180,7 @@ export async function buildAbilityData(
 
     const result = builtAbilitySchema.safeParse({
       name: abilityData.Name,
-      imageName: abilityData.Icon,
+      imageName: apiAbility?.imageName || null,
       belongsTo: abilityData.Powersuit,
       weapon: abilityData.Weapon,
     });

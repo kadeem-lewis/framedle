@@ -14,7 +14,7 @@ const { checkGuess } = useGuess();
     >
       <NuxtImg
         format="avif"
-        :src="`https://wiki.warframe.com/images/${encodeURIComponent(guessedWarframe.imageName)}`"
+        :src="`https://cdn.warframestat.us/img/${guessedWarframe.imageName}`"
         :alt="guessedWarframe.name"
         preload
         placeholder

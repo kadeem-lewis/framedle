@@ -21,7 +21,7 @@ const img = useImage();
 const imageUrl = computed(() => {
   if (mode.value === "ability" && itemToGuess.value.ability) {
     return img(
-      `https://wiki.warframe.com/images/${encodeURIComponent(getAbility(itemToGuess.value.ability).imageName)}`,
+      `https://cdn.warframestat.us/img/${getAbility(itemToGuess.value.ability).imageName}`,
       { format: "webp", width: CANVAS_SIZE, height: CANVAS_SIZE },
       { modifiers: { enlarge: true } }, // scale smaller images up to CANVAS_SIZE
     );
@@ -30,7 +30,7 @@ const imageUrl = computed(() => {
     itemToGuess.value.abilityUnlimited
   ) {
     return img(
-      `https://wiki.warframe.com/images/${encodeURIComponent(getAbility(itemToGuess.value.abilityUnlimited).imageName)}`,
+      `https://cdn.warframestat.us/img/${getAbility(itemToGuess.value.abilityUnlimited).imageName}`,
       { format: "webp", width: CANVAS_SIZE, height: CANVAS_SIZE },
       { modifiers: { enlarge: true } },
     );

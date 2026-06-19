@@ -77,7 +77,7 @@ const runtimeConfig = useRuntimeConfig();
           >
             <NuxtImg
               v-if="correctWarframe?.imageName"
-              :src="`https://wiki.warframe.com/images/${encodeURIComponent(correctWarframe.imageName)}`"
+              :src="`https://cdn.warframestat.us/img/${correctWarframe.imageName}`"
               :alt="`${correctWarframe}`"
               format="avif"
               height="76"

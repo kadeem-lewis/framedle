@@ -22,7 +22,7 @@ const { checkGuess } = useGuess();
         </p>
         <NuxtImg
           format="avif"
-          :src="`https://wiki.warframe.com/images/${getWarframe(warframe).imageName}`"
+          :src="`https://wiki.warframe.com/images/${encodeURIComponent(getWarframe(warframe).imageName)}`"
           :alt="warframe"
           placeholder
           height="76"

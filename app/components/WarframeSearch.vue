@@ -115,7 +115,7 @@ const handleSubmit = async () => {
           </p>
           <NuxtImg
             format="webp"
-            :src="`https://wiki.warframe.com/images/${getWarframe(item.value).imageName}`"
+            :src="`https://wiki.warframe.com/images/${encodeURIComponent(getWarframe(item.value).imageName)}`"
             :alt="item.label"
             placeholder
             height="64"

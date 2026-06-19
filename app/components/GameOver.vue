@@ -76,7 +76,8 @@ const runtimeConfig = useRuntimeConfig();
             tooltip-disabled
           >
             <NuxtImg
-              :src="`https://wiki.warframe.com/images/${correctWarframe?.imageName}`"
+              v-if="correctWarframe?.imageName"
+              :src="`https://wiki.warframe.com/images/${encodeURIComponent(correctWarframe.imageName)}`"
               :alt="`${correctWarframe}`"
               format="avif"
               height="76"

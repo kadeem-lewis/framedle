@@ -10,7 +10,7 @@ export function useGameOverDialog() {
     async (newData) => {
       if (!newData) return;
 
-      if (gameState.value.grid !== GameStatus.ACTIVE) {
+      if (gameState.value.grid && gameState.value.grid !== GameStatus.ACTIVE) {
         const hasSeen = newData.hasSeenPopup === true;
 
         if (!hasSeen) {

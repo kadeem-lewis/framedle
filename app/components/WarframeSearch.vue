@@ -104,6 +104,7 @@ const handleSubmit = async () => {
         base: 'rounded-none',
         content:
           'rounded-none bg-white/75 backdrop-blur dark:bg-neutral-800/75',
+        item: 'data-disabled:line-through',
       }"
       class="grow rounded-none"
     >
@@ -114,7 +115,7 @@ const handleSubmit = async () => {
           </p>
           <NuxtImg
             format="webp"
-            :src="`https://cdn.warframestat.us/img/${getWarframe(item.value).imageName}`"
+            :src="`https://wiki.warframe.com/images/${getWarframe(item.value).imageName}`"
             :alt="item.label"
             placeholder
             height="64"

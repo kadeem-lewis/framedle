@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { startOfTomorrow } from "date-fns";
 import party from "party-js";
-import type { Ability } from "#shared/schemas/warframe";
 
 const { itemToGuess, guessedItems, attempts, correctWarframe, answer } =
   storeToRefs(useGameStore());
@@ -46,6 +45,8 @@ const differentMode = computed(() => {
   if (!mode.value) return;
   return activeCards.value.find((card) => card.route !== route.path);
 });
+
+const runtimeConfig = useRuntimeConfig();
 </script>
 <template>
   <div ref="gameOverCard">
@@ -75,7 +76,7 @@ const differentMode = computed(() => {
             tooltip-disabled
           >
             <NuxtImg
-              :src="`https://cdn.warframestat.us/img/${correctWarframe?.imageName}`"
+              :src="`https://wiki.warframe.com/images/${correctWarframe?.imageName}`"
               :alt="`${correctWarframe}`"
               format="avif"
               height="76"
@@ -90,7 +91,7 @@ const differentMode = computed(() => {
             itemToGuess[mode]
           "
           :correct-warframe="correctWarframe"
-          :correct-ability="itemToGuess[mode] as Ability"
+          :correct-ability="itemToGuess[mode] as AbilityName"
         />
         <p>
           Number of tries:
@@ -116,6 +117,7 @@ const differentMode = computed(() => {
         >
         <div class="my-2 flex flex-col gap-2">
           <p class="font-semibold uppercase">Share your Results</p>
+          <GiveawayDetails v-if="isDaily" />
           <ShareOptions />
         </div>
         <div v-if="mode === 'ability' || mode === 'abilityUnlimited'">
@@ -135,7 +137,27 @@ const differentMode = computed(() => {
             </li>
           </ul>
         </div>
+        <USeparator />
+        <div class="flex flex-col items-center gap-2">
+          <p class="text-center">
+            Your support helps keep the game running and goes to the development
+            of new features!
+          </p>
+          <NuxtLink
+            :href="runtimeConfig.public.kofiUrl"
+            target="_blank"
+            external
+            ><NuxtImg
+              height="40"
+              width="200"
+              format="avif"
+              class="border-0 transition-transform hover:scale-105 hover:brightness-105 dark:hover:brightness-75"
+              src="/badges/KofiSupportBadgeBlue.png"
+              alt="Support me on Ko-fi.com"
+          /></NuxtLink>
+        </div>
         <template v-if="isDaily">
+          <USeparator />
           <NextGameCountdown :target-date="startOfTomorrow()" />
           <template v-if="isPastDay && differentMode">
             <USeparator />

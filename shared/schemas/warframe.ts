@@ -1,11 +1,18 @@
 import { z } from "zod";
 
 export const abilitySchema = z.object({
-  uniqueName: z.string(),
   name: z.string(),
-  description: z.string(),
-  imageName: z.string(),
+  imageName: z.string().endsWith(".png"),
+  belongsTo: z.string(),
 });
+
+export type AbilityShape = z.infer<typeof abilitySchema>;
+
+export const builtAbilitySchema = abilitySchema.extend({
+  weapon: z.union([z.string(), z.array(z.string())]).optional(),
+});
+
+export type BuiltAbilityShape = z.infer<typeof builtAbilitySchema>;
 
 export const progenitorElements = [
   "Impact",
@@ -16,8 +23,6 @@ export const progenitorElements = [
   "Heat",
   "Cold",
 ] as const;
-
-export type Ability = z.infer<typeof abilitySchema>;
 
 export const polarities = [
   "Madurai",
@@ -38,10 +43,10 @@ export const playstyles = [
 
 export const variant = ["Standard", "Prime", "Umbra"] as const;
 
+export const sexes = ["Male", "Female", "Non-binary"] as const;
+
 export const warframeSchema = z.object({
   name: z.string(),
-  category: z.literal("Warframes"),
-  type: z.literal("Warframe"),
   health: z.number(),
   shield: z.number(),
   armor: z.number(),
@@ -50,15 +55,15 @@ export const warframeSchema = z.object({
   aura: z.union([z.array(z.enum(polarities)), z.enum(polarities)]),
   releaseDate: z.string(),
   imageName: z.string(),
-  abilities: z.array(abilitySchema),
-  sex: z.enum(["Male", "Female", "Non-binary (Pluriform)", "Non-binary"]),
+  abilities: z.array(z.string()).length(4),
+  sex: z.enum(sexes),
   variant: z.enum(variant),
   progenitor: z.enum(progenitorElements),
   isPrime: z.boolean(),
   conclave: z.boolean(),
   vaulted: z.union([z.boolean(), z.string()]).optional(),
   playstyle: z.array(z.enum(playstyles)),
-  exalted: z.array(z.string()).optional(),
+  exalted: z.boolean().optional(),
 });
 
-export type Warframe = z.infer<typeof warframeSchema>;
+export type WarframeShape = z.infer<typeof warframeSchema>;

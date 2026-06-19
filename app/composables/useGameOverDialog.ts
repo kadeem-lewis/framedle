@@ -1,7 +1,7 @@
 export function useGameOverDialog() {
   const { openDialog } = useDialog();
   const dailiesStore = useDailiesStore();
-  const { isGameOver } = storeToRefs(useGameStateStore());
+  const { gameState } = storeToRefs(useGameStateStore());
 
   const gridData = computed(() => dailiesStore.currentDailyGridData);
 
@@ -10,7 +10,7 @@ export function useGameOverDialog() {
     async (newData) => {
       if (!newData) return;
 
-      if (isGameOver.value) {
+      if (gameState.value.grid !== GameStatus.ACTIVE) {
         const hasSeen = newData.hasSeenPopup === true;
 
         if (!hasSeen) {

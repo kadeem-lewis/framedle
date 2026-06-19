@@ -1,5 +1,26 @@
 # Changelog
 
+## v1.7.0 - June 18th, 2026
+
+### Features
+
+- Added toggleable background image to the game
+- Added extra information to ability game results to show if the additional minigame was successfully completed
+- Added filter to the archive page to hide completed games
+
+### Changes
+
+- Added Styanax Prime to the game
+- Added Sirius and Orion to the game
+- Updated the style of disabled items in the warframe search to be clearer that they cannot be selected
+
+### Bug Fixes
+
+- Fixed ability archive games before a certain date not properly loading image
+- Fixed global stats lowering or not updating after completing a game
+- Updated grid filtering logic to correctly work to lower the chances of repeat categories or category pairs in the grid game
+- Fixed incorrect data saved for certain warframes
+
 ## v1.6.1 - April 30th, 2026
 
 ### Bug Fixes

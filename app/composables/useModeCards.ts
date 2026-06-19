@@ -1,6 +1,4 @@
 export function useModeCards() {
-  const img = useImage();
-
   const { stats } = storeToRefs(useStatsStore());
 
   const cards = shallowRef([
@@ -8,7 +6,7 @@ export function useModeCards() {
       label: "Classic",
       route: "/classic",
       source: "/icons/warframe.png",
-      background: img("/backgrounds/fortuna.jpg", { format: "webp" }),
+      background: "/backgrounds/fortuna.jpg",
       description: "Guess the Warframe",
       streak: stats.value.classic.streak,
     },
@@ -16,7 +14,7 @@ export function useModeCards() {
       label: "Ability",
       route: "/ability",
       source: "/icons/PassiveAbilityIcon.png",
-      background: img("/backgrounds/helminth.jpg", { format: "webp" }),
+      background: "/backgrounds/helminth.jpg",
       description: "Guess the Ability",
       streak: stats.value.ability.streak,
     },
@@ -24,7 +22,7 @@ export function useModeCards() {
       label: "Grid",
       route: "/grid",
       source: "/icons/BuildIcon.png",
-      background: img("/backgrounds/orbiter.jpg", { format: "webp" }),
+      background: "/backgrounds/orbiter.jpg",
       description: "Fill the 3x3 board",
       streak: stats.value.grid.streak,
     },

@@ -257,12 +257,9 @@ export const useDailiesStore = defineStore("dailies", () => {
       const { puzzle, mode, ...rest } = daily;
       if (mode === "ability") {
         const abilityPuzzle = puzzle as LegacyPuzzle;
-        const ability = abilities.find(
-          (ab) => ab.name === abilityPuzzle.answer,
-        ) as Ability;
         entries.push({
           ...rest,
-          itemToGuess: ability,
+          itemToGuess: abilityPuzzle.answer as AbilityName,
           mode,
         });
       }

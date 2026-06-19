@@ -34,9 +34,7 @@ export default defineTask({
 
         let valuesToProcess: (string | boolean | number)[] = [];
 
-        if (config.key === "exalted") {
-          valuesToProcess = [true]; // Only warframes with Exalteds have the exalted field
-        } else if (Array.isArray(rawValue)) {
+        if (Array.isArray(rawValue)) {
           valuesToProcess = rawValue;
         } else if (config.key === "releaseDate") {
           valuesToProcess = [parseReleaseDate(String(rawValue))];
@@ -50,15 +48,11 @@ export default defineTask({
           if (!tempCategoryMap.has(id)) {
             const existing = existingMap.get(id);
 
-            const initialWarframes = existing
-              ? new Set(existing.warframes) // existing.warframes is the list of valid warframes from DB
-              : new Set<string>();
-
             tempCategoryMap.set(id, {
               id: id,
               key: config.key,
               type: config.type,
-              warframes: initialWarframes,
+              warframes: new Set<string>(),
               lastUsed: existing?.lastUsed ?? null, // Preserve lastUsed
             });
           }
@@ -85,6 +79,11 @@ export default defineTask({
 
     for (const key in groupedCategories) {
       const categories = groupedCategories[key];
+      if (categories === undefined || categories[0] === undefined) {
+        throw createError(
+          `Category group for key ${key} is empty or malformed`,
+        );
+      }
       const type = categories[0].type; // All categories in a group have the same type
 
       let processedGroup = [];

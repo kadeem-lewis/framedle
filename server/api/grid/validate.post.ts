@@ -46,7 +46,7 @@ export default defineEventHandler<
     isUnlimited,
   } = body.data;
 
-  const WARFRAME_DATA_VERSION = "v2";
+  const WARFRAME_DATA_VERSION = "v3";
 
   const [idA, idB] = [rowCategoryId, columnCategoryId].sort() as [
     string,
@@ -78,7 +78,7 @@ export default defineEventHandler<
         )
         .limit(1);
 
-      if (result.length === 0)
+      if (result[0] === undefined)
         throw createError({
           statusCode: 404,
           message: "Category pair not found",

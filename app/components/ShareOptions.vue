@@ -51,9 +51,10 @@ const isCurrentDay = computed(() => {
 <template>
   <div class="flex flex-col gap-3">
     <div>
-      <USwitch
+      <UiAppSwitch
         v-if="isCurrentDay"
         v-model="isShareAll"
+        class="flex-row justify-center"
         label="Share all dailies"
       />
     </div>

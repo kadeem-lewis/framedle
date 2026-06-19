@@ -1,0 +1,11 @@
+shamefullyHoist: true
+strictPeerDependencies: false
+minimumReleaseAge: 4320
+blockExoticSubdeps: true
+allowBuilds:
+  '@parcel/watcher': true
+  '@sentry/cli': true
+  esbuild: true
+  sharp: true
+  unrs-resolver: true
+  vue-demi: true

@@ -38,7 +38,7 @@ const gridAverageScore = computed(
 );
 
 const chart = useTemplateRef("chart");
-const { baseOptions } = useChartConfig(chart);
+const { baseOptions } = useChartConfig();
 
 const chartOptions = computed<ApexOptions>(() => {
   return defu(
@@ -104,6 +104,8 @@ function handleMigrationClick() {
     toast.add({ title: "Oops!", description: result.message, color: "error" });
   }
 }
+
+const runtimeConfig = useRuntimeConfig();
 </script>
 <template>
   <div class="flex flex-col gap-4">
@@ -167,22 +169,33 @@ function handleMigrationClick() {
         <ScoresDistributionChart :scores="scoresDistribution" />
       </template>
     </div>
-    <div class="flex justify-center gap-4">
-      <UButton variant="tenno" size="lg" @click="handleStatsShare">
-        <span v-if="!statsCopied" class="flex items-center gap-1">
-          <UIcon name="i-heroicons-share-solid" class="size-5" />
-          Share
-        </span>
-        <span v-else>Copied</span>
-      </UButton>
-      <UiConfirmPopup
-        title="Are you sure you want to clear your stats?"
-        success-label="Delete"
-        cancel-label="Cancel"
-        @confirm="handleResetStats"
-      >
-        <UButton variant="tenno" size="lg" class="uppercase">Reset</UButton>
-      </UiConfirmPopup>
+    <div class="flex justify-between">
+      <div class="flex justify-center gap-2">
+        <UButton variant="tenno" size="lg" @click="handleStatsShare">
+          <span v-if="!statsCopied" class="flex items-center gap-1">
+            <UIcon name="i-heroicons-share-solid" class="size-5" />
+            Share
+          </span>
+          <span v-else>Copied</span>
+        </UButton>
+        <UiConfirmPopup
+          title="Are you sure you want to clear your stats?"
+          success-label="Delete"
+          cancel-label="Cancel"
+          @confirm="handleResetStats"
+        >
+          <UButton variant="tenno" size="lg" class="uppercase">Reset</UButton>
+        </UiConfirmPopup>
+      </div>
+      <NuxtLink :href="runtimeConfig.public.kofiUrl" target="_blank" external
+        ><NuxtImg
+          height="40"
+          width="200"
+          format="avif"
+          class="border-0 transition-transform hover:scale-105 hover:brightness-105 dark:hover:brightness-75"
+          src="/badges/KofiSupportBadgeBlue.png"
+          alt="Support me on Ko-fi.com"
+      /></NuxtLink>
     </div>
   </div>
 </template>

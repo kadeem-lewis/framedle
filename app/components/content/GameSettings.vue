@@ -2,13 +2,23 @@
 //colorblind mode
 const { $colorblindMode } = useNuxtApp();
 
+// theme
+const { showBackground } = storeToRefs(useSettingsStore());
+
 //data transfer
 </script>
 <template>
   <div>
-    <div class="flex items-center justify-between py-2">
-      <p class="text-lg font-medium">Colorblind Mode</p>
-      <USwitch v-model="$colorblindMode" @click="$toggleColorblindMode" />
+    <div class="flex flex-col gap-1 py-2">
+      <p class="text-lg font-medium">Accessibility</p>
+      <UiItem>
+        <UiAppSwitch
+          v-model="$colorblindMode"
+          label="Colorblind Mode"
+          size="lg"
+          @click="$toggleColorblindMode"
+        />
+      </UiItem>
     </div>
     <USeparator />
     <div class="flex items-center justify-between py-2">
@@ -41,5 +51,15 @@ const { $colorblindMode } = useNuxtApp();
       <p class="text-sm text-muted">More languages coming soon</p>
     </div>
     <USeparator />
+    <div class="flex flex-col gap-1 py-2">
+      <p class="text-lg font-medium">UI</p>
+      <UiItem>
+        <UiAppSwitch
+          v-model="showBackground"
+          size="lg"
+          label="Show Background"
+        />
+      </UiItem>
+    </div>
   </div>
 </template>

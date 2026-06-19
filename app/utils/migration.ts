@@ -1,20 +1,44 @@
-import type { PiniaPluginContext } from "pinia";
+import type {
+  _ActionsTree,
+  _GettersTree,
+  PiniaPluginContext,
+  StateTree,
+  Store,
+} from "pinia";
 
-export function convertVersionOneGameData(context: PiniaPluginContext) {
+export function migrateGameData(context: PiniaPluginContext) {
   if (!import.meta.client) {
     return;
   }
   const store = context.store;
   const gameDataVersionOne = localStorage.getItem("game");
-  if (!gameDataVersionOne) return;
+  if (gameDataVersionOne) {
+    convertVersion1GameData(gameDataVersionOne, store);
+  }
+  const currentAbility = store.itemToGuess.abilityUnlimited;
+  if (
+    typeof currentAbility === "object" &&
+    currentAbility !== null &&
+    "name" in currentAbility
+  ) {
+    store.itemToGuess.abilityUnlimited = currentAbility.name;
+  }
+}
+
+function convertVersion1GameData(
+  localStorageData: string,
+  store: Store<string, StateTree, _GettersTree<StateTree>, _ActionsTree>,
+) {
   try {
-    const parsed = JSON.parse(gameDataVersionOne);
+    const parsed = JSON.parse(localStorageData);
     if (parsed.itemToGuess?.classicUnlimited) {
       store.itemToGuess.classicUnlimited =
         parsed.itemToGuess.classicUnlimited.name;
     }
     if (parsed.itemToGuess?.abilityUnlimited) {
-      store.itemToGuess.abilityUnlimited = parsed.itemToGuess.abilityUnlimited;
+      // retroactively applied conversion of old object to string to align with new data structure
+      store.itemToGuess.abilityUnlimited =
+        parsed.itemToGuess.abilityUnlimited.name;
     }
     if (parsed.attempts?.classicUnlimited) {
       store.attempts.classicUnlimited = parsed.attempts.classicUnlimited;

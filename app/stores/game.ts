@@ -8,8 +8,8 @@ export const useGameStore = defineStore(
     const itemToGuess = ref({
       classic: null as WarframeName | null,
       classicUnlimited: null as WarframeName | null,
-      ability: null as Ability | null,
-      abilityUnlimited: null as Ability | null,
+      ability: null as AbilityName | null,
+      abilityUnlimited: null as AbilityName | null,
     });
 
     const attempts = ref({
@@ -38,7 +38,8 @@ export const useGameStore = defineStore(
       if (!gameMode || !isLegacyMode(gameMode) || !itemToGuess.value[gameMode])
         return;
       if (gameMode === "ability" || gameMode === "abilityUnlimited") {
-        return getWarframe(itemToGuess.value[gameMode].belongsTo);
+        const ability = getAbility(itemToGuess.value[gameMode]);
+        return getWarframe(ability.belongsTo);
       }
       return getWarframe(itemToGuess.value[gameMode]);
     });
@@ -46,11 +47,14 @@ export const useGameStore = defineStore(
     const answer = computed(() => {
       if (!mode.value) throw createError("Mode is not set");
       if (!isLegacyMode(mode.value)) throw createError("Not a legacy mode");
-      if (mode.value === "ability" || mode.value === "abilityUnlimited") {
-        return itemToGuess.value[mode.value]?.belongsTo;
-      } else {
-        return itemToGuess.value[mode.value];
+      if (
+        (mode.value === "ability" || mode.value === "abilityUnlimited") &&
+        itemToGuess.value[mode.value]
+      ) {
+        // I am asserting here because even with the checks guaranteeing that both mode and itemToGuess.value[mode.value] are valid, Typescript is still complaining
+        return getAbility(itemToGuess.value[mode.value]!).belongsTo;
       }
+      return itemToGuess.value[mode.value];
     });
 
     function setClassicGameData(data: FullClassicData) {
@@ -74,7 +78,7 @@ export const useGameStore = defineStore(
       options: { forceReset?: boolean } = {},
     ) {
       const currentMode = toValue(mode);
-      let newItem: WarframeName | Ability | null = null;
+      let newItem: WarframeName | AbilityName | null = null;
       let needsReset = false;
       const { forceReset = false } = options;
 
@@ -84,6 +88,7 @@ export const useGameStore = defineStore(
       }
 
       if (queryValue) {
+        //TODO: I need to do a stronger guard here for when decoded's value is not valid.
         if (currentMode === "classicUnlimited") {
           const decoded = decode(queryValue) as WarframeName;
           if (itemToGuess.value.classicUnlimited !== decoded) {
@@ -92,14 +97,9 @@ export const useGameStore = defineStore(
           }
         }
         if (currentMode === "abilityUnlimited") {
-          const decoded = decode(queryValue);
-          const decodedAbility = abilities.find(
-            (ability) => ability.name === decoded,
-          ) as Ability;
-          if (
-            itemToGuess.value.abilityUnlimited?.name !== decodedAbility.name
-          ) {
-            newItem = decodedAbility;
+          const decoded = decode(queryValue) as AbilityName;
+          if (itemToGuess.value.abilityUnlimited !== decoded) {
+            newItem = decoded;
             needsReset = true;
           }
         }
@@ -117,7 +117,7 @@ export const useGameStore = defineStore(
           itemToGuess.value.classicUnlimited = newItem as WarframeName;
         }
         if (currentMode === "abilityUnlimited") {
-          itemToGuess.value.abilityUnlimited = newItem as Ability;
+          itemToGuess.value.abilityUnlimited = newItem as AbilityName;
           selectedMinigameAbility.value.abilityUnlimited = "";
         }
         guessedItems.value[currentMode] = [];
@@ -167,7 +167,7 @@ export const useGameStore = defineStore(
         "selectedMinigameAbility.abilityUnlimited",
       ],
       afterHydrate(context) {
-        convertVersionOneGameData(context);
+        migrateGameData(context);
       },
       debug: true,
     },

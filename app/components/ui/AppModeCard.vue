@@ -13,7 +13,7 @@ const { card, showStats = false } = defineProps<{
 </script>
 <template>
   <div
-    class="animate-border-rotate relative overflow-hidden p-0.5 shadow shadow-black before:absolute before:-inset-[250%] dark:shadow-none"
+    class="animate-border-rotate relative overflow-hidden p-0.5 shadow shadow-black before:absolute before:inset-[-250%] dark:shadow-none"
   >
     <UCard
       class="group relative z-0 ring-0"
@@ -21,9 +21,14 @@ const { card, showStats = false } = defineProps<{
         body: 'p-3 sm:p-3',
       }"
     >
-      <div
-        :style="{ backgroundImage: `url(${card.background})` }"
-        class="absolute inset-0 z-0 bg-cover"
+      <NuxtImg
+        format="avif"
+        :src="card.background"
+        :alt="`${card.label} background`"
+        class="absolute inset-0 z-0 object-cover"
+        preload
+        loading="eager"
+        fetchpriority="high"
       />
       <div
         class="absolute inset-0 z-0 bg-linear-to-tr from-black to-transparent to-65%"
@@ -37,7 +42,7 @@ const { card, showStats = false } = defineProps<{
           width="48"
           preload
           loading="eager"
-          fetch-priority="high"
+          fetchpriority="high"
           class="transition-transform duration-100 ease-in group-hover:scale-110"
         />
         <div class="text-shadow-xs">

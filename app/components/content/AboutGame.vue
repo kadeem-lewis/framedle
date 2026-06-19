@@ -30,8 +30,8 @@
       <p class="font-semibold">Special Thanks To:</p>
       <ul class="flex list-[square] flex-col gap-2">
         <li>
-          <UiAppLink to="https://github.com/WFCD" target="_blank" external
-            >Warframe Community Developers</UiAppLink
+          <UiAppLink to="https://wiki.warframe.com/" target="_blank" external
+            >Warframe Wiki</UiAppLink
           >
           for providing the data that powers this app
         </li>

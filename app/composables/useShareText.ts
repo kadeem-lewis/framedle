@@ -125,6 +125,7 @@ export function useShareText() {
       )
       .join("\n");
   }
+
   function generateAbilityEmojiBlock(
     targetWarframe: WarframeName,
     guessedItems: WarframeName[],
@@ -137,6 +138,8 @@ export function useShareText() {
     const emptyEmojis = Array(attempts).fill(EMOJIS.unused);
     return [...playedEmojis, ...emptyEmojis].join(" ");
   }
+
+  const { selectedMinigameAbility } = storeToRefs(useGameStore());
   function generateGridEmojiBlock(
     gridState: Record<string, GridCell> = daily.value.grid,
   ) {
@@ -158,16 +161,27 @@ export function useShareText() {
       return generateGridEmojiBlock();
     }
 
-    if (currentMode === "ability" || currentMode === "abilityUnlimited") {
-      const target = itemToGuess.value[currentMode]?.belongsTo;
+    if (
+      (currentMode === "ability" || currentMode === "abilityUnlimited") &&
+      itemToGuess.value[currentMode]
+    ) {
+      const target = getAbility(itemToGuess.value[currentMode]).belongsTo;
 
       if (!target) return "";
 
-      return generateAbilityEmojiBlock(
+      const abilityEmojiBlock = generateAbilityEmojiBlock(
         target,
         guessedItems.value[currentMode],
         attempts.value[currentMode],
       );
+
+      if (
+        itemToGuess.value[currentMode] ===
+        selectedMinigameAbility.value[currentMode]
+      ) {
+        return `${abilityEmojiBlock}\n✨ Bonus solved!`;
+      }
+      return abilityEmojiBlock;
     }
 
     if (currentMode === "classic" || currentMode === "classicUnlimited") {
@@ -194,7 +208,7 @@ export function useShareText() {
         mode.value === "abilityUnlimited" &&
         itemToGuess.value["abilityUnlimited"]
       ) {
-        encodedAnswer = encode(itemToGuess.value["abilityUnlimited"].name);
+        encodedAnswer = encode(itemToGuess.value["abilityUnlimited"]);
       }
       return `See how you do on the same challenge I played:\n${baseUrl}?x=${encodedAnswer}`;
     }
@@ -221,7 +235,7 @@ export function useShareText() {
     if (ability?.state) {
       sections.push(
         `Ability #${ability.day}: \n${generateAbilityEmojiBlock(
-          ability.itemToGuess.belongsTo,
+          getAbility(ability.itemToGuess).belongsTo,
           ability.guessedItems,
           ability.attempts,
         )}`,

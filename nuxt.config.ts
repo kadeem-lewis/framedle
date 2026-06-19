@@ -35,6 +35,12 @@ export default defineNuxtConfig({
       key: "",
       databaseId: "",
     },
+    r2: {
+      endpoint: "",
+      bucketName: "",
+      accessKeyId: "",
+      secretAccessKey: "",
+    },
     public: {
       umamiAnalytics: {
         hostUrl: "",

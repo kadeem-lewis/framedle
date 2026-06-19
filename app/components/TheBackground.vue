@@ -1,6 +1,6 @@
 <template>
   <div class="background-pattern" />
-  <div class="pointer-events-none absolute inset-0 -z-1">
+  <div class="pointer-events-none fixed inset-0 -z-1">
     <EntratiEye class="absolute top-1/5 left-1/3 size-52 text-(--eye-color)" />
     <EntratiEye class="absolute inset-2/3 size-50 text-(--eye-color)" />
     <EntratiEye

@@ -196,8 +196,12 @@ export default defineNuxtConfig({
   },
 
   image: {
-    domains: ["cdn.warframestat.us", "wiki.warframe.com"],
+    domains: ["https://ik.imagekit.io"],
     dir: "assets/images",
+    format: ["avif", "webp"],
+    imagekit: {
+      baseURL: "https://ik.imagekit.io/redeemr/framedle",
+    },
   },
 
   nitro: {

@@ -221,14 +221,21 @@ export async function writeDataToFile(
   warframes: ReturnType<typeof buildWarframeData>,
   abilities: Awaited<ReturnType<typeof buildAbilityData>>,
 ) {
+  const publicWarframes = Object.fromEntries(
+    [...warframes.entries()].map(([key, warframe]) => {
+      const { imageName, ...rest } = warframe;
+      return [key, rest];
+    }),
+  );
+
   const tsContent = `// Auto-generated warframes data
-    export const warframes = ${JSON.stringify(Object.fromEntries(warframes.entries()), null, 2)} as const;`;
+    export const warframes = ${JSON.stringify(publicWarframes, null, 2)} as const;`;
 
   await fs.writeFile("./shared/data/warframes.ts", tsContent);
 
   const publicAbilities = Object.fromEntries(
     [...abilities.entries()].map(([key, ability]) => {
-      const { weapon, ...rest } = ability;
+      const { weapon, imageName, ...rest } = ability;
       return [key, rest];
     }),
   );

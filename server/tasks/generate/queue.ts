@@ -6,21 +6,14 @@ export default defineTask({
     name: "generate:queue",
     description: "Generate the warframe data used in app",
   },
-  async run({ payload }) {
+  async run() {
     try {
-      const currentWarframeNames =
-        (payload?.warframeNames as WarframeName[]) || warframeNames;
       const updatedWarframeQueue = await processQueue(
         "warframe",
-        currentWarframeNames,
+        warframeNames,
       );
 
-      const currentAbilityNames =
-        (payload?.abilityNames as string[]) || abilityNames;
-      const updatedAbilityQueue = await processQueue(
-        "ability",
-        currentAbilityNames,
-      );
+      const updatedAbilityQueue = await processQueue("ability", abilityNames);
 
       await useDrizzle()
         .insert(tables.queue)

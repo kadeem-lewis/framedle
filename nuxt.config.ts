@@ -36,11 +36,9 @@ export default defineNuxtConfig({
       databaseId: "",
     },
     public: {
-      scripts: {
-        umamiAnalytics: {
-          hostUrl: "",
-          websiteId: "",
-        },
+      umamiAnalytics: {
+        hostUrl: "",
+        websiteId: "",
       },
       turnstile: {
         siteKey: "",
@@ -113,22 +111,6 @@ export default defineNuxtConfig({
   mdc: {
     headings: {
       anchorLinks: false,
-    },
-  },
-
-  scripts: {
-    registry: {
-      umamiAnalytics: {
-        trigger: "onNuxtReady",
-      },
-    },
-  },
-
-  $development: {
-    scripts: {
-      registry: {
-        umamiAnalytics: "mock",
-      },
     },
   },
 

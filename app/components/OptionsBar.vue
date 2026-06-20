@@ -3,7 +3,7 @@ const { openDialog } = useDialog();
 
 const route = useRoute();
 const { gameType } = useGameMode();
-const { proxy } = useScriptUmamiAnalytics();
+const { proxy } = useUmamiAnalytics();
 
 const items = [
   {

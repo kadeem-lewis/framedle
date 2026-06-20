@@ -12,7 +12,7 @@ useSeoMeta({
     "Replay past daily Framedle puzzles for all modes starting from the very first day.",
 });
 
-const { proxy } = useScriptUmamiAnalytics();
+const { proxy } = useUmamiAnalytics();
 
 const router = useRouter();
 const route = useRoute("archive");

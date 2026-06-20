@@ -24,15 +24,6 @@ export default defineTask({
 
       await writeDataToFile(updatedWarframes, abilities);
 
-      const payload = {
-        warframeNames: [...updatedWarframes.keys()],
-        abilityNames: [...abilities.keys()],
-      };
-
-      await runTask("generate:queue", {
-        payload,
-      });
-
       return {
         result: "Success",
       };

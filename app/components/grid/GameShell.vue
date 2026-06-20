@@ -119,7 +119,7 @@ const puzzleHeading = computed(() => {
 });
 
 const { getAdjacentArchiveDays } = useArchiveStore();
-const { proxy } = useScriptUmamiAnalytics();
+const { proxy } = useUmamiAnalytics();
 
 const adjacentDays = computedAsync(async () => {
   if (!currentDailyGridData.value) {

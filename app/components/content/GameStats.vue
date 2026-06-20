@@ -169,7 +169,7 @@ const runtimeConfig = useRuntimeConfig();
         <ScoresDistributionChart :scores="scoresDistribution" />
       </template>
     </div>
-    <div class="flex justify-between">
+    <div class="grid grid-cols-1 gap-4 lg:grid-cols-2">
       <div class="flex justify-center gap-2">
         <UButton variant="tenno" size="lg" @click="handleStatsShare">
           <span v-if="!statsCopied" class="flex items-center gap-1">
@@ -187,8 +187,13 @@ const runtimeConfig = useRuntimeConfig();
           <UButton variant="tenno" size="lg" class="uppercase">Reset</UButton>
         </UiConfirmPopup>
       </div>
-      <NuxtLink :href="runtimeConfig.public.kofiUrl" target="_blank" external
-        ><NuxtImg
+      <NuxtLink
+        :href="runtimeConfig.public.kofiUrl"
+        target="_blank"
+        external
+        class="flex justify-center"
+      >
+        <NuxtImg
           height="40"
           width="200"
           format="avif"

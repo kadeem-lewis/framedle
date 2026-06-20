@@ -37,7 +37,7 @@ const adjacentDays = computedAsync(
   { previous: null, next: null },
 );
 
-const { proxy } = useScriptUmamiAnalytics();
+const { proxy } = useUmamiAnalytics();
 </script>
 <template>
   <div class="flex items-center justify-center gap-2">

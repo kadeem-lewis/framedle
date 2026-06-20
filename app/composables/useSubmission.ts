@@ -3,7 +3,7 @@ import type { SubmissionsBody } from "#shared/schemas/submissions";
 
 export function useSubmission() {
   const { mode, isLegacyDailyMode, isUnlimitedMode } = useGameMode();
-  const { proxy } = useScriptUmamiAnalytics();
+  const { proxy } = useUmamiAnalytics();
   const { updateStatsOnGameOver } = useStatsStore();
   const { currentGameState, hasWon } = storeToRefs(useGameStateStore());
   const { DEFAULT_ATTEMPTS } = useGameStore();

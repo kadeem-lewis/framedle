@@ -125,7 +125,7 @@ export const useGameStore = defineStore(
       }
     }
 
-    const { proxy } = useScriptUmamiAnalytics();
+    const { proxy } = useUmamiAnalytics();
 
     function resetCurrentGame() {
       if (!mode.value || gameVariant.value !== "unlimited") {

@@ -9,7 +9,7 @@ const { correctWarframe, correctAbility } = defineProps<{
 const { selectedMinigameAbility } = storeToRefs(useGameStore());
 const { activeDays } = storeToRefs(useDailiesStore());
 const { mode } = useGameMode();
-const { proxy } = useScriptUmamiAnalytics();
+const { proxy } = useUmamiAnalytics();
 
 function handleAbilityClick(ability: string) {
   proxy.track("Played Ability Mini Game", {

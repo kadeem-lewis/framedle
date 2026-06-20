@@ -2,7 +2,7 @@
 const runtimeConfig = useRuntimeConfig();
 
 const { openDialog } = useDialog();
-const { proxy } = useScriptUmamiAnalytics();
+const { proxy } = useUmamiAnalytics();
 
 const START_YEAR = 2024 as const;
 const year = new Date().getFullYear();

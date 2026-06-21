@@ -27,7 +27,7 @@ const versions = [
   },
   {
     title: "1.7.0",
-    date: "2026-05-18",
+    date: "2026-06-18",
     content: `
 ### Features
 

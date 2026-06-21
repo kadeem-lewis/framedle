@@ -16,7 +16,7 @@ export default defineTask({
     try {
       const data = await fetchWarframeData();
       const warframes = buildWarframeData(data);
-      const abilities = await buildAbilityData(warframes, data);
+      const abilities = await buildAbilityData(warframes);
 
       const updatedWarframes = updateWarframeDataFromAbilities(
         warframes,

@@ -63,9 +63,10 @@ export function buildWarframeData(
   const warframes = new Map<string, WarframeShape>();
 
   for (const [key, value] of Object.entries(initialWarframes)) {
-    if (value._IgnoreEntry) continue;
-
     const formattedData = pascalCaseToCamelCase(value);
+
+    if (value._IgnoreEntry && !["Sirius", "Orion"].includes(formattedData.name))
+      continue; // ! The wiki uses Sirius and Orion as a single entry but my game requires them to be separate so I need to override _IgnoreEntry to get their data
 
     let finalData: Record<string, unknown> = {
       ...formattedData,

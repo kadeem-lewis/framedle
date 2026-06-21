@@ -142,6 +142,11 @@ export default defineNuxtConfig({
     rateLimiter: {
       tokensPerInterval: 300, // Doubled limit to prevent unexpected rate limiting
     },
+    headers: {
+      contentSecurityPolicy: {
+        "img-src": ["'self'", "data:", "https://ik.imagekit.io"],
+      },
+    },
   },
 
   ogImage: {

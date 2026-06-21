@@ -37,59 +37,40 @@ type WarframeWikiData = {
   [key: string]: unknown;
 };
 
-type WarframeApiData = {
-  name: string;
-  type: string;
-  abilities: Record<string, string>[];
-  productCategory: string;
-  aura: string | string[];
-  releaseDate: string | null;
-  isPrime: boolean;
-  imageName: string;
-};
-
 export async function fetchWarframeData() {
-  const [wikiWarframeData, wikiVersionData, apiData] = await Promise.all([
+  const [wikiWarframeData, wikiVersionData] = await Promise.all([
     $fetch<string>(
       "https://wiki.warframe.com/w/Module:Warframes/data?action=raw",
     ),
     $fetch<string>(
       "https://wiki.warframe.com/w/Module:Version/data?action=raw",
     ),
-    $fetch<WarframeApiData[]>(
-      "https://raw.githubusercontent.com/WFCD/warframe-items/refs/heads/master/data/json/Warframes.json",
-      {
-        parseResponse: (text) => JSON.parse(text),
-      },
-    ),
   ]);
 
   return {
     wikiWarframeData: parse(wikiWarframeData) as WarframeWikiData,
     wikiVersionData: parse(wikiVersionData) as WarframeWikiVersionData,
-    apiData,
   };
 }
 
 export function buildWarframeData(
   data: Awaited<ReturnType<typeof fetchWarframeData>>,
 ) {
-  const { wikiWarframeData, wikiVersionData, apiData } = data;
+  const { wikiWarframeData, wikiVersionData } = data;
 
   const initialWarframes = wikiWarframeData.Warframes;
 
   const warframes = new Map<string, WarframeShape>();
 
   for (const [key, value] of Object.entries(initialWarframes)) {
-    if (value._IgnoreEntry) continue;
-
     const formattedData = pascalCaseToCamelCase(value);
 
-    const apiWarframe = apiData.find((w) => w.name === formattedData.name);
+    if (value._IgnoreEntry && !["Sirius", "Orion"].includes(formattedData.name))
+      continue; // ! The wiki uses Sirius and Orion as a single entry but my game requires them to be separate so I need to override _IgnoreEntry to get their data
 
     let finalData: Record<string, unknown> = {
       ...formattedData,
-      imageName: apiWarframe?.imageName || null,
+      imageName: formattedData.image || null,
       aura: formattedData.auraPolarity,
     };
 
@@ -147,15 +128,10 @@ type WikiAbilityData = {
 
 export async function buildAbilityData(
   warframes: ReturnType<typeof buildWarframeData>,
-  gameData: Awaited<ReturnType<typeof fetchWarframeData>>,
 ) {
   const validAbilities = [
     ...new Set(warframes.values().flatMap((warframe) => warframe.abilities)),
   ];
-
-  const apiAbilities = gameData.apiData.flatMap(
-    (warframe) => warframe.abilities,
-  );
 
   const finalAbilities = new Map<string, BuiltAbilityShape>();
 
@@ -169,9 +145,6 @@ export async function buildAbilityData(
 
   validAbilities.forEach((abilityName) => {
     const abilityData = abilities[abilityName];
-    const apiAbility = apiAbilities.find(
-      (a) => a.name?.toLowerCase() === abilityName.toLowerCase(),
-    );
 
     if (!abilityData) {
       console.warn(`Ability data not found for ${abilityName}`);
@@ -180,7 +153,7 @@ export async function buildAbilityData(
 
     const result = builtAbilitySchema.safeParse({
       name: abilityData.Name,
-      imageName: apiAbility?.imageName || null,
+      imageName: abilityData.Icon || null,
       belongsTo: abilityData.Powersuit,
       weapon: abilityData.Weapon,
     });
@@ -221,14 +194,21 @@ export async function writeDataToFile(
   warframes: ReturnType<typeof buildWarframeData>,
   abilities: Awaited<ReturnType<typeof buildAbilityData>>,
 ) {
+  const publicWarframes = Object.fromEntries(
+    [...warframes.entries()].map(([key, warframe]) => {
+      const { imageName, ...rest } = warframe;
+      return [key, rest];
+    }),
+  );
+
   const tsContent = `// Auto-generated warframes data
-    export const warframes = ${JSON.stringify(Object.fromEntries(warframes.entries()), null, 2)} as const;`;
+    export const warframes = ${JSON.stringify(publicWarframes, null, 2)} as const;`;
 
   await fs.writeFile("./shared/data/warframes.ts", tsContent);
 
   const publicAbilities = Object.fromEntries(
     [...abilities.entries()].map(([key, ability]) => {
-      const { weapon, ...rest } = ability;
+      const { weapon, imageName, ...rest } = ability;
       return [key, rest];
     }),
   );

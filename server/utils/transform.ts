@@ -8,3 +8,10 @@ export function pascalCaseToCamelCase<T extends Record<string, unknown>>(
   }
   return transformedObject as T;
 }
+
+export function transformToKebabCase(str: string) {
+  return str
+    .replace(/([a-z])([A-Z])/g, "$1-$2")
+    .replace(/[\s_]+/g, "-")
+    .toLowerCase();
+}

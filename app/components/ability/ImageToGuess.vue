@@ -21,18 +21,24 @@ const img = useImage();
 const imageUrl = computed(() => {
   if (mode.value === "ability" && itemToGuess.value.ability) {
     return img(
-      `https://cdn.warframestat.us/img/${getAbility(itemToGuess.value.ability).imageName}`,
-      { format: "webp", width: CANVAS_SIZE, height: CANVAS_SIZE },
-      { modifiers: { enlarge: true } }, // scale smaller images up to CANVAS_SIZE
+      getAbility(itemToGuess.value.ability).image,
+      {
+        width: CANVAS_SIZE,
+        height: CANVAS_SIZE,
+      },
+      { modifiers: { enlarge: true }, provider: "imagekit" }, // scale smaller images up to CANVAS_SIZE
     );
   } else if (
     mode.value === "abilityUnlimited" &&
     itemToGuess.value.abilityUnlimited
   ) {
     return img(
-      `https://cdn.warframestat.us/img/${getAbility(itemToGuess.value.abilityUnlimited).imageName}`,
-      { format: "webp", width: CANVAS_SIZE, height: CANVAS_SIZE },
-      { modifiers: { enlarge: true } },
+      getAbility(itemToGuess.value.abilityUnlimited).image,
+      {
+        width: CANVAS_SIZE,
+        height: CANVAS_SIZE,
+      },
+      { modifiers: { enlarge: true }, provider: "imagekit" },
     );
   }
   throw createError("Ability mode is not set");

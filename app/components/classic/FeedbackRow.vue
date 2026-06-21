@@ -13,8 +13,8 @@ const { checkGuess } = useGuess();
       :show-visual-assist="true"
     >
       <NuxtImg
-        format="avif"
-        :src="`https://cdn.warframestat.us/img/${guessedWarframe.imageName}`"
+        provider="imagekit"
+        :src="guessedWarframe.image"
         :alt="guessedWarframe.name"
         preload
         placeholder

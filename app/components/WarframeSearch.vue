@@ -114,8 +114,8 @@ const handleSubmit = async () => {
             {{ item.label }}
           </p>
           <NuxtImg
-            format="webp"
-            :src="`https://cdn.warframestat.us/img/${getWarframe(item.value).imageName}`"
+            provider="imagekit"
+            :src="getWarframe(item.value).image"
             :alt="item.label"
             placeholder
             height="64"

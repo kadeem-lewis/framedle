@@ -32,9 +32,9 @@ const { isDaily } = useGameMode();
         {{ formatFloat(rarity) }}%
       </UBadge>
       <NuxtImg
-        :src="`https://cdn.warframestat.us/img/${warframe.imageName}`"
+        provider="imagekit"
+        :src="warframe.image"
         :alt="`Image of ${warframe.name}`"
-        format="avif"
         height="108"
         width="87"
         class="h-27 w-21.75 object-top pt-3"

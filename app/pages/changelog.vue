@@ -14,6 +14,18 @@ useSeoMeta({
 
 const versions = [
   {
+    title: "1.7.1",
+    date: "2026-06-20",
+    content: `
+### Bug Fixes
+
+- Fixed images in app not loading
+- Fixed some dailies being broken due to data capitalization not matching
+- Fixed Styanax Prime, Sirius and Orion not being available in the game
+    `,
+    badge: "v1.7.1",
+  },
+  {
     title: "1.7.0",
     date: "2026-05-18",
     content: `

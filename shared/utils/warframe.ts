@@ -20,12 +20,27 @@ export const abilityNames = Object.keys(
   abilities,
 ) as (keyof typeof abilities)[];
 
+const lowercaseAbilitiesMap = Object.entries(abilities).reduce(
+  (acc, [key, value]) => {
+    acc[key.toLowerCase()] = value;
+    return acc;
+  },
+  {} as Record<string, Ability>,
+);
+
 export const getWarframe = (warframe: WarframeName) => {
   return warframes[warframe];
 };
 
-export const getAbility = (ability: AbilityName) => {
-  return abilities[ability];
+export const getAbility = (ability: string): Ability => {
+  const normalized = ability.toLowerCase(); // ! The older version of the data handled capitalization differently so I need to normalize the input to ensure old and new values work
+  const resolved = lowercaseAbilitiesMap[normalized];
+
+  if (!resolved) {
+    throw createError(`Unknown ability: ${ability}`);
+  }
+
+  return resolved;
 };
 
 export const getRandomWarframe = (): WarframeName => {

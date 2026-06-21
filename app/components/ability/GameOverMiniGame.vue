@@ -72,9 +72,9 @@ const abilityNames = computed(() => correctWarframe.abilities);
     <div class="border-2 bg-default/70">
       <NuxtImg
         v-if="correctAbility"
-        :src="`https://cdn.warframestat.us/img/${getAbility(correctAbility).imageName}`"
+        provider="imagekit"
+        :src="getAbility(correctAbility).image"
         alt="ability image"
-        format="avif"
         height="96"
         width="96"
         class="mx-auto mb-2 object-cover invert dark:invert-0"

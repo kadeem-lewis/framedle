@@ -1,5 +1,13 @@
 # Changelog
 
+## v1.7.1 - June 19th, 2026
+
+### Bug Fixes
+
+- Fixed images in app not loading
+- Fixed some dailies being broken due to data capitalization not matching
+- Fixed Styanax Prime, Sirius and Orion not being available in the game
+
 ## v1.7.0 - June 18th, 2026
 
 ### Features

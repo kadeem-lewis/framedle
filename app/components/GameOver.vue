@@ -76,10 +76,10 @@ const runtimeConfig = useRuntimeConfig();
             tooltip-disabled
           >
             <NuxtImg
-              v-if="correctWarframe?.imageName"
-              :src="`https://cdn.warframestat.us/img/${correctWarframe.imageName}`"
-              :alt="`${correctWarframe}`"
-              format="avif"
+              v-if="correctWarframe?.image"
+              provider="imagekit"
+              :src="correctWarframe.image"
+              :alt="correctWarframe.name"
               height="76"
               width="76"
             />

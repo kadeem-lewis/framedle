@@ -1,5 +1,11 @@
 # Changelog
 
+## v1.7.2 - June 22nd, 2026
+
+### Bug Fixes
+
+- Fixed Orion having incorrect stats in the game
+
 ## v1.7.1 - June 19th, 2026
 
 ### Bug Fixes

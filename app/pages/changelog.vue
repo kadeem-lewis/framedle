@@ -14,6 +14,16 @@ useSeoMeta({
 
 const versions = [
   {
+    title: "1.7.2",
+    date: "2026-06-22",
+    content: `
+### Bug Fixes
+
+- Fixed Orion having incorrect stats in the game
+    `,
+    badge: "v1.7.2",
+  },
+  {
     title: "1.7.1",
     date: "2026-06-20",
     content: `

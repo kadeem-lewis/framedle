@@ -1585,9 +1585,9 @@ export const warframes = {
   },
   Orion: {
     name: "Orion",
-    health: 475,
-    shield: 355,
-    armor: 160,
+    health: 350,
+    shield: 270,
+    armor: 300,
     energy: 200,
     sprint: 1.15,
     aura: "Naramon",

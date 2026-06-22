@@ -35,9 +35,6 @@ importers:
       '@vueuse/nuxt':
         specifier: ^14.3.0
         version: 14.3.0(magicast@0.5.3)(nuxt@4.4.6(c76a35a1a13cf9275b96d8b0633057f2))(vue@3.5.35(typescript@6.0.3))
-      '@vueuse/rxjs':
-        specifier: ^14.3.0
-        version: 14.3.0(rxjs@7.8.2)(vue@3.5.35(typescript@6.0.3))
       apexcharts:
         specifier: ^5.13.0
         version: 5.13.0
@@ -4495,12 +4492,6 @@ packages:
     resolution: {integrity: sha512-Uxaz/DsNa3i7vHTSjZin5R17R5pt+MtpAifsfqhV1qiBZti1wYv+/S3xysCMHuuiWyLIbbignKxIsgG9ul5kEA==}
     peerDependencies:
       nuxt: ^3.0.0 || ^4.0.0-0
-      vue: ^3.5.0
-
-  '@vueuse/rxjs@14.3.0':
-    resolution: {integrity: sha512-sSmwVjbq3Jv7Dxdvf+YTzupTxtwqRPbVDJicQ9jII5HyjSQZNn5ypfuMaRvA0oqNmGzZjqJHNn/NQ67iMIpmvQ==}
-    peerDependencies:
-      rxjs: '>=6.0.0'
       vue: ^3.5.0
 
   '@vueuse/shared@10.11.1':
@@ -14008,12 +13999,6 @@ snapshots:
       vue: 3.5.35(typescript@6.0.3)
     transitivePeerDependencies:
       - magicast
-
-  '@vueuse/rxjs@14.3.0(rxjs@7.8.2)(vue@3.5.35(typescript@6.0.3))':
-    dependencies:
-      '@vueuse/shared': 14.3.0(vue@3.5.35(typescript@6.0.3))
-      rxjs: 7.8.2
-      vue: 3.5.35(typescript@6.0.3)
 
   '@vueuse/shared@10.11.1(vue@3.5.35(typescript@6.0.3))':
     dependencies:

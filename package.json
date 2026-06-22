@@ -56,7 +56,6 @@
     "@vite-pwa/nuxt": "^1.1.1",
     "@vueuse/core": "^14.3.0",
     "@vueuse/nuxt": "^14.3.0",
-    "@vueuse/rxjs": "^14.3.0",
     "apexcharts": "^5.13.0",
     "cheerio": "^1.2.0",
     "date-fns": "^4.4.0",

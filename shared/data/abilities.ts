@@ -260,11 +260,6 @@ export const abilities = {
     belongsTo: "Excalibur",
     image: "abilities/exalted-blade.png",
   },
-  "Radial Howl": {
-    name: "Radial Howl",
-    belongsTo: "Excalibur Umbra",
-    image: "abilities/radial-howl.png",
-  },
   "Forced Perspective": {
     name: "Forced Perspective",
     belongsTo: "Follie",

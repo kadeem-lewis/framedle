@@ -158,7 +158,7 @@ export async function buildAbilityData(
       weapon: abilityData.Weapon,
     });
     if (result.success) {
-      if (result.data.name === "Celestial Clash") return; //! Both Sirius and Orion have this as their 4th ability and I don't know if my game's logic is equipped to handle that
+      if (["Celestial Clash", "Radial Howl"].includes(result.data.name)) return; //! Both Sirius and Orion have this as their 4th ability and I don't know if my game's logic is equipped to handle that
       finalAbilities.set(abilityName, result.data);
     } else {
       console.error("Error parsing ability", abilityName, result.error);

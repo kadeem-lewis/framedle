@@ -14,6 +14,16 @@ useSeoMeta({
 
 const versions = [
   {
+    title: "1.7.3",
+    date: "2026-06-23",
+    content: `
+### Bug Fixes
+
+- Removed Radial Howl as an option from ability game mode because Excalibur Umbra is not a guessable warframe in that mode.
+    `,
+    badge: "v1.7.3",
+  },
+  {
     title: "1.7.2",
     date: "2026-06-22",
     content: `

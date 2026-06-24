@@ -14,6 +14,16 @@ useSeoMeta({
 
 const versions = [
   {
+    title: "1.7.4",
+    date: "2026-06-23",
+    content: `
+### Bug Fixes
+
+- Fixed feedback form not being submittable with no email field
+`,
+    badge: "v1.7.4",
+  },
+  {
     title: "1.7.3",
     date: "2026-06-23",
     content: `

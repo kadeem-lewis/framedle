@@ -1,5 +1,11 @@
 # Changelog
 
+## v1.7.4 - June 23rd, 2026
+
+### Bug Fixes
+
+- Fixed feedback form not being submittable with no email field
+
 ## v1.7.3 - June 23rd, 2026
 
 ### Bug Fixes

@@ -9,13 +9,13 @@ export const messageTypes = [
 ] as const;
 
 export const feedbackSchema = z.looseObject({
-  email: z.email().optional(),
-  message: z
-    .string()
-    .nonempty("You have to say something")
-    .max(2000, {
-      error: "Message is too long. Keep it under 2000 characters.",
-    }),
+  email: z.preprocess(
+    (val) => (val === "" ? undefined : val),
+    z.email().optional(),
+  ),
+  message: z.string().nonempty("You have to say something").max(2000, {
+    error: "Message is too long. Keep it under 2000 characters.",
+  }),
   messageType: z.enum(messageTypes, {
     error: "Please select a valid message type",
   }),

@@ -16,7 +16,7 @@ useSeoMeta({
 const items = [...messageTypes];
 
 const getInitialState = () => ({
-  email: "",
+  email: undefined,
   messageType: undefined,
   message: "",
   token: "",
@@ -102,7 +102,7 @@ async function onSubmit(event: FormSubmitEvent<Feedback>) {
               }"
             />
           </UFormField>
-          <UFormField label="Message Type:" name="messageType">
+          <UFormField label="Message Type:" name="messageType" required>
             <USelect
               v-model="state.messageType"
               :items="items"
@@ -110,7 +110,7 @@ async function onSubmit(event: FormSubmitEvent<Feedback>) {
               required
             />
           </UFormField>
-          <UFormField label="Message:" name="message">
+          <UFormField label="Message:" name="message" required>
             <UTextarea
               v-model="state.message"
               :rows="5"

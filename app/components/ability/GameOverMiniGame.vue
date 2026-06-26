@@ -43,7 +43,11 @@ const hasSelected = computed(() => {
   if (mode.value !== "ability" && mode.value !== "abilityUnlimited") return;
   return !!selectedMinigameAbility.value[mode.value];
 });
-const isCorrectAnswer = (ability: string) => ability === correctAbility;
+const isCorrectAnswer = (ability: string) => {
+  console.log("Checking ability", ability, correctAbility);
+  return ability.toLowerCase() === correctAbility.toLowerCase();
+};
+
 const isUserSelection = (ability: string) => {
   if (mode.value !== "ability" && mode.value !== "abilityUnlimited")
     return false;
@@ -110,7 +114,10 @@ const abilityNames = computed(() => correctWarframe.abilities);
         class="text-center font-medium uppercase"
       >
         <p
-          v-if="selectedMinigameAbility[mode] === correctAbility"
+          v-if="
+            selectedMinigameAbility[mode].toLowerCase() ===
+            correctAbility.toLowerCase()
+          "
           class="text-correct"
         >
           You got it!

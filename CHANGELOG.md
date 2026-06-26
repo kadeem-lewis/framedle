@@ -1,5 +1,11 @@
 # Changelog
 
+## v1.7.5 - June 26th, 2026
+
+### Bug Fixes
+
+- Fixed ability minigame marking the correct answer as incorrect due to difference in capitalization
+
 ## v1.7.4 - June 23rd, 2026
 
 ### Bug Fixes

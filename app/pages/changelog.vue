@@ -14,6 +14,16 @@ useSeoMeta({
 
 const versions = [
   {
+    title: "1.7.5",
+    date: "2026-06-26",
+    content: `
+### Bug Fixes
+
+- Fixed ability minigame marking the correct answer as incorrect
+`,
+    badge: "v1.7.5",
+  },
+  {
     title: "1.7.4",
     date: "2026-06-23",
     content: `

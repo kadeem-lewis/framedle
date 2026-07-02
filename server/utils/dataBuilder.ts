@@ -71,7 +71,7 @@ export function buildWarframeData(
     let finalData: Record<string, unknown> = {
       ...formattedData,
       imageName: formattedData.image || null,
-      aura: formattedData.auraPolarity,
+      aura: formattedData.auraPolarity || "None",
     };
 
     const releaseDate = wikiVersionData.find(

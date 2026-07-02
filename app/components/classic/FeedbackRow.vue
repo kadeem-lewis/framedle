@@ -4,6 +4,58 @@ const { guessedWarframe, correctWarframe } = defineProps<{
   correctWarframe: Warframe;
 }>();
 const { checkGuess } = useGuess();
+
+const feedbackTiles = computed(() => [
+  {
+    label: "Sex",
+    value: guessedWarframe.sex,
+    variant: checkGuess(correctWarframe.sex, guessedWarframe.sex),
+    display: guessedWarframe.sex,
+  },
+  {
+    label: "Variant",
+    value: guessedWarframe.variant,
+    variant: checkGuess(correctWarframe.variant, guessedWarframe.variant),
+    display: guessedWarframe.variant,
+  },
+  {
+    label: "Playstyle",
+    value: [...guessedWarframe.playstyle],
+    variant: checkGuess(
+      [...correctWarframe.playstyle],
+      [...guessedWarframe.playstyle],
+    ),
+    display: [...guessedWarframe.playstyle].join(", "),
+    class: { "text-sm": guessedWarframe.playstyle.length >= 3 },
+  },
+  {
+    label: "Health",
+    value: guessedWarframe.health,
+    variant: checkGuess(correctWarframe.health, guessedWarframe.health),
+    display: guessedWarframe.health,
+  },
+  {
+    label: "Shield",
+    value: guessedWarframe.shield,
+    variant: checkGuess(correctWarframe.shield, guessedWarframe.shield),
+    display: guessedWarframe.shield,
+  },
+  {
+    label: "Element",
+    value: guessedWarframe.progenitor,
+    variant: checkGuess(correctWarframe.progenitor, guessedWarframe.progenitor),
+    display: guessedWarframe.progenitor,
+  },
+  {
+    label: "Release Date",
+    value: parseReleaseDate(guessedWarframe.releaseDate),
+    variant: checkGuess(
+      parseReleaseDate(correctWarframe.releaseDate),
+      parseReleaseDate(guessedWarframe.releaseDate),
+    ),
+    display: parseReleaseDate(guessedWarframe.releaseDate),
+  },
+]);
 </script>
 <template>
   <div class="contents">
@@ -22,87 +74,31 @@ const { checkGuess } = useGuess();
         width="76"
       />
     </UiFeedbackTile>
-
     <UiFeedbackTile
-      :variant="checkGuess(correctWarframe.sex, guessedWarframe.sex)"
-      field-label="Sex"
-      :field-value="guessedWarframe.sex"
+      v-for="tile of feedbackTiles"
+      :key="tile.label"
+      :variant="tile.variant"
+      :field-label="tile.label"
+      :field-value="tile.value"
       :show-visual-assist="true"
+      :class="tile.class"
     >
-      {{ guessedWarframe.sex }}
-    </UiFeedbackTile>
-    <UiFeedbackTile
-      :variant="checkGuess(correctWarframe.variant, guessedWarframe.variant)"
-      field-label="Variant"
-      :field-value="guessedWarframe.variant"
-      :show-visual-assist="true"
-    >
-      {{ guessedWarframe.variant }}
-    </UiFeedbackTile>
-    <UiFeedbackTile
-      :variant="
-        checkGuess(
-          [...correctWarframe.playstyle],
-          [...guessedWarframe.playstyle],
-        )
-      "
-      field-label="Playstyle"
-      :field-value="[...guessedWarframe.playstyle]"
-      :show-visual-assist="true"
-      :class="{
-        'text-sm': guessedWarframe.playstyle.length >= 3,
-      }"
-    >
-      {{ [...guessedWarframe.playstyle].join(", ") }}
-    </UiFeedbackTile>
-    <UiFeedbackTile
-      :variant="checkGuess(correctWarframe.health, guessedWarframe.health)"
-      field-label="Health"
-      :field-value="guessedWarframe.health"
-      :show-visual-assist="true"
-    >
-      {{ guessedWarframe.health }}
-    </UiFeedbackTile>
-    <UiFeedbackTile
-      :variant="checkGuess(correctWarframe.shield, guessedWarframe.shield)"
-      field-label="Shield"
-      :field-value="guessedWarframe.shield"
-      :show-visual-assist="true"
-    >
-      {{ guessedWarframe.shield }}
-    </UiFeedbackTile>
-    <UiFeedbackTile
-      :variant="
-        checkGuess(correctWarframe.progenitor, guessedWarframe.progenitor)
-      "
-      field-label="Element"
-      :field-value="guessedWarframe.progenitor"
-      :show-visual-assist="true"
-    >
-      <div class="flex flex-col items-center gap-1">
+      <div
+        v-if="tile.label === 'Element'"
+        class="flex flex-col items-center gap-1"
+      >
         <NuxtImg
-          format="avif"
-          :src="`/elements/${guessedWarframe.progenitor}.png`"
-          :alt="guessedWarframe.progenitor"
+          :src="`/elements/${tile.value}.png`"
+          :alt="`${tile.value} element`"
+          preload
           height="36"
           width="36"
-          preload
         />
-        <p class="text-sm">{{ guessedWarframe.progenitor }}</p>
+        <p class="text-sm">{{ tile.display }}</p>
       </div>
-    </UiFeedbackTile>
-    <UiFeedbackTile
-      :variant="
-        checkGuess(
-          parseReleaseDate(correctWarframe.releaseDate),
-          parseReleaseDate(guessedWarframe.releaseDate),
-        )
-      "
-      field-label="Release Date"
-      :field-value="parseReleaseDate(guessedWarframe.releaseDate)"
-      :show-visual-assist="true"
-    >
-      {{ parseReleaseDate(guessedWarframe.releaseDate) }}
+      <template v-else>
+        {{ tile.display }}
+      </template>
     </UiFeedbackTile>
   </div>
 </template>

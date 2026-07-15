@@ -1,7 +1,6 @@
 <script setup lang="ts">
 const runtimeConfig = useRuntimeConfig();
 
-const { openDialog } = useDialog();
 const { proxy } = useUmamiAnalytics();
 
 const START_YEAR = 2024 as const;
@@ -12,8 +11,7 @@ const items = [
     srText: "About Game",
     icon: "i-mdi-information-variant",
     color: "neutral" as const,
-    class: "",
-    command: () => openDialog(dialogOptions.ABOUT),
+    to: "/about",
   },
   {
     srText: "discord invite link",

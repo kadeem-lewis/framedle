@@ -87,7 +87,7 @@ const { title: gameOverTitle, subtitle: gameOverSubtitle } =
     <UCard
       v-if="mode && isLegacyMode(mode)"
       :class="[
-        'border',
+        'divide-y-0 border',
         {
           'border-correct-border-subtle bg-correct-base': hasWon,
           'border-incorrect-border-subtle bg-incorrect-base': !hasWon,
@@ -100,7 +100,7 @@ const { title: gameOverTitle, subtitle: gameOverSubtitle } =
         </p>
       </template>
       <template #description>
-        <p class="font-roboto text-lg font-semibold uppercase">
+        <p class="font-roboto text-lg font-semibold text-toned uppercase">
           {{ gameOverSubtitle }}
         </p>
       </template>
@@ -156,7 +156,13 @@ const { title: gameOverTitle, subtitle: gameOverSubtitle } =
         >
 
         <div v-if="mode === 'ability' || mode === 'abilityUnlimited'">
-          <UButton variant="link" @click="showGuesses = !showGuesses"
+          <UButton
+            variant="link"
+            @click="
+              () => {
+                showGuesses = !showGuesses;
+              }
+            "
             >{{ showGuesses ? "Hide" : "Show" }} guesses</UButton
           >
           <ul v-if="showGuesses">

@@ -62,6 +62,8 @@ const headerText = computed(() => {
 });
 
 const { makeGuess } = useGuess();
+
+const { showClassicSummary } = storeToRefs(useSettingsStore());
 </script>
 <template>
   <div
@@ -95,6 +97,7 @@ const { makeGuess } = useGuess();
         <GlobalStats v-if="isDaily" />
         <template v-if="itemToGuess[mode]">
           <ClassicSummaryRow
+            v-if="showClassicSummary"
             :correct-warframe="getWarframe(itemToGuess[mode]!)"
             :guessed-items="guessedItems[mode]"
           />

@@ -121,17 +121,24 @@ const { makeGuess } = useGuess();
               </template>
             </UPopover>
           </UFieldGroup>
-          <div
-            v-if="guessedItems[mode].length && itemToGuess[mode]"
-            class="grid w-[190%] grid-cols-8 gap-1 text-sm capitalize md:ml-[-45%] md:text-base"
-          >
-            <ClassicFeedbackRow
-              v-for="warframe of [...guessedItems[mode]].reverse()"
-              :key="warframe"
-              :guessed-warframe="getWarframe(warframe)"
+          <template v-if="itemToGuess[mode]">
+            <ClassicSummaryRow
               :correct-warframe="getWarframe(itemToGuess[mode]!)"
+              :guessed-items="guessedItems[mode]"
             />
-          </div>
+            <USeparator class="w-[190%] md:ml-[-45%]" />
+            <div
+              v-if="guessedItems[mode].length"
+              class="grid w-[190%] grid-cols-8 gap-1 text-sm capitalize md:ml-[-45%] md:text-base"
+            >
+              <ClassicFeedbackRow
+                v-for="warframe of [...guessedItems[mode]].reverse()"
+                :key="warframe"
+                :guessed-warframe="getWarframe(warframe)"
+                :correct-warframe="getWarframe(itemToGuess[mode]!)"
+              />
+            </div>
+          </template>
         </div>
         <div
           class="flex items-center justify-center gap-1 font-semibold text-neutral-800 md:hidden dark:text-neutral-400"

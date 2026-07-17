@@ -175,7 +175,10 @@ function useRangeFeedback(
 </script>
 <template>
   <div class="grid w-[190%] grid-cols-8 gap-1 md:ml-[-45%]">
-    <UiFeedbackTile field-label="Summary" tooltip-disabled
+    <UiFeedbackTile
+      field-label="Summary"
+      tooltip-disabled
+      class="text-sm uppercase"
       >Summary</UiFeedbackTile
     >
     <UiFeedbackTile

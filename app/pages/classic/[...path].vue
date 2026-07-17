@@ -54,6 +54,13 @@ const labelMap = {
   "release year": "Any year between 2012 and today",
 };
 
+const headerText = computed(() => {
+  if (isDaily.value) {
+    return "Guess Today's Warframe";
+  }
+  return "Guess the Warframe";
+});
+
 const { makeGuess } = useGuess();
 </script>
 <template>
@@ -70,7 +77,7 @@ const { makeGuess } = useGuess();
             <h1
               class="font-roboto text-xl font-bold text-primary-600 uppercase dark:text-primary"
             >
-              Guess the Warframe
+              {{ headerText }}
             </h1>
           </template>
           <template v-if="attempts[mode] === DEFAULT_ATTEMPTS" #description>

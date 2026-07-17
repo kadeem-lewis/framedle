@@ -3,7 +3,7 @@
 const { $colorblindMode } = useNuxtApp();
 
 // theme
-const { showBackground } = storeToRefs(useSettingsStore());
+const { showBackground, showClassicSummary } = storeToRefs(useSettingsStore());
 
 //data transfer
 </script>
@@ -58,6 +58,16 @@ const { showBackground } = storeToRefs(useSettingsStore());
           v-model="showBackground"
           size="lg"
           label="Show Background"
+        />
+      </UiItem>
+    </div>
+    <div class="flex flex-col gap-1 py-2">
+      <p class="text-lg font-medium">Classic</p>
+      <UiItem>
+        <UiAppSwitch
+          v-model="showClassicSummary"
+          size="lg"
+          label="Show Classic Summary Row"
         />
       </UiItem>
     </div>

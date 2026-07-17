@@ -43,28 +43,27 @@ onBeforeMount(() => {
 
 useSubmission();
 
-const feedbackLabels = [
-  "name",
-  "sex",
-  "variant",
-  "playstyle",
-  "base health",
-  "base shield",
-  "progenitor element",
-  "release year",
-];
-
-const tooltipMap = {
+const labelMap = {
+  warframe: "The name and image of the Warframe you guessed",
   sex: "Male, Female or Non-binary",
-  "release year": "Any year between 2012 and today",
+  variant: "Standard, Prime or Umbra",
+  playstyle: "Damage, Stealth, Support, Survival, etc...",
   "base health": "The health of the Warframe at level 0",
   "base shield": "The shields of the Warframe at level 0",
   "progenitor element": "Impact, Heat, Cold, etc...",
-  playstyle: "Damage, Stealth, Support, Survival, etc...",
-  variant: "Standard, Prime or Umbra",
+  "release year": "Any year between 2012 and today",
 };
 
+const headerText = computed(() => {
+  if (isDaily.value) {
+    return "Guess Today's Warframe";
+  }
+  return "Guess the Warframe";
+});
+
 const { makeGuess } = useGuess();
+
+const { showClassicSummary } = storeToRefs(useSettingsStore());
 </script>
 <template>
   <div
@@ -76,16 +75,15 @@ const { makeGuess } = useGuess();
       <div v-if="itemToGuess[mode]" class="flex flex-col gap-4">
         <RemainingGuesses />
         <UCard class="divide-y-0">
-          <template #header>
+          <template #title>
             <h1
-              class="font-roboto text-2xl font-bold text-primary-600 uppercase dark:text-primary"
+              class="font-roboto text-xl font-bold text-primary-600 uppercase dark:text-primary"
             >
-              Guess the Warframe
+              {{ headerText }}
             </h1>
-            <p
-              v-if="attempts[mode] === DEFAULT_ATTEMPTS"
-              class="font-semibold uppercase"
-            >
+          </template>
+          <template v-if="attempts[mode] === DEFAULT_ATTEMPTS" #description>
+            <p class="text-base font-medium text-default uppercase">
               Take a guess to get started
             </p>
           </template>
@@ -97,52 +95,60 @@ const { makeGuess } = useGuess();
           />
         </UCard>
         <GlobalStats v-if="isDaily" />
-        <template v-if="guessedItems[mode].length && itemToGuess[mode]">
-          <div
-            class="flex flex-col gap-4 overflow-x-auto md:overflow-x-visible"
-          >
-            <div
-              class="grid w-[190%] grid-cols-8 gap-1 border border-neutral-200 bg-white py-0.5 text-sm uppercase md:ml-[-45%] md:text-base dark:border-neutral-800 dark:bg-neutral-900"
-            >
-              <UTooltip
-                v-for="label of feedbackLabels"
-                :key="label"
-                :disabled="label === 'name'"
-                :content="{
-                  side: 'top',
-                }"
-                :delay-duration="0"
-                :ui="{
-                  content: 'text-md rounded-none px-3 py-2',
-                }"
-                :text="tooltipMap[label as keyof typeof tooltipMap]"
-              >
-                <p
-                  class="self-center justify-self-center text-center font-roboto font-medium"
-                >
-                  {{ label }}
-                </p>
-              </UTooltip>
-            </div>
-            <div
-              class="grid w-[190%] grid-cols-8 gap-1 text-sm capitalize md:ml-[-45%] md:text-base"
-            >
-              <ClassicFeedbackRow
-                v-for="warframe of [...guessedItems[mode]].reverse()"
-                :key="warframe"
-                :guessed-warframe="getWarframe(warframe)"
-                :correct-warframe="getWarframe(itemToGuess[mode]!)"
-              />
-            </div>
-          </div>
-          <div
-            class="flex items-center justify-center gap-1 font-semibold text-neutral-800 md:hidden dark:text-neutral-400"
-          >
-            <UIcon name="i-heroicons-arrow-long-left" class="size-5" />
-            Scroll horizontally to see more
-            <UIcon name="i-heroicons-arrow-long-right" class="size-5" />
-          </div>
+        <template v-if="itemToGuess[mode]">
+          <ClassicSummaryRow
+            v-if="showClassicSummary"
+            :correct-warframe="getWarframe(itemToGuess[mode]!)"
+            :guessed-items="guessedItems[mode]"
+          />
         </template>
+        <div class="flex flex-col gap-4 overflow-x-auto md:overflow-x-visible">
+          <UFieldGroup
+            class="grid w-[190%] grid-cols-8 text-sm uppercase md:ml-[-45%] md:text-base"
+          >
+            <UPopover
+              v-for="(text, label) of labelMap"
+              :key="label"
+              mode="hover"
+              enable-touch
+              :content="{
+                side: 'top',
+              }"
+              :ui="{
+                content: 'text-md rounded-none px-3 py-2',
+              }"
+            >
+              <UButton
+                variant="outline"
+                color="neutral"
+                class="flex justify-center font-roboto text-sm uppercase"
+              >
+                {{ label }}
+              </UButton>
+              <template #content>
+                {{ text }}
+              </template>
+            </UPopover>
+          </UFieldGroup>
+          <div
+            v-if="itemToGuess[mode] && guessedItems[mode].length"
+            class="grid w-[190%] grid-cols-8 gap-1 text-sm capitalize md:ml-[-45%] md:text-base"
+          >
+            <ClassicFeedbackRow
+              v-for="warframe of [...guessedItems[mode]].reverse()"
+              :key="warframe"
+              :guessed-warframe="getWarframe(warframe)"
+              :correct-warframe="getWarframe(itemToGuess[mode]!)"
+            />
+          </div>
+        </div>
+        <div
+          class="flex items-center justify-center gap-1 font-semibold text-neutral-800 md:hidden dark:text-neutral-400"
+        >
+          <UIcon name="i-heroicons-arrow-long-left" class="size-5" />
+          Scroll horizontally to see more
+          <UIcon name="i-heroicons-arrow-long-right" class="size-5" />
+        </div>
         <template v-if="isGameOver">
           <GameOverNavigation v-if="!mode.includes('Unlimited')" />
           <GameOver />

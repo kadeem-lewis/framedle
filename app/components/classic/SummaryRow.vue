@@ -2,24 +2,24 @@
 import { warframes } from "#shared/data/warframes";
 import { sexes, variant, progenitorElements } from "#shared/schemas/warframe";
 
-// TODO: See if there is a more elegant solution to fixing asserting that correctWarframe is not undefined and having to spread certain readonly arrays
+const { correctWarframe, guessedItems } = defineProps<{
+  correctWarframe: Warframe;
+  guessedItems: WarframeName[];
+}>();
 
-const { guessedItems, correctWarframe } = storeToRefs(useGameStore());
 const { mode } = useGameMode();
 
 const items = computed(() => {
   if (!mode.value) return [];
-  if (mode.value === "classicUnlimited")
-    return guessedItems.value.classicUnlimited.map((guess) => warframes[guess]);
-  return guessedItems.value.classic.map((guess) => warframes[guess]);
+  return guessedItems.map((guess) => warframes[guess]);
 });
 
 const sexFeedback = computed(() =>
-  useFeedback(sexes, items, "sex", correctWarframe.value!.sex),
+  useFeedback(sexes, items, "sex", correctWarframe.sex),
 );
 
 const variantFeedback = computed(() =>
-  useFeedback(variant, items, "variant", correctWarframe.value!.variant),
+  useFeedback(variant, items, "variant", correctWarframe.variant),
 );
 
 const progenitorFeedback = computed(() =>
@@ -27,25 +27,25 @@ const progenitorFeedback = computed(() =>
     progenitorElements,
     items,
     "progenitor",
-    correctWarframe.value!.progenitor,
+    correctWarframe.progenitor,
   ),
 );
 
 const playstyleFeedback = computed(() =>
-  useMultipleFeedback(items, [...correctWarframe.value!.playstyle]),
+  useMultipleFeedback(items, [...correctWarframe.playstyle]),
 );
 
 const healthFeedback = computed(() =>
-  useRangeFeedback(items, "health", correctWarframe.value!.health),
+  useRangeFeedback(items, "health", correctWarframe.health),
 );
 const shieldFeedback = computed(() =>
-  useRangeFeedback(items, "shield", correctWarframe.value!.shield),
+  useRangeFeedback(items, "shield", correctWarframe.shield),
 );
 const releaseDateFeedback = computed(() =>
   useRangeFeedback(
     items,
     "releaseDate",
-    parseReleaseDate(correctWarframe.value!.releaseDate),
+    parseReleaseDate(correctWarframe.releaseDate),
     2012,
     new Date().getFullYear(),
   ),
@@ -56,8 +56,9 @@ function useFeedback(
   items: MaybeRef<Warframe[]>,
   valueField: "sex" | "variant" | "progenitor",
   correctValue: string,
-): { state: "correct" | "incorrect"; value?: string } {
+): { state: "correct" | "incorrect" | "neutral"; value?: string } {
   const values = toValue(items);
+  if (values.length === 0) return { state: "neutral", value: "?" };
   const optionsSet = new Set(options);
   values.forEach((value) => optionsSet.delete(value[valueField]));
   const correctValueGuessed = values.some(
@@ -73,8 +74,10 @@ const { checkGuess } = useGuess();
 function useMultipleFeedback(
   items: MaybeRef<Warframe[]>,
   correctValues: string[],
-): { state: Result; value?: string } {
+): { state: Result | "neutral"; value?: string } {
   const values = toValue(items);
+
+  if (values.length === 0) return { state: "neutral", value: "?" };
   const partialGroups: string[][] = [];
   const incorrectValues = new Set<string>();
   let hasPartial = false;
@@ -134,8 +137,14 @@ function useRangeFeedback(
   maxDefault = Infinity,
 ):
   | { state: "correct"; value: number }
-  | { state: "incorrect"; min: number | "???"; max: number | "???" } {
+  | { state: "incorrect"; min: number | "?"; max: number | "?" }
+  | { state: "neutral"; min: "?"; max: "?" } {
   const values = toValue(items);
+
+  if (values.length === 0) {
+    return { state: "neutral", min: "?", max: "?" };
+  }
+
   let min = minDefault;
   let max = maxDefault;
 
@@ -147,22 +156,29 @@ function useRangeFeedback(
     if (currentValue === correctValue) {
       return { state: "correct", value: correctValue };
     } else if (currentValue < correctValue) {
-      min = Math.max(min, currentValue);
+      min = Math.max(min, currentValue + 1);
     } else if (currentValue > correctValue) {
-      max = Math.min(max, currentValue);
+      max = Math.min(max, currentValue - 1);
+    }
+
+    if (min === max) {
+      return { state: "correct", value: correctValue };
     }
   }
 
   return {
     state: "incorrect",
-    min: min === -Infinity ? "???" : min,
-    max: max === Infinity ? "???" : max,
+    min: min === -Infinity ? "?" : min,
+    max: max === Infinity ? "?" : max,
   };
 }
 </script>
 <template>
   <div class="grid w-[190%] grid-cols-8 gap-1 md:ml-[-45%]">
-    <UiFeedbackTile field-label="Summary" tooltip-disabled
+    <UiFeedbackTile
+      field-label="Summary"
+      tooltip-disabled
+      class="text-sm uppercase"
       >Summary</UiFeedbackTile
     >
     <UiFeedbackTile
@@ -189,7 +205,12 @@ function useRangeFeedback(
       :variant="healthFeedback.state"
       tooltip-disabled
     >
-      <span v-if="healthFeedback.state === 'incorrect'">
+      <span
+        v-if="
+          healthFeedback.state === 'incorrect' ||
+          healthFeedback.state === 'neutral'
+        "
+      >
         {{ healthFeedback.min }} - {{ healthFeedback.max }}
       </span>
       <span v-else>{{ healthFeedback.value }}</span>
@@ -199,7 +220,12 @@ function useRangeFeedback(
       :variant="shieldFeedback.state"
       tooltip-disabled
     >
-      <span v-if="shieldFeedback.state === 'incorrect'">
+      <span
+        v-if="
+          shieldFeedback.state === 'incorrect' ||
+          shieldFeedback.state === 'neutral'
+        "
+      >
         {{ shieldFeedback.min }} - {{ shieldFeedback.max }}
       </span>
       <span v-else>{{ shieldFeedback.value }}</span>
@@ -214,7 +240,6 @@ function useRangeFeedback(
         class="flex flex-col items-center gap-1"
       >
         <NuxtImg
-          format="avif"
           :src="`/elements/${progenitorFeedback.value}.png`"
           :alt="progenitorFeedback.value"
           height="36"
@@ -222,14 +247,22 @@ function useRangeFeedback(
           preload
         />
         <p class="text-sm">{{ progenitorFeedback.value }}</p>
-      </div></UiFeedbackTile
-    >
+      </div>
+      <p v-else-if="progenitorFeedback.state === 'neutral'">
+        {{ progenitorFeedback.value }}
+      </p>
+    </UiFeedbackTile>
     <UiFeedbackTile
       field-label="Release Date"
       :variant="releaseDateFeedback.state"
       tooltip-disabled
     >
-      <span v-if="releaseDateFeedback.state === 'incorrect'">
+      <span
+        v-if="
+          releaseDateFeedback.state === 'incorrect' ||
+          releaseDateFeedback.state === 'neutral'
+        "
+      >
         {{ releaseDateFeedback.min }} - {{ releaseDateFeedback.max }}
       </span>
       <span v-else>{{ releaseDateFeedback.value }}</span>

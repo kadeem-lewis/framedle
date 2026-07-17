@@ -63,6 +63,7 @@ const feedbackTiles = computed(() => [
       field-label="Warframe"
       :field-value="guessedWarframe.name"
       :show-visual-assist="true"
+      tooltip-disabled
     >
       <NuxtImg
         provider="imagekit"
@@ -72,6 +73,15 @@ const feedbackTiles = computed(() => [
         placeholder
         height="76"
         width="76"
+      />
+      <UBadge
+        :label="guessedWarframe.name"
+        variant="subtle"
+        color="neutral"
+        :ui="{
+          label: 'whitespace-normal',
+        }"
+        class="absolute bottom-0 flex w-full justify-center rounded-none px-1 py-0.5 text-center break-normal text-default opacity-90 ring-0"
       />
     </UiFeedbackTile>
     <UiFeedbackTile

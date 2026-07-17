@@ -10,7 +10,7 @@ const {
   fieldValue?: string | number | string[];
   tooltipDisabled?: boolean;
   showVisualAssist?: boolean;
-  variant?: Result;
+  variant?: Result | "neutral";
 }>();
 
 defineSlots<{
@@ -39,7 +39,7 @@ const tooltipStyles = computed(() => {
   } else if (variant === "partial") {
     return { content: `${baseStyles} bg-partial text-white` };
   } else if (variant === "neutral") {
-    return { content: `${baseStyles} text-black dark:text-white` };
+    return { content: `${baseStyles} text-default` };
   }
   return { content: `${baseStyles} bg-incorrect text-white` };
 });
@@ -57,14 +57,14 @@ const tooltipStyles = computed(() => {
     <div
       tabindex="0"
       :class="[
-        'relative z-0 min-h-20 w-full border-2 font-medium wrap-break-word text-white transition-colors',
+        'relative z-0 min-h-20 w-full border-2 font-medium wrap-break-word transition-colors',
         {
-          'border-accented bg-default': variant === 'neutral',
-          'border-correct-border bg-correct hover:shadow-inner hover:brightness-110':
+          'border-accented bg-default text-default': variant === 'neutral',
+          'border-correct-border bg-correct text-white hover:shadow-inner hover:brightness-110':
             variant === 'correct',
-          'border-partial-border bg-partial hover:shadow-inner hover:brightness-110':
+          'border-partial-border bg-partial text-white hover:shadow-inner hover:brightness-110':
             variant === 'partial',
-          'border-incorrect-border bg-incorrect hover:shadow-inner hover:brightness-110':
+          'border-incorrect-border bg-incorrect text-white hover:shadow-inner hover:brightness-110':
             variant !== 'correct' && variant !== 'neutral',
           'arrow-up': variant === 'higher',
           'arrow-down': variant === 'lower',

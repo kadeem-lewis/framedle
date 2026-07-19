@@ -22,27 +22,26 @@ const { card, showStats = false } = defineProps<{
       }"
     >
       <NuxtImg
-        format="avif"
         :src="card.background"
         :alt="`${card.label} background`"
-        class="absolute inset-0 z-0 object-cover"
-        preload
+        class="absolute inset-0 z-0"
+        width="1920"
+        sizes="sm:412px md:396px lg:380px"
+        height="1080"
+        :preload="{ fetchPriority: 'high' }"
         loading="eager"
-        fetchpriority="high"
       />
       <div
         class="absolute inset-0 z-0 bg-linear-to-tr from-black to-transparent to-65%"
       />
       <div class="relative z-10 flex flex-row items-center gap-5 text-white">
         <NuxtImg
-          format="avif"
           :src="card.source"
           :alt="card.label"
           height="48"
           width="48"
-          preload
+          :preload="{ fetchPriority: 'high' }"
           loading="eager"
-          fetchpriority="high"
           class="transition-transform duration-100 ease-in group-hover:scale-110"
         />
         <div class="text-shadow-xs">

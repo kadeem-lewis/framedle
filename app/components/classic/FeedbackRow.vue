@@ -69,7 +69,6 @@ const feedbackTiles = computed(() => [
         provider="imagekit"
         :src="guessedWarframe.image"
         :alt="guessedWarframe.name"
-        preload
         placeholder
         height="76"
         width="76"
@@ -100,7 +99,6 @@ const feedbackTiles = computed(() => [
         <NuxtImg
           :src="`/elements/${tile.value}.png`"
           :alt="`${tile.value} element`"
-          preload
           height="36"
           width="36"
         />

@@ -244,7 +244,6 @@ function useRangeFeedback(
           :alt="progenitorFeedback.value"
           height="36"
           width="36"
-          preload
         />
         <p class="text-sm">{{ progenitorFeedback.value }}</p>
       </div>

@@ -22,42 +22,37 @@ export default defineTask({
       questframeResponse,
       signatureWeaponResponse,
       maneuversResponse,
+      accoladeGlyphsResponse,
     ] = await Promise.all([
       $fetch<string>("/Buff_%26_Debuff/Buffs#Healing_", {
         baseURL,
-        parseResponse: (text) => text,
       }),
       $fetch<string>("/Deluxe_Skins", {
         baseURL,
-        parseResponse: (text) => text,
       }),
       $fetch<string>("/Arcane_Helmet", {
         baseURL,
-        parseResponse: (text) => text,
       }),
       $fetch<string>("/Leverian", {
         baseURL,
-        parseResponse: (text) => text,
       }),
       $fetch<string>("/The_Circuit", {
         baseURL,
-        parseResponse: (text) => text,
       }),
       $fetch<string>("/Protoframe", {
         baseURL,
-        parseResponse: (text) => text,
       }),
       $fetch<string>("/Quest", {
         baseURL,
-        parseResponse: (text) => text,
       }),
       $fetch<string>("/Signature_Weapon", {
         baseURL,
-        parseResponse: (text) => text,
       }),
       $fetch<string>("/Maneuvers", {
         baseURL,
-        parseResponse: (text) => text,
+      }),
+      $fetch<string>("/Accolade_Glyphs", {
+        baseURL,
       }),
     ]);
 
@@ -70,6 +65,7 @@ export default defineTask({
     const $questframe = cheerio.load(questframeResponse);
     const $signatureWeapon = cheerio.load(signatureWeaponResponse);
     const $maneuvers = cheerio.load(maneuversResponse);
+    const $accoladeGlyphs = cheerio.load(accoladeGlyphsResponse);
 
     const configs = [
       {
@@ -229,9 +225,7 @@ export default defineTask({
           $("h2#Known_Protoframes")
             .parent()
             .nextAll("ul")
-            .children("li")
-            .children("span")
-            .children("a"), // This query now picks up Sirius and Orion because they meet all the conditions but are not protoframes. I would need to update the query to somehow filter these
+            .find("li span:first-of-type > a > span"),
       },
       {
         id: "questframe:true",
@@ -267,6 +261,13 @@ export default defineTask({
             .nextAll("ul")
             .first()
             .find("li span > a > span"),
+      },
+      {
+        id: "accoladeGlyph:true",
+        key: "accoladeGlyph",
+        mode: "expand",
+        $: $accoladeGlyphs,
+        getPath: ($: CheerioAPI) => $(".checklist").find("li span > a > span"),
       },
     ];
 

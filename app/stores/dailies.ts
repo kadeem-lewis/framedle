@@ -92,6 +92,7 @@ export const useDailiesStore = defineStore("dailies", () => {
         state: progress?.state,
         gridState: progress?.gridState || {},
         hasSeenPopup: progress?.hasSeenPopup ?? false,
+        isOvertime: progress?.isOvertime ?? false,
       };
     });
   }

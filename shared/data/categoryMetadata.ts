@@ -179,6 +179,12 @@ export const categoryMetadata = {
     description:
       "Warframes that utilize different animations instead of the standard rolls",
   }),
+  accoladeGlyph: (_: unknown) => ({
+    header: "Cosmetic",
+    value: "Has Accolade Glyph",
+    description:
+      "Accolade Glyphs are Glyph collectibles that can only be acquired by beating a Hardmode Boss in a solo setting, with a specific roster of Warframes.",
+  }),
 };
 
 export type CategoryName = keyof typeof categoryMetadata;

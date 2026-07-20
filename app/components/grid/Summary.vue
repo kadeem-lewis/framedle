@@ -23,12 +23,17 @@ const feedbackGrid = computed(() => generateGridGameMatrix());
         <div
           v-for="(value, j) in row"
           :key="j"
-          class="size-16 rounded-lg"
+          class="flex size-16 items-center justify-center rounded-lg"
           :class="{
             'bg-success': value === 1,
             'bg-accented': value === 0,
+            'bg-info': value === 2,
           }"
-        />
+        >
+          <span v-if="value === 2" class="text-center text-sm font-bold"
+            >EXTRA</span
+          >
+        </div>
       </template>
     </div>
     <p class="flex flex-col items-center gap-1">

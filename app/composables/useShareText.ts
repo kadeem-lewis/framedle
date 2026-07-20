@@ -73,7 +73,11 @@ export function useShareText() {
       const colIndex = Number(colIndexStr);
 
       if (cell.value) {
-        shareGrid[rowIndex]![colIndex] = 1;
+        if (cell.isExtra) {
+          shareGrid[rowIndex]![colIndex] = 2;
+        } else {
+          shareGrid[rowIndex]![colIndex] = 1;
+        }
       }
     }
     return shareGrid;

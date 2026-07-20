@@ -127,6 +127,10 @@ export function useGuess() {
         cell.invalidGuesses.push(guess);
       }
 
+      if (dailyData.isOvertime) {
+        cell.isExtra = true;
+      }
+
       nextGridState[key] = cell;
 
       const entry: GridProgressData = {
@@ -136,6 +140,7 @@ export function useGuess() {
         gridState: nextGridState,
         attempts: Math.max(0, dailyData.attempts - 1),
         state: gameState.value["grid"],
+        isOvertime: dailyData.isOvertime,
       };
 
       await db.progress.put(entry).catch((e) => {

@@ -4,6 +4,7 @@ export type GridCell = {
   value: WarframeName | null;
   invalidGuesses: WarframeName[];
   rarity?: number;
+  isExtra?: boolean;
   // a grid is only correct or empty, if its empty then its automatically incorrect
 };
 
@@ -116,17 +117,19 @@ export const useGridGameStore = defineStore(
       initializeUnlimitedGridGame({ forceReset: true });
     }
 
+    // After a game is lost, I can add an extra field, something like overtime:true, and then if a game has overtime try then I set the attempts to infinity. For each cell, I can also add a variable that I use in the fields below to disable including them in score or stats calculation.
     const rarityScore = computed(() => {
       const BASE_RARITY_SCORE = 900;
       const usedRarityScores = Object.values(daily.value.grid)
-        .filter((cell) => cell.rarity)
+        .filter((cell) => cell.rarity && !cell.isExtra)
         .reduce((acc, cell) => acc + (100 - (cell.rarity || 0)), 0);
       return formatFloat(BASE_RARITY_SCORE - usedRarityScores);
     });
 
     const gameScore = computed(() => {
-      return Object.values(currentGame.value.grid).filter((cell) => cell.value)
-        .length;
+      return Object.values(currentGame.value.grid).filter(
+        (cell) => cell.value && !cell.isExtra,
+      ).length;
     });
 
     return {

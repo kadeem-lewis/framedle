@@ -11,6 +11,7 @@ const warframe = computed(() => {
 });
 
 const { isGameOver } = storeToRefs(useGameStateStore());
+const { currentDailyGridData } = storeToRefs(useDailiesStore());
 const { isDaily } = useGameMode();
 </script>
 <template>
@@ -46,6 +47,12 @@ const { isDaily } = useGameMode();
         }"
         class="absolute bottom-0 flex w-full justify-center rounded-none px-1 py-0.5 text-center break-normal text-neutral-800 opacity-90"
       />
+    </div>
+    <div
+      v-else-if="isDaily && currentDailyGridData?.isOvertime"
+      class="flex size-full items-center text-center text-sm font-semibold text-toned uppercase"
+    >
+      Keep Guessing
     </div>
   </div>
 </template>

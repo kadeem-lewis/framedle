@@ -3,6 +3,7 @@ const { warframeName, isRevealed, rarity } = defineProps<{
   warframeName: WarframeName | string;
   rarity: number | undefined;
   isRevealed?: boolean;
+  isExtra?: boolean;
 }>();
 
 const warframe = computed(() => {
@@ -30,7 +31,8 @@ const { isDaily } = useGameMode();
         v-if="isDaily && rarity"
         class="absolute top-0 left-0 rounded-none px-1 py-0.5 text-neutral-800 opacity-90"
       >
-        {{ formatFloat(rarity) }}%
+        <span>{{ formatFloat(rarity) }}%</span
+        ><UIcon v-if="isExtra" name="i-mdi-asterisk" class="size-3" />
       </UBadge>
       <NuxtImg
         provider="imagekit"

@@ -46,7 +46,7 @@ const feedbackGrid = computed(() => generateGridGameMatrix());
     </p>
     <UCard v-if="currentDailyGridData?.state !== GameStatus.WON">
       <template #title>
-        <p class="font-semibold uppercase">You've ran out of guesses</p>
+        <p class="font-semibold uppercase">You've run out of guesses</p>
       </template>
       <div class="flex flex-col gap-2">
         <p>

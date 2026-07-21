@@ -15,6 +15,7 @@ export type GridGameState = {
     columns: [string, string, string];
   } | null;
   attempts: number;
+  isOvertime?: boolean;
 };
 
 export const useGridGameStore = defineStore(
@@ -78,6 +79,7 @@ export const useGridGameStore = defineStore(
         grid: gridData.gridState,
         attempts: gridData.attempts,
         config: gridData.puzzle,
+        isOvertime: gridData.isOvertime,
       };
     }
 

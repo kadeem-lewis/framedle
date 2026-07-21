@@ -2,10 +2,12 @@
 import { startOfTomorrow } from "date-fns";
 const { generateGridGameMatrix } = useShareText();
 const { currentDailyGridData } = storeToRefs(useDailiesStore());
-const { rarityScore } = storeToRefs(useGridGameStore());
+const gridGameStore = useGridGameStore();
+const { rarityScore } = storeToRefs(gridGameStore);
+const { MAX_GRID_ATTEMPTS } = gridGameStore;
 const { stats } = storeToRefs(useStatsStore());
 
-const { openDialog } = useDialog();
+const { openDialog, closeDialog } = useDialog();
 
 function handleStatsClick() {
   openDialog(dialogOptions.STATS);
@@ -42,7 +44,32 @@ const feedbackGrid = computed(() => generateGridGameMatrix());
         {{ rarityScore }}
       </span>
     </p>
-    <USeparator />
+    <UCard v-if="currentDailyGridData?.state !== GameStatus.WON">
+      <template #title>
+        <p class="font-semibold uppercase">You've ran out of guesses</p>
+      </template>
+      <div class="flex flex-col gap-2">
+        <p>
+          <span class="font-semibold"
+            >Only your first {{ MAX_GRID_ATTEMPTS }} attempts</span
+          >
+          count towards your score and stats.
+        </p>
+        <p>Would you like to keep playing for fun?</p>
+        <div class="flex justify-center gap-2">
+          <UButton variant="tenno" @click="closeDialog">Keep Guessing</UButton>
+          <UButton
+            variant="tenno"
+            :to="{
+              name: 'archive',
+              query: { mode: 'grid' },
+            }"
+          >
+            Play Past Days
+          </UButton>
+        </div>
+      </div>
+    </UCard>
     <div class="flex flex-col items-center gap-2">
       <p class="text-center font-semibold uppercase">Your Stats</p>
       <div class="flex justify-center gap-2">

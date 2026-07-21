@@ -73,7 +73,12 @@ export function useShareText() {
       const colIndex = Number(colIndexStr);
 
       if (cell.value) {
-        shareGrid[rowIndex]![colIndex] = 1;
+        if (cell.isExtra) {
+          // Extra guess cells are only displayed in the puzzle summary and not the share text so the emoji logic purposefully treats 2 as unused.
+          shareGrid[rowIndex]![colIndex] = 2;
+        } else {
+          shareGrid[rowIndex]![colIndex] = 1;
+        }
       }
     }
     return shareGrid;

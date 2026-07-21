@@ -127,12 +127,16 @@ export function useGuess() {
         cell.invalidGuesses.push(guess);
       }
 
+      if (dailyData.isOvertime) {
+        cell.isExtra = true;
+      }
+
       nextGridState[key] = cell;
 
+      const { puzzle, readableDate, ...rest } = toRaw(dailyData);
+
       const entry: GridProgressData = {
-        mode: "grid",
-        date: dailyData.date,
-        day: dailyData.day,
+        ...rest,
         gridState: nextGridState,
         attempts: Math.max(0, dailyData.attempts - 1),
         state: gameState.value["grid"],

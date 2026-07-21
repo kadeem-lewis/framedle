@@ -53,11 +53,14 @@ export const useGameStateStore = defineStore(
         currentGame.value.config.columns.length;
 
       const correctCells = Object.values(currentGame.value.grid).filter(
-        (cell) => cell.value,
+        (cell) => cell.value && !cell.isExtra,
       );
 
       const isWin = totalCells > 0 && correctCells.length === totalCells;
-      const isLoss = currentGame.value.attempts <= 0 && !isWin;
+      const isLoss =
+        (currentGame.value.attempts <= 0 ||
+          currentGame.value.attempts === Infinity) &&
+        !isWin;
 
       updateStatus(mode, isWin, isLoss);
     }

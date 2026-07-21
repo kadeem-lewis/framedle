@@ -12,6 +12,19 @@ export function useSubmission() {
   const { activeDays } = storeToRefs(useDailiesStore());
   const { daily, rarityScore } = storeToRefs(useGridGameStore());
 
+  function startOvertimeMode(state: GameStatusType) {
+    if (
+      mode.value === "grid" &&
+      (state === "lost" || state === "lost:previous")
+    ) {
+      return {
+        attempts: Infinity,
+        isOvertime: true,
+      };
+    }
+    return {};
+  }
+
   function generateSubmissionBody(): SubmissionsBody {
     if (!mode.value || isUnlimitedMode(mode.value))
       throw createError("Game mode is not defined");
@@ -104,6 +117,7 @@ export function useSubmission() {
             })
             .modify({
               state: newState,
+              ...startOvertimeMode(newState),
             });
         } catch (e) {
           console.error("Failed to update daily state in DB", e);

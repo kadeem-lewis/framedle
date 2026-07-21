@@ -4,6 +4,7 @@ export type GridCell = {
   value: WarframeName | null;
   invalidGuesses: WarframeName[];
   rarity?: number;
+  isExtra?: boolean;
   // a grid is only correct or empty, if its empty then its automatically incorrect
 };
 
@@ -14,6 +15,7 @@ export type GridGameState = {
     columns: [string, string, string];
   } | null;
   attempts: number;
+  isOvertime?: boolean;
 };
 
 export const useGridGameStore = defineStore(
@@ -77,6 +79,7 @@ export const useGridGameStore = defineStore(
         grid: gridData.gridState,
         attempts: gridData.attempts,
         config: gridData.puzzle,
+        isOvertime: gridData.isOvertime,
       };
     }
 
@@ -119,14 +122,15 @@ export const useGridGameStore = defineStore(
     const rarityScore = computed(() => {
       const BASE_RARITY_SCORE = 900;
       const usedRarityScores = Object.values(daily.value.grid)
-        .filter((cell) => cell.rarity)
+        .filter((cell) => cell.rarity && !cell.isExtra)
         .reduce((acc, cell) => acc + (100 - (cell.rarity || 0)), 0);
       return formatFloat(BASE_RARITY_SCORE - usedRarityScores);
     });
 
     const gameScore = computed(() => {
-      return Object.values(currentGame.value.grid).filter((cell) => cell.value)
-        .length;
+      return Object.values(currentGame.value.grid).filter(
+        (cell) => cell.value && !cell.isExtra,
+      ).length;
     });
 
     return {

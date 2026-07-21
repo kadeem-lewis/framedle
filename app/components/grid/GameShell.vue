@@ -37,7 +37,7 @@ function updateSelectedCell(rowIndex: number, columnIndex: number) {
     !columns.value[columnIndex] ||
     !rows.value[rowIndex] ||
     gameState.grid[`${rowIndex}-${columnIndex}`]?.value ||
-    isGameOver.value
+    (isGameOver.value && !gameState.isOvertime)
   ) {
     return;
   }
@@ -129,6 +129,13 @@ const adjacentDays = computedAsync(async () => {
 });
 
 useSubmission();
+
+const formattedAttempts = computed(() => {
+  if (gameState.attempts === Infinity) {
+    return "Ꝏ";
+  }
+  return gameState.attempts;
+});
 </script>
 <template>
   <div class="flex flex-col gap-2">
@@ -151,6 +158,7 @@ useSubmission();
           :is-revealed="!!gameState.grid[`${i}-${j}`]"
           :rarity="gameState.grid[`${i}-${j}`]?.rarity"
           :warframe-name="gameState.grid[`${i}-${j}`]?.value || ''"
+          :is-extra="gameState.grid[`${i}-${j}`]?.isExtra"
           :class="{
             'border-r': j < columns.length - 1,
             'border-b': i < rows.length - 1,
@@ -163,8 +171,13 @@ useSubmission();
         />
       </template>
     </div>
-    <div class="mt-2 w-full text-center">
-      <small class="text-muted">Tap on a category for help</small>
+    <div class="mt-2 flex w-full flex-col items-center gap-2 text-center">
+      <div v-if="currentDailyGridData?.isOvertime" class="text-muted">
+        <UIcon name="i-mdi-asterisk" class="size-3" /><small class="text-sm"
+          >Last Gasp guesses are not included in your score or stats</small
+        >
+      </div>
+      <small class="text-sm text-muted">Tap on a category for help</small>
     </div>
     <div class="flex" :class="[isDaily ? 'justify-between' : 'justify-around']">
       <div class="flex flex-col items-center gap-1">
@@ -175,7 +188,7 @@ useSubmission();
               isIncorrect,
           }"
         >
-          {{ gameState.attempts }}</span
+          {{ formattedAttempts }}</span
         >
       </div>
       <div v-if="isDaily" class="flex flex-col items-center gap-1">
@@ -214,8 +227,14 @@ useSubmission();
         @click="proxy.track('Visited Previous Day', { mode: 'grid' })"
         >Prev</UButton
       >
+      <UButton
+        v-if="isGameOver || currentDailyGridData?.isOvertime"
+        class="col-start-2 w-fit rounded-none"
+        @click="openSummaryDialog"
+        >Summary</UButton
+      >
       <UiConfirmPopup
-        v-if="!isGameOver"
+        v-else
         title="Are you sure you want to give up?"
         success-label="Give Up"
         cancel-label="Cancel"
@@ -229,12 +248,6 @@ useSubmission();
           Abort Mission
         </UButton>
       </UiConfirmPopup>
-      <UButton
-        v-else
-        class="col-start-2 w-fit rounded-none"
-        @click="openSummaryDialog"
-        >Summary</UButton
-      >
       <UButton
         :to="`/${mode}/${adjacentDays?.next}`"
         :disabled="!adjacentDays?.next"

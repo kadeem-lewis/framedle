@@ -1,28 +1,23 @@
 export function useGameOverDialog() {
   const { openDialog } = useDialog();
-  const dailiesStore = useDailiesStore();
+  const { currentDailyGridData } = storeToRefs(useDailiesStore());
   const { gameState } = storeToRefs(useGameStateStore());
 
-  const gridData = computed(() => dailiesStore.currentDailyGridData);
-
   watch(
-    gridData,
+    currentDailyGridData,
     async (newData) => {
       if (!newData) return;
+      if (newData.hasSeenPopup) return;
 
       if (gameState.value.grid && gameState.value.grid !== GameStatus.ACTIVE) {
-        const hasSeen = newData.hasSeenPopup === true;
+        openDialog(dialogOptions.SUMMARY);
 
-        if (!hasSeen) {
-          openDialog(dialogOptions.SUMMARY);
-
-          try {
-            await db.progress.where({ day: newData.day, mode: "grid" }).modify({
-              hasSeenPopup: true,
-            } as Partial<GridProgressData>);
-          } catch (e) {
-            console.error("Failed to update popup state", e);
-          }
+        try {
+          await db.progress.where({ day: newData.day, mode: "grid" }).modify({
+            hasSeenPopup: true,
+          } as Partial<GridProgressData>);
+        } catch (e) {
+          console.error("Failed to update popup state", e);
         }
       }
     },

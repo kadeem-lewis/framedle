@@ -17,7 +17,7 @@ export const useGlobalStatsStore = defineStore("global-stats", () => {
   async function syncRarities() {
     const validGuesses = Object.fromEntries(
       Object.entries(currentDailyGridData.value?.gridState || {})
-        .filter(([_, cell]) => cell && cell.value)
+        .filter(([_, cell]) => cell && cell.value && !cell.isExtra)
         .map(([key, value]) => [key, value.value]),
     );
 

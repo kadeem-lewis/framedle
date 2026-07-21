@@ -46,6 +46,7 @@ export type GridProgressData = ProgressDataBase & {
   mode: "grid";
   gridState: Record<string, GridCell>;
   hasSeenPopup?: boolean;
+  isOvertime?: boolean;
 };
 
 export type ProgressData =

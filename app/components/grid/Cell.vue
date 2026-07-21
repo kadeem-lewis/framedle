@@ -1,9 +1,15 @@
 <script setup lang="ts">
-const { warframeName, isRevealed, rarity } = defineProps<{
+const {
+  warframeName,
+  isRevealed,
+  rarity,
+  isOvertime = false,
+} = defineProps<{
   warframeName: WarframeName | string;
   rarity: number | undefined;
   isRevealed?: boolean;
   isExtra?: boolean;
+  isOvertime?: boolean;
 }>();
 
 const warframe = computed(() => {
@@ -11,15 +17,16 @@ const warframe = computed(() => {
   return getWarframe(warframeName as WarframeName);
 });
 
-const { currentDailyGridData } = storeToRefs(useDailiesStore());
+const { isGameOver } = storeToRefs(useGameStateStore());
 const { isDaily } = useGameMode();
 </script>
 <template>
   <div
     class="min-h-28 border-dashed border-accented bg-default p-1 dark:bg-elevated"
     :class="{
-      'cursor-not-allowed': warframe,
-      'hover:brightness-90 dark:hover:brightness-125': !warframe,
+      'cursor-not-allowed': warframe || (isGameOver && !isOvertime),
+      'hover:brightness-90 dark:hover:brightness-125':
+        !warframe && (!isGameOver || isOvertime),
     }"
   >
     <div
@@ -50,7 +57,7 @@ const { isDaily } = useGameMode();
       />
     </div>
     <div
-      v-else-if="isDaily && currentDailyGridData?.isOvertime"
+      v-else-if="isOvertime"
       class="flex size-full items-center text-center text-sm font-semibold text-toned uppercase"
     >
       Keep Guessing

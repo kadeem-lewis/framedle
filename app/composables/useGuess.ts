@@ -134,13 +134,10 @@ export function useGuess() {
       nextGridState[key] = cell;
 
       const entry: GridProgressData = {
-        mode: "grid",
-        date: dailyData.date,
-        day: dailyData.day,
+        ...toRaw(dailyData),
         gridState: nextGridState,
         attempts: Math.max(0, dailyData.attempts - 1),
         state: gameState.value["grid"],
-        isOvertime: dailyData.isOvertime,
       };
 
       await db.progress.put(entry).catch((e) => {

@@ -36,8 +36,7 @@ function updateSelectedCell(rowIndex: number, columnIndex: number) {
   if (
     !columns.value[columnIndex] ||
     !rows.value[rowIndex] ||
-    gameState.grid[`${rowIndex}-${columnIndex}`]?.value ||
-    isGameOver.value
+    gameState.grid[`${rowIndex}-${columnIndex}`]?.value
   ) {
     return;
   }

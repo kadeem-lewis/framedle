@@ -11,7 +11,6 @@ const warframe = computed(() => {
   return getWarframe(warframeName as WarframeName);
 });
 
-const { isGameOver } = storeToRefs(useGameStateStore());
 const { currentDailyGridData } = storeToRefs(useDailiesStore());
 const { isDaily } = useGameMode();
 </script>
@@ -19,8 +18,8 @@ const { isDaily } = useGameMode();
   <div
     class="min-h-28 border-dashed border-accented bg-default p-1 dark:bg-elevated"
     :class="{
-      'cursor-not-allowed': warframe || isGameOver,
-      'hover:brightness-90 dark:hover:brightness-125': !warframe && !isGameOver,
+      'cursor-not-allowed': warframe,
+      'hover:brightness-90 dark:hover:brightness-125': !warframe,
     }"
   >
     <div

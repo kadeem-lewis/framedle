@@ -159,6 +159,7 @@ const formattedAttempts = computed(() => {
           :rarity="gameState.grid[`${i}-${j}`]?.rarity"
           :warframe-name="gameState.grid[`${i}-${j}`]?.value || ''"
           :is-extra="gameState.grid[`${i}-${j}`]?.isExtra"
+          :is-overtime="gameState.isOvertime"
           :class="{
             'border-r': j < columns.length - 1,
             'border-b': i < rows.length - 1,

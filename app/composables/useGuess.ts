@@ -133,8 +133,10 @@ export function useGuess() {
 
       nextGridState[key] = cell;
 
+      const { puzzle, readableDate, ...rest } = toRaw(dailyData);
+
       const entry: GridProgressData = {
-        ...toRaw(dailyData),
+        ...rest,
         gridState: nextGridState,
         attempts: Math.max(0, dailyData.attempts - 1),
         state: gameState.value["grid"],

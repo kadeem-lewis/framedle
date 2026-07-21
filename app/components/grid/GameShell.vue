@@ -243,7 +243,6 @@ const formattedAttempts = computed(() => {
         <UButton
           variant="subtle"
           color="error"
-          :disabled="currentDailyGridData?.isOvertime"
           class="col-start-2 w-fit rounded-none font-medium uppercase"
         >
           Abort Mission

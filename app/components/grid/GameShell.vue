@@ -36,7 +36,8 @@ function updateSelectedCell(rowIndex: number, columnIndex: number) {
   if (
     !columns.value[columnIndex] ||
     !rows.value[rowIndex] ||
-    gameState.grid[`${rowIndex}-${columnIndex}`]?.value
+    gameState.grid[`${rowIndex}-${columnIndex}`]?.value ||
+    (isGameOver.value && !gameState.isOvertime)
   ) {
     return;
   }
@@ -173,7 +174,7 @@ const formattedAttempts = computed(() => {
     <div class="mt-2 flex w-full flex-col items-center gap-2 text-center">
       <div v-if="currentDailyGridData?.isOvertime" class="text-muted">
         <UIcon name="i-mdi-asterisk" class="size-3" /><small class="text-sm"
-          >Overtime guesses are not included in your score or stats</small
+          >Last Gasp guesses are not included in your score or stats</small
         >
       </div>
       <small class="text-sm text-muted">Tap on a category for help</small>

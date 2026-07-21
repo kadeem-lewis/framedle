@@ -14,6 +14,13 @@ function handleStatsClick() {
 }
 
 const feedbackGrid = computed(() => generateGridGameMatrix());
+
+const gameCompleted = computed(() => {
+  if (!currentDailyGridData.value) return false;
+  return Object.values(currentDailyGridData.value.gridState).every(
+    (cell) => cell.value,
+  );
+});
 </script>
 <template>
   <div class="flex flex-col gap-2">
@@ -44,22 +51,34 @@ const feedbackGrid = computed(() => generateGridGameMatrix());
         {{ rarityScore }}
       </span>
     </p>
-    <UCard v-if="currentDailyGridData?.state !== GameStatus.WON">
+    <UCard v-if="currentDailyGridData?.isOvertime && !gameCompleted">
       <template #title>
-        <p class="font-semibold uppercase">You've run out of guesses</p>
+        <div class="flex gap-2">
+          <UBadge class="rounded-none font-semibold uppercase">New</UBadge>
+          <p class="font-semibold uppercase">Keep Guessing: Try Last Gasp</p>
+        </div>
       </template>
       <div class="flex flex-col gap-2">
+        <p>
+          <span class="font-semibold">Complete your grid</span>, no matter how
+          many guesses it takes.
+        </p>
         <p>
           <span class="font-semibold"
             >Only your first {{ MAX_GRID_ATTEMPTS }} attempts</span
           >
           count towards your score and stats.
         </p>
-        <p>Would you like to keep playing for fun?</p>
         <div class="flex justify-center gap-2">
-          <UButton variant="tenno" @click="closeDialog">Keep Guessing</UButton>
           <UButton
             variant="tenno"
+            trailing-icon="i-mdi-play-circle"
+            @click="closeDialog"
+            >Keep Guessing</UButton
+          >
+          <UButton
+            variant="tenno"
+            trailing-icon="i-heroicons-calendar-solid"
             :to="{
               name: 'archive',
               query: { mode: 'grid' },

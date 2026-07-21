@@ -117,7 +117,6 @@ export const useGridGameStore = defineStore(
       initializeUnlimitedGridGame({ forceReset: true });
     }
 
-    // After a game is lost, I can add an extra field, something like overtime:true, and then if a game has overtime try then I set the attempts to infinity. For each cell, I can also add a variable that I use in the fields below to disable including them in score or stats calculation.
     const rarityScore = computed(() => {
       const BASE_RARITY_SCORE = 900;
       const usedRarityScores = Object.values(daily.value.grid)

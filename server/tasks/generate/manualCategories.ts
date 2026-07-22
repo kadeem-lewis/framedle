@@ -1,6 +1,7 @@
 import * as cheerio from "cheerio";
 import type { CheerioAPI } from "cheerio";
 import { promises as fs } from "fs";
+import type { Element } from "domhandler";
 
 export default defineTask({
   meta: {
@@ -23,6 +24,7 @@ export default defineTask({
       signatureWeaponResponse,
       maneuversResponse,
       accoladeGlyphsResponse,
+      starChartAcquisitionResponse,
     ] = await Promise.all([
       $fetch<string>("/Buff_%26_Debuff/Buffs#Healing_", {
         baseURL,
@@ -54,6 +56,9 @@ export default defineTask({
       $fetch<string>("/Accolade_Glyphs", {
         baseURL,
       }),
+      $fetch<string>("/Star_Chart", {
+        baseURL,
+      }),
     ]);
 
     const $buffs = cheerio.load(buffsResponse);
@@ -66,6 +71,7 @@ export default defineTask({
     const $signatureWeapon = cheerio.load(signatureWeaponResponse);
     const $maneuvers = cheerio.load(maneuversResponse);
     const $accoladeGlyphs = cheerio.load(accoladeGlyphsResponse);
+    const $starChartAcquisition = cheerio.load(starChartAcquisitionResponse);
 
     const configs = [
       {
@@ -269,19 +275,49 @@ export default defineTask({
         $: $accoladeGlyphs,
         getPath: ($: CheerioAPI) => $(".checklist").find("li span > a > span"),
       },
+      {
+        id: "acquisition:starChart",
+        key: "acquisition",
+        mode: "strict",
+        $: $starChartAcquisition,
+        getPath: ($: CheerioAPI) =>
+          $("h2[id='Planets/Celestial_Bodies_List']")
+            .parent()
+            .nextAll("table")
+            .first()
+            .find("tr td span > a"),
+        transform: (el: Element, $: CheerioAPI) => {
+          const $el = $(el);
+
+          const raw = $el.attr("title") || $el.text();
+
+          return raw
+            .replace(/\s+(Components|Component).*$/i, "")
+            .replace(/[\s\u00A0\n\t]+/g, " ")
+            .trim();
+        },
+      },
     ];
 
     for (const config of configs) {
       const $values = config.getPath(config.$);
+      if (config.id === "acquisition:starChart")
+        console.log($values.toString());
 
       const scrapedWarframeNames = $values
-        .map((_, el) =>
-          config
+        .map((_, el) => {
+          // Use custom transform logic if specified on config
+          if (config.transform) {
+            return config.transform(el, config.$);
+          }
+
+          // Default text extraction behavior
+          return config
             .$(el)
             .text()
             .replace(/[\s\u00A0\n\t]+/g, " ")
-            .trim(),
-        )
+            .trim();
+        })
         .toArray();
 
       let finalWarframes = [];

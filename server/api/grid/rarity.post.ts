@@ -21,35 +21,55 @@ export default defineEventHandler(async (event) => {
 
   const redis = await useRedis();
 
-  const checkPromises = Object.entries(gridSubmissions).map(
-    async ([coord, warframeName]) => {
+  const results = await Promise.all(
+    Object.entries(gridSubmissions).map(async ([coord, warframeName]) => {
       const key = `daily:rarity:${date}:${coord}`;
 
-      const response = await redis.hmGet(key, ["total", warframeName]);
-      const [totalStr, countStr] = response as unknown as [
-        string | null,
-        string | null,
-      ];
+      const [totalStr, countStr] = await redis.hmGet(key, [
+        "total",
+        warframeName,
+      ]);
+
+      const total = Number(totalStr ?? "0");
+      const count = Number(countStr ?? "0");
+
+      const rarity = total > 0 ? Number(((count / total) * 100).toFixed(2)) : 0;
 
       return {
         coord,
-        total: parseInt(totalStr ?? "0", 10),
-        count: parseInt(countStr ?? "0", 10),
+        rarity,
       };
-    },
+    }),
   );
 
-  const results = await Promise.all(checkPromises);
+  const rarities = Object.fromEntries(
+    results.map(({ coord, rarity }) => [coord, rarity]),
+  );
 
-  const rarity: Record<string, number> = {};
+  const BASE_RARITY_SCORE = 900;
 
-  for (const { coord, total, count } of results) {
-    if (total === 0) {
-      rarity[coord] = 0;
-    } else {
-      rarity[coord] = Number(((count / total) * 100).toFixed(2));
-    }
+  const uniquenessScore = Object.values(rarities).reduce(
+    (score, cellRarity) => score - (100 - cellRarity),
+    BASE_RARITY_SCORE,
+  );
+
+  const roundedUniquenessScore = Number(uniquenessScore.toFixed(2));
+
+  const bestScoreRaw = await redis.hGet(
+    `daily:stats:${date}`,
+    "most_unique:grid",
+  );
+
+  const bestScore = bestScoreRaw ? Number(bestScoreRaw) : Infinity;
+
+  if (roundedUniquenessScore < bestScore) {
+    await redis.hSet(
+      `daily:stats:${date}`,
+      "most_unique:grid",
+      roundedUniquenessScore.toString(),
+    );
   }
 
-  return { results: rarity };
+  //! Most unique score will lag behind by one refresh and it will only count scores for users who revisit the grid game.This might not always be the most unique but calculating that would require massive structural change
+  return { results: rarities };
 });

@@ -10,7 +10,7 @@
           {{ letter }}
         </span>
       </h1>
-      <p class="mb-0 px-20 pb-10 text-4xl font-bold uppercase">
+      <p class="mb-0 px-20 pb-10 text-4xl font-semibold uppercase">
         A Warframe Guessing Game
       </p>
     </div>

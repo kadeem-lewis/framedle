@@ -28,13 +28,17 @@ const isOpen = ref(false);
     <template #content>
       <div>
         <div class="p-4">
-          <h3 class="mb-4 font-medium">{{ title }}</h3>
+          <h3 class="mb-4">{{ title }}</h3>
           <div class="flex justify-end gap-2">
             <UButton
               variant="soft"
               color="neutral"
               class="rounded-none"
-              @click="isOpen = false"
+              @click="
+                () => {
+                  isOpen = false;
+                }
+              "
             >
               {{ cancelLabel }}
             </UButton>

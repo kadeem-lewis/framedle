@@ -244,7 +244,7 @@ const formattedAttempts = computed(() => {
         <UButton
           variant="subtle"
           color="error"
-          class="col-start-2 w-fit rounded-none font-medium uppercase"
+          class="col-start-2 w-fit rounded-none uppercase"
         >
           Abort Mission
         </UButton>

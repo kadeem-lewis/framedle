@@ -37,66 +37,68 @@ const partial = computed(() => ($colorblindMode.value ? "Pink" : "Yellow"));
       above or below your guess.
     </p>
     <USeparator />
-    <p class="text-center font-roboto text-lg font-bold uppercase">
+    <p class="text-center font-roboto text-lg font-semibold uppercase">
       Properties
     </p>
     <p>Here is the details of each of the properties columns:</p>
     <div class="flex flex-col gap-2">
       <div class="flex flex-col gap-1">
-        <p class="font-medium text-info">Gender:</p>
+        <p class="text-info">Gender:</p>
         <p><span>Possible values:&nbsp;</span> Male, Female or Non-binary</p>
       </div>
       <div class="flex flex-col gap-1">
-        <p class="font-medium text-info">Variant:</p>
+        <p class="text-info">Variant:</p>
         <p><span>Possible values:&nbsp;</span> Standard, Prime or Umbra</p>
       </div>
       <div class="flex flex-col gap-1">
-        <p class="font-medium text-info">Playstyle:</p>
+        <p class="text-info">Playstyle:</p>
         <p>
           <span>Possible values:&nbsp;</span> A combination of Crowd Control,
           Damage, Stealth, Support or Survival
         </p>
       </div>
       <div class="flex flex-col gap-1">
-        <p class="font-medium text-info">Health:</p>
+        <p class="text-info">Health:</p>
         <p>
           <span>Possible values:&nbsp;</span> Base shield values of Warframes
           e.g 180, 270, 365
         </p>
       </div>
       <div class="flex flex-col gap-1">
-        <p class="font-medium text-info">Shield:</p>
+        <p class="text-info">Shield:</p>
         <p>
           <span>Possible values:&nbsp;</span> Base shield values of Warframes
           e.g 0, 135, 180
         </p>
       </div>
       <div class="flex flex-col gap-1">
-        <p class="font-medium text-info">Progenitor Element:</p>
+        <p class="text-info">Progenitor Element:</p>
         <p>
           <span>Possible values:&nbsp;</span>Impact, Heat, Cold, Electricity,
           Toxin, Magnetic or Radiation
         </p>
       </div>
       <div class="flex flex-col gap-1">
-        <p class="font-medium text-info">Release Year:</p>
+        <p class="text-info">Release Year:</p>
         <p>
           <span>Possible values:&nbsp;</span>Any year between 2012 and today
         </p>
       </div>
     </div>
-    <p class="text-center font-roboto text-lg font-bold uppercase">Example</p>
+    <p class="text-center font-roboto text-lg font-semibold uppercase">
+      Example
+    </p>
     <USeparator />
     <div class="flex flex-col gap-4">
       <div class="flex flex-col gap-1">
         <p>
           Consider the correct answer is
-          <span class="font-medium text-primary">Nezha</span>
+          <span class="text-primary">Nezha</span>
         </p>
         <p>
           If you enter
-          <span class="font-medium text-primary">Inaros Prime</span>, these
-          properties will appear:
+          <span class="text-primary">Inaros Prime</span>, these properties will
+          appear:
         </p>
       </div>
       <div class="overflow-x-auto">
@@ -108,21 +110,21 @@ const partial = computed(() => ($colorblindMode.value ? "Pink" : "Yellow"));
         </div>
       </div>
       <div class="flex flex-col gap-1">
-        <p class="font-medium">
+        <p>
           Sex:
           <span class="text-correct">{{ success }}</span>
         </p>
         <p>It is a match because both are the same sex.</p>
       </div>
       <div class="flex flex-col gap-1">
-        <p class="font-medium">
+        <p>
           Variant:
           <span class="text-incorrect">{{ error }}</span>
         </p>
         <p>Nezha is a Standard Warframe while Inaros Prime is not.</p>
       </div>
       <div class="flex flex-col gap-1">
-        <p class="font-medium">
+        <p>
           Playstyle:
           <span class="text-partial">{{ partial }}</span>
         </p>
@@ -132,28 +134,28 @@ const partial = computed(() => ($colorblindMode.value ? "Pink" : "Yellow"));
         </p>
       </div>
       <div class="flex flex-col gap-1">
-        <p class="font-medium">
+        <p>
           Health:
           <span class="text-incorrect">{{ error }} and a down arrow</span>
         </p>
         <p>Nezha has less health than Inaros Prime.</p>
       </div>
       <div class="flex flex-col gap-1">
-        <p class="font-medium">
+        <p>
           Shield:
           <span class="text-incorrect">{{ error }} and an up arrow</span>
         </p>
         <p>Nezha has more shields than Inaros Prime.</p>
       </div>
       <div class="flex flex-col gap-1">
-        <p class="font-medium">
+        <p>
           Progenitor:
           <span class="text-correct">{{ success }}</span>
         </p>
         <p>It is a match because both have the same progenitor element.</p>
       </div>
       <div class="flex flex-col gap-1">
-        <p class="font-medium">
+        <p>
           Release Year:
           <span class="text-incorrect">{{ error }} and a down arrow</span>
         </p>

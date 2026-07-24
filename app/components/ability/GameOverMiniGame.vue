@@ -44,7 +44,6 @@ const hasSelected = computed(() => {
   return !!selectedMinigameAbility.value[mode.value];
 });
 const isCorrectAnswer = (ability: string) => {
-  console.log("Checking ability", ability, correctAbility);
   return ability.toLowerCase() === correctAbility.toLowerCase();
 };
 
@@ -111,7 +110,7 @@ const abilityNames = computed(() => correctWarframe.abilities);
         v-if="
           selectedMinigameAbility[mode] && selectedMinigameAbility[mode] !== ''
         "
-        class="text-center font-medium uppercase"
+        class="text-center uppercase"
       >
         <p
           v-if="

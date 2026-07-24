@@ -39,7 +39,7 @@ const gameCompleted = computed(() => {
             'bg-info': value === 2,
           }"
         >
-          <span v-if="value === 2" class="text-center text-sm font-bold"
+          <span v-if="value === 2" class="text-center text-sm font-semibold"
             >EXTRA</span
           >
         </div>

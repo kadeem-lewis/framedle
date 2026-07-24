@@ -10,7 +10,7 @@ const { showBackground, showClassicSummary } = storeToRefs(useSettingsStore());
 <template>
   <div>
     <div class="flex flex-col gap-1 py-2">
-      <p class="text-lg font-medium">Accessibility</p>
+      <p class="text-lg">Accessibility</p>
       <UiItem>
         <UiAppSwitch
           v-model="$colorblindMode"
@@ -22,7 +22,7 @@ const { showBackground, showClassicSummary } = storeToRefs(useSettingsStore());
     </div>
     <USeparator />
     <div class="flex items-center justify-between py-2">
-      <p class="text-lg font-medium">Theme</p>
+      <p class="text-lg">Theme</p>
       <UColorModeSelect
         size="lg"
         class="min-w-fit rounded-none"
@@ -34,7 +34,7 @@ const { showBackground, showClassicSummary } = storeToRefs(useSettingsStore());
     <USeparator />
     <div class="flex flex-col gap-1 py-2">
       <div class="flex items-center justify-between pb-1">
-        <p class="text-lg font-medium">Language</p>
+        <p class="text-lg">Language</p>
         <USelect
           default-value="English"
           label-key="name"
@@ -52,7 +52,7 @@ const { showBackground, showClassicSummary } = storeToRefs(useSettingsStore());
     </div>
     <USeparator />
     <div class="flex flex-col gap-1 py-2">
-      <p class="text-lg font-medium">UI</p>
+      <p class="text-lg">UI</p>
       <UiItem>
         <UiAppSwitch
           v-model="showBackground"
@@ -62,7 +62,7 @@ const { showBackground, showClassicSummary } = storeToRefs(useSettingsStore());
       </UiItem>
     </div>
     <div class="flex flex-col gap-1 py-2">
-      <p class="text-lg font-medium">Classic</p>
+      <p class="text-lg">Classic</p>
       <UiItem>
         <UiAppSwitch
           v-model="showClassicSummary"

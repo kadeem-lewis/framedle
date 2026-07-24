@@ -12,13 +12,13 @@ export const categoryMetadata = {
     header: "Base Health",
     value,
     description: `Warframes with ${value} health at rank 0`,
-    cssClass: "text-error font-bold",
+    cssClass: "text-error font-semibold",
   }),
   shield: (value: number) => ({
     header: "Base Shields",
     value,
     description: `Warframes with ${value} shields at rank 0`,
-    cssClass: "text-secondary font-bold",
+    cssClass: "text-secondary font-semibold",
   }),
   armor: (value: number) => ({
     header: "Armor",

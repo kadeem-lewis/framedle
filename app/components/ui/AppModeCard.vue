@@ -45,10 +45,10 @@ const { card, showStats = false } = defineProps<{
           class="transition-transform duration-100 ease-in group-hover:scale-110"
         />
         <div class="text-shadow-xs">
-          <p class="font-roboto text-xl font-bold text-primary uppercase">
+          <p class="font-roboto text-xl font-semibold text-primary uppercase">
             {{ card.label }}
           </p>
-          <p class="font-medium uppercase">{{ card.description }}</p>
+          <p class="uppercase">{{ card.description }}</p>
         </div>
       </div>
       <ClientOnly>
@@ -59,7 +59,7 @@ const { card, showStats = false } = defineProps<{
               class="inline-block size-9 text-amber-500 dark:text-amber-600"
             />
             <span
-              class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 align-middle font-bold text-white"
+              class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 align-middle font-semibold text-white"
             >
               {{ card.streak }}
             </span>

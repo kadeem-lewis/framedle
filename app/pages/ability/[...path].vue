@@ -89,7 +89,7 @@ const { makeGuess } = useGuess();
           <UCard class="divide-y-0">
             <template #header>
               <h1
-                class="font-roboto text-xl font-bold text-primary-600 uppercase dark:text-primary"
+                class="font-roboto text-xl font-semibold text-primary-600 uppercase dark:text-primary"
               >
                 Which Warframe has this ability?
               </h1>

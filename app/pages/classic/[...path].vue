@@ -77,13 +77,13 @@ const { showClassicSummary } = storeToRefs(useSettingsStore());
         <UCard class="divide-y-0">
           <template #title>
             <h1
-              class="font-roboto text-xl font-bold text-primary-600 uppercase dark:text-primary"
+              class="font-roboto text-xl font-semibold text-primary-600 uppercase dark:text-primary"
             >
               {{ headerText }}
             </h1>
           </template>
           <template v-if="attempts[mode] === DEFAULT_ATTEMPTS" #description>
-            <p class="text-base font-medium text-default uppercase">
+            <p class="text-base text-default uppercase">
               Take a guess to get started
             </p>
           </template>

@@ -25,7 +25,7 @@ export default defineAppConfig({
         {
           color: "primary",
           variant: "tenno",
-          class: tw`border border-b-2 border-accented border-b-neutral-400 bg-neutral-100/70 hover-gradient font-bold hover:border-primary-400 hover:border-b-primary-500 hover:text-primary dark:border-default dark:border-b-primary dark:bg-neutral-950 dark:text-primary dark:hover:border-accented dark:hover:border-b-primary-300`,
+          class: tw`border border-b-2 border-accented border-b-neutral-400 bg-neutral-100/70 hover-gradient font-semibold hover:border-primary-400 hover:border-b-primary-500 hover:text-primary dark:border-default dark:border-b-primary dark:bg-neutral-950 dark:text-primary dark:hover:border-accented dark:hover:border-b-primary-300`,
         },
         {
           color: "neutral",

@@ -95,7 +95,7 @@ const { title: gameOverTitle, subtitle: gameOverSubtitle } =
       ]"
     >
       <template #title>
-        <p class="font-roboto text-2xl font-bold uppercase">
+        <p class="font-roboto text-2xl font-semibold uppercase">
           {{ gameOverTitle }}
         </p>
       </template>
@@ -107,7 +107,7 @@ const { title: gameOverTitle, subtitle: gameOverSubtitle } =
       <div class="flex flex-col items-center gap-2">
         <div class="flex flex-col items-center gap-2">
           <p class="uppercase">The answer was:</p>
-          <span class="text-xl font-bold uppercase">
+          <span class="text-xl font-semibold uppercase">
             {{ answer }}
           </span>
           <UiFeedbackTile

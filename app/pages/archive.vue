@@ -122,7 +122,7 @@ const { shouldHideCompletedGames } = storeToRefs(useSettingsStore());
 </script>
 <template>
   <div class="flex flex-col gap-4">
-    <h1 class="font-roboto text-xl font-bold uppercase">Archive</h1>
+    <h1 class="font-roboto text-xl font-semibold uppercase">Archive</h1>
     <UTabs v-model="activeTab" :content="false" variant="tenno" :items="tabs" />
     <ArchiveGameStats />
     <UiItem>

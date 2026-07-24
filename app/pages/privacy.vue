@@ -14,7 +14,7 @@ useSeoMeta({
 </script>
 <template>
   <div class="flex h-full min-h-0 flex-col gap-2 px-2 pt-2 pb-4">
-    <h1 class="text-2xl font-bold">Privacy Policy</h1>
+    <h1 class="text-2xl font-semibold">Privacy Policy</h1>
     <p class="italic"><em>Last updated: March 26, 2025</em></p>
 
     <div class="flex min-h-0 flex-1 flex-col gap-2 overflow-y-auto">

@@ -17,7 +17,7 @@ const { cards } = useModeCards();
     <ul class="flex flex-col gap-4">
       <li v-for="card of cards" :key="card.label">
         <NuxtLink :to="card.route">
-          <UiAppModeCard :card="card" :show-stats="true" />
+          <UiAppModeCard :card="card" />
         </NuxtLink>
       </li>
     </ul>

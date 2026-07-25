@@ -84,45 +84,10 @@ function handleResetStats() {
   isOpen.value = false;
 }
 
-const { migrateGameStats, shouldShowMigrationBanner } = useMigration();
-const hasMigrationBeenPerformed = ref(
-  shouldShowMigrationBanner.value === false,
-);
-const toast = useToast();
-
-function handleMigrationClick() {
-  const result = migrateGameStats();
-
-  if (result.success) {
-    toast.add({
-      title: "Success!",
-      description: result.message,
-      color: "success",
-    });
-    hasMigrationBeenPerformed.value = true;
-  } else {
-    toast.add({ title: "Oops!", description: result.message, color: "error" });
-  }
-}
-
 const runtimeConfig = useRuntimeConfig();
 </script>
 <template>
   <div class="flex flex-col gap-4">
-    <UBanner
-      v-if="shouldShowMigrationBanner && !hasMigrationBeenPerformed"
-      title="Game stats have been reset"
-    >
-      <template #actions>
-        <UButton
-          class="rounded-none uppercase"
-          color="neutral"
-          @click="handleMigrationClick"
-        >
-          Migrate old stats
-        </UButton>
-      </template>
-    </UBanner>
     <div class="grid grid-cols-6 gap-4">
       <UiStatsCard
         label="Played"

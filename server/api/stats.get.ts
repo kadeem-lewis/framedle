@@ -25,13 +25,13 @@ export default defineEventHandler<Promise<StatsResponse>>(async (event) => {
 
   function getAverage(attempts: string | undefined, wins: string | undefined) {
     if (!attempts || !wins) return null;
-    const attemptsNum = parseInt(attempts, 10);
-    const winsNum = parseInt(wins, 10);
+    const attemptsNum = Number(attempts);
+    const winsNum = Number(wins);
     return Math.round(attemptsNum / winsNum);
   }
 
   function getInt(key: string) {
-    return parseInt((stats[key] as string) || "0", 10);
+    return Number(stats[key] ?? "0");
   }
 
   const rarityPromises = [];
@@ -107,16 +107,16 @@ export default defineEventHandler<Promise<StatsResponse>>(async (event) => {
     }
   }
 
-  const classicGamesWon = parseInt(stats["games_won:classic"] ?? "0", 10) || 0;
+  const classicGamesWon = Number(stats["games_won:classic"] ?? "0");
   const classicAverageAttempts = stats["total_attempts:classic"]
     ? getAverage(stats["total_attempts:classic"], stats["games_won:classic"])
     : null;
 
-  const abilityGamesWon = parseInt(stats["games_won:ability"] ?? "0", 10) || 0;
+  const abilityGamesWon = Number(stats["games_won:ability"] ?? "0");
   const abilityAverageAttempts = stats["total_attempts:ability"]
     ? getAverage(stats["total_attempts:ability"], stats["games_won:ability"])
     : null;
-  const gridGamesPlayed = parseInt(stats["games_played:grid"] ?? "0", 10) || 0;
+  const gridGamesPlayed = Number(stats["games_played:grid"] ?? "0");
 
   return {
     classic: {

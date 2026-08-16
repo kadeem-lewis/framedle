@@ -1,5 +1,18 @@
 # Changelog
 
+## v1.8.0 - August 16th, 2026
+
+### Features
+
+- Added an overtime mode to the grid game that allows players to continue guessing after the game is over
+- Added accolade glyphs and Star Chart acquisition as new grid game categories
+- Added a summary row to the classic game to summarize all the known information about the mystery Warframe
+
+### Changes
+
+- updated styling and labeling of different elements such as the game over screen and the classic tiles
+- Changed grid game most unique score to be more accurate
+
 ## v1.7.5 - June 26th, 2026
 
 ### Bug Fixes

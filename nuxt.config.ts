@@ -155,13 +155,15 @@ export default defineNuxtConfig({
 
   sitemap: {
     zeroRuntime: true,
-    urls: [
+    include: [
       "/classic",
       "/classic/unlimited",
       "/ability",
       "/ability/unlimited",
       "/grid",
+      "/grid/unlimited",
     ],
+    exclude: ["/classic/**", "/ability/**", "/grid/**"],
   },
 
   icon: {

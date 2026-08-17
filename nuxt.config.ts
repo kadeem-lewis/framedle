@@ -49,6 +49,9 @@ export default defineNuxtConfig({
       turnstile: {
         siteKey: "",
       },
+      sentry: {
+        dsn: "",
+      },
       discordInvite: "https://discord.gg/PwAJX7tbzR",
       kofiUrl: "https://ko-fi.com/framedle",
       playStoreUrl:

@@ -2,7 +2,7 @@
 import { defineOrganization } from "nuxt-schema-org/schema";
 
 export default defineNuxtConfig({
-  compatibilityDate: "2025-02-24",
+  compatibilityDate: "2026-07-16",
   devtools: { enabled: true },
 
   modules: [
@@ -64,9 +64,10 @@ export default defineNuxtConfig({
     "/ability/**": { ssr: false },
     "/archive/**": { ssr: false },
     "/grid/**": { ssr: false },
-    "/privacy": { prerender: true },
-    "/faqs": { prerender: true },
-    "/changelog": { prerender: true },
+    // "/privacy": { prerender: true },
+    // "/faqs": { prerender: true },
+    // "/changelog": { prerender: true },
+    // "/about": { prerender: true },
     "/_ipx/**": {
       headers: { "Cache-Control": "public, max-age=31536000, immutable" },
     },
@@ -150,10 +151,6 @@ export default defineNuxtConfig({
         "img-src": ["'self'", "data:", "https://ik.imagekit.io"],
       },
     },
-  },
-
-  ogImage: {
-    zeroRuntime: true,
   },
 
   sitemap: {

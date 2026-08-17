@@ -53,9 +53,6 @@ importers:
       fuse.js:
         specifier: ^7.4.0
         version: 7.5.0
-      import-in-the-middle:
-        specifier: ^3.0.1
-        version: 3.0.1
       luaparse:
         specifier: ^0.3.1
         version: 0.3.1

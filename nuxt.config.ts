@@ -2,7 +2,7 @@
 import { defineOrganization } from "nuxt-schema-org/schema";
 
 export default defineNuxtConfig({
-  compatibilityDate: "2025-02-24",
+  compatibilityDate: "2026-07-16",
   devtools: { enabled: true },
 
   modules: [
@@ -49,6 +49,9 @@ export default defineNuxtConfig({
       turnstile: {
         siteKey: "",
       },
+      sentry: {
+        dsn: "",
+      },
       discordInvite: "https://discord.gg/PwAJX7tbzR",
       kofiUrl: "https://ko-fi.com/framedle",
       playStoreUrl:
@@ -61,9 +64,10 @@ export default defineNuxtConfig({
     "/ability/**": { ssr: false },
     "/archive/**": { ssr: false },
     "/grid/**": { ssr: false },
-    "/privacy": { prerender: true },
-    "/faqs": { prerender: true },
-    "/changelog": { prerender: true },
+    // "/privacy": { prerender: true },
+    // "/faqs": { prerender: true },
+    // "/changelog": { prerender: true },
+    // "/about": { prerender: true },
     "/_ipx/**": {
       headers: { "Cache-Control": "public, max-age=31536000, immutable" },
     },
@@ -149,10 +153,6 @@ export default defineNuxtConfig({
     },
   },
 
-  ogImage: {
-    zeroRuntime: true,
-  },
-
   sitemap: {
     zeroRuntime: true,
     include: [
@@ -174,6 +174,9 @@ export default defineNuxtConfig({
         dir: "./app/assets/svgs",
       },
     ],
+    clientBundle: {
+      scan: true,
+    },
   },
 
   fonts: {
@@ -212,6 +215,7 @@ export default defineNuxtConfig({
   },
 
   nitro: {
+    preset: "node-server",
     experimental: {
       tasks: true,
     },

@@ -174,99 +174,97 @@ function useRangeFeedback(
 }
 </script>
 <template>
-  <div class="overflow-x-auto md:overflow-x-visible">
-    <div class="grid w-[190%] grid-cols-8 gap-1 md:ml-[-45%]">
-      <UiFeedbackTile
-        field-label="Summary"
-        tooltip-disabled
-        class="text-sm uppercase"
-        >Summary</UiFeedbackTile
+  <div class="grid w-[190%] grid-cols-8 gap-1 md:ml-[-45%]">
+    <UiFeedbackTile
+      field-label="Summary"
+      tooltip-disabled
+      class="text-sm uppercase"
+      >Summary</UiFeedbackTile
+    >
+    <UiFeedbackTile
+      field-label="Sex"
+      :variant="sexFeedback.state"
+      tooltip-disabled
+      >{{ sexFeedback.value }}</UiFeedbackTile
+    >
+    <UiFeedbackTile
+      field-label="Variant"
+      :variant="variantFeedback.state"
+      tooltip-disabled
+    >
+      {{ variantFeedback.value }}
+    </UiFeedbackTile>
+    <UiFeedbackTile
+      field-label="Playstyle"
+      :variant="playstyleFeedback.state"
+      tooltip-disabled
+      >{{ playstyleFeedback.value }}</UiFeedbackTile
+    >
+    <UiFeedbackTile
+      field-label="Health"
+      :variant="healthFeedback.state"
+      tooltip-disabled
+    >
+      <span
+        v-if="
+          healthFeedback.state === 'incorrect' ||
+          healthFeedback.state === 'neutral'
+        "
       >
-      <UiFeedbackTile
-        field-label="Sex"
-        :variant="sexFeedback.state"
-        tooltip-disabled
-        >{{ sexFeedback.value }}</UiFeedbackTile
+        {{ healthFeedback.min }} - {{ healthFeedback.max }}
+      </span>
+      <span v-else>{{ healthFeedback.value }}</span>
+    </UiFeedbackTile>
+    <UiFeedbackTile
+      field-label="Shields"
+      :variant="shieldFeedback.state"
+      tooltip-disabled
+    >
+      <span
+        v-if="
+          shieldFeedback.state === 'incorrect' ||
+          shieldFeedback.state === 'neutral'
+        "
       >
-      <UiFeedbackTile
-        field-label="Variant"
-        :variant="variantFeedback.state"
-        tooltip-disabled
+        {{ shieldFeedback.min }} - {{ shieldFeedback.max }}
+      </span>
+      <span v-else>{{ shieldFeedback.value }}</span>
+    </UiFeedbackTile>
+    <UiFeedbackTile
+      field-label="Progenitor"
+      :variant="progenitorFeedback.state"
+      tooltip-disabled
+    >
+      <div
+        v-if="progenitorFeedback.state === 'correct'"
+        class="flex flex-col items-center gap-1"
       >
-        {{ variantFeedback.value }}
-      </UiFeedbackTile>
-      <UiFeedbackTile
-        field-label="Playstyle"
-        :variant="playstyleFeedback.state"
-        tooltip-disabled
-        >{{ playstyleFeedback.value }}</UiFeedbackTile
+        <NuxtImg
+          :src="`/elements/${progenitorFeedback.value}.png`"
+          :alt="progenitorFeedback.value"
+          height="36"
+          width="36"
+        />
+        <p class="text-sm">{{ progenitorFeedback.value }}</p>
+      </div>
+      <p v-else-if="progenitorFeedback.state === 'neutral'">
+        {{ progenitorFeedback.value }}
+      </p>
+    </UiFeedbackTile>
+    <UiFeedbackTile
+      field-label="Release Date"
+      :variant="releaseDateFeedback.state"
+      tooltip-disabled
+    >
+      <span
+        v-if="
+          releaseDateFeedback.state === 'incorrect' ||
+          releaseDateFeedback.state === 'neutral'
+        "
       >
-      <UiFeedbackTile
-        field-label="Health"
-        :variant="healthFeedback.state"
-        tooltip-disabled
-      >
-        <span
-          v-if="
-            healthFeedback.state === 'incorrect' ||
-            healthFeedback.state === 'neutral'
-          "
-        >
-          {{ healthFeedback.min }} - {{ healthFeedback.max }}
-        </span>
-        <span v-else>{{ healthFeedback.value }}</span>
-      </UiFeedbackTile>
-      <UiFeedbackTile
-        field-label="Shields"
-        :variant="shieldFeedback.state"
-        tooltip-disabled
-      >
-        <span
-          v-if="
-            shieldFeedback.state === 'incorrect' ||
-            shieldFeedback.state === 'neutral'
-          "
-        >
-          {{ shieldFeedback.min }} - {{ shieldFeedback.max }}
-        </span>
-        <span v-else>{{ shieldFeedback.value }}</span>
-      </UiFeedbackTile>
-      <UiFeedbackTile
-        field-label="Progenitor"
-        :variant="progenitorFeedback.state"
-        tooltip-disabled
-      >
-        <div
-          v-if="progenitorFeedback.state === 'correct'"
-          class="flex flex-col items-center gap-1"
-        >
-          <NuxtImg
-            :src="`/elements/${progenitorFeedback.value}.png`"
-            :alt="progenitorFeedback.value"
-            height="36"
-            width="36"
-          />
-          <p class="text-sm">{{ progenitorFeedback.value }}</p>
-        </div>
-        <p v-else-if="progenitorFeedback.state === 'neutral'">
-          {{ progenitorFeedback.value }}
-        </p>
-      </UiFeedbackTile>
-      <UiFeedbackTile
-        field-label="Release Date"
-        :variant="releaseDateFeedback.state"
-        tooltip-disabled
-      >
-        <span
-          v-if="
-            releaseDateFeedback.state === 'incorrect' ||
-            releaseDateFeedback.state === 'neutral'
-          "
-        >
-          {{ releaseDateFeedback.min }} - {{ releaseDateFeedback.max }}
-        </span>
-        <span v-else>{{ releaseDateFeedback.value }}</span>
-      </UiFeedbackTile>
-    </div>
+        {{ releaseDateFeedback.min }} - {{ releaseDateFeedback.max }}
+      </span>
+      <span v-else>{{ releaseDateFeedback.value }}</span>
+    </UiFeedbackTile>
   </div>
 </template>

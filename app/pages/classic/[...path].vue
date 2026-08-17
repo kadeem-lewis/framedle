@@ -95,14 +95,14 @@ const { showClassicSummary } = storeToRefs(useSettingsStore());
           />
         </UCard>
         <GlobalStats v-if="isDaily" />
-        <template v-if="itemToGuess[mode]">
-          <ClassicSummaryRow
-            v-if="showClassicSummary"
-            :correct-warframe="getWarframe(itemToGuess[mode]!)"
-            :guessed-items="guessedItems[mode]"
-          />
-        </template>
         <div class="flex flex-col gap-4 overflow-x-auto md:overflow-x-visible">
+          <template v-if="itemToGuess[mode]">
+            <ClassicSummaryRow
+              v-if="showClassicSummary"
+              :correct-warframe="getWarframe(itemToGuess[mode]!)"
+              :guessed-items="guessedItems[mode]"
+            />
+          </template>
           <UFieldGroup
             class="grid w-[190%] grid-cols-8 text-sm uppercase md:ml-[-45%] md:text-base"
           >

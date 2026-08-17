@@ -174,6 +174,9 @@ export default defineNuxtConfig({
         dir: "./app/assets/svgs",
       },
     ],
+    clientBundle: {
+      scan: true,
+    },
   },
 
   fonts: {

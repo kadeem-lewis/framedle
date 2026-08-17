@@ -123,7 +123,7 @@ export const useGridGameStore = defineStore(
       const BASE_RARITY_SCORE = 900;
       const usedRarityScores = Object.values(daily.value.grid)
         .filter((cell) => cell.rarity && !cell.isExtra)
-        .reduce((acc, cell) => acc + (100 - (cell.rarity || 0)), 0);
+        .reduce((acc, cell) => acc + (100 - cell.rarity!), 0);
       return formatFloat(BASE_RARITY_SCORE - usedRarityScores);
     });
 

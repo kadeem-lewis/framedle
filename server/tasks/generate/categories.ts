@@ -32,14 +32,12 @@ export default defineTask({
 
         if (config.key === "vaulted" && rawValue === false) continue; // Skip non-vaulted frames
 
-        let valuesToProcess: (string | boolean | number)[] = [];
+        let valuesToProcess = [rawValue as string | boolean | number];
 
         if (Array.isArray(rawValue)) {
           valuesToProcess = rawValue;
         } else if (config.key === "releaseDate") {
           valuesToProcess = [parseReleaseDate(String(rawValue))];
-        } else {
-          valuesToProcess = [rawValue as string | boolean | number];
         }
 
         for (const value of valuesToProcess) {
@@ -86,15 +84,12 @@ export default defineTask({
       }
       const type = categories[0].type; // All categories in a group have the same type
 
-      let processedGroup = [];
+      let processedGroup = categories;
 
       if (type === "numeric_top_2") {
         processedGroup = categories
           .sort((a, b) => b.warframes.size - a.warframes.size) // Sort by most popular
           .slice(0, 2); // Get just the top 2
-      } else {
-        // This is for 'string' types or any other default
-        processedGroup = categories;
       }
 
       const MINIMUM_CATEGORY_SIZE = 4;

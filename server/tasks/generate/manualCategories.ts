@@ -320,12 +320,10 @@ export default defineTask({
         })
         .toArray();
 
-      let finalWarframes = [];
+      let finalWarframes = filterStrict(scrapedWarframeNames);
 
       if (config.mode === "expand") {
         finalWarframes = resolveVariants(scrapedWarframeNames);
-      } else {
-        finalWarframes = filterStrict(scrapedWarframeNames);
       }
 
       categories.push({

@@ -276,6 +276,9 @@ export function useShareText() {
     const currentMode = mode.value;
     let modeName = "";
     let modeMessages: string[] = [];
+    if (!currentMode) {
+      throw createError("Invalid mode");
+    }
     if (isLegacyMode(currentMode) && gameType.value) {
       const { plays, wins, guesses, streak, maxStreak } =
         stats.value[gameType.value as "classic" | "ability"];
@@ -301,8 +304,6 @@ export function useShareText() {
         `🔥 Current Streak: ${streak}`,
         `🚀 Max Streak: ${maxStreak}`,
       ];
-    } else {
-      throw createError("Invalid mode");
     }
 
     const shareMessage = [

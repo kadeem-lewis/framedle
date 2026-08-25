@@ -45,7 +45,12 @@ const isOpen = ref(false);
             <UButton
               color="error"
               class="rounded-none"
-              @click="emit('confirm')"
+              @click="
+                () => {
+                  emit('confirm');
+                  isOpen = false;
+                }
+              "
             >
               {{ successLabel }}
             </UButton>

@@ -6,6 +6,8 @@ const { exportData, dataTransfer } = useTransferData();
 const { timeUntil } = useTimeUntil(() =>
   addDays(dataTransfer.value.exportedAt!, 1),
 );
+
+const { copy, copied } = useClipboard({ source: dataTransfer.value.code! });
 </script>
 <template>
   <div class="flex flex-col gap-2">
@@ -24,12 +26,19 @@ const { timeUntil } = useTimeUntil(() =>
           <UButton
             variant="outline"
             color="neutral"
-            trailing-icon="i-mdi-content-copy"
             class="flex-1 rounded-none text-xl"
+            :class="{
+              'text-success ring-success transition-colors': copied,
+            }"
             :ui="{
               base: 'justify-between',
             }"
-            >{{ dataTransfer.code }}</UButton
+            @click="copy(dataTransfer.code)"
+            ><template #trailing>
+              <UIcon v-if="copied" name="i-mdi-check" class="size-6" />
+              <UIcon v-else name="i-mdi-content-copy" class="size-6" />
+            </template>
+            {{ dataTransfer.code }}</UButton
           >
         </UTooltip>
         <UiConfirmPopup

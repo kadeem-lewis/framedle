@@ -50,9 +50,7 @@ export type GridProgressData = ProgressDataBase & {
 };
 
 export type ProgressData =
-  | ClassicProgressData
-  | AbilityProgressData
-  | GridProgressData;
+  ClassicProgressData | AbilityProgressData | GridProgressData;
 
 export type FullClassicData = ClassicDailyData &
   Omit<ClassicProgressData, "date" | "day" | "mode">;
@@ -91,5 +89,30 @@ db.version(2)
         ) {
           daily.itemToGuess = daily.itemToGuess.name;
         }
+      });
+  });
+
+db.version(3)
+  .stores({
+    dailies: "&[day+mode], &[date+mode], mode",
+    progress: "&[day+mode], &[date+mode],[state+mode], mode",
+  })
+  .upgrade((tx) => {
+    return tx
+      .table("dailies")
+      .where("mode")
+      .equals("grid")
+      .modify((daily: GridDailyData) => {
+        const replaceLegacyCategory = (
+          values: [string, string, string],
+        ): [string, string, string] => {
+          const replace = (value: string): string =>
+            value === "acquisition:starChart" ? "starChart:true" : value;
+
+          return [replace(values[0]), replace(values[1]), replace(values[2])];
+        };
+
+        daily.puzzle.rows = replaceLegacyCategory(daily.puzzle.rows);
+        daily.puzzle.columns = replaceLegacyCategory(daily.puzzle.columns);
       });
   });

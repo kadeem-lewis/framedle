@@ -1,5 +1,11 @@
 # Changelog
 
+## v1.8.1 - September 3rd, 2026
+
+### Bug Fixes
+
+- Fixed starChart grid category not displaying
+
 ## v1.8.0 - August 16th, 2026
 
 ### Features

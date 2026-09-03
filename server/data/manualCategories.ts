@@ -629,8 +629,8 @@ export const manualCategories = [
     ],
   },
   {
-    id: "acquisition:starChart",
-    key: "acquisition",
+    id: "starChart:true",
+    key: "starChart",
     lastUsed: null,
     warframes: [
       "Rhino",

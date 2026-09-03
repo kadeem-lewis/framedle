@@ -14,6 +14,15 @@ useSeoMeta({
 
 const versions = [
   {
+    title: "1.8.1",
+    date: "2026-09-03",
+    content: `
+### Bug Fixes
+
+- Fixed starChart grid category not displaying
+    `,
+  },
+  {
     title: "1.8.0",
     date: "2026-08-16",
     content: `

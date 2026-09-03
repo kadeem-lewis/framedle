@@ -185,7 +185,7 @@ export const categoryMetadata = {
     description:
       "Accolade Glyphs are Glyph collectibles that can only be acquired by beating a Hardmode Boss in a solo setting, with a specific roster of Warframes.",
   }),
-  starChartAcquisition: (_: unknown) => ({
+  starChart: (_: unknown) => ({
     header: "Acquisition",
     value: "Star Chart",
     description:

@@ -14,6 +14,20 @@ useSeoMeta({
 
 const versions = [
   {
+    title: "1.9.0",
+    date: "2026-09-09",
+    content: `
+### Features
+
+- Added a migration feature that allows users to export their game data and statistics from one device to another
+
+### Bug Fixes
+
+- Fixed feedback grid having different styles between summary row and regular feedback grid
+    `,
+    badge: "v1.9.0",
+  },
+  {
     title: "1.8.1",
     date: "2026-09-03",
     content: `
@@ -21,6 +35,7 @@ const versions = [
 
 - Fixed starChart grid category not displaying
     `,
+    badge: "v1.8.1",
   },
   {
     title: "1.8.0",

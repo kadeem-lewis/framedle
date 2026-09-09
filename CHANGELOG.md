@@ -1,5 +1,15 @@
 # Changelog
 
+## v1.9.0 - September 9th, 2026
+
+### Features
+
+- Added a migration feature that allows users to export their game data and statistics from one device to another
+
+### Bug Fixes
+
+- Fixed feedback grid having different styles between summary row and regular feedback grid
+
 ## v1.8.1 - September 3rd, 2026
 
 ### Bug Fixes

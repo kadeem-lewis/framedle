@@ -1,13 +1,30 @@
 <script setup lang="ts">
+import { z } from "zod";
+import type { FormSubmitEvent } from "@nuxt/ui";
+
 const { importData, isImporting, importError } = useTransferData();
-const importCode = ref("");
+
+const schema = z.object({
+  importCode: z
+    .string()
+    .trim()
+    .toUpperCase()
+    .length(6, "Migration code must be 6 characters long")
+    .regex(/^[A-Z0-9]+$/, "Invalid migration code"),
+});
+
+type Schema = z.infer<typeof schema>;
+
+const state = reactive({
+  importCode: "",
+});
 
 const { closeDialog } = useDialog();
 
 const toast = useToast();
 
-const handleImport = async () => {
-  const result = await importData(importCode.value);
+async function handleImport(event: FormSubmitEvent<Schema>) {
+  const result = await importData(event.data.importCode);
   if (result.ok) {
     toast.add({
       title: "Data Imported",
@@ -16,7 +33,7 @@ const handleImport = async () => {
     });
     closeDialog();
   }
-};
+}
 </script>
 <template>
   <div class="flex flex-col gap-2">
@@ -31,24 +48,28 @@ const handleImport = async () => {
       variant="subtle"
       class="rounded-none"
     />
-    <div class="flex gap-2">
-      <UInput
-        v-model="importCode"
-        placeholder="Paste your import code here"
-        size="xl"
-        class="flex-1"
-        :ui="{
-          base: 'rounded-none',
-        }"
-      />
-      <UButton
-        variant="outline"
-        class="rounded-none"
-        size="xl"
-        :loading="isImporting"
-        @click="handleImport"
-        >Import Data</UButton
-      >
-    </div>
+    <UForm :schema="schema" :state="state" @submit="handleImport">
+      <div class="flex gap-2">
+        <UFormField name="importCode" class="flex-1" required>
+          <UInput
+            v-model="state.importCode"
+            placeholder="Paste your import code here"
+            size="xl"
+            class="w-full uppercase"
+            :ui="{
+              base: 'rounded-none',
+            }"
+          />
+        </UFormField>
+        <UButton
+          variant="outline"
+          class="self-start rounded-none"
+          size="xl"
+          :loading="isImporting"
+          type="submit"
+          >Import Data</UButton
+        >
+      </div>
+    </UForm>
   </div>
 </template>

@@ -1,7 +1,12 @@
 import { z } from "zod";
 
 const migrationQuerySchema = z.object({
-  code: z.string().length(6),
+  code: z
+    .string()
+    .trim()
+    .toUpperCase()
+    .length(6)
+    .regex(/^[A-Z0-9]+$/, "Invalid migration code"),
 });
 
 export default defineEventHandler(async (event) => {

@@ -29,6 +29,8 @@ export type ProgressDataBase = {
   day: number;
   attempts: number;
   state?: GameStatusType;
+  completedAt?: string;
+  countsTowardDailyStats?: boolean;
 };
 
 export type ClassicProgressData = ProgressDataBase & {
@@ -50,9 +52,7 @@ export type GridProgressData = ProgressDataBase & {
 };
 
 export type ProgressData =
-  | ClassicProgressData
-  | AbilityProgressData
-  | GridProgressData;
+  ClassicProgressData | AbilityProgressData | GridProgressData;
 
 export type FullClassicData = ClassicDailyData &
   Omit<ClassicProgressData, "date" | "day" | "mode">;

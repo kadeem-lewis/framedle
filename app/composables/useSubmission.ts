@@ -108,6 +108,8 @@ export function useSubmission() {
         }).catch((err) => console.error("Failed to submit score", err));
 
         try {
+          const now = new Date();
+          const today = format(now, "yyyy-MM-dd");
           await db.progress
             .where({
               mode: mode.value,
@@ -117,6 +119,9 @@ export function useSubmission() {
             })
             .modify({
               state: newState,
+              completedAt: now.toISOString(),
+              countsTowardDailyStats:
+                currentDailyDate.value[mode.value] === today,
               ...startOvertimeMode(newState),
             });
         } catch (e) {

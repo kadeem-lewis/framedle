@@ -1,7 +1,6 @@
 import {
   addDays,
   format,
-  max as dateMax,
   compareDesc,
   subDays,
   isSameDay,
@@ -136,24 +135,22 @@ export function useTransferData() {
         stats.guesses[guessIndex] = (stats.guesses[guessIndex] || 0) + 1;
       }
     });
-    stats.lastPlayedDate = getLastPlayedDate(localStats, importedStats);
-    const lastCorrectDates = [
-      localStats.lastCorrectDate,
-      (importedStats as LegacyModeStats).lastCorrectDate,
-    ].filter((date) => date !== null);
-    stats.lastCorrectDate =
-      lastCorrectDates.length > 0
-        ? format(dateMax(lastCorrectDates), "yyyy-MM-dd")
-        : null;
 
-    const wonDates = gameProgress
-      .filter(
-        (item) =>
-          item.state === GameStatus.WON &&
-          item.countsTowardDailyStats !== false,
-      )
-      .map((item) => item.date);
-    stats.streak = calculateStreak(wonDates);
+    const completedGames = gameProgress.filter(
+      (item) =>
+        item.state !== GameStatus.ACTIVE &&
+        item.countsTowardDailyStats !== false,
+    );
+
+    const wonGames = gameProgress.filter(
+      (item) =>
+        item.state === GameStatus.WON && item.countsTowardDailyStats !== false,
+    );
+
+    stats.lastCorrectDate = getLatestProgressDate(wonGames);
+    stats.lastPlayedDate = getLatestProgressDate(completedGames);
+
+    stats.streak = calculateStreak(wonGames.map((item) => item.date));
     stats.maxStreak = Math.max(
       stats.streak,
       importedStats.maxStreak,
@@ -191,16 +188,16 @@ export function useTransferData() {
       {} as Record<number, number>,
     );
 
-    stats.lastPlayedDate = getLastPlayedDate(localStats, importedStats);
+    const completedGridGames = gameProgress.filter(
+      (item) =>
+        calculateGridScore(item.gridState) > 0 &&
+        item.state !== GameStatus.ACTIVE &&
+        item.countsTowardDailyStats !== false,
+    );
 
-    const gridStreakDates = gameProgress
-      .filter(
-        (item) =>
-          calculateGridScore(item.gridState) > 0 &&
-          item.countsTowardDailyStats !== false,
-      )
-      .map((item) => item.date);
-    stats.streak = calculateStreak(gridStreakDates);
+    stats.lastPlayedDate = getLatestProgressDate(completedGridGames);
+
+    stats.streak = calculateStreak(completedGridGames.map((item) => item.date));
     stats.maxStreak = Math.max(
       stats.streak,
       importedStats.maxStreak,
@@ -210,18 +207,8 @@ export function useTransferData() {
     return stats;
   }
 
-  function getLastPlayedDate(
-    localStats: LegacyModeStats | GridModeStats,
-    importedStats: LegacyModeStats | GridModeStats,
-  ) {
-    const lastPlayedDates = [
-      localStats.lastPlayedDate,
-      importedStats.lastPlayedDate,
-    ].filter((date) => date !== null);
-    if (lastPlayedDates.length > 0) {
-      return format(dateMax(lastPlayedDates), "yyyy-MM-dd");
-    }
-    return null;
+  function getLatestProgressDate(progress: ProgressData[]) {
+    return [...progress].map((item) => item.date).sort(compareDesc)[0] ?? null;
   }
 
   function calculateStreak(dates: string[]) {

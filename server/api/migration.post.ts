@@ -1,13 +1,33 @@
-export default defineEventHandler(async (event) => {
-  const body = await readBody(event);
-  const { stats, progress } = body;
+import { z } from "zod";
 
-  if (!stats || !progress) {
+const migrationSchema = z.object({
+  stats: z.object({
+    classic: z.record(z.string(), z.unknown()),
+    ability: z.record(z.string(), z.unknown()),
+    grid: z.record(z.string(), z.unknown()),
+  }),
+  progress: z
+    .array(
+      z.looseObject({
+        mode: z.enum(["classic", "ability", "grid"]),
+        date: z.iso.date(),
+        day: z.number().int().positive(),
+      }),
+    )
+    .max(10000),
+});
+
+export default defineEventHandler(async (event) => {
+  const body = await readValidatedBody(event, (body) =>
+    migrationSchema.safeParse(body),
+  );
+  if (!body.success) {
     throw createError({
       statusCode: 400,
-      message: "Invalid request body",
+      message: "Invalid migration data",
     });
   }
+  const { stats, progress } = body.data;
 
   try {
     const redis = await useRedis();

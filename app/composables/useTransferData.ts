@@ -125,7 +125,9 @@ export function useTransferData() {
         progress.countsTowardDailyStats !== false,
     ).length;
     stats.wins = gameProgress.filter(
-      (progress) => progress.state === GameStatus.WON,
+      (progress) =>
+        progress.state === GameStatus.WON &&
+        progress.countsTowardDailyStats !== false,
     ).length;
     gameProgress.forEach((progress) => {
       if (progress.state === GameStatus.WON) {
@@ -145,7 +147,11 @@ export function useTransferData() {
         : null;
 
     const wonDates = gameProgress
-      .filter((item) => item.state === GameStatus.WON)
+      .filter(
+        (item) =>
+          item.state === GameStatus.WON &&
+          item.countsTowardDailyStats !== false,
+      )
       .map((item) => item.date);
     stats.streak = calculateStreak(wonDates);
     stats.maxStreak = Math.max(
@@ -188,7 +194,11 @@ export function useTransferData() {
     stats.lastPlayedDate = getLastPlayedDate(localStats, importedStats);
 
     const gridStreakDates = gameProgress
-      .filter((item) => calculateGridScore(item.gridState) > 0)
+      .filter(
+        (item) =>
+          calculateGridScore(item.gridState) > 0 &&
+          item.countsTowardDailyStats !== false,
+      )
       .map((item) => item.date);
     stats.streak = calculateStreak(gridStreakDates);
     stats.maxStreak = Math.max(
@@ -207,7 +217,7 @@ export function useTransferData() {
     const lastPlayedDates = [
       localStats.lastPlayedDate,
       importedStats.lastPlayedDate,
-    ].filter((date): date is string => date !== null);
+    ].filter((date) => date !== null);
     if (lastPlayedDates.length > 0) {
       return format(dateMax(lastPlayedDates), "yyyy-MM-dd");
     }

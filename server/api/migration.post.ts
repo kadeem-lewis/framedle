@@ -1,4 +1,3 @@
-// I receive the stats and archive data from the client and then save it to redis with an associated id. There will be a get route for migrations that will find the code in redis and copy the data to the browser and save it to local storage and indexeddb.
 export default defineEventHandler(async (event) => {
   const body = await readBody(event);
   const { stats, progress } = body;

@@ -6,6 +6,8 @@ import {
   ContentSupport,
   ContentGameSettings,
   GridSummary,
+  ContentExportData,
+  ContentImportData,
 } from "#components";
 
 const { title, dialogOption } = defineProps<{
@@ -24,6 +26,8 @@ const optionComponents = {
   [dialogOptions.SUPPORT]: ContentSupport,
   [dialogOptions.SETTINGS]: ContentGameSettings,
   [dialogOptions.SUMMARY]: GridSummary,
+  [dialogOptions.EXPORT]: ContentExportData,
+  [dialogOptions.IMPORT]: ContentImportData,
 };
 </script>
 <template>

@@ -183,6 +183,8 @@ export const useStatsStore = defineStore(
 
     return {
       stats,
+      createDefaultGuessStats,
+      createDefaultGridStats,
       updateStatsOnGameOver,
       validateStreak,
       resetStats,

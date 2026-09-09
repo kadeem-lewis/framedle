@@ -6,6 +6,7 @@ const { $colorblindMode } = useNuxtApp();
 const { showBackground, showClassicSummary } = storeToRefs(useSettingsStore());
 
 //data transfer
+const { openDialog } = useDialog();
 </script>
 <template>
   <div>
@@ -70,6 +71,36 @@ const { showBackground, showClassicSummary } = storeToRefs(useSettingsStore());
           label="Show Classic Summary Row"
         />
       </UiItem>
+    </div>
+    <USeparator />
+    <div class="flex flex-col gap-1 py-2">
+      <p class="text-lg">Transfer Data</p>
+      <div class="flex flex-col gap-2">
+        <UButton
+          icon="i-heroicons-cloud-arrow-up-solid"
+          trailing-icon="i-mdi-send"
+          variant="outline"
+          class="rounded-none"
+          :ui="{
+            trailingIcon: 'ms-auto',
+          }"
+          size="lg"
+          @click="openDialog(dialogOptions.EXPORT)"
+          >Export Data</UButton
+        >
+        <UButton
+          icon="i-heroicons-cloud-arrow-down-solid"
+          trailing-icon="i-mdi-send"
+          variant="outline"
+          class="rounded-none"
+          :ui="{
+            trailingIcon: 'ms-auto',
+          }"
+          size="lg"
+          @click="openDialog(dialogOptions.IMPORT)"
+          >Import Data</UButton
+        >
+      </div>
     </div>
   </div>
 </template>

@@ -36,6 +36,11 @@ const items = shallowRef<AccordionItem[]>([
     content:
       "A: The easiest way to contact me would be through the contact form provided on the site. The form also shows other ways to get in touch.",
   },
+  {
+    label: "Q: How does the export and import data feature work?",
+    content:
+      "A: The export data feature exports all of your daily game data and your statistics into a code that you can copy and paste into the import data feature on another device. This allows you to transfer your data between devices or browsers. The code is valid for 24 hours after it is generated.",
+  },
 ]);
 </script>
 <template>

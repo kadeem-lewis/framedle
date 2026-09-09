@@ -46,7 +46,14 @@ export function useTransferData() {
     }
   }
 
+  const isImporting = ref(false);
+  const importSucceeded = ref(false);
+  const importError = ref<unknown>(null);
+
   async function importData(code: string) {
+    isImporting.value = true;
+    importSucceeded.value = false;
+    importError.value = null;
     try {
       const response = await $fetch("/api/migration", {
         query: { code },
@@ -62,8 +69,14 @@ export function useTransferData() {
       } else {
         stats.value = await recomputeStats(stats.value, importedStats);
       }
+      importSucceeded.value = true;
+      return { ok: true };
     } catch (error) {
       console.error("Error importing data:", error);
+      importError.value = error;
+      return { ok: false, error: "Failed to import data" };
+    } finally {
+      isImporting.value = false;
     }
   }
 
@@ -104,12 +117,14 @@ export function useTransferData() {
     importedStats: LegacyModeStats,
   ) {
     const stats = createDefaultGuessStats();
-    stats.plays = gameProgress.length;
+    stats.plays = gameProgress.filter(
+      (progress) => progress.state !== GameStatus.ACTIVE,
+    ).length;
     stats.wins = gameProgress.filter(
-      (progress) => progress.state === "won",
+      (progress) => progress.state === GameStatus.WON,
     ).length;
     gameProgress.forEach((progress) => {
-      if (progress.state === "won") {
+      if (progress.state === GameStatus.WON) {
         const attemptsUsed = DEFAULT_ATTEMPTS - progress.attempts;
         const guessIndex = attemptsUsed - 1;
         stats.guesses[guessIndex] = (stats.guesses[guessIndex] || 0) + 1;
@@ -126,7 +141,7 @@ export function useTransferData() {
         : null;
 
     const wonDates = gameProgress
-      .filter((item) => item.state === "won")
+      .filter((item) => item.state === GameStatus.WON)
       .map((item) => item.date);
     stats.streak = calculateStreak(wonDates);
     stats.maxStreak = Math.max(
@@ -144,9 +159,9 @@ export function useTransferData() {
   ) {
     const stats = createDefaultGridStats();
 
-    const gridScores = gameProgress.map((progress) =>
-      calculateGridScore(progress.gridState),
-    );
+    const gridScores = gameProgress
+      .filter((progress) => progress.state !== GameStatus.ACTIVE)
+      .map((progress) => calculateGridScore(progress.gridState));
     stats.plays = gridScores.length;
     stats.averageScore =
       gridScores.length > 0
@@ -235,6 +250,9 @@ export function useTransferData() {
 
   return {
     dataTransfer,
+    isImporting,
+    importSucceeded,
+    importError,
     exportData,
     importData,
   };

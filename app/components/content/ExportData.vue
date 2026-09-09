@@ -3,7 +3,7 @@ import { format } from "date-fns";
 
 const { exportData, dataTransfer, timeUntil } = useTransferData();
 
-const { copy, copied } = useClipboard({ source: dataTransfer.value.code! });
+const { copy, copied } = useClipboard();
 </script>
 <template>
   <div class="flex flex-col gap-2">

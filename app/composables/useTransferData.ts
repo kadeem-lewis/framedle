@@ -119,7 +119,8 @@ export function useTransferData() {
     const stats = createDefaultGuessStats();
     stats.plays = gameProgress.filter(
       (progress) =>
-        progress.state !== GameStatus.ACTIVE && progress.countsTowardDailyStats,
+        progress.state !== GameStatus.ACTIVE &&
+        progress.countsTowardDailyStats !== false,
     ).length;
     stats.wins = gameProgress.filter(
       (progress) => progress.state === GameStatus.WON,
@@ -164,7 +165,7 @@ export function useTransferData() {
       .filter(
         (progress) =>
           progress.state !== GameStatus.ACTIVE &&
-          progress.countsTowardDailyStats,
+          progress.countsTowardDailyStats !== false,
       )
       .map((progress) => calculateGridScore(progress.gridState));
     stats.plays = gridScores.length;

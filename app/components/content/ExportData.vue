@@ -3,9 +3,13 @@ import { addDays, format } from "date-fns";
 
 const { exportData, dataTransfer } = useTransferData();
 
-const { timeUntil } = useTimeUntil(() =>
-  addDays(dataTransfer.value.exportedAt!, 1),
-);
+// regenerating a new code didn't reset this value until refresh
+// After generating a code, the remaining time is a giant negative number until the page is refreshed
+
+const dayAfterExport = computed(() => {
+  return addDays(dataTransfer.value.exportedAt!, 1);
+});
+const { timeUntil } = useTimeUntil(dayAfterExport);
 
 const { copy, copied } = useClipboard({ source: dataTransfer.value.code! });
 </script>
@@ -16,9 +20,14 @@ const { copy, copied } = useClipboard({ source: dataTransfer.value.code! });
       Paste the generated code into the import field of the device you want to
       import the data into.
     </p>
-    <div v-if="!dataTransfer.code">
-      Export
-      <UButton @click="exportData">Export Data</UButton>
+    <div v-if="!dataTransfer.code" class="flex items-center justify-center">
+      <UButton
+        variant="outline"
+        size="xl"
+        class="rounded-none"
+        @click="exportData"
+        >Export Data</UButton
+      >
     </div>
     <div v-else class="flex flex-col gap-2">
       <div class="flex gap-2">
@@ -47,7 +56,9 @@ const { copy, copied } = useClipboard({ source: dataTransfer.value.code! });
           cancel-label="Cancel"
           @confirm="exportData"
         >
-          <UButton icon="i-heroicons-arrow-path-solid">Regenerate Code</UButton>
+          <UButton class="rounded-none" icon="i-heroicons-arrow-path-solid"
+            >Regenerate Code</UButton
+          >
         </UiConfirmPopup>
       </div>
       <div class="text-toned">

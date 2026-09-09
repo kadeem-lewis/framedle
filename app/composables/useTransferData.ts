@@ -22,9 +22,11 @@ export function useTransferData() {
     exportedAt: null,
   });
 
-  const { isFinished } = useTimeUntil(() =>
-    addDays(dataTransfer.value.exportedAt!, 1),
-  );
+  const { timeUntil, isFinished } = useTimeUntil(() => {
+    const exportedAt = dataTransfer.value.exportedAt;
+
+    return exportedAt ? addDays(new Date(exportedAt), 1) : null;
+  });
 
   async function exportData() {
     try {
@@ -256,6 +258,8 @@ export function useTransferData() {
 
   return {
     dataTransfer,
+    timeUntil,
+    isFinished,
     isImporting,
     importSucceeded,
     importError,

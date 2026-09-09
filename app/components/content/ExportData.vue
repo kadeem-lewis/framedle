@@ -1,15 +1,7 @@
 <script setup lang="ts">
-import { addDays, format } from "date-fns";
+import { format } from "date-fns";
 
-const { exportData, dataTransfer } = useTransferData();
-
-// regenerating a new code didn't reset this value until refresh
-// After generating a code, the remaining time is a giant negative number until the page is refreshed
-
-const dayAfterExport = computed(() => {
-  return addDays(dataTransfer.value.exportedAt!, 1);
-});
-const { timeUntil } = useTimeUntil(dayAfterExport);
+const { exportData, dataTransfer, timeUntil } = useTransferData();
 
 const { copy, copied } = useClipboard({ source: dataTransfer.value.code! });
 </script>

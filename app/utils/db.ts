@@ -29,6 +29,8 @@ export type ProgressDataBase = {
   day: number;
   attempts: number;
   state?: GameStatusType;
+  completedAt?: string;
+  countsTowardDailyStats?: boolean;
 };
 
 export type ClassicProgressData = ProgressDataBase & {

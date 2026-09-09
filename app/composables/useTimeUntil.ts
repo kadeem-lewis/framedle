@@ -1,45 +1,69 @@
 import { differenceInSeconds } from "date-fns";
 
-export function useTimeUntil(time: MaybeRefOrGetter<Date>) {
-  const targetTime = toValue(time);
-  const timeLeft = ref(calculateTimeLeft(targetTime));
+export function useTimeUntil(time: MaybeRefOrGetter<Date | null | undefined>) {
+  const timeLeft = ref(0);
+  let intervalId: ReturnType<typeof setInterval> | undefined;
 
-  const isFinished = computed(() => timeLeft.value <= 0);
-  let intervalId: NodeJS.Timeout;
-
-  onMounted(() => {
-    intervalId = setInterval(() => {
-      const newTimeLeft = calculateTimeLeft(targetTime);
-
-      if (newTimeLeft <= 0) {
-        clearInterval(intervalId);
-      }
-
-      timeLeft.value = newTimeLeft;
-    }, 1000);
-  });
-
-  function calculateTimeLeft(endDate: Date) {
-    const now = new Date();
-    return differenceInSeconds(endDate, now);
+  function stop() {
+    if (intervalId !== undefined) {
+      clearInterval(intervalId);
+      intervalId = undefined;
+    }
   }
 
-  function formatTimeLeft(timeLeftInSeconds: number) {
-    const hours = Math.floor(timeLeftInSeconds / 3600);
-    let remaining = timeLeftInSeconds % 3600;
-    const minutes = Math.floor(remaining / 60);
-    remaining = remaining % 60;
-    const seconds = remaining;
+  function calculateTimeLeft(targetTime: Date) {
+    return Math.max(0, differenceInSeconds(targetTime, new Date()));
+  }
+
+  function update(targetTime: Date) {
+    timeLeft.value = calculateTimeLeft(targetTime);
+
+    if (timeLeft.value === 0) {
+      stop();
+    }
+  }
+
+  function start(targetTime: Date) {
+    stop();
+    update(targetTime);
+
+    if (timeLeft.value > 0) {
+      intervalId = setInterval(() => {
+        update(targetTime);
+      }, 1000);
+    }
+  }
+
+  watch(
+    () => toValue(time),
+    (targetTime) => {
+      if (!targetTime || Number.isNaN(targetTime.getTime())) {
+        stop();
+        timeLeft.value = 0;
+        return;
+      }
+
+      start(targetTime);
+    },
+    { immediate: true },
+  );
+
+  const isFinished = computed(() => timeLeft.value <= 0);
+
+  const timeUntil = computed(() => {
+    const safeTimeLeft = Math.max(0, timeLeft.value);
+
+    const hours = Math.floor(safeTimeLeft / 3600);
+    const remainingAfterHours = safeTimeLeft % 3600;
+    const minutes = Math.floor(remainingAfterHours / 60);
+    const seconds = remainingAfterHours % 60;
+
     return `${hours.toString().padStart(2, "0")}h ${minutes
       .toString()
       .padStart(2, "0")}m ${seconds.toString().padStart(2, "0")}s`;
-  }
-
-  const timeUntil = computed(() => formatTimeLeft(timeLeft.value));
-
-  tryOnBeforeUnmount(() => {
-    clearInterval(intervalId);
   });
+
+  tryOnBeforeUnmount(stop);
   return {
     timeUntil,
     isFinished,

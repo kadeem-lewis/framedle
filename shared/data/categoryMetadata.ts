@@ -191,6 +191,11 @@ export const categoryMetadata = {
     description:
       "Warframes whose components are drops from bosses on the Star Chart.",
   }),
+  immortalSkin: (_: unknown) => ({
+    header: "Cosmetic",
+    value: "Has Immortal Skin",
+    description: "Warframes that have an immortal skin",
+  }),
 };
 
 export type CategoryName = keyof typeof categoryMetadata;

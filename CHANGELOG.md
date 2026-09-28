@@ -1,5 +1,13 @@
 # Changelog
 
+## v1.10.0 - September 28th, 2026
+
+### Changes
+
+- Added Citrine Prime to the game
+- Added Narin to the game
+- Added Immortal Skins as a new grid game category
+
 ## v1.9.0 - September 9th, 2026
 
 ### Features

@@ -14,6 +14,18 @@ useSeoMeta({
 
 const versions = [
   {
+    title: "1.10.0",
+    date: "2026-09-28",
+    content: `
+### Changes
+
+- Added Citrine Prime to the game
+- Added Narin to the game
+- Added Immortal Skins as a new grid game category
+    `,
+    badge: "v1.10.0",
+  },
+  {
     title: "1.9.0",
     date: "2026-09-09",
     content: `

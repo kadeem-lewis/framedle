@@ -22,6 +22,7 @@ const versions = [
 - Added Citrine Prime to the game
 - Added Narin to the game
 - Added Immortal Skins as a new grid game category
+- Updated grid categories to include new warframes
     `,
     badge: "v1.10.0",
   },

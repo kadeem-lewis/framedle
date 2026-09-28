@@ -172,7 +172,7 @@ export default defineTask({
         mode: "expand",
         $: $skins,
         getPath: ($: CheerioAPI) =>
-          $("a[title='Warframe']")
+          $("a[title='Warframe Cosmetics']")
             .closest("tr")
             .children("td")
             .children("span")

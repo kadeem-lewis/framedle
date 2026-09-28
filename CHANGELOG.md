@@ -7,6 +7,7 @@
 - Added Citrine Prime to the game
 - Added Narin to the game
 - Added Immortal Skins as a new grid game category
+- Updated grid categories to include new warframes
 
 ## v1.9.0 - September 9th, 2026
 

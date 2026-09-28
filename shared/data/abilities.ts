@@ -700,6 +700,26 @@ export const abilities = {
     belongsTo: "Mirage",
     image: "abilities/prism.png",
   },
+  Neote: {
+    name: "Neote",
+    belongsTo: "Narin",
+    image: "abilities/neote.png",
+  },
+  Naraemagi: {
+    name: "Naraemagi",
+    belongsTo: "Narin",
+    image: "abilities/naraemagi.png",
+  },
+  Hakchum: {
+    name: "Hakchum",
+    belongsTo: "Narin",
+    image: "abilities/hakchum.png",
+  },
+  Nurinarim: {
+    name: "Nurinarim",
+    belongsTo: "Narin",
+    image: "abilities/nurinarim.png",
+  },
   "Soul Punch": {
     name: "Soul Punch",
     belongsTo: "Nekros",

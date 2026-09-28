@@ -25,6 +25,7 @@ export default defineTask({
       maneuversResponse,
       accoladeGlyphsResponse,
       starChartAcquisitionResponse,
+      immortalSkinsResponse,
     ] = await Promise.all([
       $fetch<string>("/Buff_%26_Debuff/Buffs#Healing_", {
         baseURL,
@@ -59,6 +60,9 @@ export default defineTask({
       $fetch<string>("/Star_Chart", {
         baseURL,
       }),
+      $fetch<string>("/Category:Immortal_Skins", {
+        baseURL,
+      }),
     ]);
 
     const $buffs = cheerio.load(buffsResponse);
@@ -72,6 +76,7 @@ export default defineTask({
     const $maneuvers = cheerio.load(maneuversResponse);
     const $accoladeGlyphs = cheerio.load(accoladeGlyphsResponse);
     const $starChartAcquisition = cheerio.load(starChartAcquisitionResponse);
+    const $immortalSkins = cheerio.load(immortalSkinsResponse);
 
     const configs = [
       {
@@ -265,7 +270,7 @@ export default defineTask({
           $("h4#Rolling")
             .parent()
             .nextAll("ul")
-            .first()
+            .slice(1, 2) // Get the second ul containing the Warframe names
             .find("li span > a > span"),
       },
       {
@@ -276,8 +281,8 @@ export default defineTask({
         getPath: ($: CheerioAPI) => $(".checklist").find("li span > a > span"),
       },
       {
-        id: "acquisition:starChart",
-        key: "acquisition",
+        id: "starChart:true",
+        key: "starChart",
         mode: "strict",
         $: $starChartAcquisition,
         getPath: ($: CheerioAPI) =>
@@ -295,6 +300,20 @@ export default defineTask({
             .replace(/\s+(Components|Component).*$/i, "")
             .replace(/[\s\u00A0\n\t]+/g, " ")
             .trim();
+        },
+      },
+      {
+        id: "immortalSkin:true",
+        key: "immortalSkin",
+        mode: "expand",
+        $: $immortalSkins,
+        getPath: ($: CheerioAPI) => $("ul").find("li > a"),
+        transform: (el: Element, $: CheerioAPI) => {
+          const $el = $(el);
+
+          const raw = $el.attr("title") || $el.text();
+
+          return raw.replace("Immortal Skin", "").trim();
         },
       },
     ];

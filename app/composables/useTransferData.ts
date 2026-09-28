@@ -118,16 +118,19 @@ export function useTransferData() {
     importedStats: LegacyModeStats,
   ) {
     const stats = createDefaultGuessStats();
-    stats.plays = gameProgress.filter(
-      (progress) =>
-        progress.state !== GameStatus.ACTIVE &&
-        progress.countsTowardDailyStats !== false,
-    ).length;
-    stats.wins = gameProgress.filter(
-      (progress) =>
-        progress.state === GameStatus.WON &&
-        progress.countsTowardDailyStats !== false,
-    ).length;
+    const completedGames = gameProgress.filter(
+      (item) =>
+        item.state !== GameStatus.ACTIVE &&
+        item.countsTowardDailyStats !== false,
+    );
+    const wonGames = gameProgress.filter(
+      (item) =>
+        item.state === GameStatus.WON && item.countsTowardDailyStats !== false,
+    );
+
+    stats.plays = completedGames.length;
+    stats.wins = wonGames.length;
+
     gameProgress.forEach((progress) => {
       if (progress.state === GameStatus.WON) {
         const attemptsUsed = DEFAULT_ATTEMPTS - progress.attempts;
@@ -135,17 +138,6 @@ export function useTransferData() {
         stats.guesses[guessIndex] = (stats.guesses[guessIndex] || 0) + 1;
       }
     });
-
-    const completedGames = gameProgress.filter(
-      (item) =>
-        item.state !== GameStatus.ACTIVE &&
-        item.countsTowardDailyStats !== false,
-    );
-
-    const wonGames = gameProgress.filter(
-      (item) =>
-        item.state === GameStatus.WON && item.countsTowardDailyStats !== false,
-    );
 
     stats.lastCorrectDate = getLatestProgressDate(wonGames);
     stats.lastPlayedDate = getLatestProgressDate(completedGames);

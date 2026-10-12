@@ -11,7 +11,7 @@ const { mode, isLegacyMode } = useGameMode();
         v-for="index of DEFAULT_ATTEMPTS"
         :key="index"
         format="avif"
-        src="/icons/warframe.png"
+        src="/icons/Warframe.png"
         alt="Warframe Icon"
         placeholder
         height="24"

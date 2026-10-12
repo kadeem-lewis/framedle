@@ -5,7 +5,7 @@ export function useModeCards() {
     {
       label: "Classic",
       route: "/classic",
-      source: "/icons/warframe.png",
+      source: "/icons/Warframe.png",
       background: "/backgrounds/fortuna.jpg",
       description: "Guess the Warframe",
       streak: stats.value.classic.streak,
@@ -13,7 +13,7 @@ export function useModeCards() {
     {
       label: "Ability",
       route: "/ability",
-      source: "/icons/PassiveAbilityIcon.png",
+      source: "/icons/ObscuredAbility.png",
       background: "/backgrounds/helminth.jpg",
       description: "Guess the Ability",
       streak: stats.value.ability.streak,
@@ -21,10 +21,18 @@ export function useModeCards() {
     {
       label: "Grid",
       route: "/grid",
-      source: "/icons/BuildIcon.png",
+      source: "/icons/PartiallyFilledGrid.svg",
       background: "/backgrounds/orbiter.jpg",
       description: "Fill the 3x3 board",
       streak: stats.value.grid.streak,
+    },
+    {
+      label: "Coming Soon",
+      route: "",
+      source: "/icons/EarthWithUnknownMarkers.svg",
+      background: "/backgrounds/orbiter.jpg",
+      description: "",
+      streak: 0,
     },
   ]);
 

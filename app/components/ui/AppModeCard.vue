@@ -48,7 +48,7 @@ const { card, showStats = false } = defineProps<{
           <p class="font-roboto text-xl font-semibold text-primary uppercase">
             {{ card.label }}
           </p>
-          <p class="uppercase">{{ card.description }}</p>
+          <p class="font-medium uppercase">{{ card.description }}</p>
         </div>
       </div>
       <ClientOnly>

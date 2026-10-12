@@ -30,7 +30,7 @@ export function useModeCards() {
       label: "Coming Soon",
       route: "",
       source: "/icons/EarthWithUnknownMarkers.svg",
-      background: "/backgrounds/orbiter.jpg",
+      background: "/backgrounds/ColdBelow.jpg",
       description: "",
       streak: 0,
     },

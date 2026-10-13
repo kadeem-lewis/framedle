@@ -38,6 +38,8 @@ const adjacentDays = computedAsync(
   },
   { previous: null, next: null },
 );
+
+const { proxy } = useUmamiAnalytics();
 </script>
 <template>
   <template v-if="isDaily && gameType">
@@ -52,6 +54,7 @@ const adjacentDays = computedAsync(
         size="lg"
         icon="my-icon:double-arrow-left"
         class="rounded-none"
+        @click="proxy.track('Visited Previous Day', { gameType })"
       />
       <div class="flex justify-center gap-1">
         <p>{{ gameType }} #{{ data[gameType]?.day }}</p>
@@ -68,6 +71,7 @@ const adjacentDays = computedAsync(
         size="lg"
         icon="my-icon:double-arrow-right"
         class="rounded-none"
+        @click="proxy.track('Visited Next Day', { gameType })"
       />
     </div>
   </template>

@@ -73,6 +73,7 @@ const { showClassicSummary } = storeToRefs(useSettingsStore());
     <UiAppSpinner v-if="isLoadingDailies" />
     <div v-else>
       <div v-if="itemToGuess[mode]" class="flex flex-col gap-4">
+        <GameNavigation />
         <RemainingGuesses />
         <UCard class="divide-y-0">
           <template #title>
@@ -149,10 +150,7 @@ const { showClassicSummary } = storeToRefs(useSettingsStore());
           Scroll horizontally to see more
           <UIcon name="i-heroicons-arrow-long-right" class="size-5" />
         </div>
-        <template v-if="isGameOver">
-          <GameOverNavigation v-if="!mode.includes('Unlimited')" />
-          <GameOver />
-        </template>
+        <GameOver v-if="isGameOver" />
       </div>
       <ModeUnavailable v-else />
     </div>

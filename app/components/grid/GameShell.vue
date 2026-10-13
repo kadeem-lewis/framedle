@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { format } from "date-fns";
 import { getCategoryDisplay } from "#shared/data/categoryMetadata";
 
 const { gameState } = defineProps<{
@@ -106,28 +105,6 @@ const allDisabledItems = computed(() => [
 const { currentDailyGridData } = storeToRefs(useDailiesStore());
 const { giveUpGridDaily } = useDailiesStore();
 
-const puzzleHeading = computed(() => {
-  if (mode.value === "grid" && currentDailyGridData.value) {
-    return currentDailyGridData.value.date === format(new Date(), "yyyy-MM-dd")
-      ? "Today's Puzzle"
-      : `Archive #${currentDailyGridData.value.day} Puzzle`;
-  }
-  if (mode.value === "gridUnlimited") {
-    return "Unlimited Mode";
-  }
-  return null;
-});
-
-const { getAdjacentArchiveDays } = useArchiveStore();
-const { proxy } = useUmamiAnalytics();
-
-const adjacentDays = computedAsync(async () => {
-  if (!currentDailyGridData.value) {
-    return { previous: null, next: null };
-  }
-  return await getAdjacentArchiveDays(currentDailyGridData.value.day, "grid");
-});
-
 useSubmission();
 
 const formattedAttempts = computed(() => {
@@ -139,9 +116,7 @@ const formattedAttempts = computed(() => {
 </script>
 <template>
   <div class="flex flex-col gap-2">
-    <h1 class="text-center font-roboto text-xl font-semibold uppercase">
-      {{ puzzleHeading }}
-    </h1>
+    <GameNavigation v-if="isDaily" />
     <div class="grid grid-cols-4">
       <div />
       <GridLabel v-for="column in columns" :key="column" :category="column">
@@ -220,15 +195,6 @@ const formattedAttempts = computed(() => {
     </div>
     <div v-else class="mt-2 flex items-center justify-around">
       <UButton
-        :to="`/grid/${adjacentDays?.previous}`"
-        :disabled="!adjacentDays?.previous"
-        variant="outline"
-        color="neutral"
-        icon="i-heroicons-arrow-left"
-        @click="proxy.track('Visited Previous Day', { mode: 'grid' })"
-        >Prev</UButton
-      >
-      <UButton
         v-if="isGameOver || currentDailyGridData?.isOvertime"
         class="col-start-2 w-fit rounded-none"
         @click="openSummaryDialog"
@@ -249,16 +215,6 @@ const formattedAttempts = computed(() => {
           Abort Mission
         </UButton>
       </UiConfirmPopup>
-      <UButton
-        :to="`/${mode}/${adjacentDays?.next}`"
-        :disabled="!adjacentDays?.next"
-        variant="outline"
-        color="neutral"
-        trailing
-        icon="i-heroicons-arrow-right"
-        @click="proxy.track('Visited Next Day', { mode })"
-        >Next</UButton
-      >
     </div>
     <GridPuzzleStats v-if="isDaily" />
     <UModal

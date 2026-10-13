@@ -85,6 +85,7 @@ const { makeGuess } = useGuess();
         class="flex flex-col gap-4"
       >
         <div v-if="itemToGuess[mode]" class="flex flex-col gap-4">
+          <GameNavigation v-if="isDaily" />
           <RemainingGuesses />
           <UCard class="divide-y-0">
             <template #header>
@@ -110,10 +111,7 @@ const { makeGuess } = useGuess();
           </UCard>
           <GlobalStats v-if="isDaily" />
           <AbilityFeedbackArea v-if="!isGameOver" />
-          <template v-else>
-            <GameOverNavigation v-if="!mode.includes('Unlimited')" />
-            <GameOver />
-          </template>
+          <GameOver v-else />
         </div>
         <ModeUnavailable v-else />
       </div>

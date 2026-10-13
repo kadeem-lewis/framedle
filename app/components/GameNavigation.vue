@@ -7,7 +7,7 @@ const {
   currentDailyAbilityData,
   currentDailyClassicData,
 } = storeToRefs(useDailiesStore());
-const data = computed(() => {
+const dailyData = computed(() => {
   return {
     classic: currentDailyClassicData.value,
     ability: currentDailyAbilityData.value,
@@ -17,18 +17,18 @@ const data = computed(() => {
 
 const dateString = computed(() => {
   if (!gameType.value) return ""; // not sure what to do when the value isn't present
-  return format(parseISO(data.value[gameType.value]!.date), "E d MMM");
+  return format(parseISO(dailyData.value[gameType.value]!.date), "E d MMM");
 });
 
 const { getAdjacentArchiveDays } = useArchiveStore();
 
 const adjacentDays = computedAsync(
   async () => {
-    if (!gameType.value || !data.value[gameType.value]) {
+    if (!gameType.value || !dailyData.value[gameType.value]) {
       return { previous: null, next: null };
     }
     return await getAdjacentArchiveDays(
-      data.value[gameType.value]!.day,
+      dailyData.value[gameType.value]!.day,
       gameType.value,
     );
   },
@@ -53,7 +53,7 @@ const { proxy } = useUmamiAnalytics();
         @click="proxy.track('Visited Previous Day', { gameType })"
       />
       <div class="flex justify-center gap-1">
-        <p>{{ gameType }} #{{ data[gameType]?.day }}</p>
+        <p>{{ gameType }} #{{ dailyData[gameType]?.day }}</p>
         <p>&middot;</p>
         <p class="text-muted">
           {{ dateString }}

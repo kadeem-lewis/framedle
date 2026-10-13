@@ -1,10 +1,6 @@
 <script setup lang="ts">
 import { format, parseISO } from "date-fns";
-// const { gameData } = defineProps<{
-//   gameData: DailyDataBase & {
-//     [key: string]: unknown;
-//   };
-// }>();
+
 const { isDaily, gameType } = useGameMode();
 const {
   currentDailyGridData,

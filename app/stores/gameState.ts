@@ -2,152 +2,95 @@ export const GameStatus = {
   ACTIVE: "active",
   WON: "won",
   LOST: "lost",
-  WON_PREVIOUS: "won:previous",
-  LOST_PREVIOUS: "lost:previous",
+  PENDING: "pending",
 } as const;
 
 export type GameStatusType = (typeof GameStatus)[keyof typeof GameStatus];
 
-export const useGameStateStore = defineStore(
-  "gameState",
-  () => {
-    const { itemToGuess, guessedItems, attempts } = storeToRefs(useGameStore());
-    const { currentGame } = storeToRefs(useGridGameStore());
+export const useGameStateStore = defineStore("gameState", () => {
+  const { itemToGuess, guessedItems, attempts } = storeToRefs(useGameStore());
+  const { currentGame } = storeToRefs(useGridGameStore());
 
-    const { mode } = useGameMode();
+  const { mode } = useGameMode();
 
-    const gameState = ref<Record<GameMode, GameStatusType>>({
-      classic: GameStatus.ACTIVE,
-      classicUnlimited: GameStatus.ACTIVE,
-      ability: GameStatus.ACTIVE,
-      abilityUnlimited: GameStatus.ACTIVE,
-      grid: GameStatus.ACTIVE,
-      gridUnlimited: GameStatus.ACTIVE,
-    });
+  const gameState = computed(() => {
+    const gameMode = mode.value;
+    if (!gameMode) return GameStatus.PENDING;
 
-    function updateStatus(mode: GameMode, won: boolean, lost: boolean) {
-      const current = gameState.value[mode];
-
-      if (won) {
-        if (current === GameStatus.ACTIVE)
-          gameState.value[mode] = GameStatus.WON;
-        else if (current === GameStatus.WON)
-          gameState.value[mode] = GameStatus.WON_PREVIOUS;
-      } else if (lost) {
-        if (current === GameStatus.ACTIVE)
-          gameState.value[mode] = GameStatus.LOST;
-        else if (current === GameStatus.LOST)
-          gameState.value[mode] = GameStatus.LOST_PREVIOUS;
-      } else {
-        if (current !== GameStatus.ACTIVE) {
-          gameState.value[mode] = GameStatus.ACTIVE;
-        }
-      }
-    }
-
-    function updateGridState(mode: GameMode) {
-      if (!currentGame.value.config) return;
-
-      const totalCells =
-        currentGame.value.config.rows.length *
-        currentGame.value.config.columns.length;
-
-      const correctCells = Object.values(currentGame.value.grid).filter(
-        (cell) => cell.value && !cell.isExtra,
+    if (isLegacyMode(gameMode)) {
+      if (!itemToGuess.value[gameMode]) return GameStatus.PENDING;
+      return updateLegacyState(
+        gameMode,
+        attempts.value[gameMode],
+        itemToGuess.value[gameMode],
+        guessedItems.value[gameMode],
       );
-
-      const isWin = totalCells > 0 && correctCells.length === totalCells;
-      const isLoss =
-        (currentGame.value.attempts <= 0 ||
-          currentGame.value.attempts === Infinity) &&
-        !isWin;
-
-      updateStatus(mode, isWin, isLoss);
     }
 
-    function updateGameState(
-      gameMode: LegacyMode,
-      currentAttempts: number,
-      currentGuessedItems: WarframeName[],
-    ) {
-      if (!itemToGuess.value[gameMode]) return;
+    return updateGridState();
+  });
 
-      let won = false;
-      if (gameMode === "classic" || gameMode === "classicUnlimited") {
-        won = currentGuessedItems.some(
-          (guessedItem) => guessedItem === itemToGuess.value[gameMode],
-        );
-      }
-      if (gameMode === "ability" || gameMode === "abilityUnlimited") {
-        won = currentGuessedItems.some(
-          (guessedItem) =>
-            guessedItem === getAbility(itemToGuess.value[gameMode]!).belongsTo,
-        );
-      }
+  function updateGridState() {
+    if (!currentGame.value.config) return GameStatus.PENDING;
 
-      const isLoss = currentAttempts === 0 && !won;
+    const totalCells =
+      currentGame.value.config.rows.length *
+      currentGame.value.config.columns.length;
 
-      updateStatus(gameMode, won, isLoss);
-    }
+    const correctCells = Object.values(currentGame.value.grid).filter(
+      (cell) => cell.value && !cell.isExtra,
+    );
 
-    const { isLegacyMode } = useGameMode();
+    const isWin = totalCells > 0 && correctCells.length === totalCells;
+    if (isWin) return GameStatus.WON;
+    const isLoss =
+      (currentGame.value.attempts <= 0 ||
+        currentGame.value.attempts === Infinity) &&
+      !isWin;
 
-    watchEffect(() => {
-      const gameMode = mode.value;
-      if (!gameMode) return;
-      if (isLegacyMode(gameMode)) {
-        updateGameState(
-          gameMode,
-          attempts.value[gameMode],
-          guessedItems.value[gameMode],
-        );
-      } else {
-        updateGridState(gameMode);
-      }
-    });
+    if (isLoss) return GameStatus.LOST;
+    return GameStatus.ACTIVE;
+  }
 
-    const hasWon = computed(() => {
-      const gameMode = mode.value;
-      if (!gameMode) return;
-      return (
-        gameState.value[gameMode] === GameStatus.WON ||
-        gameState.value[gameMode] === GameStatus.WON_PREVIOUS
+  function updateLegacyState(
+    gameMode: LegacyMode,
+    currentAttempts: number,
+    correctAnswer: WarframeName | AbilityName,
+    currentGuessedItems: WarframeName[],
+  ) {
+    let won = false;
+    if (gameMode === "classic" || gameMode === "classicUnlimited") {
+      won = currentGuessedItems.some(
+        (guessedItem) => guessedItem === correctAnswer,
       );
-    });
-
-    const isGameOver = computed(() => {
-      const gameMode = mode.value;
-      if (!gameMode) return;
-      const currentState = gameState.value[gameMode];
-      return currentState !== GameStatus.ACTIVE;
-    });
-
-    const currentGameState = computed(() => {
-      const gameMode = mode.value;
-      if (!gameMode) return GameStatus.ACTIVE;
-      return gameState.value[gameMode];
-    });
-
-    function resetGameState(mode: MaybeRef<keyof typeof gameState.value>) {
-      const gameMode = toValue(mode);
-      gameState.value[gameMode] = GameStatus.ACTIVE;
+    }
+    if (gameMode === "ability" || gameMode === "abilityUnlimited") {
+      won = currentGuessedItems.some(
+        (guessedItem) => guessedItem === getAbility(correctAnswer).belongsTo,
+      );
     }
 
-    return {
-      gameState,
-      hasWon,
-      isGameOver,
-      currentGameState,
-      resetGameState,
-    };
-  },
-  {
-    persist: {
-      storage: piniaPluginPersistedstate.localStorage(),
-      pick: ["gameState"],
-    },
-  },
-);
+    if (won) return GameStatus.WON;
+
+    return currentAttempts <= 0 ? GameStatus.LOST : GameStatus.ACTIVE;
+  }
+
+  const { isLegacyMode } = useGameMode();
+
+  const hasWon = computed(() => gameState.value === GameStatus.WON);
+
+  const isGameOver = computed(
+    () =>
+      gameState.value !== GameStatus.ACTIVE &&
+      gameState.value !== GameStatus.PENDING,
+  );
+
+  return {
+    gameState,
+    hasWon,
+    isGameOver,
+  };
+});
 
 if (import.meta.hot) {
   import.meta.hot.accept(acceptHMRUpdate(useGameStateStore, import.meta.hot));

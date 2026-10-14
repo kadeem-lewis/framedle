@@ -6,7 +6,7 @@ definePageMeta({
 
 const { isUnlimited } = useGameMode();
 
-const { DEFAULT_ATTEMPTS, initializeUnlimitedGame } = useGameStore();
+const { initializeUnlimitedGame } = useGameStore();
 
 useSeoMeta({
   title: () => (isUnlimited.value ? "Classic Unlimited" : "Classic Daily"),

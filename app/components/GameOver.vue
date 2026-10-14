@@ -4,7 +4,7 @@ import party from "party-js";
 
 const { itemToGuess, guessedItems, attempts, correctWarframe, answer } =
   storeToRefs(useGameStore());
-const { resetCurrentGame, DEFAULT_ATTEMPTS } = useGameStore();
+const { resetCurrentGame } = useGameStore();
 
 const { mode, isDaily, isLegacyMode } = useGameMode();
 

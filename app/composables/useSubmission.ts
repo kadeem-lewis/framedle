@@ -6,7 +6,6 @@ export function useSubmission() {
   const { proxy } = useUmamiAnalytics();
   const { updateStatsOnGameOver } = useStatsStore();
   const { gameState, hasWon } = storeToRefs(useGameStateStore());
-  const { DEFAULT_ATTEMPTS } = useGameStore();
   const { attempts } = storeToRefs(useGameStore());
   const { currentDailyDate } = storeToRefs(useDailiesStore());
   const { activeDays } = storeToRefs(useDailiesStore());

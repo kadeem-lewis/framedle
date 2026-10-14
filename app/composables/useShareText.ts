@@ -18,7 +18,6 @@ export function useShareText() {
   } as const;
 
   const { guessedItems, itemToGuess, attempts } = storeToRefs(useGameStore());
-  const { DEFAULT_ATTEMPTS } = useGameStore();
   const {
     currentDailyClassicData,
     currentDailyGridData,

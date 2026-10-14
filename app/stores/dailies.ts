@@ -21,8 +21,6 @@ export const useDailiesStore = defineStore("dailies", () => {
     return { date: format(new Date(), "yyyy-MM-dd") };
   }
 
-  const { DEFAULT_ATTEMPTS } = useGameStore();
-
   const { isDaily } = useGameMode();
 
   async function fetchClassicData(query: { day: number } | { date: string }) {
@@ -36,8 +34,7 @@ export const useDailiesStore = defineStore("dailies", () => {
       if (!puzzle) return undefined;
 
       const progress = (await db.progress.get([puzzle.day, "classic"])) as
-        | ClassicProgressData
-        | undefined;
+        ClassicProgressData | undefined;
 
       return {
         ...puzzle,
@@ -59,8 +56,7 @@ export const useDailiesStore = defineStore("dailies", () => {
       if (!puzzle) return undefined;
 
       const progress = (await db.progress.get([puzzle.day, "ability"])) as
-        | AbilityProgressData
-        | undefined;
+        AbilityProgressData | undefined;
 
       return {
         ...puzzle,
@@ -83,8 +79,7 @@ export const useDailiesStore = defineStore("dailies", () => {
       if (!puzzle) return undefined;
 
       const progress = (await db.progress.get([puzzle.day, "grid"])) as
-        | GridProgressData
-        | undefined;
+        GridProgressData | undefined;
 
       return {
         ...puzzle,
@@ -96,8 +91,6 @@ export const useDailiesStore = defineStore("dailies", () => {
       };
     });
   }
-
-  const { MAX_GRID_ATTEMPTS } = useGridGameStore();
 
   const classicActiveDay = computed(() => activeDays.value.classic);
   const abilityActiveDay = computed(() => activeDays.value.ability);

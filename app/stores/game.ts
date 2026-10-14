@@ -1,8 +1,6 @@
 export const useGameStore = defineStore(
   "game.v2",
   () => {
-    const DEFAULT_ATTEMPTS = 6;
-
     const router = useRouter();
 
     const itemToGuess = ref({

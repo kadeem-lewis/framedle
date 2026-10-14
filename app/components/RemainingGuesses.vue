@@ -1,6 +1,5 @@
 <script setup lang="ts">
 const { attempts } = storeToRefs(useGameStore());
-const { DEFAULT_ATTEMPTS } = useGameStore();
 
 const { mode, isLegacyMode } = useGameMode();
 </script>

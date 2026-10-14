@@ -21,8 +21,6 @@ export type GridGameState = {
 export const useGridGameStore = defineStore(
   "grid-game",
   () => {
-    const MAX_GRID_ATTEMPTS = 10;
-
     const unlimited = ref<GridGameState>({
       grid: {},
       attempts: MAX_GRID_ATTEMPTS,

@@ -1,6 +1,3 @@
-<script setup lang="ts">
-const { MAX_GRID_ATTEMPTS } = useGridGameStore();
-</script>
 <template>
   <ul class="flex list-[square] flex-col gap-2 pl-5">
     <li>
@@ -9,7 +6,7 @@ const { MAX_GRID_ATTEMPTS } = useGridGameStore();
     </li>
     <li>
       You have
-      <span class="text-highlighted font-semibold">{{
+      <span class="font-semibold text-highlighted">{{
         MAX_GRID_ATTEMPTS
       }}</span>
       attempts to fill out the grid.
@@ -24,7 +21,7 @@ const { MAX_GRID_ATTEMPTS } = useGridGameStore();
     </li>
     <li>
       The
-      <span class="text-highlighted font-semibold">uniqueness score</span> is
+      <span class="font-semibold text-highlighted">uniqueness score</span> is
       based on how unique your selected Warframes are vs. other players. The
       lower the score, the better!
     </li>

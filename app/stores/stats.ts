@@ -58,7 +58,6 @@ export const useStatsStore = defineStore(
     });
 
     const { attempts } = storeToRefs(useGameStore());
-    const { DEFAULT_ATTEMPTS } = useGameStore();
 
     const { hasWon, isGameOver } = storeToRefs(useGameStateStore());
     const { currentDailyDate } = storeToRefs(useDailiesStore());

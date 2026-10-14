@@ -113,7 +113,6 @@ export const useDailiesStore = defineStore("dailies", () => {
   );
 
   const { setClassicGameData, setAbilityGameData } = useGameStore();
-  const { syncGridData } = useGridGameStore();
 
   watch(
     currentDailyClassicData,
@@ -130,16 +129,6 @@ export const useDailiesStore = defineStore("dailies", () => {
     (newData) => {
       if (newData) {
         setAbilityGameData(newData);
-      }
-    },
-    { immediate: true },
-  );
-
-  watch(
-    currentDailyGridData,
-    (newData) => {
-      if (newData) {
-        syncGridData(newData);
       }
     },
     { immediate: true },

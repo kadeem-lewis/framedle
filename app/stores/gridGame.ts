@@ -27,10 +27,28 @@ export const useGridGameStore = defineStore(
       config: null,
     });
 
-    const daily = shallowRef<GridGameState>({
-      grid: {},
-      attempts: MAX_GRID_ATTEMPTS,
-      config: null,
+    function createPlaceholderGrid() {
+      return {
+        grid: {},
+        attempts: MAX_GRID_ATTEMPTS,
+        config: null,
+        isOvertime: false,
+      };
+    }
+
+    const { currentDailyGridData } = storeToRefs(useDailiesStore());
+
+    const daily = computed(() => {
+      const data = currentDailyGridData.value;
+
+      if (!data) return createPlaceholderGrid();
+
+      return {
+        grid: data?.gridState,
+        attempts: data?.attempts,
+        config: data?.puzzle,
+        isOvertime: data?.isOvertime,
+      };
     });
 
     const { gameVariant } = useGameMode();
@@ -70,15 +88,6 @@ export const useGridGameStore = defineStore(
         cell.invalidGuesses.push(guess);
       }
       unlimited.value.attempts = Math.max(0, unlimited.value.attempts - 1);
-    }
-
-    function syncGridData(gridData: FullGridData) {
-      daily.value = {
-        grid: gridData.gridState,
-        attempts: gridData.attempts,
-        config: gridData.puzzle,
-        isOvertime: gridData.isOvertime,
-      };
     }
 
     const isLoading = ref(false);
@@ -135,7 +144,6 @@ export const useGridGameStore = defineStore(
       gameScore,
       MAX_GRID_ATTEMPTS,
       registerGuess,
-      syncGridData,
       initializeUnlimitedGridGame,
       resetGridGame,
     };

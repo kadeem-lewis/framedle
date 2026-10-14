@@ -10,7 +10,7 @@ const { mode, isDaily, isLegacyMode } = useGameMode();
 
 const showGuesses = ref(false);
 
-const { hasWon, currentGameState } = storeToRefs(useGameStateStore());
+const { hasWon, gameState } = storeToRefs(useGameStateStore());
 
 const { openDialog } = useDialog();
 
@@ -26,7 +26,7 @@ onMounted(() => {
       behavior: "smooth",
       block: "center",
     });
-    if (currentGameState.value === GameStatus.WON) {
+    if (gameState.value === GameStatus.WON) {
       party.confetti(gameOverCards.value!);
     }
   });

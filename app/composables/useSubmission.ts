@@ -5,7 +5,7 @@ export function useSubmission() {
   const { mode, isLegacyDailyMode, isUnlimitedMode } = useGameMode();
   const { proxy } = useUmamiAnalytics();
   const { updateStatsOnGameOver } = useStatsStore();
-  const { currentGameState, hasWon } = storeToRefs(useGameStateStore());
+  const { gameState, hasWon } = storeToRefs(useGameStateStore());
   const { DEFAULT_ATTEMPTS } = useGameStore();
   const { attempts } = storeToRefs(useGameStore());
   const { currentDailyDate } = storeToRefs(useDailiesStore());
@@ -13,10 +13,7 @@ export function useSubmission() {
   const { daily, rarityScore } = storeToRefs(useGridGameStore());
 
   function startOvertimeMode(state: GameStatusType) {
-    if (
-      mode.value === "grid" &&
-      (state === "lost" || state === "lost:previous")
-    ) {
+    if (mode.value === "grid" && state === "lost") {
       return {
         attempts: Infinity,
         isOvertime: true,
@@ -53,81 +50,78 @@ export function useSubmission() {
     return body as SubmissionsBody;
   }
 
-  watch(
-    () => currentGameState.value,
-    async (newState, oldState) => {
-      if (
-        oldState === GameStatus.ACTIVE &&
-        (newState === GameStatus.WON || newState === GameStatus.LOST)
-      ) {
-        if (!mode.value) return;
+  watch(gameState, async (newState, oldState) => {
+    if (
+      oldState === GameStatus.ACTIVE &&
+      (newState === GameStatus.WON || newState === GameStatus.LOST)
+    ) {
+      if (!mode.value) return;
 
-        console.log(
-          `[Game Submission] Processing end of game for ${mode.value}...`,
-        );
+      console.log(
+        `[Game Submission] Processing end of game for ${mode.value}...`,
+      );
 
-        if (isUnlimitedMode(mode.value)) {
-          proxy.track("completed unlimited game", {
-            mode: mode.value,
-            won: hasWon.value,
-          });
+      if (isUnlimitedMode(mode.value)) {
+        proxy.track("completed unlimited game", {
+          mode: mode.value,
+          won: hasWon.value,
+        });
+        return;
+      }
+
+      try {
+        const existingRecord = await db.progress.get({
+          mode: mode.value,
+          ...(activeDays.value[mode.value]
+            ? { day: activeDays.value[mode.value] }
+            : { date: format(new Date(), "yyyy-MM-dd") }),
+        });
+        if (
+          existingRecord &&
+          (existingRecord.state === GameStatus.WON ||
+            existingRecord.state === GameStatus.LOST)
+        ) {
+          // Already have a completed record, do not resubmit
           return;
         }
+      } catch (e) {
+        console.error("Failed to get existing progress from DB", e);
+      }
 
-        try {
-          const existingRecord = await db.progress.get({
+      proxy.track("completed game", {
+        mode: mode.value,
+        won: hasWon.value,
+      });
+      updateStatsOnGameOver();
+
+      const body = generateSubmissionBody();
+      console.log("Submitting game result", body);
+      // Fire and forget (or await if you need to block)
+      $fetch("/api/submissions", {
+        method: "POST",
+        body,
+      }).catch((err) => console.error("Failed to submit score", err));
+
+      try {
+        const now = new Date();
+        const today = format(now, "yyyy-MM-dd");
+        await db.progress
+          .where({
             mode: mode.value,
             ...(activeDays.value[mode.value]
               ? { day: activeDays.value[mode.value] }
               : { date: format(new Date(), "yyyy-MM-dd") }),
+          })
+          .modify({
+            state: newState,
+            completedAt: now.toISOString(),
+            countsTowardDailyStats:
+              currentDailyDate.value[mode.value] === today,
+            ...startOvertimeMode(newState),
           });
-          if (
-            existingRecord &&
-            (existingRecord.state === GameStatus.WON ||
-              existingRecord.state === GameStatus.LOST)
-          ) {
-            // Already have a completed record, do not resubmit
-            return;
-          }
-        } catch (e) {
-          console.error("Failed to get existing progress from DB", e);
-        }
-
-        proxy.track("completed game", {
-          mode: mode.value,
-          won: hasWon.value,
-        });
-        updateStatsOnGameOver();
-
-        const body = generateSubmissionBody();
-        console.log("Submitting game result", body);
-        // Fire and forget (or await if you need to block)
-        $fetch("/api/submissions", {
-          method: "POST",
-          body,
-        }).catch((err) => console.error("Failed to submit score", err));
-
-        try {
-          const now = new Date();
-          const today = format(now, "yyyy-MM-dd");
-          await db.progress
-            .where({
-              mode: mode.value,
-              ...(activeDays.value[mode.value]
-                ? { day: activeDays.value[mode.value] }
-                : { date: format(new Date(), "yyyy-MM-dd") }),
-            })
-            .modify({
-              state: newState,
-              completedAt: now.toISOString(),
-              countsTowardDailyStats:
-                currentDailyDate.value[mode.value] === today,
-              ...startOvertimeMode(newState),
-            });
-        } catch (e) {
-          console.error("Failed to update daily state in DB", e);
-        }
+      } catch (e) {
+        console.error("Failed to update daily state in DB", e);
       }
-    },
-  );
+    }
+  });
 }

@@ -29,7 +29,7 @@ export function useGuess() {
         day: currentDailyClassicData.value.day,
         guessedItems: [...guessedItems.value[currentMode], warframe],
         attempts: attempts.value[currentMode] - 1,
-        state: gameState.value[currentMode],
+        state: gameState.value,
       };
       await db.progress.put(entry).catch((e) => {
         console.error("Failed to add new guess", e);
@@ -41,7 +41,7 @@ export function useGuess() {
         day: currentDailyAbilityData.value.day,
         guessedItems: [...guessedItems.value[currentMode], warframe],
         attempts: attempts.value[currentMode] - 1,
-        state: gameState.value[currentMode],
+        state: gameState.value,
         selectedMinigameAbility:
           currentDailyAbilityData.value.selectedMinigameAbility,
       };
@@ -139,7 +139,7 @@ export function useGuess() {
         ...rest,
         gridState: nextGridState,
         attempts: Math.max(0, dailyData.attempts - 1),
-        state: gameState.value["grid"],
+        state: gameState.value,
       };
 
       await db.progress.put(entry).catch((e) => {

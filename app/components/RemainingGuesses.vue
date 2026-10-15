@@ -1,5 +1,5 @@
 <script setup lang="ts">
-const { attempts } = storeToRefs(useGameStore());
+const { attempts } = defineProps<{ attempts: number }>();
 
 const { mode, isLegacyMode } = useGameMode();
 </script>
@@ -16,7 +16,7 @@ const { mode, isLegacyMode } = useGameMode();
         height="24"
         width="24"
         class="invert dark:invert-0"
-        :class="index > attempts[mode] ? 'brightness-50' : ''"
+        :class="index > attempts ? 'brightness-50' : ''"
       />
     </div>
   </div>

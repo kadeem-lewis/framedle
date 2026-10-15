@@ -1,8 +1,11 @@
 <script setup lang="ts">
 import { motion } from "motion-v";
+const { itemToGuess, attempts } = defineProps<{
+  itemToGuess: AbilityName;
+  attempts: number;
+}>();
 const emit = defineEmits(["loading", "loaded"]);
 
-const { itemToGuess, attempts } = storeToRefs(useGameStore());
 const { mode } = useGameMode();
 const { isGameOver } = storeToRefs(useGameStateStore());
 
@@ -19,21 +22,18 @@ const totalCells = GRID_COLS * GRID_ROWS;
 const img = useImage();
 
 const imageUrl = computed(() => {
-  if (mode.value === "ability" && itemToGuess.value.ability) {
+  if (mode.value === "ability" && itemToGuess) {
     return img(
-      getAbility(itemToGuess.value.ability).image,
+      getAbility(itemToGuess).image,
       {
         width: CANVAS_SIZE,
         height: CANVAS_SIZE,
       },
       { modifiers: { enlarge: true }, provider: "imagekit" }, // scale smaller images up to CANVAS_SIZE
     );
-  } else if (
-    mode.value === "abilityUnlimited" &&
-    itemToGuess.value.abilityUnlimited
-  ) {
+  } else if (mode.value === "abilityUnlimited" && itemToGuess) {
     return img(
-      getAbility(itemToGuess.value.abilityUnlimited).image,
+      getAbility(itemToGuess).image,
       {
         width: CANVAS_SIZE,
         height: CANVAS_SIZE,
@@ -53,7 +53,7 @@ const revealedCells = computed(() => {
     return totalCells; // Show entire image when game is over
   }
 
-  const cellsToReveal = totalCells - attempts.value[mode.value];
+  const cellsToReveal = totalCells - attempts;
 
   const calculatedRevealedCells = Math.max(0, cellsToReveal) + 1;
   return Math.min(totalCells, calculatedRevealedCells);
@@ -141,7 +141,7 @@ function renderCanvases() {
 
 // Watch for changes in attempts or game state to update the canvas
 watch(
-  [attempts, isGameOver, mode, revealedCells],
+  [() => attempts, isGameOver, mode, revealedCells],
   () => {
     if (imageLoaded.value) {
       nextTick(() => renderCanvases());

@@ -2,8 +2,15 @@
 import { startOfTomorrow } from "date-fns";
 import party from "party-js";
 
-const { itemToGuess, guessedItems, attempts, correctWarframe, answer } =
-  storeToRefs(useGameStore());
+const { gameState: gameRound } = defineProps<{
+  gameState: {
+    itemToGuess: WarframeName | AbilityName;
+    guessedItems: WarframeName[];
+    attempts: number;
+  };
+}>();
+
+const { correctWarframe, answer } = storeToRefs(useGameStore());
 const { resetCurrentGame } = useGameStore();
 
 const { mode, isDaily, isLegacyMode } = useGameMode();
@@ -52,11 +59,7 @@ const differentMode = computed(() => {
 const runtimeConfig = useRuntimeConfig();
 
 const numberOfTries = computed(() => {
-  const currentMode = mode.value;
-  if (currentMode && isLegacyMode(currentMode)) {
-    return DEFAULT_ATTEMPTS - attempts.value[currentMode];
-  }
-  return null;
+  return DEFAULT_ATTEMPTS - gameRound.attempts;
 });
 
 function useGameOverMessage() {
@@ -128,11 +131,10 @@ const { title: gameOverTitle, subtitle: gameOverSubtitle } =
         <AbilityGameOverMiniGame
           v-if="
             correctWarframe &&
-            (mode === 'ability' || mode === 'abilityUnlimited') &&
-            itemToGuess[mode]
+            (mode === 'ability' || mode === 'abilityUnlimited')
           "
           :correct-warframe="correctWarframe"
-          :correct-ability="itemToGuess[mode] as AbilityName"
+          :correct-ability="gameRound.itemToGuess as AbilityName"
         />
         <p>
           Number of tries:
@@ -167,7 +169,7 @@ const { title: gameOverTitle, subtitle: gameOverSubtitle } =
           >
           <ul v-if="showGuesses">
             <li
-              v-for="guessedItem in guessedItems[mode]"
+              v-for="guessedItem in gameRound.guessedItems"
               :key="guessedItem"
               class="flex gap-2"
             >

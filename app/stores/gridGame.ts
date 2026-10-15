@@ -29,7 +29,7 @@ export const useGridGameStore = defineStore(
 
     function createPlaceholderGrid() {
       return {
-        grid: {},
+        grid: {} as Record<string, GridCell>,
         attempts: MAX_GRID_ATTEMPTS,
         config: null,
         isOvertime: false,

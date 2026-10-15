@@ -112,28 +112,6 @@ export const useDailiesStore = defineStore("dailies", () => {
     [gridActiveDay, isDaily],
   );
 
-  const { setClassicGameData, setAbilityGameData } = useGameStore();
-
-  watch(
-    currentDailyClassicData,
-    (newData) => {
-      if (newData) {
-        setClassicGameData(newData);
-      }
-    },
-    { immediate: true },
-  );
-
-  watch(
-    currentDailyAbilityData,
-    (newData) => {
-      if (newData) {
-        setAbilityGameData(newData);
-      }
-    },
-    { immediate: true },
-  );
-
   const currentDailyDate = computed(() => {
     return {
       classic: currentDailyClassicData.value?.date || null,

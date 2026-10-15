@@ -18,10 +18,9 @@ export function useShareText() {
   } as const;
 
   const {
-    guessedItems,
-    itemToGuess,
     unlimited,
     daily: legacyDaily,
+    currentGame: currentLegacyGame,
   } = storeToRefs(useGameStore());
   const {
     currentDailyClassicData,
@@ -171,40 +170,38 @@ export function useShareText() {
       return generateGridEmojiBlock();
     }
 
-    if (
-      (currentMode === "ability" || currentMode === "abilityUnlimited") &&
-      itemToGuess.value
-    ) {
-      const target = getAbility(itemToGuess.value).belongsTo;
+    if (currentMode === "ability" || currentMode === "abilityUnlimited") {
+      const currentGame =
+        currentMode === "ability"
+          ? legacyDaily.value.ability
+          : unlimited.value.abilityUnlimited;
 
-      if (!target) return "";
-      const guessedItems =
-        currentMode === "ability"
-          ? currentDailyAbilityData.value!.guessedItems
-          : unlimited.value.abilityUnlimited.guessedItems;
-      const attempts =
-        currentMode === "ability"
-          ? currentDailyAbilityData.value!.attempts
-          : unlimited.value.abilityUnlimited.attempts;
+      if (!currentGame.itemToGuess) return "";
+
+      const target = getAbility(currentGame.itemToGuess).belongsTo;
+
       const abilityEmojiBlock = generateAbilityEmojiBlock(
         target,
-        guessedItems,
-        attempts,
+        currentGame.guessedItems,
+        currentGame.attempts,
       );
 
-      if (itemToGuess.value === selectedMinigameAbility.value) {
+      if (currentGame.itemToGuess === selectedMinigameAbility.value) {
         return `${abilityEmojiBlock}\n✨ Bonus solved!`;
       }
       return abilityEmojiBlock;
     }
 
     if (currentMode === "classic" || currentMode === "classicUnlimited") {
-      const target =
+      const currentGame =
         currentMode === "classic"
-          ? currentDailyClassicData.value!.itemToGuess
-          : unlimited.value.classicUnlimited.itemToGuess;
-      if (!target) return "";
-      return generateClassicEmojiBlock(target, guessedItems.value);
+          ? legacyDaily.value.classic
+          : unlimited.value.classicUnlimited;
+      if (!currentGame.itemToGuess) return "";
+      return generateClassicEmojiBlock(
+        currentGame.itemToGuess,
+        currentGame.guessedItems,
+      );
     }
 
     return "";
@@ -216,10 +213,16 @@ export function useShareText() {
     if (gameVariant.value === "unlimited") {
       let encodedAnswer = "";
       // Explicit checks to ensure we only access valid keys
-      if (mode.value === "classicUnlimited" && itemToGuess.value) {
-        encodedAnswer = encode(itemToGuess.value);
-      } else if (mode.value === "abilityUnlimited" && itemToGuess.value) {
-        encodedAnswer = encode(itemToGuess.value);
+      if (
+        mode.value === "classicUnlimited" &&
+        currentLegacyGame.value?.itemToGuess
+      ) {
+        encodedAnswer = encode(currentLegacyGame.value.itemToGuess);
+      } else if (
+        mode.value === "abilityUnlimited" &&
+        currentLegacyGame.value?.itemToGuess
+      ) {
+        encodedAnswer = encode(currentLegacyGame.value.itemToGuess);
       }
       return `See how you do on the same challenge I played:\n${baseUrl}?x=${encodedAnswer}`;
     }

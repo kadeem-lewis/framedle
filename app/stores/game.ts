@@ -56,31 +56,6 @@ export const useGameStore = defineStore(
       return daily.value[currentMode];
     });
 
-    const itemToGuess = computed(() => {
-      const currentGameType = gameType.value;
-      if (currentGameType === "grid" || !currentGameType) return null;
-      if (gameVariant.value === "unlimited")
-        return unlimited.value[`${currentGameType}Unlimited`].itemToGuess;
-      return daily.value[currentGameType].itemToGuess;
-    });
-
-    const attempts = computed(() => {
-      const currentGameType = gameType.value;
-      if (currentGameType === "grid" || !currentGameType)
-        return DEFAULT_ATTEMPTS;
-      if (gameVariant.value === "unlimited")
-        return unlimited.value[`${currentGameType}Unlimited`].attempts;
-      return daily.value[currentGameType].attempts;
-    });
-
-    const guessedItems = computed(() => {
-      const currentGameType = gameType.value;
-      if (currentGameType === "grid" || !currentGameType) return [];
-      if (gameVariant.value === "unlimited")
-        return unlimited.value[`${currentGameType}Unlimited`].guessedItems;
-      return daily.value[currentGameType].guessedItems;
-    });
-
     const selectedMinigameAbility = computed(() => {
       if (gameType.value !== "ability") return "";
       if (gameVariant.value === "unlimited")
@@ -89,32 +64,17 @@ export const useGameStore = defineStore(
     });
 
     const correctWarframe = computed(() => {
-      const gameMode = mode.value;
-      if (
-        !gameMode ||
-        !isLegacyMode(gameMode) ||
-        currentGame.value === null ||
-        !currentGame.value.itemToGuess
-      )
-        return;
-      if (gameMode === "ability" || gameMode === "abilityUnlimited") {
-        const ability = getAbility(currentGame.value.itemToGuess);
-        return getWarframe(ability.belongsTo);
+      if (gameType.value === "ability" && currentGame.value?.itemToGuess) {
+        return getWarframe(getAbility(currentGame.value.itemToGuess).belongsTo);
       }
-      return getWarframe(currentGame.value.itemToGuess as WarframeName);
+      return getWarframe(currentGame.value?.itemToGuess as WarframeName);
     });
 
     const answer = computed(() => {
-      if (!mode.value) throw createError("Mode is not set");
-      if (!isLegacyMode(mode.value)) throw createError("Not a legacy mode");
-      if (
-        (mode.value === "ability" || mode.value === "abilityUnlimited") &&
-        itemToGuess.value
-      ) {
-        // I am asserting here because even with the checks guaranteeing that both mode and itemToGuess.value[mode.value] are valid, Typescript is still complaining
-        return getAbility(itemToGuess.value!).belongsTo;
+      if (gameType.value === "ability" && currentGame.value?.itemToGuess) {
+        return getAbility(currentGame.value.itemToGuess).belongsTo;
       }
-      return itemToGuess.value;
+      return currentGame.value?.itemToGuess;
     });
 
     const { decode } = useEncoder();
@@ -192,9 +152,6 @@ export const useGameStore = defineStore(
       unlimited,
       daily,
       currentGame,
-      attempts,
-      itemToGuess,
-      guessedItems,
       DEFAULT_ATTEMPTS,
       selectedMinigameAbility,
       correctWarframe,

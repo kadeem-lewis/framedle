@@ -156,11 +156,19 @@ export function useGuess() {
 
       const { puzzle, readableDate, ...rest } = toRaw(dailyData);
 
+      const attempts = Math.max(0, dailyData.attempts - 1);
+
+      const nextState = updateGridState({
+        config: dailyData.puzzle,
+        grid: nextGridState,
+        attempts,
+      });
+
       const entry: GridProgressData = {
         ...rest,
         gridState: nextGridState,
-        attempts: Math.max(0, dailyData.attempts - 1),
-        state: updateGridState(),
+        attempts,
+        state: nextState,
       };
 
       await db.progress.put(entry).catch((e) => {

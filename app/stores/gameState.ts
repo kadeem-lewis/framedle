@@ -28,25 +28,23 @@ export const useGameStateStore = defineStore("gameState", () => {
       );
     }
 
-    return updateGridState();
+    return updateGridState(currentGame.value);
   });
 
-  function updateGridState() {
-    if (!currentGame.value.config) return GameStatus.PENDING;
+  function updateGridState(gridGameState: GridGameState) {
+    if (!gridGameState.config) return GameStatus.PENDING;
 
     const totalCells =
-      currentGame.value.config.rows.length *
-      currentGame.value.config.columns.length;
+      gridGameState.config.rows.length * gridGameState.config.columns.length;
 
-    const correctCells = Object.values(currentGame.value.grid).filter(
+    const correctCells = Object.values(gridGameState.grid).filter(
       (cell) => cell.value && !cell.isExtra,
     );
 
     const isWin = totalCells > 0 && correctCells.length === totalCells;
     if (isWin) return GameStatus.WON;
     const isLoss =
-      (currentGame.value.attempts <= 0 ||
-        currentGame.value.attempts === Infinity) &&
+      (gridGameState.attempts <= 0 || gridGameState.attempts === Infinity) &&
       !isWin;
 
     if (isLoss) return GameStatus.LOST;

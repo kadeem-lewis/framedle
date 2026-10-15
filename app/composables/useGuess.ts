@@ -7,8 +7,8 @@ export function useGuess() {
     currentDailyAbilityData,
     currentDailyGridData,
   } = storeToRefs(useDailiesStore());
-  const { gameState } = storeToRefs(useGameStateStore());
   const { isUnlimited, mode, isLegacyMode, isUnlimitedMode } = useGameMode();
+  const { updateLegacyState, updateGridState } = useGameStateStore();
 
   async function makeGuess(
     selectedWarframe: MaybeRef<WarframeName>,
@@ -25,13 +25,20 @@ export function useGuess() {
         ...currentDailyClassicData.value.guessedItems,
         warframe,
       ]; // I feel like this isn't gonna work because Im spreading
+      const nextState = updateLegacyState(
+        "classic",
+        nextAttempts,
+        currentDailyClassicData.value.itemToGuess,
+        nextGuesses,
+      );
+
       const entry: ClassicProgressData = {
         mode: currentMode,
         date: currentDailyClassicData.value.date,
         day: currentDailyClassicData.value.day,
         guessedItems: nextGuesses,
         attempts: nextAttempts,
-        state: gameState.value,
+        state: nextState,
       };
       await db.progress.put(entry).catch((e) => {
         console.error("Failed to add new guess", e);
@@ -42,6 +49,12 @@ export function useGuess() {
         ...currentDailyAbilityData.value.guessedItems,
         warframe,
       ];
+      const nextState = updateLegacyState(
+        "ability",
+        nextAttempts,
+        currentDailyAbilityData.value.itemToGuess,
+        nextGuesses,
+      );
 
       const entry: AbilityProgressData = {
         mode: currentMode,
@@ -49,7 +62,7 @@ export function useGuess() {
         day: currentDailyAbilityData.value.day,
         guessedItems: nextGuesses,
         attempts: nextAttempts,
-        state: gameState.value,
+        state: nextState,
         selectedMinigameAbility:
           currentDailyAbilityData.value.selectedMinigameAbility,
       };
@@ -147,7 +160,7 @@ export function useGuess() {
         ...rest,
         gridState: nextGridState,
         attempts: Math.max(0, dailyData.attempts - 1),
-        state: gameState.value,
+        state: updateGridState(),
       };
 
       await db.progress.put(entry).catch((e) => {

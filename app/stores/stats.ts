@@ -57,8 +57,7 @@ export const useStatsStore = defineStore(
       grid: createDefaultGridStats(),
     });
 
-    const { attempts } = storeToRefs(useGameStore());
-
+    const { daily: legacyDaily } = storeToRefs(useGameStore());
     const { hasWon, isGameOver } = storeToRefs(useGameStateStore());
     const { currentDailyDate } = storeToRefs(useDailiesStore());
     const { mode, isLegacyDailyMode } = useGameMode();
@@ -128,7 +127,8 @@ export const useStatsStore = defineStore(
 
       currentStats.wins++;
 
-      const attemptsUsed = DEFAULT_ATTEMPTS - attempts.value[gameMode];
+      const attemptsUsed =
+        DEFAULT_ATTEMPTS - legacyDaily.value[gameMode].attempts;
 
       const guessIndex = attemptsUsed - 1;
       if (guessIndex >= 0 && guessIndex < currentStats.guesses.length) {

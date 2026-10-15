@@ -6,7 +6,7 @@ export function useSubmission() {
   const { proxy } = useUmamiAnalytics();
   const { updateStatsOnGameOver } = useStatsStore();
   const { gameState, hasWon } = storeToRefs(useGameStateStore());
-  const { attempts } = storeToRefs(useGameStore());
+  const { daily: legacyDaily } = storeToRefs(useGameStore());
   const { currentDailyDate } = storeToRefs(useDailiesStore());
   const { activeDays } = storeToRefs(useDailiesStore());
   const { daily, rarityScore } = storeToRefs(useGridGameStore());
@@ -43,7 +43,7 @@ export function useSubmission() {
     } else if (isLegacyDailyMode(mode.value)) {
       body = {
         ...body,
-        guessCount: DEFAULT_ATTEMPTS - attempts.value[mode.value],
+        guessCount: DEFAULT_ATTEMPTS - legacyDaily.value[mode.value].attempts,
       };
     }
     return body as SubmissionsBody;

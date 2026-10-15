@@ -17,7 +17,12 @@ export function useShareText() {
     unused: "⬜",
   } as const;
 
-  const { guessedItems, itemToGuess, attempts } = storeToRefs(useGameStore());
+  const {
+    guessedItems,
+    itemToGuess,
+    unlimited,
+    daily: legacyDaily,
+  } = storeToRefs(useGameStore());
   const {
     currentDailyClassicData,
     currentDailyGridData,
@@ -92,19 +97,20 @@ export function useShareText() {
     }
 
     if (isLegacyMode(currentMode)) {
-      const attemptsLeft = attempts.value[currentMode];
-      const attemptsUsed = DEFAULT_ATTEMPTS - attemptsLeft;
-
       if (
         currentMode === "classicUnlimited" ||
         currentMode === "abilityUnlimited"
       ) {
+        const attemptsLeft = unlimited.value[currentMode].attempts;
+        const attemptsUsed = DEFAULT_ATTEMPTS - attemptsLeft;
         return hasWon.value
           ? `I solved a Framedle in ${attemptsUsed} out of ${DEFAULT_ATTEMPTS} turns.`
           : `I couldn't solve this Framedle in ${DEFAULT_ATTEMPTS} turns.`;
       }
 
       if (currentMode === "classic" || currentMode === "ability") {
+        const attemptsLeft = legacyDaily.value[currentMode].attempts;
+        const attemptsUsed = DEFAULT_ATTEMPTS - attemptsLeft;
         const dayNum =
           currentMode === "classic"
             ? currentDailyClassicData.value?.day
@@ -167,31 +173,38 @@ export function useShareText() {
 
     if (
       (currentMode === "ability" || currentMode === "abilityUnlimited") &&
-      itemToGuess.value[currentMode]
+      itemToGuess.value
     ) {
-      const target = getAbility(itemToGuess.value[currentMode]).belongsTo;
+      const target = getAbility(itemToGuess.value).belongsTo;
 
       if (!target) return "";
-
+      const guessedItems =
+        currentMode === "ability"
+          ? currentDailyAbilityData.value!.guessedItems
+          : unlimited.value.abilityUnlimited.guessedItems;
+      const attempts =
+        currentMode === "ability"
+          ? currentDailyAbilityData.value!.attempts
+          : unlimited.value.abilityUnlimited.attempts;
       const abilityEmojiBlock = generateAbilityEmojiBlock(
         target,
-        guessedItems.value[currentMode],
-        attempts.value[currentMode],
+        guessedItems,
+        attempts,
       );
 
-      if (
-        itemToGuess.value[currentMode] ===
-        selectedMinigameAbility.value[currentMode]
-      ) {
+      if (itemToGuess.value === selectedMinigameAbility.value) {
         return `${abilityEmojiBlock}\n✨ Bonus solved!`;
       }
       return abilityEmojiBlock;
     }
 
     if (currentMode === "classic" || currentMode === "classicUnlimited") {
-      const target = itemToGuess.value[currentMode];
+      const target =
+        currentMode === "classic"
+          ? currentDailyClassicData.value!.itemToGuess
+          : unlimited.value.classicUnlimited.itemToGuess;
       if (!target) return "";
-      return generateClassicEmojiBlock(target, guessedItems.value[currentMode]);
+      return generateClassicEmojiBlock(target, guessedItems.value);
     }
 
     return "";
@@ -203,16 +216,10 @@ export function useShareText() {
     if (gameVariant.value === "unlimited") {
       let encodedAnswer = "";
       // Explicit checks to ensure we only access valid keys
-      if (
-        mode.value === "classicUnlimited" &&
-        itemToGuess.value["classicUnlimited"]
-      ) {
-        encodedAnswer = encode(itemToGuess.value["classicUnlimited"]);
-      } else if (
-        mode.value === "abilityUnlimited" &&
-        itemToGuess.value["abilityUnlimited"]
-      ) {
-        encodedAnswer = encode(itemToGuess.value["abilityUnlimited"]);
+      if (mode.value === "classicUnlimited" && itemToGuess.value) {
+        encodedAnswer = encode(itemToGuess.value);
+      } else if (mode.value === "abilityUnlimited" && itemToGuess.value) {
+        encodedAnswer = encode(itemToGuess.value);
       }
       return `See how you do on the same challenge I played:\n${baseUrl}?x=${encodedAnswer}`;
     }

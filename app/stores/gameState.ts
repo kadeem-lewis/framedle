@@ -8,7 +8,7 @@ export const GameStatus = {
 export type GameStatusType = (typeof GameStatus)[keyof typeof GameStatus];
 
 export const useGameStateStore = defineStore("gameState", () => {
-  const { itemToGuess, guessedItems, attempts } = storeToRefs(useGameStore());
+  const { currentGame: currentLegacyGame } = storeToRefs(useGameStore());
   const { currentGame } = storeToRefs(useGridGameStore());
 
   const { mode } = useGameMode();
@@ -18,12 +18,13 @@ export const useGameStateStore = defineStore("gameState", () => {
     if (!gameMode) return GameStatus.PENDING;
 
     if (isLegacyMode(gameMode)) {
-      if (!itemToGuess.value[gameMode]) return GameStatus.PENDING;
+      if (!currentLegacyGame.value || !currentLegacyGame.value.itemToGuess)
+        return GameStatus.PENDING;
       return updateLegacyState(
         gameMode,
-        attempts.value[gameMode],
-        itemToGuess.value[gameMode],
-        guessedItems.value[gameMode],
+        currentLegacyGame.value.attempts,
+        currentLegacyGame.value.itemToGuess,
+        currentLegacyGame.value.guessedItems,
       );
     }
 
@@ -89,6 +90,8 @@ export const useGameStateStore = defineStore("gameState", () => {
     gameState,
     hasWon,
     isGameOver,
+    updateGridState,
+    updateLegacyState,
   };
 });
 

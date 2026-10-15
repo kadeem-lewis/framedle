@@ -1,14 +1,14 @@
 export type Result = "correct" | "incorrect" | "partial" | "higher" | "lower";
 
 export function useGuess() {
-  const { attempts, guessedItems } = storeToRefs(useGameStore());
+  const { unlimited } = storeToRefs(useGameStore());
   const {
     currentDailyClassicData,
     currentDailyAbilityData,
     currentDailyGridData,
   } = storeToRefs(useDailiesStore());
   const { gameState } = storeToRefs(useGameStateStore());
-  const { isUnlimited, mode } = useGameMode();
+  const { isUnlimited, mode, isLegacyMode, isUnlimitedMode } = useGameMode();
 
   async function makeGuess(
     selectedWarframe: MaybeRef<WarframeName>,
@@ -16,31 +16,39 @@ export function useGuess() {
   ) {
     const currentMode = toValue(mode);
     const warframe = toValue(selectedWarframe);
-    if (
-      currentMode === "abilityUnlimited" ||
-      currentMode === "classicUnlimited"
-    ) {
-      attempts.value[currentMode] -= 1;
-      guessedItems.value[currentMode].push(warframe);
+    if (isUnlimitedMode(currentMode) && isLegacyMode(currentMode)) {
+      unlimited.value[currentMode].attempts -= 1;
+      unlimited.value[currentMode].guessedItems.push(warframe);
     } else if (currentMode === "classic" && currentDailyClassicData.value) {
+      const nextAttempts = currentDailyClassicData.value.attempts - 1;
+      const nextGuesses = [
+        ...currentDailyClassicData.value.guessedItems,
+        warframe,
+      ]; // I feel like this isn't gonna work because Im spreading
       const entry: ClassicProgressData = {
         mode: currentMode,
         date: currentDailyClassicData.value.date,
         day: currentDailyClassicData.value.day,
-        guessedItems: [...guessedItems.value[currentMode], warframe],
-        attempts: attempts.value[currentMode] - 1,
+        guessedItems: nextGuesses,
+        attempts: nextAttempts,
         state: gameState.value,
       };
       await db.progress.put(entry).catch((e) => {
         console.error("Failed to add new guess", e);
       });
     } else if (currentMode === "ability" && currentDailyAbilityData.value) {
+      const nextAttempts = currentDailyAbilityData.value.attempts - 1;
+      const nextGuesses = [
+        ...currentDailyAbilityData.value.guessedItems,
+        warframe,
+      ];
+
       const entry: AbilityProgressData = {
         mode: currentMode,
         date: currentDailyAbilityData.value.date,
         day: currentDailyAbilityData.value.day,
-        guessedItems: [...guessedItems.value[currentMode], warframe],
-        attempts: attempts.value[currentMode] - 1,
+        guessedItems: nextGuesses,
+        attempts: nextAttempts,
         state: gameState.value,
         selectedMinigameAbility:
           currentDailyAbilityData.value.selectedMinigameAbility,

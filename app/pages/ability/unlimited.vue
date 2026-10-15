@@ -1,0 +1,31 @@
+<script setup lang="ts">
+useSeoMeta({
+  title: "Ability Unlimited",
+  ogTitle: "Ability Unlimited",
+  description: () =>
+    `Guess the Warframe ability in ${DEFAULT_ATTEMPTS} tries. Each try reveals a tile.`,
+  ogDescription: () =>
+    `Guess the Warframe ability in ${DEFAULT_ATTEMPTS} tries. Each try reveals a tile.`,
+});
+
+const gameStore = useGameStore();
+const { initializeUnlimitedGame } = gameStore;
+const { unlimited } = storeToRefs(gameStore);
+const { mode } = useGameMode();
+const route = useRoute("ability-unlimited");
+
+await callOnce(
+  "ability-setup",
+  () => {
+    if (!mode.value) return;
+    initializeUnlimitedGame(mode.value, route.query.x as string | undefined);
+  },
+  {
+    mode: "navigation",
+  },
+);
+</script>
+<template>
+  <UiAppSpinner v-if="!unlimited.abilityUnlimited.itemToGuess" />
+  <AbilityGameShell v-else :game-state="unlimited.abilityUnlimited" />
+</template>

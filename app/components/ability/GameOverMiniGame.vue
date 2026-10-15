@@ -6,18 +6,11 @@ const { correctWarframe, correctAbility } = defineProps<{
   correctAbility: AbilityName;
 }>();
 
-const { daily, unlimited } = storeToRefs(useGameStore());
+const { daily, unlimited, selectedMinigameAbility } =
+  storeToRefs(useGameStore());
 const { activeDays } = storeToRefs(useDailiesStore());
 const { mode } = useGameMode();
 const { proxy } = useUmamiAnalytics();
-
-const selectedMinigameAbility = computed(() => {
-  if (mode.value === "ability")
-    return daily.value.ability.selectedMinigameAbility;
-  if (mode.value === "abilityUnlimited")
-    return unlimited.value.abilityUnlimited.selectedMinigameAbility;
-  return "";
-});
 
 function handleAbilityClick(ability: string) {
   proxy.track("Played Ability Mini Game", {

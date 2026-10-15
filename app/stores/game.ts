@@ -5,11 +5,15 @@ export const useGameStore = defineStore(
 
     const unlimited = ref({
       classicUnlimited: {
+        type: "classic",
+        variant: "unlimited",
         itemToGuess: null as WarframeName | null,
         attempts: DEFAULT_ATTEMPTS,
         guessedItems: [] as WarframeName[],
       },
       abilityUnlimited: {
+        type: "ability",
+        variant: "unlimited",
         itemToGuess: null as AbilityName | null,
         attempts: DEFAULT_ATTEMPTS,
         guessedItems: [] as WarframeName[],
@@ -19,6 +23,7 @@ export const useGameStore = defineStore(
 
     function createPlaceholderDaily(gameType: "classic" | "ability") {
       return {
+        type: gameType,
         itemToGuess: null,
         attempts: DEFAULT_ATTEMPTS,
         guessedItems: [] as WarframeName[],
@@ -39,8 +44,16 @@ export const useGameStore = defineStore(
         abilityDailyData ?? createPlaceholderDaily("ability");
 
       return {
-        classic: finalClassicDailyData,
-        ability: finalAbilityDailyData,
+        classic: {
+          ...finalClassicDailyData,
+          type: "classic",
+          variant: "daily",
+        },
+        ability: {
+          ...finalAbilityDailyData,
+          type: "ability",
+          variant: "daily",
+        },
       };
     });
 
@@ -64,14 +77,20 @@ export const useGameStore = defineStore(
     });
 
     const correctWarframe = computed(() => {
-      if (gameType.value === "ability" && currentGame.value?.itemToGuess) {
+      if (
+        currentGame.value?.type === "ability" &&
+        currentGame.value?.itemToGuess
+      ) {
         return getWarframe(getAbility(currentGame.value.itemToGuess).belongsTo);
       }
       return getWarframe(currentGame.value?.itemToGuess as WarframeName);
     });
 
     const answer = computed(() => {
-      if (gameType.value === "ability" && currentGame.value?.itemToGuess) {
+      if (
+        currentGame.value?.type === "ability" &&
+        currentGame.value?.itemToGuess
+      ) {
         return getAbility(currentGame.value.itemToGuess).belongsTo;
       }
       return currentGame.value?.itemToGuess;
@@ -164,6 +183,12 @@ export const useGameStore = defineStore(
     persist: {
       storage: piniaPluginPersistedstate.localStorage(),
       pick: ["unlimited"],
+      omit: [
+        "unlimited.abilityUnlimited.type",
+        "unlimited.classicUnlimited.type",
+        "unlimited.abilityUnlimited.variant",
+        "unlimited.classicUnlimited.variant",
+      ],
       afterHydrate(context) {
         migrateGameData(context);
       },

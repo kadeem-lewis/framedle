@@ -1,4 +1,8 @@
 <script setup lang="ts">
+definePageMeta({
+  layout: "game",
+});
+
 useSeoMeta({
   title: "Ability Unlimited",
   ogTitle: "Ability Unlimited",

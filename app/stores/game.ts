@@ -24,10 +24,10 @@ export const useGameStore = defineStore(
     function createPlaceholderDaily(gameType: "classic" | "ability") {
       return {
         type: gameType,
+        variant: "daily",
         itemToGuess: null,
         attempts: DEFAULT_ATTEMPTS,
         guessedItems: [] as WarframeName[],
-        ...(gameType === "ability" ? { selectedMinigameAbility: "" } : {}),
       };
     }
 
@@ -40,8 +40,10 @@ export const useGameStore = defineStore(
 
       const finalClassicDailyData =
         classicDailyData ?? createPlaceholderDaily("classic");
-      const finalAbilityDailyData =
-        abilityDailyData ?? createPlaceholderDaily("ability");
+      const finalAbilityDailyData = abilityDailyData ?? {
+        ...createPlaceholderDaily("ability"),
+        selectedMinigameAbility: "",
+      };
 
       return {
         classic: {

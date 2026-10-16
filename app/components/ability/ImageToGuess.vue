@@ -59,8 +59,14 @@ const revealedCells = computed(() => {
   return Math.min(totalCells, calculatedRevealedCells);
 });
 
+const isImageLoading = ref(false);
+const delayedImageLoading = refDebounced(isImageLoading, 250);
+
 function loadImage() {
   if (!imageUrl.value) return;
+
+  isImageLoading.value = true;
+  imageLoaded.value = false;
 
   const img = new Image();
   img.crossOrigin = "anonymous"; // Handle CORS if needed
@@ -69,11 +75,12 @@ function loadImage() {
     imageObj.value = img;
     imageLoaded.value = true;
     renderCanvases();
-    emit("loaded", true);
+
+    isImageLoading.value = false;
   };
 
   img.onerror = (err) => {
-    emit("loaded", false);
+    isImageLoading.value = false;
     console.error("Error loading image:", err);
   };
 
@@ -151,8 +158,11 @@ watch(
 );
 </script>
 <template>
-  <div class="flex items-center justify-center p-4">
-    <div class="grid h-60 w-60 grid-cols-3 grid-rows-2 transition-transform">
+  <div class="relative flex items-center justify-center p-4">
+    <div
+      class="grid size-60 grid-cols-3 grid-rows-2 transition-transform"
+      :class="{ invisible: isImageLoading }"
+    >
       <div v-for="index in totalCells" :key="`cell-${index}`" class="relative">
         <AnimatePresence>
           <motion.div
@@ -179,6 +189,9 @@ watch(
           <UiPrexCard v-else class="absolute inset-0" />
         </AnimatePresence>
       </div>
+    </div>
+    <div v-if="isImageLoading && delayedImageLoading" class="absolute inset-0">
+      <UiAppSpinner role="status" aria-label="Loading ability image" />
     </div>
   </div>
 </template>

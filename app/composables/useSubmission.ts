@@ -68,25 +68,6 @@ export function useSubmission() {
         return;
       }
 
-      try {
-        const existingRecord = await db.progress.get({
-          mode: mode.value,
-          ...(activeDays.value[mode.value]
-            ? { day: activeDays.value[mode.value] }
-            : { date: format(new Date(), "yyyy-MM-dd") }),
-        });
-        if (
-          existingRecord &&
-          (existingRecord.state === GameStatus.WON ||
-            existingRecord.state === GameStatus.LOST)
-        ) {
-          // Already have a completed record, do not resubmit
-          return;
-        }
-      } catch (e) {
-        console.error("Failed to get existing progress from DB", e);
-      }
-
       proxy.track("completed game", {
         mode: mode.value,
         won: hasWon.value,
@@ -112,7 +93,6 @@ export function useSubmission() {
               : { date: format(new Date(), "yyyy-MM-dd") }),
           })
           .modify({
-            state: newState,
             completedAt: now.toISOString(),
             countsTowardDailyStats:
               currentDailyDate.value[mode.value] === today,

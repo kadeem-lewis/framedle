@@ -2,12 +2,13 @@
 import { startOfTomorrow } from "date-fns";
 import party from "party-js";
 
-const { gameState: gameRound } = defineProps<{
+const { gameState: gameRound, shouldShowAnimations } = defineProps<{
   gameState: {
-    itemToGuess: WarframeName | AbilityName;
+    itemToGuess: WarframeName | AbilityName | null;
     guessedItems: WarframeName[];
     attempts: number;
   };
+  shouldShowAnimations: boolean;
 }>();
 
 const { correctWarframe, answer } = storeToRefs(useGameStore());
@@ -17,7 +18,7 @@ const { mode, isDaily, isLegacyMode } = useGameMode();
 
 const showGuesses = ref(false);
 
-const { hasWon, gameState } = storeToRefs(useGameStateStore());
+const { hasWon } = storeToRefs(useGameStateStore());
 
 const { openDialog } = useDialog();
 
@@ -27,17 +28,21 @@ function handleStatsClick() {
 
 const gameOverCards = useTemplateRef("gameOverCards");
 
-onMounted(() => {
-  nextTick(() => {
-    gameOverCards.value?.scrollIntoView({
-      behavior: "smooth",
-      block: "center",
-    });
-    if (gameState.value === GameStatus.WON) {
-      party.confetti(gameOverCards.value!);
+watch(
+  () => shouldShowAnimations,
+  (newVal) => {
+    if (newVal) {
+      nextTick(() => {
+        gameOverCards.value?.scrollIntoView({
+          behavior: "smooth",
+          block: "center",
+        });
+        party.confetti(gameOverCards.value!);
+      });
     }
-  });
-});
+  },
+  { immediate: true },
+);
 
 const route = useRoute();
 const isPastDay = computed(() => {

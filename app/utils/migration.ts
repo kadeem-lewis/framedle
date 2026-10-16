@@ -44,14 +44,19 @@ function convertVersionTwoGameData(
         parsed.itemToGuess.classicUnlimited;
     }
     if (parsed.itemToGuess?.abilityUnlimited) {
-      // retroactively applied conversion of old object to string to align with new data structure
       unlimited.abilityUnlimited.itemToGuess =
         parsed.itemToGuess.abilityUnlimited;
     }
-    if (parsed.attempts?.classicUnlimited) {
+    if (
+      parsed.attempts?.classicUnlimited !== undefined &&
+      !Number.isNaN(Number(parsed.attempts.classicUnlimited))
+    ) {
       unlimited.classicUnlimited.attempts = parsed.attempts.classicUnlimited;
     }
-    if (parsed.attempts?.abilityUnlimited) {
+    if (
+      parsed.attempts?.abilityUnlimited !== undefined &&
+      !Number.isNaN(Number(parsed.attempts.abilityUnlimited))
+    ) {
       unlimited.abilityUnlimited.attempts = parsed.attempts.abilityUnlimited;
     }
     if (parsed.guessedItems?.classicUnlimited) {
@@ -74,7 +79,18 @@ function convertVersionTwoGameData(
     }
     console.log("Converted version two game data:", unlimited);
 
-    store.unlimited = unlimited;
+    store.unlimited = {
+      classicUnlimited: {
+        ...unlimited.classicUnlimited,
+        type: "classic",
+        variant: "unlimited",
+      },
+      abilityUnlimited: {
+        ...unlimited.abilityUnlimited,
+        type: "ability",
+        variant: "unlimited",
+      },
+    };
     localStorage.removeItem("game.v2");
   } catch (error) {
     console.error("Failed to migrate version two game data:", error);

@@ -14,8 +14,11 @@ useSeoMeta({
 });
 
 const { daily } = storeToRefs(useGameStore());
-const { currentDailyAbilityIsLoading, currentDailyAbilityError } =
-  storeToRefs(useDailiesStore());
+const {
+  currentDailyAbilityIsLoading,
+  currentDailyAbilityError,
+  isLoadingDailies,
+} = storeToRefs(useDailiesStore());
 
 const { validateStreak } = useStatsStore();
 
@@ -29,7 +32,7 @@ onBeforeMount(() => {
     <AbilityGameShell
       v-else
       :game-state="daily.ability"
-      :is-loading="currentDailyAbilityIsLoading"
+      :is-loading="currentDailyAbilityIsLoading || isLoadingDailies"
     />
   </div>
 </template>

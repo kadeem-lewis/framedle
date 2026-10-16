@@ -11,63 +11,89 @@ export function migrateGameData(context: PiniaPluginContext) {
     return;
   }
   const store = context.store;
-  const gameDataVersionOne = localStorage.getItem("game");
-  if (gameDataVersionOne) {
-    convertVersion1GameData(gameDataVersionOne, store);
-  }
-  const currentAbility = store.itemToGuess.abilityUnlimited;
-  if (
-    typeof currentAbility === "object" &&
-    currentAbility !== null &&
-    "name" in currentAbility
-  ) {
-    store.itemToGuess.abilityUnlimited = currentAbility.name;
+  const gameDataVersionTwo = localStorage.getItem("game.v2");
+  if (gameDataVersionTwo) {
+    convertVersionTwoGameData(gameDataVersionTwo, store);
   }
 }
 
-function convertVersion1GameData(
+function convertVersionTwoGameData(
   localStorageData: string,
   store: Store<string, StateTree, _GettersTree<StateTree>, _ActionsTree>,
 ) {
   try {
+    const unlimited: {
+      classicUnlimited: {
+        itemToGuess?: string;
+        attempts?: number;
+        guessedItems?: string[];
+      };
+      abilityUnlimited: {
+        itemToGuess?: string;
+        attempts?: number;
+        guessedItems?: string[];
+        selectedMinigameAbility?: string;
+      };
+    } = {
+      classicUnlimited: {},
+      abilityUnlimited: {},
+    };
     const parsed = JSON.parse(localStorageData);
     if (parsed.itemToGuess?.classicUnlimited) {
-      store.itemToGuess.classicUnlimited =
-        parsed.itemToGuess.classicUnlimited.name;
+      unlimited.classicUnlimited.itemToGuess =
+        parsed.itemToGuess.classicUnlimited;
     }
     if (parsed.itemToGuess?.abilityUnlimited) {
-      // retroactively applied conversion of old object to string to align with new data structure
-      store.itemToGuess.abilityUnlimited =
-        parsed.itemToGuess.abilityUnlimited.name;
+      unlimited.abilityUnlimited.itemToGuess =
+        parsed.itemToGuess.abilityUnlimited;
     }
-    if (parsed.attempts?.classicUnlimited) {
-      store.attempts.classicUnlimited = parsed.attempts.classicUnlimited;
+    if (
+      parsed.attempts?.classicUnlimited !== undefined &&
+      !Number.isNaN(Number(parsed.attempts.classicUnlimited))
+    ) {
+      unlimited.classicUnlimited.attempts = parsed.attempts.classicUnlimited;
     }
-    if (parsed.attempts?.abilityUnlimited) {
-      store.attempts.abilityUnlimited = parsed.attempts.abilityUnlimited;
+    if (
+      parsed.attempts?.abilityUnlimited !== undefined &&
+      !Number.isNaN(Number(parsed.attempts.abilityUnlimited))
+    ) {
+      unlimited.abilityUnlimited.attempts = parsed.attempts.abilityUnlimited;
     }
     if (parsed.guessedItems?.classicUnlimited) {
       if (Array.isArray(parsed.guessedItems.classicUnlimited)) {
-        store.guessedItems.classicUnlimited =
-          parsed.guessedItems.classicUnlimited.map(
-            (item: { name: string }) => item.name,
-          );
+        unlimited.classicUnlimited.guessedItems =
+          parsed.guessedItems.classicUnlimited;
       } else {
-        store.guessedItems.classicUnlimited = [
+        unlimited.classicUnlimited.guessedItems = [
           parsed.guessedItems.classicUnlimited.name,
         ];
       }
     }
     if (parsed.guessedItems?.abilityUnlimited) {
-      store.guessedItems.abilityUnlimited =
-        parsed.guessedItems.abilityUnlimited.map(
-          (item: { name: string }) => item.name,
-        );
+      unlimited.abilityUnlimited.guessedItems =
+        parsed.guessedItems.abilityUnlimited;
     }
+    if (parsed.selectedMinigameAbility?.abilityUnlimited) {
+      unlimited.abilityUnlimited.selectedMinigameAbility =
+        parsed.selectedMinigameAbility.abilityUnlimited;
+    }
+    console.log("Converted version two game data:", unlimited);
 
-    localStorage.removeItem("game");
+    store.unlimited = {
+      classicUnlimited: {
+        ...unlimited.classicUnlimited,
+        type: "classic",
+        variant: "unlimited",
+      },
+      abilityUnlimited: {
+        ...unlimited.abilityUnlimited,
+        type: "ability",
+        variant: "unlimited",
+      },
+    };
+    localStorage.removeItem("game.v2");
   } catch (error) {
-    console.error("Failed to migrate version one game data:", error);
-    localStorage.removeItem("game");
+    console.error("Failed to migrate version two game data:", error);
+    localStorage.removeItem("game.v2");
   }
 }

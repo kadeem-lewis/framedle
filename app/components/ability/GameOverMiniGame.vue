@@ -6,7 +6,8 @@ const { correctWarframe, correctAbility } = defineProps<{
   correctAbility: AbilityName;
 }>();
 
-const { selectedMinigameAbility } = storeToRefs(useGameStore());
+const { daily, unlimited, selectedMinigameAbility } =
+  storeToRefs(useGameStore());
 const { activeDays } = storeToRefs(useDailiesStore());
 const { mode } = useGameMode();
 const { proxy } = useUmamiAnalytics();
@@ -17,7 +18,7 @@ function handleAbilityClick(ability: string) {
     isCorrect: isCorrectAnswer(ability),
   });
   if (mode.value === "ability") {
-    if (selectedMinigameAbility.value.ability) return;
+    if (daily.value.ability.selectedMinigameAbility) return;
 
     db.progress
       .where({
@@ -34,14 +35,14 @@ function handleAbilityClick(ability: string) {
       });
   }
   if (mode.value === "abilityUnlimited") {
-    if (selectedMinigameAbility.value.abilityUnlimited) return;
-    selectedMinigameAbility.value.abilityUnlimited = ability;
+    if (unlimited.value.abilityUnlimited.selectedMinigameAbility) return;
+    unlimited.value.abilityUnlimited.selectedMinigameAbility = ability;
   }
 }
 
 const hasSelected = computed(() => {
   if (mode.value !== "ability" && mode.value !== "abilityUnlimited") return;
-  return !!selectedMinigameAbility.value[mode.value];
+  return !!selectedMinigameAbility.value;
 });
 const isCorrectAnswer = (ability: string) => {
   return ability.toLowerCase() === correctAbility.toLowerCase();
@@ -50,14 +51,11 @@ const isCorrectAnswer = (ability: string) => {
 const isUserSelection = (ability: string) => {
   if (mode.value !== "ability" && mode.value !== "abilityUnlimited")
     return false;
-  return selectedMinigameAbility.value[mode.value] === ability;
+  return selectedMinigameAbility.value === ability;
 };
 const userWasCorrect = computed(() => {
   if (mode.value !== "ability" && mode.value !== "abilityUnlimited") return;
-  return (
-    hasSelected.value &&
-    selectedMinigameAbility.value[mode.value] === correctAbility
-  );
+  return hasSelected.value && selectedMinigameAbility.value === correctAbility;
 });
 
 // I save the selected item to the store and maybe some key for checking if it was previous completed if I don't want to show the animation again
@@ -107,14 +105,12 @@ const abilityNames = computed(() => correctWarframe.abilities);
         </li>
       </ul>
       <div
-        v-if="
-          selectedMinigameAbility[mode] && selectedMinigameAbility[mode] !== ''
-        "
+        v-if="selectedMinigameAbility && selectedMinigameAbility !== ''"
         class="text-center uppercase"
       >
         <p
           v-if="
-            selectedMinigameAbility[mode].toLowerCase() ===
+            selectedMinigameAbility.toLowerCase() ===
             correctAbility.toLowerCase()
           "
           class="text-correct"

@@ -4,117 +4,35 @@ definePageMeta({
   validate: validateRoute,
 });
 
-const { isUnlimited } = useGameMode();
-const { initializeUnlimitedGame, DEFAULT_ATTEMPTS } = useGameStore();
-
 useSeoMeta({
-  title: () => (isUnlimited.value ? "Ability Unlimited" : "Ability Daily"),
-  ogTitle: () => (isUnlimited.value ? "Ability Unlimited" : "Ability Daily"),
+  title: "Ability Daily",
+  ogTitle: "Ability Daily",
   description: () =>
     `Guess the Warframe ability in ${DEFAULT_ATTEMPTS} tries. Each try reveals a tile.`,
   ogDescription: () =>
     `Guess the Warframe ability in ${DEFAULT_ATTEMPTS} tries. Each try reveals a tile.`,
 });
 
-const { itemToGuess, guessedItems } = storeToRefs(useGameStore());
-const { mode, isDaily } = useGameMode();
-const route = useRoute("ability-path");
-const { isGameOver } = storeToRefs(useGameStateStore());
-const { validateStreak } = useStatsStore();
-const { isLoadingDailies } = storeToRefs(useDailiesStore());
+const { daily } = storeToRefs(useGameStore());
+const {
+  currentDailyAbilityIsLoading,
+  currentDailyAbilityError,
+  isLoadingDailies,
+} = storeToRefs(useDailiesStore());
 
-await callOnce(
-  "ability-setup",
-  () => {
-    if (!mode.value) return;
-    initializeUnlimitedGame(mode.value, route.query.x as string | undefined);
-  },
-  {
-    mode: "navigation",
-  },
-);
+const { validateStreak } = useStatsStore();
 
 onBeforeMount(() => {
   validateStreak("ability");
 });
-
-useSubmission();
-
-// Loading state for the image
-const isImageLoading = ref(false);
-const showLoadingSpinner = ref(false);
-let loadingTimeout: NodeJS.Timeout;
-
-// Handle loading state changes
-function handleImageLoading() {
-  isImageLoading.value = true;
-  // Only show spinner after 150ms delay (adjust as needed)
-  loadingTimeout = setTimeout(() => {
-    if (isImageLoading.value) {
-      showLoadingSpinner.value = true;
-    }
-  }, 150);
-}
-
-function handleImageLoaded(success: boolean) {
-  isImageLoading.value = false;
-  showLoadingSpinner.value = false;
-  clearTimeout(loadingTimeout);
-
-  if (!success) {
-    console.error("Failed to load image");
-  }
-}
-
-onUnmounted(() => {
-  clearTimeout(loadingTimeout);
-});
-
-const isLoading = computed(() => {
-  return showLoadingSpinner.value || isLoadingDailies.value;
-});
-
-const { makeGuess } = useGuess();
 </script>
 <template>
   <div>
-    <UiAppSpinner v-if="isLoading" />
-    <div v-show="!isLoading">
-      <div
-        v-if="mode === 'ability' || mode === 'abilityUnlimited'"
-        class="flex flex-col gap-4"
-      >
-        <div v-if="itemToGuess[mode]" class="flex flex-col gap-4">
-          <GameNavigation v-if="isDaily" />
-          <RemainingGuesses />
-          <UCard class="divide-y-0">
-            <template #header>
-              <h1
-                class="font-roboto text-xl font-semibold text-primary-600 uppercase dark:text-primary"
-              >
-                Which Warframe has this ability?
-              </h1>
-              <p class="font-semibold uppercase">Each try reveals a tile</p>
-            </template>
-            <AbilityImageToGuess
-              @loading="handleImageLoading"
-              @loaded="handleImageLoaded"
-            />
-            <template #footer>
-              <WarframeSearch
-                v-if="!isGameOver"
-                :items="vanillaWarframes"
-                :disabled-items="guessedItems[mode]"
-                @submit="makeGuess($event, mode)"
-              />
-            </template>
-          </UCard>
-          <GlobalStats v-if="isDaily" />
-          <AbilityFeedbackArea v-if="!isGameOver" />
-          <GameOver v-else />
-        </div>
-        <ModeUnavailable v-else />
-      </div>
-    </div>
+    <ModeUnavailable v-if="currentDailyAbilityError" />
+    <AbilityGameShell
+      v-else
+      :game-state="daily.ability"
+      :is-loading="currentDailyAbilityIsLoading || isLoadingDailies"
+    />
   </div>
 </template>

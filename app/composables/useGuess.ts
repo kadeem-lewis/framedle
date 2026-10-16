@@ -32,10 +32,10 @@ export function useGuess() {
         nextGuesses,
       );
 
+      const { readableDate, ...rest } = toRaw(currentDailyClassicData.value);
+
       const entry: ClassicProgressData = {
-        mode: currentMode,
-        date: currentDailyClassicData.value.date,
-        day: currentDailyClassicData.value.day,
+        ...rest,
         guessedItems: nextGuesses,
         attempts: nextAttempts,
         state: nextState,
@@ -56,15 +56,13 @@ export function useGuess() {
         nextGuesses,
       );
 
+      const { readableDate, ...rest } = toRaw(currentDailyAbilityData.value);
+
       const entry: AbilityProgressData = {
-        mode: currentMode,
-        date: currentDailyAbilityData.value.date,
-        day: currentDailyAbilityData.value.day,
+        ...rest,
         guessedItems: nextGuesses,
         attempts: nextAttempts,
         state: nextState,
-        selectedMinigameAbility:
-          currentDailyAbilityData.value.selectedMinigameAbility,
       };
       await db.progress.put(entry).catch((e) => {
         console.error("Failed to add new guess", e);

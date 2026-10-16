@@ -14,6 +14,9 @@ useSeoMeta({
 });
 
 const { daily } = storeToRefs(useGameStore());
+const { currentDailyAbilityIsLoading, currentDailyAbilityError } =
+  storeToRefs(useDailiesStore());
+
 const { validateStreak } = useStatsStore();
 
 onBeforeMount(() => {
@@ -22,7 +25,11 @@ onBeforeMount(() => {
 </script>
 <template>
   <div>
-    <UiAppSpinner v-if="!daily.ability.itemToGuess" />
-    <AbilityGameShell v-else :game-state="daily.ability" />
+    <ModeUnavailable v-if="currentDailyAbilityError" />
+    <AbilityGameShell
+      v-else
+      :game-state="daily.ability"
+      :is-loading="currentDailyAbilityIsLoading"
+    />
   </div>
 </template>

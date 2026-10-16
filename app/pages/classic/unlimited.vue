@@ -30,10 +30,9 @@ await callOnce(
 );
 </script>
 <template>
-  <UiAppSpinner v-if="!unlimited.classicUnlimited.itemToGuess" />
   <ClassicGameShell
-    v-else
     :game-state="unlimited.classicUnlimited"
+    :is-loading="!unlimited.classicUnlimited.itemToGuess"
     header="Guess the Warframe"
   />
 </template>

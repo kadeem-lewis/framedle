@@ -14,7 +14,8 @@ useSeoMeta({
 });
 
 const { daily } = storeToRefs(useGameStore());
-const { isLoadingDailies } = storeToRefs(useDailiesStore());
+const { currentDailyClassicIsLoading, currentDailyClassicError } =
+  storeToRefs(useDailiesStore());
 
 const { validateStreak } = useStatsStore();
 
@@ -24,10 +25,11 @@ onBeforeMount(() => {
 </script>
 <template>
   <div>
-    <UiAppSpinner v-if="isLoadingDailies || !daily.classic.itemToGuess" />
+    <ModeUnavailable v-if="currentDailyClassicError" />
     <ClassicGameShell
       v-else
       :game-state="daily.classic"
+      :is-loading="currentDailyClassicIsLoading"
       header="Guess Today's Warframe"
     />
   </div>

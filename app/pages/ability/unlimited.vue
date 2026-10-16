@@ -30,6 +30,8 @@ await callOnce(
 );
 </script>
 <template>
-  <UiAppSpinner v-if="!unlimited.abilityUnlimited.itemToGuess" />
-  <AbilityGameShell v-else :game-state="unlimited.abilityUnlimited" />
+  <AbilityGameShell
+    :game-state="unlimited.abilityUnlimited"
+    :is-loading="!unlimited.abilityUnlimited.itemToGuess"
+  />
 </template>

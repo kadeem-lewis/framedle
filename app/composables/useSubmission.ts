@@ -93,6 +93,7 @@ export function useSubmission() {
               : { date: format(new Date(), "yyyy-MM-dd") }),
           })
           .modify({
+            state: newState,
             completedAt: now.toISOString(),
             countsTowardDailyStats:
               currentDailyDate.value[mode.value] === today,

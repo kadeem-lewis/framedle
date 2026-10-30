@@ -2,6 +2,9 @@ import { format, parseISO, subDays } from "date-fns";
 import type { Daily, GridPuzzle, LegacyPuzzle } from "#shared/schemas/db";
 import Dexie from "dexie";
 
+type DailyResult<T> =
+  { unavailable: true; data: undefined } | { unavailable: false; data: T };
+
 export const useDailiesStore = defineStore("dailies", () => {
   const activeDays = ref<{
     classic: number | undefined;
@@ -23,7 +26,9 @@ export const useDailiesStore = defineStore("dailies", () => {
 
   const { isDaily } = useGameMode();
 
-  async function fetchClassicData(query: { day: number } | { date: string }) {
+  async function fetchClassicData(
+    query: { day: number } | { date: string },
+  ): Promise<DailyResult<FullClassicData>> {
     return await db.transaction("r", "dailies", "progress", async () => {
       const puzzle = (await db.dailies
         .where({
@@ -31,21 +36,26 @@ export const useDailiesStore = defineStore("dailies", () => {
           ...query,
         })
         .first()) as ClassicDailyData | undefined;
-      if (!puzzle) return undefined;
+      if (!puzzle) return { unavailable: true, data: undefined };
 
       const progress = (await db.progress.get([puzzle.day, "classic"])) as
         ClassicProgressData | undefined;
 
       return {
-        ...puzzle,
-        attempts: progress?.attempts ?? DEFAULT_ATTEMPTS,
-        guessedItems: progress?.guessedItems || [],
-        state: progress?.state,
+        unavailable: false,
+        data: {
+          ...puzzle,
+          attempts: progress?.attempts ?? DEFAULT_ATTEMPTS,
+          guessedItems: progress?.guessedItems || [],
+          state: progress?.state,
+        },
       };
     });
   }
 
-  async function fetchAbilityData(query: { day: number } | { date: string }) {
+  async function fetchAbilityData(
+    query: { day: number } | { date: string },
+  ): Promise<DailyResult<FullAbilityData>> {
     return await db.transaction("r", "dailies", "progress", async () => {
       const puzzle = (await db.dailies
         .where({
@@ -53,22 +63,27 @@ export const useDailiesStore = defineStore("dailies", () => {
           ...query,
         })
         .first()) as AbilityDailyData | undefined;
-      if (!puzzle) return undefined;
+      if (!puzzle) return { unavailable: true, data: undefined };
 
       const progress = (await db.progress.get([puzzle.day, "ability"])) as
         AbilityProgressData | undefined;
 
       return {
-        ...puzzle,
-        attempts: progress?.attempts ?? DEFAULT_ATTEMPTS,
-        guessedItems: progress?.guessedItems || [],
-        state: progress?.state,
-        selectedMinigameAbility: progress?.selectedMinigameAbility || "",
+        unavailable: false,
+        data: {
+          ...puzzle,
+          attempts: progress?.attempts ?? DEFAULT_ATTEMPTS,
+          guessedItems: progress?.guessedItems || [],
+          state: progress?.state,
+          selectedMinigameAbility: progress?.selectedMinigameAbility || "",
+        },
       };
     });
   }
 
-  async function fetchGridData(query: { day: number } | { date: string }) {
+  async function fetchGridData(
+    query: { day: number } | { date: string },
+  ): Promise<DailyResult<FullGridData>> {
     return await db.transaction("r", "dailies", "progress", async () => {
       const puzzle = (await db.dailies
         .where({
@@ -76,18 +91,21 @@ export const useDailiesStore = defineStore("dailies", () => {
           ...query,
         })
         .first()) as GridDailyData | undefined;
-      if (!puzzle) return undefined;
+      if (!puzzle) return { unavailable: true, data: undefined };
 
       const progress = (await db.progress.get([puzzle.day, "grid"])) as
         GridProgressData | undefined;
 
       return {
-        ...puzzle,
-        attempts: progress?.attempts ?? MAX_GRID_ATTEMPTS,
-        state: progress?.state,
-        gridState: progress?.gridState || {},
-        hasSeenPopup: progress?.hasSeenPopup ?? false,
-        isOvertime: progress?.isOvertime ?? false,
+        unavailable: false,
+        data: {
+          ...puzzle,
+          attempts: progress?.attempts ?? MAX_GRID_ATTEMPTS,
+          state: progress?.state,
+          gridState: progress?.gridState || {},
+          hasSeenPopup: progress?.hasSeenPopup ?? false,
+          isOvertime: progress?.isOvertime ?? false,
+        },
       };
     });
   }
@@ -97,7 +115,7 @@ export const useDailiesStore = defineStore("dailies", () => {
   const gridActiveDay = computed(() => activeDays.value.grid);
 
   const {
-    data: currentDailyClassicData,
+    data: classicDailyResult,
     error: currentDailyClassicError,
     isLoading: currentDailyClassicIsLoading,
   } = useLiveQuery(
@@ -105,8 +123,15 @@ export const useDailiesStore = defineStore("dailies", () => {
     [classicActiveDay, isDaily],
   );
 
+  const currentDailyClassicData = computed(
+    () => classicDailyResult.value?.data,
+  );
+  const currentDailyClassicUnavailable = computed(
+    () => classicDailyResult.value?.unavailable,
+  );
+
   const {
-    data: currentDailyAbilityData,
+    data: abilityDailyResult,
     error: currentDailyAbilityError,
     isLoading: currentDailyAbilityIsLoading,
   } = useLiveQuery(
@@ -115,13 +140,25 @@ export const useDailiesStore = defineStore("dailies", () => {
   );
   // isDaily is included in the deps to ensure game loads when switching from unlimited to daily
 
+  const currentDailyAbilityData = computed(
+    () => abilityDailyResult.value?.data,
+  );
+  const currentDailyAbilityUnavailable = computed(
+    () => abilityDailyResult.value?.unavailable,
+  );
+
   const {
-    data: currentDailyGridData,
+    data: gridDailyResult,
     error: currentDailyGridError,
     isLoading: currentDailyGridIsLoading,
   } = useLiveQuery(
     async () => await fetchGridData(getQueryParam(gridActiveDay)),
     [gridActiveDay, isDaily],
+  );
+
+  const currentDailyGridData = computed(() => gridDailyResult.value?.data);
+  const currentDailyGridUnavailable = computed(
+    () => gridDailyResult.value?.unavailable,
   );
 
   const currentDailyDate = computed(() => {
@@ -135,11 +172,12 @@ export const useDailiesStore = defineStore("dailies", () => {
   async function getTodaysDailies() {
     const today = format(new Date(), "yyyy-MM-dd");
 
-    const [classic, ability, grid] = await Promise.all([
-      fetchClassicData({ date: today }),
-      fetchAbilityData({ date: today }),
-      fetchGridData({ date: today }),
-    ]);
+    const [{ data: classic }, { data: ability }, { data: grid }] =
+      await Promise.all([
+        fetchClassicData({ date: today }),
+        fetchAbilityData({ date: today }),
+        fetchGridData({ date: today }),
+      ]);
 
     return {
       classic,
@@ -262,12 +300,15 @@ export const useDailiesStore = defineStore("dailies", () => {
     abilityActiveDay,
     gridActiveDay,
     currentDailyClassicData,
+    currentDailyClassicUnavailable,
     currentDailyClassicError,
     currentDailyClassicIsLoading,
     currentDailyAbilityData,
+    currentDailyAbilityUnavailable,
     currentDailyAbilityError,
     currentDailyAbilityIsLoading,
     currentDailyGridData,
+    currentDailyGridUnavailable,
     currentDailyGridError,
     currentDailyGridIsLoading,
     currentDailyDate,

@@ -1,8 +1,11 @@
 <script setup lang="ts">
 import { motion } from "motion-v";
+const { itemToGuess, attempts } = defineProps<{
+  itemToGuess: AbilityName;
+  attempts: number;
+}>();
 const emit = defineEmits(["loading", "loaded"]);
 
-const { itemToGuess, attempts } = storeToRefs(useGameStore());
 const { mode } = useGameMode();
 const { isGameOver } = storeToRefs(useGameStateStore());
 
@@ -19,21 +22,18 @@ const totalCells = GRID_COLS * GRID_ROWS;
 const img = useImage();
 
 const imageUrl = computed(() => {
-  if (mode.value === "ability" && itemToGuess.value.ability) {
+  if (mode.value === "ability" && itemToGuess) {
     return img(
-      getAbility(itemToGuess.value.ability).image,
+      getAbility(itemToGuess).image,
       {
         width: CANVAS_SIZE,
         height: CANVAS_SIZE,
       },
       { modifiers: { enlarge: true }, provider: "imagekit" }, // scale smaller images up to CANVAS_SIZE
     );
-  } else if (
-    mode.value === "abilityUnlimited" &&
-    itemToGuess.value.abilityUnlimited
-  ) {
+  } else if (mode.value === "abilityUnlimited" && itemToGuess) {
     return img(
-      getAbility(itemToGuess.value.abilityUnlimited).image,
+      getAbility(itemToGuess).image,
       {
         width: CANVAS_SIZE,
         height: CANVAS_SIZE,
@@ -53,14 +53,20 @@ const revealedCells = computed(() => {
     return totalCells; // Show entire image when game is over
   }
 
-  const cellsToReveal = totalCells - attempts.value[mode.value];
+  const cellsToReveal = totalCells - attempts;
 
   const calculatedRevealedCells = Math.max(0, cellsToReveal) + 1;
   return Math.min(totalCells, calculatedRevealedCells);
 });
 
+const isImageLoading = ref(false);
+const delayedImageLoading = refDebounced(isImageLoading, 250);
+
 function loadImage() {
   if (!imageUrl.value) return;
+
+  isImageLoading.value = true;
+  imageLoaded.value = false;
 
   const img = new Image();
   img.crossOrigin = "anonymous"; // Handle CORS if needed
@@ -69,11 +75,12 @@ function loadImage() {
     imageObj.value = img;
     imageLoaded.value = true;
     renderCanvases();
-    emit("loaded", true);
+
+    isImageLoading.value = false;
   };
 
   img.onerror = (err) => {
-    emit("loaded", false);
+    isImageLoading.value = false;
     console.error("Error loading image:", err);
   };
 
@@ -141,7 +148,7 @@ function renderCanvases() {
 
 // Watch for changes in attempts or game state to update the canvas
 watch(
-  [attempts, isGameOver, mode, revealedCells],
+  [() => attempts, isGameOver, mode, revealedCells],
   () => {
     if (imageLoaded.value) {
       nextTick(() => renderCanvases());
@@ -151,8 +158,11 @@ watch(
 );
 </script>
 <template>
-  <div class="flex items-center justify-center p-4">
-    <div class="grid h-60 w-60 grid-cols-3 grid-rows-2 transition-transform">
+  <div class="relative flex items-center justify-center p-4">
+    <div
+      class="grid size-60 grid-cols-3 grid-rows-2 transition-transform"
+      :class="{ invisible: isImageLoading }"
+    >
       <div v-for="index in totalCells" :key="`cell-${index}`" class="relative">
         <AnimatePresence>
           <motion.div
@@ -179,6 +189,9 @@ watch(
           <UiPrexCard v-else class="absolute inset-0" />
         </AnimatePresence>
       </div>
+    </div>
+    <div v-if="isImageLoading && delayedImageLoading" class="absolute inset-0">
+      <UiAppSpinner role="status" aria-label="Loading ability image" />
     </div>
   </div>
 </template>

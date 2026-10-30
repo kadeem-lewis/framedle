@@ -1,37 +1,55 @@
+import type { WatchSource } from "vue";
 import Dexie from "dexie";
+
 const { liveQuery } = Dexie;
 
-interface UseObservableOptions {
+interface UseLiveQueryOptions {
   onError?: (err: unknown) => void;
 }
 
 export function useLiveQuery<T>(
   querier: () => T | Promise<T>,
-  deps: Ref<unknown>[],
-  options?: UseObservableOptions,
-): Readonly<Ref<T | undefined>> {
-  const value = ref<T>();
+  deps: WatchSource[],
+  options: UseLiveQueryOptions = {},
+) {
+  const data = shallowRef<T>();
+  const error = shallowRef<unknown>();
+  const isLoading = shallowRef(true);
 
   const createSubscription = () => {
     const observable = liveQuery(querier);
     return observable.subscribe({
-      next: (val) => {
-        value.value = val;
+      next: (value) => {
+        data.value = value;
+        error.value = undefined;
+        isLoading.value = false;
       },
-      error: options?.onError,
+      error: (err) => {
+        error.value = err;
+        isLoading.value = false;
+        options.onError?.(err);
+      },
     });
   };
 
-  let subscription = createSubscription();
+  watch(
+    deps,
+    () => {
+      data.value = undefined;
+      error.value = undefined;
+      isLoading.value = true;
 
-  watch(deps, () => {
-    subscription.unsubscribe();
-    subscription = createSubscription();
-  });
+      const subscription = createSubscription();
 
-  onUnmounted(() => {
-    subscription.unsubscribe();
-  });
+      onWatcherCleanup(() => {
+        subscription.unsubscribe();
+      });
+    },
+    {
+      immediate: true,
+      flush: "sync",
+    },
+  );
 
-  return value as Readonly<Ref<T | undefined>>;
+  return { data: data as Readonly<Ref<T | undefined>>, error, isLoading };
 }

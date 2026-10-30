@@ -13,6 +13,22 @@ useSeoMeta({
 });
 
 const { daily } = storeToRefs(useGridGameStore());
+const {
+  currentDailyGridIsLoading,
+  currentDailyGridError,
+  currentDailyGridUnavailable,
+  isLoadingDailies,
+} = storeToRefs(useDailiesStore());
+
+const isDailyLoading = computed(
+  () => currentDailyGridIsLoading.value || isLoadingDailies.value,
+);
+
+const isDailyUnavailable = computed(
+  () =>
+    (currentDailyGridUnavailable.value || currentDailyGridError.value) &&
+    !isDailyLoading.value,
+);
 
 const { validateStreak } = useStatsStore();
 
@@ -21,6 +37,7 @@ onBeforeMount(() => {
 });
 </script>
 <template>
-  <UiAppSpinner v-if="!daily.config" />
-  <GridGameShell v-else :game-state="daily" />
+  <ModeUnavailable v-if="isDailyUnavailable" />
+  <UiAppSpinner v-else-if="isDailyLoading" />
+  <GridGameShell v-else :game-state="daily" :is-loading="isDailyLoading" />
 </template>

@@ -2,15 +2,23 @@
 import { startOfTomorrow } from "date-fns";
 import party from "party-js";
 
-const { itemToGuess, guessedItems, attempts, correctWarframe, answer } =
-  storeToRefs(useGameStore());
-const { resetCurrentGame, DEFAULT_ATTEMPTS } = useGameStore();
+const { gameState: gameRound, shouldShowAnimations } = defineProps<{
+  gameState: {
+    itemToGuess: WarframeName | AbilityName | null;
+    guessedItems: WarframeName[];
+    attempts: number;
+  };
+  shouldShowAnimations: boolean;
+}>();
+
+const { correctWarframe, answer } = storeToRefs(useGameStore());
+const { resetCurrentGame } = useGameStore();
 
 const { mode, isDaily, isLegacyMode } = useGameMode();
 
 const showGuesses = ref(false);
 
-const { hasWon, currentGameState } = storeToRefs(useGameStateStore());
+const { hasWon } = storeToRefs(useGameStateStore());
 
 const { openDialog } = useDialog();
 
@@ -20,17 +28,21 @@ function handleStatsClick() {
 
 const gameOverCards = useTemplateRef("gameOverCards");
 
-onMounted(() => {
-  nextTick(() => {
-    gameOverCards.value?.scrollIntoView({
-      behavior: "smooth",
-      block: "center",
-    });
-    if (currentGameState.value === GameStatus.WON) {
-      party.confetti(gameOverCards.value!);
+watch(
+  () => shouldShowAnimations,
+  (newVal) => {
+    if (newVal) {
+      nextTick(() => {
+        gameOverCards.value?.scrollIntoView({
+          behavior: "smooth",
+          block: "center",
+        });
+        party.confetti(gameOverCards.value!);
+      });
     }
-  });
-});
+  },
+  { immediate: true },
+);
 
 const route = useRoute();
 const isPastDay = computed(() => {
@@ -52,11 +64,7 @@ const differentMode = computed(() => {
 const runtimeConfig = useRuntimeConfig();
 
 const numberOfTries = computed(() => {
-  const currentMode = mode.value;
-  if (currentMode && isLegacyMode(currentMode)) {
-    return DEFAULT_ATTEMPTS - attempts.value[currentMode];
-  }
-  return null;
+  return DEFAULT_ATTEMPTS - gameRound.attempts;
 });
 
 function useGameOverMessage() {
@@ -128,11 +136,10 @@ const { title: gameOverTitle, subtitle: gameOverSubtitle } =
         <AbilityGameOverMiniGame
           v-if="
             correctWarframe &&
-            (mode === 'ability' || mode === 'abilityUnlimited') &&
-            itemToGuess[mode]
+            (mode === 'ability' || mode === 'abilityUnlimited')
           "
           :correct-warframe="correctWarframe"
-          :correct-ability="itemToGuess[mode] as AbilityName"
+          :correct-ability="gameRound.itemToGuess as AbilityName"
         />
         <p>
           Number of tries:
@@ -167,7 +174,7 @@ const { title: gameOverTitle, subtitle: gameOverSubtitle } =
           >
           <ul v-if="showGuesses">
             <li
-              v-for="guessedItem in guessedItems[mode]"
+              v-for="guessedItem in gameRound.guessedItems"
               :key="guessedItem"
               class="flex gap-2"
             >

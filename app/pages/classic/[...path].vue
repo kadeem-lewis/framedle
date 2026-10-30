@@ -17,8 +17,19 @@ const { daily } = storeToRefs(useGameStore());
 const {
   currentDailyClassicIsLoading,
   currentDailyClassicError,
+  currentDailyClassicUnavailable,
   isLoadingDailies,
 } = storeToRefs(useDailiesStore());
+
+const isDailyLoading = computed(
+  () => currentDailyClassicIsLoading.value || isLoadingDailies.value,
+);
+
+const isDailyUnavailable = computed(
+  () =>
+    (currentDailyClassicUnavailable.value || currentDailyClassicError.value) &&
+    !isDailyLoading.value,
+);
 
 const { validateStreak } = useStatsStore();
 
@@ -28,11 +39,11 @@ onBeforeMount(() => {
 </script>
 <template>
   <div>
-    <ModeUnavailable v-if="currentDailyClassicError" />
+    <ModeUnavailable v-if="isDailyUnavailable" />
     <ClassicGameShell
       v-else
       :game-state="daily.classic"
-      :is-loading="currentDailyClassicIsLoading || isLoadingDailies"
+      :is-loading="isDailyLoading"
       header="Guess Today's Warframe"
     />
   </div>

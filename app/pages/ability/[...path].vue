@@ -17,8 +17,19 @@ const { daily } = storeToRefs(useGameStore());
 const {
   currentDailyAbilityIsLoading,
   currentDailyAbilityError,
+  currentDailyAbilityUnavailable,
   isLoadingDailies,
 } = storeToRefs(useDailiesStore());
+
+const isDailyLoading = computed(
+  () => currentDailyAbilityIsLoading.value || isLoadingDailies.value,
+);
+
+const isDailyUnavailable = computed(
+  () =>
+    (currentDailyAbilityUnavailable.value || currentDailyAbilityError.value) &&
+    !isDailyLoading.value,
+);
 
 const { validateStreak } = useStatsStore();
 
@@ -28,11 +39,11 @@ onBeforeMount(() => {
 </script>
 <template>
   <div>
-    <ModeUnavailable v-if="currentDailyAbilityError" />
+    <ModeUnavailable v-if="isDailyUnavailable" />
     <AbilityGameShell
       v-else
       :game-state="daily.ability"
-      :is-loading="currentDailyAbilityIsLoading || isLoadingDailies"
+      :is-loading="isDailyLoading"
     />
   </div>
 </template>

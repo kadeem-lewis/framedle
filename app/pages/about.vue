@@ -2,8 +2,10 @@
 useSeoMeta({
   title: "About",
   ogTitle: "About",
-  description: "Learn all about Framedle.",
-  ogDescription: "Learn all about Framedle.",
+  description:
+    "Learn more about Framedle, a fan-made collection of daily Warframe puzzles.",
+  ogDescription:
+    "Learn more about Framedle, a fan-made collection of daily Warframe puzzles.",
 });
 </script>
 <template>

@@ -2,15 +2,9 @@
 import { startOfTomorrow } from "date-fns";
 
 useSeoMeta({
-  title: "Framedle - Daily Warframe Puzzles",
-  ogTitle: "Framedle - Daily Warframe Puzzles",
   titleTemplate: (titleChunk) => {
     return titleChunk ? `${titleChunk} | Framedle` : "Framedle";
   },
-  description:
-    "Use your Warframe knowledge to figure out the mystery Warframe in as few guesses as possible! A new puzzle is available each day.",
-  ogDescription:
-    "Use your Warframe knowledge to figure out the mystery Warframe in as few guesses as possible! A new puzzle is available each day.",
 });
 
 const { getDailies } = useDailiesStore();

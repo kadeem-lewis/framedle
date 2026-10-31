@@ -1,6 +1,12 @@
 <script setup lang="ts">
 useSeoMeta({
-  title: null,
+  title: "Framedle - Daily Warframe Puzzles",
+  ogTitle: "Framedle - Daily Warframe Puzzles",
+  description:
+    "Use your Warframe knowledge to figure out the mystery Warframe in as few guesses as possible! A new puzzle is available each day.",
+  ogDescription:
+    "Use your Warframe knowledge to figure out the mystery Warframe in as few guesses as possible! A new puzzle is available each day.",
+  titleTemplate: null,
 });
 
 defineOgImage("Framedle");

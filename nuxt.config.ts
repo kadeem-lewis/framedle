@@ -184,7 +184,11 @@ export default defineNuxtConfig({
       "/grid",
       "/grid/unlimited",
     ],
-    exclude: ["/classic/**", "/ability/**", "/grid/**"],
+    exclude: [
+      new RegExp(/^\/classic\/\d+\/?$/),
+      new RegExp(/^\/ability\/\d+\/?$/),
+      new RegExp(/^\/grid\/\d+\/?$/),
+    ],
   },
 
   icon: {

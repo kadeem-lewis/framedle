@@ -61,9 +61,30 @@ export default defineNuxtConfig({
 
   routeRules: {
     "/classic/**": { ssr: false },
+    "/classic/*": {
+      robots: {
+        index: false,
+        follow: true,
+      },
+    },
+    "/classic/unlimited": { robots: true },
     "/ability/**": { ssr: false },
+    "/ability/*": {
+      robots: {
+        index: false,
+        follow: true,
+      },
+    },
+    "/ability/unlimited": { robots: true },
     "/archive/**": { ssr: false },
     "/grid/**": { ssr: false },
+    "/grid/*": {
+      robots: {
+        index: false,
+        follow: true,
+      },
+    },
+    "/grid/unlimited": { robots: true },
     // "/privacy": { prerender: true },
     // "/faqs": { prerender: true },
     // "/changelog": { prerender: true },

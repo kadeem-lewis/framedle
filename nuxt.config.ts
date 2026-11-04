@@ -176,14 +176,7 @@ export default defineNuxtConfig({
 
   sitemap: {
     zeroRuntime: true,
-    include: [
-      "/classic",
-      "/classic/unlimited",
-      "/ability",
-      "/ability/unlimited",
-      "/grid",
-      "/grid/unlimited",
-    ],
+    urls: ["/classic", "/ability", "/grid"],
     exclude: [
       new RegExp(/^\/classic\/\d+\/?$/),
       new RegExp(/^\/ability\/\d+\/?$/),

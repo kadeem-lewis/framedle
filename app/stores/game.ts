@@ -1,74 +1,102 @@
 export const useGameStore = defineStore(
-  "game.v2",
+  "game.v3",
   () => {
-    const DEFAULT_ATTEMPTS = 6;
-
     const router = useRouter();
 
-    const itemToGuess = ref({
-      classic: null as WarframeName | null,
-      classicUnlimited: null as WarframeName | null,
-      ability: null as AbilityName | null,
-      abilityUnlimited: null as AbilityName | null,
+    const unlimited = ref({
+      classicUnlimited: {
+        type: "classic",
+        variant: "unlimited",
+        itemToGuess: null as WarframeName | null,
+        attempts: DEFAULT_ATTEMPTS,
+        guessedItems: [] as WarframeName[],
+      },
+      abilityUnlimited: {
+        type: "ability",
+        variant: "unlimited",
+        itemToGuess: null as AbilityName | null,
+        attempts: DEFAULT_ATTEMPTS,
+        guessedItems: [] as WarframeName[],
+        selectedMinigameAbility: "",
+      },
     });
 
-    const attempts = ref({
-      classic: DEFAULT_ATTEMPTS,
-      classicUnlimited: DEFAULT_ATTEMPTS,
-      ability: DEFAULT_ATTEMPTS,
-      abilityUnlimited: DEFAULT_ATTEMPTS,
+    function createPlaceholderDaily(gameType: "classic" | "ability") {
+      return {
+        type: gameType,
+        variant: "daily",
+        itemToGuess: null,
+        attempts: DEFAULT_ATTEMPTS,
+        guessedItems: [] as WarframeName[],
+      };
+    }
+
+    const { currentDailyClassicData, currentDailyAbilityData } =
+      storeToRefs(useDailiesStore());
+
+    const daily = computed(() => {
+      const classicDailyData = currentDailyClassicData.value;
+      const abilityDailyData = currentDailyAbilityData.value;
+
+      const finalClassicDailyData =
+        classicDailyData ?? createPlaceholderDaily("classic");
+      const finalAbilityDailyData = abilityDailyData ?? {
+        ...createPlaceholderDaily("ability"),
+        selectedMinigameAbility: "",
+      };
+
+      return {
+        classic: {
+          ...finalClassicDailyData,
+          type: "classic",
+          variant: "daily",
+        },
+        ability: {
+          ...finalAbilityDailyData,
+          type: "ability",
+          variant: "daily",
+        },
+      };
     });
 
-    const guessedItems = ref({
-      classic: [] as WarframeName[],
-      classicUnlimited: [] as WarframeName[],
-      ability: [] as WarframeName[],
-      abilityUnlimited: [] as WarframeName[],
+    const { mode, gameType, gameVariant, isLegacyMode, isLegacyUnlimitedMode } =
+      useGameMode();
+
+    const currentGame = computed(() => {
+      const currentMode = mode.value;
+      if (!currentMode || !isLegacyMode(currentMode)) return null;
+      if (isLegacyUnlimitedMode(currentMode)) {
+        return unlimited.value[currentMode];
+      }
+      return daily.value[currentMode];
     });
 
-    const selectedMinigameAbility = ref({
-      ability: "",
-      abilityUnlimited: "",
+    const selectedMinigameAbility = computed(() => {
+      if (gameType.value !== "ability") return "";
+      if (gameVariant.value === "unlimited")
+        return unlimited.value.abilityUnlimited.selectedMinigameAbility;
+      return daily.value.ability.selectedMinigameAbility;
     });
-
-    const { mode, gameType, gameVariant, isLegacyMode } = useGameMode();
 
     const correctWarframe = computed(() => {
-      const gameMode = mode.value;
-      if (!gameMode || !isLegacyMode(gameMode) || !itemToGuess.value[gameMode])
-        return;
-      if (gameMode === "ability" || gameMode === "abilityUnlimited") {
-        const ability = getAbility(itemToGuess.value[gameMode]);
-        return getWarframe(ability.belongsTo);
+      if (
+        currentGame.value?.type === "ability" &&
+        currentGame.value?.itemToGuess
+      ) {
+        return getWarframe(getAbility(currentGame.value.itemToGuess).belongsTo);
       }
-      return getWarframe(itemToGuess.value[gameMode]);
+      return getWarframe(currentGame.value?.itemToGuess as WarframeName);
     });
 
     const answer = computed(() => {
-      if (!mode.value) throw createError("Mode is not set");
-      if (!isLegacyMode(mode.value)) throw createError("Not a legacy mode");
       if (
-        (mode.value === "ability" || mode.value === "abilityUnlimited") &&
-        itemToGuess.value[mode.value]
+        currentGame.value?.type === "ability" &&
+        currentGame.value?.itemToGuess
       ) {
-        // I am asserting here because even with the checks guaranteeing that both mode and itemToGuess.value[mode.value] are valid, Typescript is still complaining
-        return getAbility(itemToGuess.value[mode.value]!).belongsTo;
+        return getAbility(currentGame.value.itemToGuess).belongsTo;
       }
-      return itemToGuess.value[mode.value];
+      return currentGame.value?.itemToGuess;
     });
-
-    function setClassicGameData(data: FullClassicData) {
-      itemToGuess.value.classic = data.itemToGuess;
-      attempts.value.classic = data.attempts;
-      guessedItems.value.classic = data.guessedItems;
-    }
-
-    function setAbilityGameData(data: FullAbilityData) {
-      itemToGuess.value.ability = data.itemToGuess;
-      attempts.value.ability = data.attempts;
-      guessedItems.value.ability = data.guessedItems;
-      selectedMinigameAbility.value.ability = data.selectedMinigameAbility;
-    }
 
     const { decode } = useEncoder();
 
@@ -82,7 +110,7 @@ export const useGameStore = defineStore(
       let needsReset = false;
       const { forceReset = false } = options;
 
-      if (!isLegacyMode(currentMode)) {
+      if (!isLegacyUnlimitedMode(currentMode)) {
         console.error("Can only initialize legacy unlimited modes");
         return;
       }
@@ -91,20 +119,20 @@ export const useGameStore = defineStore(
         //TODO: I need to do a stronger guard here for when decoded's value is not valid.
         if (currentMode === "classicUnlimited") {
           const decoded = decode(queryValue) as WarframeName;
-          if (itemToGuess.value.classicUnlimited !== decoded) {
+          if (unlimited.value[currentMode].itemToGuess !== decoded) {
             newItem = decoded;
             needsReset = true;
           }
         }
         if (currentMode === "abilityUnlimited") {
           const decoded = decode(queryValue) as AbilityName;
-          if (itemToGuess.value.abilityUnlimited !== decoded) {
+          if (unlimited.value[currentMode].itemToGuess !== decoded) {
             newItem = decoded;
             needsReset = true;
           }
         }
       }
-      if (!itemToGuess.value[currentMode] || forceReset) {
+      if (!unlimited.value[currentMode].itemToGuess || forceReset) {
         newItem =
           gameType.value === "classic"
             ? getRandomWarframe()
@@ -114,14 +142,15 @@ export const useGameStore = defineStore(
 
       if (newItem && needsReset) {
         if (currentMode === "classicUnlimited") {
-          itemToGuess.value.classicUnlimited = newItem as WarframeName;
+          unlimited.value.classicUnlimited.itemToGuess =
+            newItem as WarframeName;
         }
         if (currentMode === "abilityUnlimited") {
-          itemToGuess.value.abilityUnlimited = newItem as AbilityName;
-          selectedMinigameAbility.value.abilityUnlimited = "";
+          unlimited.value.abilityUnlimited.itemToGuess = newItem as AbilityName;
+          unlimited.value.abilityUnlimited.selectedMinigameAbility = "";
         }
-        guessedItems.value[currentMode] = [];
-        attempts.value[currentMode] = DEFAULT_ATTEMPTS;
+        unlimited.value[currentMode].guessedItems = [];
+        unlimited.value[currentMode].attempts = DEFAULT_ATTEMPTS;
       }
     }
 
@@ -141,15 +170,13 @@ export const useGameStore = defineStore(
     }
 
     return {
-      attempts,
-      itemToGuess,
-      guessedItems,
+      unlimited,
+      daily,
+      currentGame,
       DEFAULT_ATTEMPTS,
       selectedMinigameAbility,
       correctWarframe,
       answer,
-      setClassicGameData,
-      setAbilityGameData,
       initializeUnlimitedGame,
       resetCurrentGame,
     };
@@ -157,14 +184,12 @@ export const useGameStore = defineStore(
   {
     persist: {
       storage: piniaPluginPersistedstate.localStorage(),
-      pick: [
-        "attempts.abilityUnlimited",
-        "attempts.classicUnlimited",
-        "guessedItems.abilityUnlimited",
-        "guessedItems.classicUnlimited",
-        "itemToGuess.classicUnlimited",
-        "itemToGuess.abilityUnlimited",
-        "selectedMinigameAbility.abilityUnlimited",
+      pick: ["unlimited"],
+      omit: [
+        "unlimited.abilityUnlimited.type",
+        "unlimited.classicUnlimited.type",
+        "unlimited.abilityUnlimited.variant",
+        "unlimited.classicUnlimited.variant",
       ],
       afterHydrate(context) {
         migrateGameData(context);

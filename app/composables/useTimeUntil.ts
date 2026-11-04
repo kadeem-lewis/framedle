@@ -24,6 +24,7 @@ export function useTimeUntil(time: MaybeRefOrGetter<Date | null | undefined>) {
   }
 
   function start(targetTime: Date) {
+    if (!import.meta.client) return;
     stop();
     update(targetTime);
 

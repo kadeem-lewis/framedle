@@ -2,6 +2,7 @@ export function useGameOverDialog() {
   const { openDialog } = useDialog();
   const { currentDailyGridData } = storeToRefs(useDailiesStore());
   const { gameState } = storeToRefs(useGameStateStore());
+  const { mode } = useGameMode();
 
   watch(
     currentDailyGridData,
@@ -9,7 +10,12 @@ export function useGameOverDialog() {
       if (!newData) return;
       if (newData.hasSeenPopup) return;
 
-      if (gameState.value.grid && gameState.value.grid !== GameStatus.ACTIVE) {
+      if (
+        mode.value === "grid" &&
+        gameState.value &&
+        gameState.value !== GameStatus.ACTIVE &&
+        gameState.value !== GameStatus.PENDING
+      ) {
         openDialog(dialogOptions.SUMMARY);
 
         try {

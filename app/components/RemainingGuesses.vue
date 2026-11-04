@@ -1,6 +1,5 @@
 <script setup lang="ts">
-const { attempts } = storeToRefs(useGameStore());
-const { DEFAULT_ATTEMPTS } = useGameStore();
+const { attempts } = defineProps<{ attempts: number }>();
 
 const { mode, isLegacyMode } = useGameMode();
 </script>
@@ -11,13 +10,13 @@ const { mode, isLegacyMode } = useGameMode();
         v-for="index of DEFAULT_ATTEMPTS"
         :key="index"
         format="avif"
-        src="/icons/warframe.png"
+        src="/icons/Warframe.png"
         alt="Warframe Icon"
         placeholder
         height="24"
         width="24"
         class="invert dark:invert-0"
-        :class="index > attempts[mode] ? 'brightness-50' : ''"
+        :class="index > attempts ? 'brightness-50' : ''"
       />
     </div>
   </div>

@@ -72,6 +72,12 @@ export function useGameMode() {
     return ["classic", "ability"].includes(mode);
   }
 
+  function isLegacyUnlimitedMode(
+    mode: string,
+  ): mode is "classicUnlimited" | "abilityUnlimited" {
+    return ["classicUnlimited", "abilityUnlimited"].includes(mode);
+  }
+
   function isLegacyMode(mode: string): mode is LegacyMode {
     return [
       "classic",
@@ -92,5 +98,6 @@ export function useGameMode() {
     isLegacyMode,
     isUnlimitedMode,
     isDailyMode,
+    isLegacyUnlimitedMode,
   };
 }

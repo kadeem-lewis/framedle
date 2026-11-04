@@ -12,7 +12,6 @@ export function useTransferData() {
   const statsStore = useStatsStore();
   const { stats } = storeToRefs(statsStore);
   const { createDefaultGuessStats, createDefaultGridStats } = statsStore;
-  const { DEFAULT_ATTEMPTS } = useGameStore();
   const dataTransfer = useLocalStorage<{
     code: string | null;
     exportedAt: string | null;

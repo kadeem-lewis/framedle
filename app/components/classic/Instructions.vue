@@ -1,8 +1,6 @@
 <script setup lang="ts">
 import { warframes } from "#shared/data/warframes";
 
-const { DEFAULT_ATTEMPTS } = useGameStore();
-
 const { $colorblindMode } = useNuxtApp();
 
 const success = computed(() => ($colorblindMode.value ? "Blue" : "Green"));

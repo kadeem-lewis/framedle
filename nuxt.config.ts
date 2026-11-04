@@ -61,13 +61,34 @@ export default defineNuxtConfig({
 
   routeRules: {
     "/classic/**": { ssr: false },
+    "/classic/*": {
+      robots: {
+        index: false,
+        follow: true,
+      },
+    },
+    "/classic/unlimited": { robots: true },
     "/ability/**": { ssr: false },
+    "/ability/*": {
+      robots: {
+        index: false,
+        follow: true,
+      },
+    },
+    "/ability/unlimited": { robots: true },
     "/archive/**": { ssr: false },
     "/grid/**": { ssr: false },
-    // "/privacy": { prerender: true },
-    // "/faqs": { prerender: true },
-    // "/changelog": { prerender: true },
-    // "/about": { prerender: true },
+    "/grid/*": {
+      robots: {
+        index: false,
+        follow: true,
+      },
+    },
+    "/grid/unlimited": { robots: true },
+    "/privacy": { prerender: true },
+    "/faqs": { prerender: true },
+    "/changelog": { prerender: true },
+    "/about": { prerender: true },
     "/_ipx/**": {
       headers: { "Cache-Control": "public, max-age=31536000, immutable" },
     },
@@ -163,7 +184,11 @@ export default defineNuxtConfig({
       "/grid",
       "/grid/unlimited",
     ],
-    exclude: ["/classic/**", "/ability/**", "/grid/**"],
+    exclude: [
+      new RegExp(/^\/classic\/\d+\/?$/),
+      new RegExp(/^\/ability\/\d+\/?$/),
+      new RegExp(/^\/grid\/\d+\/?$/),
+    ],
   },
 
   icon: {

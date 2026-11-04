@@ -1,7 +1,10 @@
 <script setup lang="ts">
-const { guessedItems, itemToGuess } = storeToRefs(useGameStore());
 const { mode } = useGameMode();
 const { checkGuess } = useGuess();
+const { guessedItems, itemToGuess } = defineProps<{
+  guessedItems: WarframeName[];
+  itemToGuess: AbilityName;
+}>();
 </script>
 <template>
   <div
@@ -9,9 +12,9 @@ const { checkGuess } = useGuess();
     class="flex flex-col gap-4 capitalize"
   >
     <UiFeedbackTile
-      v-for="warframe of [...guessedItems[mode]].reverse()"
+      v-for="warframe of [...guessedItems].reverse()"
       :key="warframe"
-      :variant="checkGuess(getAbility(itemToGuess[mode]!).belongsTo, warframe)"
+      :variant="checkGuess(getAbility(itemToGuess).belongsTo, warframe)"
       field-label="Warframe"
       :field-value="warframe"
       tooltip-disabled

@@ -4,8 +4,6 @@ import { defu } from "defu";
 
 const route = useRoute();
 const { stats } = storeToRefs(useStatsStore());
-const { DEFAULT_ATTEMPTS } = useGameStore();
-const { MAX_GRID_ATTEMPTS } = useGridGameStore();
 const { gameType } = useGameMode();
 
 const legacyStats = computed<LegacyModeStats | null>(() => {

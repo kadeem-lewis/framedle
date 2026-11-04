@@ -8,7 +8,7 @@ export const useArchiveStore = defineStore("archive", () => {
   const order = ref<"OLDEST" | "NEWEST">("NEWEST");
   const { mode } = useGameMode();
 
-  const pastDays = useLiveQuery(async () => {
+  const { data: pastDays } = useLiveQuery(async () => {
     const mode = selectedArchiveMode.value;
     const shouldReverse = order.value === "NEWEST";
     return await db.transaction("r", "dailies", "progress", async () => {
@@ -38,7 +38,7 @@ export const useArchiveStore = defineStore("archive", () => {
     pastDays.value ? pastDays.value.length : 0,
   );
 
-  const inProgressDaysCount = useLiveQuery(
+  const { data: inProgressDaysCount } = useLiveQuery(
     () =>
       db.progress
         .where({ mode: selectedArchiveMode.value, state: GameStatus.ACTIVE })
@@ -46,7 +46,7 @@ export const useArchiveStore = defineStore("archive", () => {
     [selectedArchiveMode, mode],
   );
 
-  const completedDaysCount = useLiveQuery(
+  const { data: completedDaysCount } = useLiveQuery(
     () =>
       db.progress
         .where("state")

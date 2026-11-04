@@ -4,7 +4,6 @@ const { generateGridGameMatrix } = useShareText();
 const { currentDailyGridData } = storeToRefs(useDailiesStore());
 const gridGameStore = useGridGameStore();
 const { rarityScore } = storeToRefs(gridGameStore);
-const { MAX_GRID_ATTEMPTS } = gridGameStore;
 const { stats } = storeToRefs(useStatsStore());
 
 const { openDialog, closeDialog } = useDialog();

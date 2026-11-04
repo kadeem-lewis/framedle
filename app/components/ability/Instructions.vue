@@ -1,6 +1,3 @@
-<script setup lang="ts">
-const { DEFAULT_ATTEMPTS } = useGameStore();
-</script>
 <template>
   <div class="flex flex-col gap-4">
     <p>

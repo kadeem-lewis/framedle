@@ -14,6 +14,22 @@ useSeoMeta({
 
 const versions = [
   {
+    title: "1.11.0",
+    date: "2026-11-04",
+    content: `
+### Changes
+
+- Changed the icons for the game modes
+- Created the game over navigation to be consistent between game modes
+- Changed game over confetti to stop playing for completed dailies
+
+### Bug Fixes
+
+- Fixed grid uniqueness score incorrectly setting score to 0 or lower than expected
+    `,
+    badge: "v1.11.0",
+  },
+  {
     title: "1.10.0",
     date: "2026-09-28",
     content: `

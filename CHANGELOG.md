@@ -1,5 +1,17 @@
 # Changelog
 
+## v1.11.0 - November 4th, 2026
+
+### Changes
+
+- Changed the icons for the game modes
+- Created the game over navigation to be consistent between game modes
+
+### Bug Fixes
+
+- Fixed grid uniqueness score incorrectly setting score to 0 or lower than expected
+- Fixed bug caused by client side code running on the server.
+
 ## v1.10.0 - September 28th, 2026
 
 ### Changes

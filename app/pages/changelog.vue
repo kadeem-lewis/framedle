@@ -21,6 +21,7 @@ const versions = [
 
 - Changed the icons for the game modes
 - Created the game over navigation to be consistent between game modes
+- Changed game over confetti to stop playing for completed dailies
 
 ### Bug Fixes
 
